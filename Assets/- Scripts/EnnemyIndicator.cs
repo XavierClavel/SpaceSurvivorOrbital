@@ -35,7 +35,7 @@ public class EnnemyIndicator : MonoBehaviour
     Vector2 dir;
     float teta;
 
-    // Start is called before the first frame update
+
     void Awake()
     {
         instance = this;
@@ -86,6 +86,7 @@ public class EnnemyIndicator : MonoBehaviour
         indicator = dictionnaryObjectToIndicatorFarthest[ennemy];
         Destroy(indicator);
         dictionnaryObjectToIndicatorFarthest.Remove(ennemy);
+
     }
 
     IEnumerator IndicateEnnemy(GameObject ennemy)

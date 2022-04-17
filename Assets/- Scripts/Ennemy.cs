@@ -12,16 +12,14 @@ public class Ennemy : MonoBehaviour
     Planet planet;
     Vector3 planetPos;
     float radius;
-    bool following = false;
     [HideInInspector] public int nbTargets;
     bool inGravityField;
-    float mean = 4f;
-    float standardDeviation = 1f;
+    [SerializeField] float mean = 4f;
+    [SerializeField] float standardDeviation = 1f;
     bool hasProtection = false;
     FightZone fightZone;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         List<Target> targets = GetComponentsInChildren<Target>().ToList();
@@ -30,13 +28,14 @@ public class Ennemy : MonoBehaviour
         player = PlayerController.instance;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {   
-        if (following) {
+    IEnumerator Follow()
+    {
+        WaitForSeconds waitFixedDelta = Helpers.GetWait(Time.fixedDeltaTime);
+        while (true) {
             Vector3 distance = player.transform.position - transform.position;
             Vector3 projectedDistance = Vector3.ProjectOnPlane(distance, transform.up);
             transform.DOLocalRotate(Quaternion.LookRotation(projectedDistance, transform.up).eulerAngles, Time.fixedDeltaTime);
+            yield return waitFixedDelta;
         }
     }
 
@@ -50,10 +49,10 @@ public class Ennemy : MonoBehaviour
     }
 
     public void Initialize(Planet basePlanet) {
-            planet = basePlanet;
-            planetPos = planet.position;
-            radius = (planetPos - transform.position).magnitude;
-            inGravityField = true;
+        planet = basePlanet;
+        planetPos = planet.position;
+        radius = (planetPos - transform.position).magnitude;
+        inGravityField = true;
     }
 
     public void InitializeFZ(FightZone baseFightZone) {
@@ -72,16 +71,13 @@ public class Ennemy : MonoBehaviour
 
     public void FollowPlayer() 
     {
-        Debug.Log("follow");
+        StartCoroutine("Follow");
         StartCoroutine("WaitAndShoot");
-        following = true;
     }
 
     public void StopFollowingPlayer() 
     {
-        Debug.Log("stopped");
-        StopCoroutine("WaitAndShoot");
-        following = false;
+        StopAllCoroutines();
     }
 
     public void TargetHit() {
@@ -91,16 +87,15 @@ public class Ennemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) {
         Debug.Log(other.gameObject.name);
-        Debug.Log(hasProtection);
         if (other.gameObject.CompareTag("BlueBullet") && !hasProtection) {
             Death();
         }
     }
 
     void Death() {
+        Debug.Log("death");
         if (inGravityField) planet.EnnemyKilled(this);
         else fightZone.EnnemyKilled(this);
-        Destroy(gameObject);
     }
 
     

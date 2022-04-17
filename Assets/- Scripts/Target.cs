@@ -8,7 +8,8 @@ public class Target : MonoBehaviour
     [SerializeField] color targetState;
     [SerializeField] ParticleSystem explosion;
     Ennemy parentEnnemy;
-    // Start is called before the first frame update
+
+
     void Start()
     {
         parentEnnemy = GetComponentInParent<Ennemy>();

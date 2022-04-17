@@ -9,7 +9,7 @@ public class Helpers : MonoBehaviour
     static readonly Dictionary<float, WaitForSecondsRealtime> waitDictionaryRealtime = new Dictionary<float, WaitForSecondsRealtime>();
     public static readonly WaitForEndOfFrame GetWaitFrame = new WaitForEndOfFrame();
     public static Helpers instance;
-    // Start is called before the first frame update
+
     void Awake()
     {
         instance = this;

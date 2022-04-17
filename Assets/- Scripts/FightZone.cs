@@ -35,6 +35,7 @@ public class FightZone : MonoBehaviour
     public void EnnemyKilled(Ennemy ennemy) 
     {
         ennemies.Remove(ennemy);
+        Destroy(ennemy.gameObject);
         if (ennemies.Count() == 0) {
             PlanetCleared();
         }

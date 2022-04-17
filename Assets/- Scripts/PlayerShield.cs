@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerShield : MonoBehaviour
 {
     PlayerController player;
-    // Start is called before the first frame update
+
     void Start()
     {
         player = GetComponentInParent<PlayerController>();

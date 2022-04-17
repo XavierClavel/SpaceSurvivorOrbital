@@ -22,7 +22,6 @@ public class DialogueManager : MonoBehaviour
         controls.Disable();
     }
 
-    // Start is called before the first frame update
     void Awake()
     {
         instance = this;

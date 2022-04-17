@@ -12,21 +12,36 @@ public class Bullet : MonoBehaviour
     public float rotationSpeed = 80.0f; 
     [HideInInspector] public bool inGravityField;
     float speed = 20f;
-    // Start is called before the first frame update
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         if (!inGravityField) rb.velocity = speed * transform.forward;
+        else StartCoroutine(Orbit());
+        StartCoroutine(DestroyTimer());
+        
     }
 
-    private void Update() {
-        if (inGravityField) transform.RotateAround(planetPos, axis, rotationSpeed * Time.deltaTime);
-    }
-
-    private void OnCollisionEnter(Collision other) {
+    void OnCollisionEnter(Collision other) {
         ParticleSystem parSys = Instantiate(bulletParticle, other.transform.position, Quaternion.LookRotation(other.GetContact(0).normal, transform.up));
         parSys.Play();
         Helpers.instance.WaitAndKill(0.5f, parSys.gameObject);
+        Destroy(gameObject);
+    }
+
+    IEnumerator Orbit()
+    {
+        WaitForEndOfFrame waitFrame = Helpers.GetWaitFrame;
+        while (true)
+        {
+            transform.RotateAround(planetPos, axis, rotationSpeed * Time.deltaTime);
+            yield return waitFrame;
+        }
+    }
+
+    IEnumerator DestroyTimer()
+    {
+        yield return Helpers.GetWait(10f);
         Destroy(gameObject);
     }
 }

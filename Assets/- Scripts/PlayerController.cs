@@ -3,9 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Parameters")]
+    public float mouseSensitivityX = 1;
+	public float mouseSensitivityY = 1;
+	public float walkSpeed = 6;
+    public float jumpForce = 500;
+    public controlMode controlScheme = controlMode.Keyboard;
+
+    [Header("References")]
+    [SerializeField] LayerMask groundedMask;
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] GameObject shield;
+    [SerializeField] GameObject talkPanel;
+    [SerializeField] GameObject dialogueManager;
+    [SerializeField][Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
+
+
+    //public variables
+    [HideInInspector] public bool hasBullet;
+    public static PlayerController instance;
+    [HideInInspector] public bool shieldUp = false;
+    [HideInInspector] public bool inTalkZone = false;
+    [HideInInspector] public InputMaster controls;
+    Vector2 direction;
+    public enum controlMode  {Keyboard, Gamepad};
+
+
+    //Local variables
     Vector3 planetPos;
     Rigidbody rb;
     Vector3 gravityVector;
@@ -14,41 +42,21 @@ public class PlayerController : MonoBehaviour
     float planetMass;
     CharacterController characterController;
     bool inGravityField = false;
-    // public vars
-	public float mouseSensitivityX = 1;
-	public float mouseSensitivityY = 1;
-	public float walkSpeed = 6;
     float runSpeed = 10;
     float speed;
-	public float jumpForce = 500;
-	public LayerMask groundedMask;
-	
-	// System vars
 	Vector3 moveAmount;
 	Vector3 smoothMoveVelocity;
 	float verticalLookRotation;
 	Transform cameraTransform;
     bool transitionned;
-    [HideInInspector] public bool hasBullet;
-    [SerializeField] GameObject bulletPrefab;
-    [SerializeField] GameObject shield;
     bool groundContact = true;
     bool recentGroundContact = true;
     Vector3 groundNormal = Vector3.up;
     bool inPath = true;
-    public static PlayerController instance;
-    [HideInInspector] public bool shieldUp = false;
     Vector3 distance;
     bool inFightZone = false;
-    [SerializeField] GameObject talkPanel;
-    [HideInInspector] public bool inTalkZone = false;
-    [SerializeField] GameObject dialogueManager;
     Transform talkTarget;
     Quaternion rotationBeforeConversation;
-    [HideInInspector] public InputMaster controls;
-    Vector2 direction;
-    public enum controlMode  {Keyboard, Gamepad};
-    public controlMode controlScheme = controlMode.Keyboard;
     float inputX;
     float inputY;
     Vector3 rotateAmount;
@@ -60,7 +68,9 @@ public class PlayerController : MonoBehaviour
     //List rotArrayX;
     Vector2 input;
     Vector2 targetMouseDelta;
-    [SerializeField][Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
+    float moveX;
+    float moveY;
+    public Transform pathTransform;
 
 
     void OnEnable() {
@@ -97,8 +107,8 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         cameraTransform = Camera.main.transform;
         speed = walkSpeed;
-        Application.targetFrameRate = -1;
-        QualitySettings.vSyncCount = 0;
+        //Application.targetFrameRate = -1;
+        //QualitySettings.vSyncCount = 0;
     }
 
     void Update()
@@ -106,8 +116,8 @@ public class PlayerController : MonoBehaviour
         RotatePlayer();
         Move();
         //RotatePlayer();
+        
 
-        //if (Input.GetKeyDown(KeyCode.Tab)) hasBullet = true; // Debug, to delete later*/
 
         rb.angularVelocity = Vector3.zero; 
 
@@ -115,19 +125,17 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        float moveX;
-        float moveY;
+
         moveX = controls.Player.Move.ReadValue<Vector2>().x;
         moveY = controls.Player.Move.ReadValue<Vector2>().y;
         Vector3 moveDir = new Vector3(moveX, 0f, moveY);
+        //Vector3 moveDir = moveX * transform.right + moveY * transform.forward;
         //direction = controls.Player.Move.ReadValue<Vector2>();
         if (moveDir.sqrMagnitude > 1) moveDir = moveDir.normalized;
         targetMoveAmount = moveDir * speed;
         moveAmount = Vector3.SmoothDamp(moveAmount, targetMoveAmount, ref smoothMoveVelocity, 0.15f);
 
-        // Apply movement to rigidbody
-		Vector3 localMove = transform.TransformDirection(moveAmount) * Time.deltaTime;
-		rb.MovePosition(rb.position + localMove);
+        
         //transform.Translate(localMove);
     }
 
@@ -135,24 +143,22 @@ public class PlayerController : MonoBehaviour
     {
 
         if (controlScheme == controlMode.Keyboard) {
-            //inputX = Mouse.current.delta.x.ReadValue();
-            //inputY = Mouse.current.delta.y.ReadValue();
+            inputX = Mouse.current.delta.x.ReadValue();
+            inputY = Mouse.current.delta.y.ReadValue();
             targetMouseDelta = Mouse.current.delta.ReadValue();
         }
         else {
             //inputX = Gamepad.current.rightStick.x.ReadValue() * 10f;
             //inputY = Gamepad.current.rightStick.y.ReadValue() * 10f;
         }    
-        targetMouseDelta = Mouse.current.delta.ReadValue();
+        //targetMouseDelta = Mouse.current.delta.ReadValue();
 
-        input = Vector2.SmoothDamp(input, targetMouseDelta, ref smoothRotateVelocity, mouseSmoothTime);
-        Debug.Log(input);
+        //input = Vector2.SmoothDamp(input, targetMouseDelta, ref smoothRotateVelocity, mouseSmoothTime);
         
-        verticalLookRotation += input.y * mouseSensitivityY * Time.deltaTime * 10f;
-        verticalLookRotation = Mathf.Clamp(verticalLookRotation, -60,60);
+        verticalLookRotation += inputY * mouseSensitivityY * Time.deltaTime * 10f;
+        verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90,90);
 
-        rb.MoveRotation(Quaternion.Euler(rb.rotation.eulerAngles + Vector3.up * input.x * mouseSensitivityX * Time.deltaTime * 10f));
-        //transform.Rotate(Vector3.up * input.x * mouseSensitivityX * Time.deltaTime * 10f);
+        transform.Rotate(Vector3.up * inputX * mouseSensitivityX * Time.deltaTime * 10f);
         cameraTransform.localEulerAngles = Vector3.left * verticalLookRotation;
 
         //transform.Rotate(Vector3.up * input.x * mouseSensitivityX * Time.deltaTime * 10f);
@@ -181,9 +187,9 @@ public class PlayerController : MonoBehaviour
         //gravity for paths
         rb.AddForce(-9.81f*groundNormal);
 
-		
-
-
+		// Apply movement to rigidbody
+		Vector3 localMove = transform.TransformDirection(moveAmount * Time.fixedDeltaTime);
+		rb.MovePosition(rb.position + localMove);
         
 	}
 
@@ -272,7 +278,7 @@ public class PlayerController : MonoBehaviour
         switch (other.gameObject.tag) {
 
             case "PathRadius" :
-                if (!recentGroundContact) FlipToPath(other.transform);
+                if (!recentGroundContact || differentGroundNormal(other.transform)) FlipToPath(other.transform);
                 break;
 
             case "Planet" :
@@ -298,11 +304,12 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
     private void OnTriggerStay(Collider other) {
         if (other.CompareTag("Planet") && !groundContact) {
             distance = rb.position - planetPos;
             groundNormal = distance.normalized;
-            if (transitionned) transform.rotation = Quaternion.FromToRotation(transform.up, groundNormal) * rb.rotation;
+            if (transitionned) transform.rotation = Quaternion.FromToRotation(transform.up, groundNormal) * transform.rotation;
         }
     }
 
@@ -336,18 +343,12 @@ public class PlayerController : MonoBehaviour
     IEnumerator LerpRotationToPlanet()
     {   
         transitionned = false;
-        Quaternion initPos = transform.rotation;
-        float duration = 0.5f;
-        float invDuration = 1f/duration;
-        float startTime = Time.time;
-        float ratio = 0f;
-        WaitForEndOfFrame waitFrame = Helpers.GetWaitFrame;
-        
-        while (ratio < 1f) {
-            ratio = (Time.time - startTime)*invDuration;
-            transform.rotation = Quaternion.Slerp(initPos, Quaternion.FromToRotation(transform.up, groundNormal) * rb.rotation, ratio);
-            yield return waitFrame;
-        }
+
+        groundNormal = transform.position - planetPos;
+        Quaternion finalPos = Quaternion.FromToRotation(transform.up, groundNormal) * transform.rotation;
+        transform.DORotateQuaternion(finalPos, 0.5f);
+        yield return Helpers.GetWait(0.5f);
+
         transitionned = true;
     }
 
@@ -367,45 +368,40 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    IEnumerator LerpRotation(Transform objectTransform, Quaternion finalPos)
-    {   
-        Quaternion initPos = objectTransform.rotation;
-
-        float duration = 0.5f;
-        float invDuration = 1f/duration;
-        float startTime = Time.time;
-        float ratio = 0f;
-        WaitForEndOfFrame waitFrame = Helpers.GetWaitFrame;
-
-        while (ratio < 1f) {
-            ratio = (Time.time - startTime)*invDuration;
-            transform.rotation = Quaternion.Slerp(initPos, finalPos, ratio);
-            yield return waitFrame;
-        }
-    }
-
     private void OnCollisionEnter(Collision other) {
         if (other.gameObject.CompareTag("Ground")) {
-            if (!groundContact && !recentGroundContact) {
+            if (!recentGroundContact || differentGroundNormal(other.transform)) {
                 FlipToPath(other.gameObject.transform);
             }
         }
     }
 
-    void FlipToPath(Transform pathObject)
+    bool differentGroundNormal(Transform pathObject)
     {
         Vector3 normal = pathObject.up;
-        Vector3 tangent = pathObject.right;
+        Vector3 newGroundNormal = Vector3.Project(transform.position - pathObject.position, normal).normalized;
+        return newGroundNormal != groundNormal;
+    }
+
+    ///<summary>
+    ///Rotates smoothly the player from the pathTransform platform to the pathObject platform.
+    ///</summary>
+    void FlipToPath(Transform pathObject)
+    {
+
+        Vector3 normal = pathObject.up;
         Vector3 objectPos = pathObject.position;
 
         groundNormal = Vector3.Project(transform.position - objectPos, normal).normalized;
         //the normal is used projected here only to get the right direction even if the player is walking upside-down
 
-        tangent = Vector3.Project(objectPos - transform.position, tangent);
-        StartCoroutine(LerpRotation(transform, Quaternion.LookRotation(tangent, groundNormal)));
+        Quaternion finalPos = Quaternion.FromToRotation(transform.up, groundNormal) * transform.rotation;
+        transform.DORotateQuaternion(finalPos, 0.5f);
         
         groundContact = true;
         recentGroundContact = true;
+
+        pathTransform = pathObject;
     }
 
     private void OnCollisionExit(Collision other) {
