@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
     float moveX;
     float moveY;
     public Transform pathTransform;
+    bool flipAllowed = true;
 
 
     void OnEnable() {
@@ -346,9 +347,22 @@ public class PlayerController : MonoBehaviour
 
         groundNormal = transform.position - planetPos;
         Quaternion finalPos = Quaternion.FromToRotation(transform.up, groundNormal) * transform.rotation;
-        transform.DORotateQuaternion(finalPos, 0.5f);
-        yield return Helpers.GetWait(0.5f);
+        //Tweener tween = transform.DORotateQuaternion(finalPos, 0.5f);
 
+        //yield return Helpers.GetWait(0.5f);
+        float duration = 0.5f;
+        float invDuration = 1f/duration;
+        float startTime = Time.time;
+        float ratio = 0f;
+        WaitForEndOfFrame waitFrame = Helpers.GetWaitFrame;
+        Quaternion initPos = cameraTransform.rotation;
+
+        while (ratio < 1f) {
+            ratio = (Time.time - startTime)*invDuration;
+            finalPos = Quaternion.FromToRotation(transform.up, groundNormal) * transform.rotation;
+            transform.rotation = Quaternion.Slerp(initPos, finalPos, ratio);
+            yield return waitFrame;
+        }
         transitionned = true;
     }
 
@@ -380,7 +394,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 normal = pathObject.up;
         Vector3 newGroundNormal = Vector3.Project(transform.position - pathObject.position, normal).normalized;
-        return newGroundNormal != groundNormal;
+        return flipAllowed ? newGroundNormal != groundNormal : false;
     }
 
     ///<summary>
@@ -389,19 +403,49 @@ public class PlayerController : MonoBehaviour
     void FlipToPath(Transform pathObject)
     {
 
+        
+        //the normal is used projected here only to get the right direction even if the player is walking upside-down
+        
+        if (inGravityField) {
+            Quaternion finalPos = Quaternion.FromToRotation(transform.up, groundNormal) * transform.rotation;
+            transform.DORotateQuaternion(finalPos, 0.5f);
+        }
+        else {
+            StartCoroutine("CameraRelay",pathObject);
+        }
+
+    }
+
+    IEnumerator CameraRelay(Transform pathObject)
+    {
+        flipAllowed = false;
+
+        float startTime = Time.time;
+        float duration = 0.5f;
+        float invDuration = 1f/duration;
+        WaitForEndOfFrame waitFrame = Helpers.GetWaitFrame;
+        Vector3 interpolatedGroundNormal;
+        Vector3 currentGroundNormal = transform.up;
+        float ratio = 0f;
+        Quaternion initPos = cameraTransform.rotation;
+
         Vector3 normal = pathObject.up;
         Vector3 objectPos = pathObject.position;
-
         groundNormal = Vector3.Project(transform.position - objectPos, normal).normalized;
-        //the normal is used projected here only to get the right direction even if the player is walking upside-down
 
-        Quaternion finalPos = Quaternion.FromToRotation(transform.up, groundNormal) * transform.rotation;
-        transform.DORotateQuaternion(finalPos, 0.5f);
-        
+        pathTransform = pathObject;
+
+        while (ratio < 1f) {
+            ratio = (Time.time - startTime)*invDuration;
+            interpolatedGroundNormal = Vector3.Slerp(currentGroundNormal, groundNormal, ratio);
+            transform.rotation = Quaternion.FromToRotation(transform.up, interpolatedGroundNormal) * transform.rotation;
+            yield return waitFrame;
+        }
+
         groundContact = true;
         recentGroundContact = true;
 
-        pathTransform = pathObject;
+        flipAllowed = true;
     }
 
     private void OnCollisionExit(Collision other) {

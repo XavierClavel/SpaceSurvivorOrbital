@@ -23,6 +23,7 @@ public class GameManagement : MonoBehaviour
             Debug.Log("Level ended");
             currentLevel = int.Parse(SceneManager.GetActiveScene().name.Split(' ')[1]);
             int nextLevel = currentLevel ++;
+            SceneManager.LoadScene("Bossfight");
             try {
                 PlayerPrefs.SetInt("levelReached", nextLevel);
                 SceneManager.LoadScene("Level " + nextLevel);

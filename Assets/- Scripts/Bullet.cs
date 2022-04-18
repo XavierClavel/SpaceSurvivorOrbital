@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision other) {
-        ParticleSystem parSys = Instantiate(bulletParticle, other.transform.position, Quaternion.LookRotation(other.GetContact(0).normal, transform.up));
+        ParticleSystem parSys = Instantiate(bulletParticle, transform.position, Quaternion.LookRotation(other.GetContact(0).normal, transform.up));
         parSys.Play();
         Helpers.instance.WaitAndKill(0.5f, parSys.gameObject);
         Destroy(gameObject);

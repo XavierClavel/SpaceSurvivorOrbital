@@ -23,13 +23,19 @@ public class SphereBoss : MonoBehaviour
     AnimationCurve curveY;
     AnimationCurve curveZ;
     RaycastHit hit;
-    [SerializeField] Rigidbody rb;
+    Rigidbody rb;
     bool laserActive = false;
     bool laserTouchesGround = false;
     Vector3 axis;
+    float laserInitialWidth = 0.75f;
+    float laserFinalWidth = 0.3f;
+    bool previousGround = true;
+    [SerializeField] Transform firePoint;
+    [SerializeField] GameObject bulletPrefab;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         playerTransform = PlayerController.instance.gameObject.transform;
         laser = GetComponentInChildren<LineRenderer>();
         laser.gameObject.SetActive(false);
@@ -74,10 +80,46 @@ public class SphereBoss : MonoBehaviour
             case bossState.shooting :
             rb.DORotate(Quaternion.LookRotation(playerTransform.position - transform.position).eulerAngles, 10f);
             yield return Helpers.GetWait(10f);
+            StartCoroutine("WaitAndShoot");
+            StartCoroutine("Follow");
             break;
         }
         
         yield return null;
+    }
+
+    IEnumerator WaitAndShoot()
+    {
+        GameManagement.instance.ShowCrosshair();
+        WaitForSeconds waitWindow = Helpers.GetWait(1f);
+        for (int i = 0; i <20; i++) {
+            yield return waitWindow;
+            Shoot();
+        }
+        StartCoroutine(TransitionState());
+        GameManagement.instance.ShowCrosshair();
+    }
+
+    IEnumerator Follow()
+    {
+        while(true) {
+
+        float duration = 0.5f;
+        float invDuration = 1f/duration;
+        WaitForSeconds waitWindow = Helpers.GetWait(duration);
+
+        Vector3 finalPos = Quaternion.LookRotation(playerTransform.position).eulerAngles; //need to specify upward
+        transform.DOLocalRotate(finalPos, duration, RotateMode.Fast).SetEase(Ease.Linear);
+
+        yield return waitWindow;
+        }
+
+    }
+
+    void Shoot()
+    {
+        Bullet bullet = Instantiate(bulletPrefab, firePoint.position, transform.rotation).GetComponentInChildren<Bullet>();
+        bullet.inGravityField = false;
     }
 
     void RandomizeCurves()
@@ -97,6 +139,22 @@ public class SphereBoss : MonoBehaviour
         }
     }
 
+    void UpdateLaser()
+    {
+        Vector3 impactPos = CastRay();
+        laser.SetPosition(1, impactPos);
+        if (laserTouchesGround != previousGround) {
+            groundImpactParSys.SetActive(laserTouchesGround);
+            redLight.SetActive(laserTouchesGround);
+        }
+        if (laserTouchesGround) {
+            groundImpactParSys.transform.position = impactPos;
+            groundImpactParSys.transform.rotation = Quaternion.LookRotation(hit.normal);
+            redLight.transform.position = impactPos - transform.forward * 0.5f;
+        }
+        previousGround = laserTouchesGround;
+    }
+
     IEnumerator FollowLaser()
     {
         StartCoroutine("LaserUpdate");
@@ -110,7 +168,6 @@ public class SphereBoss : MonoBehaviour
         }
         DeactivateLaser();
 
-        StartCoroutine(TransitionState());
     }
 
     IEnumerator ErraticMovement()
@@ -130,7 +187,6 @@ public class SphereBoss : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         DeactivateLaser();
 
-        StartCoroutine(TransitionState());
     }
 
     IEnumerator LaserAxis()
@@ -142,18 +198,6 @@ public class SphereBoss : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         DeactivateLaser();
 
-        StartCoroutine(TransitionState());
-    }
-
-    void UpdateLaser()
-    {
-        Vector3 impactPos = CastRay();
-        laser.SetPosition(1, impactPos);
-        redLight.transform.position = impactPos - transform.forward * 0.5f;
-        if (laserTouchesGround) {
-            groundImpactParSys.transform.position = impactPos;
-            groundImpactParSys.transform.rotation = Quaternion.LookRotation(hit.normal);
-        }
     }
 
     Vector3 CastRay()
@@ -165,11 +209,34 @@ public class SphereBoss : MonoBehaviour
 
     void DeactivateLaser()
     {
-        laser.gameObject.SetActive(false);
         warmingParSys.SetActive(false);
         groundImpactParSys.SetActive(false);
-        redLight.SetActive(false);
+
         StopCoroutine("LaserUpdate");
+        StartCoroutine(LaserCoolDown());
+    }
+
+    IEnumerator LaserCoolDown()
+    {
+        //Tweening for animating the laser fading out
+        redLight.transform.DOScale(Vector3.zero, 0.5f);
+        DOTween.To(() => laser.startWidth, x => laser.startWidth = x, 0f, 0.5f);
+        DOTween.To(() => laser.endWidth, x => laser.endWidth = x, 0f, 0.5f);
+
+        //Wait until tweening if over
+        yield return Helpers.GetWait(0.6f);
+
+        //Deactivate the objects
+        laser.gameObject.SetActive(false);
+        redLight.SetActive(false);
+
+        //Set back their original values
+        laser.startWidth = laserInitialWidth;
+        laser.endWidth = laserFinalWidth;
+        redLight.transform.localScale = Vector3.one;
+
+        //End state and start transition
+        StartCoroutine(TransitionState());
     }
 
     IEnumerator ActivateLaser()
@@ -196,8 +263,9 @@ public class SphereBoss : MonoBehaviour
             yield return waitFrame;
         }
 
-        redLight.SetActive(true);
-        groundImpactParSys.SetActive(true);
+        redLight.SetActive(laserTouchesGround);
+        groundImpactParSys.SetActive(laserTouchesGround);
+
         switch (state) {
             case bossState.erratic :
                 StartCoroutine(ErraticMovement());
