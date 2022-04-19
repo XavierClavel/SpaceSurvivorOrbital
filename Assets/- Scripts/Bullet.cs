@@ -23,6 +23,8 @@ public class Bullet : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision other) {
+        if (other.gameObject.CompareTag("Shield")) SoundManager.instance.PlaySfx(transform, sfx.bulletOnShield);
+        else SoundManager.instance.PlaySfx(transform, sfx.bulletOnGround);
         ParticleSystem parSys = Instantiate(bulletParticle, transform.position, Quaternion.LookRotation(other.GetContact(0).normal, transform.up));
         parSys.Play();
         Helpers.instance.WaitAndKill(0.5f, parSys.gameObject);

@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using MyBox;
+
+//public class HeaderDrawer : DecoratorDrawer
+//{
+
+//}
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,8 +19,9 @@ public class PlayerController : MonoBehaviour
 	public float walkSpeed = 6;
     public float jumpForce = 500;
     public controlMode controlScheme = controlMode.Keyboard;
+    [Separator("test", true)]
 
-    [Header("References")]
+    //[Header("References")]
     [SerializeField] LayerMask groundedMask;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] GameObject shield;
@@ -72,6 +79,7 @@ public class PlayerController : MonoBehaviour
     float moveY;
     public Transform pathTransform;
     bool flipAllowed = true;
+    SoundManager soundManager;
 
 
     void OnEnable() {
@@ -108,6 +116,7 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         cameraTransform = Camera.main.transform;
         speed = walkSpeed;
+        soundManager = SoundManager.instance;
         //Application.targetFrameRate = -1;
         //QualitySettings.vSyncCount = 0;
     }
@@ -200,6 +209,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Grounded()) {
             rb.AddForce(transform.up * jumpForce);
+            soundManager.PlaySfx(transform, sfx.jump);
         }
     }
 
@@ -212,6 +222,7 @@ public class PlayerController : MonoBehaviour
     void Shoot()
     {
         if (hasBullet && !shieldUp) {
+            soundManager.PlaySfx(transform, sfx.shoot);
             if (inGravityField) {
                 Bullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward, transform.rotation).GetComponentInChildren<Bullet>();
                 bullet.axis = transform.right;
@@ -235,6 +246,7 @@ public class PlayerController : MonoBehaviour
         shieldUp = true;
         shield.SetActive(true);
         GameManagement.instance.HideCrosshair();
+        soundManager.PlaySfx(transform, sfx.shieldUp);
     }
 
     void ShieldDown()
@@ -242,6 +254,7 @@ public class PlayerController : MonoBehaviour
         shieldUp = false;
         shield.SetActive(false);
         if (inGravityField || inFightZone) GameManagement.instance.ShowCrosshair();
+        soundManager.PlaySfx(transform, sfx.shieldDown);
     }
 
     void Reload()
@@ -343,6 +356,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator LerpRotationToPlanet()
     {   
+        soundManager.PlaySfx(transform, sfx.gravitySwitch);
         transitionned = false;
 
         groundNormal = transform.position - planetPos;

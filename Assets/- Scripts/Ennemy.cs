@@ -18,10 +18,12 @@ public class Ennemy : MonoBehaviour
     [SerializeField] float standardDeviation = 1f;
     bool hasProtection = false;
     FightZone fightZone;
+    SoundManager soundManager;
 
 
     void Start()
     {
+        soundManager = SoundManager.instance;
         List<Target> targets = GetComponentsInChildren<Target>().ToList();
         nbTargets = targets.Count();
         if (nbTargets > 0) hasProtection = true;
@@ -41,6 +43,7 @@ public class Ennemy : MonoBehaviour
 
     void Shoot()
     {
+        soundManager.PlaySfx(transform, sfx.ennemyShoots);
         Bullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward, transform.rotation).GetComponentInChildren<Bullet>();
         bullet.axis = transform.right;
         bullet.planetPos = planetPos;
@@ -93,7 +96,7 @@ public class Ennemy : MonoBehaviour
     }
 
     void Death() {
-        Debug.Log("death");
+        soundManager.PlaySfx(transform, sfx.ennemyExplosion);
         if (inGravityField) planet.EnnemyKilled(this);
         else fightZone.EnnemyKilled(this);
     }

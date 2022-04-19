@@ -212,6 +212,8 @@ public class SphereBoss : MonoBehaviour
         warmingParSys.SetActive(false);
         groundImpactParSys.SetActive(false);
 
+        SoundManager.instance.StopLaser();
+
         StopCoroutine("LaserUpdate");
         StartCoroutine(LaserCoolDown());
     }
@@ -241,6 +243,8 @@ public class SphereBoss : MonoBehaviour
 
     IEnumerator ActivateLaser()
     {
+        SoundManager.instance.PlaySfx(transform, sfx.laserWarmUp);
+
         redLight.SetActive(true);
         warmingParSys.SetActive(true);
         redLight.transform.position = transform.forward *5f;
@@ -265,6 +269,8 @@ public class SphereBoss : MonoBehaviour
 
         redLight.SetActive(laserTouchesGround);
         groundImpactParSys.SetActive(laserTouchesGround);
+
+        SoundManager.instance.PlayLaser();
 
         switch (state) {
             case bossState.erratic :

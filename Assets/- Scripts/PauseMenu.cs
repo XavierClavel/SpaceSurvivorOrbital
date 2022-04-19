@@ -7,12 +7,12 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-
+    enum items {Resume, MainMenu, Quit};
     [SerializeField] GameObject pauseMenu;
     [HideInInspector] public bool gamePaused = false;
     public static PauseMenu instance;
     public static bool canGameBePaused = true;
-    [SerializeField] GameObject[] menuItems;
+    [NamedArray(typeof(items))] [SerializeField] GameObject[] menuItems;
     [HideInInspector] public InputMaster controls;
     int index = 0;
     int lastIndex = 0;
@@ -52,6 +52,8 @@ public class PauseMenu : MonoBehaviour
         controls.Enable();
         talkPanelActive = talkPanel.activeInHierarchy;
         if (talkPanelActive) talkPanel.SetActive(false);
+
+        SoundManager.instance.StopTime();
 
         if (PlayerController.instance.controlScheme == PlayerController.controlMode.Gamepad) {
             menuItems[index].GetComponent<Animator>().SetBool("Highlighted", true);
@@ -96,6 +98,8 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         controls.PauseMenu.Disable();
         if (talkPanelActive) talkPanel.SetActive(true);
+
+        SoundManager.instance.ResumeTime();
     }
 
     public void MainMenu()
