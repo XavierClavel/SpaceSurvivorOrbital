@@ -7,14 +7,14 @@ using UnityEngine.InputSystem;
 
 public class MainMenu : MonoBehaviour
 {
+    enum items {Play, Levels, Quit};
     Quaternion mainMenuPos = Quaternion.identity;
     Quaternion levelsScreenPos = Quaternion.Euler(0f, 90f, 0f);
     Transform camTransform;
     int levelReached;
-    [SerializeField] GameObject[] menuItems;
+    [NamedArray(typeof(items))] [SerializeField] GameObject[] menuItems;
     [HideInInspector] public InputMaster controls;
-    int index = 0;
-    int lastIndex = 0;
+    GamepadMenuHandler menuHandler;
 
     void OnEnable() {
         controls.Enable();
@@ -27,11 +27,12 @@ public class MainMenu : MonoBehaviour
     private void Awake() {
         camTransform = Camera.main.transform;
         levelReached = PlayerPrefs.GetInt("levelReached", 1);
+        menuHandler = new GamepadMenuHandler(menuItems);
 
         controls = new InputMaster();
-        controls.PauseMenu.NavigateDown.performed += context => NavigateDown();
-        controls.PauseMenu.NavigateUp.performed += context => NavigateUp();
-        controls.PauseMenu.Validate.performed += context => Validate();
+        controls.PauseMenu.NavigateDown.performed += context => menuHandler.NavigateDown();
+        controls.PauseMenu.NavigateUp.performed += context => menuHandler.NavigateUp();
+        controls.PauseMenu.Validate.performed += context => menuHandler.Validate();
 
         Debug.Log(Gamepad.all.Count);
 
@@ -39,34 +40,6 @@ public class MainMenu : MonoBehaviour
             menuItems[0].GetComponent<Animator>().SetBool("Highlighted", true);
             Cursor.lockState = CursorLockMode.Locked;
         }
-    }
-
-    void NavigateDown()
-    {
-        index ++;
-        if (index == menuItems.Length) index = 0;
-        Animate(ref lastIndex, index);
-    }
-
-    void NavigateUp()
-    {
-        index --;
-        if (index < 0) index = menuItems.Length - 1;
-        Animate(ref lastIndex, index);
-        
-    }
-
-    void Animate(ref int lastIndex, int newIndex)
-    {
-        menuItems[lastIndex].GetComponent<Animator>().SetBool("Normal", true);
-        menuItems[newIndex].GetComponent<Animator>().SetBool("Highlighted", true);
-        lastIndex = newIndex;
-    }
-
-    void Validate()
-    {
-        menuItems[index].GetComponent<Animator>().SetBool("Pressed", true);
-        menuItems[index].GetComponent<Button>().onClick.Invoke();
     }
 
     public void Play()

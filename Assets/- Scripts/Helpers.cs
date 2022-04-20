@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 using UnityEditor;
+using UnityEngine.UI;
 
 // Defines an attribute that makes the array use enum values as labels.
 // Use like this:
@@ -41,6 +42,52 @@ public class NamedArrayDrawer : PropertyDrawer {
     }
 }
 #endif
+
+public class GamepadMenuHandler
+{
+    public GameObject[] menuItems;
+    int index = 0;
+    int lastIndex;
+    public GamepadMenuHandler(GameObject[] menuItems) {
+        this.menuItems = menuItems;
+    }
+
+    public void NavigateDown()
+    {
+        index ++;
+        if (index == menuItems.Length) index = 0;
+        Animate(ref lastIndex, index);
+    }
+
+    public void NavigateUp()
+    {
+        index --;
+        if (index < 0) index = menuItems.Length - 1;
+        Animate(ref lastIndex, index);
+        
+    }
+
+    public void Animate(ref int lastIndex, int newIndex)
+    {
+        menuItems[lastIndex].GetComponent<Animator>().SetBool("Normal", true);
+        menuItems[newIndex].GetComponent<Animator>().SetBool("Highlighted", true);
+        lastIndex = newIndex;
+    }
+
+    public void Validate()
+    {
+        menuItems[index].GetComponent<Animator>().SetBool("Pressed", true);
+        menuItems[index].GetComponent<Button>().onClick.Invoke();
+    }
+
+    public void Reset()
+    {
+        index = 0;
+        lastIndex = 0;
+        menuItems[index].GetComponent<Animator>().SetBool("Highlighted", true);
+    }
+
+}
 
 public class Helpers : MonoBehaviour
 {

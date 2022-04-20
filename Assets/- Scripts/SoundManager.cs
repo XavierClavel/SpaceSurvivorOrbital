@@ -61,11 +61,6 @@ public enum sfx {
     gravitySwitch,
     laserWarmUp,
     playerHit,
-    test,
-    test2,
-    test3,
-    test4,
-    test5
 };
 
 [Serializable]
@@ -128,8 +123,24 @@ public class SoundManager : MonoBehaviour
 
     void OnValidate()
     {
-        Debug.Log("audioClip length : " + audioClips.Length);
-        Debug.Log("control group : " + controlGroup.Count);
+
+        int j = 0;
+        foreach(sfxContainer audioClip in audioClips) {
+            if(audioClip.audioClip == null) {
+                var tag = Enum.GetValues(typeof(sfx)).Cast<sfx>().ToList()[j];
+                Debug.LogWarning("Field " + tag + " is empty");
+            }
+            j ++;
+        }
+
+        if (controlGroup.Count != SIZE) {      //case where the control group is not initialized or enum was modified
+            j = 0;
+            controlGroup.Clear();
+            foreach (sfxContainer container in audioClips) {
+                controlGroup.Add(CloneContainer(container));
+                j ++;
+            }
+        }
 
         if (audioClips.Length > SIZE)   //case where the user tries to increment the list or enum was modified
         {
@@ -143,15 +154,6 @@ public class SoundManager : MonoBehaviour
             }
         }
 
-        if (audioClips.Length != controlGroup.Count) {      //case where the control group is not initialized or enum was modified
-            int i = 0;
-            controlGroup.Clear();
-            foreach (sfxContainer container in audioClips) {
-                controlGroup.Add(CloneContainer(container));
-                i ++;
-            }
-        }
-
         else {
             int nbDiff = 0;
             List<int> diffIndex = new List<int>();  //list of index where the control groups differs from the actual data
@@ -162,7 +164,7 @@ public class SoundManager : MonoBehaviour
                     diffIndex.Add(i);
                 }
             }
-            Debug.Log(nbDiff);
+
             if (nbDiff > 1) {   //it is only possible to have more than 1 difference if the player swapped two values
 
                 foreach (int index in diffIndex) {      //in which case we change back both values

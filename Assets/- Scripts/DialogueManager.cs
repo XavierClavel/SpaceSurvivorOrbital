@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+[System.Serializable]
+public class Dialogue
+{
+    [TextArea(4,10)]
+    public string[] sentences;
+
+}
+
 public class DialogueManager : MonoBehaviour
 {
     public TextMeshProUGUI textDisplay;
@@ -10,7 +18,6 @@ public class DialogueManager : MonoBehaviour
     bool isTyping = false;
     [SerializeField] Dialogue dialogue;
     public static DialogueManager instance;
-    bool canCheck = false;
     WaitForSeconds waitForSeconds;
     InputMaster controls;
 
@@ -33,15 +40,6 @@ public class DialogueManager : MonoBehaviour
         controls.Talk.Talk.performed += context => DisplayNextSentence(); 
     }
 
-    IEnumerator WaitInputs()
-    {
-        WaitForEndOfFrame waitFrame = Helpers.GetWaitFrame;
-        yield return waitFrame;
-        yield return waitFrame;
-        canCheck = true;
-
-    }
-
     public void StartDialogue()
     {
         textDisplay.gameObject.SetActive(true);
@@ -50,7 +48,6 @@ public class DialogueManager : MonoBehaviour
         foreach (string sentence in dialogue.sentences){
             sentences.Enqueue(sentence);
         }
-        StartCoroutine(WaitInputs());
         DisplayNextSentence();
     }
 

@@ -18,13 +18,12 @@ public class Planet : MonoBehaviour
     [System.Serializable]
     public class Event 
     {
-        
         public actionType action;
         [ConditionalField(nameof(action), false, actionType.Rotate, actionType.Translate, actionType.TranslateAndRotate)] public Transform objectTransform;
         [ConditionalField(nameof(action), false, actionType.Translate, actionType.TranslateAndRotate)] public Vector3 finalPosition;
         [ConditionalField(nameof(action), false, actionType.Rotate, actionType.TranslateAndRotate)] public Vector3 finalRotation;
         [ConditionalField(nameof(action), false, actionType.Rotate, actionType.Translate, actionType.TranslateAndRotate)] public float duration;
-        };
+    }
     public List<Event> events;
 
     private void Awake() {

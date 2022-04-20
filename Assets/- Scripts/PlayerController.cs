@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject shield;
     [SerializeField] GameObject talkPanel;
     [SerializeField] GameObject dialogueManager;
-    [SerializeField][Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
+    //[SerializeField][Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
 
 
     //public variables
@@ -36,14 +36,14 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool shieldUp = false;
     [HideInInspector] public bool inTalkZone = false;
     [HideInInspector] public InputMaster controls;
-    Vector2 direction;
+    //Vector2 direction;
     public enum controlMode  {Keyboard, Gamepad};
 
 
     //Local variables
     Vector3 planetPos;
     Rigidbody rb;
-    Vector3 gravityVector;
+    //Vector3 gravityVector;
     float planetSize;
     Planet planet;
     float planetMass;
@@ -59,21 +59,20 @@ public class PlayerController : MonoBehaviour
     bool groundContact = true;
     bool recentGroundContact = true;
     Vector3 groundNormal = Vector3.up;
-    bool inPath = true;
     Vector3 distance;
     bool inFightZone = false;
     Transform talkTarget;
     Quaternion rotationBeforeConversation;
     float inputX;
     float inputY;
-    Vector3 rotateAmount;
-    Vector3 targetRotateAmount;
-    Vector2 smoothRotateVelocity;
+    //Vector3 rotateAmount;
+    //Vector3 targetRotateAmount;
+    //Vector2 smoothRotateVelocity;
     Vector3 targetMoveAmount;
     Rigidbody cameraRB;
-    float angle = 0f;
+    //float angle = 0f;
     //List rotArrayX;
-    Vector2 input;
+    //Vector2 input;
     Vector2 targetMouseDelta;
     float moveX;
     float moveY;
@@ -101,11 +100,11 @@ public class PlayerController : MonoBehaviour
         controls.Player.Talk.performed += context => Talk();
         controls.Player.Run.started += context => Run();
         controls.Player.Run.canceled += context => Walk();
-        controls.Player.Pause.performed += context => PauseMenu.instance.Pause();
+        controls.Player.Pause.performed += context => PauseMenu.instance.PauseGame();
 
         if (Gamepad.all.Count > 0) controlScheme = controlMode.Gamepad;
         //rotArrayX = new Vector3[0];
-        controlScheme = controlMode.Keyboard;
+        //controlScheme = controlMode.Keyboard;
         cameraRB = Camera.main.GetComponent<Rigidbody>();
     }
 
@@ -158,8 +157,8 @@ public class PlayerController : MonoBehaviour
             targetMouseDelta = Mouse.current.delta.ReadValue();
         }
         else {
-            //inputX = Gamepad.current.rightStick.x.ReadValue() * 10f;
-            //inputY = Gamepad.current.rightStick.y.ReadValue() * 10f;
+            inputX = Gamepad.current.rightStick.x.ReadValue() * 10f;
+            inputY = Gamepad.current.rightStick.y.ReadValue() * 10f;
         }    
         //targetMouseDelta = Mouse.current.delta.ReadValue();
 
@@ -329,10 +328,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other) {
         switch(other.tag) {
-
-            case "PathRadius" :
-                inPath = false;
-                break;
 
             case "Planet" :
                 inGravityField = false;

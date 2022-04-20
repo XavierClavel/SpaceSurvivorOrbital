@@ -24,7 +24,6 @@ public class SphereBoss : MonoBehaviour
     AnimationCurve curveZ;
     RaycastHit hit;
     Rigidbody rb;
-    bool laserActive = false;
     bool laserTouchesGround = false;
     Vector3 axis;
     float laserInitialWidth = 0.75f;
@@ -54,35 +53,35 @@ public class SphereBoss : MonoBehaviour
         switch (state) {
             
             case bossState.followingLaser :
-            rb.DORotate(Quaternion.LookRotation(playerTransform.position - transform.position).eulerAngles, 10f);
-            yield return Helpers.GetWait(10f);
+                rb.DORotate(Quaternion.LookRotation(playerTransform.position - transform.position).eulerAngles, 10f);
+                yield return Helpers.GetWait(10f);
 
-            StartCoroutine(ActivateLaser());
-            break;
+                StartCoroutine(ActivateLaser());
+                break;
 
             case bossState.erratic :
-            StartCoroutine(ActivateLaser());
-            break;
+                StartCoroutine(ActivateLaser());
+                break;
 
             case bossState.laserAxis : 
-            axis = PlayerController.instance.pathTransform.forward;
-            transform.DOLookAt(transform.position + PlayerController.instance.pathTransform.up, 2f);
-            yield return Helpers.GetWait(2f);
+                axis = PlayerController.instance.pathTransform.forward;
+                transform.DOLookAt(transform.position + PlayerController.instance.pathTransform.up, 2f);
+                yield return Helpers.GetWait(2f);
 
-            StartCoroutine(ActivateLaser());
-            break;
+                StartCoroutine(ActivateLaser());
+                break;
 
             case bossState.following :
-            rb.DORotate(Quaternion.LookRotation(playerTransform.position - transform.position).eulerAngles, 10f);
-            yield return Helpers.GetWait(10f);
-            break;
+                rb.DORotate(Quaternion.LookRotation(playerTransform.position - transform.position).eulerAngles, 10f);
+                yield return Helpers.GetWait(10f);
+                break;
 
             case bossState.shooting :
-            rb.DORotate(Quaternion.LookRotation(playerTransform.position - transform.position).eulerAngles, 10f);
-            yield return Helpers.GetWait(10f);
-            StartCoroutine("WaitAndShoot");
-            StartCoroutine("Follow");
-            break;
+                rb.DORotate(Quaternion.LookRotation(playerTransform.position - transform.position).eulerAngles, 10f);
+                yield return Helpers.GetWait(10f);
+                StartCoroutine("WaitAndShoot");
+                StartCoroutine("Follow");
+                break;
         }
         
         yield return null;

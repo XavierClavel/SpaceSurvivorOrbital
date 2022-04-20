@@ -41,7 +41,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    IEnumerator DestroyTimer()
+    IEnumerator DestroyTimer()  //Destroys bullet after 10 seconds
     {
         yield return Helpers.GetWait(10f);
         Destroy(gameObject);
