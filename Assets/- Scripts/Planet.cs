@@ -5,8 +5,6 @@ using System.Linq;
 using MyBox;
 using DG.Tweening;
 
-public enum actionType {Translate, Rotate, TranslateAndRotate, other}
-
 public class Planet : MonoBehaviour
 {
     [HideInInspector] public Vector3 position;
@@ -15,15 +13,7 @@ public class Planet : MonoBehaviour
     [HideInInspector] public float mass = 10;
     List<Ennemy> ennemies;
     int nbEnnemies;
-    [System.Serializable]
-    public class Event 
-    {
-        public actionType action;
-        [ConditionalField(nameof(action), false, actionType.Rotate, actionType.Translate, actionType.TranslateAndRotate)] public Transform objectTransform;
-        [ConditionalField(nameof(action), false, actionType.Translate, actionType.TranslateAndRotate)] public Vector3 finalPosition;
-        [ConditionalField(nameof(action), false, actionType.Rotate, actionType.TranslateAndRotate)] public Vector3 finalRotation;
-        [ConditionalField(nameof(action), false, actionType.Rotate, actionType.Translate, actionType.TranslateAndRotate)] public float duration;
-    }
+    
     public List<Event> events;
 
     private void Awake() {

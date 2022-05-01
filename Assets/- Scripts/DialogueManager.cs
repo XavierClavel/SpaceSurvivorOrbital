@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Tables;
+using DG.Tweening;
 
 [System.Serializable]
 public class Dialogue
@@ -16,10 +19,22 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI textDisplay;
     private Queue<string> sentences;
     bool isTyping = false;
-    [SerializeField] Dialogue dialogue;
     public static DialogueManager instance;
     WaitForSeconds waitForSeconds;
     InputMaster controls;
+    public LocalizedStringTable table;
+    public List<DialogueEvent> dialogueEvents;
+    [HideInInspector] public List<Event> toDo;
+    Animator animator;
+    private void OnValidate() {
+        foreach (DialogueEvent dialogueEvent in dialogueEvents) {
+            foreach (Event individualEvent in dialogueEvent.events) {
+                if (individualEvent.action != actionType.SetParameter) {
+                    individualEvent.type = parameterType.None;
+                }
+            }
+        }
+    }
 
     void OnEnable() {
         controls.Enable();
@@ -38,6 +53,8 @@ public class DialogueManager : MonoBehaviour
         waitForSeconds = Helpers.GetWait(0.015f);
 
         controls.Talk.Talk.performed += context => DisplayNextSentence(); 
+
+        animator = GetComponent<Animator>();
     }
 
     public void StartDialogue()
@@ -45,9 +62,14 @@ public class DialogueManager : MonoBehaviour
         textDisplay.gameObject.SetActive(true);
         sentences = new Queue<string>();
         sentences.Clear();
-        foreach (string sentence in dialogue.sentences){
-            sentences.Enqueue(sentence);
+
+        var stringTable = table.GetTable();
+        
+
+        foreach (SharedTableData.SharedTableEntry entry in stringTable.SharedData.Entries) {
+            sentences.Enqueue(stringTable.GetEntry(entry.Id).LocalizedValue);
         }
+        
         DisplayNextSentence();
     }
 
@@ -81,7 +103,44 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue()
     {
         textDisplay.gameObject.SetActive(false);
-        gameObject.SetActive(false);
+        foreach (Event eventAction in toDo) {
+            switch (eventAction.action) {
+
+                case actionType.SetParameter :
+                    switch (eventAction.type) {
+
+                        case parameterType.Trigger :
+                        Debug.Log(eventAction.triggerParameter);
+                            eventAction.dialogueManager.animator.SetTrigger(eventAction.triggerParameter);
+                            break;
+                        
+                        case parameterType.Bool :
+                            eventAction.dialogueManager.animator.SetBool(eventAction.boolParameter, eventAction.boolValue);
+                            break;
+                    }
+                    break;
+                
+                case actionType.ChangeDialogue :
+                    eventAction.dialogueManager.table = eventAction.table;
+                    break;
+                
+                case actionType.Translate :
+                    eventAction.objectTransform.DOMove(eventAction.finalPosition, eventAction.duration);
+                    break;
+
+                case actionType.Rotate :
+                    eventAction.objectTransform.DORotate(eventAction.finalRotation, eventAction.duration);
+                    break;
+
+                case actionType.TranslateAndRotate : 
+                    eventAction.objectTransform.DOMove(eventAction.finalPosition, eventAction.duration);
+                    eventAction.objectTransform.DORotate(eventAction.finalRotation, eventAction.duration);
+                    break;
+            }
+        
+        //gameObject.SetActive(false);
         PlayerController.instance.ConversationEnded();
+        }
+        
     }
 }

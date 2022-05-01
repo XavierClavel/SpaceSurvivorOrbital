@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
-
+using UnityEditorInternal;
 
 /*
 [CustomEditor(typeof(SoundManager))]
@@ -63,24 +63,6 @@ public enum sfx {
     playerHit,
 };
 
-[Serializable]
-public class sfxContainer : IEquatable<sfxContainer>
-{
-    public AudioClip audioClip;
-    public float volume = 1;
-    public sfxContainer(AudioClip audioClip, float volume) {
-        this.audioClip = audioClip;
-        this.volume = volume;
-    }
-
-    public bool Equals(sfxContainer other)
-    {
-        if (this.audioClip != other.audioClip) return false;
-        if (this.volume != other.volume) return false;
-        return true;
-    }
-}
-
 public class SoundManager : MonoBehaviour
 {
     AudioSource MusicSource;
@@ -116,6 +98,7 @@ public class SoundManager : MonoBehaviour
     Dictionary<sfx, float> volumeDictionary;
     [Header(" ")]
     [NamedArray(typeof(sfx))] public sfxContainer[] audioClips;// = new sfxContainer[SIZE];
+    //public sfxContainer[] test;
 
     sfxContainer CloneContainer(sfxContainer container) {
         return new sfxContainer(container.audioClip, container.volume);

@@ -27,7 +27,7 @@ public class MainMenu : MonoBehaviour
     private void Awake() {
         camTransform = Camera.main.transform;
         levelReached = PlayerPrefs.GetInt("levelReached", 1);
-        menuHandler = new GamepadMenuHandler(menuItems);
+        menuHandler = new GamepadMenuHandler(menuItems, false);
 
         controls = new InputMaster();
         controls.PauseMenu.NavigateDown.performed += context => menuHandler.NavigateDown();

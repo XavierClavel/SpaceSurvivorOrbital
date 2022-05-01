@@ -16,6 +16,7 @@ public class NamedArrayAttribute : PropertyAttribute {
         this.TargetEnum = TargetEnum;
     }
 }
+
  
 #if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(NamedArrayAttribute))]
@@ -43,26 +44,36 @@ public class NamedArrayDrawer : PropertyDrawer {
 }
 #endif
 
+
+
 public class GamepadMenuHandler
 {
-    public GameObject[] menuItems;
+    GameObject[] menuItems;
+    bool shouldLoop;
     int index = 0;
     int lastIndex;
-    public GamepadMenuHandler(GameObject[] menuItems) {
+    public GamepadMenuHandler(GameObject[] menuItems, bool shouldLoop) {
         this.menuItems = menuItems;
+        this.shouldLoop = shouldLoop;
     }
 
     public void NavigateDown()
     {
         index ++;
-        if (index == menuItems.Length) index = 0;
+        if (index == menuItems.Length) {
+            if (shouldLoop) index = 0;
+            else index --;
+        }
         Animate(ref lastIndex, index);
     }
 
     public void NavigateUp()
     {
         index --;
-        if (index < 0) index = menuItems.Length - 1;
+        if (index < 0) {
+            if (shouldLoop) index = menuItems.Length - 1;
+            else index ++;
+        }
         Animate(ref lastIndex, index);
         
     }

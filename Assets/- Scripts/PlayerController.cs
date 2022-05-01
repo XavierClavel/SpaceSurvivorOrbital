@@ -79,6 +79,8 @@ public class PlayerController : MonoBehaviour
     public Transform pathTransform;
     bool flipAllowed = true;
     SoundManager soundManager;
+    Vector3 targetNormal;
+    int onPath = 0;
 
 
     void OnEnable() {
@@ -291,7 +293,7 @@ public class PlayerController : MonoBehaviour
         switch (other.gameObject.tag) {
 
             case "PathRadius" :
-                if (!recentGroundContact || differentGroundNormal(other.transform)) FlipToPath(other.transform);
+                if (!recentGroundContact || (onPath > 0 &&  differentGroundNormal(other.transform))) FlipToPath(other.transform);
                 break;
 
             case "Planet" :
@@ -395,6 +397,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Ground")) {
             if (!recentGroundContact || differentGroundNormal(other.transform)) {
                 FlipToPath(other.gameObject.transform);
+                onPath ++;
             }
         }
     }
@@ -403,7 +406,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 normal = pathObject.up;
         Vector3 newGroundNormal = Vector3.Project(transform.position - pathObject.position, normal).normalized;
-        return flipAllowed ? newGroundNormal != groundNormal : false;
+        return newGroundNormal != groundNormal;
     }
 
     ///<summary>
@@ -411,8 +414,8 @@ public class PlayerController : MonoBehaviour
     ///</summary>
     void FlipToPath(Transform pathObject)
     {
-
-        
+        flipAllowed = false;
+        StopCoroutine("CameraRelay");
         //the normal is used projected here only to get the right direction even if the player is walking upside-down
         
         if (inGravityField) {
@@ -427,7 +430,6 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator CameraRelay(Transform pathObject)
     {
-        flipAllowed = false;
 
         float startTime = Time.time;
         float duration = 0.5f;
@@ -460,6 +462,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionExit(Collision other) {
         if (other.gameObject.CompareTag("Ground")) {
             groundContact = false;
+            onPath --;
             if (inGravityField) {
                 StartCoroutine(LerpRotationToPlanet());
                 recentGroundContact = false;

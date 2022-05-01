@@ -20,7 +20,7 @@ public class PauseMenu : MonoBehaviour
     void Awake()
     {
         instance = this;
-        menuHandler = new GamepadMenuHandler(menuItems);
+        menuHandler = new GamepadMenuHandler(menuItems, true);
 
         controls = new InputMaster();
         controls.PauseMenu.NavigateDown.performed += context => menuHandler.NavigateDown();
