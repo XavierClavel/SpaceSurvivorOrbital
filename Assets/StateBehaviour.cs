@@ -18,6 +18,7 @@ public class StateBehaviour : StateMachineBehaviour
             if (stateInfo.fullPathHash == Animator.StringToHash(animator.GetLayerName(0) + "." + dialogueEvent.stateName)) {
                 dialogueManager.toDo = dialogueEvent.events;
                 Debug.Log("new state");
+                Debug.Log(dialogueEvent.stateName);
             }
         }
     }

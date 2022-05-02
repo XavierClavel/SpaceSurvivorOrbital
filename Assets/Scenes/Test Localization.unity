@@ -7101,6 +7101,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7846218c6af821e43a25693905a1365e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  events:
+  - action: 4
+    objectTransform: {fileID: 0}
+    finalPosition: {x: 0, y: 0, z: 0}
+    finalRotation: {x: 0, y: 0, z: 0}
+    duration: 0
+    table:
+      m_TableReference:
+        m_TableCollectionName: 
+    self: 0
+    dialogueManager: {fileID: 1921160189}
+    animator: {fileID: 1921160188}
+    type: 1
+    triggerParameter: Planet beat
+    boolParameter: 
+    boolValue: 0
 --- !u!4 &659592893
 Transform:
   m_ObjectHideFlags: 0
@@ -7117,42 +7133,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &690611326 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 87380906815620924, guid: 3b15291503cef744988ad8d451c650a6, type: 3}
-  m_PrefabInstance: {fileID: 87380907501839170}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &690611329
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690611326}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e4871446c8afb284db7e0e3e308ac425, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &690611331 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 87380906815621058, guid: 3b15291503cef744988ad8d451c650a6, type: 3}
-  m_PrefabInstance: {fileID: 87380907501839170}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690611326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd33e6050a3845445a69f1c4e3f0b5bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &697422312
 GameObject:
   m_ObjectHideFlags: 0
@@ -13019,11 +12999,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb67ac4e51d7454cb09fd7e04f155e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exampleAnimator: {fileID: 690611329}
-  exampleFloatParameterName: 
-  exampleIntParameterName: 
-  exampleBoolParameterName: 
-  exampleTriggerParameterName: First dialogue ended
 --- !u!4 &981603428
 Transform:
   m_ObjectHideFlags: 0
@@ -15271,7 +15246,6 @@ MonoBehaviour:
   bulletPrefab: {fileID: 467648530048100159, guid: c318572b656b92542abd302bed3be5af, type: 3}
   shield: {fileID: 4098633249619642623}
   talkPanel: {fileID: 1816731532}
-  dialogueManager: {fileID: 690611326}
   hasBullet: 0
   shieldUp: 0
   inTalkZone: 0
@@ -15875,6 +15849,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1921160187}
   - component: {fileID: 1921160186}
+  - component: {fileID: 1921160189}
   - component: {fileID: 1921160188}
   m_Layer: 8
   m_Name: TalkZone
@@ -15912,7 +15887,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1921160188
+--- !u!95 &1921160188
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921160185}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e4871446c8afb284db7e0e3e308ac425, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1921160189
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15921,9 +15916,48 @@ MonoBehaviour:
   m_GameObject: {fileID: 1921160185}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 884e3ee721df5084fa7f5445c4c57a5a, type: 3}
+  m_Script: {fileID: 11500000, guid: cd33e6050a3845445a69f1c4e3f0b5bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textDisplay: {fileID: 417575873}
+  table:
+    m_TableReference:
+      m_TableCollectionName: GUID:5e14e585a1657314ba594c028dd22384
+  dialogueEvents:
+  - Name: Initial State
+    stateName: Initial State
+    events:
+    - action: 4
+      objectTransform: {fileID: 0}
+      finalPosition: {x: 0, y: 0, z: 0}
+      finalRotation: {x: 0, y: 0, z: 0}
+      duration: 0
+      table:
+        m_TableReference:
+          m_TableCollectionName: 
+      self: 1
+      dialogueManager: {fileID: 0}
+      animator: {fileID: 1921160188}
+      type: 1
+      triggerParameter: First dialogue ended
+      boolParameter: 
+      boolValue: 0
+    - action: 0
+      objectTransform: {fileID: 0}
+      finalPosition: {x: 0, y: 0, z: 0}
+      finalRotation: {x: 0, y: 0, z: 0}
+      duration: 0
+      table:
+        m_TableReference:
+          m_TableCollectionName: 
+      self: 0
+      dialogueManager: {fileID: 0}
+      animator: {fileID: 0}
+      type: 0
+      triggerParameter: 
+      boolParameter: 
+      boolValue: 0
+  toDo: []
   targetTransform: {fileID: 0}
 --- !u!4 &1976551956 stripped
 Transform:
@@ -16547,7 +16581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 87380906815620924, guid: 3b15291503cef744988ad8d451c650a6, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 87380906815621058, guid: 3b15291503cef744988ad8d451c650a6, type: 3}
       propertyPath: evet.action
@@ -16568,7 +16602,7 @@ PrefabInstance:
     - target: {fileID: 87380906815621058, guid: 3b15291503cef744988ad8d451c650a6, type: 3}
       propertyPath: evet.exampleAnimator
       value: 
-      objectReference: {fileID: 690611329}
+      objectReference: {fileID: 0}
     - target: {fileID: 87380906815621058, guid: 3b15291503cef744988ad8d451c650a6, type: 3}
       propertyPath: aaaaa.Array.data[0].Name
       value: After dialogue 1
@@ -16592,7 +16626,7 @@ PrefabInstance:
     - target: {fileID: 87380906815621058, guid: 3b15291503cef744988ad8d451c650a6, type: 3}
       propertyPath: events.Array.data[0].animator
       value: 
-      objectReference: {fileID: 690611329}
+      objectReference: {fileID: 0}
     - target: {fileID: 87380906815621058, guid: 3b15291503cef744988ad8d451c650a6, type: 3}
       propertyPath: dialogueEvents.Array.data[0].Name
       value: Initial State
@@ -16604,11 +16638,11 @@ PrefabInstance:
     - target: {fileID: 87380906815621058, guid: 3b15291503cef744988ad8d451c650a6, type: 3}
       propertyPath: events.Array.data[0].dialogueManager
       value: 
-      objectReference: {fileID: 690611331}
+      objectReference: {fileID: 0}
     - target: {fileID: 87380906815621058, guid: 3b15291503cef744988ad8d451c650a6, type: 3}
       propertyPath: events.Array.data[0].exampleAnimator
       value: 
-      objectReference: {fileID: 690611329}
+      objectReference: {fileID: 0}
     - target: {fileID: 87380906815621058, guid: 3b15291503cef744988ad8d451c650a6, type: 3}
       propertyPath: aaaaa.Array.data[0].events.Array.size
       value: 1
@@ -16656,7 +16690,7 @@ PrefabInstance:
     - target: {fileID: 87380906815621058, guid: 3b15291503cef744988ad8d451c650a6, type: 3}
       propertyPath: dialogueEvents.Array.data[0].events.Array.data[0].animator
       value: 
-      objectReference: {fileID: 690611329}
+      objectReference: {fileID: 0}
     - target: {fileID: 87380906815621058, guid: 3b15291503cef744988ad8d451c650a6, type: 3}
       propertyPath: dialogueEvents.Array.data[0].events.Array.data[0].boolValue
       value: 0
@@ -16664,7 +16698,7 @@ PrefabInstance:
     - target: {fileID: 87380906815621058, guid: 3b15291503cef744988ad8d451c650a6, type: 3}
       propertyPath: dialogueEvents.Array.data[0].events.Array.data[0].exampleAnimator
       value: 
-      objectReference: {fileID: 690611329}
+      objectReference: {fileID: 0}
     - target: {fileID: 87380906815621058, guid: 3b15291503cef744988ad8d451c650a6, type: 3}
       propertyPath: events.Array.data[0].table.m_TableReference.m_TableCollectionName
       value: GUID:5e14e585a1657314ba594c028dd22384

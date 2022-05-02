@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] GameObject shield;
     [SerializeField] GameObject talkPanel;
-    [SerializeField] GameObject dialogueManager;
     //[SerializeField][Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
 
 
@@ -81,6 +80,7 @@ public class PlayerController : MonoBehaviour
     SoundManager soundManager;
     Vector3 targetNormal;
     int onPath = 0;
+    DialogueManager dialogueManager;
 
 
     void OnEnable() {
@@ -272,8 +272,8 @@ public class PlayerController : MonoBehaviour
             rotationBeforeConversation = cameraTransform.rotation;
             StartCoroutine(LerpRotationBodyAndCam(Quaternion.LookRotation(talkTarget.position - cameraTransform.position, transform.up)));
             talkPanel.SetActive(false);
-            dialogueManager.SetActive(true);
-            DialogueManager.instance.StartDialogue();
+            dialogueManager.controls.Enable();
+            dialogueManager.StartDialogue();
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             moveAmount = Vector3.zero;
@@ -313,7 +313,8 @@ public class PlayerController : MonoBehaviour
             case "TalkZone" :
                 talkPanel.SetActive(true);
                 inTalkZone = true;
-                talkTarget = other.gameObject.GetComponent<TalkZone>().targetTransform;
+                dialogueManager = other.gameObject.GetComponent<DialogueManager>();
+                talkTarget = dialogueManager.targetTransform;
                 break;
         
         }

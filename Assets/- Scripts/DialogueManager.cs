@@ -19,22 +19,13 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI textDisplay;
     private Queue<string> sentences;
     bool isTyping = false;
-    public static DialogueManager instance;
     WaitForSeconds waitForSeconds;
-    InputMaster controls;
+    [HideInInspector] public InputMaster controls;
     public LocalizedStringTable table;
     public List<DialogueEvent> dialogueEvents;
-    [HideInInspector] public List<Event> toDo;
+    public List<Event> toDo;
     Animator animator;
-    private void OnValidate() {
-        foreach (DialogueEvent dialogueEvent in dialogueEvents) {
-            foreach (Event individualEvent in dialogueEvent.events) {
-                if (individualEvent.action != actionType.SetParameter) {
-                    individualEvent.type = parameterType.None;
-                }
-            }
-        }
-    }
+    [HideInInspector] public Transform targetTransform;
 
     void OnEnable() {
         controls.Enable();
@@ -46,7 +37,6 @@ public class DialogueManager : MonoBehaviour
 
     void Awake()
     {
-        instance = this;
         controls = new InputMaster();
 
         sentences = new Queue<string>();
@@ -55,6 +45,10 @@ public class DialogueManager : MonoBehaviour
         controls.Talk.Talk.performed += context => DisplayNextSentence(); 
 
         animator = GetComponent<Animator>();
+
+        controls.Disable();
+
+        targetTransform = GetComponentInChildren<Transform>();
     }
 
     public void StartDialogue()
@@ -68,6 +62,7 @@ public class DialogueManager : MonoBehaviour
 
         foreach (SharedTableData.SharedTableEntry entry in stringTable.SharedData.Entries) {
             sentences.Enqueue(stringTable.GetEntry(entry.Id).LocalizedValue);
+            Debug.Log(sentences.Count);
         }
         
         DisplayNextSentence();
@@ -104,43 +99,11 @@ public class DialogueManager : MonoBehaviour
     {
         textDisplay.gameObject.SetActive(false);
         foreach (Event eventAction in toDo) {
-            switch (eventAction.action) {
-
-                case actionType.SetParameter :
-                    switch (eventAction.type) {
-
-                        case parameterType.Trigger :
-                        Debug.Log(eventAction.triggerParameter);
-                            eventAction.dialogueManager.animator.SetTrigger(eventAction.triggerParameter);
-                            break;
-                        
-                        case parameterType.Bool :
-                            eventAction.dialogueManager.animator.SetBool(eventAction.boolParameter, eventAction.boolValue);
-                            break;
-                    }
-                    break;
-                
-                case actionType.ChangeDialogue :
-                    eventAction.dialogueManager.table = eventAction.table;
-                    break;
-                
-                case actionType.Translate :
-                    eventAction.objectTransform.DOMove(eventAction.finalPosition, eventAction.duration);
-                    break;
-
-                case actionType.Rotate :
-                    eventAction.objectTransform.DORotate(eventAction.finalRotation, eventAction.duration);
-                    break;
-
-                case actionType.TranslateAndRotate : 
-                    eventAction.objectTransform.DOMove(eventAction.finalPosition, eventAction.duration);
-                    eventAction.objectTransform.DORotate(eventAction.finalRotation, eventAction.duration);
-                    break;
-            }
-        
-        //gameObject.SetActive(false);
-        PlayerController.instance.ConversationEnded();
+            eventAction.Execute();
         }
+        animator.SetTrigger("DialogueEnd");
+        controls.Disable();
+        PlayerController.instance.ConversationEnded();
         
     }
 }

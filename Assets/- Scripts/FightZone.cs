@@ -7,6 +7,7 @@ public class FightZone : MonoBehaviour
 {
     List<Ennemy> ennemies;
     int nbEnnemies;
+    public List<Event> events;
 
     void Start()
     {
@@ -42,6 +43,9 @@ public class FightZone : MonoBehaviour
     }
 
     void PlanetCleared() {
+        foreach (Event eventAction in events) {
+            eventAction.Execute();
+        }
         Debug.Log("FightZone cleared !!!!");
         GameManagement.nbPlanetsWEnnemies --;
     }

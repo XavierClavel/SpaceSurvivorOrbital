@@ -61,12 +61,7 @@ public class Planet : MonoBehaviour
 
     void PlanetCleared() {
         foreach (Event eventAction in events) {
-            if (eventAction.action == actionType.Translate || eventAction.action == actionType.TranslateAndRotate) {
-                eventAction.objectTransform.DOMove(eventAction.finalPosition, eventAction.duration);
-            }
-            if (eventAction.action == actionType.Rotate || eventAction.action == actionType.TranslateAndRotate) {
-                eventAction.objectTransform.DORotate(eventAction.finalRotation, eventAction.duration);
-            }
+            eventAction.Execute();
         }
         GameManagement.nbPlanetsWEnnemies --;
     }
