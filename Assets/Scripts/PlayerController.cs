@@ -76,12 +76,15 @@ public class PlayerController : MonoBehaviour
     int violetAmount = 0;
     int orangeAmount = 0;
     int greenAmount = 0;
+    const int requiredAmount = 10;
     [SerializeField] GameObject minerPrefab;
     bool rotateLeft = false;
     bool rotateRight = false;
     [SerializeField] Slider healthBar;
     const float maxHealth = 5;
     float _health = maxHealth;
+    [SerializeField] GameObject leaveBeam;
+    [SerializeField] GameObject canvas;
     float health
     {
         get { return _health; }
@@ -92,10 +95,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    bool playerControlled = true;
+
     public void IncreaseViolet()
     {
         violetAmount++;
         violetAmountDisplay.text = violetAmount.ToString();
+        if (violetAmount == requiredAmount) leaveBeam.SetActive(true);
     }
 
     public void IncreaseOrange()
@@ -320,7 +326,8 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
-        //gravity for paths
+        if (!playerControlled) return;
+
         rb.AddForce(-9.81f * groundNormal);
 
         // Apply movement to rigidbody
@@ -397,6 +404,32 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Ennemy")) health -= 1;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        switch (other.tag)
+        {
+            case "Beam":
+                controls.Disable();
+                StartCoroutine("LeavePlanet");
+                break;
+            case "Exit":
+                SceneManager.LoadScene("Level 2");
+                break;
+        }
+    }
+
+    IEnumerator LeavePlanet()
+    {
+        canvas.SetActive(false);
+        playerControlled = false;
+        rb.velocity = Vector3.zero;
+        while (true)
+        {
+            rb.AddForce(5 * leaveBeam.transform.forward);
+            yield return Helpers.GetWait(Time.fixedDeltaTime);
+        }
     }
 
 
