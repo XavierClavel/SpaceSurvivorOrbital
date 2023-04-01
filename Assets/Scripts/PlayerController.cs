@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 using MyBox;
 using TMPro;
+using UnityEngine.UI;
 
 //public class HeaderDrawer : DecoratorDrawer
 //{
@@ -78,6 +79,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject minerPrefab;
     bool rotateLeft = false;
     bool rotateRight = false;
+    [SerializeField] Slider healthBar;
+    const float maxHealth = 5;
+    float _health = maxHealth;
+    float health
+    {
+        get { return _health; }
+        set
+        {
+            _health = value;
+            healthBar.value = value;
+        }
+    }
 
     public void IncreaseViolet()
     {
@@ -160,6 +173,9 @@ public class PlayerController : MonoBehaviour
         //rotArrayX = new Vector3[0];
         //controlScheme = controlMode.Keyboard;
         cameraRB = Camera.main.GetComponent<Rigidbody>();
+
+        healthBar.maxValue = maxHealth;
+        healthBar.value = health;
     }
 
     IEnumerator Shooting()
@@ -376,6 +392,11 @@ public class PlayerController : MonoBehaviour
         Ray ray = new Ray(transform.position, -transform.up);
         RaycastHit hit;
         return Physics.Raycast(ray, out hit, 2f, groundedMask);
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Ennemy")) health -= 1;
     }
 
 
