@@ -12,7 +12,7 @@ public class Planet : MonoBehaviour
     [HideInInspector] public float size;
     [HideInInspector] public float mass = 10;
     public static Planet instance;
-    [SerializeField] GameObject ennemyPrefab;
+    [SerializeField] List<GameObject> ennemyPrefabs;
 
     private void Awake()
     {
@@ -38,7 +38,7 @@ public class Planet : MonoBehaviour
 
     void SpawnEnnemy()
     {
-
+        GameObject ennemyPrefab = ennemyPrefabs[Random.Range(0, ennemyPrefabs.Count)];
         Instantiate(ennemyPrefab, randomPos() * (size + 10f) + transform.position, Quaternion.identity);
     }
 

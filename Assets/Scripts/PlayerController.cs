@@ -336,8 +336,10 @@ public class PlayerController : MonoBehaviour
         Vector3 up = (transform.position - planetPos).normalized;
         Vector3 fwd = Vector3.ProjectOnPlane(localTransform.forward, up).normalized;
         localTransform.rotation = Quaternion.LookRotation(fwd, (localTransform.position - planetPos).normalized);
-        if (rotateRight) localTransform.Rotate(up, Time.fixedDeltaTime * 50f);
-        else if (rotateLeft) localTransform.Rotate(up, -Time.fixedDeltaTime * 50f);
+        //if (rotateRight) localTransform.Rotate(localTransform.up, Time.fixedDeltaTime * 50f, Space.Self);
+        //else if (rotateLeft) localTransform.Rotate(localTransform.up, -Time.fixedDeltaTime * 50f, Space.Self);
+        if (rotateRight) localTransform.RotateAround(localTransform.position, localTransform.up, 1f);
+        else if (rotateLeft) localTransform.RotateAround(localTransform.position, localTransform.up, -1f);
 
         Vector3 localMove = localTransform.TransformDirection(moveAmount * Time.fixedDeltaTime);
         rb.MovePosition(rb.position + localMove);
@@ -370,7 +372,7 @@ public class PlayerController : MonoBehaviour
         if (!canShoot) return;
         StartCoroutine("Reload");
         soundManager.PlaySfx(transform, sfx.shoot);
-        Bullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward, transform.rotation).GetComponentInChildren<Bullet>();
+        Bullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward * 0.3f, transform.rotation).GetComponentInChildren<Bullet>();
         bullet.axis = transform.right;
         bullet.planetPos = planetPos;
         bullet.radius = distance.magnitude - 0.5f;
