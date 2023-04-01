@@ -48,9 +48,9 @@ public class NamedArrayDrawer : PropertyDrawer {
 
 public class GamepadMenuHandler
 {
-    GameObject[] menuItems;
+    public GameObject[] menuItems;
     bool shouldLoop;
-    int index = 0;
+    public int index = 0;
     int lastIndex;
     public GamepadMenuHandler(GameObject[] menuItems, bool shouldLoop) {
         this.menuItems = menuItems;

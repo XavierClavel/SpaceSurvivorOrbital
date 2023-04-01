@@ -9,20 +9,20 @@ public class Bullet : MonoBehaviour
     [SerializeField] ParticleSystem bulletParticle;
     public Vector3 axis;
     public float radius;
-    public float rotationSpeed = 80.0f; 
-    [HideInInspector] public bool inGravityField;
+    public float rotationSpeed = 80.0f;
     float speed = 20f;
+    public float lifetime = 10f;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        if (!inGravityField) rb.velocity = speed * transform.forward;
-        else StartCoroutine(Orbit());
+        StartCoroutine(Orbit());
         StartCoroutine(DestroyTimer());
-        
+
     }
 
-    void OnCollisionEnter(Collision other) {
+    void OnCollisionEnter(Collision other)
+    {
         if (other.gameObject.CompareTag("Shield")) SoundManager.instance.PlaySfx(transform, sfx.bulletOnShield);
         else SoundManager.instance.PlaySfx(transform, sfx.bulletOnGround);
         ParticleSystem parSys = Instantiate(bulletParticle, transform.position, Quaternion.LookRotation(other.GetContact(0).normal, transform.up));
@@ -43,7 +43,7 @@ public class Bullet : MonoBehaviour
 
     IEnumerator DestroyTimer()  //Destroys bullet after 10 seconds
     {
-        yield return Helpers.GetWait(10f);
+        yield return Helpers.GetWait(lifetime);
         Destroy(gameObject);
     }
 }

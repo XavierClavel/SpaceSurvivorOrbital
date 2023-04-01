@@ -4,52 +4,9 @@ using System;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
-using UnityEditorInternal;
 
-/*
-[CustomEditor(typeof(SoundManager))]
-public class SoundEditor : Editor
+public enum sfx
 {
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-
-            var enum_names = System.Enum.GetNames(typeof(sfx));
-            //var enum_label = enum_names.GetValue(pos) as string;
-            serializedObject.Update();
-
-            
-            // Make names nicer to read (but won't exactly match enum definition).
-            SoundManager soundManager = (SoundManager)target;
-            int i = 0;
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("audioClips"));
-
-            foreach (sfxContainer container in soundManager.audioClips) {
-            // Make names nicer to read (but won't exactly match enum definition).
-            String enum_label = ObjectNames.NicifyVariableName(enum_names[i]);
-            GUILayout.Label(enum_label);
-            GUILayout.BeginHorizontal();
-
-            SerializedProperty specialProp = serializedObject.FindProperty($"audioClips[{i}]");
-            specialProp.floatValue = EditorGUILayout.FloatField(1f);
-
-            //container.volume = EditorGUILayout.Slider(1f, 0, 2);
-            //container.audioClip = (AudioClip)EditorGUILayout.ObjectField(container.audioClip, typeof(AudioClip));
-            //Debug.Log(container.audioClip);
-            GUILayout.EndHorizontal();
-            GUILayout.Space(10);
-            i ++;
-            }
-
-            serializedObject.ApplyModifiedProperties();
-
-    }
-}
-*/
-
-
-
-public enum sfx {
     jump,
     shoot,
     shieldUp,
@@ -71,7 +28,7 @@ public class SoundManager : MonoBehaviour
     float HighPitchRange = 1.1f;
     AudioClip sfxClip;
     List<clip> audioIds;
-    
+
 
     [Header("Audio Clips")]
     [SerializeField] AudioClip laserWarmUp;
@@ -92,7 +49,7 @@ public class SoundManager : MonoBehaviour
     bool laserSourcePlaying = false;
     static int SIZE = System.Enum.GetValues(typeof(sfx)).Length;
     //[NamedArray(typeof(sfx))] public AudioClip[] audioClips = new AudioClip[SIZE];
-    
+
     [HideInInspector] List<sfxContainer> controlGroup = new List<sfxContainer>();
     Dictionary<sfx, AudioClip> sfxDictionary;
     Dictionary<sfx, float> volumeDictionary;
@@ -100,7 +57,8 @@ public class SoundManager : MonoBehaviour
     [NamedArray(typeof(sfx))] public sfxContainer[] audioClips;// = new sfxContainer[SIZE];
     //public sfxContainer[] test;
 
-    sfxContainer CloneContainer(sfxContainer container) {
+    sfxContainer CloneContainer(sfxContainer container)
+    {
         return new sfxContainer(container.audioClip, container.volume);
     }
 
@@ -108,20 +66,24 @@ public class SoundManager : MonoBehaviour
     {
 
         int j = 0;
-        foreach(sfxContainer audioClip in audioClips) {
-            if(audioClip.audioClip == null) {
+        foreach (sfxContainer audioClip in audioClips)
+        {
+            if (audioClip.audioClip == null)
+            {
                 var tag = Enum.GetValues(typeof(sfx)).Cast<sfx>().ToList()[j];
                 Debug.LogWarning("Field " + tag + " is empty");
             }
-            j ++;
+            j++;
         }
 
-        if (controlGroup.Count != SIZE) {      //case where the control group is not initialized or enum was modified
+        if (controlGroup.Count != SIZE)
+        {      //case where the control group is not initialized or enum was modified
             j = 0;
             controlGroup.Clear();
-            foreach (sfxContainer container in audioClips) {
+            foreach (sfxContainer container in audioClips)
+            {
                 controlGroup.Add(CloneContainer(container));
-                j ++;
+                j++;
             }
         }
 
@@ -130,42 +92,51 @@ public class SoundManager : MonoBehaviour
             Array.Resize(ref audioClips, SIZE);
         }
 
-        else if (audioClips.Length < SIZE) {    //case where the user tries to decrement the list or enum was modified
+        else if (audioClips.Length < SIZE)
+        {    //case where the user tries to decrement the list or enum was modified
             Array.Resize(ref audioClips, SIZE);
-            for (int i = 0; i < controlGroup.Count; i ++) {     //we don't know which item was deleted, so we have to clone them all back
+            for (int i = 0; i < controlGroup.Count; i++)
+            {     //we don't know which item was deleted, so we have to clone them all back
                 audioClips[i] = CloneContainer(controlGroup[i]);
             }
         }
 
-        else {
+        else
+        {
             int nbDiff = 0;
             List<int> diffIndex = new List<int>();  //list of index where the control groups differs from the actual data
 
-            for (int i = 0; i < audioClips.Length; i ++) {     //we check every value to see which sfxElements where modified
-                if (!controlGroup[i].Equals(audioClips[i])){
-                    nbDiff ++;
+            for (int i = 0; i < audioClips.Length; i++)
+            {     //we check every value to see which sfxElements where modified
+                if (!controlGroup[i].Equals(audioClips[i]))
+                {
+                    nbDiff++;
                     diffIndex.Add(i);
                 }
             }
 
-            if (nbDiff > 1) {   //it is only possible to have more than 1 difference if the player swapped two values
+            if (nbDiff > 1)
+            {   //it is only possible to have more than 1 difference if the player swapped two values
 
-                foreach (int index in diffIndex) {      //in which case we change back both values
+                foreach (int index in diffIndex)
+                {      //in which case we change back both values
                     audioClips[index] = CloneContainer(controlGroup[index]);
                 }
             }
-            else if (nbDiff == 1) controlGroup[diffIndex[0]] = CloneContainer(audioClips[diffIndex[0]]);    
+            else if (nbDiff == 1) controlGroup[diffIndex[0]] = CloneContainer(audioClips[diffIndex[0]]);
             //if the player modified only one value, we update the control goup
         }
     }
 
     public static SoundManager instance;
 
-    struct clip{
+    struct clip
+    {
         public sfx type;
         public GameObject audio;
 
-        public clip(sfx type, GameObject audio) {    //Constructor
+        public clip(sfx type, GameObject audio)
+        {    //Constructor
             this.type = type;
             this.audio = audio;
         }
@@ -180,24 +151,26 @@ public class SoundManager : MonoBehaviour
 
         int i = 0;
         sfxDictionary = new Dictionary<sfx, AudioClip>();
-        foreach (sfx sfxElement in sfxList) {
+        foreach (sfx sfxElement in sfxList)
+        {
             sfxDictionary[sfxElement] = audioClips[i].audioClip;
             i++;
         }
 
         i = 0;
         volumeDictionary = new Dictionary<sfx, float>();
-        foreach (sfx sfxElement in sfxList) {
+        foreach (sfx sfxElement in sfxList)
+        {
             volumeDictionary[sfxElement] = audioClips[i].volume;
             i++;
         }
     }
-    
+
 
     void PlayMusic(AudioClip music)
     {
-       musicSource.clip = music;
-       musicSource.Play();
+        musicSource.clip = music;
+        musicSource.Play();
     }
 
     public void PlayLaser()
@@ -215,9 +188,12 @@ public class SoundManager : MonoBehaviour
         musicSource.Pause();
         laserSourcePlaying = laserSource.isPlaying;
         laserSource.Pause();
-        if (audioIds.Count > 0) {
-            foreach (clip audioId in audioIds) {
-                if (audioId.audio != null) {
+        if (audioIds.Count > 0)
+        {
+            foreach (clip audioId in audioIds)
+            {
+                if (audioId.audio != null)
+                {
                     audioId.audio.GetComponent<AudioSource>().Pause();
                 }
             }
@@ -228,9 +204,12 @@ public class SoundManager : MonoBehaviour
     {
         //MusicSource.Play();
         if (laserSourcePlaying) laserSource.Play();
-        if (audioIds.Count > 0) {
-            foreach (clip audioId in audioIds) {
-                if (audioId.audio != null) {
+        if (audioIds.Count > 0)
+        {
+            foreach (clip audioId in audioIds)
+            {
+                if (audioId.audio != null)
+                {
                     audioId.audio.GetComponent<AudioSource>().Play();
                 }
             }

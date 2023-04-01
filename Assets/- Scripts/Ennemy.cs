@@ -7,38 +7,36 @@ using System.Linq;
 public class Ennemy : MonoBehaviour
 {
 
-    [SerializeField] GameObject bulletPrefab; 
+    [SerializeField] GameObject bulletPrefab;
     PlayerController player;
     Planet planet;
     Vector3 planetPos;
     float radius;
-    [HideInInspector] public int nbTargets;
-    bool inGravityField;
     [SerializeField] float mean = 4f;
     [SerializeField] float standardDeviation = 1f;
-    bool hasProtection = false;
-    FightZone fightZone;
     SoundManager soundManager;
+    float health = 3f;
+    Rigidbody rb;
 
 
     void Start()
     {
         soundManager = SoundManager.instance;
-        List<Target> targets = GetComponentsInChildren<Target>().ToList();
-        nbTargets = targets.Count();
-        if (nbTargets > 0) hasProtection = true;
         player = PlayerController.instance;
+        rb = GetComponent<Rigidbody>();
+        FollowPlayer();
+        Initialize(Planet.instance);
     }
 
-    IEnumerator Follow()
+    private void FixedUpdate()
     {
-        WaitForSeconds waitFixedDelta = Helpers.GetWait(Time.fixedDeltaTime);
-        while (true) {
-            Vector3 distance = player.transform.position - transform.position;
-            Vector3 projectedDistance = Vector3.ProjectOnPlane(distance, transform.up);
-            transform.DOLocalRotate(Quaternion.LookRotation(projectedDistance, transform.up).eulerAngles, Time.fixedDeltaTime);
-            yield return waitFixedDelta;
-        }
+        Vector3 distance = player.transform.position - transform.position;
+        Vector3 up = (transform.position - planetPos).normalized;
+        Vector3 projectedDistance = Vector3.ProjectOnPlane(distance, up).normalized;
+        transform.rotation = Quaternion.LookRotation(projectedDistance, up);
+        rb.MovePosition(rb.position + projectedDistance * Time.fixedDeltaTime * 2f);
+
+        rb.AddForce(-9.81f * up);
     }
 
     void Shoot()
@@ -48,58 +46,44 @@ public class Ennemy : MonoBehaviour
         bullet.axis = transform.right;
         bullet.planetPos = planetPos;
         bullet.radius = radius;
-        bullet.inGravityField = inGravityField;
     }
 
-    public void Initialize(Planet basePlanet) {
+    public void Initialize(Planet basePlanet)
+    {
         planet = basePlanet;
         planetPos = planet.position;
         radius = (planetPos - transform.position).magnitude;
-        inGravityField = true;
     }
 
-    public void InitializeFZ(FightZone baseFightZone) {
-        inGravityField = false;
-        mean = 1.5f;
-        standardDeviation = 0.5f;
-        fightZone = baseFightZone;
-    }
-
-    IEnumerator WaitAndShoot() {
-        while (true) {
-            yield return new WaitForSeconds(mean + Random.Range(- standardDeviation, standardDeviation));
-            Shoot();
+    IEnumerator WaitAndShoot()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(mean + Random.Range(-standardDeviation, standardDeviation));
+            //Shoot();
         }
     }
 
-    public void FollowPlayer() 
+    public void FollowPlayer()
     {
-        StartCoroutine("Follow");
         StartCoroutine("WaitAndShoot");
     }
 
-    public void StopFollowingPlayer() 
+
+    private void OnCollisionEnter(Collision other)
     {
-        StopAllCoroutines();
-    }
-
-    public void TargetHit() {
-        nbTargets --;
-        if (nbTargets == 0) hasProtection = false;
-    }
-
-    private void OnCollisionEnter(Collision other) {
-        Debug.Log(other.gameObject.name);
-        if (other.gameObject.CompareTag("BlueBullet") && !hasProtection) {
-            Death();
+        if (other.gameObject.CompareTag("BlueBullet"))
+        {
+            health -= 1f;
+            if (health <= 0) Death();
         }
     }
 
-    void Death() {
+    void Death()
+    {
         soundManager.PlaySfx(transform, sfx.ennemyExplosion);
-        if (inGravityField) planet.EnnemyKilled(this);
-        else fightZone.EnnemyKilled(this);
+        Destroy(gameObject);
     }
 
-    
+
 }
