@@ -7,27 +7,16 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    enum items {Resume, MainMenu, Quit};
     [SerializeField] GameObject pauseMenu;
     public static PauseMenu instance;
     public static bool canGameBePaused = true;
-    [NamedArray(typeof(items))] [SerializeField] GameObject[] menuItems;
-    [HideInInspector] public InputMaster controls;
-    [SerializeField] GameObject talkPanel;
-    bool talkPanelActive;
-    GamepadMenuHandler menuHandler;
+    InputMaster controls;
 
     void Awake()
     {
         instance = this;
-        menuHandler = new GamepadMenuHandler(menuItems, true);
-
         controls = new InputMaster();
-        controls.PauseMenu.NavigateDown.performed += context => menuHandler.NavigateDown();
-        controls.PauseMenu.NavigateUp.performed += context => menuHandler.NavigateUp();
-        controls.PauseMenu.Validate.performed += context => menuHandler.Validate();
-        controls.PauseMenu.Pause.performed += context => ResumeGame();
-        controls.Disable();
+        controls.Player.Pause.performed += ctx => ResumeGame();
     }
 
     public void PauseGame()
@@ -37,19 +26,16 @@ public class PauseMenu : MonoBehaviour
 
         pauseMenu.SetActive(true);
 
-        talkPanelActive = talkPanel.activeInHierarchy;
-        if (talkPanelActive) talkPanel.SetActive(false);
-
         PlayerController.instance.controls.Disable();
         controls.Enable();
 
-        menuHandler.Reset();
         SoundManager.instance.StopTime();
 
-        if (PlayerController.instance.controlScheme == PlayerController.controlMode.Keyboard) {
+        if (PlayerController.instance.controlScheme == PlayerController.controlMode.Keyboard)
+        {
             Cursor.lockState = CursorLockMode.None;
         }
-        
+
     }
 
     public void ResumeGame()
@@ -59,7 +45,6 @@ public class PauseMenu : MonoBehaviour
 
         pauseMenu.SetActive(false);
 
-        if (talkPanelActive) talkPanel.SetActive(true);
         Cursor.lockState = CursorLockMode.Locked;
 
         controls.PauseMenu.Disable();

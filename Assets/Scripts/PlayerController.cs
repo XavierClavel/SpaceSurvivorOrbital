@@ -165,7 +165,7 @@ public class PlayerController : MonoBehaviour
         controls.Player.Reload.performed += context => Restart();
         controls.Player.Run.canceled += context => Run();
         controls.Player.Run.canceled += context => Walk();
-        //controls.Player.Pause.performed += context => PauseMenu.instance.PauseGame();
+        controls.Player.Pause.performed += context => PauseMenu.instance.PauseGame();
 
         controls.Player.RotateLeft.started += ctx =>
         {
