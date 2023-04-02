@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
     float moveY;
     SoundManager soundManager;
     [SerializeField] Planet planet;
-    [SerializeField] Transform localTransform;
+    public Transform localTransform;
     float cameraOffset_fwd;
     float cameraOffset_up;
     Vector2 prevInput = Vector2.up;
@@ -96,6 +96,7 @@ public class PlayerController : MonoBehaviour
             if (value <= 0) Death();
         }
     }
+    const float rotateSpeed = 1.5f;
 
     bool playerControlled = true;
 
@@ -234,7 +235,7 @@ public class PlayerController : MonoBehaviour
         planetMass = planet.mass;
 
         Vector3 cameraOffset = cameraRB.position - transform.position;
-        cameraOffset_fwd = cameraOffset.x;
+        cameraOffset_fwd = cameraOffset.z;
         cameraOffset_up = cameraOffset.y;
     }
 
@@ -349,14 +350,14 @@ public class PlayerController : MonoBehaviour
         localTransform.rotation = Quaternion.LookRotation(fwd, (localTransform.position - planetPos).normalized);
         //if (rotateRight) localTransform.Rotate(localTransform.up, Time.fixedDeltaTime * 50f, Space.Self);
         //else if (rotateLeft) localTransform.Rotate(localTransform.up, -Time.fixedDeltaTime * 50f, Space.Self);
-        if (rotateRight) localTransform.RotateAround(localTransform.position, localTransform.up, 1f);
-        else if (rotateLeft) localTransform.RotateAround(localTransform.position, localTransform.up, -1f);
+        if (rotateRight) localTransform.RotateAround(localTransform.position, localTransform.up, rotateSpeed);
+        else if (rotateLeft) localTransform.RotateAround(localTransform.position, localTransform.up, -rotateSpeed);
 
         Vector3 localMove = localTransform.TransformDirection(moveAmount * Time.fixedDeltaTime);
         rb.MovePosition(rb.position + localMove);
         //cameraRB.MovePosition(Vector3.Normalize(cameraRB.position + localMove - planetPos) * 50f + planetPos);
         //Debug.Log(transform.position + (cameraOffset_fwd * localTransform.forward) + (cameraOffset_up * localTransform.up));
-        cameraRB.transform.position = transform.position - fwd * 7f + up * 6f;
+        cameraRB.transform.position = transform.position + fwd * cameraOffset_fwd + up * cameraOffset_up;
 
 
     }
@@ -394,10 +395,11 @@ public class PlayerController : MonoBehaviour
         if (!canMine) return;
         StartCoroutine("ReloadMining");
         soundManager.PlaySfx(transform, sfx.shoot);
-        Bullet bullet = Instantiate(minerPrefab, transform.position + transform.forward, transform.rotation).GetComponentInChildren<Bullet>();
+        Bullet bullet = Instantiate(minerPrefab, transform.position + transform.forward * 0.3f, transform.rotation).GetComponentInChildren<Bullet>();
         bullet.axis = transform.right;
         bullet.planetPos = planetPos;
-        bullet.radius = distance.magnitude;
+        bullet.radius = distance.magnitude - 0.5f;
+        bullet.lifetime = 0.2f;
     }
 
     void Restart()
@@ -455,10 +457,11 @@ public class PlayerController : MonoBehaviour
         canvas.SetActive(false);
         playerControlled = false;
         rb.velocity = Vector3.zero;
+        WaitForFixedUpdate wait = new WaitForFixedUpdate();
         while (true)
         {
             rb.AddForce(5 * leaveBeam.transform.forward);
-            yield return Helpers.GetWait(Time.fixedDeltaTime);
+            yield return wait;
         }
     }
 

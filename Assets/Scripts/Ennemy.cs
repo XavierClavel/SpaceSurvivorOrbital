@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-using System.Linq;
+using UnityEngine.UI;
 
 public class Ennemy : MonoBehaviour
 {
@@ -15,11 +14,13 @@ public class Ennemy : MonoBehaviour
     [SerializeField] float mean = 4f;
     [SerializeField] float standardDeviation = 1f;
     SoundManager soundManager;
-    float health = 3f;
+    float health = 2f;
     Rigidbody rb;
     Transform cameraTransform;
     [SerializeField] Transform spriteTransform;
+    [SerializeField] Image sprite;
     const float hurtWindow = 0.5f;
+    float speed = 4f;
 
 
     void Start()
@@ -37,9 +38,18 @@ public class Ennemy : MonoBehaviour
         Vector3 distance = player.transform.position - transform.position;
         Vector3 up = (transform.position - planetPos).normalized;
         Vector3 projectedDistance = Vector3.ProjectOnPlane(distance, up).normalized;
+        Vector3 fixedUp = up;
+        float dotProduct = Vector3.Dot(projectedDistance, player.localTransform.forward);
+        if (dotProduct > 0)
+        {
+            //dotProduct = Mathf.Pow(dotProduct, 2);
+            fixedUp = Vector3.Slerp(up, cameraTransform.up, dotProduct);//Vector3.Reflect(up, player.transform.up);
+            //sprite.color = Color.Lerp(Color.white, Color.red, dotProduct);
+        }
+        //else sprite.color = Color.white;
         transform.rotation = Quaternion.LookRotation(projectedDistance, up);
-        spriteTransform.LookAt(cameraTransform, cameraTransform.up);
-        rb.MovePosition(rb.position + projectedDistance * Time.fixedDeltaTime * 2f);
+        spriteTransform.LookAt(cameraTransform, fixedUp);
+        rb.MovePosition(rb.position + projectedDistance * Time.fixedDeltaTime * speed);
 
         rb.AddForce(-9.81f * up);
     }

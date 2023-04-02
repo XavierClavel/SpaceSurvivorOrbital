@@ -13,6 +13,8 @@ public class Planet : MonoBehaviour
     [HideInInspector] public float mass = 10;
     public static Planet instance;
     [SerializeField] List<GameObject> ennemyPrefabs;
+    float spawnRate = 4f;
+    Transform playerTransform;
 
     private void Awake()
     {
@@ -20,10 +22,24 @@ public class Planet : MonoBehaviour
         gravityRadius = GetComponent<SphereCollider>().radius;
         size = GetComponentInChildren<SphereCollider>().radius;
         instance = this;
+        StartCoroutine("SpawnController");
+    }
+
+    IEnumerator SpawnController()
+    {
+        yield return Helpers.GetWait(20f);
+        spawnRate = 2.5f;
+        yield return Helpers.GetWait(20f);
+        spawnRate = 1.5f;
+        yield return Helpers.GetWait(20f);
+        spawnRate = 1.25f;
+        yield return Helpers.GetWait(20f);
+        spawnRate = 1f;
     }
 
     void Start()
     {
+        playerTransform = PlayerController.instance.transform;
         StartCoroutine("SpawnEnnemies");
     }
 
@@ -31,7 +47,7 @@ public class Planet : MonoBehaviour
     {
         while (true)
         {
-            yield return Helpers.GetWait(5f);
+            yield return Helpers.GetWait(spawnRate);
             SpawnEnnemy();
         }
     }
@@ -39,12 +55,15 @@ public class Planet : MonoBehaviour
     void SpawnEnnemy()
     {
         GameObject ennemyPrefab = ennemyPrefabs[Random.Range(0, ennemyPrefabs.Count)];
-        Instantiate(ennemyPrefab, randomPos() * (size + 10f) + transform.position, Quaternion.identity);
+        Instantiate(ennemyPrefab, randomPos() + transform.position, Quaternion.identity);
     }
 
     Vector3 randomPos()
     {
-        return (new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f))).normalized;
+        //return (new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f))).normalized;
+        float signA = Random.Range(0, 2) * 2 - 1;
+        float signB = Random.Range(0, 2) * 2 - 1;
+        return signA * Random.Range(10f, 20f) * playerTransform.forward + signB * Random.Range(10f, 20f) * playerTransform.right + 10f * playerTransform.up;
     }
 
 
