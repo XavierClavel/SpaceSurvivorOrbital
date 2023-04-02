@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject leaveBeam;
     [SerializeField] GameObject canvas;
     [SerializeField] LineRenderer line;
+    [SerializeField] GameObject arrow;
     public float health
     {
         get { return _health; }
@@ -254,7 +255,7 @@ public class PlayerController : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         cameraRB.transform.LookAt(transform, transform.up);
 
-        GenerateLine();
+        //GenerateLine();
     }
 
     void Move()
@@ -296,12 +297,12 @@ public class PlayerController : MonoBehaviour
             if (input == Vector2.zero)
             {
                 input = prevInput;
-                line.gameObject.SetActive(false);
+                arrow.SetActive(false);
             }
             else
             {
                 prevInput = input;
-                line.gameObject.SetActive(true);
+                arrow.SetActive(true);
             }
 
             Vector3 localLook = localTransform.TransformVector(new Vector3(input.x, 0f, input.y));
