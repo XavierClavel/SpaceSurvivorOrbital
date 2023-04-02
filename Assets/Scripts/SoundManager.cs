@@ -9,15 +9,10 @@ public enum sfx
 {
     jump,
     shoot,
-    shieldUp,
-    shieldDown,
-    bulletOnShield,
     bulletOnGround,
     ennemyExplosion,
-    ennemyShoots,
-    gravitySwitch,
-    laserWarmUp,
     playerHit,
+    breakResource
 };
 
 public class SoundManager : MonoBehaviour
@@ -43,7 +38,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip gravitySwitch;
 
     [Header("Audio Sources")]
-    [SerializeField] AudioSource laserSource;
     [SerializeField] AudioSource musicSource;
     float volume;
     bool laserSourcePlaying = false;
@@ -173,21 +167,9 @@ public class SoundManager : MonoBehaviour
         musicSource.Play();
     }
 
-    public void PlayLaser()
-    {
-        laserSource.Play();
-    }
-
-    public void StopLaser()
-    {
-        laserSource.Stop();
-    }
-
     public void StopTime()
     {
         musicSource.Pause();
-        laserSourcePlaying = laserSource.isPlaying;
-        laserSource.Pause();
         if (audioIds.Count > 0)
         {
             foreach (clip audioId in audioIds)
@@ -203,7 +185,6 @@ public class SoundManager : MonoBehaviour
     public void ResumeTime()
     {
         //MusicSource.Play();
-        if (laserSourcePlaying) laserSource.Play();
         if (audioIds.Count > 0)
         {
             foreach (clip audioId in audioIds)

@@ -21,6 +21,7 @@ public class Resource : MonoBehaviour
 
     void Break()
     {
+        SoundManager.instance.PlaySfx(transform, sfx.breakResource);
         switch (resourceType)
         {
             case type.violet:

@@ -59,7 +59,7 @@ public class Ennemy : MonoBehaviour
 
     void Shoot()
     {
-        soundManager.PlaySfx(transform, sfx.ennemyShoots);
+        //soundManager.PlaySfx(transform, sfx.ennemyShoots);
         Bullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward, transform.rotation).GetComponentInChildren<Bullet>();
         bullet.axis = transform.right;
         bullet.planetPos = planetPos;

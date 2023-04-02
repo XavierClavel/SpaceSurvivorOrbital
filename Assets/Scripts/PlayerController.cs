@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour
         {
             _health = value;
             healthBar.value = value;
+            SoundManager.instance.PlaySfx(transform, sfx.playerHit);
             if (value <= 0) Death();
         }
     }
