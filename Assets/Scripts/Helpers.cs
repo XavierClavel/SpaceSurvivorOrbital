@@ -68,6 +68,7 @@ public class Helpers : MonoBehaviour
     static readonly Dictionary<float, WaitForSeconds> waitDictionary = new Dictionary<float, WaitForSeconds>();
     static readonly Dictionary<float, WaitForSecondsRealtime> waitDictionaryRealtime = new Dictionary<float, WaitForSecondsRealtime>();
     public static readonly WaitForEndOfFrame GetWaitFrame = new WaitForEndOfFrame();
+    public static readonly WaitForFixedUpdate GetWaitFixed = new WaitForFixedUpdate();
     public static Helpers instance;
 
     void Awake()

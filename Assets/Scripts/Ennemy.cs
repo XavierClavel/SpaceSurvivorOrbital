@@ -15,40 +15,43 @@ public class Ennemy : MonoBehaviour
     [SerializeField] float standardDeviation = 1f;
     SoundManager soundManager;
     float health = 2f;
-    Rigidbody rb;
+    [SerializeField] Rigidbody rb;
     Transform cameraTransform;
     [SerializeField] Transform spriteTransform;
     [SerializeField] Image sprite;
     const float hurtWindow = 0.5f;
     float speed = 4f;
+    Vector3 distance;
+    Vector3 up;
+    Vector3 projectedDistance;
+    Vector3 correctedUp;
+    float dotProduct;
 
 
     void Start()
     {
         soundManager = SoundManager.instance;
         player = PlayerController.instance;
-        rb = GetComponent<Rigidbody>();
-        FollowPlayer();
         Initialize(Planet.instance);
         cameraTransform = Camera.main.transform;
     }
 
     private void FixedUpdate()
     {
-        Vector3 distance = player.transform.position - transform.position;
-        Vector3 up = (transform.position - planetPos).normalized;
-        Vector3 projectedDistance = Vector3.ProjectOnPlane(distance, up).normalized;
-        Vector3 fixedUp = up;
-        float dotProduct = Vector3.Dot(projectedDistance, player.localTransform.forward);
+        distance = player.transform.position - transform.position;
+        up = (transform.position - planetPos).normalized;
+        projectedDistance = Vector3.ProjectOnPlane(distance, up).normalized;
+        correctedUp = up;
+        dotProduct = Vector3.Dot(projectedDistance, player.localTransform.forward);
         if (dotProduct > 0)
         {
             //dotProduct = Mathf.Pow(dotProduct, 2);
-            fixedUp = Vector3.Slerp(up, cameraTransform.up, dotProduct);//Vector3.Reflect(up, player.transform.up);
+            correctedUp = Vector3.Slerp(up, cameraTransform.up, dotProduct);//Vector3.Reflect(up, player.transform.up);
             //sprite.color = Color.Lerp(Color.white, Color.red, dotProduct);
         }
         //else sprite.color = Color.white;
         transform.rotation = Quaternion.LookRotation(projectedDistance, up);
-        spriteTransform.LookAt(cameraTransform, fixedUp);
+        spriteTransform.LookAt(cameraTransform, correctedUp);
         rb.MovePosition(rb.position + projectedDistance * Time.fixedDeltaTime * speed);
 
         rb.AddForce(-9.81f * up);
@@ -69,21 +72,6 @@ public class Ennemy : MonoBehaviour
         planetPos = planet.position;
         radius = (planetPos - transform.position).magnitude;
     }
-
-    IEnumerator WaitAndShoot()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(mean + Random.Range(-standardDeviation, standardDeviation));
-            //Shoot();
-        }
-    }
-
-    public void FollowPlayer()
-    {
-        StartCoroutine("WaitAndShoot");
-    }
-
 
     private void OnCollisionEnter(Collision other)
     {

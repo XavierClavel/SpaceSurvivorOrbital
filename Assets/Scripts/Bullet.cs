@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    Rigidbody rb;
     [HideInInspector] public Vector3 planetPos;
     [SerializeField] ParticleSystem bulletParticle;
-    public Vector3 axis;
-    public float radius;
+    [HideInInspector] public Vector3 axis;
+    [HideInInspector] public float radius;
+    [Header("Properties")]
     public float rotationSpeed = 80.0f;
-    float speed = 20f;
     public float lifetime = 10f;
+    public int pierce = 0;
+    int currentPierce = 0;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
         StartCoroutine(Orbit());
         StartCoroutine(DestroyTimer());
 
@@ -23,12 +23,17 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Shield")) SoundManager.instance.PlaySfx(transform, sfx.bulletOnShield);
-        else SoundManager.instance.PlaySfx(transform, sfx.bulletOnGround);
+        SoundManager.instance.PlaySfx(transform, sfx.bulletOnGround);
         ParticleSystem parSys = Instantiate(bulletParticle, transform.position, Quaternion.LookRotation(other.GetContact(0).normal, transform.up));
         parSys.Play();
         Helpers.instance.WaitAndKill(0.5f, parSys.gameObject);
-        Destroy(gameObject);
+        Debug.Log("collision");
+
+        if (currentPierce == pierce)
+        {
+            Destroy(gameObject);
+        }
+        else currentPierce++;
     }
 
     IEnumerator Orbit()

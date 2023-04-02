@@ -337,7 +337,6 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-
         if (!playerControlled) return;
 
         rb.AddForce(-9.81f * groundNormal);
@@ -425,7 +424,7 @@ public class PlayerController : MonoBehaviour
         float radius = (planetPos - transform.position).magnitude;
         float angle = angle = 4f;
 
-        for (int j = 0; j <= 1 + segments * 0.25; j++)
+        for (int j = 0; j <= 1 + segments * 0.20; j++)
         {
             x = Mathf.Sin(Mathf.Deg2Rad * angle) * radius;
             y = Mathf.Cos(Mathf.Deg2Rad * angle) * radius;
@@ -457,7 +456,7 @@ public class PlayerController : MonoBehaviour
         canvas.SetActive(false);
         playerControlled = false;
         rb.velocity = Vector3.zero;
-        WaitForFixedUpdate wait = new WaitForFixedUpdate();
+        WaitForFixedUpdate wait = Helpers.GetWaitFixed;
         while (true)
         {
             rb.AddForce(5 * leaveBeam.transform.forward);
@@ -467,6 +466,7 @@ public class PlayerController : MonoBehaviour
 
     void Death()
     {
+        controls.Disable();
         Restart();
     }
 
