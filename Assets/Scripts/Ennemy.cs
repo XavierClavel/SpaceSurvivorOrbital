@@ -17,6 +17,9 @@ public class Ennemy : MonoBehaviour
     SoundManager soundManager;
     float health = 3f;
     Rigidbody rb;
+    Transform cameraTransform;
+    [SerializeField] Transform spriteTransform;
+    const float hurtWindow = 0.5f;
 
 
     void Start()
@@ -26,6 +29,7 @@ public class Ennemy : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         FollowPlayer();
         Initialize(Planet.instance);
+        cameraTransform = Camera.main.transform;
     }
 
     private void FixedUpdate()
@@ -34,6 +38,7 @@ public class Ennemy : MonoBehaviour
         Vector3 up = (transform.position - planetPos).normalized;
         Vector3 projectedDistance = Vector3.ProjectOnPlane(distance, up).normalized;
         transform.rotation = Quaternion.LookRotation(projectedDistance, up);
+        spriteTransform.LookAt(cameraTransform, cameraTransform.up);
         rb.MovePosition(rb.position + projectedDistance * Time.fixedDeltaTime * 2f);
 
         rb.AddForce(-9.81f * up);
@@ -76,6 +81,26 @@ public class Ennemy : MonoBehaviour
         {
             health -= 1f;
             if (health <= 0) Death();
+        }
+        else if (other.gameObject.CompareTag("Player"))
+        {
+            PlayerController.instance.health -= 1;
+            StartCoroutine("Hurt");
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player")) StopCoroutine("Hurt");
+    }
+
+    IEnumerator Hurt()
+    {
+        WaitForSeconds wait = Helpers.GetWait(hurtWindow);
+        while (true)
+        {
+            yield return wait;
+            PlayerController.instance.health -= 1;
         }
     }
 

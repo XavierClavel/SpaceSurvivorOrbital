@@ -85,13 +85,15 @@ public class PlayerController : MonoBehaviour
     float _health = maxHealth;
     [SerializeField] GameObject leaveBeam;
     [SerializeField] GameObject canvas;
-    float health
+    [SerializeField] LineRenderer line;
+    public float health
     {
         get { return _health; }
         set
         {
             _health = value;
             healthBar.value = value;
+            if (value <= 0) Death();
         }
     }
 
@@ -251,6 +253,7 @@ public class PlayerController : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         cameraRB.transform.LookAt(transform, transform.up);
 
+        GenerateLine();
     }
 
     void Move()
@@ -289,8 +292,16 @@ public class PlayerController : MonoBehaviour
             inputY = Gamepad.current.rightStick.y.ReadValue() * 10f;
             Vector2 input = controls.Player.Rotate.ReadValue<Vector2>();
 
-            if (input == Vector2.zero) input = prevInput;
-            else prevInput = input;
+            if (input == Vector2.zero)
+            {
+                input = prevInput;
+                line.gameObject.SetActive(false);
+            }
+            else
+            {
+                prevInput = input;
+                line.gameObject.SetActive(true);
+            }
 
             Vector3 localLook = localTransform.TransformVector(new Vector3(input.x, 0f, input.y));
             transform.rotation = Quaternion.LookRotation(localLook, -(planetPos - transform.position).normalized);
@@ -403,9 +414,26 @@ public class PlayerController : MonoBehaviour
         return Physics.Raycast(ray, out hit, 2f, groundedMask);
     }
 
-    private void OnCollisionEnter(Collision other)
+    void GenerateLine()
     {
-        if (other.gameObject.CompareTag("Ennemy")) health -= 1;
+        float x;
+        float y;
+        int segments = 200;
+        line.positionCount = 2 + segments;
+        float radius = (planetPos - transform.position).magnitude;
+        float angle = angle = 4f;
+
+        for (int j = 0; j <= 1 + segments * 0.25; j++)
+        {
+            x = Mathf.Sin(Mathf.Deg2Rad * angle) * radius;
+            y = Mathf.Cos(Mathf.Deg2Rad * angle) * radius;
+
+
+
+            line.SetPosition(j, planetPos + x * transform.forward + y * transform.up);
+
+            angle += (360f / segments);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -432,6 +460,11 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(5 * leaveBeam.transform.forward);
             yield return Helpers.GetWait(Time.fixedDeltaTime);
         }
+    }
+
+    void Death()
+    {
+        Restart();
     }
 
 
