@@ -8,32 +8,66 @@ using MyBox;
 using TMPro;
 using UnityEngine.UI;
 
-//public class HeaderDrawer : DecoratorDrawer
-//{
+public enum playerState { idle, walking, shooting, mining };
+public enum playerDirection { front, left, back, right };
 
-//}
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Parameters")]
     public float mouseSensitivityX = 1;
     public float mouseSensitivityY = 1;
-    public float walkSpeed = 6;
     public float jumpForce = 500;
     public controlMode controlScheme = controlMode.Keyboard;
     [Separator("test", true)]
 
     //[Header("References")]
     [SerializeField] LayerMask groundedMask;
-    [SerializeField] GameObject bulletPrefab;
-    [SerializeField] GameObject shield;
-    //public variables
-    [HideInInspector] public bool hasBullet = true;
+    public GameObject bulletPrefab;
     public static PlayerController instance;
-    [HideInInspector] public bool shieldUp = false;
     [HideInInspector] public InputMaster controls;
     //Vector2 direction;
     public enum controlMode { Keyboard, Gamepad };
+
+    public playerState _playerState_value = playerState.idle;
+    public playerState _playerState
+    {
+        get
+        {
+            return _playerState_value;
+        }
+        set
+        {
+            if (_playerState_value == value) return;
+            _playerState_value = value;
+            animator.SetInteger("state", (int)value);
+        }
+    }
+    playerDirection _aimDirection_value = playerDirection.front;
+    public playerDirection _aimDirection
+    {
+        get
+        {
+            return _aimDirection_value;
+        }
+        set
+        {
+            if (_aimDirection_value == value) return;
+            _aimDirection_value = value;
+            animator.SetInteger("aimDirection", (int)value);
+        }
+    }
+
+    playerDirection _walkDirection_value = playerDirection.front;
+    playerDirection _walkDirection
+    {
+        set
+        {
+            if (_walkDirection_value == value) return;
+            _walkDirection_value = value;
+            animator.SetInteger("walkDirection", (int)value);
+        }
+    }
 
 
     //Local variables
@@ -43,17 +77,18 @@ public class PlayerController : MonoBehaviour
     float planetSize;
     float planetMass;
     CharacterController characterController;
-    float runSpeed = 10;
-    float speed;
+    float speed = runSpeed;
+    const float runSpeed = 6f;
+    const float shootSpeed = 3f;
     Vector3 moveAmount;
     Vector3 smoothMoveVelocity;
     float verticalLookRotation;
     Transform cameraTransform;
-    bool groundContact = true;
     Vector3 groundNormal = Vector3.up;
     Vector3 distance;
     float inputX;
-    float inputY; Vector3 targetMoveAmount;
+    float inputY;
+    Vector3 targetMoveAmount;
     Rigidbody cameraRB;
     Vector2 targetMouseDelta;
     float moveX;
@@ -69,6 +104,8 @@ public class PlayerController : MonoBehaviour
     WaitForSeconds reloadWindow = new WaitForSeconds(0.4f);
     bool canShoot = true;
     bool canMine = true;
+    bool mining = false;
+    bool shooting = false;
 
     [SerializeField] TextMeshProUGUI violetAmountDisplay;
     [SerializeField] TextMeshProUGUI orangeAmountDisplay;
@@ -81,12 +118,23 @@ public class PlayerController : MonoBehaviour
     bool rotateLeft = false;
     bool rotateRight = false;
     [SerializeField] Slider healthBar;
-    const float maxHealth = 5;
     float _health = maxHealth;
     [SerializeField] GameObject leaveBeam;
     [SerializeField] GameObject canvas;
     [SerializeField] LineRenderer line;
     [SerializeField] GameObject arrow;
+    [SerializeField] Animator animator;
+    [HideInInspector] public bool hasWon = false;
+
+    [Header("Parameters")]
+    static float baseDamage = 1f;
+    const float maxHealth = 100;
+    float damageResistanceMultiplier = 0f;
+    float criticalChance = 0.2f;    //between 0 and 1
+    float criticalMultiplier = 2f;  //superior to 1
+    int pierce = 0;
+    float toolPower = 1f;
+    float toolRange;
     public float health
     {
         get { return _health; }
@@ -102,11 +150,27 @@ public class PlayerController : MonoBehaviour
 
     bool playerControlled = true;
 
+    #region interface
+    public void Hurt(float amount)
+    {
+        health -= amount * (1 - damageResistanceMultiplier);
+    }
+
+    public static float HurtEnnemy()
+    {
+        return baseDamage * (Random.Range(0f, 1f) < instance.criticalChance ? instance.criticalMultiplier : 1f);
+    }
+
+    public static float DamageResource()
+    {
+        return instance.toolPower;
+    }
+
     public void IncreaseViolet()
     {
         violetAmount++;
         violetAmountDisplay.text = violetAmount.ToString();
-        if (violetAmount == requiredAmount) leaveBeam.SetActive(true);
+        if (violetAmount >= requiredAmount) leaveBeam.SetActive(true);
     }
 
     public void IncreaseOrange()
@@ -120,6 +184,8 @@ public class PlayerController : MonoBehaviour
         greenAmount++;
         greenAmountDisplay.text = greenAmount.ToString();
     }
+
+    #endregion
 
     void OnEnable()
     {
@@ -137,34 +203,37 @@ public class PlayerController : MonoBehaviour
         controls = new InputMaster();
         controls.Player.Shoot.started += ctx =>
         {
+            shooting = true;
+            speed = shootSpeed;
             StartCoroutine("Shooting");
             StopCoroutine("Mining");
             StartCoroutine("ReloadMining");
         };
         controls.Player.Shoot.canceled += ctx =>
         {
+            shooting = false;
+            speed = runSpeed;
             StopCoroutine("Shooting");
             StartCoroutine("Reload");
         };
 
         controls.Player.Mine.started += ctx =>
         {
+            mining = true;
             StartCoroutine("Mining");
             StopCoroutine("Shooting");
             StartCoroutine("Reload");
         };
         controls.Player.Mine.canceled += ctx =>
         {
+            mining = false;
             StopCoroutine("Mining");
             StartCoroutine("Reload");
         };
 
         controls.Player.Shoot.performed += context => Shoot();
         controls.Player.Mine.performed += ctx => Mine();
-        controls.Player.Jump.performed += context => Jump();
         controls.Player.Reload.performed += context => Restart();
-        controls.Player.Run.canceled += context => Run();
-        controls.Player.Run.canceled += context => Walk();
         controls.Player.Pause.performed += context => PauseMenu.instance.PauseGame();
 
         controls.Player.RotateLeft.started += ctx =>
@@ -227,7 +296,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         characterController = GetComponent<CharacterController>();
         cameraTransform = Camera.main.transform;
-        speed = walkSpeed;
         soundManager = SoundManager.instance;
         //Application.targetFrameRate = -1;
         //QualitySettings.vSyncCount = 0;
@@ -291,8 +359,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            inputX = Gamepad.current.rightStick.x.ReadValue() * 10f;
-            inputY = Gamepad.current.rightStick.y.ReadValue() * 10f;
             Vector2 input = controls.Player.Rotate.ReadValue<Vector2>();
 
             if (input == Vector2.zero)
@@ -308,6 +374,7 @@ public class PlayerController : MonoBehaviour
 
             Vector3 localLook = localTransform.TransformVector(new Vector3(input.x, 0f, input.y));
             transform.rotation = Quaternion.LookRotation(localLook, -(planetPos - transform.position).normalized);
+            _aimDirection = angleToDirection(transform.eulerAngles.y);
         }
         //targetMouseDelta = Mouse.current.delta.ReadValue();
 
@@ -336,6 +403,23 @@ public class PlayerController : MonoBehaviour
         //cameraTransform.localEulerAngles = Vector3.left * verticalLookRotation;*/
     }
 
+    playerDirection angleToDirection(float angle)
+    {
+        switch (angle)
+        {
+            case > 315f:
+                return playerDirection.back;
+            case > 225f:
+                return playerDirection.left;
+            case > 135f:
+                return playerDirection.front;
+            case > 45f:
+                return playerDirection.right;
+            default:
+                return playerDirection.back;
+        }
+    }
+
 
     void FixedUpdate()
     {
@@ -355,10 +439,26 @@ public class PlayerController : MonoBehaviour
         else if (rotateLeft) localTransform.RotateAround(localTransform.position, localTransform.up, -rotateSpeed);
 
         Vector3 localMove = localTransform.TransformDirection(moveAmount * Time.fixedDeltaTime);
+        if (mining)
+        {
+            _playerState = playerState.mining;
+            return;
+        }
+        _walkDirection = angleToDirection(Vector3.SignedAngle(-localTransform.forward, localMove, localTransform.up) + 180f);
+
+
+
         rb.MovePosition(rb.position + localMove);
         //cameraRB.MovePosition(Vector3.Normalize(cameraRB.position + localMove - planetPos) * 50f + planetPos);
         //Debug.Log(transform.position + (cameraOffset_fwd * localTransform.forward) + (cameraOffset_up * localTransform.up));
         cameraRB.transform.position = transform.position + fwd * cameraOffset_fwd + up * cameraOffset_up;
+
+        if (shooting)
+        {
+            _playerState = playerState.shooting;
+            return;
+        }
+        _playerState = localMove.sqrMagnitude < 1e-4f ? playerState.idle : playerState.walking;
 
 
     }
@@ -374,21 +474,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-
-    void Run() { speed = runSpeed; }
-
-    void Walk() { speed = walkSpeed; }
-
     void Shoot()
     {
         if (!canShoot) return;
         StartCoroutine("Reload");
         soundManager.PlaySfx(transform, sfx.shoot);
-        Bullet bullet = Instantiate(bulletPrefab, transform.position + transform.forward * 0.3f, transform.rotation).GetComponentInChildren<Bullet>();
+        Bullet bullet = Instantiate(bulletPrefab, transform.position - transform.forward * 6f, transform.rotation).GetComponentInChildren<Bullet>();
         bullet.axis = transform.right;
         bullet.planetPos = planetPos;
         bullet.radius = distance.magnitude - 0.5f;
+        bullet.pierce = pierce;
     }
 
     void Mine()
@@ -396,7 +491,7 @@ public class PlayerController : MonoBehaviour
         if (!canMine) return;
         StartCoroutine("ReloadMining");
         soundManager.PlaySfx(transform, sfx.shoot);
-        Bullet bullet = Instantiate(minerPrefab, transform.position + transform.forward * 0.3f, transform.rotation).GetComponentInChildren<Bullet>();
+        Bullet bullet = Instantiate(minerPrefab, transform.position - transform.forward * 6f, transform.rotation).GetComponentInChildren<Bullet>();
         bullet.axis = transform.right;
         bullet.planetPos = planetPos;
         bullet.radius = distance.magnitude - 0.5f;
@@ -441,6 +536,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject.name);
         switch (other.tag)
         {
             case "Beam":
@@ -448,13 +544,30 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine("LeavePlanet");
                 break;
             case "Exit":
-                SceneManager.LoadScene("Level 2");
+                SceneManager.LoadScene("Ship");
+                break;
+
+            case "VioletCollectible":
+                Destroy(other.gameObject);
+                IncreaseViolet();
+                break;
+
+            case "GreenCollectible":
+                Destroy(other.gameObject);
+                IncreaseGreen();
+                break;
+
+            case "OrangeCollectible":
+                Destroy(other.gameObject);
+                IncreaseOrange();
                 break;
         }
     }
 
     IEnumerator LeavePlanet()
     {
+        hasWon = true;
+        PlayerManager.SaveResources(greenAmount, orangeAmount);
         canvas.SetActive(false);
         playerControlled = false;
         rb.velocity = Vector3.zero;

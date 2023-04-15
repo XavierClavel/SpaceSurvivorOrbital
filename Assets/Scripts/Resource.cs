@@ -6,14 +6,16 @@ enum type { violet, orange, green }
 
 public class Resource : MonoBehaviour
 {
-    [SerializeField] type resourceType;
-    int health = 3;
+    [SerializeField] GameObject itemPrefab;
+    float health = 3;
+    float maxRange = 4f;
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "OrangeBullet")
+        Debug.Log(other.gameObject.name);
+        if (other.gameObject.tag == "RedBullet")
         {
-            health -= 1;
+            health -= PlayerController.DamageResource();
             if (health <= 0) Break();
         }
     }
@@ -22,20 +24,21 @@ public class Resource : MonoBehaviour
     void Break()
     {
         SoundManager.instance.PlaySfx(transform, sfx.breakResource);
-        switch (resourceType)
+        int nbItemsToSpawn = Random.Range(2, 5);
+        for (int i = 0; i < nbItemsToSpawn; i++)
         {
-            case type.violet:
-                PlayerController.instance.IncreaseViolet();
-                break;
-
-            case type.orange:
-                PlayerController.instance.IncreaseOrange();
-                break;
-
-            case type.green:
-                PlayerController.instance.IncreaseGreen();
-                break;
+            Instantiate(itemPrefab, randomPos() + transform.position, Quaternion.identity);
         }
         Destroy(gameObject);
+    }
+
+
+
+    Vector3 randomPos()
+    {
+        Transform playerTransform = PlayerController.instance.transform;
+        float signA = Random.Range(0, 2) * 2 - 1;
+        float signB = Random.Range(0, 2) * 2 - 1;
+        return signA * Random.Range(0f, 4f) * playerTransform.forward + signB * Random.Range(0f, 4f) * playerTransform.right;
     }
 }

@@ -4,64 +4,8 @@ using UnityEngine;
 using System;
 using UnityEditor;
 using UnityEngine.UI;
+using TMPro;
 
-
-public class GamepadMenuHandler
-{
-    public GameObject[] menuItems;
-    bool shouldLoop;
-    public int index = 0;
-    int lastIndex;
-    public GamepadMenuHandler(GameObject[] menuItems, bool shouldLoop)
-    {
-        this.menuItems = menuItems;
-        this.shouldLoop = shouldLoop;
-    }
-
-    public void NavigateDown()
-    {
-        index++;
-        if (index == menuItems.Length)
-        {
-            if (shouldLoop) index = 0;
-            else index--;
-        }
-        Animate(ref lastIndex, index);
-    }
-
-    public void NavigateUp()
-    {
-        index--;
-        if (index < 0)
-        {
-            if (shouldLoop) index = menuItems.Length - 1;
-            else index++;
-        }
-        Animate(ref lastIndex, index);
-
-    }
-
-    public void Animate(ref int lastIndex, int newIndex)
-    {
-        menuItems[lastIndex].GetComponent<Animator>().SetBool("Normal", true);
-        menuItems[newIndex].GetComponent<Animator>().SetBool("Highlighted", true);
-        lastIndex = newIndex;
-    }
-
-    public void Validate()
-    {
-        menuItems[index].GetComponent<Animator>().SetBool("Pressed", true);
-        menuItems[index].GetComponent<Button>().onClick.Invoke();
-    }
-
-    public void Reset()
-    {
-        index = 0;
-        lastIndex = 0;
-        menuItems[index].GetComponent<Animator>().SetBool("Highlighted", true);
-    }
-
-}
 
 public class Helpers : MonoBehaviour
 {
@@ -70,6 +14,25 @@ public class Helpers : MonoBehaviour
     public static readonly WaitForEndOfFrame GetWaitFrame = new WaitForEndOfFrame();
     public static readonly WaitForFixedUpdate GetWaitFixed = new WaitForFixedUpdate();
     public static Helpers instance;
+    private static TextMeshProUGUI debugDisplay;
+    private static Dictionary<int, TextMeshProUGUI> dictDebugDisplays = new Dictionary<int, TextMeshProUGUI>();
+    [SerializeField] GameObject debugDisplayPrefab;
+
+    public static void CreateDebugDisplay(int index = -1)
+    {
+        TextMeshProUGUI currentDebugDisplay = Instantiate(debugDisplay);
+        if (index < 0) debugDisplay = currentDebugDisplay;
+        else dictDebugDisplays[index] = currentDebugDisplay;
+    }
+
+    public static void DebugDisplay(String str, int index = -1)
+    {
+        TextMeshProUGUI currentDebugDisplay;
+        if (index < 0) currentDebugDisplay = debugDisplay;
+        else currentDebugDisplay = dictDebugDisplays[index];
+        currentDebugDisplay.text = str;
+    }
+
 
     void Awake()
     {
@@ -99,10 +62,6 @@ public class Helpers : MonoBehaviour
     {
         yield return GetWait(time);
         Destroy(objectToDestroy);
-    }
-    IEnumerator test()
-    {
-        yield return null;
     }
 
     public void LerpQuaternion(Transform objectTransform, Quaternion initialPos, Quaternion finalPos, float duration)

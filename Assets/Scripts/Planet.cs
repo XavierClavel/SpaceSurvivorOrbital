@@ -15,6 +15,7 @@ public class Planet : MonoBehaviour
     [SerializeField] List<GameObject> ennemyPrefabs;
     float spawnRate = 4f;
     Transform playerTransform;
+    [SerializeField] bool doEnnemySpawn = true;
 
     private void Awake()
     {
@@ -22,7 +23,6 @@ public class Planet : MonoBehaviour
         gravityRadius = GetComponent<SphereCollider>().radius;
         size = GetComponentInChildren<SphereCollider>().radius;
         instance = this;
-        StartCoroutine("SpawnController");
     }
 
     IEnumerator SpawnController()
@@ -40,7 +40,11 @@ public class Planet : MonoBehaviour
     void Start()
     {
         playerTransform = PlayerController.instance.transform;
-        StartCoroutine("SpawnEnnemies");
+        if (doEnnemySpawn)
+        {
+            StartCoroutine("SpawnEnnemies");
+            StartCoroutine("SpawnController");
+        }
     }
 
     IEnumerator SpawnEnnemies()
@@ -52,7 +56,7 @@ public class Planet : MonoBehaviour
         }
     }
 
-    void SpawnEnnemy()
+    public void SpawnEnnemy()
     {
         GameObject ennemyPrefab = ennemyPrefabs[Random.Range(0, ennemyPrefabs.Count)];
         Instantiate(ennemyPrefab, randomPos() + transform.position, Quaternion.identity);

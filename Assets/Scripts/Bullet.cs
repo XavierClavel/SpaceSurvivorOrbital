@@ -18,7 +18,6 @@ public class Bullet : MonoBehaviour
     {
         StartCoroutine(Orbit());
         StartCoroutine(DestroyTimer());
-
     }
 
     void OnCollisionEnter(Collision other)

@@ -27,6 +27,9 @@ public class Ennemy : MonoBehaviour
     Vector3 correctedUp;
     float dotProduct;
 
+    [Header("Parameters")]
+    float baseDamage = 0f; //5f
+
 
     void Start()
     {
@@ -34,6 +37,8 @@ public class Ennemy : MonoBehaviour
         player = PlayerController.instance;
         Initialize(Planet.instance);
         cameraTransform = Camera.main.transform;
+
+        StressTest.nbEnnemies++;
     }
 
     private void FixedUpdate()
@@ -46,7 +51,7 @@ public class Ennemy : MonoBehaviour
         if (dotProduct > 0)
         {
             //dotProduct = Mathf.Pow(dotProduct, 2);
-            correctedUp = Vector3.Slerp(up, cameraTransform.up, dotProduct);//Vector3.Reflect(up, player.transform.up);
+            correctedUp = Vector3.Slerp(up, cameraTransform.up, dotProduct);
             //sprite.color = Color.Lerp(Color.white, Color.red, dotProduct);
         }
         //else sprite.color = Color.white;
@@ -77,12 +82,13 @@ public class Ennemy : MonoBehaviour
     {
         if (other.gameObject.CompareTag("BlueBullet"))
         {
-            health -= 1f;
+            health -= PlayerController.HurtEnnemy();
             if (health <= 0) Death();
         }
         else if (other.gameObject.CompareTag("Player"))
         {
-            PlayerController.instance.health -= 1;
+            if (PlayerController.instance.hasWon) return;
+            PlayerController.instance.Hurt(baseDamage);
             StartCoroutine("Hurt");
         }
     }
@@ -98,12 +104,13 @@ public class Ennemy : MonoBehaviour
         while (true)
         {
             yield return wait;
-            PlayerController.instance.health -= 1;
+            PlayerController.instance.Hurt(baseDamage);
         }
     }
 
     void Death()
     {
+        StressTest.nbEnnemies--;
         soundManager.PlaySfx(transform, sfx.ennemyExplosion);
         Destroy(gameObject);
     }
