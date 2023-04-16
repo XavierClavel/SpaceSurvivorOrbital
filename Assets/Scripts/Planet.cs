@@ -20,8 +20,6 @@ public class Planet : MonoBehaviour
     private void Awake()
     {
         position = transform.position;
-        gravityRadius = GetComponent<SphereCollider>().radius;
-        size = GetComponentInChildren<SphereCollider>().radius;
         instance = this;
     }
 
@@ -67,7 +65,7 @@ public class Planet : MonoBehaviour
         //return (new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f))).normalized;
         float signA = Random.Range(0, 2) * 2 - 1;
         float signB = Random.Range(0, 2) * 2 - 1;
-        return signA * Random.Range(10f, 20f) * playerTransform.forward + signB * Random.Range(10f, 20f) * playerTransform.right + 10f * playerTransform.up;
+        return signA * Random.Range(10f, 20f) * playerTransform.up + signB * Random.Range(10f, 20f) * playerTransform.right + 10f * playerTransform.up;
     }
 
 

@@ -72,16 +72,16 @@ public class PlayerController : MonoBehaviour
 
     //Local variables
     Vector3 planetPos;
-    Rigidbody rb;
+    Rigidbody2D rb;
     //Vector3 gravityVector;
     float planetSize;
     float planetMass;
     CharacterController characterController;
     float speed = runSpeed;
-    const float runSpeed = 6f;
-    const float shootSpeed = 3f;
-    Vector3 moveAmount;
-    Vector3 smoothMoveVelocity;
+    const float runSpeed = 30f;
+    const float shootSpeed = 20f;
+    Vector2 moveAmount;
+    Vector2 smoothMoveVelocity;
     float verticalLookRotation;
     Transform cameraTransform;
     Vector3 groundNormal = Vector3.up;
@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
     float inputX;
     float inputY;
     Vector3 targetMoveAmount;
-    Rigidbody cameraRB;
+    Rigidbody2D cameraRB;
     Vector2 targetMouseDelta;
     float moveX;
     float moveY;
@@ -125,6 +125,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject arrow;
     [SerializeField] Animator animator;
     [HideInInspector] public bool hasWon = false;
+    [SerializeField] Transform arrowTransform;
 
     [Header("Parameters")]
     static float baseDamage = 1f;
@@ -199,6 +200,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        localTransform = transform;
         instance = this;
         controls = new InputMaster();
         controls.Player.Shoot.started += ctx =>
@@ -252,7 +254,6 @@ public class PlayerController : MonoBehaviour
         if (Gamepad.all.Count > 0) controlScheme = controlMode.Gamepad;
         //rotArrayX = new Vector3[0];
         //controlScheme = controlMode.Keyboard;
-        cameraRB = Camera.main.GetComponent<Rigidbody>();
 
         healthBar.maxValue = maxHealth;
         healthBar.value = health;
@@ -293,51 +294,25 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        rb = GetComponent<Rigidbody>();
-        characterController = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody2D>();
         cameraTransform = Camera.main.transform;
         soundManager = SoundManager.instance;
-        //Application.targetFrameRate = -1;
-        //QualitySettings.vSyncCount = 0;
-
-        planetPos = planet.position;
-        planetSize = planet.size;
-        planetMass = planet.mass;
-
-        Vector3 cameraOffset = cameraRB.position - transform.position;
-        cameraOffset_fwd = cameraOffset.z;
-        cameraOffset_up = cameraOffset.y;
     }
 
     void Update()
     {
-        distance = rb.position - planetPos;
-        groundNormal = distance.normalized;
-        transform.rotation = Quaternion.FromToRotation(transform.up, groundNormal) * transform.rotation;
 
         RotatePlayer();
         Move();
-        //RotatePlayer();
-
-
-
-        rb.angularVelocity = Vector3.zero;
-        cameraRB.transform.LookAt(transform, transform.up);
-
-        //GenerateLine();
     }
 
     void Move()
     {
 
-        moveX = controls.Player.Move.ReadValue<Vector2>().x;
-        moveY = controls.Player.Move.ReadValue<Vector2>().y;
-        Vector3 moveDir = new Vector3(moveX, 0f, moveY);
-        //Vector3 moveDir = moveX * transform.right + moveY * transform.forward;
-        //direction = controls.Player.Move.ReadValue<Vector2>();
+        Vector2 moveDir = controls.Player.Move.ReadValue<Vector2>();
         if (moveDir.sqrMagnitude > 1) moveDir = moveDir.normalized;
         targetMoveAmount = moveDir * speed;
-        moveAmount = Vector3.SmoothDamp(moveAmount, targetMoveAmount, ref smoothMoveVelocity, 0.15f);
+        moveAmount = Vector2.SmoothDamp(moveAmount, targetMoveAmount, ref smoothMoveVelocity, 0.15f);
 
 
         //transform.Translate(localMove);
@@ -372,35 +347,12 @@ public class PlayerController : MonoBehaviour
                 arrow.SetActive(true);
             }
 
-            Vector3 localLook = localTransform.TransformVector(new Vector3(input.x, 0f, input.y));
-            transform.rotation = Quaternion.LookRotation(localLook, -(planetPos - transform.position).normalized);
-            _aimDirection = angleToDirection(transform.eulerAngles.y);
+            Vector2 localLook = localTransform.TransformVector(new Vector2(input.x, input.y));
+            float angle = Vector2.SignedAngle(Vector2.up, input);
+            arrowTransform.rotation = Quaternion.Euler(0f, 0f, angle);
+            _aimDirection = angleToDirection(Vector2.SignedAngle(input, Vector2.down) + 180f);
         }
-        //targetMouseDelta = Mouse.current.delta.ReadValue();
 
-        //input = Vector2.SmoothDamp(input, targetMouseDelta, ref smoothRotateVelocity, mouseSmoothTime);
-
-
-        //cameraTransform.localEulerAngles = Vector3.left * verticalLookRotation;
-
-        //transform.Rotate(Vector3.up * input.x * mouseSensitivityX * Time.deltaTime * 10f);
-        //verticalLookRotation += inputY * mouseSensitivityY * Time.deltaTime * 10f;
-        //verticalLookRotation = Mathf.Clamp(verticalLookRotation, -60,60);
-        //cameraTransform.localEulerAngles = Vector3.left * verticalLookRotation;
-
-        //angle += 1f;
-
-        //cameraRB.MoveRotation(Quaternion.Euler(Vector3.left * angle));
-
-
-        /*
-        //transform.rotation =  Quaternion.Euler(transform.rotation.eulerAngles + Vector3.up * Input.GetAxis("Mouse X") * mouseSensitivityX);
-        verticalLookRotation += inputY * mouseSensitivityY * Time.deltaTime * 10f;
-        verticalLookRotation = Mathf.Clamp(verticalLookRotation, -60,60);
-        float a = inputY * mouseSensitivityY * Time.deltaTime * 10f;
-        transform.Rotate(Vector3.up * inputX * mouseSensitivityX * Time.deltaTime * 10f);
-        cameraTransform.Rotate(transform.up * inputX * mouseSensitivityX * Time.deltaTime * 10f  +  inputY * mouseSensitivityY * Time.deltaTime * 10f * - transform.right);
-        //cameraTransform.localEulerAngles = Vector3.left * verticalLookRotation;*/
     }
 
     playerDirection angleToDirection(float angle)
@@ -425,33 +377,23 @@ public class PlayerController : MonoBehaviour
     {
         if (!playerControlled) return;
 
-        rb.AddForce(-9.81f * groundNormal);
-
-        // Apply movement to rigidbody
-        //Vector3 localMove = transform.TransformDirection(moveAmount * Time.fixedDeltaTime);
-        localTransform.position = transform.position;
-        Vector3 up = (transform.position - planetPos).normalized;
-        Vector3 fwd = Vector3.ProjectOnPlane(localTransform.forward, up).normalized;
-        localTransform.rotation = Quaternion.LookRotation(fwd, (localTransform.position - planetPos).normalized);
-        //if (rotateRight) localTransform.Rotate(localTransform.up, Time.fixedDeltaTime * 50f, Space.Self);
-        //else if (rotateLeft) localTransform.Rotate(localTransform.up, -Time.fixedDeltaTime * 50f, Space.Self);
-        if (rotateRight) localTransform.RotateAround(localTransform.position, localTransform.up, rotateSpeed);
-        else if (rotateLeft) localTransform.RotateAround(localTransform.position, localTransform.up, -rotateSpeed);
-
-        Vector3 localMove = localTransform.TransformDirection(moveAmount * Time.fixedDeltaTime);
+        Vector2 localMove = moveAmount * Time.fixedDeltaTime;
         if (mining)
         {
             _playerState = playerState.mining;
+            rb.MovePosition(rb.position);
+            arrowTransform.position = transform.position;
             return;
         }
-        _walkDirection = angleToDirection(Vector3.SignedAngle(-localTransform.forward, localMove, localTransform.up) + 180f);
+        _walkDirection = angleToDirection(Vector2.SignedAngle(localMove, Vector2.down) + 180f);
 
 
 
         rb.MovePosition(rb.position + localMove);
+        arrowTransform.position = transform.position;
         //cameraRB.MovePosition(Vector3.Normalize(cameraRB.position + localMove - planetPos) * 50f + planetPos);
         //Debug.Log(transform.position + (cameraOffset_fwd * localTransform.forward) + (cameraOffset_up * localTransform.up));
-        cameraRB.transform.position = transform.position + fwd * cameraOffset_fwd + up * cameraOffset_up;
+        cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
 
         if (shooting)
         {
@@ -463,26 +405,12 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
-
-    void Jump()
-    {
-        if (Grounded())
-        {
-            rb.AddForce(transform.up * jumpForce);
-            soundManager.PlaySfx(transform, sfx.jump);
-        }
-    }
-
     void Shoot()
     {
         if (!canShoot) return;
         StartCoroutine("Reload");
         soundManager.PlaySfx(transform, sfx.shoot);
-        Bullet bullet = Instantiate(bulletPrefab, transform.position - transform.forward * 6f, transform.rotation).GetComponentInChildren<Bullet>();
-        bullet.axis = transform.right;
-        bullet.planetPos = planetPos;
-        bullet.radius = distance.magnitude - 0.5f;
+        Bullet bullet = Instantiate(bulletPrefab, transform.position - transform.forward * 6f, arrowTransform.rotation).GetComponentInChildren<Bullet>();
         bullet.pierce = pierce;
     }
 
@@ -491,11 +419,8 @@ public class PlayerController : MonoBehaviour
         if (!canMine) return;
         StartCoroutine("ReloadMining");
         soundManager.PlaySfx(transform, sfx.shoot);
-        Bullet bullet = Instantiate(minerPrefab, transform.position - transform.forward * 6f, transform.rotation).GetComponentInChildren<Bullet>();
-        bullet.axis = transform.right;
-        bullet.planetPos = planetPos;
-        bullet.radius = distance.magnitude - 0.5f;
-        bullet.lifetime = 0.2f;
+        Bullet bullet = Instantiate(minerPrefab, transform.position - transform.forward * 6f, arrowTransform.rotation).GetComponentInChildren<Bullet>();
+        bullet.lifetime = 0.3f;
     }
 
     void Restart()
@@ -503,15 +428,6 @@ public class PlayerController : MonoBehaviour
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
     }
-
-
-    bool Grounded()
-    {
-        Ray ray = new Ray(transform.position, -transform.up);
-        RaycastHit hit;
-        return Physics.Raycast(ray, out hit, 2f, groundedMask);
-    }
-
     void GenerateLine()
     {
         float x;
@@ -534,7 +450,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log(other.gameObject.name);
         switch (other.tag)

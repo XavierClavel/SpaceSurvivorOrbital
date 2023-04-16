@@ -10,9 +10,8 @@ public class Resource : MonoBehaviour
     float health = 3;
     float maxRange = 4f;
 
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log(other.gameObject.name);
         if (other.gameObject.tag == "RedBullet")
         {
             health -= PlayerController.DamageResource();
@@ -39,6 +38,6 @@ public class Resource : MonoBehaviour
         Transform playerTransform = PlayerController.instance.transform;
         float signA = Random.Range(0, 2) * 2 - 1;
         float signB = Random.Range(0, 2) * 2 - 1;
-        return signA * Random.Range(0f, 4f) * playerTransform.forward + signB * Random.Range(0f, 4f) * playerTransform.right;
+        return signA * Random.Range(0f, 4f) * Vector2.up + signB * Random.Range(0f, 4f) * Vector2.right;
     }
 }
