@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using DG.Tweening;
-using MyBox;
 using TMPro;
 using UnityEngine.UI;
 
@@ -19,7 +18,6 @@ public class PlayerController : MonoBehaviour
     public float mouseSensitivityY = 1;
     public float jumpForce = 500;
     public controlMode controlScheme = controlMode.Keyboard;
-    [Separator("test", true)]
 
     //[Header("References")]
     [SerializeField] LayerMask groundedMask;
