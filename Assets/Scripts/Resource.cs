@@ -1,21 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 enum type { violet, orange, green }
 
 public class Resource : MonoBehaviour
 {
     [SerializeField] GameObject itemPrefab;
-    float health = 3;
+    [SerializeField] Slider healthBar;
+    int _health = 150;
+    public int health
+    {
+        get { return _health; }
+        set
+        {
+            _health = value;
+            healthBar.value = value;
+            if (!healthBar.gameObject.activeInHierarchy) healthBar.gameObject.SetActive(true);
+            Debug.Log(value);
+            //SoundManager.instance.PlaySfx(transform, sfx.playerHit);
+            if (value <= 0) Break();
+        }
+    }
+
     float maxRange = 4f;
+
+    private void Start()
+    {
+        healthBar.maxValue = _health;
+        healthBar.value = _health;
+    }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "RedBullet")
         {
-            health -= PlayerController.DamageResource();
-            if (health <= 0) Break();
+            int damageTaken = PlayerController.DamageResource();
+            health -= damageTaken;
+            DamageDisplayHandler.DisplayDamage(damageTaken, transform.position);
         }
     }
 

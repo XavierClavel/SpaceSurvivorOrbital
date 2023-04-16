@@ -56,7 +56,7 @@ public class Planet : MonoBehaviour
     public void SpawnEnnemy()
     {
         GameObject ennemyPrefab = ennemyPrefabs[Random.Range(0, ennemyPrefabs.Count)];
-        Instantiate(ennemyPrefab, randomPos() + transform.position, Quaternion.identity);
+        Instantiate(ennemyPrefab, randomPos() + playerTransform.position, Quaternion.identity);
     }
 
     Vector3 randomPos()

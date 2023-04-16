@@ -16,11 +16,7 @@ public class PlayerController : MonoBehaviour
     [Header("Parameters")]
     public float mouseSensitivityX = 1;
     public float mouseSensitivityY = 1;
-    public float jumpForce = 500;
     public controlMode controlScheme = controlMode.Keyboard;
-
-    //[Header("References")]
-    [SerializeField] LayerMask groundedMask;
     public GameObject bulletPrefab;
     public static PlayerController instance;
     [HideInInspector] public InputMaster controls;
@@ -71,31 +67,21 @@ public class PlayerController : MonoBehaviour
     //Local variables
     Vector3 planetPos;
     Rigidbody2D rb;
-    //Vector3 gravityVector;
-    float planetSize;
-    float planetMass;
-    CharacterController characterController;
-    float speed = runSpeed;
-    const float runSpeed = 30f;
-    const float shootSpeed = 20f;
+    float speed;
+    float baseSpeed = 30f;
+    float speed_shootingDemultiplier = 0.7f;
     Vector2 moveAmount;
     Vector2 smoothMoveVelocity;
     float verticalLookRotation;
     Transform cameraTransform;
-    Vector3 groundNormal = Vector3.up;
-    Vector3 distance;
     float inputX;
     float inputY;
     Vector3 targetMoveAmount;
     Rigidbody2D cameraRB;
     Vector2 targetMouseDelta;
-    float moveX;
-    float moveY;
     SoundManager soundManager;
     [SerializeField] Planet planet;
     public Transform localTransform;
-    float cameraOffset_fwd;
-    float cameraOffset_up;
     Vector2 prevInput = Vector2.up;
     const float shootWindow_value = 0.5f;
     WaitForSeconds shootWindow = new WaitForSeconds(shootWindow_value);
@@ -126,13 +112,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform arrowTransform;
 
     [Header("Parameters")]
-    static float baseDamage = 1f;
+    static Vector2Int baseDamage = new Vector2Int(50, 75);
     const float maxHealth = 100;
     float damageResistanceMultiplier = 0f;
     float criticalChance = 0.2f;    //between 0 and 1
     float criticalMultiplier = 2f;  //superior to 1
     int pierce = 0;
-    float toolPower = 1f;
+    int toolPower = 50;
     float toolRange;
     public float health
     {
@@ -155,12 +141,14 @@ public class PlayerController : MonoBehaviour
         health -= amount * (1 - damageResistanceMultiplier);
     }
 
-    public static float HurtEnnemy()
+    public static void HurtEnnemy(ref int damage, ref bool critical)
     {
-        return baseDamage * (Random.Range(0f, 1f) < instance.criticalChance ? instance.criticalMultiplier : 1f);
+        damage = Random.Range(baseDamage.x, baseDamage.y + 1);
+        critical = Random.Range(0f, 1f) < instance.criticalChance;
+        if (critical) damage = (int)((float)damage * instance.criticalMultiplier);
     }
 
-    public static float DamageResource()
+    public static int DamageResource()
     {
         return instance.toolPower;
     }
@@ -169,7 +157,11 @@ public class PlayerController : MonoBehaviour
     {
         violetAmount++;
         violetAmountDisplay.text = violetAmount.ToString();
-        if (violetAmount >= requiredAmount) leaveBeam.SetActive(true);
+        if (violetAmount >= requiredAmount)
+        {
+            leaveBeam.GetComponent<CircleCollider2D>().enabled = true;
+            leaveBeam.GetComponent<SpriteRenderer>().color = Color.yellow;
+        }
     }
 
     public void IncreaseOrange()
@@ -204,7 +196,7 @@ public class PlayerController : MonoBehaviour
         controls.Player.Shoot.started += ctx =>
         {
             shooting = true;
-            speed = shootSpeed;
+
             StartCoroutine("Shooting");
             StopCoroutine("Mining");
             StartCoroutine("ReloadMining");
@@ -212,7 +204,7 @@ public class PlayerController : MonoBehaviour
         controls.Player.Shoot.canceled += ctx =>
         {
             shooting = false;
-            speed = runSpeed;
+
             StopCoroutine("Shooting");
             StartCoroutine("Reload");
         };
@@ -338,11 +330,13 @@ public class PlayerController : MonoBehaviour
             {
                 input = prevInput;
                 arrow.SetActive(false);
+                speed = baseSpeed;
             }
             else
             {
                 prevInput = input;
                 arrow.SetActive(true);
+                speed = baseSpeed * speed_shootingDemultiplier;
             }
 
             Vector2 localLook = localTransform.TransformVector(new Vector2(input.x, input.y));
