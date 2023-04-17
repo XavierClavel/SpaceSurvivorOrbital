@@ -9,7 +9,10 @@ public class Resource : MonoBehaviour
 {
     [SerializeField] GameObject itemPrefab;
     [SerializeField] Slider healthBar;
-    int _health = 150;
+    [Header("Parameters")]
+    [SerializeField] int _health = 150;
+    [SerializeField] Vector2Int dropInterval = new Vector2Int(2, 5);
+
     public int health
     {
         get { return _health; }
@@ -23,8 +26,6 @@ public class Resource : MonoBehaviour
             if (value <= 0) Break();
         }
     }
-
-    float maxRange = 4f;
 
     private void Start()
     {
@@ -46,7 +47,7 @@ public class Resource : MonoBehaviour
     void Break()
     {
         SoundManager.instance.PlaySfx(transform, sfx.breakResource);
-        int nbItemsToSpawn = Random.Range(2, 5);
+        int nbItemsToSpawn = Random.Range(dropInterval.x, dropInterval.y + 1);
         for (int i = 0; i < nbItemsToSpawn; i++)
         {
             Instantiate(itemPrefab, randomPos() + transform.position, Quaternion.identity);

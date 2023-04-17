@@ -84,9 +84,11 @@ public class PlayerController : MonoBehaviour
     const float shootWindow_value = 0.5f;
     WaitForSeconds reloadWindow;
     bool needToReload = false;
-    bool canMine = true;
-    bool mining = false;
+    bool needToReloadMining = false;
+    bool reloading = false;
+    bool reloadingMining = false;
     bool shooting = false;
+    bool mining = false;
 
     [SerializeField] TextMeshProUGUI violetAmountDisplay;
     [SerializeField] TextMeshProUGUI orangeAmountDisplay;
@@ -96,8 +98,6 @@ public class PlayerController : MonoBehaviour
     int greenAmount = 0;
     const int requiredAmount = 10;
     [SerializeField] GameObject minerPrefab;
-    bool rotateLeft = false;
-    bool rotateRight = false;
     [SerializeField] Slider healthBar;
     float _health;
     [SerializeField] GameObject leaveBeam;
@@ -110,7 +110,6 @@ public class PlayerController : MonoBehaviour
     Vector2 moveDir;
     float bulletLifetime;
     int currentCharge = 0;
-    bool reloading = false;
 
     [Header("Parameters")]
     [SerializeField] int maxHealth = 100;
@@ -209,10 +208,10 @@ public class PlayerController : MonoBehaviour
         controls.Player.Shoot.started += ctx =>
         {
             shooting = true;
+            mining = false;
             if (reloading) return;
             if (needToReload) StartCoroutine("Reload");
             else Shoot();
-            StopCoroutine("Mining");
         };
         controls.Player.Shoot.canceled += ctx =>
         {
@@ -222,31 +221,15 @@ public class PlayerController : MonoBehaviour
         controls.Player.Mine.started += ctx =>
         {
             mining = true;
-            StartCoroutine("Mining");
-            StartCoroutine("Reload");
+            shooting = false;
         };
         controls.Player.Mine.canceled += ctx =>
         {
             mining = false;
-            StopCoroutine("Mining");
-            StartCoroutine("Reload");
         };
         controls.Player.Mine.performed += ctx => Mine();
         controls.Player.Reload.performed += context => Restart();
         controls.Player.Pause.performed += context => PauseMenu.instance.PauseGame();
-
-        controls.Player.RotateLeft.started += ctx =>
-        {
-            rotateLeft = true;
-            rotateRight = false;
-        };
-        controls.Player.RotateRight.started += ctx =>
-        {
-            rotateRight = true;
-            rotateLeft = false;
-        };
-        controls.Player.RotateLeft.canceled += ctx => rotateLeft = false;
-        controls.Player.RotateRight.canceled += ctx => rotateRight = false;
 
         if (Gamepad.all.Count > 0) controlScheme = controlMode.Gamepad;
         //rotArrayX = new Vector3[0];
@@ -254,15 +237,6 @@ public class PlayerController : MonoBehaviour
 
         healthBar.maxValue = maxHealth;
         healthBar.value = health;
-    }
-
-    IEnumerator Mining()
-    {
-        while (true)
-        {
-            //yield return shootWindow;
-            Mine();
-        }
     }
 
     IEnumerator Reload()
@@ -276,9 +250,11 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator ReloadMining()
     {
-        canMine = false;
+        reloadingMining = true;
         yield return reloadWindow;
-        canMine = true;
+        reloadingMining = false;
+        needToReloadMining = false;
+        if (mining) Mine();
     }
 
     void Start()
@@ -408,7 +384,6 @@ public class PlayerController : MonoBehaviour
 
     void Mine()
     {
-        if (!canMine) return;
         StartCoroutine("ReloadMining");
         soundManager.PlaySfx(transform, sfx.shoot);
         Bullet bullet = Instantiate(minerPrefab, transform.position - transform.forward * 6f, arrowTransform.rotation).GetComponentInChildren<Bullet>();

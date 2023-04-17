@@ -40,7 +40,6 @@ public class SoundManager : MonoBehaviour
     [Header("Audio Sources")]
     [SerializeField] AudioSource musicSource;
     float volume;
-    bool laserSourcePlaying = false;
     static int SIZE = System.Enum.GetValues(typeof(sfx)).Length;
     //[NamedArray(typeof(sfx))] public AudioClip[] audioClips = new AudioClip[SIZE];
 

@@ -7,12 +7,12 @@ public class Target : MonoBehaviour
     enum color { blue, orange, red }
     [SerializeField] color targetState;
     [SerializeField] ParticleSystem explosion;
-    Ennemy parentEnnemy;
+    Runner parentEnnemy;
 
 
     void Start()
     {
-        parentEnnemy = GetComponentInParent<Ennemy>();
+        parentEnnemy = GetComponentInParent<Runner>();
     }
 
     private void OnCollisionEnter(Collision other)
