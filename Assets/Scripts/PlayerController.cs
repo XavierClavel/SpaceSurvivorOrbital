@@ -68,8 +68,6 @@ public class PlayerController : MonoBehaviour
     Vector3 planetPos;
     Rigidbody2D rb;
     float speed;
-    float baseSpeed = 30f;
-    float speed_shootingDemultiplier = 0.7f;
     Vector2 moveAmount;
     Vector2 smoothMoveVelocity;
     float verticalLookRotation;
@@ -84,9 +82,8 @@ public class PlayerController : MonoBehaviour
     public Transform localTransform;
     Vector2 prevInput = Vector2.up;
     const float shootWindow_value = 0.5f;
-    WaitForSeconds shootWindow = new WaitForSeconds(shootWindow_value);
-    WaitForSeconds reloadWindow = new WaitForSeconds(0.4f);
-    bool canShoot = true;
+    WaitForSeconds reloadWindow;
+    bool needToReload = false;
     bool canMine = true;
     bool mining = false;
     bool shooting = false;
@@ -102,7 +99,7 @@ public class PlayerController : MonoBehaviour
     bool rotateLeft = false;
     bool rotateRight = false;
     [SerializeField] Slider healthBar;
-    float _health = maxHealth;
+    float _health;
     [SerializeField] GameObject leaveBeam;
     [SerializeField] GameObject canvas;
     [SerializeField] LineRenderer line;
@@ -110,16 +107,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Animator animator;
     [HideInInspector] public bool hasWon = false;
     [SerializeField] Transform arrowTransform;
+    Vector2 moveDir;
+    float bulletLifetime;
+    int currentCharge = 0;
+    bool reloading = false;
 
     [Header("Parameters")]
-    static Vector2Int baseDamage = new Vector2Int(50, 75);
-    const float maxHealth = 100;
-    float damageResistanceMultiplier = 0f;
-    float criticalChance = 0.2f;    //between 0 and 1
-    float criticalMultiplier = 2f;  //superior to 1
+    [SerializeField] int maxHealth = 100;
+    [SerializeField] Vector2Int baseDamage = new Vector2Int(50, 75);
+    [SerializeField] int attackSpeed = 10;
+    [SerializeField] float range = 30;
+    [SerializeField] float reloadTime = 0.5f;
+    [SerializeField] float criticalChance = 0.2f;    //between 0 and 1
+    [SerializeField] float criticalMultiplier = 2f;  //superior to 1
     int pierce = 0;
-    int toolPower = 50;
-    float toolRange;
+    [SerializeField] float baseSpeed = 30f;
+    [SerializeField] float speed_aimingDemultiplier = 0.7f;
+    [SerializeField] float damageResistanceMultiplier = 0f;
+    [SerializeField] int toolPower = 50;
+    [SerializeField] float toolRange;
+    [SerializeField] public int maxCharge = 100;
     public float health
     {
         get { return _health; }
@@ -143,7 +150,7 @@ public class PlayerController : MonoBehaviour
 
     public static void HurtEnnemy(ref int damage, ref bool critical)
     {
-        damage = Random.Range(baseDamage.x, baseDamage.y + 1);
+        damage = Random.Range(instance.baseDamage.x, instance.baseDamage.y + 1);
         critical = Random.Range(0f, 1f) < instance.criticalChance;
         if (critical) damage = (int)((float)damage * instance.criticalMultiplier);
     }
@@ -155,6 +162,7 @@ public class PlayerController : MonoBehaviour
 
     public void IncreaseViolet()
     {
+        currentCharge++;
         violetAmount++;
         violetAmountDisplay.text = violetAmount.ToString();
         if (violetAmount >= requiredAmount)
@@ -166,12 +174,14 @@ public class PlayerController : MonoBehaviour
 
     public void IncreaseOrange()
     {
+        currentCharge++;
         orangeAmount++;
         orangeAmountDisplay.text = orangeAmount.ToString();
     }
 
     public void IncreaseGreen()
     {
+        currentCharge++;
         greenAmount++;
         greenAmountDisplay.text = greenAmount.ToString();
     }
@@ -190,30 +200,29 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        reloadWindow = new WaitForSeconds(reloadTime);
+        _health = maxHealth;
+        bulletLifetime = range / attackSpeed;
         localTransform = transform;
         instance = this;
         controls = new InputMaster();
         controls.Player.Shoot.started += ctx =>
         {
             shooting = true;
-
-            StartCoroutine("Shooting");
+            if (reloading) return;
+            if (needToReload) StartCoroutine("Reload");
+            else Shoot();
             StopCoroutine("Mining");
-            StartCoroutine("ReloadMining");
         };
         controls.Player.Shoot.canceled += ctx =>
         {
             shooting = false;
-
-            StopCoroutine("Shooting");
-            StartCoroutine("Reload");
         };
 
         controls.Player.Mine.started += ctx =>
         {
             mining = true;
             StartCoroutine("Mining");
-            StopCoroutine("Shooting");
             StartCoroutine("Reload");
         };
         controls.Player.Mine.canceled += ctx =>
@@ -222,8 +231,6 @@ public class PlayerController : MonoBehaviour
             StopCoroutine("Mining");
             StartCoroutine("Reload");
         };
-
-        controls.Player.Shoot.performed += context => Shoot();
         controls.Player.Mine.performed += ctx => Mine();
         controls.Player.Reload.performed += context => Restart();
         controls.Player.Pause.performed += context => PauseMenu.instance.PauseGame();
@@ -249,29 +256,22 @@ public class PlayerController : MonoBehaviour
         healthBar.value = health;
     }
 
-    IEnumerator Shooting()
-    {
-        while (true)
-        {
-            yield return shootWindow;
-            Shoot();
-        }
-    }
-
     IEnumerator Mining()
     {
         while (true)
         {
-            yield return shootWindow;
+            //yield return shootWindow;
             Mine();
         }
     }
 
     IEnumerator Reload()
     {
-        canShoot = false;
+        reloading = true;
         yield return reloadWindow;
-        canShoot = true;
+        reloading = false;
+        needToReload = false;
+        if (shooting) Shoot();
     }
 
     IEnumerator ReloadMining()
@@ -291,15 +291,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
-        RotatePlayer();
         Move();
+        RotatePlayer();
     }
 
     void Move()
     {
 
-        Vector2 moveDir = controls.Player.Move.ReadValue<Vector2>();
+        moveDir = controls.Player.Move.ReadValue<Vector2>();
         if (moveDir.sqrMagnitude > 1) moveDir = moveDir.normalized;
         targetMoveAmount = moveDir * speed;
         moveAmount = Vector2.SmoothDamp(moveAmount, targetMoveAmount, ref smoothMoveVelocity, 0.15f);
@@ -328,21 +327,22 @@ public class PlayerController : MonoBehaviour
 
             if (input == Vector2.zero)
             {
-                input = prevInput;
+                input = moveDir;
                 arrow.SetActive(false);
                 speed = baseSpeed;
+
             }
             else
             {
-                prevInput = input;
                 arrow.SetActive(true);
-                speed = baseSpeed * speed_shootingDemultiplier;
+                speed = baseSpeed * speed_aimingDemultiplier;
             }
 
             Vector2 localLook = localTransform.TransformVector(new Vector2(input.x, input.y));
             float angle = Vector2.SignedAngle(Vector2.up, input);
             arrowTransform.rotation = Quaternion.Euler(0f, 0f, angle);
             _aimDirection = angleToDirection(Vector2.SignedAngle(input, Vector2.down) + 180f);
+
         }
 
     }
@@ -399,10 +399,10 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     {
-        if (!canShoot) return;
         StartCoroutine("Reload");
         soundManager.PlaySfx(transform, sfx.shoot);
         Bullet bullet = Instantiate(bulletPrefab, transform.position - transform.forward * 6f, arrowTransform.rotation).GetComponentInChildren<Bullet>();
+        bullet.Fire(attackSpeed, bulletLifetime);
         bullet.pierce = pierce;
     }
 
@@ -412,7 +412,8 @@ public class PlayerController : MonoBehaviour
         StartCoroutine("ReloadMining");
         soundManager.PlaySfx(transform, sfx.shoot);
         Bullet bullet = Instantiate(minerPrefab, transform.position - transform.forward * 6f, arrowTransform.rotation).GetComponentInChildren<Bullet>();
-        bullet.lifetime = 0.3f;
+        bullet.Fire(attackSpeed, bulletLifetime);
+        //bullet.lifetime = 0.3f;
     }
 
     void Restart()
@@ -444,7 +445,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.gameObject.name);
         switch (other.tag)
         {
             case "Beam":
@@ -456,16 +456,19 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case "VioletCollectible":
+                if (currentCharge >= maxCharge) return;
                 Destroy(other.gameObject);
                 IncreaseViolet();
                 break;
 
             case "GreenCollectible":
+                if (currentCharge >= maxCharge) return;
                 Destroy(other.gameObject);
                 IncreaseGreen();
                 break;
 
             case "OrangeCollectible":
+                if (currentCharge >= maxCharge) return;
                 Destroy(other.gameObject);
                 IncreaseOrange();
                 break;

@@ -61,6 +61,6 @@ public class Resource : MonoBehaviour
         Transform playerTransform = PlayerController.instance.transform;
         float signA = Random.Range(0, 2) * 2 - 1;
         float signB = Random.Range(0, 2) * 2 - 1;
-        return signA * Random.Range(0f, 4f) * Vector2.up + signB * Random.Range(0f, 4f) * Vector2.right;
+        return signA * Random.Range(0f, 1.5f) * Vector2.up + signB * Random.Range(0f, 1.5f) * Vector2.right;
     }
 }

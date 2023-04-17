@@ -10,15 +10,14 @@ public class Bullet : MonoBehaviour
     [HideInInspector] public Vector3 axis;
     [HideInInspector] public float radius;
     [Header("Properties")]
-    public float rotationSpeed = 80.0f;
-    public float lifetime = 10f;
     public int pierce = 0;
     int currentPierce = 0;
 
-    void Start()
+
+    public void Fire(int speed, float lifetime)
     {
-        StartCoroutine(DestroyTimer());
-        rb.velocity = transform.up * 40f;
+        StartCoroutine(DestroyTimer(lifetime));
+        rb.velocity = transform.up * 10f;
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -35,7 +34,7 @@ public class Bullet : MonoBehaviour
         else currentPierce++;
     }
 
-    IEnumerator DestroyTimer()  //Destroys bullet after 10 seconds
+    IEnumerator DestroyTimer(float lifetime)  //Destroys bullet after 10 seconds
     {
         yield return Helpers.GetWait(lifetime);
         Destroy(gameObject);

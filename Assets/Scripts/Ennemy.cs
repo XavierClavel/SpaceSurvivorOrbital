@@ -11,11 +11,13 @@ public class Ennemy : MonoBehaviour
     Planet planet;
     Vector3 planetPos;
     float radius;
-    [SerializeField] float mean = 4f;
-    [SerializeField] float standardDeviation = 1f;
+    //[SerializeField] float mean = 4f;
+    //[SerializeField] float standardDeviation = 1f;
     [SerializeField] Slider healthBar;
     SoundManager soundManager;
-    int _health = 150;
+    [Header("Parameters")]
+    [SerializeField] int _health = 150;
+    [SerializeField] float speed = 1f;
     public int health
     {
         get { return _health; }
@@ -30,7 +32,7 @@ public class Ennemy : MonoBehaviour
     }
     [SerializeField] Rigidbody2D rb;
     const float hurtWindow = 0.5f;
-    float speed = 4f;
+
     Vector3 distance;
     Vector2 projectedDistance;
 
