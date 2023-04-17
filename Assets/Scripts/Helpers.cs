@@ -18,6 +18,12 @@ public class Helpers : MonoBehaviour
     private static Dictionary<int, TextMeshProUGUI> dictDebugDisplays = new Dictionary<int, TextMeshProUGUI>();
     [SerializeField] GameObject debugDisplayPrefab;
 
+    public static Quaternion v2ToQuaternion(Vector2 v2)
+    {
+        float angle = Vector2.SignedAngle(Vector2.up, v2);
+        return Quaternion.Euler(0f, 0f, angle);
+    }
+
     public static void CreateDebugDisplay(int index = -1)
     {
         TextMeshProUGUI currentDebugDisplay = Instantiate(debugDisplay);

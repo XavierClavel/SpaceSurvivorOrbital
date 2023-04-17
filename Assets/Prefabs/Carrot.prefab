@@ -46,14 +46,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1013518959079814096}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67a952da95cece1498a295343f695f0e, type: 3}
+  m_Script: {fileID: 11500000, guid: fbdd109072035f74d82451e440c37c88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 7594354938608519686, guid: db8b4666bc1492d4d9973aa9514f3f25, type: 3}
-  mean: 4
-  standardDeviation: 1
   healthBar: {fileID: 4506932026566891341}
   rb: {fileID: 2500570002257648173}
+  _health: 150
+  speed: 1
+  attackSpeed: 2
+  baseDamage: 5
+  range: 5
+  bulletPrefab: {fileID: 4478075856262805781, guid: 58044c464630bc442ac7f869cff47fa2, type: 3}
 --- !u!212 &6143776699891222440
 SpriteRenderer:
   m_ObjectHideFlags: 0

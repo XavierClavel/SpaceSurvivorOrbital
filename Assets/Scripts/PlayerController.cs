@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public float mouseSensitivityX = 1;
     public float mouseSensitivityY = 1;
     public controlMode controlScheme = controlMode.Keyboard;
-    public GameObject bulletPrefab;
+    public Bullet bulletPrefab;
     public static PlayerController instance;
     [HideInInspector] public InputMaster controls;
     //Vector2 direction;
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int toolPower = 50;
     [SerializeField] float toolRange;
     [SerializeField] public int maxCharge = 100;
-    public float health
+    internal float health
     {
         get { return _health; }
         set
@@ -142,9 +142,9 @@ public class PlayerController : MonoBehaviour
     bool playerControlled = true;
 
     #region interface
-    public void Hurt(float amount)
+    public static void Hurt(float amount)
     {
-        health -= amount * (1 - damageResistanceMultiplier);
+        instance.health -= amount * (1 - instance.damageResistanceMultiplier);
     }
 
     public static void HurtEnnemy(ref int damage, ref bool critical)
@@ -377,7 +377,7 @@ public class PlayerController : MonoBehaviour
     {
         StartCoroutine("Reload");
         soundManager.PlaySfx(transform, sfx.shoot);
-        Bullet bullet = Instantiate(bulletPrefab, transform.position - transform.forward * 6f, arrowTransform.rotation).GetComponentInChildren<Bullet>();
+        Bullet bullet = Instantiate(bulletPrefab, transform.position - transform.forward * 6f, arrowTransform.rotation);
         bullet.Fire(attackSpeed, bulletLifetime);
         bullet.pierce = pierce;
     }
