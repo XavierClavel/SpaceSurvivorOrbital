@@ -71,7 +71,6 @@ public class PlayerController : MonoBehaviour
     Transform cameraTransform;
     Vector3 targetMoveAmount;
     SoundManager soundManager;
-    public Transform localTransform;
     Vector2 prevMoveDir = Vector2.zero;
     WaitForSeconds reloadWindow;
     bool needToReload = false;
@@ -196,7 +195,6 @@ public class PlayerController : MonoBehaviour
         reloadWindow = new WaitForSeconds(reloadTime);
         _health = maxHealth;
         bulletLifetime = range / attackSpeed;
-        localTransform = transform;
         instance = this;
         controls = new InputMaster();
         controls.Player.Shoot.started += ctx =>
@@ -348,8 +346,6 @@ public class PlayerController : MonoBehaviour
 
         rb.MovePosition(rb.position + localMove);
         arrowTransform.position = transform.position;
-        //cameraRB.MovePosition(Vector3.Normalize(cameraRB.position + localMove - planetPos) * 50f + planetPos);
-        //Debug.Log(transform.position + (cameraOffset_fwd * localTransform.forward) + (cameraOffset_up * localTransform.up));
         cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
 
         if (shooting)

@@ -531,7 +531,8 @@ Transform:
   m_LocalPosition: {x: 1, y: 0, z: 1}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1797273991}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -599,25 +600,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1975eba2083998438719c6a40084251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivityX: 1
-  mouseSensitivityY: 1
   controlScheme: 1
   bulletPrefab: {fileID: 4478075856262805781, guid: c318572b656b92542abd302bed3be5af, type: 3}
   _playerState_value: 0
-  planet: {fileID: 0}
-  localTransform: {fileID: 0}
   violetAmountDisplay: {fileID: 2088343384}
   orangeAmountDisplay: {fileID: 953765293}
   greenAmountDisplay: {fileID: 838348350}
   minerPrefab: {fileID: 467648530048100159, guid: a4c0d4fe5d443124f930cdb397f13f96, type: 3}
   healthBar: {fileID: 819867605}
-  leaveBeam: {fileID: 0}
+  leaveBeam: {fileID: 2138451020}
   canvas: {fileID: 1007081076}
   line: {fileID: 641798845}
-  arrow: {fileID: 723545007}
   animator: {fileID: 169695427}
   hasWon: 0
   arrowTransform: {fileID: 723545008}
+  tool: {fileID: 1797273989}
   maxHealth: 100
   baseDamage: {x: 50, y: 75}
   attackSpeed: 10
@@ -629,7 +626,7 @@ MonoBehaviour:
   speed_aimingDemultiplier: 0.7
   damageResistanceMultiplier: 0
   toolPower: 50
-  toolRange: 0
+  toolRange: 2.5
   maxCharge: 100
 --- !u!95 &169695427
 Animator:
@@ -3212,6 +3209,87 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3dd190390f3d974da31c576dd0ac852, type: 3}
+--- !u!1 &1797273988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1797273991}
+  - component: {fileID: 1797273989}
+  - component: {fileID: 1797273990}
+  m_Layer: 16
+  m_Name: Tool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1797273989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797273988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb321231bda377943bb196b863755e45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: {fileID: 1797273990}
+--- !u!58 &1797273990
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797273988}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1
+--- !u!4 &1797273991
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797273988}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.56, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 169695422}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1958277320
 GameObject:
   m_ObjectHideFlags: 0
@@ -3422,6 +3500,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2088343382}
   m_CullTransparentMesh: 1
+--- !u!1 &2138451020 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3304160749570458426, guid: f3dd190390f3d974da31c576dd0ac852, type: 3}
+  m_PrefabInstance: {fileID: 1610154358}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &87380905712393586
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,6 +7,9 @@ public class Gunner : Ennemy
 {
     enum state { fleeing, shooting, approaching }
 
+    [SerializeField] int bulletSpeed = 5;
+    [SerializeField] Vector2 shootRange = new Vector2(3f, 5f);
+
     [Header("Additional References")]
     public Bullet bulletPrefab;
     bool shooting = false;
@@ -14,15 +17,22 @@ public class Gunner : Ennemy
     bool needsToReload = true;
     bool reloading = false;
     float lifetime;
-    [SerializeField] int bulletSpeed = 5;
     state ennemyState = state.approaching;
     Vector2 currentDir;
     float currentSpeed;
+    float sqrFleeRange;
+    float sqrShootRange;
 
     internal override void Start()
     {
         base.Start();
         lifetime = range / (float)bulletSpeed;
+
+        sqrFleeRange = Mathf.Pow(shootRange.x, 2);
+        sqrShootRange = Mathf.Pow(shootRange.y, 2);
+
+        Debug.Log(sqrFleeRange);
+
         StartCoroutine("SwitchState");
     }
 
@@ -31,26 +41,29 @@ public class Gunner : Ennemy
         while (true)
         {
             yield return waitStateStep;
-            switch (distanceToPlayer.magnitude)
+            float sqrDistance = distanceToPlayer.sqrMagnitude;
+
+            if (sqrDistance < sqrFleeRange)
             {
-                case < 3f:
-                    ennemyState = state.fleeing;
-                    shooting = false;
-                    DOTween.To(() => currentSpeed, x => currentSpeed = x, fleeSpeed, 0.5f).SetEase(Ease.InQuad);
-                    break;
-
-                case < 5f:
-                    ennemyState = state.shooting;
-                    shooting = true;
-                    DOTween.To(() => currentSpeed, x => currentSpeed = x, 0f, 0.5f).SetEase(Ease.InQuad); ;
-                    break;
-
-                default:
-                    ennemyState = state.approaching;
-                    shooting = false;
-                    DOTween.To(() => currentSpeed, x => currentSpeed = x, speed, 0.5f).SetEase(Ease.InQuad); ;
-                    break;
+                ennemyState = state.fleeing;
+                shooting = false;
+                DOTween.To(() => currentSpeed, x => currentSpeed = x, fleeSpeed, 0.5f).SetEase(Ease.InQuad);
+                continue;
             }
+
+            if (sqrDistance < sqrShootRange)
+            {
+                ennemyState = state.shooting;
+                shooting = true;
+                DOTween.To(() => currentSpeed, x => currentSpeed = x, 0f, 0.5f).SetEase(Ease.InQuad); ;
+                continue;
+
+            }
+
+            ennemyState = state.approaching;
+            shooting = false;
+            DOTween.To(() => currentSpeed, x => currentSpeed = x, speed, 0.5f).SetEase(Ease.InQuad); ;
+            continue;
         }
     }
 

@@ -13,20 +13,25 @@ public class Healer : Ennemy
     bool needsToRecharge = true;
     bool recharging = false;
 
-    [SerializeField] float fleeRange = 3f;
-    [SerializeField] float shootRange = 5f;
+    [SerializeField] Vector2 healRange = new Vector2(3f, 5f);
 
     [Header("Additional References")]
     [SerializeField] Transform healRangeDisplay;
     LayerMask mask;
     Vector2 currentDir;
     float currentSpeed;
+    float sqrFleeRange;
+    float sqrHealRange;
 
     internal override void Start()
     {
         base.Start();
         healRangeDisplay.localScale = range * Vector3.one;
         mask = LayerMask.GetMask("Ennemies");
+
+        sqrFleeRange = Mathf.Pow(healRange.x, 2);
+        sqrHealRange = Mathf.Pow(healRange.y, 2);
+
         StartCoroutine("SwitchState");
     }
 
@@ -35,28 +40,31 @@ public class Healer : Ennemy
         while (true)
         {
             yield return waitStateStep;
-            switch (distanceToPlayer.magnitude)
+            float sqrDistance = distanceToPlayer.sqrMagnitude;
+            if (sqrDistance < sqrFleeRange)
             {
-                case < 3f:
-                    ennemyState = state.fleeing;
-                    healing = false;
-                    DOTween.To(() => currentSpeed, x => currentSpeed = x, fleeSpeed, 0.5f).SetEase(Ease.InQuad);
-                    break;
-
-                case < 5f:
-                    ennemyState = state.healing;
-                    healing = true;
-                    DOTween.To(() => currentSpeed, x => currentSpeed = x, 0f, 0.5f).SetEase(Ease.InQuad); ;
-                    break;
-
-                default:
-                    ennemyState = state.approaching;
-                    healing = false;
-                    DOTween.To(() => currentSpeed, x => currentSpeed = x, speed, 0.5f).SetEase(Ease.InQuad); ;
-                    break;
+                ennemyState = state.fleeing;
+                healing = false;
+                DOTween.To(() => currentSpeed, x => currentSpeed = x, fleeSpeed, 0.5f).SetEase(Ease.InQuad);
+                continue;
             }
+
+            if (sqrDistance < sqrHealRange)
+            {
+                ennemyState = state.healing;
+                healing = true;
+                DOTween.To(() => currentSpeed, x => currentSpeed = x, 0f, 0.5f).SetEase(Ease.InQuad); ;
+                continue;
+            }
+
+
+            ennemyState = state.approaching;
+            healing = false;
+            DOTween.To(() => currentSpeed, x => currentSpeed = x, speed, 0.5f).SetEase(Ease.InQuad); ;
+            continue;
         }
     }
+
 
     internal override void FixedUpdate()
     //TODO : run on lower frequency
@@ -99,7 +107,6 @@ public class Healer : Ennemy
         foreach (RaycastHit2D hit in hits)
         {
             if (hit.collider.gameObject == gameObject) continue; //Does not heal himself
-            Debug.Log("one ennemy has been healed");
             Planet.dictObjectToEnnemy[hit.collider.gameObject].HealSelf(baseDamage);
         }
         needsToRecharge = true;
