@@ -15,16 +15,18 @@ public class Ennemy : MonoBehaviour
 
 
     [Header("Parameters")]
-    [SerializeField] internal int _health = 150;
+    [SerializeField] internal int baseHealth = 150;
     [SerializeField] internal float speed = 1f;
     [SerializeField] internal float attackSpeed = 0.5f;
     [SerializeField] internal int baseDamage = 5;
     [SerializeField] internal float range = 5f;
-    public int health
+    int _health;
+    int health
     {
         get { return _health; }
         set
         {
+            value = Helpers.CeilInt(value, baseHealth);
             _health = value;
             healthBar.value = value;
             if (!healthBar.gameObject.activeInHierarchy) healthBar.gameObject.SetActive(true);
@@ -39,10 +41,13 @@ public class Ennemy : MonoBehaviour
         soundManager = SoundManager.instance;
         player = PlayerController.instance;
         StressTest.nbEnnemies++;
+        _health = baseHealth;
         healthBar.maxValue = _health;
         healthBar.value = _health;
 
         wait = Helpers.GetWait(attackSpeed);
+
+        Planet.dictObjectToEnnemy.Add(gameObject, this);
     }
 
     internal virtual void FixedUpdate()
@@ -68,10 +73,17 @@ public class Ennemy : MonoBehaviour
         }
     }
 
+    public void HealSelf(int amount)
+    {
+        health += amount;
+        DamageDisplayHandler.DisplayDamage(amount, transform.position, healthChange.heal);
+    }
+
     internal virtual void Death()
     {
         StressTest.nbEnnemies--;
         soundManager.PlaySfx(transform, sfx.ennemyExplosion);
+        Planet.dictObjectToEnnemy.Remove(gameObject);
         Destroy(gameObject);
     }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shooter : Ennemy
+public class Gunner : Ennemy
 {
     //[SerializeField] float mean = 4f;
     //[SerializeField] float standardDeviation = 1f;
@@ -14,7 +14,7 @@ public class Shooter : Ennemy
     bool needsToReload = true;
     bool reloading = false;
     float lifetime;
-    int bulletSpeed = 5;
+    [SerializeField] int bulletSpeed = 5;
 
     internal override void Start()
     {

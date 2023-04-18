@@ -14,6 +14,7 @@ public class DamageDisplayHandler : MonoBehaviour
     static Vector3 exitScale = new Vector3(0.5f, 0.5f, 0.5f);
     static Color targetColor_white = new Color(1f, 1f, 1f, 0f);
     static Color targetColor_red = new Color(1f, 0f, 0f, 0f);
+    static Color targetColor_green = new Color(0f, 1f, 0f, 0f);
 
     private void Start()
     {
@@ -39,7 +40,9 @@ public class DamageDisplayHandler : MonoBehaviour
                 targetColor = targetColor_red;
                 break;
             case healthChange.heal:
-                targetColor = targetColor_white;
+                damageDisplay.color = Color.green;
+                targetColor = targetColor_green;
+                damageDisplay.text = "+" + damage.ToString();
                 break;
 
             default:

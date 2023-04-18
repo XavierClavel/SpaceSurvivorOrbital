@@ -24,6 +24,19 @@ public class Helpers : MonoBehaviour
         return Quaternion.Euler(0f, 0f, angle);
     }
 
+    public static int ClampInt(int value, int min, int max)
+    {
+        if (value < min) value = min;
+        if (value > max) value = max;
+        return value;
+    }
+
+    public static int CeilInt(int value, int max)
+    {
+        if (value > max) value = max;
+        return value;
+    }
+
     public static void CreateDebugDisplay(int index = -1)
     {
         TextMeshProUGUI currentDebugDisplay = Instantiate(debugDisplay);
