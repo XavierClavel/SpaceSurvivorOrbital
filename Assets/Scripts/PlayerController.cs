@@ -14,8 +14,6 @@ public enum playerDirection { front, left, back, right };
 public class PlayerController : MonoBehaviour
 {
     [Header("Parameters")]
-    public float mouseSensitivityX = 1;
-    public float mouseSensitivityY = 1;
     public controlMode controlScheme = controlMode.Keyboard;
     public Bullet bulletPrefab;
     public static PlayerController instance;
@@ -70,19 +68,11 @@ public class PlayerController : MonoBehaviour
     float speed;
     Vector2 moveAmount;
     Vector2 smoothMoveVelocity;
-    float verticalLookRotation;
     Transform cameraTransform;
-    float inputX;
-    float inputY;
     Vector3 targetMoveAmount;
-    Rigidbody2D cameraRB;
-    Vector2 targetMouseDelta;
     SoundManager soundManager;
-    [SerializeField] Planet planet;
     public Transform localTransform;
-    Vector2 prevInput = Vector2.up;
     Vector2 prevMoveDir = Vector2.zero;
-    const float shootWindow_value = 0.5f;
     WaitForSeconds reloadWindow;
     bool needToReload = false;
     bool needToReloadMining = false;
@@ -104,13 +94,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject leaveBeam;
     [SerializeField] GameObject canvas;
     [SerializeField] LineRenderer line;
-    [SerializeField] GameObject arrow;
     [SerializeField] Animator animator;
     [HideInInspector] public bool hasWon = false;
     [SerializeField] Transform arrowTransform;
     Vector2 moveDir;
     float bulletLifetime;
     int currentCharge = 0;
+
+    [SerializeField] Tool tool;
 
     [Header("Parameters")]
     [SerializeField] int maxHealth = 100;
@@ -266,6 +257,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        tool.Resize(toolRange);
         Cursor.lockState = CursorLockMode.Confined;
         rb = GetComponent<Rigidbody2D>();
         cameraTransform = Camera.main.transform;
@@ -290,8 +282,14 @@ public class PlayerController : MonoBehaviour
     void Aim()
     {
         Vector2 input = controls.Player.Aim.ReadValue<Vector2>();
+        if (input != Vector2.zero)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
         if (mouseAiming)
         {
+            //Cursor.visible = true;
             Vector2 mousePos = controls.Player.MousePosition.ReadValue<Vector2>();
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
             Vector2 direction = (worldPos - transform.position);
@@ -376,9 +374,10 @@ public class PlayerController : MonoBehaviour
     void Mine()
     {
         StartCoroutine("ReloadMining");
-        soundManager.PlaySfx(transform, sfx.shoot);
-        Bullet bullet = Instantiate(minerPrefab, transform.position - transform.forward * 6f, arrowTransform.rotation).GetComponentInChildren<Bullet>();
-        bullet.Fire(attackSpeed, bulletLifetime);
+        //soundManager.PlaySfx(transform, sfx.shoot);
+        //Bullet bullet = Instantiate(minerPrefab, transform.position - transform.forward * 6f, arrowTransform.rotation).GetComponentInChildren<Bullet>();
+        //bullet.Fire(attackSpeed, bulletLifetime);
+        tool.Hit(toolPower);
         //bullet.lifetime = 0.3f;
     }
 

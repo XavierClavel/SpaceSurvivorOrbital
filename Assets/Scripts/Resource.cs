@@ -26,6 +26,11 @@ public class Resource : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        Planet.dictObjectToResource.Add(gameObject, this);
+    }
+
     private void Start()
     {
         healthBar.maxValue = _health;
@@ -40,6 +45,11 @@ public class Resource : MonoBehaviour
             health -= damageTaken;
             DamageDisplayHandler.DisplayDamage(damageTaken, transform.position);
         }
+    }
+
+    public void Hit(int damage)
+    {
+        health -= damage;
     }
 
 
