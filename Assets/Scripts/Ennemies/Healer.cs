@@ -13,6 +13,9 @@ public class Healer : Ennemy
     bool needsToRecharge = true;
     bool recharging = false;
 
+    [SerializeField] float fleeRange = 3f;
+    [SerializeField] float shootRange = 5f;
+
     [Header("Additional References")]
     [SerializeField] Transform healRangeDisplay;
     LayerMask mask;

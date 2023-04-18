@@ -42,16 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Shield",
-                    "type": "Button",
-                    "id": "b7f5a2b4-3ba6-41cb-ad02-97643ef5f3f0",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Rotate",
+                    "name": "Aim",
                     "type": "Value",
                     "id": "524e547a-e3b4-4e01-bf54-610e9980bf4e",
                     "expectedControlType": "Vector2",
@@ -96,22 +87,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RotateLeft",
+                    "name": "MouseAimActive",
                     "type": "Button",
-                    "id": "72de74fa-2d12-43ef-9030-be1d257c7c50",
+                    "id": "e9c63ba6-d8e3-4cff-abc1-a4ec2f63d638",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RotateRight",
-                    "type": "Button",
-                    "id": "21de18f4-a892-4e70-8fb9-662764bc727b",
-                    "expectedControlType": "Button",
+                    "name": "MousePosition",
+                    "type": "Value",
+                    "id": "18fbee81-4c62-4d9e-b8f6-cf48312c29ee",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -282,34 +273,12 @@
                 },
                 {
                     "name": "",
-                    "id": "87e73d99-9437-4010-9c22-25ffad3ece22",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "Press(behavior=2)",
-                    "processors": "",
-                    "groups": "Keyboard / Mouse",
-                    "action": "Shield",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "27a1bf37-06ca-4116-9ccb-9397af037972",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Shield",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "68eed3ff-e6cf-4b1b-a5af-52b18ed9c9aa",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Rotate",
+                    "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -414,23 +383,23 @@
                 },
                 {
                     "name": "",
-                    "id": "2077b37a-0a5a-4a3a-bc80-0d841ca996bc",
-                    "path": "<Gamepad>/leftShoulder",
+                    "id": "a71c8b6a-4564-49cb-98ec-df2218e571d3",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "RotateLeft",
+                    "groups": "Keyboard / Mouse",
+                    "action": "MouseAimActive",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "14dcbb14-e9cf-42ef-afc1-3edec8eb687a",
-                    "path": "<Gamepad>/rightShoulder",
+                    "id": "0f81f17d-3c9b-47f8-b10c-410738995056",
+                    "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "RotateRight",
+                    "groups": "Keyboard / Mouse",
+                    "action": "MousePosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

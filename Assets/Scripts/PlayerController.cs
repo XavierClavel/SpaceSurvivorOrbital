@@ -81,6 +81,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Planet planet;
     public Transform localTransform;
     Vector2 prevInput = Vector2.up;
+    Vector2 prevMoveDir = Vector2.zero;
     const float shootWindow_value = 0.5f;
     WaitForSeconds reloadWindow;
     bool needToReload = false;
@@ -126,6 +127,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int toolPower = 50;
     [SerializeField] float toolRange;
     [SerializeField] public int maxCharge = 100;
+    bool mouseAiming = false;
+
     internal float health
     {
         get { return _health; }
@@ -233,7 +236,9 @@ public class PlayerController : MonoBehaviour
         controls.Player.Reload.performed += context => Restart();
         controls.Player.Pause.performed += context => PauseMenu.instance.PauseGame();
 
-        if (Gamepad.all.Count > 0) controlScheme = controlMode.Gamepad;
+        controls.Player.MouseAimActive.started += ctx => { mouseAiming = true; };
+        controls.Player.MouseAimActive.canceled += ctx => { mouseAiming = false; };
+
         //rotArrayX = new Vector3[0];
         //controlScheme = controlMode.Keyboard;
 
@@ -261,7 +266,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Confined;
         rb = GetComponent<Rigidbody2D>();
         cameraTransform = Camera.main.transform;
         soundManager = SoundManager.instance;
@@ -270,58 +275,44 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
-        RotatePlayer();
+        Aim();
     }
 
     void Move()
     {
-
         moveDir = controls.Player.Move.ReadValue<Vector2>();
-        if (moveDir.sqrMagnitude > 1) moveDir = moveDir.normalized;
+        if (moveDir.sqrMagnitude > 1) moveDir = moveDir.normalized; //TODO : delete
+        if (moveDir != Vector2.zero) prevMoveDir = moveDir;
         targetMoveAmount = moveDir * speed;
         moveAmount = Vector2.SmoothDamp(moveAmount, targetMoveAmount, ref smoothMoveVelocity, 0.15f);
-
-
-        //transform.Translate(localMove);
     }
 
-    void RotatePlayer()
+    void Aim()
     {
-
-        if (controlScheme == controlMode.Keyboard)
+        Vector2 input = controls.Player.Aim.ReadValue<Vector2>();
+        if (mouseAiming)
         {
-            inputX = Mouse.current.delta.x.ReadValue();
-            inputY = Mouse.current.delta.y.ReadValue();
-            targetMouseDelta = Mouse.current.delta.ReadValue();
+            Vector2 mousePos = controls.Player.MousePosition.ReadValue<Vector2>();
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+            Vector2 direction = (worldPos - transform.position);
+            input = direction.normalized;
+        }
 
-            verticalLookRotation += inputY * mouseSensitivityY * Time.deltaTime * 10f;
-            verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90, 90);
+        if (input == Vector2.zero)
+        {
+            input = moveDir == Vector2.zero ? prevMoveDir : moveDir;
+            speed = baseSpeed;
 
-            transform.Rotate(Vector3.up * inputX * mouseSensitivityX * Time.deltaTime * 10f);
         }
         else
         {
-            Vector2 input = controls.Player.Rotate.ReadValue<Vector2>();
-
-            if (input == Vector2.zero)
-            {
-                input = moveDir;
-                arrow.SetActive(false);
-                speed = baseSpeed;
-
-            }
-            else
-            {
-                arrow.SetActive(true);
-                speed = baseSpeed * speed_aimingDemultiplier;
-            }
-
-            Vector2 localLook = localTransform.TransformVector(new Vector2(input.x, input.y));
-            float angle = Vector2.SignedAngle(Vector2.up, input);
-            arrowTransform.rotation = Quaternion.Euler(0f, 0f, angle);
-            _aimDirection = angleToDirection(Vector2.SignedAngle(input, Vector2.down) + 180f);
-
+            speed = baseSpeed * speed_aimingDemultiplier;
         }
+
+        Vector2 localLook = localTransform.TransformVector(new Vector2(input.x, input.y));
+        float angle = Vector2.SignedAngle(Vector2.up, input);
+        arrowTransform.rotation = Quaternion.Euler(0f, 0f, angle);
+        _aimDirection = angleToDirection(Vector2.SignedAngle(input, Vector2.down) + 180f);
 
     }
 

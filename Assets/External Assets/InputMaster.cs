@@ -64,16 +64,7 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Shield"",
-                    ""type"": ""Button"",
-                    ""id"": ""b7f5a2b4-3ba6-41cb-ad02-97643ef5f3f0"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Rotate"",
+                    ""name"": ""Aim"",
                     ""type"": ""Value"",
                     ""id"": ""524e547a-e3b4-4e01-bf54-610e9980bf4e"",
                     ""expectedControlType"": ""Vector2"",
@@ -118,22 +109,22 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""RotateLeft"",
+                    ""name"": ""MouseAimActive"",
                     ""type"": ""Button"",
-                    ""id"": ""72de74fa-2d12-43ef-9030-be1d257c7c50"",
+                    ""id"": ""e9c63ba6-d8e3-4cff-abc1-a4ec2f63d638"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""RotateRight"",
-                    ""type"": ""Button"",
-                    ""id"": ""21de18f4-a892-4e70-8fb9-662764bc727b"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""18fbee81-4c62-4d9e-b8f6-cf48312c29ee"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -304,34 +295,12 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""87e73d99-9437-4010-9c22-25ffad3ece22"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": ""Press(behavior=2)"",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard / Mouse"",
-                    ""action"": ""Shield"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""27a1bf37-06ca-4116-9ccb-9397af037972"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Shield"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""68eed3ff-e6cf-4b1b-a5af-52b18ed9c9aa"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Rotate"",
+                    ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -436,23 +405,23 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2077b37a-0a5a-4a3a-bc80-0d841ca996bc"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""id"": ""a71c8b6a-4564-49cb-98ec-df2218e571d3"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RotateLeft"",
+                    ""groups"": ""Keyboard / Mouse"",
+                    ""action"": ""MouseAimActive"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""14dcbb14-e9cf-42ef-afc1-3edec8eb687a"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""id"": ""0f81f17d-3c9b-47f8-b10c-410738995056"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RotateRight"",
+                    ""groups"": ""Keyboard / Mouse"",
+                    ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -666,14 +635,13 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_Shield = m_Player.FindAction("Shield", throwIfNotFound: true);
-        m_Player_Rotate = m_Player.FindAction("Rotate", throwIfNotFound: true);
+        m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         m_Player_Talk = m_Player.FindAction("Talk", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_Mine = m_Player.FindAction("Mine", throwIfNotFound: true);
-        m_Player_RotateLeft = m_Player.FindAction("RotateLeft", throwIfNotFound: true);
-        m_Player_RotateRight = m_Player.FindAction("RotateRight", throwIfNotFound: true);
+        m_Player_MouseAimActive = m_Player.FindAction("MouseAimActive", throwIfNotFound: true);
+        m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
         // Talk
         m_Talk = asset.FindActionMap("Talk", throwIfNotFound: true);
         m_Talk_Talk = m_Talk.FindAction("Talk", throwIfNotFound: true);
@@ -746,14 +714,13 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_Shield;
-    private readonly InputAction m_Player_Rotate;
+    private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_Reload;
     private readonly InputAction m_Player_Talk;
     private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_Mine;
-    private readonly InputAction m_Player_RotateLeft;
-    private readonly InputAction m_Player_RotateRight;
+    private readonly InputAction m_Player_MouseAimActive;
+    private readonly InputAction m_Player_MousePosition;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -762,14 +729,13 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        public InputAction @Shield => m_Wrapper.m_Player_Shield;
-        public InputAction @Rotate => m_Wrapper.m_Player_Rotate;
+        public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputAction @Talk => m_Wrapper.m_Player_Talk;
         public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputAction @Mine => m_Wrapper.m_Player_Mine;
-        public InputAction @RotateLeft => m_Wrapper.m_Player_RotateLeft;
-        public InputAction @RotateRight => m_Wrapper.m_Player_RotateRight;
+        public InputAction @MouseAimActive => m_Wrapper.m_Player_MouseAimActive;
+        public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -791,12 +757,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
-                @Shield.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShield;
-                @Shield.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShield;
-                @Shield.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShield;
-                @Rotate.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotate;
-                @Rotate.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotate;
-                @Rotate.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotate;
+                @Aim.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAim;
+                @Aim.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAim;
+                @Aim.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAim;
                 @Reload.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
                 @Reload.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
                 @Reload.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
@@ -809,12 +772,12 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @Mine.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMine;
                 @Mine.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMine;
                 @Mine.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMine;
-                @RotateLeft.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotateLeft;
-                @RotateLeft.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotateLeft;
-                @RotateLeft.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotateLeft;
-                @RotateRight.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotateRight;
-                @RotateRight.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotateRight;
-                @RotateRight.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRotateRight;
+                @MouseAimActive.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseAimActive;
+                @MouseAimActive.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseAimActive;
+                @MouseAimActive.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseAimActive;
+                @MousePosition.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -831,12 +794,9 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
-                @Shield.started += instance.OnShield;
-                @Shield.performed += instance.OnShield;
-                @Shield.canceled += instance.OnShield;
-                @Rotate.started += instance.OnRotate;
-                @Rotate.performed += instance.OnRotate;
-                @Rotate.canceled += instance.OnRotate;
+                @Aim.started += instance.OnAim;
+                @Aim.performed += instance.OnAim;
+                @Aim.canceled += instance.OnAim;
                 @Reload.started += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
@@ -849,12 +809,12 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 @Mine.started += instance.OnMine;
                 @Mine.performed += instance.OnMine;
                 @Mine.canceled += instance.OnMine;
-                @RotateLeft.started += instance.OnRotateLeft;
-                @RotateLeft.performed += instance.OnRotateLeft;
-                @RotateLeft.canceled += instance.OnRotateLeft;
-                @RotateRight.started += instance.OnRotateRight;
-                @RotateRight.performed += instance.OnRotateRight;
-                @RotateRight.canceled += instance.OnRotateRight;
+                @MouseAimActive.started += instance.OnMouseAimActive;
+                @MouseAimActive.performed += instance.OnMouseAimActive;
+                @MouseAimActive.canceled += instance.OnMouseAimActive;
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
             }
         }
     }
@@ -973,14 +933,13 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnShield(InputAction.CallbackContext context);
-        void OnRotate(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnTalk(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnMine(InputAction.CallbackContext context);
-        void OnRotateLeft(InputAction.CallbackContext context);
-        void OnRotateRight(InputAction.CallbackContext context);
+        void OnMouseAimActive(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
     }
     public interface ITalkActions
     {
