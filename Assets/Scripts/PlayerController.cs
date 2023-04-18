@@ -222,12 +222,14 @@ public class PlayerController : MonoBehaviour
         {
             mining = true;
             shooting = false;
+            if (reloadingMining) return;
+            if (needToReloadMining) StartCoroutine("ReloadMining");
+            else Mine();
         };
         controls.Player.Mine.canceled += ctx =>
         {
             mining = false;
         };
-        controls.Player.Mine.performed += ctx => Mine();
         controls.Player.Reload.performed += context => Restart();
         controls.Player.Pause.performed += context => PauseMenu.instance.PauseGame();
 

@@ -21,7 +21,6 @@ public class Resource : MonoBehaviour
             _health = value;
             healthBar.value = value;
             if (!healthBar.gameObject.activeInHierarchy) healthBar.gameObject.SetActive(true);
-            Debug.Log(value);
             //SoundManager.instance.PlaySfx(transform, sfx.playerHit);
             if (value <= 0) Break();
         }

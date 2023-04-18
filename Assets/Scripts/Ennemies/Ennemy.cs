@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Ennemy : MonoBehaviour
 {
@@ -12,14 +13,17 @@ public class Ennemy : MonoBehaviour
     internal Vector2 distanceToPlayer;
     internal Vector2 directionToPlayer;
     internal WaitForSeconds wait;
+    internal WaitForSeconds waitStateStep;
 
 
     [Header("Parameters")]
     [SerializeField] internal int baseHealth = 150;
     [SerializeField] internal float speed = 1f;
+    [SerializeField] internal float fleeSpeed = 2f;
     [SerializeField] internal float attackSpeed = 0.5f;
     [SerializeField] internal int baseDamage = 5;
     [SerializeField] internal float range = 5f;
+    [SerializeField] internal float stateStep = 0.5f;
     int _health;
     int health
     {
@@ -27,9 +31,10 @@ public class Ennemy : MonoBehaviour
         set
         {
             value = Helpers.CeilInt(value, baseHealth);
+            if (value == baseHealth && healthBar.gameObject.activeInHierarchy) healthBar.gameObject.SetActive(false);
+            else if (!healthBar.gameObject.activeInHierarchy) healthBar.gameObject.SetActive(true);
             _health = value;
             healthBar.value = value;
-            if (!healthBar.gameObject.activeInHierarchy) healthBar.gameObject.SetActive(true);
             //SoundManager.instance.PlaySfx(transform, sfx.playerHit);
             if (value <= 0) Death();
         }
@@ -46,6 +51,7 @@ public class Ennemy : MonoBehaviour
         healthBar.value = _health;
 
         wait = Helpers.GetWait(attackSpeed);
+        waitStateStep = Helpers.GetWait(stateStep);
 
         Planet.dictObjectToEnnemy.Add(gameObject, this);
     }
@@ -54,6 +60,11 @@ public class Ennemy : MonoBehaviour
     {
         distanceToPlayer = player.transform.position - transform.position;
         directionToPlayer = distanceToPlayer.normalized;
+    }
+
+    internal void Move(Vector2 direction, float speed)
+    {
+        rb.MovePosition(rb.position + direction * Time.fixedDeltaTime * speed);
     }
 
     internal void Move(Vector2 direction)

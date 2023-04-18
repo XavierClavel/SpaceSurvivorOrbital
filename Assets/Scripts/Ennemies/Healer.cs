@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Healer : Ennemy
 {
+    enum state { fleeing, healing, approaching }
+    state ennemyState = state.approaching;
 
     bool healing = false;
 
@@ -13,35 +16,66 @@ public class Healer : Ennemy
     [Header("Additional References")]
     [SerializeField] Transform healRangeDisplay;
     LayerMask mask;
+    Vector2 currentDir;
+    float currentSpeed;
 
     internal override void Start()
     {
         base.Start();
         healRangeDisplay.localScale = range * Vector3.one;
         mask = LayerMask.GetMask("Ennemies");
+        StartCoroutine("SwitchState");
+    }
+
+    IEnumerator SwitchState()
+    {
+        while (true)
+        {
+            yield return waitStateStep;
+            switch (distanceToPlayer.magnitude)
+            {
+                case < 3f:
+                    ennemyState = state.fleeing;
+                    healing = false;
+                    DOTween.To(() => currentSpeed, x => currentSpeed = x, fleeSpeed, 0.5f).SetEase(Ease.InQuad);
+                    break;
+
+                case < 5f:
+                    ennemyState = state.healing;
+                    healing = true;
+                    DOTween.To(() => currentSpeed, x => currentSpeed = x, 0f, 0.5f).SetEase(Ease.InQuad); ;
+                    break;
+
+                default:
+                    ennemyState = state.approaching;
+                    healing = false;
+                    DOTween.To(() => currentSpeed, x => currentSpeed = x, speed, 0.5f).SetEase(Ease.InQuad); ;
+                    break;
+            }
+        }
     }
 
     internal override void FixedUpdate()
     //TODO : run on lower frequency
     {
         base.FixedUpdate();
-        switch (distanceToPlayer.magnitude)
+        switch (ennemyState)
         {
-            case < 3f:
-                healing = false;
-                Move(-directionToPlayer);
+            case state.fleeing:
+                Move(-directionToPlayer, currentSpeed);
+                currentDir = -directionToPlayer;
                 break;
 
-            case < 6f:
-                healing = true;
+            case state.healing:
+                Move(currentDir, currentSpeed);
                 if (recharging) break;
                 if (needsToRecharge) StartCoroutine("Recharge");
                 else Heal();
                 break;
 
-            default:
-                healing = false;
-                Move(directionToPlayer);
+            case state.approaching:
+                Move(directionToPlayer, currentSpeed);
+                currentDir = directionToPlayer;
                 break;
         }
     }
