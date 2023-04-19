@@ -31,11 +31,6 @@ public class PauseMenu : MonoBehaviour
 
         SoundManager.instance.StopTime();
 
-        if (PlayerController.instance.controlScheme == PlayerController.controlMode.Keyboard)
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
-
     }
 
     public void ResumeGame()

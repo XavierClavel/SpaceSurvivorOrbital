@@ -33,11 +33,13 @@ public class Bullet : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player")) PlayerController.Hurt(damage);
 
+
         if (currentPierce == pierce)
         {
             Destroy(gameObject);
         }
-        else currentPierce++;
+        if (other.gameObject.CompareTag("Resource")) Destroy(gameObject);
+        currentPierce++;
     }
 
     IEnumerator DestroyTimer(float lifetime)  //Destroys bullet after 10 seconds

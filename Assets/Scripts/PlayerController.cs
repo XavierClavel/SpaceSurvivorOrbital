@@ -13,15 +13,12 @@ public enum playerDirection { front, left, back, right };
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Parameters")]
-    public controlMode controlScheme = controlMode.Keyboard;
+    [Header("References")]
     public Bullet bulletPrefab;
-    public static PlayerController instance;
+    [HideInInspector] public static PlayerController instance;
     [HideInInspector] public InputMaster controls;
-    //Vector2 direction;
-    public enum controlMode { Keyboard, Gamepad };
-
-    public playerState _playerState_value = playerState.idle;
+    [HideInInspector] public playerState _playerState_value = playerState.idle;
+    [HideInInspector]
     public playerState _playerState
     {
         get
@@ -36,6 +33,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     playerDirection _aimDirection_value = playerDirection.front;
+    [HideInInspector]
     public playerDirection _aimDirection
     {
         get
@@ -61,9 +59,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-    //Local variables
-    Vector3 planetPos;
     Rigidbody2D rb;
     float speed;
     Vector2 moveAmount;
@@ -102,6 +97,11 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Tool tool;
     [SerializeField] ResourcesAttractor attractor;
+
+    [Header("UI")]
+    [SerializeField] ResourceLayoutManager layoutManagerViolet;
+    [SerializeField] ResourceLayoutManager layoutManagerOrange;
+    [SerializeField] ResourceLayoutManager layoutManagerGreen;
 
     [Header("Parameters")]
     [SerializeField] int maxHealth = 100;
@@ -158,6 +158,7 @@ public class PlayerController : MonoBehaviour
     public void IncreaseViolet()
     {
         if (currentCharge >= maxCharge) return;
+        layoutManagerViolet.AddResource();
         currentCharge++;
         violetAmount++;
         violetAmountDisplay.text = violetAmount.ToString();
@@ -171,6 +172,7 @@ public class PlayerController : MonoBehaviour
     public void IncreaseOrange()
     {
         if (currentCharge >= maxCharge) return;
+        layoutManagerOrange.AddResource();
         currentCharge++;
         orangeAmount++;
         orangeAmountDisplay.text = orangeAmount.ToString();
@@ -179,6 +181,7 @@ public class PlayerController : MonoBehaviour
     public void IncreaseGreen()
     {
         if (currentCharge >= maxCharge) return;
+        layoutManagerGreen.AddResource();
         currentCharge++;
         greenAmount++;
         greenAmountDisplay.text = greenAmount.ToString();
@@ -389,27 +392,6 @@ public class PlayerController : MonoBehaviour
     {
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
-    }
-    void GenerateLine()
-    {
-        float x;
-        float y;
-        int segments = 200;
-        line.positionCount = 2 + segments;
-        float radius = (planetPos - transform.position).magnitude;
-        float angle = angle = 4f;
-
-        for (int j = 0; j <= 1 + segments * 0.20; j++)
-        {
-            x = Mathf.Sin(Mathf.Deg2Rad * angle) * radius;
-            y = Mathf.Cos(Mathf.Deg2Rad * angle) * radius;
-
-
-
-            line.SetPosition(j, planetPos + x * transform.forward + y * transform.up);
-
-            angle += (360f / segments);
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
