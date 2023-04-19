@@ -5,15 +5,20 @@ using UnityEngine.UI;
 
 public class ResourceLayoutManager : MonoBehaviour
 {
-    [SerializeField] List<Slider> sliders;
+    List<Slider> sliders = new List<Slider>();
+    [SerializeField] Slider sliderObject;
     int amountToFill = 30;
     int sliderIndex = 0;
 
-    private void Start()
+    public void Setup(int nbSliders, int amountToFill)
     {
-        foreach (Slider slider in sliders)
+        this.amountToFill = amountToFill;
+        for (int i = 0; i < nbSliders; i++)
         {
+            Slider slider = Instantiate(sliderObject, Vector3.zero, Quaternion.identity);
+            slider.transform.parent = transform;
             slider.maxValue = amountToFill;
+            sliders.Insert(0, slider);
         }
     }
 

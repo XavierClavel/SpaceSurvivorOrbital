@@ -102,6 +102,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] ResourceLayoutManager layoutManagerViolet;
     [SerializeField] ResourceLayoutManager layoutManagerOrange;
     [SerializeField] ResourceLayoutManager layoutManagerGreen;
+    [Header("Resources")]
+    [SerializeField] int maxViolet = 2;
+    [SerializeField] int maxOrange = 2;
+    [SerializeField] int maxGreen = 2;
+
+    [SerializeField] int fillAmountViolet = 20;
+    [SerializeField] int fillAmountOrange = 20;
+    [SerializeField] int fillAmountGreen = 20;
 
     [Header("Parameters")]
     [SerializeField] int maxHealth = 100;
@@ -271,6 +279,10 @@ public class PlayerController : MonoBehaviour
         soundManager = SoundManager.instance;
 
         attractor.Setup(attractorRange, attractorForce);
+
+        layoutManagerViolet.Setup(maxViolet, fillAmountViolet);
+        layoutManagerOrange.Setup(maxOrange, fillAmountOrange);
+        layoutManagerGreen.Setup(maxGreen, fillAmountGreen);
     }
 
     void Update()
