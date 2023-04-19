@@ -31,8 +31,6 @@ public class Gunner : Ennemy
         sqrFleeRange = Mathf.Pow(shootRange.x, 2);
         sqrShootRange = Mathf.Pow(shootRange.y, 2);
 
-        Debug.Log(sqrFleeRange);
-
         StartCoroutine("SwitchState");
     }
 

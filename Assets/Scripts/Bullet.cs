@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [HideInInspector] public Vector3 planetPos;
     [SerializeField] ParticleSystem bulletParticle;
     [SerializeField] Rigidbody2D rb;
-    [HideInInspector] public Vector3 axis;
-    [HideInInspector] public float radius;
-    [Header("Properties")]
-    public int pierce = 0;
+    [HideInInspector] public int pierce = 0;
     int currentPierce = 0;
     int damage = 5;
 
@@ -28,10 +24,10 @@ public class Bullet : MonoBehaviour
         this.damage = damage;
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         SoundManager.instance.PlaySfx(transform, sfx.bulletOnGround);
-        ParticleSystem parSys = Instantiate(bulletParticle, transform.position, Quaternion.LookRotation(other.GetContact(0).normal, transform.up));
+        ParticleSystem parSys = Instantiate(bulletParticle, transform.position, Quaternion.identity);
         parSys.Play();
         Helpers.instance.WaitAndKill(0.5f, parSys.gameObject);
 

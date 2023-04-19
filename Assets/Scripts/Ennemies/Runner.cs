@@ -13,9 +13,8 @@ public class Runner : Ennemy
     }
 
 
-    override internal void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        base.OnCollisionEnter2D(other);
         if (other.gameObject.CompareTag("Player"))
         {
             if (PlayerController.instance.hasWon) return;

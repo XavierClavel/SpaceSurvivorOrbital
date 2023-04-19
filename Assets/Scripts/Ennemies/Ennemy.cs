@@ -72,7 +72,7 @@ public class Ennemy : MonoBehaviour
         rb.MovePosition(rb.position + direction * Time.fixedDeltaTime * speed);
     }
 
-    internal virtual void OnCollisionEnter2D(Collision2D other)
+    internal virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("BlueBullet"))
         {

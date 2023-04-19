@@ -102,7 +102,6 @@ public class Healer : Ennemy
 
     void Heal()
     {
-        Debug.Log("heal");
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, range, Vector2.up, 0.00001f, mask);
         foreach (RaycastHit2D hit in hits)
         {

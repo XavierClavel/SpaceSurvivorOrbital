@@ -101,6 +101,7 @@ public class PlayerController : MonoBehaviour
     int currentCharge = 0;
 
     [SerializeField] Tool tool;
+    [SerializeField] ResourcesAttractor attractor;
 
     [Header("Parameters")]
     [SerializeField] int maxHealth = 100;
@@ -110,13 +111,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float reloadTime = 0.5f;
     [SerializeField] float criticalChance = 0.2f;    //between 0 and 1
     [SerializeField] float criticalMultiplier = 2f;  //superior to 1
-    int pierce = 0;
+    [SerializeField] int pierce = 0;
     [SerializeField] float baseSpeed = 30f;
     [SerializeField] float speed_aimingDemultiplier = 0.7f;
     [SerializeField] float damageResistanceMultiplier = 0f;
     [SerializeField] int toolPower = 50;
     [SerializeField] float toolRange;
-    [SerializeField] public int maxCharge = 100;
+    [SerializeField] int maxCharge = 100;
+    [SerializeField] float attractorRange = 2.5f;
+    [SerializeField] float attractorForce = 2.5f;
     bool mouseAiming = false;
 
     internal float health
@@ -154,6 +157,7 @@ public class PlayerController : MonoBehaviour
 
     public void IncreaseViolet()
     {
+        if (currentCharge >= maxCharge) return;
         currentCharge++;
         violetAmount++;
         violetAmountDisplay.text = violetAmount.ToString();
@@ -166,6 +170,7 @@ public class PlayerController : MonoBehaviour
 
     public void IncreaseOrange()
     {
+        if (currentCharge >= maxCharge) return;
         currentCharge++;
         orangeAmount++;
         orangeAmountDisplay.text = orangeAmount.ToString();
@@ -173,6 +178,7 @@ public class PlayerController : MonoBehaviour
 
     public void IncreaseGreen()
     {
+        if (currentCharge >= maxCharge) return;
         currentCharge++;
         greenAmount++;
         greenAmountDisplay.text = greenAmount.ToString();
@@ -260,6 +266,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         cameraTransform = Camera.main.transform;
         soundManager = SoundManager.instance;
+
+        attractor.Setup(attractorRange, attractorForce);
     }
 
     void Update()
@@ -414,24 +422,6 @@ public class PlayerController : MonoBehaviour
                 break;
             case "Exit":
                 SceneManager.LoadScene("Ship");
-                break;
-
-            case "VioletCollectible":
-                if (currentCharge >= maxCharge) return;
-                Destroy(other.gameObject);
-                IncreaseViolet();
-                break;
-
-            case "GreenCollectible":
-                if (currentCharge >= maxCharge) return;
-                Destroy(other.gameObject);
-                IncreaseGreen();
-                break;
-
-            case "OrangeCollectible":
-                if (currentCharge >= maxCharge) return;
-                Destroy(other.gameObject);
-                IncreaseOrange();
                 break;
         }
     }
