@@ -81,11 +81,10 @@ public class PlayerController : MonoBehaviour
     int violetAmount = 0;
     int orangeAmount = 0;
     int greenAmount = 0;
-    const int requiredAmount = 10;
     [SerializeField] GameObject minerPrefab;
     [SerializeField] Slider healthBar;
     float _health;
-    [SerializeField] GameObject leaveBeam;
+    [SerializeField] GameObject spaceship;
     [SerializeField] GameObject canvas;
     [SerializeField] LineRenderer line;
     [SerializeField] Animator animator;
@@ -125,7 +124,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float damageResistanceMultiplier = 0f;
     [SerializeField] int toolPower = 50;
     [SerializeField] float toolRange;
-    [SerializeField] int maxCharge = 100;
     [SerializeField] float attractorRange = 2.5f;
     [SerializeField] float attractorForce = 2.5f;
     bool mouseAiming = false;
@@ -165,21 +163,19 @@ public class PlayerController : MonoBehaviour
 
     public void IncreaseViolet()
     {
-        if (currentCharge >= maxCharge) return;
         layoutManagerViolet.AddResource();
         currentCharge++;
         violetAmount++;
         violetAmountDisplay.text = violetAmount.ToString();
-        if (violetAmount >= requiredAmount)
+        if (violetAmount >= fillAmountViolet)
         {
-            leaveBeam.GetComponent<CircleCollider2D>().enabled = true;
-            leaveBeam.GetComponent<SpriteRenderer>().color = Color.yellow;
+            spaceship.GetComponent<CircleCollider2D>().enabled = true;
+            spaceship.GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
 
     public void IncreaseOrange()
     {
-        if (currentCharge >= maxCharge) return;
         layoutManagerOrange.AddResource();
         currentCharge++;
         orangeAmount++;
@@ -188,7 +184,6 @@ public class PlayerController : MonoBehaviour
 
     public void IncreaseGreen()
     {
-        if (currentCharge >= maxCharge) return;
         layoutManagerGreen.AddResource();
         currentCharge++;
         greenAmount++;
@@ -406,20 +401,6 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene(scene.name);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        switch (other.tag)
-        {
-            case "Beam":
-                controls.Disable();
-                StartCoroutine("LeavePlanet");
-                break;
-            case "Exit":
-                SceneManager.LoadScene("Ship");
-                break;
-        }
-    }
-
     IEnumerator LeavePlanet()
     {
         hasWon = true;
@@ -430,7 +411,7 @@ public class PlayerController : MonoBehaviour
         WaitForFixedUpdate wait = Helpers.GetWaitFixed;
         while (true)
         {
-            rb.AddForce(5 * leaveBeam.transform.forward);
+            rb.AddForce(5 * spaceship.transform.forward);
             yield return wait;
         }
     }

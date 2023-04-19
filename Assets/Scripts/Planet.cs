@@ -17,6 +17,7 @@ public class Planet : MonoBehaviour
     [SerializeField] bool doEnnemySpawn = true;
     public static Dictionary<GameObject, Ennemy> dictObjectToEnnemy = new Dictionary<GameObject, Ennemy>();
     public static Dictionary<GameObject, Resource> dictObjectToResource = new Dictionary<GameObject, Resource>();
+    public static Dictionary<GameObject, IInteractable> dictObjectToInteractable = new Dictionary<GameObject, IInteractable>();
 
     private void Awake()
     {
