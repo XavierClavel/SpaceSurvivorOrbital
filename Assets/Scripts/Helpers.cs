@@ -37,6 +37,12 @@ public class Helpers : MonoBehaviour
         return value;
     }
 
+    public static int FloorInt(int value, int min)
+    {
+        if (value < min) value = min;
+        return value;
+    }
+
     public static void CreateDebugDisplay(int index = -1)
     {
         TextMeshProUGUI currentDebugDisplay = Instantiate(debugDisplay);

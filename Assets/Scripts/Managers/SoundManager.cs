@@ -12,7 +12,8 @@ public enum sfx
     bulletOnGround,
     ennemyExplosion,
     playerHit,
-    breakResource
+    breakResource,
+    reload
 };
 
 public class SoundManager : MonoBehaviour
@@ -25,17 +26,6 @@ public class SoundManager : MonoBehaviour
     List<clip> audioIds;
 
 
-    [Header("Audio Clips")]
-    [SerializeField] AudioClip laserWarmUp;
-    [SerializeField] AudioClip jump;
-    [SerializeField] AudioClip shoot;
-    [SerializeField] AudioClip shieldUp;
-    [SerializeField] AudioClip shieldDown;
-    [SerializeField] AudioClip bulletOnShield;
-    [SerializeField] AudioClip bulletOnGround;
-    [SerializeField] AudioClip ennemyExplosion;
-    [SerializeField] AudioClip ennemyShoots;
-    [SerializeField] AudioClip gravitySwitch;
 
     [Header("Audio Sources")]
     [SerializeField] AudioSource musicSource;

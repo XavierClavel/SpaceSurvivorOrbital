@@ -67,7 +67,8 @@ public class PlayerController : MonoBehaviour
     Vector3 targetMoveAmount;
     SoundManager soundManager;
     Vector2 prevMoveDir = Vector2.zero;
-    WaitForSeconds reloadWindow;
+    WaitForSeconds bulletReloadWindow;
+    WaitForSeconds magazineReloadWindow;
     bool needToReload = false;
     bool needToReloadMining = false;
     bool reloading = false;
@@ -93,6 +94,7 @@ public class PlayerController : MonoBehaviour
     Vector2 moveDir;
     float bulletLifetime;
     int currentCharge = 0;
+    int currentMagazine;
 
     [SerializeField] Tool tool;
     [SerializeField] ResourcesAttractor attractor;
@@ -101,7 +103,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] ResourceLayoutManager layoutManagerViolet;
     [SerializeField] ResourceLayoutManager layoutManagerOrange;
     [SerializeField] ResourceLayoutManager layoutManagerGreen;
-    [Header("Resources")]
+    [SerializeField] LayoutManager bulletsLayoutManager;
+
+
+    [Header("Resources parameters")]
     [SerializeField] int maxViolet = 2;
     [SerializeField] int maxOrange = 2;
     [SerializeField] int maxGreen = 2;
@@ -110,23 +115,39 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int fillAmountOrange = 20;
     [SerializeField] int fillAmountGreen = 20;
 
-    [Header("Parameters")]
+    [Header("Player parameters")]
     [SerializeField] int maxHealth = 100;
+
+    [SerializeField] float baseSpeed = 30f;
+
+    [SerializeField] float damageResistanceMultiplier = 0f;
+
+
+    [Header("Weapon parameters")]
     [SerializeField] Vector2Int baseDamage = new Vector2Int(50, 75);
     [SerializeField] int attackSpeed = 10;
     [SerializeField] float range = 30;
-    [SerializeField] float reloadTime = 0.5f;
+
+    [SerializeField] float bulletReloadTime = 0.5f;
+    [SerializeField] float magazineReloadTime = 2f;
+
     [SerializeField] float criticalChance = 0.2f;    //between 0 and 1
     [SerializeField] float criticalMultiplier = 2f;  //superior to 1
+
     [SerializeField] int pierce = 0;
-    [SerializeField] float baseSpeed = 30f;
     [SerializeField] float speed_aimingDemultiplier = 0.7f;
-    [SerializeField] float damageResistanceMultiplier = 0f;
+    [SerializeField] int magazine = 6;
+
+
+    [Header("Tool parameters")]
     [SerializeField] int toolPower = 50;
     [SerializeField] float toolRange;
     [SerializeField] float attractorRange = 2.5f;
     [SerializeField] float attractorForce = 2.5f;
+
     bool mouseAiming = false;
+    bool playerControlled = true;
+    bool reloadingMagazine = false;
 
     internal float health
     {
@@ -139,9 +160,6 @@ public class PlayerController : MonoBehaviour
             if (value <= 0) Death();
         }
     }
-    const float rotateSpeed = 1.5f;
-
-    bool playerControlled = true;
 
     #region interface
     public static void Hurt(float amount)
@@ -204,7 +222,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        reloadWindow = new WaitForSeconds(reloadTime);
+        bulletReloadWindow = Helpers.GetWait(bulletReloadTime);
+        magazineReloadWindow = Helpers.GetWait(magazineReloadTime / 6f);
         _health = maxHealth;
         bulletLifetime = range / attackSpeed;
         instance = this;
@@ -234,14 +253,11 @@ public class PlayerController : MonoBehaviour
         {
             mining = false;
         };
-        controls.Player.Reload.performed += context => Restart();
+        controls.Player.Reload.performed += context => { if (!reloadingMagazine) StartCoroutine(ReloadMagazine()); };
         controls.Player.Pause.performed += context => PauseMenu.instance.PauseGame();
 
         controls.Player.MouseAimActive.started += ctx => { mouseAiming = true; };
         controls.Player.MouseAimActive.canceled += ctx => { mouseAiming = false; };
-
-        //rotArrayX = new Vector3[0];
-        //controlScheme = controlMode.Keyboard;
 
         healthBar.maxValue = maxHealth;
         healthBar.value = health;
@@ -250,16 +266,29 @@ public class PlayerController : MonoBehaviour
     IEnumerator Reload()
     {
         reloading = true;
-        yield return reloadWindow;
+        yield return bulletReloadWindow;
         reloading = false;
         needToReload = false;
         if (shooting) Shoot();
     }
 
+    IEnumerator ReloadMagazine()
+    {
+        reloadingMagazine = true;
+        while (currentMagazine < magazine)
+        {
+            yield return magazineReloadWindow;
+            bulletsLayoutManager.IncreaseAmount();
+            currentMagazine++;
+        }
+        reloadingMagazine = false;
+        SoundManager.instance.PlaySfx(transform, sfx.reload);
+    }
+
     IEnumerator ReloadMining()
     {
         reloadingMining = true;
-        yield return reloadWindow;
+        yield return bulletReloadWindow;
         reloadingMining = false;
         needToReloadMining = false;
         if (mining) Mine();
@@ -267,6 +296,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        bulletsLayoutManager.Setup(magazine);
         tool.Resize(toolRange);
         Cursor.lockState = CursorLockMode.Confined;
         rb = GetComponent<Rigidbody2D>();
@@ -278,6 +308,8 @@ public class PlayerController : MonoBehaviour
         layoutManagerViolet.Setup(maxViolet, fillAmountViolet);
         layoutManagerOrange.Setup(maxOrange, fillAmountOrange);
         layoutManagerGreen.Setup(maxGreen, fillAmountGreen);
+
+        currentMagazine = magazine;
     }
 
     void Update()
@@ -378,21 +410,23 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     {
+        if (currentMagazine == 0) return;
+        if (reloadingMagazine) return;
         StartCoroutine("Reload");
         soundManager.PlaySfx(transform, sfx.shoot);
         Bullet bullet = Instantiate(bulletPrefab, transform.position - transform.forward * 6f, arrowTransform.rotation);
         bullet.Fire(attackSpeed, bulletLifetime);
         bullet.pierce = pierce;
+        currentMagazine--;
+        bulletsLayoutManager.DecreaseAmount();
+
+        if (currentMagazine == 0) StartCoroutine("ReloadMagazine");
     }
 
     void Mine()
     {
         StartCoroutine("ReloadMining");
-        //soundManager.PlaySfx(transform, sfx.shoot);
-        //Bullet bullet = Instantiate(minerPrefab, transform.position - transform.forward * 6f, arrowTransform.rotation).GetComponentInChildren<Bullet>();
-        //bullet.Fire(attackSpeed, bulletLifetime);
         tool.Hit(toolPower);
-        //bullet.lifetime = 0.3f;
     }
 
     void Restart()
