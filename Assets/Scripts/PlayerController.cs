@@ -104,6 +104,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] ResourceLayoutManager layoutManagerOrange;
     [SerializeField] ResourceLayoutManager layoutManagerGreen;
     [SerializeField] LayoutManager bulletsLayoutManager;
+    [SerializeField] GameObject spaceshipIndicator;
 
 
     [Header("Resources parameters")]
@@ -189,6 +190,7 @@ public class PlayerController : MonoBehaviour
         {
             spaceship.GetComponent<CircleCollider2D>().enabled = true;
             spaceship.GetComponent<SpriteRenderer>().color = Color.white;
+            spaceshipIndicator.SetActive(true);
         }
     }
 
