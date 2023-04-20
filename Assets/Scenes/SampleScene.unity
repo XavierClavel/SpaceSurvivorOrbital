@@ -696,6 +696,7 @@ MonoBehaviour:
   layoutManagerViolet: {fileID: 2030346945}
   layoutManagerOrange: {fileID: 567838096}
   layoutManagerGreen: {fileID: 1261425276}
+  bulletsLayoutManager: {fileID: 485862576}
   maxViolet: 2
   maxOrange: 2
   maxGreen: 2
@@ -703,16 +704,18 @@ MonoBehaviour:
   fillAmountOrange: 20
   fillAmountGreen: 20
   maxHealth: 100
+  baseSpeed: 4
+  damageResistanceMultiplier: 0
   baseDamage: {x: 50, y: 75}
   attackSpeed: 10
   range: 30
-  reloadTime: 0.4
+  bulletReloadTime: 0.5
+  magazineReloadTime: 2
   criticalChance: 0.2
   criticalMultiplier: 2
   pierce: 1
-  baseSpeed: 4
   speed_aimingDemultiplier: 0.7
-  damageResistanceMultiplier: 0
+  magazine: 6
   toolPower: 50
   toolRange: 2.5
   attractorRange: 5
@@ -1358,6 +1361,92 @@ Transform:
   m_Father: {fileID: 1958277321}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &485862572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 485862573}
+  - component: {fileID: 485862576}
+  - component: {fileID: 485862575}
+  - component: {fileID: 485862574}
+  m_Layer: 5
+  m_Name: Bullets layout
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &485862573
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485862572}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 819867604}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -198, y: -84}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &485862574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485862572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: -14.11
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!222 &485862575
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485862572}
+  m_CullTransparentMesh: 1
+--- !u!114 &485862576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485862572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4a019d648456be4198597eba3ebc1f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6175947957073541517, guid: 0c70f5f90a06ca14da6c6b6c8febd0b1, type: 3}
 --- !u!1 &567838091
 GameObject:
   m_ObjectHideFlags: 0
@@ -2534,6 +2623,7 @@ RectTransform:
   m_Children:
   - {fileID: 639354522}
   - {fileID: 255587756}
+  - {fileID: 485862573}
   m_Father: {fileID: 1007081080}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5399,16 +5489,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musics: []
-  laserWarmUp: {fileID: 8300000, guid: a68f6b2d08ad9a74a96bdc3173bf1f53, type: 3}
-  jump: {fileID: 8300000, guid: d68bf2480e17ee84e9b7f771bb9ab586, type: 3}
-  shoot: {fileID: 8300000, guid: 5ab1aae096928f04aa98ea7ecfe782f5, type: 3}
-  shieldUp: {fileID: 8300000, guid: 858bf7bf8349c8441823deb32df325f0, type: 3}
-  shieldDown: {fileID: 8300000, guid: baf41b63690703242ba25f53328a2077, type: 3}
-  bulletOnShield: {fileID: 8300000, guid: 2c0c2a93c73e2e648a2aee82f7b92a7d, type: 3}
-  bulletOnGround: {fileID: 8300000, guid: 7a6a528c41623db4ba2f4d110c3078cc, type: 3}
-  ennemyExplosion: {fileID: 8300000, guid: 890409bfea439b943a407875db46937f, type: 3}
-  ennemyShoots: {fileID: 8300000, guid: b034a9ad9b109b3478965c9c2b8f6c49, type: 3}
-  gravitySwitch: {fileID: 0}
   musicSource: {fileID: 8585574751770050428}
   audioClips:
   - audioClip: {fileID: 8300000, guid: d68bf2480e17ee84e9b7f771bb9ab586, type: 3}
@@ -5422,6 +5502,8 @@ MonoBehaviour:
   - audioClip: {fileID: 8300000, guid: 2c0c2a93c73e2e648a2aee82f7b92a7d, type: 3}
     volume: 1
   - audioClip: {fileID: 8300000, guid: 712478d0fde017a4ba4a6866cfb0d48d, type: 3}
+    volume: 1
+  - audioClip: {fileID: 8300000, guid: aaace3f88a8a2994ba333f5ba82c1f7d, type: 3}
     volume: 1
 --- !u!4 &2187635173910939602
 Transform:
