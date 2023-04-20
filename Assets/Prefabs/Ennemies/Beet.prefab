@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1013518959079814096}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.661, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 2.2929, y: 2.3679, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8624037171420051036}
@@ -51,11 +51,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 2853218550413945330}
   rb: {fileID: 5132843330540273407}
-  _health: 150
+  baseHealth: 150
   speed: 1.5
+  fleeSpeed: 2
   attackSpeed: 0.5
   baseDamage: 5
   range: 5
+  stateStep: 0.5
 --- !u!50 &5132843330540273407
 Rigidbody2D:
   serializedVersion: 4
@@ -124,12 +126,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 1f6a10c33e5b82d47945ce732e627285, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0681ec02ba8470b47bc89e5d22111a4e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.48, y: 0.48}
+  m_Size: {x: 6.3, y: 4.69}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -167,9 +169,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.15708089, y: 0.034906268}
   serializedVersion: 2
-  m_Radius: 0.24
+  m_Radius: 1.9329816
 --- !u!1 &6305844280188663337
 GameObject:
   m_ObjectHideFlags: 0
