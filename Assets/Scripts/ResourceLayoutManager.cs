@@ -16,7 +16,7 @@ public class ResourceLayoutManager : MonoBehaviour
         for (int i = 0; i < nbSliders; i++)
         {
             Slider slider = Instantiate(sliderObject, Vector3.zero, Quaternion.identity);
-            slider.transform.parent = transform;
+            slider.transform.SetParent(transform, false);
             slider.maxValue = amountToFill;
             sliders.Insert(0, slider);
         }

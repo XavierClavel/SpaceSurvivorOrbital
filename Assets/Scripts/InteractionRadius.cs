@@ -22,7 +22,7 @@ public class InteractionRadius : MonoBehaviour
 
 
 
-        controls.Player.Mine.started += ctx =>
+        controls.Player.Mine.canceled += ctx =>
         {
             interacting = false;
             foreach (IInteractable interactable in interactables)
@@ -36,6 +36,7 @@ public class InteractionRadius : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         if (!interacting) return;
         foreach (IInteractable interactable in interactables)
         {
@@ -45,12 +46,16 @@ public class InteractionRadius : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("enter trigger");
         interactables.Add(Planet.dictObjectToInteractable[other.gameObject]);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        interactables.Remove(Planet.dictObjectToInteractable[other.gameObject]);
+        IInteractable interactable = Planet.dictObjectToInteractable[other.gameObject];
+        interactables.Remove(interactable);
+        if (!interactable.TryRemove()) return;
+        Planet.dictObjectToInteractable.Remove(other.gameObject);
+        Destroy(other.gameObject);
+
     }
 }

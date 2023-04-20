@@ -39,6 +39,7 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
         if (other.gameObject.CompareTag("Resource")) Destroy(gameObject);
+        if (other.gameObject.CompareTag("Obstacle")) Destroy(gameObject);
         currentPierce++;
     }
 
