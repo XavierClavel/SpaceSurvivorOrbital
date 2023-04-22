@@ -12,10 +12,12 @@ public class Ennemy : MonoBehaviour
     SoundManager soundManager;
     internal Vector2 distanceToPlayer;
     internal Vector2 directionToPlayer;
-    internal WaitForSeconds wait;
-    internal WaitForSeconds waitStateStep;
-    WaitForSeconds waitPoison;
-    WaitForSeconds waitPoisonDamage;
+    static internal WaitForSeconds wait;
+    static internal WaitForSeconds waitStateStep;
+    static WaitForSeconds waitPoison;
+    static WaitForSeconds waitPoisonDamage;
+    static WaitForSeconds waitIce;
+    float speedMultiplier = 1f;
 
 
     [Header("Parameters")]
@@ -56,6 +58,9 @@ public class Ennemy : MonoBehaviour
         waitStateStep = Helpers.GetWait(stateStep);
         waitPoison = Helpers.GetWait(player.poisonDuration);
         waitPoisonDamage = Helpers.GetWait(player.poisonPeriod);
+        waitIce = Helpers.GetWait(player.iceDuration);
+
+        //TODO : static initalizer
 
         Planet.dictObjectToEnnemy.Add(gameObject, this);
     }
@@ -68,20 +73,23 @@ public class Ennemy : MonoBehaviour
 
     internal void Move(Vector2 direction, float speed)
     {
-        rb.MovePosition(rb.position + direction * Time.fixedDeltaTime * speed);
+        rb.MovePosition(rb.position + direction * Time.fixedDeltaTime * speed * speedMultiplier);
     }
 
     internal void Move(Vector2 direction)
     {
-        rb.MovePosition(rb.position + direction * Time.fixedDeltaTime * speed);
+        rb.MovePosition(rb.position + direction * Time.fixedDeltaTime * speed * speedMultiplier);
     }
 
 
     public void Hurt(int damage, status effect, bool critical)
     {
         healthChange value = critical ? healthChange.critical : healthChange.hit;
-        DamageDisplayHandler.DisplayDamage(damage, transform.position, value);
-        health -= damage;
+        if (damage != 0)
+        {
+            DamageDisplayHandler.DisplayDamage(damage, transform.position, value);
+            health -= damage;
+        }
 
         switch (effect)
         {
@@ -90,6 +98,10 @@ public class Ennemy : MonoBehaviour
 
             case status.poison:
                 StartCoroutine("Poison");
+                break;
+
+            case status.ice:
+                StartCoroutine("Ice");
                 break;
         }
     }
@@ -123,6 +135,13 @@ public class Ennemy : MonoBehaviour
             DamageDisplayHandler.DisplayDamage(player.poisonDamage, transform.position, healthChange.poison);
             health -= player.poisonDamage;
         }
+    }
+
+    IEnumerator Ice()
+    {
+        speedMultiplier = player.iceSpeedMultiplier;
+        yield return waitIce;
+        speedMultiplier = 1f;
     }
 
 

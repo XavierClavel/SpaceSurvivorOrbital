@@ -140,6 +140,9 @@ public class PlayerController : MonoBehaviour
     public float poisonDuration;
     public float poisonPeriod;
 
+    public float iceSpeedMultiplier;
+    public float iceDuration;
+
 
     [Header("Tool parameters")]
     [SerializeField] int toolPower = 50;
