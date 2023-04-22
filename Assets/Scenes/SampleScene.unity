@@ -586,6 +586,7 @@ GameObject:
   - component: {fileID: 169695422}
   - component: {fileID: 169695427}
   - component: {fileID: 169695426}
+  - component: {fileID: 169695430}
   - component: {fileID: 169695425}
   - component: {fileID: 169695428}
   - component: {fileID: 169695429}
@@ -683,14 +684,13 @@ MonoBehaviour:
   violetAmountDisplay: {fileID: 2088343384}
   orangeAmountDisplay: {fileID: 953765293}
   greenAmountDisplay: {fileID: 838348350}
-  minerPrefab: {fileID: 467648530048100159, guid: a4c0d4fe5d443124f930cdb397f13f96, type: 3}
   healthBar: {fileID: 819867605}
   spaceship: {fileID: 649366911}
   canvas: {fileID: 1007081076}
-  line: {fileID: 641798845}
   animator: {fileID: 169695427}
   hasWon: 0
   arrowTransform: {fileID: 723545008}
+  weapon: {fileID: 169695430}
   tool: {fileID: 1797273989}
   attractor: {fileID: 1119918924}
   layoutManagerViolet: {fileID: 2030346945}
@@ -803,6 +803,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.73}
   m_Size: {x: 1.24, y: 1.76}
   m_Direction: 0
+--- !u!114 &169695430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169695421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82bd45600e2926d429e97ab42beb19a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &239020391
 GameObject:
   m_ObjectHideFlags: 0
