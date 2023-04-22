@@ -133,6 +133,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed_aimingDemultiplier = 0.7f;
     [SerializeField] int magazine = 6;
 
+    public status effect = status.none;
+
+    [Header("Game Parameters")]
+    public int poisonDamage;
+    public float poisonDuration;
+    public float poisonPeriod;
+
 
     [Header("Tool parameters")]
     [SerializeField] int toolPower = 50;
@@ -160,13 +167,6 @@ public class PlayerController : MonoBehaviour
     public static void Hurt(float amount)
     {
         instance.health -= amount * (1 - instance.damageResistanceMultiplier);
-    }
-
-    public static void HurtEnnemy(ref int damage, ref bool critical)
-    {
-        damage = Random.Range(instance.baseDamage.x, instance.baseDamage.y + 1);
-        critical = Random.Range(0f, 1f) < instance.criticalChance;
-        if (critical) damage = (int)((float)damage * instance.criticalMultiplier);
     }
 
     public static int DamageResource()

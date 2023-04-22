@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum status { none, poison, fire, ice, magic }
+
 public class Bullet : MonoBehaviour
 {
     [SerializeField] ParticleSystem bulletParticle;
     [SerializeField] Rigidbody2D rb;
     [HideInInspector] public int pierce = 0;
     int currentPierce = 0;
-    int damage = 5;
+    public int damage = 5;
+    public status effect = status.none;
+    public bool critical = false;
 
 
     public void Fire(int speed, float lifetime)
@@ -33,6 +37,8 @@ public class Bullet : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player")) PlayerController.Hurt(damage);
 
+        if (other.gameObject.CompareTag("Ennemy")) Planet.dictObjectToEnnemy[other.gameObject].Hurt(damage, effect, critical);
+
 
         if (currentPierce == pierce)
         {
@@ -43,7 +49,7 @@ public class Bullet : MonoBehaviour
         currentPierce++;
     }
 
-    IEnumerator DestroyTimer(float lifetime)  //Destroys bullet after 10 seconds
+    IEnumerator DestroyTimer(float lifetime)  //Destroys bullet after lifetime
     {
         yield return Helpers.GetWait(lifetime);
         Destroy(gameObject);

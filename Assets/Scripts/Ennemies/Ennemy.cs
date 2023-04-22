@@ -14,6 +14,8 @@ public class Ennemy : MonoBehaviour
     internal Vector2 directionToPlayer;
     internal WaitForSeconds wait;
     internal WaitForSeconds waitStateStep;
+    WaitForSeconds waitPoison;
+    WaitForSeconds waitPoisonDamage;
 
 
     [Header("Parameters")]
@@ -52,6 +54,8 @@ public class Ennemy : MonoBehaviour
 
         wait = Helpers.GetWait(attackSpeed);
         waitStateStep = Helpers.GetWait(stateStep);
+        waitPoison = Helpers.GetWait(player.poisonDuration);
+        waitPoisonDamage = Helpers.GetWait(player.poisonPeriod);
 
         Planet.dictObjectToEnnemy.Add(gameObject, this);
     }
@@ -72,15 +76,21 @@ public class Ennemy : MonoBehaviour
         rb.MovePosition(rb.position + direction * Time.fixedDeltaTime * speed);
     }
 
-    internal virtual void OnTriggerEnter2D(Collider2D other)
+
+    public void Hurt(int damage, status effect, bool critical)
     {
-        if (other.gameObject.CompareTag("BlueBullet"))
+        healthChange value = critical ? healthChange.critical : healthChange.hit;
+        DamageDisplayHandler.DisplayDamage(damage, transform.position, value);
+        health -= damage;
+
+        switch (effect)
         {
-            int damageTaken = 0;
-            bool critical = false;
-            PlayerController.HurtEnnemy(ref damageTaken, ref critical);
-            DamageDisplayHandler.DisplayDamage(damageTaken, other.transform.position, healthChange.critical);
-            health -= damageTaken;
+            case status.none:
+                break;
+
+            case status.poison:
+                StartCoroutine("Poison");
+                break;
         }
     }
 
@@ -96,6 +106,23 @@ public class Ennemy : MonoBehaviour
         soundManager.PlaySfx(transform, sfx.ennemyExplosion);
         Planet.dictObjectToEnnemy.Remove(gameObject);
         Destroy(gameObject);
+    }
+
+    IEnumerator Poison()
+    {
+        StartCoroutine("PoisonDamage");
+        yield return waitPoison;
+        StopCoroutine("PoisonDamage");
+    }
+
+    IEnumerator PoisonDamage()
+    {
+        while (true)
+        {
+            yield return waitPoisonDamage;
+            DamageDisplayHandler.DisplayDamage(player.poisonDamage, transform.position, healthChange.poison);
+            health -= player.poisonDamage;
+        }
     }
 
 

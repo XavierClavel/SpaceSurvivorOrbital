@@ -9,6 +9,9 @@ public class Gun : Weapon
     WaitForSeconds magazineReloadWindow;
     Bullet bulletPrefab;
 
+    int damage;
+    bool critical;
+
     public override void Setup(Vector2Int baseDamage, int attackSpeed, float range, float bulletReloadTime, float magazineReloadTime, float criticalChance, float criticalMultiplier, int pierce, float speed_aimingDemultiplier, Transform aimTransform, int magazine)
     {
         base.Setup(baseDamage, attackSpeed, range, bulletReloadTime, magazineReloadTime, criticalChance, criticalMultiplier, pierce, speed_aimingDemultiplier, aimTransform, magazine);
@@ -30,6 +33,16 @@ public class Gun : Weapon
         Bullet bullet = Instantiate(bulletPrefab, transform.position - transform.forward * 6f, aimTransform.rotation);
         bullet.Fire(attackSpeed, bulletLifetime);
         bullet.pierce = pierce;
+
+        damage = Random.Range(baseDamage.x, baseDamage.y + 1);
+        critical = Random.Range(0f, 1f) < criticalChance;
+        if (critical) damage = (int)((float)damage * criticalMultiplier);
+
+        bullet.damage = damage;
+        bullet.critical = critical;
+        bullet.effect = player.effect;
+
+
         currentMagazine--;
         bulletsLayoutManager.DecreaseAmount();
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 
-public enum healthChange { hit, critical, heal };
+public enum healthChange { hit, critical, heal, poison };
 
 public class DamageDisplayHandler : MonoBehaviour
 {
@@ -15,6 +15,8 @@ public class DamageDisplayHandler : MonoBehaviour
     static Color targetColor_white = new Color(1f, 1f, 1f, 0f);
     static Color targetColor_red = new Color(1f, 0f, 0f, 0f);
     static Color targetColor_green = new Color(0f, 1f, 0f, 0f);
+    static Color poisonColor = new Color(0.0627f, 0.9215f, 0.70588f);
+    static Color target_poisonColor = new Color(0.0627f, 0.9215f, 0.70588f, 0f);
 
     private void Start()
     {
@@ -43,6 +45,11 @@ public class DamageDisplayHandler : MonoBehaviour
                 damageDisplay.color = Color.green;
                 targetColor = targetColor_green;
                 damageDisplay.text = "+" + damage.ToString();
+                break;
+
+            case healthChange.poison:
+                damageDisplay.color = poisonColor;
+                targetColor = target_poisonColor;
                 break;
 
             default:
