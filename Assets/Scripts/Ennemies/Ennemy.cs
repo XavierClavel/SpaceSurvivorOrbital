@@ -16,6 +16,8 @@ public class Ennemy : MonoBehaviour
     static internal WaitForSeconds waitStateStep;
     static WaitForSeconds waitPoison;
     static WaitForSeconds waitPoisonDamage;
+    static WaitForSeconds waitFire;
+    static WaitForSeconds waitFireDamage;
     static WaitForSeconds waitIce;
     float speedMultiplier = 1f;
 
@@ -97,11 +99,15 @@ public class Ennemy : MonoBehaviour
                 break;
 
             case status.poison:
-                StartCoroutine("Poison");
+                StartCoroutine("PoisonEffect");
                 break;
 
             case status.ice:
-                StartCoroutine("Ice");
+                StartCoroutine("IceEffect");
+                break;
+
+            case status.fire:
+                StartCoroutine("FireEffect");
                 break;
         }
     }
@@ -120,7 +126,7 @@ public class Ennemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    IEnumerator Poison()
+    IEnumerator PoisonEffect()
     {
         StartCoroutine("PoisonDamage");
         yield return waitPoison;
@@ -137,7 +143,24 @@ public class Ennemy : MonoBehaviour
         }
     }
 
-    IEnumerator Ice()
+    IEnumerator FireEffect()
+    {
+        StartCoroutine("FireDamage");
+        yield return waitFire;
+        StopCoroutine("FireDamage");
+    }
+
+    IEnumerator FireDamage()
+    {
+        while (true)
+        {
+            yield return waitFireDamage;
+            DamageDisplayHandler.DisplayDamage(player.fireDamage, transform.position, healthChange.fire);
+            health -= player.fireDamage;
+        }
+    }
+
+    IEnumerator IceEffect()
     {
         speedMultiplier = player.iceSpeedMultiplier;
         yield return waitIce;

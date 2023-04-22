@@ -140,6 +140,10 @@ public class PlayerController : MonoBehaviour
     public float poisonDuration;
     public float poisonPeriod;
 
+    public int fireDamage;
+    public float fireDuration;
+    public float firePeriod;
+
     public float iceSpeedMultiplier;
     public float iceDuration;
 
