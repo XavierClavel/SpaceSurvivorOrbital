@@ -320,6 +320,14 @@ public class PlayerManager : MonoBehaviour
             case effectType.attractorForce:
                 attractorForce = effect.ApplyOperation(attractorForce);
                 break;
+
+            case effectType.weapon:
+                weapon = effect.ApplyOperation(weapon);
+                break;
+
+            case effectType.tool:
+                tool = effect.ApplyOperation(tool);
+                break;
         }
     }
 }

@@ -51,7 +51,10 @@ public enum effectType
     toolRange,
 
     attractorRange,
-    attractorForce
+    attractorForce,
+
+    weapon,
+    tool
 
 }
 
@@ -63,8 +66,8 @@ public enum operationType
 [Serializable]
 public class Effect
 {
-    public operationType operation;
     public effectType effect;
+    public operationType operation;
 
     [ConditionalField(nameof(effect), false, effectType.maxViolet, effectType.maxOrange, effectType.maxGreen,
     effectType.fillAmountViolet, effectType.fillAmountOrange, effectType.fillAmountGreen,
@@ -87,6 +90,12 @@ public class Effect
 
     [ConditionalField(nameof(effect), false, effectType.effect)]
     public status valueStatus;
+
+    [ConditionalField(nameof(effect), false, effectType.weapon)]
+    public Weapon valueWeapon;
+
+    [ConditionalField(nameof(effect), false, effectType.tool)]
+    public Tool valueTool;
 
 
     public void Apply()
@@ -158,6 +167,30 @@ public class Effect
     public status ApplyOperation(status parameter)
     {
         status value = valueStatus;
+        switch (operation)
+        {
+            case operationType.assignation:
+                parameter = value;
+                break;
+        }
+        return parameter;
+    }
+
+    public Weapon ApplyOperation(Weapon parameter)
+    {
+        Weapon value = valueWeapon;
+        switch (operation)
+        {
+            case operationType.assignation:
+                parameter = value;
+                break;
+        }
+        return parameter;
+    }
+
+    public Tool ApplyOperation(Tool parameter)
+    {
+        Tool value = valueTool;
         switch (operation)
         {
             case operationType.assignation:
