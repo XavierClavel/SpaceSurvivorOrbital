@@ -78,14 +78,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Slider healthBar;
     float _health;
     [SerializeField] GameObject spaceship;
-    [SerializeField] GameObject canvas;
     [SerializeField] Animator animator;
     [HideInInspector] public bool hasWon = false;
     public Transform arrowTransform;
     Vector2 moveDir;
-    [SerializeField] Weapon weapon;
-    [SerializeField] Tool tool;
-    [SerializeField] ResourcesAttractor attractor;
+    private Weapon weapon;
+    private Tool tool;
 
     [Header("UI")]
     [SerializeField] ResourceLayoutManager layoutManagerViolet;
@@ -116,7 +114,7 @@ public class PlayerController : MonoBehaviour
 
     float bulletReloadTime;
     float speed_aimingDemultiplier;
-    public status effect;
+    [HideInInspector] public status effect;
 
 
     //Game parameters
@@ -251,6 +249,12 @@ public class PlayerController : MonoBehaviour
         speed_aimingDemultiplier = PlayerManager.speed_aimingDemultiplier;
         effect = PlayerManager.statusEffect;
 
+        weapon = Instantiate(PlayerManager.weapon, transform.position, Quaternion.identity);
+        weapon.transform.SetParent(transform);
+
+        tool = Instantiate(PlayerManager.tool, transform.position, Quaternion.identity);
+        tool.transform.SetParent(transform);
+
 
         Cursor.lockState = CursorLockMode.Confined;
         rb = GetComponent<Rigidbody2D>();
@@ -266,6 +270,7 @@ public class PlayerController : MonoBehaviour
 
         healthBar.maxValue = maxHealth;
         healthBar.value = health;
+
     }
 
     void Update()

@@ -60,6 +60,10 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float _attractorRange = 2.5f;
     [SerializeField] private float _attractorForce = 2.5f;
 
+    [Header("Others")]
+    [SerializeField] Weapon _weapon;
+    [SerializeField] Tool _tool;
+
 
     //Static accessors
 
@@ -110,7 +114,8 @@ public class PlayerManager : MonoBehaviour
     public static float attractorRange { get; private set; }
     public static float attractorForce { get; private set; }
 
-
+    public static Weapon weapon { get; private set; }
+    public static Tool tool { get; private set; }
 
 
 
@@ -125,7 +130,7 @@ public class PlayerManager : MonoBehaviour
         {
             instance = this;
 
-            maxViolet = _maxViolet = 2;
+            maxViolet = _maxViolet;
             maxOrange = _maxOrange;
             maxGreen = _maxGreen;
 
@@ -173,6 +178,9 @@ public class PlayerManager : MonoBehaviour
 
             attractorRange = _attractorRange;
             attractorForce = _attractorForce;
+
+            weapon = _weapon;
+            tool = _tool;
         }
         else if (instance != this) Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
