@@ -698,9 +698,9 @@ MonoBehaviour:
   layoutManagerGreen: {fileID: 1261425276}
   bulletsLayoutManager: {fileID: 485862576}
   spaceshipIndicator: {fileID: 1682673399}
-  maxViolet: 2
-  maxOrange: 2
-  maxGreen: 2
+  maxViolet: 3
+  maxOrange: 3
+  maxGreen: 3
   fillAmountViolet: 20
   fillAmountOrange: 20
   fillAmountGreen: 20
@@ -709,15 +709,15 @@ MonoBehaviour:
   damageResistanceMultiplier: 0
   baseDamage: {x: 50, y: 75}
   attackSpeed: 10
-  range: 30
-  bulletReloadTime: 0.5
+  range: 5
+  bulletReloadTime: 0.2
   magazineReloadTime: 2
-  criticalChance: 0.2
-  criticalMultiplier: 2
-  pierce: 1
-  speed_aimingDemultiplier: 0.7
+  criticalChance: 0.03
+  criticalMultiplier: 1.5
+  pierce: 0
+  speed_aimingDemultiplier: 0.3
   magazine: 6
-  effect: 2
+  effect: 0
   poisonDamage: 5
   poisonDuration: 5
   poisonPeriod: 0.5
@@ -727,9 +727,9 @@ MonoBehaviour:
   iceSpeedMultiplier: 0.5
   iceDuration: 3
   toolPower: 50
-  toolRange: 2.5
-  attractorRange: 5
-  attractorForce: 1.5
+  toolRange: 1
+  attractorRange: 1
+  attractorForce: 5
 --- !u!95 &169695427
 Animator:
   serializedVersion: 5
@@ -1625,6 +1625,10 @@ MonoBehaviour:
   - {fileID: 8118553817093898150, guid: 69d6b5340c7cc9d4c98667eebc8e4cc8, type: 3}
   - {fileID: 8118553817093898150, guid: 828d2550c1409e240881de03ee71341d, type: 3}
   - {fileID: 8118553817093898150, guid: 04e98106ab364ff49a5e5bbf88ccd70f, type: 3}
+  - {fileID: 8118553817093898150, guid: ef4a34d71d530c84c8816dda29163183, type: 3}
+  - {fileID: 8118553817093898150, guid: ef4a34d71d530c84c8816dda29163183, type: 3}
+  - {fileID: 8118553817093898150, guid: ef4a34d71d530c84c8816dda29163183, type: 3}
+  - {fileID: 8118553817093898150, guid: ef4a34d71d530c84c8816dda29163183, type: 3}
 --- !u!1 &595732943
 GameObject:
   m_ObjectHideFlags: 0
@@ -5332,7 +5336,7 @@ MonoBehaviour:
   - audioClip: {fileID: 8300000, guid: d68bf2480e17ee84e9b7f771bb9ab586, type: 3}
     volume: 1
   - audioClip: {fileID: 8300000, guid: 5ab1aae096928f04aa98ea7ecfe782f5, type: 3}
-    volume: 1
+    volume: 0
   - audioClip: {fileID: 8300000, guid: 7a6a528c41623db4ba2f4d110c3078cc, type: 3}
     volume: 1
   - audioClip: {fileID: 8300000, guid: 890409bfea439b943a407875db46937f, type: 3}
@@ -5340,7 +5344,7 @@ MonoBehaviour:
   - audioClip: {fileID: 8300000, guid: 2c0c2a93c73e2e648a2aee82f7b92a7d, type: 3}
     volume: 1
   - audioClip: {fileID: 8300000, guid: 712478d0fde017a4ba4a6866cfb0d48d, type: 3}
-    volume: 1
+    volume: 0
   - audioClip: {fileID: 8300000, guid: aaace3f88a8a2994ba333f5ba82c1f7d, type: 3}
     volume: 1
 --- !u!4 &2187635173910939602
@@ -5705,6 +5709,4 @@ MonoBehaviour:
   mass: 10000
   ennemyPrefabs:
   - {fileID: 1013518959079814096, guid: 768cf1381437d3946930748b6aa8c2d9, type: 3}
-  - {fileID: 1013518959079814096, guid: a741827df2bda7b4883d7efe5d7145fa, type: 3}
-  - {fileID: 1013518959079814096, guid: 3b0f6e838f484e044ab22b7f879d5b50, type: 3}
   doEnnemySpawn: 1
