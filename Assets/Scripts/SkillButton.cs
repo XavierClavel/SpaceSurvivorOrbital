@@ -4,10 +4,55 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using MyBox;
 
 public enum effectType
 {
-    baseDamage, maxHealth
+    maxViolet,
+    maxOrange,
+    maxGreen,
+
+    fillAmountViolet,
+    fillAmountOrange,
+    fillAmountGreen,
+
+    maxHealth,
+    baseSpeed,
+    damageResistanceMultiplier,
+
+    baseDamage,
+    attackSpeed,
+    range,
+
+    bulletReloadTime,
+    magazineReloadTime,
+
+    criticalChance,
+    criticalMultiplier,
+
+    pierce,
+    speed_aimingDemultiplier,
+    magazine,
+
+    effect,
+
+    poisonDamage,
+    poisonDuration,
+    poisonPeriod,
+
+    fireDamage,
+    fireDuration,
+    firePeriod,
+
+    iceSpeedMultiplier,
+    iceDuration,
+
+    toolPower,
+    toolRange,
+
+    attractorRange,
+    attractorForce
+
 }
 
 public enum operationType
@@ -20,29 +65,38 @@ public class Effect
 {
     public operationType operation;
     public effectType effect;
-    public int value;
-    
+
+    [ConditionalField(nameof(effect), false, effectType.maxViolet, effectType.maxOrange, effectType.maxGreen,
+    effectType.fillAmountViolet, effectType.fillAmountOrange, effectType.fillAmountGreen,
+    effectType.maxHealth, effectType.attackSpeed, effectType.pierce, effectType.magazine, effectType.poisonDamage,
+    effectType.fireDamage, effectType.toolPower)]
+    public int valueInt;
+
+
+    [ConditionalField(nameof(effect), false, effectType.baseSpeed, effectType.damageResistanceMultiplier,
+    effectType.range, effectType.bulletReloadTime, effectType.magazineReloadTime, effectType.criticalChance,
+    effectType.criticalMultiplier, effectType.speed_aimingDemultiplier, effectType.poisonDuration, effectType.poisonPeriod,
+    effectType.fireDuration, effectType.firePeriod, effectType.iceSpeedMultiplier, effectType.iceDuration,
+    effectType.toolPower, effectType.toolRange, effectType.attractorRange, effectType.attractorForce)]
+    public float valueFloat;
+
+
+    [ConditionalField(nameof(effect), false, effectType.baseDamage)]
+    public Vector2Int valueV2Int;
+
+
+    [ConditionalField(nameof(effect), false, effectType.effect)]
+    public status valueStatus;
+
 
     public void Apply()
     {
-        PlayerManager.maxHealth = 100;
-
-        switch (effect)
-        {
-            //case effectType.baseDamage:
-              // ApplyOperation(ref PlayerManager.baseDamage , value);
-               //break;
-
-            case effectType.maxHealth:
-                ApplyOperation(ref PlayerManager.maxHealth , value);
-               break;
-        }
-
-        Debug.Log(PlayerManager.maxHealth);
+        PlayerManager.ApplyModification(this);
     }
 
-    public void ApplyOperation (ref int parameter, int value)
+    public int ApplyOperation(int parameter)
     {
+        int value = valueInt;
         switch (operation)
         {
             case operationType.add:
@@ -57,9 +111,12 @@ public class Effect
                 parameter = value;
                 break;
         }
+        return parameter;
     }
-    public void ApplyOperation(ref float parameter, float value)
+
+    public float ApplyOperation(float parameter)
     {
+        float value = valueFloat;
         switch (operation)
         {
             case operationType.add:
@@ -74,6 +131,40 @@ public class Effect
                 parameter = value;
                 break;
         }
+        return parameter;
+    }
+
+    public Vector2Int ApplyOperation(Vector2Int parameter)
+    {
+        Vector2Int value = valueV2Int;
+        switch (operation)
+        {
+            case operationType.add:
+                parameter += value;
+                break;
+
+            case operationType.multiply:
+                parameter *= value;
+                break;
+
+            case operationType.assignation:
+                parameter = value;
+                break;
+        }
+
+        return parameter;
+    }
+
+    public status ApplyOperation(status parameter)
+    {
+        status value = valueStatus;
+        switch (operation)
+        {
+            case operationType.assignation:
+                parameter = value;
+                break;
+        }
+        return parameter;
     }
 }
 
@@ -109,7 +200,7 @@ public class SkillButton : MonoBehaviour
     {
         if (greenRessource < greenLifeCost || yellowRessource < yellowLifeCost)
         {
-            return;  
+            return;
         }
 
         greenRessource -= greenLifeCost;

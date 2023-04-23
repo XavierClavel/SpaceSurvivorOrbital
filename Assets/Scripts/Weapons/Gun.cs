@@ -12,7 +12,7 @@ public class Gun : Weapon
     int damage;
     bool critical;
 
-    internal override void Start()
+    protected override void Start()
     {
         base.Start();
         bulletLifetime = range / attackSpeed;

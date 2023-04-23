@@ -249,7 +249,7 @@ public class PlayerController : MonoBehaviour
 
         bulletReloadTime = PlayerManager.bulletReloadTime;
         speed_aimingDemultiplier = PlayerManager.speed_aimingDemultiplier;
-        effect = PlayerManager.effect;
+        effect = PlayerManager.statusEffect;
 
 
         Cursor.lockState = CursorLockMode.Confined;

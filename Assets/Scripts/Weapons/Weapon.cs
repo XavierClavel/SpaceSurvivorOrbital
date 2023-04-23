@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    internal Vector2Int baseDamage;
-    internal int attackSpeed;
-    internal float range;
+    protected Vector2Int baseDamage;
+    protected int attackSpeed;
+    protected float range;
 
-    internal float bulletReloadTime;
-    internal float magazineReloadTime;
-    internal float criticalChance;    //between 0 and 1
-    internal float criticalMultiplier;  //superior to 1
+    protected float bulletReloadTime;
+    protected float magazineReloadTime;
+    protected float criticalChance;    //between 0 and 1
+    protected float criticalMultiplier;  //superior to 1
 
-    internal int pierce;
-    internal float speed_aimingDemultiplier;
-    internal SoundManager soundManager;
-    internal Transform aimTransform;
+    protected int pierce;
+    protected float speed_aimingDemultiplier;
+    protected SoundManager soundManager;
+    protected Transform aimTransform;
 
     //Guns
-    internal int magazine;
-    internal int currentMagazine;
-    internal bool reloadingMagazine = false;
-    internal PlayerController player;
+    protected int magazine;
+    protected int currentMagazine;
+    protected bool reloadingMagazine = false;
+    protected PlayerController player;
 
-    internal virtual void Start()
+    protected virtual void Start()
     {
         baseDamage = PlayerManager.baseDamage;
         attackSpeed = PlayerManager.attackSpeed;

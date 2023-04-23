@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    //To delete after the switch to excel files
     [Header("Resources parameters")]
     [SerializeField] private int _maxViolet = 2;
     [SerializeField] private int _maxOrange = 2;
@@ -62,6 +63,7 @@ public class PlayerManager : MonoBehaviour
 
     //Static accessors
 
+
     public static int maxViolet { get; private set; }
     public static int maxOrange { get; private set; }
     public static int maxGreen { get; private set; }
@@ -70,7 +72,7 @@ public class PlayerManager : MonoBehaviour
     public static int fillAmountOrange { get; private set; }
     public static int fillAmountGreen { get; private set; }
 
-    public static int maxHealth;
+    public static int maxHealth { get; set; }
     public static float baseSpeed { get; private set; }
     public static float damageResistanceMultiplier { get; private set; }
 
@@ -89,7 +91,7 @@ public class PlayerManager : MonoBehaviour
     public static float speed_aimingDemultiplier { get; private set; }
     public static int magazine { get; private set; }
 
-    public static status effect { get; private set; }
+    public static status statusEffect { get; private set; }
 
     public static int poisonDamage { get; private set; }
     public static float poisonDuration { get; private set; }
@@ -107,7 +109,6 @@ public class PlayerManager : MonoBehaviour
     public static float toolRange { get; private set; }
     public static float attractorRange { get; private set; }
     public static float attractorForce { get; private set; }
-
 
 
 
@@ -152,7 +153,7 @@ public class PlayerManager : MonoBehaviour
             speed_aimingDemultiplier = _speed_aimingDemultiplier;
             magazine = _magazine;
 
-            effect = _effect;
+            statusEffect = _effect;
 
 
             poisonDamage = _poisonDamage;
@@ -188,21 +189,128 @@ public class PlayerManager : MonoBehaviour
         amountOrange = nbOrange;
     }
 
-    public static bool HasResources(int nbGreen, int nbOrange)
+    public static void ApplyModification(Effect effect)
     {
-        return nbGreen <= amountGreen && nbOrange <= amountOrange;
-    }
-
-    public static void Upgrade(change type, int increase)
-    {
-        switch (type)
+        switch (effect.effect)
         {
-            case change.pierce:
-                pierce += increase;
+            case effectType.maxViolet:
+                maxViolet = effect.ApplyOperation(maxViolet);
                 break;
 
-            case change.toolPower:
-                toolPower += increase;
+            case effectType.maxOrange:
+                maxOrange = effect.ApplyOperation(maxOrange);
+                break;
+
+            case effectType.maxGreen:
+                maxGreen = effect.ApplyOperation(maxGreen);
+                break;
+
+            case effectType.fillAmountViolet:
+                fillAmountViolet = effect.ApplyOperation(fillAmountViolet);
+                break;
+
+            case effectType.fillAmountOrange:
+                fillAmountOrange = effect.ApplyOperation(fillAmountOrange);
+                break;
+
+            case effectType.fillAmountGreen:
+                fillAmountGreen = effect.ApplyOperation(fillAmountGreen);
+                break;
+
+            case effectType.maxHealth:
+                maxHealth = effect.ApplyOperation(maxHealth);
+                break;
+
+            case effectType.baseSpeed:
+                baseSpeed = effect.ApplyOperation(baseSpeed);
+                break;
+
+            case effectType.damageResistanceMultiplier:
+                damageResistanceMultiplier = effect.ApplyOperation(damageResistanceMultiplier);
+                break;
+
+            case effectType.baseDamage:
+                baseDamage = effect.ApplyOperation(baseDamage);
+                break;
+
+            case effectType.attackSpeed:
+                attackSpeed = effect.ApplyOperation(attackSpeed);
+                break;
+
+            case effectType.range:
+                range = effect.ApplyOperation(range);
+                break;
+
+            case effectType.bulletReloadTime:
+                bulletReloadTime = effect.ApplyOperation(bulletReloadTime);
+                break;
+
+            case effectType.magazineReloadTime:
+                magazineReloadTime = effect.ApplyOperation(magazineReloadTime);
+                break;
+
+            case effectType.criticalChance:
+                criticalChance = effect.ApplyOperation(criticalChance);
+                break;
+
+            case effectType.criticalMultiplier:
+                criticalMultiplier = effect.ApplyOperation(criticalMultiplier);
+                break;
+
+            case effectType.pierce:
+                pierce = effect.ApplyOperation(pierce);
+                break;
+
+            case effectType.speed_aimingDemultiplier:
+                speed_aimingDemultiplier = effect.ApplyOperation(speed_aimingDemultiplier);
+                break;
+
+            case effectType.magazine:
+                magazine = effect.ApplyOperation(magazine);
+                break;
+
+            case effectType.effect:
+                statusEffect = effect.ApplyOperation(statusEffect);
+                break;
+
+            case effectType.poisonDamage:
+                poisonDamage = effect.ApplyOperation(poisonDamage);
+                break;
+
+            case effectType.poisonDuration:
+                poisonDuration = effect.ApplyOperation(poisonDuration);
+                break;
+
+            case effectType.poisonPeriod:
+                poisonPeriod = effect.ApplyOperation(poisonPeriod);
+                break;
+
+            case effectType.fireDamage:
+                fireDamage = effect.ApplyOperation(fireDamage);
+                break;
+
+            case effectType.fireDuration:
+                fireDuration = effect.ApplyOperation(fireDuration);
+                break;
+
+            case effectType.firePeriod:
+                firePeriod = effect.ApplyOperation(firePeriod);
+                break;
+
+            case effectType.toolPower:
+                toolPower = effect.ApplyOperation(toolPower);
+                break;
+
+            case effectType.toolRange:
+                toolRange = effect.ApplyOperation(toolRange);
+                break;
+
+            case effectType.attractorRange:
+                attractorRange = effect.ApplyOperation(attractorRange);
+                break;
+
+            case effectType.attractorForce:
+                attractorForce = effect.ApplyOperation(attractorForce);
                 break;
         }
     }

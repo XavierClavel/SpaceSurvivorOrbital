@@ -6,14 +6,14 @@ using DG.Tweening;
 
 public class Ennemy : MonoBehaviour
 {
-    internal PlayerController player;
+    protected PlayerController player;
     [SerializeField] Slider healthBar;
-    [SerializeField] internal Rigidbody2D rb;
+    [SerializeField] protected Rigidbody2D rb;
     SoundManager soundManager;
-    internal Vector2 distanceToPlayer;
-    internal Vector2 directionToPlayer;
-    static internal WaitForSeconds wait;
-    static internal WaitForSeconds waitStateStep;
+    protected Vector2 distanceToPlayer;
+    protected Vector2 directionToPlayer;
+    static protected WaitForSeconds wait;
+    static protected WaitForSeconds waitStateStep;
     static WaitForSeconds waitPoison;
     static WaitForSeconds waitPoisonDamage;
     static WaitForSeconds waitFire;
@@ -24,13 +24,13 @@ public class Ennemy : MonoBehaviour
 
 
     [Header("Parameters")]
-    [SerializeField] internal int baseHealth = 150;
-    [SerializeField] internal float speed = 1f;
-    [SerializeField] internal float fleeSpeed = 2f;
-    [SerializeField] internal float attackSpeed = 0.5f;
-    [SerializeField] internal int baseDamage = 5;
-    [SerializeField] internal float range = 5f;
-    [SerializeField] internal float stateStep = 0.5f;
+    [SerializeField] protected int baseHealth = 150;
+    [SerializeField] protected float speed = 1f;
+    [SerializeField] protected float fleeSpeed = 2f;
+    [SerializeField] protected float attackSpeed = 0.5f;
+    [SerializeField] protected int baseDamage = 5;
+    [SerializeField] protected float range = 5f;
+    [SerializeField] protected float stateStep = 0.5f;
     int _health;
     int health
     {
