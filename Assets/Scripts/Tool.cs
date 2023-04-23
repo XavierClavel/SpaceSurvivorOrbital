@@ -7,11 +7,14 @@ public class Tool : MonoBehaviour
 {
     List<Resource> resourcesInRange = new List<Resource>();
     [SerializeField] CircleCollider2D trigger;
+    public static int toolPower;
 
-    public void Resize(float range)
+    private void Start()
     {
-        trigger.radius = range;
+        trigger.radius = PlayerManager.toolRange;
+        toolPower = PlayerManager.toolPower;
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         resourcesInRange.Add(SpawnManager.dictObjectToResource[other.gameObject]);
@@ -22,12 +25,12 @@ public class Tool : MonoBehaviour
         resourcesInRange.Remove(SpawnManager.dictObjectToResource[other.gameObject]);
     }
 
-    public void Hit(int damage)
+    public void Hit()
     {
         List<Resource> resourcesToHit = resourcesInRange.ToArray().ToList();
         foreach (Resource resource in resourcesToHit)
         {
-            resource.Hit(damage);
+            resource.Hit(toolPower);
         }
     }
 

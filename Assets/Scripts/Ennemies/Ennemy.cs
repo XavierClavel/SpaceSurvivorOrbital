@@ -59,9 +59,9 @@ public class Ennemy : MonoBehaviour
 
         wait = Helpers.GetWait(attackSpeed);
         waitStateStep = Helpers.GetWait(stateStep);
-        waitPoison = Helpers.GetWait(player.poisonDuration);
-        waitPoisonDamage = Helpers.GetWait(player.poisonPeriod);
-        waitIce = Helpers.GetWait(player.iceDuration);
+        waitPoison = Helpers.GetWait(PlayerManager.poisonDuration);
+        waitPoisonDamage = Helpers.GetWait(PlayerManager.poisonPeriod);
+        waitIce = Helpers.GetWait(PlayerManager.iceDuration);
 
         //TODO : static initalizer
 
@@ -139,8 +139,8 @@ public class Ennemy : MonoBehaviour
         while (true)
         {
             yield return waitPoisonDamage;
-            DamageDisplayHandler.DisplayDamage(player.poisonDamage, transform.position, healthChange.poison);
-            health -= player.poisonDamage;
+            DamageDisplayHandler.DisplayDamage(PlayerManager.poisonDamage, transform.position, healthChange.poison);
+            health -= PlayerManager.poisonDamage;
         }
     }
 
@@ -156,14 +156,14 @@ public class Ennemy : MonoBehaviour
         while (true)
         {
             yield return waitFireDamage;
-            DamageDisplayHandler.DisplayDamage(player.fireDamage, transform.position, healthChange.fire);
-            health -= player.fireDamage;
+            DamageDisplayHandler.DisplayDamage(PlayerManager.fireDamage, transform.position, healthChange.fire);
+            health -= PlayerManager.fireDamage;
         }
     }
 
     IEnumerator IceEffect()
     {
-        speedMultiplier = player.iceSpeedMultiplier;
+        speedMultiplier = PlayerManager.iceSpeedMultiplier;
         yield return waitIce;
         speedMultiplier = 1f;
     }

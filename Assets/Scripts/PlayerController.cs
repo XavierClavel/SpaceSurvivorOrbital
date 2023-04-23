@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject canvas;
     [SerializeField] Animator animator;
     [HideInInspector] public bool hasWon = false;
-    [SerializeField] Transform arrowTransform;
+    public Transform arrowTransform;
     Vector2 moveDir;
     [SerializeField] Weapon weapon;
     [SerializeField] Tool tool;
@@ -94,64 +94,34 @@ public class PlayerController : MonoBehaviour
     public LayoutManager bulletsLayoutManager;
     [SerializeField] GameObject spaceshipIndicator;
 
-
-    [Header("Resources parameters")]
-    [SerializeField] int maxViolet = 2;
-    [SerializeField] int maxOrange = 2;
-    [SerializeField] int maxGreen = 2;
-
-    public int fillAmountViolet = 20;
-    public int fillAmountOrange = 20;
-    public int fillAmountGreen = 20;
-
-    [Header("Player parameters")]
-    [SerializeField] int maxHealth = 100;
-
-    [SerializeField] float baseSpeed = 30f;
-
-    [SerializeField] float damageResistanceMultiplier = 0f;
-
-
-    [Header("Weapon parameters")]
-    [SerializeField] Vector2Int baseDamage = new Vector2Int(50, 75);
-    [SerializeField] int attackSpeed = 10;
-    [SerializeField] float range = 30;
-
-    [SerializeField] float bulletReloadTime = 0.5f;
-    [SerializeField] float magazineReloadTime = 2f;
-
-    [SerializeField] float criticalChance = 0.2f;    //between 0 and 1
-    [SerializeField] float criticalMultiplier = 2f;  //superior to 1
-
-    [SerializeField] int pierce = 0;
-    [SerializeField] float speed_aimingDemultiplier = 0.7f;
-    [SerializeField] int magazine = 6;
-
-    public status effect = status.none;
-
-    [Header("Game Parameters")]
-    public int poisonDamage;
-    public float poisonDuration;
-    public float poisonPeriod;
-
-    public int fireDamage;
-    public float fireDuration;
-    public float firePeriod;
-
-    public float iceSpeedMultiplier;
-    public float iceDuration;
-
-
-    [Header("Tool parameters")]
-    [SerializeField] int toolPower = 50;
-    [SerializeField] float toolRange;
-    [Header("Attractor parameters")]
-    [SerializeField] float attractorRange = 2.5f;
-    [SerializeField] float attractorForce = 2.5f;
-
     bool mouseAiming = false;
     bool playerControlled = true;
     bool shootWhileAiming;
+
+    //ResourceParameters
+    int maxViolet;
+    int maxOrange;
+    int maxGreen;
+
+    public static int fillAmountViolet;
+    public static int fillAmountOrange;
+    public static int fillAmountGreen;
+
+
+    //Player parameters
+    int maxHealth;
+    float baseSpeed;
+    float damageResistanceMultiplier;
+
+
+    float bulletReloadTime;
+    float speed_aimingDemultiplier;
+    public status effect;
+
+
+    //Game parameters
+
+
 
     internal float health
     {
@@ -169,11 +139,6 @@ public class PlayerController : MonoBehaviour
     public static void Hurt(float amount)
     {
         instance.health -= amount * (1 - instance.damageResistanceMultiplier);
-    }
-
-    public static int DamageResource()
-    {
-        return instance.toolPower;
     }
 
     public void IncreaseViolet()
@@ -214,8 +179,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        bulletReloadWindow = Helpers.GetWait(bulletReloadTime);
-        _health = maxHealth;
+
         instance = this;
         controls = new InputMaster();
         controls.Player.Shoot.started += ctx =>
@@ -247,9 +211,6 @@ public class PlayerController : MonoBehaviour
 
         controls.Player.MouseAimActive.started += ctx => { mouseAiming = true; };
         controls.Player.MouseAimActive.canceled += ctx => { mouseAiming = false; };
-
-        healthBar.maxValue = maxHealth;
-        healthBar.value = health;
     }
 
     IEnumerator Reload()
@@ -272,18 +233,39 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        weapon.Setup(baseDamage, attackSpeed, range, bulletReloadTime, magazineReloadTime, criticalChance, criticalMultiplier, pierce, speed_aimingDemultiplier, arrowTransform, magazine);
-        tool.Resize(toolRange);
+        maxViolet = PlayerManager.maxViolet;
+        maxOrange = PlayerManager.maxOrange;
+        maxGreen = PlayerManager.maxGreen;
+
+        fillAmountViolet = PlayerManager.fillAmountViolet;
+        fillAmountOrange = PlayerManager.fillAmountOrange;
+        fillAmountGreen = PlayerManager.fillAmountGreen;
+
+        //Player parameters
+        maxHealth = PlayerManager.maxHealth;
+        baseSpeed = PlayerManager.baseSpeed;
+        damageResistanceMultiplier = PlayerManager.damageResistanceMultiplier;
+
+
+        bulletReloadTime = PlayerManager.bulletReloadTime;
+        speed_aimingDemultiplier = PlayerManager.speed_aimingDemultiplier;
+        effect = PlayerManager.effect;
+
+
         Cursor.lockState = CursorLockMode.Confined;
         rb = GetComponent<Rigidbody2D>();
         cameraTransform = Camera.main.transform;
         soundManager = SoundManager.instance;
 
-        attractor.Setup(attractorRange, attractorForce);
-
         layoutManagerViolet.Setup(maxViolet, fillAmountViolet);
         layoutManagerOrange.Setup(maxOrange, fillAmountOrange);
         layoutManagerGreen.Setup(maxGreen, fillAmountGreen);
+
+        bulletReloadWindow = Helpers.GetWait(bulletReloadTime);
+        _health = maxHealth;
+
+        healthBar.maxValue = maxHealth;
+        healthBar.value = health;
     }
 
     void Update()
@@ -387,7 +369,7 @@ public class PlayerController : MonoBehaviour
     void Mine()
     {
         StartCoroutine("ReloadMining");
-        tool.Hit(toolPower);
+        tool.Hit();
     }
 
     void Restart()

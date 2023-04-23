@@ -9,7 +9,7 @@ public class LiquidResource : MonoBehaviour, IInteractable
     [Header("References")]
     [SerializeField] Image image;
     [SerializeField] SpriteRenderer sprite;
-    [SerializeField] CircleCollider2D collider;
+    [SerializeField] new CircleCollider2D collider;
     [Header("Parameters")]
     [SerializeField] float timeToFill = 2f;
     [SerializeField] Vector2Int resourcesAmount = new Vector2Int(2, 5);

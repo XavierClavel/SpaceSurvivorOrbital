@@ -12,9 +12,9 @@ public class Gun : Weapon
     int damage;
     bool critical;
 
-    public override void Setup(Vector2Int baseDamage, int attackSpeed, float range, float bulletReloadTime, float magazineReloadTime, float criticalChance, float criticalMultiplier, int pierce, float speed_aimingDemultiplier, Transform aimTransform, int magazine)
+    internal override void Start()
     {
-        base.Setup(baseDamage, attackSpeed, range, bulletReloadTime, magazineReloadTime, criticalChance, criticalMultiplier, pierce, speed_aimingDemultiplier, aimTransform, magazine);
+        base.Start();
         bulletLifetime = range / attackSpeed;
         bulletsLayoutManager = player.bulletsLayoutManager;
         bulletsLayoutManager.Setup(magazine);

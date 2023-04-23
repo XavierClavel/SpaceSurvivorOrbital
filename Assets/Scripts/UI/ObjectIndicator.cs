@@ -18,7 +18,7 @@ public class ObjectIndicator : MonoBehaviour
     int halfScreenx;
     int halfScreeny;
     RectTransform rectTransform;
-    Camera camera;
+    new Camera camera;
 
 
 

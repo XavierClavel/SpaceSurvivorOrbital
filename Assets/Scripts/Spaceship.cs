@@ -14,8 +14,8 @@ public class Spaceship : MonoBehaviour, IInteractable
 
     public void StartInteracting()
     {
-        PlayerManager.SaveResources((int)((float)PlayerController.instance.greenAmount / (float)PlayerController.instance.fillAmountGreen),
-         (int)((float)PlayerController.instance.orangeAmount / (float)PlayerController.instance.fillAmountOrange));
+        PlayerManager.SaveResources((int)((float)PlayerController.instance.greenAmount / (float)PlayerController.fillAmountGreen),
+         (int)((float)PlayerController.instance.orangeAmount / (float)PlayerController.fillAmountOrange));
         SceneManager.LoadScene("Ship");
     }
 

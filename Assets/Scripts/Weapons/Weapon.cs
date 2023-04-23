@@ -24,32 +24,24 @@ public class Weapon : MonoBehaviour
     internal bool reloadingMagazine = false;
     internal PlayerController player;
 
-
-    public virtual void Setup(Vector2Int baseDamage,
-                                int attackSpeed,
-                                float range,
-                                float bulletReloadTime,
-                                float magazineReloadTime,
-                                float criticalChance,
-                                float criticalMultiplier,
-                                int pierce,
-                                float speed_aimingDemultiplier,
-                                Transform aimTransform,
-                                int magazine)
+    internal virtual void Start()
     {
-        this.baseDamage = baseDamage;
-        this.attackSpeed = attackSpeed;
-        this.range = range;
-        this.bulletReloadTime = bulletReloadTime;
-        this.magazineReloadTime = magazineReloadTime;
-        this.criticalChance = criticalChance;
-        this.pierce = pierce;
-        this.speed_aimingDemultiplier = speed_aimingDemultiplier;
-        this.aimTransform = aimTransform;
-        this.magazine = magazine;
+        baseDamage = PlayerManager.baseDamage;
+        attackSpeed = PlayerManager.attackSpeed;
+        range = PlayerManager.range;
+        bulletReloadTime = PlayerManager.bulletReloadTime;
+        magazineReloadTime = PlayerManager.magazineReloadTime;
+        criticalChance = PlayerManager.criticalChance;
+        pierce = PlayerManager.pierce;
+        speed_aimingDemultiplier = PlayerManager.speed_aimingDemultiplier;
+        magazine = PlayerManager.magazine;
+
         soundManager = SoundManager.instance;
         currentMagazine = magazine;
         player = PlayerController.instance;
+
+        aimTransform = player.arrowTransform;
+
     }
 
     public virtual void Shoot() { }

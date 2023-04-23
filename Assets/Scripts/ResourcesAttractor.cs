@@ -8,10 +8,10 @@ public class ResourcesAttractor : MonoBehaviour
     [SerializeField] CircleCollider2D attractorZone;
     float attractorForce;
 
-    public void Setup(float range, float attractorForce)
+    private void Start()
     {
-        attractorZone.radius = range;
-        this.attractorForce = attractorForce;
+        attractorZone.radius = PlayerManager.attractorRange;
+        attractorForce = PlayerManager.attractorForce;
     }
 
     private void OnTriggerStay2D(Collider2D other)

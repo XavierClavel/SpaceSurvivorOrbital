@@ -537,7 +537,7 @@ Transform:
   - {fileID: 1119918922}
   - {fileID: 2021540865}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &169695425
 SpriteRenderer:
@@ -621,38 +621,7 @@ MonoBehaviour:
   layoutManagerGreen: {fileID: 1261425276}
   bulletsLayoutManager: {fileID: 485862576}
   spaceshipIndicator: {fileID: 1682673399}
-  maxViolet: 2
-  maxOrange: 3
-  maxGreen: 3
-  fillAmountViolet: 5
-  fillAmountOrange: 20
-  fillAmountGreen: 20
-  maxHealth: 100
-  baseSpeed: 3
-  damageResistanceMultiplier: 0
-  baseDamage: {x: 50, y: 75}
-  attackSpeed: 10
-  range: 5
-  bulletReloadTime: 0.2
-  magazineReloadTime: 2
-  criticalChance: 0.03
-  criticalMultiplier: 1.5
-  pierce: 0
-  speed_aimingDemultiplier: 0.3
-  magazine: 6
   effect: 0
-  poisonDamage: 5
-  poisonDuration: 5
-  poisonPeriod: 0.5
-  fireDamage: 5
-  fireDuration: 5
-  firePeriod: 0.5
-  iceSpeedMultiplier: 0.5
-  iceDuration: 3
-  toolPower: 50
-  toolRange: 1
-  attractorRange: 1
-  attractorForce: 5
 --- !u!95 &169695427
 Animator:
   serializedVersion: 5
@@ -877,7 +846,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!45 &459822654
 Skybox:
@@ -1459,7 +1428,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &645992187
 GameObject:
@@ -1600,6 +1569,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7525300360271940746, guid: 73427f10fdfffca4ea411c6ad4886150, type: 3}
   m_PrefabInstance: {fileID: 7525300360849932789}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &649366915 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7525300360271940726, guid: 73427f10fdfffca4ea411c6ad4886150, type: 3}
+  m_PrefabInstance: {fileID: 7525300360849932789}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &723545007
 GameObject:
   m_ObjectHideFlags: 0
@@ -1630,7 +1604,7 @@ Transform:
   m_Children:
   - {fileID: 1160481664}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &819867603
 GameObject:
@@ -1966,7 +1940,7 @@ RectTransform:
   - {fileID: 1682673400}
   - {fileID: 1634608357}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2551,7 +2525,7 @@ Transform:
   - {fileID: 847485371}
   - {fileID: 139539106}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1210257084
 GameObject:
@@ -2622,13 +2596,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1251340519}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1958277321}
-  m_RootOrder: -1
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1251340521
 MonoBehaviour:
@@ -2642,6 +2616,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6ab1c46371fc254aaa2261a2209495c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxViolet: 2
+  _maxOrange: 3
+  _maxGreen: 3
+  _fillAmountViolet: 5
+  _fillAmountOrange: 20
+  _fillAmountGreen: 20
+  _maxHealth: 100
+  _baseSpeed: 3
+  _damageResistanceMultiplier: 0
+  _baseDamage: {x: 50, y: 75}
+  _attackSpeed: 10
+  _range: 5
+  _bulletReloadTime: 0.2
+  _magazineReloadTime: 2
+  _criticalChance: 0.03
+  _criticalMultiplier: 1.5
+  _pierce: 0
+  _speed_aimingDemultiplier: 0.3
+  _magazine: 6
+  _effect: 0
+  _poisonDamage: 0
+  _poisonDuration: 0
+  _poisonPeriod: 0
+  _fireDamage: 0
+  _fireDuration: 0
+  _firePeriod: 0
+  _iceSpeedMultiplier: 0
+  _iceDuration: 0
+  _toolPower: 50
+  _toolRange: 1
+  _attractorRange: 1
+  _attractorForce: 5
 --- !u!1 &1261425271
 GameObject:
   m_ObjectHideFlags: 0
@@ -3228,6 +3234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaf8bb9e2a8a5af41a2e3823d516c76b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 649366915}
+  image: {fileID: 1682673401}
 --- !u!1 &1797273988
 GameObject:
   m_ObjectHideFlags: 0
@@ -3344,7 +3352,6 @@ Transform:
   - {fileID: 864999404}
   - {fileID: 582762390}
   - {fileID: 1210257086}
-  - {fileID: 1251340520}
   - {fileID: 1574685457}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -3737,7 +3744,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7525300360271940726, guid: 73427f10fdfffca4ea411c6ad4886150, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7525300360271940726, guid: 73427f10fdfffca4ea411c6ad4886150, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3843,7 +3850,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!82 &8585574751770050428
 AudioSource:

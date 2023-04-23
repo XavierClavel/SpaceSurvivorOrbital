@@ -37,16 +37,6 @@ public class Resource : MonoBehaviour
         healthBar.value = _health;
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "RedBullet")
-        {
-            int damageTaken = PlayerController.DamageResource();
-            health -= damageTaken;
-            DamageDisplayHandler.DisplayDamage(damageTaken, transform.position);
-        }
-    }
-
     public void Hit(int damage)
     {
         health -= damage;
