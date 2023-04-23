@@ -16,7 +16,6 @@ public class LiquidResource : MonoBehaviour, IInteractable
     int nbResources;
     float increment;
     int currentIncrement;
-    bool broken;
 
 
     float factor;
@@ -41,8 +40,6 @@ public class LiquidResource : MonoBehaviour, IInteractable
     public void Interacting()
     {
         if (!interacting) return;
-        if (broken) return;
-
         fillAmount -= Time.fixedDeltaTime * factor;
 
         if (fillAmount <= 0) Break();
@@ -73,16 +70,10 @@ public class LiquidResource : MonoBehaviour, IInteractable
 
     void Break()
     {
-        broken = true;
-        sprite.enabled = false;
-        collider.enabled = false;
-        image.enabled = false;
         SoundManager.instance.PlaySfx(transform, sfx.breakResource);
-    }
-
-    public bool TryRemove()
-    {
-        return broken;
+        InteractionRadius.interactables.Remove(SpawnManager.dictObjectToInteractable[gameObject]);
+        SpawnManager.dictObjectToInteractable.Remove(gameObject);
+        Destroy(gameObject);
     }
 
 

@@ -6,6 +6,7 @@ public class TileManager : MonoBehaviour
 {
     [SerializeField] Vector2Int tileSize = new Vector2Int(10, 10);
     [SerializeField] List<GameObject> tiles;
+    [SerializeField] List<TileConstraint> tilesConstraints;
 
     // Start is called before the first frame update
     void Start()

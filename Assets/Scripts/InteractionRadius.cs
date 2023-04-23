@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class InteractionRadius : MonoBehaviour
 {
     InputMaster controls;
-    List<IInteractable> interactables = new List<IInteractable>();
+    public static List<IInteractable> interactables = new List<IInteractable>();
     bool interacting = false;
 
     private void Start()
@@ -36,9 +37,10 @@ public class InteractionRadius : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        if (interactables.Count == 0) return;
         if (!interacting) return;
-        foreach (IInteractable interactable in interactables)
+        List<IInteractable> list = interactables.ToArray().ToList();
+        foreach (IInteractable interactable in list)
         {
             interactable.Interacting();
         }
@@ -51,11 +53,9 @@ public class InteractionRadius : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        if (!SpawnManager.dictObjectToInteractable.ContainsKey(other.gameObject)) return;
         IInteractable interactable = SpawnManager.dictObjectToInteractable[other.gameObject];
         interactables.Remove(interactable);
-        if (!interactable.TryRemove()) return;
-        SpawnManager.dictObjectToInteractable.Remove(other.gameObject);
-        Destroy(other.gameObject);
 
     }
 }

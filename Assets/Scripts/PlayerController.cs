@@ -68,19 +68,13 @@ public class PlayerController : MonoBehaviour
     SoundManager soundManager;
     Vector2 prevMoveDir = Vector2.zero;
     WaitForSeconds bulletReloadWindow;
-    bool needToReload = false;
-    bool needToReloadMining = false;
     bool reloading = false;
     bool reloadingMining = false;
     bool shooting = false;
     bool mining = false;
-
-    [SerializeField] TextMeshProUGUI violetAmountDisplay;
-    [SerializeField] TextMeshProUGUI orangeAmountDisplay;
-    [SerializeField] TextMeshProUGUI greenAmountDisplay;
     int violetAmount = 0;
-    int orangeAmount = 0;
-    int greenAmount = 0;
+    [HideInInspector] public int orangeAmount = 0;
+    [HideInInspector] public int greenAmount = 0;
     [SerializeField] Slider healthBar;
     float _health;
     [SerializeField] GameObject spaceship;
@@ -106,9 +100,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int maxOrange = 2;
     [SerializeField] int maxGreen = 2;
 
-    [SerializeField] int fillAmountViolet = 20;
-    [SerializeField] int fillAmountOrange = 20;
-    [SerializeField] int fillAmountGreen = 20;
+    public int fillAmountViolet = 20;
+    public int fillAmountOrange = 20;
+    public int fillAmountGreen = 20;
 
     [Header("Player parameters")]
     [SerializeField] int maxHealth = 100;
@@ -186,7 +180,6 @@ public class PlayerController : MonoBehaviour
     {
         layoutManagerViolet.AddResource();
         violetAmount++;
-        violetAmountDisplay.text = violetAmount.ToString();
         if (violetAmount >= fillAmountViolet)
         {
             spaceship.GetComponent<CircleCollider2D>().enabled = true;
@@ -199,14 +192,12 @@ public class PlayerController : MonoBehaviour
     {
         layoutManagerOrange.AddResource();
         orangeAmount++;
-        orangeAmountDisplay.text = orangeAmount.ToString();
     }
 
     public void IncreaseGreen()
     {
         layoutManagerGreen.AddResource();
         greenAmount++;
-        greenAmountDisplay.text = greenAmount.ToString();
     }
 
     #endregion
@@ -244,8 +235,7 @@ public class PlayerController : MonoBehaviour
             mining = true;
             shooting = false;
             if (reloadingMining) return;
-            if (needToReloadMining) StartCoroutine("ReloadMining");
-            else Mine();
+            Mine();
         };
         controls.Player.Mine.canceled += ctx =>
         {
@@ -267,7 +257,6 @@ public class PlayerController : MonoBehaviour
         reloading = true;
         yield return bulletReloadWindow;
         reloading = false;
-        needToReload = false;
         if (shooting) weapon.Shoot();
     }
 
@@ -278,7 +267,6 @@ public class PlayerController : MonoBehaviour
         reloadingMining = true;
         yield return bulletReloadWindow;
         reloadingMining = false;
-        needToReloadMining = false;
         if (mining) Mine();
     }
 

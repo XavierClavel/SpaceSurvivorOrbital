@@ -9,6 +9,7 @@ public class LayoutManager : MonoBehaviour
     int index;
     int maxAmount;
 
+
     public void Setup(int maxAmount)
     {
         this.maxAmount = maxAmount;

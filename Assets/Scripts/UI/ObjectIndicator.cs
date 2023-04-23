@@ -20,6 +20,8 @@ public class ObjectIndicator : MonoBehaviour
     RectTransform rectTransform;
     Camera camera;
 
+
+
     private void Start()
     {
         halfScreenx = (int)(Camera.main.pixelWidth * 0.5);

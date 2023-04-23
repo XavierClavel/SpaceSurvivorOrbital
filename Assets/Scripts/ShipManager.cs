@@ -11,6 +11,12 @@ public class ShipManager : MonoBehaviour
     public List<Button> buttons;
     public List<Image> image;
 
+    private void Start()
+    {
+        Debug.Log(PlayerManager.amountGreen);
+        Debug.Log(PlayerManager.amountOrange);
+    }
+
     public void Next()
     {
         SceneManager.LoadScene("Level 2");
