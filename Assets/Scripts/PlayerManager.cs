@@ -70,7 +70,7 @@ public class PlayerManager : MonoBehaviour
     public static int fillAmountOrange { get; private set; }
     public static int fillAmountGreen { get; private set; }
 
-    public static int maxHealth { get; private set; }
+    public static int maxHealth;
     public static float baseSpeed { get; private set; }
     public static float damageResistanceMultiplier { get; private set; }
 

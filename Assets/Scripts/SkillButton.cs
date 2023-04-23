@@ -25,16 +25,20 @@ public class Effect
 
     public void Apply()
     {
-        //switch (effect)
-        //{
-        //    case effectType.baseDamage:
-        //        ApplyOperation(ref PlayerManager.baseDamage , value);
-        //        break;
+        PlayerManager.maxHealth = 100;
 
-        //    case effectType.maxHealth:
-        //        ApplyOperation(ref PlayerManager.maxHealth , value);
-        //        break;
-        //}
+        switch (effect)
+        {
+            //case effectType.baseDamage:
+              // ApplyOperation(ref PlayerManager.baseDamage , value);
+               //break;
+
+            case effectType.maxHealth:
+                ApplyOperation(ref PlayerManager.maxHealth , value);
+               break;
+        }
+
+        Debug.Log(PlayerManager.maxHealth);
     }
 
     public void ApplyOperation (ref int parameter, int value)
@@ -111,7 +115,7 @@ public class SkillButton : MonoBehaviour
         greenRessource -= greenLifeCost;
         yellowRessource -= yellowLifeCost;
 
-            foreach (Button button in activateButton)
+        foreach (Button button in activateButton)
         {
             button.interactable = true;
         }
