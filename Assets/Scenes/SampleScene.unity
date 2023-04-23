@@ -699,8 +699,8 @@ MonoBehaviour:
   bulletsLayoutManager: {fileID: 485862576}
   spaceshipIndicator: {fileID: 1682673399}
   maxViolet: 2
-  maxOrange: 2
-  maxGreen: 2
+  maxOrange: 3
+  maxGreen: 3
   fillAmountViolet: 20
   fillAmountOrange: 20
   fillAmountGreen: 20
@@ -709,15 +709,15 @@ MonoBehaviour:
   damageResistanceMultiplier: 0
   baseDamage: {x: 50, y: 75}
   attackSpeed: 10
-  range: 30
-  bulletReloadTime: 0.4
-  magazineReloadTime: 1.5
-  criticalChance: 0.2
-  criticalMultiplier: 2
-  pierce: 1
-  speed_aimingDemultiplier: 0.7
+  range: 5
+  bulletReloadTime: 0.2
+  magazineReloadTime: 2
+  criticalChance: 0.03
+  criticalMultiplier: 1.5
+  pierce: 0
+  speed_aimingDemultiplier: 0.3
   magazine: 6
-  effect: 2
+  effect: 0
   poisonDamage: 5
   poisonDuration: 5
   poisonPeriod: 0.5
@@ -727,9 +727,9 @@ MonoBehaviour:
   iceSpeedMultiplier: 0.5
   iceDuration: 3
   toolPower: 50
-  toolRange: 2.5
-  attractorRange: 5
-  attractorForce: 1.5
+  toolRange: 1
+  attractorRange: 1
+  attractorForce: 5
 --- !u!95 &169695427
 Animator:
   serializedVersion: 5
@@ -1616,7 +1616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileSize: {x: 10, y: 10}
   tiles:
-  - {fileID: 8118553817093898150, guid: 64db39e0ccc808543a30b190e9060863, type: 3}
+  - {fileID: 8118553817093898150, guid: e34e7c180f533d04bb0359e0b357db75, type: 3}
   - {fileID: 8118553817093898150, guid: 53c688f641f491044be60b326b1b692d, type: 3}
   - {fileID: 8118553817093898150, guid: a07b1a9007ec96c438e73c75d1b8ab06, type: 3}
   - {fileID: 8118553817093898150, guid: 857566de57c263b419ade6d60bde6bfa, type: 3}
@@ -1625,6 +1625,10 @@ MonoBehaviour:
   - {fileID: 8118553817093898150, guid: 69d6b5340c7cc9d4c98667eebc8e4cc8, type: 3}
   - {fileID: 8118553817093898150, guid: 828d2550c1409e240881de03ee71341d, type: 3}
   - {fileID: 8118553817093898150, guid: 04e98106ab364ff49a5e5bbf88ccd70f, type: 3}
+  - {fileID: 8118553817093898150, guid: 0dd45456ea3e1754db7b4108c1e18528, type: 3}
+  - {fileID: 8118553817093898150, guid: 0da61030e8569b64d81c66aed3c14a73, type: 3}
+  - {fileID: 8118553817093898150, guid: 64db39e0ccc808543a30b190e9060863, type: 3}
+  - {fileID: 8118553817093898150, guid: ef4a34d71d530c84c8816dda29163183, type: 3}
 --- !u!1 &595732943
 GameObject:
   m_ObjectHideFlags: 0
@@ -5428,7 +5432,7 @@ MonoBehaviour:
   - audioClip: {fileID: 8300000, guid: d68bf2480e17ee84e9b7f771bb9ab586, type: 3}
     volume: 1
   - audioClip: {fileID: 8300000, guid: 5ab1aae096928f04aa98ea7ecfe782f5, type: 3}
-    volume: 1
+    volume: 0
   - audioClip: {fileID: 8300000, guid: 7a6a528c41623db4ba2f4d110c3078cc, type: 3}
     volume: 1
   - audioClip: {fileID: 8300000, guid: 890409bfea439b943a407875db46937f, type: 3}
@@ -5436,7 +5440,7 @@ MonoBehaviour:
   - audioClip: {fileID: 8300000, guid: 2c0c2a93c73e2e648a2aee82f7b92a7d, type: 3}
     volume: 1
   - audioClip: {fileID: 8300000, guid: 712478d0fde017a4ba4a6866cfb0d48d, type: 3}
-    volume: 1
+    volume: 0
   - audioClip: {fileID: 8300000, guid: aaace3f88a8a2994ba333f5ba82c1f7d, type: 3}
     volume: 1
 --- !u!4 &2187635173910939602
@@ -5782,3 +5786,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!114 &8759033999201962372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8759033999201962371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88c7c5325b29c2042b0d2f5b0ef4b46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  position: {x: 0, y: 0, z: 0}
+  gravityRadius: 0
+  size: 0
+  mass: 10000
+  ennemyPrefabs:
+  - {fileID: 1013518959079814096, guid: 768cf1381437d3946930748b6aa8c2d9, type: 3}
+  doEnnemySpawn: 0
