@@ -25,8 +25,6 @@ public class Effect
 
     public void Apply()
     {
-        PlayerManager.maxHealth = 100;
-
         switch (effect)
         {
             //case effectType.baseDamage:
