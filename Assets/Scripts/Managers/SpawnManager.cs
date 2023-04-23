@@ -4,37 +4,31 @@ using UnityEngine;
 using System.Linq;
 using DG.Tweening;
 
-public class Planet : MonoBehaviour
+public class SpawnManager : MonoBehaviour
 {
-    [HideInInspector] public Vector3 position;
-    [HideInInspector] public float gravityRadius;
-    [HideInInspector] public float size;
-    [HideInInspector] public float mass = 10;
-    public static Planet instance;
-    [SerializeField] List<GameObject> ennemyPrefabs;
-    float spawnRate = 4f;
+    public static SpawnManager instance;
+    [SerializeField] List<Ennemy> ennemyPrefabs = new List<Ennemy>();
+    [SerializeField] float waveLength = 4f;
     Transform playerTransform;
     [SerializeField] bool doEnnemySpawn = true;
     public static Dictionary<GameObject, Ennemy> dictObjectToEnnemy = new Dictionary<GameObject, Ennemy>();
     public static Dictionary<GameObject, Resource> dictObjectToResource = new Dictionary<GameObject, Resource>();
     public static Dictionary<GameObject, IInteractable> dictObjectToInteractable = new Dictionary<GameObject, IInteractable>();
+    int cost = 10;
 
     private void Awake()
     {
-        position = transform.position;
         instance = this;
     }
 
     IEnumerator SpawnController()
     {
-        yield return Helpers.GetWait(20f);
-        spawnRate = 2.5f;
-        yield return Helpers.GetWait(20f);
-        spawnRate = 1.5f;
-        yield return Helpers.GetWait(20f);
-        spawnRate = 1.25f;
-        yield return Helpers.GetWait(20f);
-        spawnRate = 1f;
+        while (true)
+        {
+            yield return Helpers.GetWait(waveLength);
+            StartCoroutine("SpawnWave", cost);
+            cost += 5;
+        }
     }
 
     void Start()
@@ -42,29 +36,36 @@ public class Planet : MonoBehaviour
         playerTransform = PlayerController.instance.transform;
         if (doEnnemySpawn)
         {
-            StartCoroutine("SpawnEnnemies");
             StartCoroutine("SpawnController");
         }
     }
 
-    IEnumerator SpawnEnnemies()
+    IEnumerator SpawnWave(int maxCost)
     {
-        while (true)
+        int currentCost = 0;
+        while (currentCost < maxCost)
         {
-            yield return Helpers.GetWait(spawnRate);
-            SpawnEnnemy();
+            yield return null;
+            int randomIndex = Random.Range(0, ennemyPrefabs.Count);
+            Ennemy ennemy = ennemyPrefabs[randomIndex];
+            int newCost = currentCost + ennemy.cost;
+            if (newCost > maxCost) break;
+
+            Instantiate(ennemy.gameObject, randomPos() + playerTransform.position, Quaternion.identity);
+            currentCost = newCost;
+
+            if (newCost == maxCost) yield break;
         }
     }
 
     public void SpawnEnnemy()
     {
-        GameObject ennemyPrefab = ennemyPrefabs[Random.Range(0, ennemyPrefabs.Count)];
+        GameObject ennemyPrefab = ennemyPrefabs[Random.Range(0, ennemyPrefabs.Count)].gameObject;
         Instantiate(ennemyPrefab, randomPos() + playerTransform.position, Quaternion.identity);
     }
 
     Vector3 randomPos()
     {
-        //return (new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f))).normalized;
         float signA = Random.Range(0, 2) * 2 - 1;
         float signB = Random.Range(0, 2) * 2 - 1;
         return signA * Random.Range(6f, 12f) * Vector2.up + signB * Random.Range(4f, 8f) * Vector2.right;

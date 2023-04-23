@@ -106,7 +106,7 @@ public class Healer : Ennemy
         foreach (RaycastHit2D hit in hits)
         {
             if (hit.collider.gameObject == gameObject) continue; //Does not heal himself
-            Planet.dictObjectToEnnemy[hit.collider.gameObject].HealSelf(baseDamage);
+            SpawnManager.dictObjectToEnnemy[hit.collider.gameObject].HealSelf(baseDamage);
         }
         needsToRecharge = true;
         StartCoroutine("Recharge");

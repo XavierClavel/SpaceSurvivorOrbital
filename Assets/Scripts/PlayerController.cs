@@ -157,6 +157,7 @@ public class PlayerController : MonoBehaviour
 
     bool mouseAiming = false;
     bool playerControlled = true;
+    bool shootWhileAiming;
 
     internal float health
     {
@@ -231,7 +232,6 @@ public class PlayerController : MonoBehaviour
             shooting = true;
             mining = false;
             if (reloading) return;
-            //if (needToReload) StartCoroutine("Reload");
             weapon.Shoot();
         };
         controls.Player.Shoot.canceled += ctx =>
@@ -406,21 +406,6 @@ public class PlayerController : MonoBehaviour
     {
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
-    }
-
-    IEnumerator LeavePlanet()
-    {
-        hasWon = true;
-        PlayerManager.SaveResources(greenAmount, orangeAmount);
-        canvas.SetActive(false);
-        playerControlled = false;
-        rb.velocity = Vector3.zero;
-        WaitForFixedUpdate wait = Helpers.GetWaitFixed;
-        while (true)
-        {
-            rb.AddForce(5 * spaceship.transform.forward);
-            yield return wait;
-        }
     }
 
     void Death()

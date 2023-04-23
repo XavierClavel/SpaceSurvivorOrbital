@@ -10,11 +10,6 @@ public class ShipManager : MonoBehaviour
     public List<Upgrade> buyableUpgrades;
     public List<Button> buttons;
     public List<Image> image;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     public void Next()
     {

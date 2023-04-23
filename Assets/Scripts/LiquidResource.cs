@@ -30,7 +30,7 @@ public class LiquidResource : MonoBehaviour, IInteractable
         increment = 1f / (float)nbResources;
         currentIncrement = nbResources;
 
-        Planet.dictObjectToInteractable.Add(gameObject, this);
+        SpawnManager.dictObjectToInteractable.Add(gameObject, this);
     }
 
     public void StartInteracting()

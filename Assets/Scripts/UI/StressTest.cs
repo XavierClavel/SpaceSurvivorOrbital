@@ -24,7 +24,7 @@ public class StressTest : MonoBehaviour
         WaitForSeconds wait = Helpers.GetWait(0.2f);
         while (true)
         {
-            Planet.instance.SpawnEnnemy();
+            SpawnManager.instance.SpawnEnnemy();
             //Helpers.DebugDisplay((nbEnnemies.ToString()));
             Debug.Log(nbEnnemies.ToString());
             yield return wait;

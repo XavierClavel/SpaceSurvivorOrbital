@@ -14,12 +14,12 @@ public class Tool : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        resourcesInRange.Add(Planet.dictObjectToResource[other.gameObject]);
+        resourcesInRange.Add(SpawnManager.dictObjectToResource[other.gameObject]);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        resourcesInRange.Remove(Planet.dictObjectToResource[other.gameObject]);
+        resourcesInRange.Remove(SpawnManager.dictObjectToResource[other.gameObject]);
     }
 
     public void Hit(int damage)

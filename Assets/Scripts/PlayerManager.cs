@@ -16,7 +16,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (instance == null) instance = this;
         else if (instance != this) Destroy(gameObject);
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
     }
 
     public static void SaveResources(int nbGreen, int nbOrange)

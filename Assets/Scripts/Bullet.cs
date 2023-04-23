@@ -37,7 +37,7 @@ public class Bullet : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player")) PlayerController.Hurt(damage);
 
-        if (other.gameObject.CompareTag("Ennemy")) Planet.dictObjectToEnnemy[other.gameObject].Hurt(damage, effect, critical);
+        if (other.gameObject.CompareTag("Ennemy")) SpawnManager.dictObjectToEnnemy[other.gameObject].Hurt(damage, effect, critical);
 
 
         if (currentPierce == pierce)

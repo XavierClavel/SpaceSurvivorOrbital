@@ -28,7 +28,7 @@ public class Resource : MonoBehaviour
 
     private void Awake()
     {
-        Planet.dictObjectToResource.Add(gameObject, this);
+        SpawnManager.dictObjectToResource.Add(gameObject, this);
     }
 
     private void Start()

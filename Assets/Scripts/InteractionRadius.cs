@@ -46,15 +46,15 @@ public class InteractionRadius : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        interactables.Add(Planet.dictObjectToInteractable[other.gameObject]);
+        interactables.Add(SpawnManager.dictObjectToInteractable[other.gameObject]);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        IInteractable interactable = Planet.dictObjectToInteractable[other.gameObject];
+        IInteractable interactable = SpawnManager.dictObjectToInteractable[other.gameObject];
         interactables.Remove(interactable);
         if (!interactable.TryRemove()) return;
-        Planet.dictObjectToInteractable.Remove(other.gameObject);
+        SpawnManager.dictObjectToInteractable.Remove(other.gameObject);
         Destroy(other.gameObject);
 
     }

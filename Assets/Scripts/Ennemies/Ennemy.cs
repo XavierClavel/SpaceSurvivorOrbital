@@ -20,6 +20,7 @@ public class Ennemy : MonoBehaviour
     static WaitForSeconds waitFireDamage;
     static WaitForSeconds waitIce;
     float speedMultiplier = 1f;
+    public int cost;
 
 
     [Header("Parameters")]
@@ -64,7 +65,7 @@ public class Ennemy : MonoBehaviour
 
         //TODO : static initalizer
 
-        Planet.dictObjectToEnnemy.Add(gameObject, this);
+        SpawnManager.dictObjectToEnnemy.Add(gameObject, this);
     }
 
     internal virtual void FixedUpdate()
@@ -122,7 +123,7 @@ public class Ennemy : MonoBehaviour
     {
         StressTest.nbEnnemies--;
         soundManager.PlaySfx(transform, sfx.ennemyExplosion);
-        Planet.dictObjectToEnnemy.Remove(gameObject);
+        SpawnManager.dictObjectToEnnemy.Remove(gameObject);
         Destroy(gameObject);
     }
 
