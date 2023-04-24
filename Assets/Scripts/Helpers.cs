@@ -18,6 +18,32 @@ public class Helpers : MonoBehaviour
     private static Dictionary<int, TextMeshProUGUI> dictDebugDisplays = new Dictionary<int, TextMeshProUGUI>();
     [SerializeField] GameObject debugDisplayPrefab;
 
+    public static Vector2Int RoundToVector2IntStep(Vector3 value, Vector2Int step)
+    {
+        return new Vector2Int(RoundToIntStep(value.x, step.x), RoundToIntStep(value.y, step.y));
+    }
+
+    public static Vector2Int RoundToVector2IndexStep(Vector3 value, Vector2Int step)
+    {
+        return new Vector2Int(RoundToIntStep(value.x, step.x) / step.x, RoundToIntStep(value.y, step.y) / step.y);
+    }
+
+    public static Vector2Int CentralSymmetry(Vector2Int value, Vector2Int center)
+    {
+        Vector2Int offset = center - value;
+        return center + offset;
+    }
+
+    public static int IntSign(int value)
+    {
+        return value >= 0 ? 1 : -1;
+    }
+
+    public static int RoundToIntStep(float value, int step)
+    {
+        return Mathf.RoundToInt(value / (float)step) * step;
+    }
+
     public static Quaternion v2ToQuaternion(Vector2 v2)
     {
         float angle = Vector2.SignedAngle(Vector2.up, v2);
