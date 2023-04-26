@@ -6,10 +6,10 @@ using System;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/gameTile", order = 1)]
 public class Tile : ScriptableObject
 {
-    public int weight;
-    public GameObject go;
+    public int weight = 1;
+    public GameObject tileObject;
     public int maxAmount;
-    List<TileConstraint> constraints;
+    [SerializeField] List<TileConstraint> constraints;
 
     public List<Tile> getApplicableConstraints(int distance)
     {

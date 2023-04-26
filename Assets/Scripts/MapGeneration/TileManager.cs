@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
+    TileWaveFunction[,] map;
     [SerializeField] Vector2Int tileSize = new Vector2Int(10, 10);
-    [SerializeField] List<GameObject> tiles;
-    [SerializeField] GameObject spaceship;
-    [SerializeField] List<TileConstraint> tilesConstraints;
+    [SerializeField] List<Tile> tiles;
+    [SerializeField] Tile spaceship;
     Dictionary<Vector2Int, GameObject> dictPositionToTile = new Dictionary<Vector2Int, GameObject>();
     PlayerController player;
     Vector2Int mapSize = new Vector2Int(9, 9);
@@ -21,17 +21,122 @@ public class TileManager : MonoBehaviour
     {
         mapRadius = (mapSize - Vector2Int.one) / 2;
         player = PlayerController.instance;
-        for (int x = -mapRadius.x; x <= mapRadius.x; x++)
-        {
-            for (int y = -mapRadius.y; y <= mapRadius.y; y++)
-            {
-                if (x == 0 && y == 0) continue;
-                CreateTile(tiles.getRandom(), new Vector2Int(x, y));
-            }
-        }
-        dictPositionToTile.Add(Vector2Int.zero, spaceship);
+
+
+        InitalizeMap();
+        PlaceTile();
+        // for (int x = -mapRadius.x; x <= mapRadius.x; x++)
+        // {
+        //     for (int y = -mapRadius.y; y <= mapRadius.y; y++)
+        //     {
+        //         if (x == 0 && y == 0) continue;
+        //         CreateTile(tiles.getRandom(), new Vector2Int(x, y));
+        //     }
+        // }
+
+
+
+
+
         StartCoroutine("TileManagement");
     }
+
+    void InitalizeMap()
+    {
+        map = new TileWaveFunction[mapSize.x, mapSize.y];
+        for (int x = 0; x < mapSize.x; x++)
+        {
+            for (int y = 0; y < mapSize.y; y++)
+            {
+                map[x, y] = new TileWaveFunction(tiles, new Vector2Int(x, y));
+            }
+        }
+        map[mapRadius.x, mapRadius.y].possibleStates = new List<Tile>();
+        map[mapRadius.x, mapRadius.y].possibleStates.Add(spaceship);
+        map[mapRadius.x, mapRadius.y].entropy = int.MinValue;
+    }
+
+    void PlaceTile()
+    {
+        while (true)
+        {
+            TileWaveFunction newTileWaveFunction = GetUncollapsedTileOfLeastEntropy();
+            if (newTileWaveFunction == null) break;
+            CollapseWaveFunction(newTileWaveFunction);
+        }
+
+    }
+
+    TileWaveFunction GetUncollapsedTileOfLeastEntropy()
+    {
+        List<TileWaveFunction> uncollapsedTilesOfLeastEntropy = new List<TileWaveFunction>();
+        int minEntropy = int.MaxValue;
+        foreach (TileWaveFunction tileWaveFunction in map)
+        {
+            if (tileWaveFunction == null) continue;
+            if (tileWaveFunction.entropy < minEntropy)
+            {
+                uncollapsedTilesOfLeastEntropy = new List<TileWaveFunction>();
+                uncollapsedTilesOfLeastEntropy.Add(tileWaveFunction);
+                minEntropy = tileWaveFunction.entropy;
+            }
+            else if (tileWaveFunction.entropy == minEntropy)
+            {
+                uncollapsedTilesOfLeastEntropy.Add(tileWaveFunction);
+                //List to randomize the output in case of equality
+            }
+        }
+
+        if (uncollapsedTilesOfLeastEntropy.Count == 0) return null;
+        if (uncollapsedTilesOfLeastEntropy.Count == 1) return uncollapsedTilesOfLeastEntropy[0];
+        else return uncollapsedTilesOfLeastEntropy.getRandom();
+    }
+
+    void CollapseWaveFunction(TileWaveFunction tileWaveFunction)
+    {
+        Tile newTile = tileWaveFunction.CollapseWaveFunction();
+        Vector2Int position = tileWaveFunction.index;
+
+
+        ReduceWaveFunctionRadius1(position, newTile);
+        ReduceWaveFunctionRadius2(position, newTile);
+
+        Vector3 worldPosition = IndexToWorld(position - mapRadius);
+        GameObject tile = Instantiate(newTile.tileObject, worldPosition, Quaternion.identity);
+        dictPositionToTile.Add(position - mapRadius, tile);
+        map[position.x, position.y] = null;
+    }
+
+    void ReduceWaveFunctionRadius1(Vector2Int position, Tile tile)
+    {
+
+        List<Tile> conflictualTiles = tile.getApplicableConstraints(1);
+        Debug.Log(conflictualTiles);
+        if (conflictualTiles.Count == 0) return;
+        Debug.Log(conflictualTiles);
+        map.overflow(position + Vector2Int.up).ReduceWaveFunction(conflictualTiles);
+        map.overflow(position + Vector2Int.right).ReduceWaveFunction(conflictualTiles);
+        map.overflow(position + Vector2Int.down).ReduceWaveFunction(conflictualTiles);
+        map.overflow(position + Vector2Int.left).ReduceWaveFunction(conflictualTiles);
+    }
+
+    void ReduceWaveFunctionRadius2(Vector2Int position, Tile tile)
+    {
+
+        List<Tile> conflictualTiles = tile.getApplicableConstraints(2);
+        if (conflictualTiles.Count == 0) return;
+        map.overflow(position + 2 * Vector2Int.up).ReduceWaveFunction(conflictualTiles);
+        map.overflow(position + Vector2Int.up + Vector2Int.right).ReduceWaveFunction(conflictualTiles);
+        map.overflow(position + 2 * Vector2Int.right).ReduceWaveFunction(conflictualTiles);
+        map.overflow(position + Vector2Int.right + Vector2Int.down).ReduceWaveFunction(conflictualTiles);
+        map.overflow(position + 2 * Vector2Int.down).ReduceWaveFunction(conflictualTiles);
+        map.overflow(position + Vector2Int.down + Vector2Int.left).ReduceWaveFunction(conflictualTiles);
+        map.overflow(position + 2 * Vector2Int.left).ReduceWaveFunction(conflictualTiles);
+        map.overflow(position + Vector2Int.left + Vector2Int.up).ReduceWaveFunction(conflictualTiles);
+    }
+
+
+
 
     void CreateTile(GameObject tilePrefab, Vector2Int position)
     {
@@ -86,7 +191,7 @@ public class TileManager : MonoBehaviour
             //Vector2Int newPos = Helpers.CentralSymmetry(pos, currentPos);
             Vector2Int newPos = Helpers.CentralSymmetry(pos, lastPos) + offset;
             dictPositionToTile.Add(newPos, tile);
-            tile.transform.position = IndexToWorld((newPos));
+            tile.transform.position = IndexToWorld(newPos);
         }
 
 

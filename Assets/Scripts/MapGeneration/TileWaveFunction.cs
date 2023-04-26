@@ -17,9 +17,8 @@ public class TileWaveFunction
         this.index = index;
     }
 
-    public void ReduceWaveFunction(Tile newTile, int distance)
+    public void ReduceWaveFunction(List<Tile> conflictualTiles)
     {
-        List<Tile> conflictualTiles = newTile.getApplicableConstraints(distance);
         possibleStates.RemoveList(conflictualTiles);
         Debug.Log("possible states remaining " + possibleStates.Count);
     }
@@ -35,8 +34,8 @@ public class TileWaveFunction
             }
         }
         Tile newTile = weightedStateList.getRandom();
-        Debug.Log("________________________________________________________________");
-        Debug.Log("placed " + newTile.name);
+        // Debug.Log("index : " + index);
+        // Debug.Log("placed " + newTile.name);
         return newTile;
     }
 

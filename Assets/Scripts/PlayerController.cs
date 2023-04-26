@@ -72,7 +72,6 @@ public class PlayerController : MonoBehaviour
     bool reloadingMining = false;
     bool shooting = false;
     bool mining = false;
-    int violetAmount = 0;
     [SerializeField] Slider healthBar;
     float _health;
     [SerializeField] GameObject spaceship;

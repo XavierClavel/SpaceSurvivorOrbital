@@ -9,10 +9,43 @@ using System.Linq;
 
 public static class Extensions
 {
+    public static int mod(ref this int x, int m)
+    {
+        x = (x % m + m) % m;
+        return x;
+    }
+
     public static T getRandom<T>(this IList<T> list)
     {
         int randomIndex = UnityEngine.Random.Range(0, list.Count);
         return list[randomIndex];
+    }
+
+    ///<summary>
+    ///Returns a copy of the list.
+    ///</summary>
+    public static T overflow<T>(this T[,] array, int x, int y)
+    {
+        int sizeX = array.GetLength(1);
+        int sizeY = array.GetLength(0);
+        int newX = x.mod(sizeX);
+        int newY = y.mod(sizeY);
+        return array[newX, newY];
+    }
+
+    ///<summary>
+    ///Returns a copy of the list.
+    ///</summary>
+    public static T overflow<T>(this T[,] array, Vector2Int xy)
+    {
+        int sizeX = array.GetLength(1);
+        int sizeY = array.GetLength(0);
+        int x = xy.x;
+        int y = xy.y;
+        int newX = x.mod(sizeX);
+        int newY = y.mod(sizeY);
+        Debug.Log(new Vector2Int(newX, newY));
+        return array[newX, newY];
     }
 
     ///<summary>
