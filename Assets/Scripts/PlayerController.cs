@@ -73,8 +73,6 @@ public class PlayerController : MonoBehaviour
     bool shooting = false;
     bool mining = false;
     int violetAmount = 0;
-    [HideInInspector] public int orangeAmount = 0;
-    [HideInInspector] public int greenAmount = 0;
     [SerializeField] Slider healthBar;
     float _health;
     [SerializeField] GameObject spaceship;
@@ -139,28 +137,25 @@ public class PlayerController : MonoBehaviour
         instance.health -= amount * (1 - instance.damageResistanceMultiplier);
     }
 
+    public static void ActivateSpaceship()
+    {
+        instance.spaceship.GetComponent<CircleCollider2D>().enabled = true;
+        instance.spaceshipIndicator.SetActive(true);
+    }
+
     public void IncreaseViolet()
     {
         layoutManagerViolet.AddResource();
-        violetAmount++;
-        if (violetAmount >= fillAmountViolet)
-        {
-            spaceship.GetComponent<CircleCollider2D>().enabled = true;
-            spaceship.GetComponent<SpriteRenderer>().color = Color.white;
-            spaceshipIndicator.SetActive(true);
-        }
     }
 
     public void IncreaseOrange()
     {
         layoutManagerOrange.AddResource();
-        orangeAmount++;
     }
 
     public void IncreaseGreen()
     {
         layoutManagerGreen.AddResource();
-        greenAmount++;
     }
 
     #endregion
@@ -261,9 +256,9 @@ public class PlayerController : MonoBehaviour
         cameraTransform = Camera.main.transform;
         soundManager = SoundManager.instance;
 
-        layoutManagerViolet.Setup(maxViolet, fillAmountViolet);
-        layoutManagerOrange.Setup(maxOrange, fillAmountOrange);
-        layoutManagerGreen.Setup(maxGreen, fillAmountGreen);
+        layoutManagerViolet.Setup(maxViolet, fillAmountViolet, resourceType.violet);
+        layoutManagerOrange.Setup(maxOrange, fillAmountOrange, resourceType.orange);
+        layoutManagerGreen.Setup(maxGreen, fillAmountGreen, resourceType.green);
 
         bulletReloadWindow = Helpers.GetWait(bulletReloadTime);
         _health = maxHealth;

@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum resourceType { violet, orange, green }
 public class ResourceLayoutManager : MonoBehaviour
 {
     List<Slider> sliders = new List<Slider>();
+    resourceType resource;
     [SerializeField] Slider sliderObject;
     int amountToFill = 30;
     int sliderIndex = 0;
 
-    public void Setup(int nbSliders, int amountToFill)
+    public void Setup(int nbSliders, int amountToFill, resourceType resource)
     {
         this.amountToFill = amountToFill;
+        this.resource = resource;
         for (int i = 0; i < nbSliders; i++)
         {
             Slider slider = Instantiate(sliderObject, Vector3.zero, Quaternion.identity);
@@ -25,7 +28,30 @@ public class ResourceLayoutManager : MonoBehaviour
     public void AddResource()
     {
         sliders[sliderIndex].value++;
-        if (sliders[sliderIndex].value == amountToFill && sliderIndex + 1 < sliders.Count) sliderIndex++;
+        if (sliders[sliderIndex].value == amountToFill && sliderIndex + 1 < sliders.Count)
+        {
+            sliderIndex++;
+            OnSliderComplete();
+        }
+    }
+
+    void OnSliderComplete()
+    {
+        switch (resource)
+        {
+            case resourceType.orange:
+                PlayerManager.GatherResourceOrange();
+                break;
+
+            case resourceType.green:
+                PlayerManager.GatherResourceGreen();
+                break;
+
+            case resourceType.violet:
+                PlayerManager.GatherResourceViolet();
+                PlayerController.ActivateSpaceship();
+                break;
+        }
     }
 
 }

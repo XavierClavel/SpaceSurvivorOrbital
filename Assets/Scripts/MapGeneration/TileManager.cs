@@ -60,7 +60,6 @@ public class TileManager : MonoBehaviour
         Vector2Int currentPos = Helpers.RoundToVector2IndexStep(player.transform.position, tileSize);
         //Debug.Log(currentPos);
         Vector2Int offset = currentPos - lastPos;
-        Debug.Log("offset :" + offset);
 
         if (offset == Vector2Int.zero) return;
 

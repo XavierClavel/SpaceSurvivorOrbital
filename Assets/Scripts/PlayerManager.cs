@@ -117,10 +117,11 @@ public class PlayerManager : MonoBehaviour
     public static Weapon weapon { get; private set; }
     public static Tool tool { get; private set; }
 
-    [HideInInspector] public static PlayerManager instance;
+    public static PlayerManager instance;
 
-    [HideInInspector] public static int amountGreen;
-    [HideInInspector] public static int amountOrange;
+    public static int amountViolet;
+    public static int amountGreen;
+    public static int amountOrange;
 
     void Awake()
     {
@@ -189,11 +190,10 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("start");
     }
 
-    public static void SaveResources(int nbGreen, int nbOrange)
-    {
-        amountGreen = nbGreen;
-        amountOrange = nbOrange;
-    }
+    public static void GatherResourceGreen() => amountGreen++;
+    public static void GatherResourceOrange() => amountOrange++;
+
+    public static void GatherResourceViolet() => amountViolet++;
 
     public static void ApplyModification(Effect effect)
     {
