@@ -394,17 +394,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""6de2ecfc-5d76-4432-8dc8-d0d04c759aef"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Mine"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""18f4ea5b-d74d-45c3-92f0-e11f00852ab9"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -444,45 +433,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard / Mouse"",
                     ""action"": ""MousePosition"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Talk"",
-            ""id"": ""18157cfd-982b-42f0-b50e-fe2dcb0739bb"",
-            ""actions"": [
-                {
-                    ""name"": ""Talk"",
-                    ""type"": ""Button"",
-                    ""id"": ""5359b640-ff2c-4d65-8cf3-bc6497bd6a5d"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""7c911773-1864-4f11-898b-f968dd6e3810"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Talk"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fa69d4f4-2c36-4f35-a839-c37dbf61654d"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Talk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -664,9 +614,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         m_Player_Mine = m_Player.FindAction("Mine", throwIfNotFound: true);
         m_Player_MouseAimActive = m_Player.FindAction("MouseAimActive", throwIfNotFound: true);
         m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
-        // Talk
-        m_Talk = asset.FindActionMap("Talk", throwIfNotFound: true);
-        m_Talk_Talk = m_Talk.FindAction("Talk", throwIfNotFound: true);
         // PauseMenu
         m_PauseMenu = asset.FindActionMap("PauseMenu", throwIfNotFound: true);
         m_PauseMenu_Pause = m_PauseMenu.FindAction("Pause", throwIfNotFound: true);
@@ -842,39 +789,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
     }
     public PlayerActions @Player => new PlayerActions(this);
 
-    // Talk
-    private readonly InputActionMap m_Talk;
-    private ITalkActions m_TalkActionsCallbackInterface;
-    private readonly InputAction m_Talk_Talk;
-    public struct TalkActions
-    {
-        private @InputMaster m_Wrapper;
-        public TalkActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Talk => m_Wrapper.m_Talk_Talk;
-        public InputActionMap Get() { return m_Wrapper.m_Talk; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(TalkActions set) { return set.Get(); }
-        public void SetCallbacks(ITalkActions instance)
-        {
-            if (m_Wrapper.m_TalkActionsCallbackInterface != null)
-            {
-                @Talk.started -= m_Wrapper.m_TalkActionsCallbackInterface.OnTalk;
-                @Talk.performed -= m_Wrapper.m_TalkActionsCallbackInterface.OnTalk;
-                @Talk.canceled -= m_Wrapper.m_TalkActionsCallbackInterface.OnTalk;
-            }
-            m_Wrapper.m_TalkActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Talk.started += instance.OnTalk;
-                @Talk.performed += instance.OnTalk;
-                @Talk.canceled += instance.OnTalk;
-            }
-        }
-    }
-    public TalkActions @Talk => new TalkActions(this);
-
     // PauseMenu
     private readonly InputActionMap m_PauseMenu;
     private IPauseMenuActions m_PauseMenuActionsCallbackInterface;
@@ -962,10 +876,6 @@ public partial class @InputMaster : IInputActionCollection2, IDisposable
         void OnMine(InputAction.CallbackContext context);
         void OnMouseAimActive(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
-    }
-    public interface ITalkActions
-    {
-        void OnTalk(InputAction.CallbackContext context);
     }
     public interface IPauseMenuActions
     {

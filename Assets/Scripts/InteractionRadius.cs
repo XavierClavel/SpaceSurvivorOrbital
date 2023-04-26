@@ -58,4 +58,9 @@ public class InteractionRadius : MonoBehaviour
         interactables.Remove(interactable);
 
     }
+
+    private void OnDestroy()
+    {
+        interactables = new List<IInteractable>();
+    }
 }
