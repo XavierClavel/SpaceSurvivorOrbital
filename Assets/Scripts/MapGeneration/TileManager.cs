@@ -54,6 +54,23 @@ public class TileManager : MonoBehaviour
         map[mapRadius.x, mapRadius.y].possibleStates = new List<Tile>();
         map[mapRadius.x, mapRadius.y].possibleStates.Add(spaceship);
         map[mapRadius.x, mapRadius.y].entropy = int.MinValue;
+        CollapseSpaceship(map[mapRadius.x, mapRadius.y]);
+    }
+
+    void CollapseSpaceship(TileWaveFunction tileWaveFunction)
+    {
+        Tile newTile = tileWaveFunction.CollapseWaveFunction();
+        Vector2Int position = tileWaveFunction.index;
+
+
+        ReduceWaveFunctionRadius1(position, newTile);
+        ReduceWaveFunctionRadius2(position, newTile);
+
+        Vector3 worldPosition = IndexToWorld(position - mapRadius);
+        GameObject tile = Instantiate(newTile.tileObject, worldPosition, Quaternion.identity);
+        dictPositionToTile.Add(position - mapRadius, tile);
+        map[position.x, position.y] = null;
+        PlayerController.instance.spaceship = tile;
     }
 
     void PlaceTile()

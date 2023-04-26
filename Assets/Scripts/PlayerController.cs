@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
     bool mining = false;
     [SerializeField] Slider healthBar;
     float _health;
-    [SerializeField] GameObject spaceship;
+    [HideInInspector] public GameObject spaceship;
     [SerializeField] Animator animator;
     [HideInInspector] public bool hasWon = false;
     public Transform arrowTransform;
@@ -140,6 +140,7 @@ public class PlayerController : MonoBehaviour
     {
         instance.spaceship.GetComponent<CircleCollider2D>().enabled = true;
         instance.spaceshipIndicator.SetActive(true);
+        instance.spaceshipIndicator.GetComponent<ObjectIndicator>().target = instance.spaceship.transform;
     }
 
     public void IncreaseViolet()

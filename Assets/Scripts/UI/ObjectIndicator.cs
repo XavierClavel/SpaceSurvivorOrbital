@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ObjectIndicator : MonoBehaviour
 {
-    [SerializeField] Transform target;
+    [HideInInspector] public Transform target;
     [SerializeField] Image image;
 
 
