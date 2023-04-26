@@ -203,8 +203,8 @@ public class Effect
 
 public class SkillButton : MonoBehaviour
 {
-    public static int greenRessource = PlayerManager.amountGreen;
-    public static int yellowRessource = PlayerManager.amountOrange;
+    public static int greenRessource;
+    public static int yellowRessource;
 
     public int greenLifeCost;
     public int yellowLifeCost;
@@ -220,6 +220,9 @@ public class SkillButton : MonoBehaviour
 
     private void Start()
     {
+        greenRessource = PlayerManager.amountGreen;
+        yellowRessource = PlayerManager.amountOrange;
+
         greenCostText.text = greenLifeCost.ToString();
         yellowCostText.text = yellowLifeCost.ToString();
 

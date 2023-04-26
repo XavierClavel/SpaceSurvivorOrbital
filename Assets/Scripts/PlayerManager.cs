@@ -117,8 +117,6 @@ public class PlayerManager : MonoBehaviour
     public static Weapon weapon { get; private set; }
     public static Tool tool { get; private set; }
 
-
-
     [HideInInspector] public static PlayerManager instance;
 
     [HideInInspector] public static int amountGreen;

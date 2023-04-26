@@ -599,7 +599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[0].valueFloat
-      value: 0.05
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[1].valueFloat
@@ -1051,6 +1051,7 @@ GameObject:
   - component: {fileID: 192387697}
   - component: {fileID: 192387696}
   - component: {fileID: 192387695}
+  - component: {fileID: 192387698}
   m_Layer: 5
   m_Name: Next
   m_TagString: Untagged
@@ -1123,9 +1124,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ShipManager, Assembly-CSharp
-        m_MethodName: Next
+      - m_Target: {fileID: 192387698}
+        m_TargetAssemblyTypeName: LoadNextScene, Assembly-CSharp
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1173,6 +1174,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 192387693}
   m_CullTransparentMesh: 1
+--- !u!114 &192387698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192387693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dfffcbdde82089429cf0b36951a5d96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &252482456
 GameObject:
   m_ObjectHideFlags: 0
@@ -2022,7 +2035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[0].valueFloat
-      value: 0.05
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[1].valueFloat
@@ -2204,7 +2217,7 @@ PrefabInstance:
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: activateButton.Array.data[0]
       value: 
-      objectReference: {fileID: 675650144}
+      objectReference: {fileID: 1182991255}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[0].effect
       value: 8
@@ -2598,7 +2611,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[0].valueFloat
-      value: 0.05
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[1].valueFloat
@@ -3311,7 +3324,7 @@ PrefabInstance:
       objectReference: {fileID: 21816547}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: desactivateButton.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[0].effect
@@ -3337,6 +3350,10 @@ PrefabInstance:
       propertyPath: desactivateButton.Array.data[1]
       value: 
       objectReference: {fileID: 768020103}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: desactivateButton.Array.data[2]
+      value: 
+      objectReference: {fileID: 647973197}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[1].operation
       value: 1
@@ -4481,7 +4498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: activateButton.Array.size
@@ -4516,6 +4533,10 @@ PrefabInstance:
       value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[3].effect
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[0].valueInt
       value: 50
       objectReference: {fileID: 0}
@@ -4528,13 +4549,17 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[3].valueInt
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: desactivateButton.Array.data[0]
       value: 
       objectReference: {fileID: 21816547}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: desactivateButton.Array.data[1]
       value: 
-      objectReference: {fileID: 1504675978}
+      objectReference: {fileID: 1045768564}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: desactivateButton.Array.data[2]
       value: 
@@ -4552,6 +4577,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[3].operation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[0].valueFloat
       value: 0.05
       objectReference: {fileID: 0}
@@ -4561,6 +4590,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[2].valueFloat
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[3].valueFloat
       value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
@@ -4585,6 +4618,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[2].valueV2Int.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[3].valueV2Int.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[3].valueV2Int.y
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565453, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
@@ -4679,7 +4720,7 @@ PrefabInstance:
       propertyPath: m_text
       value: '+10 puissance
 
-        +25% range
+        +25% range +2 Pierce
 
         +25% tmps recharge'
       objectReference: {fileID: 0}
@@ -5097,6 +5138,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2272894740263565453, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
   m_PrefabInstance: {fileID: 1182991253}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1182991255 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2272894740263565452, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+  m_PrefabInstance: {fileID: 1182991253}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1243222847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7609,7 +7661,7 @@ PrefabInstance:
       objectReference: {fileID: 768020103}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: desactivateButton.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[0].effect
@@ -7640,6 +7692,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 487354937}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: desactivateButton.Array.data[2]
+      value: 
+      objectReference: {fileID: 647973197}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[0].operation
       value: 1
       objectReference: {fileID: 0}
@@ -7649,7 +7705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[0].valueFloat
-      value: 0.05
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[1].valueFloat
@@ -8511,7 +8567,7 @@ PrefabInstance:
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: activateButton.Array.data[2]
       value: 
-      objectReference: {fileID: 1853613320}
+      objectReference: {fileID: 487354937}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: desactivateButton.Array.size
       value: 3
@@ -8535,11 +8591,11 @@ PrefabInstance:
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: desactivateButton.Array.data[1]
       value: 
-      objectReference: {fileID: 1504675978}
+      objectReference: {fileID: 548507698}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: desactivateButton.Array.data[2]
       value: 
-      objectReference: {fileID: 39537667}
+      objectReference: {fileID: 402506566}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[0].operation
       value: 0
@@ -8945,6 +9001,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[0].valueInt
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[0].valueFloat
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565453, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
