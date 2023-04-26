@@ -5,6 +5,124 @@ using System;
 using UnityEditor;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
+
+public static class Extensions
+{
+    public static T getRandom<T>(this IList<T> list)
+    {
+        int randomIndex = UnityEngine.Random.Range(0, list.Count);
+        return list[randomIndex];
+    }
+
+    ///<summary>
+    ///Returns a copy of the list.
+    ///</summary>
+    public static List<T> Copy<T>(this List<T> list)
+    {
+        return list.ToArray().ToList();
+
+    }
+
+    ///<summary>
+    ///Returns the mathematical union of two lists of Item.
+    ///</summary>
+    public static List<T> Union<T>(this List<T> list1, List<T> list2)
+    {
+        List<T> result = list1.Copy();
+        foreach (T item in list2)
+        {
+            if (!result.Contains(item))
+            {
+                result.Add(item);
+            }
+        }
+        return result;
+    }
+
+    ///<summary>
+    ///Returns the mathematical intesection of two lists of Item.
+    ///</summary>
+    public static List<T> Intersection<T>(this List<T> list1, List<T> list2)
+    {
+        List<T> result = new List<T>();
+        foreach (T item in list1)
+        {
+            if (list2.Contains(item))
+            {
+                result.Add(item);
+            }
+        }
+        return result;
+    }
+
+    ///<summary>
+    ///Removes multiple items from a given list.
+    ///</summary>
+    public static void RemoveList<T>(this List<T> list1, List<T> list2)
+    {
+        foreach (T item in list2)
+        {
+            if (list1.Contains(item))
+            {
+                list1.Remove(item);
+            }
+        }
+    }
+
+
+    ///<summary>
+    ///Parses the text and returns the first substring between two instances of the defined tag.
+    ///</summary>
+    public static string GetStrBetweenTag(this string value, string tag)
+    {
+        if (value.Contains(tag))
+        {
+            int index = value.IndexOf(tag) + tag.Length;
+            return value.Substring(index, value.IndexOf(tag, index) - index);
+        }
+        else return "";
+    }
+
+    ///<summary>
+    ///Parses the text and returns all the substring contained between two instances of the defined tag.
+    ///</summary>
+    public static List<string> GetAllStrBetweenTag(this string value, string tag)
+    {
+        List<string> returnValue = new List<string>();
+        int tagLength = tag.Length;
+        while (value.Contains(tag))
+        {
+            int startIndex = value.IndexOf(tag) + tagLength;
+            int endIndex = value.IndexOf(tag, startIndex);
+            returnValue.Add(value.Substring(startIndex, endIndex - startIndex));
+            value = value.Substring(endIndex + tagLength);
+        }
+        return returnValue;
+    }
+
+    public static string GetStrBetweenTags(this string value, string startTag, string endTag)
+    {
+        if (value.Contains(startTag) && value.Contains(endTag))
+        {
+            int index = value.IndexOf(startTag) + startTag.Length;
+            return value.Substring(index, value.IndexOf(endTag) - index);
+        }
+        else return null;
+    }
+
+    public static IEnumerable<int> AllIndexesOf(this string str, string searchstring)
+    {
+        int minIndex = str.IndexOf(searchstring);
+        while (minIndex != -1 && minIndex + searchstring.Length < str.Length)
+        {
+            Debug.Log(minIndex);
+            Debug.Log(str[minIndex - 1]);
+            if (str[minIndex - 1] == '<') yield return minIndex;
+            minIndex = str.IndexOf(searchstring, minIndex + searchstring.Length);// + searchstring.Length;
+        }
+    }
+}
 
 
 public class Helpers : MonoBehaviour
@@ -17,6 +135,7 @@ public class Helpers : MonoBehaviour
     private static TextMeshProUGUI debugDisplay;
     private static Dictionary<int, TextMeshProUGUI> dictDebugDisplays = new Dictionary<int, TextMeshProUGUI>();
     [SerializeField] GameObject debugDisplayPrefab;
+
 
     public static Vector2Int RoundToVector2IntStep(Vector3 value, Vector2Int step)
     {
@@ -102,6 +221,13 @@ public class Helpers : MonoBehaviour
         if (waitDictionaryRealtime.TryGetValue(time, out WaitForSecondsRealtime wait)) return wait;
         waitDictionaryRealtime[time] = new WaitForSecondsRealtime(time);
         return waitDictionaryRealtime[time];
+    }
+
+    public static void SpawnPS(Transform t, ParticleSystem prefabPS)
+    {
+        ParticleSystem ps = Instantiate(prefabPS, t);
+        ps.Play();
+        instance.WaitAndKill(ps.main.duration + 1f, ps.gameObject);
     }
 
     public void WaitAndKill(float time, GameObject objectToDestroy)

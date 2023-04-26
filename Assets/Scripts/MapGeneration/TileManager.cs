@@ -26,8 +26,7 @@ public class TileManager : MonoBehaviour
             for (int y = -mapRadius.y; y <= mapRadius.y; y++)
             {
                 if (x == 0 && y == 0) continue;
-                int randomIndex = Random.Range(0, tiles.Count);
-                CreateTile(tiles[randomIndex], new Vector2Int(x, y));
+                CreateTile(tiles.getRandom(), new Vector2Int(x, y));
             }
         }
         dictPositionToTile.Add(Vector2Int.zero, spaceship);

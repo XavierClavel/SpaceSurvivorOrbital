@@ -185,11 +185,6 @@ public class PlayerManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    void Start()
-    {
-        Debug.Log("start");
-    }
-
     public static void GatherResourceGreen() => amountGreen++;
     public static void GatherResourceOrange() => amountOrange++;
 

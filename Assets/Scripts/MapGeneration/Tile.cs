@@ -9,4 +9,15 @@ public class Tile : ScriptableObject
     public int weight;
     public GameObject go;
     public int maxAmount;
+    List<TileConstraint> constraints;
+
+    public List<Tile> getApplicableConstraints(int distance)
+    {
+        List<Tile> concernedTiles = new List<Tile>();
+        foreach (TileConstraint constraint in constraints)
+        {
+            if (constraint.distance <= distance) concernedTiles.Add(constraint.otherTile);
+        }
+        return concernedTiles;
+    }
 }

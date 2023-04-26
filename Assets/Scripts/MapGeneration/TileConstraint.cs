@@ -5,8 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class TileConstraint
 {
-    public Tile tile1;
-    public Tile tile2;
+    public Tile otherTile;
     public int distance;
 
 }

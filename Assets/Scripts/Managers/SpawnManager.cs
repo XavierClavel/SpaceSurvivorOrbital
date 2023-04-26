@@ -46,8 +46,7 @@ public class SpawnManager : MonoBehaviour
         while (currentCost < maxCost)
         {
             yield return null;
-            int randomIndex = Random.Range(0, ennemyPrefabs.Count);
-            Ennemy ennemy = ennemyPrefabs[randomIndex];
+            Ennemy ennemy = ennemyPrefabs.getRandom();
             int newCost = currentCost + ennemy.cost;
             if (newCost > maxCost) break;
 
