@@ -9,6 +9,51 @@ using System.Linq;
 
 public static class Extensions
 {
+    public static int IntDistance(this Vector2Int pos1, Vector2Int pos2)
+    {
+        int distanceX = Helpers.IntAbs(pos1.x - pos2.x);
+        int distanceY = Helpers.IntAbs(pos1.y - pos2.y);
+        return distanceX + distanceY;
+    }
+
+    public static List<Vector2Int> GetPosAtDistance(this Vector2Int center, int distance)
+    {
+        List<Vector2Int> list = new List<Vector2Int>();
+        Vector2Int currentPos = center + distance * Vector2Int.up;
+        while (currentPos.y > center.y)
+        {
+            currentPos += Vector2Int.down + Vector2Int.right;
+            list.Add(currentPos);
+        }
+        while (currentPos.x > center.x)
+        {
+            currentPos += Vector2Int.down + Vector2Int.left;
+            list.Add(currentPos);
+        }
+        while (currentPos.y < center.y)
+        {
+            currentPos += Vector2Int.up + Vector2Int.left;
+            list.Add(currentPos);
+        }
+        while (currentPos.x < center.x)
+        {
+            currentPos += Vector2Int.up + Vector2Int.right;
+            list.Add(currentPos);
+        }
+
+        return list;
+    }
+
+    public static List<Vector2Int> GetPosInRange(this Vector2Int center, int maxDistance)
+    {
+        List<Vector2Int> list = new List<Vector2Int>();
+        for (int distance = 1; distance <= maxDistance; distance++)
+        {
+            list.AddList(GetPosAtDistance(center, distance));
+        }
+        return list;
+    }
+
     public static int mod(ref this int x, int m)
     {
         x = (x % m + m) % m;
@@ -103,6 +148,17 @@ public static class Extensions
         }
     }
 
+    ///<summary>
+    ///Zdds multiple items to a given list.
+    ///</summary>
+    public static void AddList<T>(this List<T> list1, List<T> list2)
+    {
+        foreach (T item in list2)
+        {
+            list1.Add(item);
+        }
+    }
+
 
     ///<summary>
     ///Parses the text and returns the first substring between two instances of the defined tag.
@@ -168,6 +224,11 @@ public class Helpers : MonoBehaviour
     private static TextMeshProUGUI debugDisplay;
     private static Dictionary<int, TextMeshProUGUI> dictDebugDisplays = new Dictionary<int, TextMeshProUGUI>();
     [SerializeField] GameObject debugDisplayPrefab;
+
+    public static int IntAbs(int value)
+    {
+        return value < 0 ? -value : value;
+    }
 
 
     public static Vector2Int RoundToVector2IntStep(Vector3 value, Vector2Int step)

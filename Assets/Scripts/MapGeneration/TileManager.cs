@@ -22,21 +22,8 @@ public class TileManager : MonoBehaviour
         mapRadius = (mapSize - Vector2Int.one) / 2;
         player = PlayerController.instance;
 
-
         InitalizeMap();
         PlaceTile();
-        // for (int x = -mapRadius.x; x <= mapRadius.x; x++)
-        // {
-        //     for (int y = -mapRadius.y; y <= mapRadius.y; y++)
-        //     {
-        //         if (x == 0 && y == 0) continue;
-        //         CreateTile(tiles.getRandom(), new Vector2Int(x, y));
-        //     }
-        // }
-
-
-
-
 
         StartCoroutine("TileManagement");
     }
@@ -62,15 +49,26 @@ public class TileManager : MonoBehaviour
         Tile newTile = tileWaveFunction.CollapseWaveFunction();
         Vector2Int position = tileWaveFunction.index;
 
-
-        ReduceWaveFunctionRadius1(position, newTile);
-        ReduceWaveFunctionRadius2(position, newTile);
+        List<Vector2Int> tilesToCollapse;
+        foreach (TileConstraint constraint in newTile.constraints)
+        {
+            tilesToCollapse = position.GetPosInRange(constraint.distance);
+            ApplyConstraint(tilesToCollapse, constraint.otherTile);
+        }
 
         Vector3 worldPosition = IndexToWorld(position - mapRadius);
         GameObject tile = Instantiate(newTile.tileObject, worldPosition, Quaternion.identity);
         dictPositionToTile.Add(position - mapRadius, tile);
         map[position.x, position.y] = null;
         PlayerController.instance.spaceship = tile;
+    }
+
+    void ApplyConstraint(List<Vector2Int> positions, Tile removeTile)
+    {
+        foreach (Vector2Int position in positions)
+        {
+            map[position.x, position.y].ReduceWaveFunction(removeTile);
+        }
     }
 
     void PlaceTile()
@@ -126,7 +124,11 @@ public class TileManager : MonoBehaviour
 
     void ReduceWaveFunctionRadius1(Vector2Int position, Tile tile)
     {
-
+        Debug.Log("pos : " + position);
+        foreach (Vector2Int v in position.GetPosAtDistance(2))
+        {
+            Debug.Log(v);
+        }
         List<Tile> conflictualTiles = tile.getApplicableConstraints(1);
         Debug.Log(conflictualTiles);
         if (conflictualTiles.Count == 0) return;

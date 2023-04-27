@@ -17,6 +17,13 @@ public class TileWaveFunction
         this.index = index;
     }
 
+    public void ReduceWaveFunction(Tile conflictualTile)
+    {
+        if (!possibleStates.Contains(conflictualTile)) return;
+        possibleStates.Remove(conflictualTile);
+        Debug.Log("possible states remaining " + possibleStates.Count);
+    }
+
     public void ReduceWaveFunction(List<Tile> conflictualTiles)
     {
         possibleStates.RemoveList(conflictualTiles);

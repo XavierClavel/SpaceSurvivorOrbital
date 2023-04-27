@@ -9,7 +9,7 @@ public class Tile : ScriptableObject
     public int weight = 1;
     public GameObject tileObject;
     public int maxAmount;
-    [SerializeField] List<TileConstraint> constraints;
+    public List<TileConstraint> constraints;
 
     public List<Tile> getApplicableConstraints(int distance)
     {
