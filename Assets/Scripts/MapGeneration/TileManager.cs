@@ -113,47 +113,18 @@ public class TileManager : MonoBehaviour
         Vector2Int position = tileWaveFunction.index;
 
 
-        ReduceWaveFunctionRadius1(position, newTile);
-        ReduceWaveFunctionRadius2(position, newTile);
+        List<Vector2Int> tilesToCollapse;
+        foreach (TileConstraint constraint in newTile.constraints)
+        {
+            tilesToCollapse = position.GetPosInRange(constraint.distance);
+            ApplyConstraint(tilesToCollapse, constraint.otherTile);
+        }
 
         Vector3 worldPosition = IndexToWorld(position - mapRadius);
         GameObject tile = Instantiate(newTile.tileObject, worldPosition, Quaternion.identity);
         dictPositionToTile.Add(position - mapRadius, tile);
         map[position.x, position.y] = null;
     }
-
-    void ReduceWaveFunctionRadius1(Vector2Int position, Tile tile)
-    {
-        Debug.Log("pos : " + position);
-        foreach (Vector2Int v in position.GetPosAtDistance(2))
-        {
-            Debug.Log(v);
-        }
-        List<Tile> conflictualTiles = tile.getApplicableConstraints(1);
-        Debug.Log(conflictualTiles);
-        if (conflictualTiles.Count == 0) return;
-        Debug.Log(conflictualTiles);
-        map.overflow(position + Vector2Int.up).ReduceWaveFunction(conflictualTiles);
-        map.overflow(position + Vector2Int.right).ReduceWaveFunction(conflictualTiles);
-        map.overflow(position + Vector2Int.down).ReduceWaveFunction(conflictualTiles);
-        map.overflow(position + Vector2Int.left).ReduceWaveFunction(conflictualTiles);
-    }
-
-    void ReduceWaveFunctionRadius2(Vector2Int position, Tile tile)
-    {
-
-        List<Tile> conflictualTiles = tile.getApplicableConstraints(2);
-        if (conflictualTiles.Count == 0) return;
-        map.overflow(position + 2 * Vector2Int.up).ReduceWaveFunction(conflictualTiles);
-        map.overflow(position + Vector2Int.up + Vector2Int.right).ReduceWaveFunction(conflictualTiles);
-        map.overflow(position + 2 * Vector2Int.right).ReduceWaveFunction(conflictualTiles);
-        map.overflow(position + Vector2Int.right + Vector2Int.down).ReduceWaveFunction(conflictualTiles);
-        map.overflow(position + 2 * Vector2Int.down).ReduceWaveFunction(conflictualTiles);
-        map.overflow(position + Vector2Int.down + Vector2Int.left).ReduceWaveFunction(conflictualTiles);
-        map.overflow(position + 2 * Vector2Int.left).ReduceWaveFunction(conflictualTiles);
-        map.overflow(position + Vector2Int.left + Vector2Int.up).ReduceWaveFunction(conflictualTiles);
-    }
-
 
 
 
