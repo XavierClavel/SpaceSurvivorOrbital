@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Runner : Ennemy
 {
 
-    internal override void FixedUpdate()
+    protected override void FixedUpdate()
     {
         base.FixedUpdate();
         Move(directionToPlayer);

@@ -319,7 +319,7 @@ public class Helpers : MonoBehaviour
 
     public static void SpawnPS(Transform t, ParticleSystem prefabPS)
     {
-        ParticleSystem ps = Instantiate(prefabPS, t);
+        ParticleSystem ps = Instantiate(prefabPS, t.position, Quaternion.identity);
         ps.Play();
         instance.WaitAndKill(ps.main.duration + 1f, ps.gameObject);
     }

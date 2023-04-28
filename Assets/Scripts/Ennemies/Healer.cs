@@ -23,7 +23,7 @@ public class Healer : Ennemy
     float sqrFleeRange;
     float sqrHealRange;
 
-    internal override void Start()
+    protected override void Start()
     {
         base.Start();
         healRangeDisplay.localScale = range * Vector3.one;
@@ -66,7 +66,7 @@ public class Healer : Ennemy
     }
 
 
-    internal override void FixedUpdate()
+    protected override void FixedUpdate()
     //TODO : run on lower frequency
     {
         base.FixedUpdate();

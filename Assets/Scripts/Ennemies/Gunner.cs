@@ -23,7 +23,7 @@ public class Gunner : Ennemy
     float sqrFleeRange;
     float sqrShootRange;
 
-    internal override void Start()
+    protected override void Start()
     {
         base.Start();
         lifetime = range / (float)bulletSpeed;
@@ -65,7 +65,7 @@ public class Gunner : Ennemy
         }
     }
 
-    internal override void FixedUpdate()
+    protected override void FixedUpdate()
     //TODO : run on lower frequency
     {
         base.FixedUpdate();

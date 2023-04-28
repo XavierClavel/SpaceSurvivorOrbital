@@ -48,7 +48,7 @@ public class Ennemy : MonoBehaviour
     }
 
 
-    internal virtual void Start()
+    protected virtual void Start()
     {
         soundManager = SoundManager.instance;
         player = PlayerController.instance;
@@ -68,18 +68,18 @@ public class Ennemy : MonoBehaviour
         SpawnManager.dictObjectToEnnemy.Add(gameObject, this);
     }
 
-    internal virtual void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         distanceToPlayer = player.transform.position - transform.position;
         directionToPlayer = distanceToPlayer.normalized;
     }
 
-    internal void Move(Vector2 direction, float speed)
+    protected void Move(Vector2 direction, float speed)
     {
         rb.MovePosition(rb.position + direction * Time.fixedDeltaTime * speed * speedMultiplier);
     }
 
-    internal void Move(Vector2 direction)
+    protected void Move(Vector2 direction)
     {
         rb.MovePosition(rb.position + direction * Time.fixedDeltaTime * speed * speedMultiplier);
     }
@@ -119,7 +119,7 @@ public class Ennemy : MonoBehaviour
         DamageDisplayHandler.DisplayDamage(amount, transform.position, healthChange.heal);
     }
 
-    internal virtual void Death()
+    protected virtual void Death()
     {
         StressTest.nbEnnemies--;
         soundManager.PlaySfx(transform, sfx.ennemyExplosion);
