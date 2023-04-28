@@ -223,6 +223,9 @@ public class SkillButton : MonoBehaviour
         greenRessource = PlayerManager.amountGreen;
         yellowRessource = PlayerManager.amountOrange;
 
+        Debug.Log(greenRessource);
+        Debug.Log(yellowRessource);
+
         greenCostText.text = greenLifeCost.ToString();
         yellowCostText.text = yellowLifeCost.ToString();
 

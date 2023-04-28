@@ -8,8 +8,8 @@ public class Timer : MonoBehaviour
 {
     public float timeRemaining = 30;
     public bool timerIsRunning = false;
-    public TextMeshProUGUI timeText; // référence au composant Text de l'UI
-    public float timeToAdd = 5; // temps à ajouter lorsqu'une touche est enfoncée
+    public TextMeshProUGUI timeText; // rï¿½fï¿½rence au composant Text de l'UI
+    public float timeToAdd = 5; // temps ï¿½ ajouter lorsqu'une touche est enfoncï¿½e
 
     void Start()
     {
@@ -18,19 +18,18 @@ public class Timer : MonoBehaviour
 
     void Update()
     {
-        if (timerIsRunning)
+        if (!timerIsRunning) return;
+
+        if (timeRemaining > 0)
         {
-            if (timeRemaining > 0)
-            {
-                timeRemaining -= Time.deltaTime;
-                timeText.text = "Temps restant : " + Mathf.RoundToInt(timeRemaining).ToString(); // affiche le temps restant dans l'UI
-            }
-            else
-            {
-                Debug.Log("Temps écoulé !");
-                timeRemaining = 0;
-                timerIsRunning = false;
-            }
+            timeRemaining -= Time.deltaTime;
+            timeText.text = "Temps restant : " + Mathf.RoundToInt(timeRemaining).ToString(); // affiche le temps restant dans l'UI
+        }
+        else
+        {
+            Debug.Log("Temps ï¿½coulï¿½ !");
+            timeRemaining = 0;
+            timerIsRunning = false;
         }
     }
 

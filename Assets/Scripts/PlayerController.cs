@@ -112,12 +112,6 @@ public class PlayerController : MonoBehaviour
     float bulletReloadTime;
     float speed_aimingDemultiplier;
     [HideInInspector] public status effect;
-
-
-    //Game parameters
-
-
-
     internal float health
     {
         get { return _health; }

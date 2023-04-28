@@ -11,6 +11,7 @@ public class ResourceLayoutManager : MonoBehaviour
     [SerializeField] Slider sliderObject;
     int amountToFill = 30;
     int sliderIndex = 0;
+    bool full = false;
 
     public void Setup(int nbSliders, int amountToFill, resourceType resource)
     {
@@ -27,12 +28,12 @@ public class ResourceLayoutManager : MonoBehaviour
 
     public void AddResource()
     {
+        if (full) return;
         sliders[sliderIndex].value++;
-        if (sliders[sliderIndex].value == amountToFill && sliderIndex + 1 < sliders.Count)
-        {
-            sliderIndex++;
-            OnSliderComplete();
-        }
+        if (sliders[sliderIndex].value < amountToFill) return;
+        sliderIndex++;
+        OnSliderComplete();
+        full = sliderIndex >= sliders.Count;
     }
 
     void OnSliderComplete()
