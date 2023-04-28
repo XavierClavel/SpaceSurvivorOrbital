@@ -225,6 +225,11 @@ public class Helpers : MonoBehaviour
     private static Dictionary<int, TextMeshProUGUI> dictDebugDisplays = new Dictionary<int, TextMeshProUGUI>();
     [SerializeField] GameObject debugDisplayPrefab;
 
+    public static bool ProbabilisticBool(float chanceOfSuccess)
+    {
+        return UnityEngine.Random.Range(0f, 1f) <= chanceOfSuccess;
+    }
+
     public static int IntAbs(int value)
     {
         return value < 0 ? -value : value;

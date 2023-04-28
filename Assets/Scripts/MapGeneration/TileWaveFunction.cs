@@ -40,10 +40,7 @@ public class TileWaveFunction
                 weightedStateList.Add(tile);
             }
         }
-        Tile newTile = weightedStateList.getRandom();
-        // Debug.Log("index : " + index);
-        // Debug.Log("placed " + newTile.name);
-        return newTile;
+        return weightedStateList.getRandom();
     }
 
 }

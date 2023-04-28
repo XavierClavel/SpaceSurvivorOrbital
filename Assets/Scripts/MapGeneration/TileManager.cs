@@ -8,6 +8,7 @@ public class TileManager : MonoBehaviour
     [SerializeField] Vector2Int tileSize = new Vector2Int(10, 10);
     [SerializeField] List<Tile> tiles;
     [SerializeField] Tile spaceship;
+    List<Vector2Int> uncollapsedTiles = new List<Vector2Int>();
     Dictionary<Vector2Int, GameObject> dictPositionToTile = new Dictionary<Vector2Int, GameObject>();
     PlayerController player;
     Vector2Int mapSize = new Vector2Int(9, 9);
@@ -15,12 +16,19 @@ public class TileManager : MonoBehaviour
     Vector2Int lastPos = Vector2Int.zero;
     Vector2Int mapRadius;
 
+    float noiseFactor = 0.3f;
+
 
     // Start is called before the first frame update
     void Start()
     {
         mapRadius = (mapSize - Vector2Int.one) / 2;
         player = PlayerController.instance;
+
+        foreach (Tile tile in tiles)
+        {
+            tile.Reset();
+        }
 
         InitalizeMap();
         PlaceTile();
@@ -36,6 +44,7 @@ public class TileManager : MonoBehaviour
             for (int y = 0; y < mapSize.y; y++)
             {
                 map[x, y] = new TileWaveFunction(tiles, new Vector2Int(x, y));
+                if (x != 0 && y != 0) uncollapsedTiles.Add(new Vector2Int(x, y));
             }
         }
         map[mapRadius.x, mapRadius.y].possibleStates = new List<Tile>();
@@ -67,6 +76,7 @@ public class TileManager : MonoBehaviour
     {
         foreach (Vector2Int position in positions)
         {
+            if (map[position.x, position.y] == null) continue;
             map[position.x, position.y].ReduceWaveFunction(removeTile);
         }
     }
@@ -86,6 +96,13 @@ public class TileManager : MonoBehaviour
     {
         List<TileWaveFunction> uncollapsedTilesOfLeastEntropy = new List<TileWaveFunction>();
         int minEntropy = int.MaxValue;
+
+        if (Helpers.ProbabilisticBool(noiseFactor))
+        {
+            Vector2Int position = uncollapsedTiles.getRandom();
+            return map[position.x, position.y];
+        }
+
         foreach (TileWaveFunction tileWaveFunction in map)
         {
             if (tileWaveFunction == null) continue;
@@ -109,6 +126,8 @@ public class TileManager : MonoBehaviour
 
     void CollapseWaveFunction(TileWaveFunction tileWaveFunction)
     {
+        uncollapsedTiles.Remove(tileWaveFunction.index);
+
         Tile newTile = tileWaveFunction.CollapseWaveFunction();
         Vector2Int position = tileWaveFunction.index;
 
@@ -118,6 +137,16 @@ public class TileManager : MonoBehaviour
         {
             tilesToCollapse = position.GetPosInRange(constraint.distance);
             ApplyConstraint(tilesToCollapse, constraint.otherTile);
+        }
+
+        if (newTile.hasLimitedAmount)
+        {
+            Debug.Log(newTile.currentAmount);
+            newTile.currentAmount++;
+            if (newTile.currentAmount >= newTile.maxAmount)
+            {
+                ApplyConstraint(uncollapsedTiles, newTile);
+            }
         }
 
         Vector3 worldPosition = IndexToWorld(position - mapRadius);
