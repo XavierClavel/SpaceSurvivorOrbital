@@ -242,6 +242,9 @@ public class SkillButton : MonoBehaviour
             return;
         }
 
+        PlayerManager.SpendResources(greenLifeCost, yellowLifeCost);
+        ResourcesDisplay.UpdateDisplay();
+
         greenRessource -= greenLifeCost;
         yellowRessource -= yellowLifeCost;
 

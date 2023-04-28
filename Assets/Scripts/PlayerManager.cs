@@ -323,4 +323,10 @@ public class PlayerManager : MonoBehaviour
                 break;
         }
     }
+
+    public static void SpendResources(int costGreen, int costOrange)
+    {
+        amountGreen -= costGreen;
+        amountOrange -= costOrange;
+    }
 }
