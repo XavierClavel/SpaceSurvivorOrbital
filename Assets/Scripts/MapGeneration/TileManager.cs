@@ -31,7 +31,7 @@ public class TileManager : MonoBehaviour
         }
 
         InitalizeMap();
-        PlaceTile();
+        PlaceTiles();
 
         StartCoroutine("TileManagement");
     }
@@ -56,19 +56,20 @@ public class TileManager : MonoBehaviour
     void CollapseSpaceship(TileWaveFunction tileWaveFunction)
     {
         Tile newTile = tileWaveFunction.CollapseWaveFunction();
-        Vector2Int position = tileWaveFunction.index;
+        Vector2Int index = tileWaveFunction.index;
 
         List<Vector2Int> tilesToCollapse;
         foreach (TileConstraint constraint in newTile.constraints)
         {
-            tilesToCollapse = position.GetPosInRange(constraint.distance);
+            tilesToCollapse = index.GetPosInRange(constraint.distance);
             ApplyConstraint(tilesToCollapse, constraint.otherTile);
         }
 
-        Vector3 worldPosition = IndexToWorld(position - mapRadius);
+        Vector2Int position = IndexToPosition(index);
+        Vector3 worldPosition = PositionToWorld(position);
         GameObject tile = Instantiate(newTile.tileObject, worldPosition, Quaternion.identity);
-        dictPositionToTile.Add(position - mapRadius, tile);
-        map[position.x, position.y] = null;
+        dictPositionToTile.Add(position, tile);
+        map[index.x, index.y] = null;
         PlayerController.instance.spaceship = tile;
     }
 
@@ -81,7 +82,7 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    void PlaceTile()
+    void PlaceTiles()
     {
         while (true)
         {
@@ -99,8 +100,8 @@ public class TileManager : MonoBehaviour
 
         if (Helpers.ProbabilisticBool(noiseFactor))
         {
-            Vector2Int position = uncollapsedTiles.getRandom();
-            return map[position.x, position.y];
+            Vector2Int index = uncollapsedTiles.getRandom();
+            return map[index.x, index.y];
         }
 
         foreach (TileWaveFunction tileWaveFunction in map)
@@ -129,19 +130,18 @@ public class TileManager : MonoBehaviour
         uncollapsedTiles.Remove(tileWaveFunction.index);
 
         Tile newTile = tileWaveFunction.CollapseWaveFunction();
-        Vector2Int position = tileWaveFunction.index;
+        Vector2Int index = tileWaveFunction.index;
 
 
         List<Vector2Int> tilesToCollapse;
         foreach (TileConstraint constraint in newTile.constraints)
         {
-            tilesToCollapse = position.GetPosInRange(constraint.distance);
+            tilesToCollapse = index.GetPosInRange(constraint.distance);
             ApplyConstraint(tilesToCollapse, constraint.otherTile);
         }
 
         if (newTile.hasLimitedAmount)
         {
-            Debug.Log(newTile.currentAmount);
             newTile.currentAmount++;
             if (newTile.currentAmount >= newTile.maxAmount)
             {
@@ -149,22 +149,20 @@ public class TileManager : MonoBehaviour
             }
         }
 
-        Vector3 worldPosition = IndexToWorld(position - mapRadius);
+        Vector2Int position = IndexToPosition(index);
+        Vector3 worldPosition = PositionToWorld(position);
         GameObject tile = Instantiate(newTile.tileObject, worldPosition, Quaternion.identity);
-        dictPositionToTile.Add(position - mapRadius, tile);
-        map[position.x, position.y] = null;
-    }
-
-
-
-    void CreateTile(GameObject tilePrefab, Vector2Int position)
-    {
-        Vector3 worldPosition = IndexToWorld(position);
-        GameObject tile = Instantiate(tilePrefab, worldPosition, Quaternion.identity);
         dictPositionToTile.Add(position, tile);
+        map[index.x, index.y] = null;
     }
 
-    Vector3 IndexToWorld(Vector2Int index)
+    Vector2Int IndexToPosition(Vector2Int index)
+    {
+        return index - mapRadius;
+    }
+
+
+    Vector3 PositionToWorld(Vector2Int index)
     {
         return new Vector3(index.x * tileSize.x, index.y * tileSize.y);
     }
@@ -181,7 +179,7 @@ public class TileManager : MonoBehaviour
     void UpdateActiveTiles()
     {
         Vector2Int currentPos = Helpers.RoundToVector2IndexStep(player.transform.position, tileSize);
-        //Debug.Log(currentPos);
+        Debug.Log(currentPos);
         Vector2Int offset = currentPos - lastPos;
 
         if (offset == Vector2Int.zero) return;
@@ -196,21 +194,23 @@ public class TileManager : MonoBehaviour
             {
                 if (signx * x < signx * currentPos.x - mapRadius.x || signy * y < signy * currentPos.y - mapRadius.y)
                 {
-                    tilesToWrapAroundMap.Add(new Vector2Int(x, y));
+                    Vector2Int pos = new Vector2Int(x, y);
+                    tilesToWrapAroundMap.Add(pos);
+                    Debug.Log(pos);
                 }
             }
         }
 
-        Debug.Log("Tiles to wrap count : " + tilesToWrapAroundMap.Count);
+        Debug.Log("Tiles to wrap : " + tilesToWrapAroundMap.Count);
 
         foreach (Vector2Int pos in tilesToWrapAroundMap)
         {
+            if (!dictPositionToTile.ContainsKey(pos)) continue;
             GameObject tile = dictPositionToTile[pos];
             dictPositionToTile.Remove(pos);
-            //Vector2Int newPos = Helpers.CentralSymmetry(pos, currentPos);
             Vector2Int newPos = Helpers.CentralSymmetry(pos, lastPos) + offset;
             dictPositionToTile.Add(newPos, tile);
-            tile.transform.position = IndexToWorld(newPos);
+            tile.transform.position = PositionToWorld(newPos);
         }
 
 
