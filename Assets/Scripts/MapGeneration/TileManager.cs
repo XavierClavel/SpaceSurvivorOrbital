@@ -44,9 +44,12 @@ public class TileManager : MonoBehaviour
             for (int y = 0; y < mapSize.y; y++)
             {
                 map[x, y] = new TileWaveFunction(tiles, new Vector2Int(x, y));
-                if (x != 0 && y != 0) uncollapsedTiles.Add(new Vector2Int(x, y));
+                if (x != 0 || y != 0) uncollapsedTiles.Add(new Vector2Int(x, y));
             }
         }
+        Debug.Log(uncollapsedTiles.Count);
+        Debug.Log(map.Length);
+        Debug.Log(mapSize.x * mapSize.y);
         map[mapRadius.x, mapRadius.y].possibleStates = new List<Tile>();
         map[mapRadius.x, mapRadius.y].possibleStates.Add(spaceship);
         map[mapRadius.x, mapRadius.y].entropy = int.MinValue;
@@ -87,7 +90,12 @@ public class TileManager : MonoBehaviour
         while (true)
         {
             TileWaveFunction newTileWaveFunction = GetUncollapsedTileOfLeastEntropy();
-            if (newTileWaveFunction == null) break;
+            if (newTileWaveFunction == null)
+            {
+                Debug.Log("null tile");
+                Debug.Log("remaining tiles : " + uncollapsedTiles.Count);
+                break;
+            }
             CollapseWaveFunction(newTileWaveFunction);
         }
 
