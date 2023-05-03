@@ -94,6 +94,9 @@ public class PlayerController : MonoBehaviour
     bool playerControlled = true;
     bool shootWhileAiming;
 
+    public float smallSize = 3.0f;
+    public float largeSize = 5.0f;
+
     //ResourceParameters
     int maxViolet;
     int maxOrange;
@@ -197,7 +200,7 @@ public class PlayerController : MonoBehaviour
         {
             mining = false;
         };
-        controls.Player.Reload.performed += context => { weapon.Reload(); };
+        controls.Player.Reload.performed += context => { weapon.Reload(); Camera.main.orthographicSize = (Camera.main.orthographicSize == smallSize) ? largeSize : smallSize; };
 
         controls.Player.Pause.performed += context => PauseMenu.instance.PauseGame();
 

@@ -168,5 +168,4 @@ public class Ennemy : MonoBehaviour
         speedMultiplier = 1f;
     }
 
-
 }
