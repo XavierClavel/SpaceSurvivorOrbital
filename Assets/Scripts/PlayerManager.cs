@@ -54,6 +54,7 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Tool parameters")]
     [SerializeField] private int _toolPower = 50;
+    [SerializeField] private float _toolReloadTime = 0.5f;
     [SerializeField] private float _toolRange;
 
     [Header("Attractor parameters")]
@@ -110,6 +111,8 @@ public class PlayerManager : MonoBehaviour
 
 
     public static int toolPower { get; private set; }
+
+    public static float toolReloadTime { get; private set; }
     public static float toolRange { get; private set; }
     public static float attractorRange { get; private set; }
     public static float attractorForce { get; private set; }
@@ -173,6 +176,7 @@ public class PlayerManager : MonoBehaviour
 
 
             toolPower = _toolPower;
+            toolReloadTime = _toolReloadTime;
             toolRange = _toolRange;
 
             attractorRange = _attractorRange;
@@ -300,6 +304,10 @@ public class PlayerManager : MonoBehaviour
 
             case effectType.toolPower:
                 toolPower = effect.ApplyOperation(toolPower);
+                break;
+
+            case effectType.toolReloadTime:
+                toolReloadTime = effect.ApplyOperation(toolReloadTime);
                 break;
 
             case effectType.toolRange:

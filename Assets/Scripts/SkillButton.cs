@@ -48,6 +48,7 @@ public enum effectType
     iceDuration,
 
     toolPower,
+    toolReloadTime,
     toolRange,
 
     attractorRange,

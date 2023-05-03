@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public GameObject spaceship;
     [SerializeField] Animator animator;
     [HideInInspector] public bool hasWon = false;
+    public SpriteRenderer arrowMouse;
     public Transform arrowTransform;
     Vector2 moveDir;
     private Weapon weapon;
@@ -171,10 +172,14 @@ public class PlayerController : MonoBehaviour
         controls = new InputMaster();
         controls.Player.Shoot.started += ctx =>
         {
+            if (mouseAiming)
+            {
             shooting = true;
             mining = false;
             if (reloading) return;
             weapon.Shoot();
+            }
+
         };
         controls.Player.Shoot.canceled += ctx =>
         {
@@ -260,6 +265,8 @@ public class PlayerController : MonoBehaviour
         healthBar.maxValue = maxHealth;
         healthBar.value = health;
 
+        arrowMouse.enabled = false;
+
     }
 
     void Update()
@@ -288,10 +295,16 @@ public class PlayerController : MonoBehaviour
         if (mouseAiming)
         {
             //Cursor.visible = true;
+            arrowMouse.enabled = true;
             Vector2 mousePos = controls.Player.MousePosition.ReadValue<Vector2>();
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
             Vector2 direction = (worldPos - transform.position);
             input = direction.normalized;
+        } else if (!mouseAiming)
+        {
+            arrowMouse.enabled = false;
+            weapon.Reload();
+
         }
 
         if (input == Vector2.zero)

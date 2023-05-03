@@ -553,7 +553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0083788f26f02394f8930fad8ecd6b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeRemaining: 30
+  timeRemaining: 120
   timerIsRunning: 0
   timeText: {fileID: 1700240053}
   timeToAdd: 30
@@ -564,7 +564,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157606359}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -620,7 +620,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157606359}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -759,6 +759,7 @@ MonoBehaviour:
   spaceship: {fileID: 0}
   animator: {fileID: 169695427}
   hasWon: 0
+  arrowMouse: {fileID: 1160481665}
   arrowTransform: {fileID: 723545008}
   layoutManagerViolet: {fileID: 2030346945}
   layoutManagerOrange: {fileID: 567838096}
@@ -1737,7 +1738,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &770640521
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2682,7 +2683,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8515297067291882098, guid: ed7ccd5906778e0409b2719a3f130cfa, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8515297067291882102, guid: ed7ccd5906778e0409b2719a3f130cfa, type: 3}
       propertyPath: m_RootOrder
@@ -2968,6 +2969,7 @@ MonoBehaviour:
   _iceSpeedMultiplier: 0
   _iceDuration: 0
   _toolPower: 50
+  _toolReloadTime: 5
   _toolRange: 1
   _attractorRange: 1
   _attractorForce: 5
@@ -3365,7 +3367,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8369990666557462571, guid: fb8ce372117b7174bb7bb82f317ffe2b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8369990666557462575, guid: fb8ce372117b7174bb7bb82f317ffe2b, type: 3}
       propertyPath: m_RootOrder
@@ -4046,7 +4048,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 986293603286855303, guid: 6363d12384149ba47b5b9ca55503b1fb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6579387962452892448, guid: 6363d12384149ba47b5b9ca55503b1fb, type: 3}
       propertyPath: dropInterval.x
