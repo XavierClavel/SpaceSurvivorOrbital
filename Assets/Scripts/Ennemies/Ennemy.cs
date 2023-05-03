@@ -84,7 +84,6 @@ public class Ennemy : MonoBehaviour
         rb.MovePosition(rb.position + direction * Time.fixedDeltaTime * speed * speedMultiplier);
     }
 
-
     public void Hurt(int damage, status effect, bool critical)
     {
         healthChange value = critical ? healthChange.critical : healthChange.hit;
@@ -167,5 +166,4 @@ public class Ennemy : MonoBehaviour
         yield return waitIce;
         speedMultiplier = 1f;
     }
-
 }

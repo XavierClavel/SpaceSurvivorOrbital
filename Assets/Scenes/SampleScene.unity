@@ -3564,6 +3564,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3787455150824348327, guid: ed7ccd5906778e0409b2719a3f130cfa, type: 3}
+      propertyPath: timeToFill
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3787455150824348327, guid: ed7ccd5906778e0409b2719a3f130cfa, type: 3}
       propertyPath: resourcesAmount.x
       value: 50
       objectReference: {fileID: 0}
@@ -3977,7 +3981,7 @@ MonoBehaviour:
   _iceSpeedMultiplier: 0
   _iceDuration: 0
   _toolPower: 10
-  _toolReloadTime: 0.5
+  _toolReloadTime: 1
   _toolRange: 1
   _attractorRange: 1
   _attractorForce: 5
@@ -4595,6 +4599,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2510339639737675148, guid: fb8ce372117b7174bb7bb82f317ffe2b, type: 3}
+      propertyPath: _health
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2510339639737675148, guid: fb8ce372117b7174bb7bb82f317ffe2b, type: 3}
       propertyPath: dropInterval.x
       value: 100
       objectReference: {fileID: 0}
@@ -4705,9 +4713,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ennemyPrefabs:
   - {fileID: 516386350, guid: 768cf1381437d3946930748b6aa8c2d9, type: 3}
-  - {fileID: -3897124748851448357, guid: b4cdb30821b9d404e898588bac82132e, type: 3}
-  waveLength: 30
-  doEnnemySpawn: 1
+  waveLength: 5
+  doEnnemySpawn: 0
 --- !u!1 &1634608356
 GameObject:
   m_ObjectHideFlags: 0
@@ -5974,6 +5981,10 @@ PrefabInstance:
     - target: {fileID: 986293603286855303, guid: 6363d12384149ba47b5b9ca55503b1fb, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579387962452892448, guid: 6363d12384149ba47b5b9ca55503b1fb, type: 3}
+      propertyPath: _health
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6579387962452892448, guid: 6363d12384149ba47b5b9ca55503b1fb, type: 3}
       propertyPath: dropInterval.x
