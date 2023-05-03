@@ -81,7 +81,7 @@ public class Effect
     effectType.range, effectType.bulletReloadTime, effectType.magazineReloadTime, effectType.criticalChance,
     effectType.criticalMultiplier, effectType.speed_aimingDemultiplier, effectType.poisonDuration, effectType.poisonPeriod,
     effectType.fireDuration, effectType.firePeriod, effectType.iceSpeedMultiplier, effectType.iceDuration,
-    effectType.toolPower, effectType.toolRange, effectType.attractorRange, effectType.attractorForce)]
+    effectType.toolPower, effectType.toolReloadTime, effectType.toolRange, effectType.attractorRange, effectType.attractorForce)]
     public float valueFloat;
 
 
