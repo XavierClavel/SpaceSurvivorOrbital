@@ -106,6 +106,8 @@ public class PlayerController : MonoBehaviour
     public static int fillAmountOrange;
     public static int fillAmountGreen;
 
+    public static bool isPlayingWithGamepad = false;
+
 
     //Player parameters
     int maxHealth;
@@ -220,6 +222,8 @@ public class PlayerController : MonoBehaviour
 
 
         Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
+
         rb = GetComponent<Rigidbody2D>();
         cameraTransform = Camera.main.transform;
         soundManager = SoundManager.instance;
@@ -242,17 +246,13 @@ public class PlayerController : MonoBehaviour
 
     void InitializeControls()
     {
-        Debug.Log("initialized");
         controls = new InputMaster();
         controls.Player.Shoot.started += ctx =>
         {
-            if (mouseAiming)
-            {
-                shooting = true;
-                mining = false;
-                if (reloading) return;
-                weapon.Shoot();
-            }
+            shooting = true;
+            mining = false;
+            if (reloading) return;
+            weapon.Shoot();
 
         };
         controls.Player.Shoot.canceled += ctx =>
@@ -281,7 +281,13 @@ public class PlayerController : MonoBehaviour
 
         controls.Player.Pause.performed += context => PauseMenu.instance.PauseGame();
 
-        controls.Player.MouseAimActive.started += ctx => { mouseAiming = true; };
+        controls.Player.Aim.started += context => isPlayingWithGamepad = true;
+
+        controls.Player.MouseAimActive.started += ctx =>
+        {
+            mouseAiming = true;
+            isPlayingWithGamepad = false;
+        };
         controls.Player.MouseAimActive.canceled += ctx => { mouseAiming = false; };
 
         controls.Enable();
@@ -302,27 +308,50 @@ public class PlayerController : MonoBehaviour
         moveAmount = Vector2.SmoothDamp(moveAmount, targetMoveAmount, ref smoothMoveVelocity, 0.15f);
     }
 
-    void Aim()
+    Vector2 getGamepadAimInput()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         Vector2 input = controls.Player.Aim.ReadValue<Vector2>();
+        if (input == Vector2.zero)
+        {
+            arrowMouse.enabled = false;
+            weapon.Reload();
+        }
         if (input != Vector2.zero)
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            arrowMouse.enabled = true;
         }
+        return input;
+    }
+
+    Vector2 getMouseAimInput()
+    {
+
+        Cursor.lockState = CursorLockMode.Confined;
+        Vector2 input = Vector2.zero;
         if (mouseAiming)
         {
+            Cursor.visible = true;
             arrowMouse.enabled = true;
             Vector2 mousePos = controls.Player.MousePosition.ReadValue<Vector2>();
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
             Vector2 direction = (worldPos - transform.position);
             input = direction.normalized;
         }
-        else if (!mouseAiming)
+        else
         {
+            Cursor.visible = false;
             arrowMouse.enabled = false;
             weapon.Reload();
         }
+        return input;
+    }
+
+    void Aim()
+    {
+        Vector2 input = isPlayingWithGamepad ? getGamepadAimInput() : getMouseAimInput();
 
         if (input == Vector2.zero)
         {
