@@ -312,7 +312,6 @@ public class PlayerController : MonoBehaviour
         }
         if (mouseAiming)
         {
-            //Cursor.visible = true;
             arrowMouse.enabled = true;
             Vector2 mousePos = controls.Player.MousePosition.ReadValue<Vector2>();
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
