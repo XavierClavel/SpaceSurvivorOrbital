@@ -9,6 +9,7 @@ public class Ennemy : MonoBehaviour
     protected PlayerController player;
     [SerializeField] Slider healthBar;
     [SerializeField] protected Rigidbody2D rb;
+    [SerializeField] SpriteRenderer spriteOverlay;
     SoundManager soundManager;
     protected Vector2 distanceToPlayer;
     protected Vector2 directionToPlayer;
@@ -86,6 +87,10 @@ public class Ennemy : MonoBehaviour
 
     public void Hurt(int damage, status effect, bool critical)
     {
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(spriteOverlay.DOColor(Color.white, 0.1f));
+        sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
+
         healthChange value = critical ? healthChange.critical : healthChange.hit;
         if (damage != 0)
         {

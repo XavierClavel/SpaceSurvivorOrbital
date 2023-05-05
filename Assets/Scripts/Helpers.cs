@@ -9,6 +9,7 @@ using System.Linq;
 
 public static class Extensions
 {
+
     public static int IntDistance(this Vector2Int pos1, Vector2Int pos2)
     {
         int distanceX = Helpers.IntAbs(pos1.x - pos2.x);
@@ -224,6 +225,13 @@ public class Helpers : MonoBehaviour
     private static TextMeshProUGUI debugDisplay;
     private static Dictionary<int, TextMeshProUGUI> dictDebugDisplays = new Dictionary<int, TextMeshProUGUI>();
     [SerializeField] GameObject debugDisplayPrefab;
+
+    public static Color color_whiteTransparent = new Color(1f, 1f, 1f, 0f);
+
+    public static Color ColorFromInt(int r, int g, int b, int a)
+    {
+        return new Color((float)r / 255f, (float)g / 255f, (float)b / 255f, (float)a / 255f);
+    }
 
     public static bool ProbabilisticBool(float chanceOfSuccess)
     {
