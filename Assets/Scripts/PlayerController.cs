@@ -322,7 +322,6 @@ public class PlayerController : MonoBehaviour
         {
             arrowMouse.enabled = false;
             weapon.Reload();
-
         }
 
         if (input == Vector2.zero)
