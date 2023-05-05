@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 enum type { violet, orange, green }
 
@@ -9,6 +10,8 @@ public class Resource : MonoBehaviour
 {
     [SerializeField] GameObject itemPrefab;
     [SerializeField] Slider healthBar;
+    [SerializeField] SpriteRenderer spriteOverlay;
+
     [Header("Parameters")]
     [SerializeField] int _health = 150;
     [SerializeField] Vector2Int dropInterval = new Vector2Int(2, 5);
@@ -40,6 +43,10 @@ public class Resource : MonoBehaviour
     public void Hit(int damage)
     {
         health -= damage;
+
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(spriteOverlay.DOColor(Color.white, 0.1f));
+        sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
     }
 
 
