@@ -19,6 +19,11 @@ public class PauseMenu : MonoBehaviour
         controls.Player.Pause.performed += ctx => ResumeGame();
     }
 
+    void OnDisable()
+    {
+        controls.Disable();
+    }
+
     public void PauseGame()
     {
         Time.timeScale = 0f;

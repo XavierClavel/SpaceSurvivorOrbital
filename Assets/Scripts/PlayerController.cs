@@ -160,7 +160,7 @@ public class PlayerController : MonoBehaviour
 
     void OnEnable()
     {
-        controls.Enable();
+        //controls.Enable();
     }
 
     void OnDisable()
@@ -172,46 +172,7 @@ public class PlayerController : MonoBehaviour
     {
 
         instance = this;
-        controls = new InputMaster();
-        controls.Player.Shoot.started += ctx =>
-        {
-            if (mouseAiming)
-            {
-                shooting = true;
-                mining = false;
-                if (reloading) return;
-                weapon.Shoot();
-            }
 
-        };
-        controls.Player.Shoot.canceled += ctx =>
-        {
-            shooting = false;
-        };
-
-        controls.Player.Mine.started += ctx =>
-        {
-            mining = true;
-            shooting = false;
-            if (reloadingMining) return;
-            Mine();
-        };
-
-        controls.Player.Mine.canceled += ctx =>
-        {
-            mining = false;
-        };
-
-        controls.Player.Reload.performed += context =>
-        {
-            weapon.Reload();
-            Camera.main.orthographicSize = (Camera.main.orthographicSize == smallSize) ? largeSize : smallSize;
-        };
-
-        controls.Player.Pause.performed += context => PauseMenu.instance.PauseGame();
-
-        controls.Player.MouseAimActive.started += ctx => { mouseAiming = true; };
-        controls.Player.MouseAimActive.canceled += ctx => { mouseAiming = false; };
     }
 
     IEnumerator Reload()
@@ -276,6 +237,55 @@ public class PlayerController : MonoBehaviour
 
         arrowMouse.enabled = false;
 
+
+        InitializeControls();
+    }
+
+    void InitializeControls()
+    {
+        Debug.Log("initialized");
+        controls = new InputMaster();
+        controls.Player.Shoot.started += ctx =>
+        {
+            if (mouseAiming)
+            {
+                shooting = true;
+                mining = false;
+                if (reloading) return;
+                weapon.Shoot();
+            }
+
+        };
+        controls.Player.Shoot.canceled += ctx =>
+        {
+            shooting = false;
+        };
+
+        controls.Player.Mine.started += ctx =>
+        {
+            mining = true;
+            shooting = false;
+            if (reloadingMining) return;
+            Mine();
+        };
+
+        controls.Player.Mine.canceled += ctx =>
+        {
+            mining = false;
+        };
+
+        controls.Player.Reload.performed += context =>
+        {
+            weapon.Reload();
+            Camera.main.orthographicSize = (Camera.main.orthographicSize == smallSize) ? largeSize : smallSize;
+        };
+
+        controls.Player.Pause.performed += context => PauseMenu.instance.PauseGame();
+
+        controls.Player.MouseAimActive.started += ctx => { mouseAiming = true; };
+        controls.Player.MouseAimActive.canceled += ctx => { mouseAiming = false; };
+
+        controls.Enable();
     }
 
     void Update()
