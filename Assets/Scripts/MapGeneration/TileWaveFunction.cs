@@ -21,13 +21,11 @@ public class TileWaveFunction
     {
         if (!possibleStates.Contains(conflictualTile)) return;
         possibleStates.Remove(conflictualTile);
-        Debug.Log("possible states remaining " + possibleStates.Count);
     }
 
     public void ReduceWaveFunction(List<Tile> conflictualTiles)
     {
         possibleStates.RemoveList(conflictualTiles);
-        Debug.Log("possible states remaining " + possibleStates.Count);
     }
 
     public Tile CollapseWaveFunction()

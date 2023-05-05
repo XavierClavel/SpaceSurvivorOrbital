@@ -177,10 +177,10 @@ public class PlayerController : MonoBehaviour
         {
             if (mouseAiming)
             {
-            shooting = true;
-            mining = false;
-            if (reloading) return;
-            weapon.Shoot();
+                shooting = true;
+                mining = false;
+                if (reloading) return;
+                weapon.Shoot();
             }
 
         };
@@ -196,11 +196,17 @@ public class PlayerController : MonoBehaviour
             if (reloadingMining) return;
             Mine();
         };
+
         controls.Player.Mine.canceled += ctx =>
         {
             mining = false;
         };
-        controls.Player.Reload.performed += context => { weapon.Reload(); Camera.main.orthographicSize = (Camera.main.orthographicSize == smallSize) ? largeSize : smallSize; };
+
+        controls.Player.Reload.performed += context =>
+        {
+            weapon.Reload();
+            Camera.main.orthographicSize = (Camera.main.orthographicSize == smallSize) ? largeSize : smallSize;
+        };
 
         controls.Player.Pause.performed += context => PauseMenu.instance.PauseGame();
 
@@ -303,7 +309,8 @@ public class PlayerController : MonoBehaviour
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
             Vector2 direction = (worldPos - transform.position);
             input = direction.normalized;
-        } else if (!mouseAiming)
+        }
+        else if (!mouseAiming)
         {
             arrowMouse.enabled = false;
             weapon.Reload();

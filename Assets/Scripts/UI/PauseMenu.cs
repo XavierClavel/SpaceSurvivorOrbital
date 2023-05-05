@@ -40,7 +40,6 @@ public class PauseMenu : MonoBehaviour
 
         pauseMenu.SetActive(false);
 
-        Cursor.lockState = CursorLockMode.Locked;
 
         controls.PauseMenu.Disable();
         PlayerController.instance.controls.Enable();
