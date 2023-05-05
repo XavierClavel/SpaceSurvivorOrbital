@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
+
     public static PauseMenu instance;
     public static bool canGameBePaused = true;
     InputMaster controls;
