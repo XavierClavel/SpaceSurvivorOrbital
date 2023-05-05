@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1013518959079814096}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.661, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 1, y: 1, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6232337648858310591}
@@ -51,9 +51,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 4506932026566891341}
   rb: {fileID: 2500570002257648173}
-  cost: 3
-  baseHealth: 150
-  speed: 1
+  cost: 5
+  baseHealth: 70
+  speed: 1.5
   fleeSpeed: 2
   attackSpeed: 2
   baseDamage: 5
@@ -103,7 +103,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: c9be0a2dc08cd24468ea22e90e373048, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a6449caeb58fbea4d985e810a3381d3c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -173,9 +173,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.04481882}
+  m_Offset: {x: -0.078620315, y: -0.044818103}
   serializedVersion: 2
-  m_Radius: 2.6452825
+  m_Radius: 0.60528886
 --- !u!1 &5737172280136093384
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,11 +270,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1783893700472454299, guid: 3ff4d271fbc03f04b9baf0ffb0521172, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 200
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1783893700472454299, guid: 3ff4d271fbc03f04b9baf0ffb0521172, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1783893700472454299, guid: 3ff4d271fbc03f04b9baf0ffb0521172, type: 3}
       propertyPath: m_LocalScale.x
@@ -318,7 +318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1783893700472454299, guid: 3ff4d271fbc03f04b9baf0ffb0521172, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 4.18
+      value: 0.68
       objectReference: {fileID: 0}
     - target: {fileID: 1783893700472454299, guid: 3ff4d271fbc03f04b9baf0ffb0521172, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
