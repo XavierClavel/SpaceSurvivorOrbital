@@ -334,6 +334,7 @@ public class PlayerController : MonoBehaviour
         {
             speed = baseSpeed * speed_aimingDemultiplier;
         }
+
         float angle = Vector2.SignedAngle(Vector2.up, input);
         arrowTransform.rotation = Quaternion.Euler(0f, 0f, angle);
         _aimDirection = angleToDirection(Vector2.SignedAngle(input, Vector2.down) + 180f);
