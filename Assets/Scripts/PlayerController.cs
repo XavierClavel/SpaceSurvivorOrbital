@@ -203,7 +203,6 @@ public class PlayerController : MonoBehaviour
         fillAmountOrange = PlayerManager.fillAmountOrange;
         fillAmountGreen = PlayerManager.fillAmountGreen;
 
-        //Player parameters
         maxHealth = PlayerManager.maxHealth;
         baseSpeed = PlayerManager.baseSpeed;
         damageResistanceMultiplier = PlayerManager.damageResistanceMultiplier;
