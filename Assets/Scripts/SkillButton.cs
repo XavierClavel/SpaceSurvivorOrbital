@@ -221,7 +221,6 @@ public class SkillButton : MonoBehaviour
 
     private void Start()
     {
-
         greenCostText.text = greenLifeCost.ToString();
         yellowCostText.text = yellowLifeCost.ToString();
 
@@ -257,6 +256,15 @@ public class SkillButton : MonoBehaviour
         foreach (Effect effect in effects)
         {
             effect.Apply();
+        }
+
+        if (PlayerManager.isPlayingWithGamepad)
+        {
+            if (activateButton.Count != 0)
+            {
+                Debug.Log("setting selected button");
+                SkillTree.setSelectedButton(activateButton[0]);
+            }
         }
     }
 }
