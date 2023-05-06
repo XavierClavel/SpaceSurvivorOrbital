@@ -20,7 +20,7 @@ public class TileManager : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         mapRadius = (mapSize - Vector2Int.one) / 2;
         player = PlayerController.instance;

@@ -242,6 +242,24 @@ public class PlayerController : MonoBehaviour
 
 
         InitializeControls();
+        //debugGiveResources(50);
+    }
+
+    void debugGiveResources(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            layoutManagerViolet.AddResource();
+        }
+        for (int i = 0; i < amount; i++)
+        {
+            layoutManagerGreen.AddResource();
+        }
+        for (int i = 0; i < amount; i++)
+        {
+            layoutManagerOrange.AddResource();
+        }
+
     }
 
     void InitializeControls()

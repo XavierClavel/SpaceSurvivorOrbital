@@ -124,9 +124,11 @@ public class PlayerManager : MonoBehaviour
 
     public static PlayerManager instance;
 
-    public static int amountViolet;
-    public static int amountGreen;
-    public static int amountOrange;
+    public static int amountViolet { get; private set; }
+    public static int amountGreen { get; private set; }
+    public static int amountOrange { get; private set; }
+
+    public static bool isPlayingWithGamepad { get; private set; }
 
     void Awake()
     {
@@ -195,6 +197,8 @@ public class PlayerManager : MonoBehaviour
     public static void GatherResourceOrange() => amountOrange++;
 
     public static void GatherResourceViolet() => amountViolet++;
+
+    public static void SetControlMode(bool boolean) => isPlayingWithGamepad = boolean;
 
     public static void ApplyModification(Effect effect)
     {

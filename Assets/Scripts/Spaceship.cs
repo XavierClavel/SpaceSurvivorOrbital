@@ -14,6 +14,7 @@ public class Spaceship : MonoBehaviour, IInteractable
 
     public void StartInteracting()
     {
+        PlayerManager.SetControlMode(PlayerController.isPlayingWithGamepad);
         SceneManager.LoadScene("Ship");
     }
 

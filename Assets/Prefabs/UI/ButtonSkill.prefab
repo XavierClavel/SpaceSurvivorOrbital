@@ -106,7 +106,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.8962264, g: 0.11329652, b: 0.11329652, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 0, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -157,9 +157,14 @@ MonoBehaviour:
   desactivateButton:
   - {fileID: 2272894740263565452}
   effects:
-  - operation: 0
-    effect: 1
-    value: 1000
+  - effect: 1
+    operation: 0
+    valueInt: 0
+    valueFloat: 0
+    valueV2Int: {x: 0, y: 0}
+    valueStatus: 0
+    valueWeapon: {fileID: 0}
+    valueTool: {fileID: 0}
   greenCostText: {fileID: 6847415671427162157}
   yellowCostText: {fileID: 8132727544346121437}
   isFirst: 1
