@@ -8,7 +8,7 @@ public class TileManager : MonoBehaviour
     [SerializeField] Vector2Int tileSize = new Vector2Int(10, 10);
     [SerializeField] List<Tile> tiles;
     [SerializeField] Tile spaceship;
-    List<Vector2Int> uncollapsedTiles = new List<Vector2Int>();
+    List<TileWaveFunction> uncollapsedTiles = new List<TileWaveFunction>();
     Dictionary<Vector2Int, GameObject> dictPositionToTile = new Dictionary<Vector2Int, GameObject>();
     PlayerController player;
     Vector2Int mapSize = new Vector2Int(9, 9);
@@ -44,12 +44,9 @@ public class TileManager : MonoBehaviour
             for (int y = 0; y < mapSize.y; y++)
             {
                 map[x, y] = new TileWaveFunction(tiles, new Vector2Int(x, y));
-                if (x != 0 || y != 0) uncollapsedTiles.Add(new Vector2Int(x, y));
+                if (x != mapRadius.x || y != mapRadius.y) uncollapsedTiles.Add(map[x, y]);
             }
         }
-        Debug.Log(uncollapsedTiles.Count);
-        Debug.Log(map.Length);
-        Debug.Log(mapSize.x * mapSize.y);
         map[mapRadius.x, mapRadius.y].possibleStates = new List<Tile>();
         map[mapRadius.x, mapRadius.y].possibleStates.Add(spaceship);
         map[mapRadius.x, mapRadius.y].entropy = int.MinValue;
@@ -85,6 +82,15 @@ public class TileManager : MonoBehaviour
         }
     }
 
+    void ApplyConstraint(List<TileWaveFunction> tileWaveFunctions, Tile removeTile)
+    {
+        foreach (TileWaveFunction tileWaveFunction in tileWaveFunctions)
+        {
+            if (tileWaveFunction == null) continue;
+            tileWaveFunction.ReduceWaveFunction(removeTile);
+        }
+    }
+
     void PlaceTiles()
     {
         while (true)
@@ -103,16 +109,16 @@ public class TileManager : MonoBehaviour
 
     TileWaveFunction GetUncollapsedTileOfLeastEntropy()
     {
+        if (uncollapsedTiles.Count == 0) return null;
         List<TileWaveFunction> uncollapsedTilesOfLeastEntropy = new List<TileWaveFunction>();
         int minEntropy = int.MaxValue;
 
         if (Helpers.ProbabilisticBool(noiseFactor))
         {
-            Vector2Int index = uncollapsedTiles.getRandom();
-            return map[index.x, index.y];
+            return uncollapsedTiles.getRandom();
         }
 
-        foreach (TileWaveFunction tileWaveFunction in map)
+        foreach (TileWaveFunction tileWaveFunction in uncollapsedTiles)
         {
             if (tileWaveFunction == null) continue;
             if (tileWaveFunction.entropy < minEntropy)
@@ -135,7 +141,7 @@ public class TileManager : MonoBehaviour
 
     void CollapseWaveFunction(TileWaveFunction tileWaveFunction)
     {
-        uncollapsedTiles.Remove(tileWaveFunction.index);
+        uncollapsedTiles.Remove(tileWaveFunction);
 
         Tile newTile = tileWaveFunction.CollapseWaveFunction();
         Vector2Int index = tileWaveFunction.index;
