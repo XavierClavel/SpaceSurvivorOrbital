@@ -219,14 +219,16 @@ public class SkillButton : MonoBehaviour
     public TextMeshProUGUI greenCostText;
     public TextMeshProUGUI yellowCostText;
 
-    public skillButtonStatus status = skillButtonStatus.undefined;
+    public skillButtonStatus status { get; private set; }
     [HideInInspector] public Button button;
+    Image image;
 
     public bool isFirst;
 
     private void Awake()
     {
         button = GetComponent<Button>();
+        image = GetComponent<Image>();
 
         greenCostText.text = greenLifeCost.ToString();
         yellowCostText.text = yellowLifeCost.ToString();
@@ -235,13 +237,12 @@ public class SkillButton : MonoBehaviour
 
     public void OnClick()
     {
-        Debug.Log("click");
-        Debug.Log(greenRessource);
+        if (status != skillButtonStatus.unlocked) return;
+
         if (greenRessource < greenLifeCost || yellowRessource < yellowLifeCost)
         {
             return;
         }
-        Debug.Log("buying");
 
         PlayerManager.SpendResources(greenLifeCost, yellowLifeCost);
         ResourcesDisplay.UpdateDisplay();
@@ -252,9 +253,9 @@ public class SkillButton : MonoBehaviour
         SkillTree.UpdateList(activateButton, skillButtonStatus.unlocked);
         SkillTree.UpdateList(desactivateButton, skillButtonStatus.locked);
         SkillTree.UpdateButton(this, skillButtonStatus.bought);
+
+        /*
         button.interactable = false;
-
-
         foreach (SkillButton skillButton in activateButton)
         {
             skillButton.button.interactable = true;
@@ -264,19 +265,31 @@ public class SkillButton : MonoBehaviour
         {
             skillButton.button.interactable = false;
         }
+        */
 
         foreach (Effect effect in effects)
         {
             effect.Apply();
         }
 
-        if (PlayerManager.isPlayingWithGamepad)
+    }
+
+    public void UpdateStatus(skillButtonStatus status)
+    {
+        this.status = status;
+        switch (status)
         {
-            if (activateButton.Count != 0)
-            {
-                Debug.Log("setting selected button");
-                SkillTree.setSelectedButton(activateButton[0].button);
-            }
+            case skillButtonStatus.bought:
+                image.color = Color.green;
+                break;
+
+            case skillButtonStatus.unlocked:
+                image.color = Color.white;
+                break;
+
+            case skillButtonStatus.locked:
+                image.color = Color.gray;
+                break;
         }
     }
 }
