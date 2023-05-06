@@ -116,11 +116,13 @@ public class TileManager : MonoBehaviour
         if (Helpers.ProbabilisticBool(noiseFactor))
         {
             return uncollapsedTiles.getRandom();
+            //chance to collapse a random tile to add diversity 
+            //and avoid concentrating objects with limited amount around the center of the map
+
         }
 
         foreach (TileWaveFunction tileWaveFunction in uncollapsedTiles)
         {
-            if (tileWaveFunction == null) continue;
             if (tileWaveFunction.entropy < minEntropy)
             {
                 uncollapsedTilesOfLeastEntropy = new List<TileWaveFunction>();
@@ -130,13 +132,11 @@ public class TileManager : MonoBehaviour
             else if (tileWaveFunction.entropy == minEntropy)
             {
                 uncollapsedTilesOfLeastEntropy.Add(tileWaveFunction);
-                //List to randomize the output in case of equality
+                //list used to randomize the output in case of multiple tiles with same entropy
             }
         }
 
-        if (uncollapsedTilesOfLeastEntropy.Count == 0) return null;
-        if (uncollapsedTilesOfLeastEntropy.Count == 1) return uncollapsedTilesOfLeastEntropy[0];
-        else return uncollapsedTilesOfLeastEntropy.getRandom();
+        return uncollapsedTilesOfLeastEntropy.getRandom();
     }
 
     void CollapseWaveFunction(TileWaveFunction tileWaveFunction)

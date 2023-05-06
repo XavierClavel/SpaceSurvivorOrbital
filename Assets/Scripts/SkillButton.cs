@@ -202,6 +202,8 @@ public class Effect
     }
 }
 
+public enum skillButtonStatus { undefined, locked, unlocked, bought }
+
 public class SkillButton : MonoBehaviour
 {
     public static int greenRessource;
@@ -210,32 +212,36 @@ public class SkillButton : MonoBehaviour
     public int greenLifeCost;
     public int yellowLifeCost;
 
-    public List<Button> activateButton = new List<Button>();
-    public List<Button> desactivateButton = new List<Button>();
+    public List<SkillButton> activateButton = new List<SkillButton>();
+    public List<SkillButton> desactivateButton = new List<SkillButton>();
     public List<Effect> effects = new List<Effect>();
 
     public TextMeshProUGUI greenCostText;
     public TextMeshProUGUI yellowCostText;
 
+    public skillButtonStatus status = skillButtonStatus.undefined;
+    [HideInInspector] public Button button;
+
     public bool isFirst;
 
-    private void Start()
+    private void Awake()
     {
+        button = GetComponent<Button>();
+
         greenCostText.text = greenLifeCost.ToString();
         yellowCostText.text = yellowLifeCost.ToString();
-
-        if (!isFirst)
-        {
-            GetComponent<Button>().interactable = false;
-        }
     }
+
 
     public void OnClick()
     {
+        Debug.Log("click");
+        Debug.Log(greenRessource);
         if (greenRessource < greenLifeCost || yellowRessource < yellowLifeCost)
         {
             return;
         }
+        Debug.Log("buying");
 
         PlayerManager.SpendResources(greenLifeCost, yellowLifeCost);
         ResourcesDisplay.UpdateDisplay();
@@ -243,14 +249,20 @@ public class SkillButton : MonoBehaviour
         greenRessource -= greenLifeCost;
         yellowRessource -= yellowLifeCost;
 
-        foreach (Button button in activateButton)
+        SkillTree.UpdateList(activateButton, skillButtonStatus.unlocked);
+        SkillTree.UpdateList(desactivateButton, skillButtonStatus.locked);
+        SkillTree.UpdateButton(this, skillButtonStatus.bought);
+        button.interactable = false;
+
+
+        foreach (SkillButton skillButton in activateButton)
         {
-            button.interactable = true;
+            skillButton.button.interactable = true;
         }
 
-        foreach (Button button in desactivateButton)
+        foreach (SkillButton skillButton in desactivateButton)
         {
-            button.interactable = false;
+            skillButton.button.interactable = false;
         }
 
         foreach (Effect effect in effects)
@@ -263,7 +275,7 @@ public class SkillButton : MonoBehaviour
             if (activateButton.Count != 0)
             {
                 Debug.Log("setting selected button");
-                SkillTree.setSelectedButton(activateButton[0]);
+                SkillTree.setSelectedButton(activateButton[0].button);
             }
         }
     }

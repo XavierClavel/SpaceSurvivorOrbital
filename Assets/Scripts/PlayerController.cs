@@ -90,6 +90,9 @@ public class PlayerController : MonoBehaviour
     public LayoutManager bulletsLayoutManager;
     [SerializeField] GameObject spaceshipIndicator;
 
+    [Header("Debug")]
+    [SerializeField] bool giveResources = false;
+
     bool mouseAiming = false;
     bool playerControlled = true;
     bool shootWhileAiming;
@@ -242,7 +245,7 @@ public class PlayerController : MonoBehaviour
 
 
         InitializeControls();
-        //debugGiveResources(50);
+        if (giveResources) debugGiveResources(50);
     }
 
     void debugGiveResources(int amount)
