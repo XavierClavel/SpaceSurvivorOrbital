@@ -27,7 +27,7 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
-        if (PlayerController.isPlayingWithGamepad) Cursor.visible = true;
+        if (!PlayerController.isPlayingWithGamepad) Cursor.visible = true;
         Time.timeScale = 0f;
         Time.fixedDeltaTime = 0f;
 
@@ -42,7 +42,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ResumeGame()
     {
-        if (PlayerController.isPlayingWithGamepad) Cursor.visible = false;
+        if (!PlayerController.isPlayingWithGamepad) Cursor.visible = false;
 
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f;
