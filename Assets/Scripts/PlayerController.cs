@@ -93,17 +93,17 @@ public class PlayerController : MonoBehaviour
     [Header("Debug")]
     [SerializeField] bool giveResources = false;
 
-    bool mouseAiming = false;
-    bool playerControlled = true;
-    bool shootWhileAiming;
+    private bool mouseAiming = false;
+    private bool playerControlled = true;
+    private bool shootWhileAiming;
 
     public float smallSize = 3.0f;
     public float largeSize = 5.0f;
 
     //ResourceParameters
-    int maxViolet;
-    int maxOrange;
-    int maxGreen;
+    private int maxViolet;
+    private int maxOrange;
+    private int maxGreen;
 
     public static int fillAmountViolet;
     public static int fillAmountOrange;
@@ -113,15 +113,15 @@ public class PlayerController : MonoBehaviour
 
 
     //Player parameters
-    int maxHealth;
-    float baseSpeed;
-    float damageResistanceMultiplier;
+    private int maxHealth;
+    private float baseSpeed;
+    private float damageResistanceMultiplier;
 
 
     float bulletReloadTime;
     float speed_aimingDemultiplier;
     [HideInInspector] public status effect;
-    internal float health
+    float health
     {
         get { return _health; }
         set

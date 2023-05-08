@@ -13,11 +13,12 @@ public class Tile : ScriptableObject
 
     [ConditionalField(nameof(hasLimitedAmount))]
     public int maxAmount;
+    public int minAmount;
 
-    public List<TileConstraint> constraints;
+    [HideInInspector] public List<TileConstraint> constraints;
     [HideInInspector] public int currentAmount = 0;
 
-    public List<Tile> getApplicableConstraints(int distance)
+    public List<Tile> getApplicableConstraints(int distance)    //TODO : remove
     {
         List<Tile> concernedTiles = new List<Tile>();
         foreach (TileConstraint constraint in constraints)
@@ -30,6 +31,7 @@ public class Tile : ScriptableObject
     public void Reset()
     {
         currentAmount = 0;
+        constraints = new List<TileConstraint>();
     }
 
 

@@ -10,8 +10,30 @@ using System.Linq;
 public static class Extensions
 {
 
+    ///<summary>
+    ///Removes the item from the list if it is present, else does nothing.
+    ///</summary>
+    public static void TryRemove<T>(this List<T> list, T value)
+    {
+        if (list.Contains(value)) list.Remove(value);
+    }
+
+    ///<summary>
+    ///Adds an object X times to a list
+    ///</summary>
+    public static void AddMultiple<T>(this List<T> list, T value, int amount)
+    {
+        if (amount == 0) return;
+        if (amount < 0) throw new ArgumentOutOfRangeException();
+        for (int i = 0; i < amount; i++)
+        {
+            list.Add(value);
+        }
+    }
+
     public static int IntDistance(this Vector2Int pos1, Vector2Int pos2)
     {
+        //TODO : distance calculation : losange, square, circle
         int distanceX = Helpers.IntAbs(pos1.x - pos2.x);
         int distanceY = Helpers.IntAbs(pos1.y - pos2.y);
         return distanceX + distanceY;
@@ -90,9 +112,9 @@ public static class Extensions
         int y = xy.y;
         int newX = x.mod(sizeX);
         int newY = y.mod(sizeY);
-        Debug.Log(new Vector2Int(newX, newY));
         return array[newX, newY];
     }
+
 
     ///<summary>
     ///Returns a copy of the list.

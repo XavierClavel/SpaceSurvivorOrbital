@@ -19,8 +19,7 @@ public class TileWaveFunction
 
     public void ReduceWaveFunction(Tile conflictualTile)
     {
-        if (!possibleStates.Contains(conflictualTile)) return;
-        possibleStates.Remove(conflictualTile);
+        possibleStates.TryRemove(conflictualTile);
     }
 
     public void ReduceWaveFunction(List<Tile> conflictualTiles)
@@ -29,6 +28,23 @@ public class TileWaveFunction
     }
 
     public Tile CollapseWaveFunction()
+    {
+        Tile tileToPlace = TileManager.getTileToPlace(possibleStates);
+        if (tileToPlace == null) return getWeightedRandomTile();
+
+        /*
+        if (TileManager.tilesInAdvance > 5) return getWeightedRandomTile();
+        if (!Helpers.ProbabilisticBool(1f / (float)TileManager.tilesInAdvance))
+        {
+            return getWeightedRandomTile();
+        }
+        */
+
+        return tileToPlace;
+
+    }
+
+    Tile getWeightedRandomTile()
     {
         List<Tile> weightedStateList = new List<Tile>();
         foreach (Tile tile in possibleStates)

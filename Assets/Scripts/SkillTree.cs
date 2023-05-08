@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 public class SkillTree : MonoBehaviour
 {
@@ -12,9 +13,21 @@ public class SkillTree : MonoBehaviour
     public static List<SkillButton> skillButtons = new List<SkillButton>();
     public static List<skillButtonStatus> skillButtonStatuses;
     [SerializeField] GameObject buttonsContainer;
+    DefaultInputActions inputActions;
 
     private void Awake()
     {
+        inputActions = new DefaultInputActions();
+        inputActions.UI.Navigate.performed += ctx =>
+        {
+            Debug.Log(eventSystem.currentSelectedGameObject.transform.position);
+            float distanceY = (buttonsContainer.transform.position - eventSystem.currentSelectedGameObject.transform.position).y;
+            if (distanceY > 12f)
+            {
+                buttonsContainer.transform.position += Vector3.up * (distanceY - 10f);
+            }
+        };
+        inputActions.Enable();
         instance = this;
         skillButtons = buttonsContainer.GetComponentsInChildren<SkillButton>().ToList();
 
