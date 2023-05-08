@@ -14,7 +14,7 @@ public class SpawnManager : MonoBehaviour
     public static Dictionary<GameObject, Ennemy> dictObjectToEnnemy = new Dictionary<GameObject, Ennemy>();
     public static Dictionary<GameObject, Resource> dictObjectToResource = new Dictionary<GameObject, Resource>();
     public static Dictionary<GameObject, IInteractable> dictObjectToInteractable = new Dictionary<GameObject, IInteractable>();
-    int cost = 10;
+    public int cost = 10;
 
     private void Awake()
     {
