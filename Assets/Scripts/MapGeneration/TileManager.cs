@@ -11,7 +11,7 @@ public class TileManager : MonoBehaviour
     List<TileWaveFunction> uncollapsedTiles = new List<TileWaveFunction>();
     Dictionary<Vector2Int, GameObject> dictPositionToTile = new Dictionary<Vector2Int, GameObject>();
     PlayerController player;
-    Vector2Int mapSize = new Vector2Int(9, 9);
+    [SerializeField] Vector2Int mapSize = new Vector2Int(9, 9);
     Vector2Int activationRadius = new Vector2Int(3, 3); //radius around player in which tiles are activated
     Vector2Int lastPos = Vector2Int.zero;
     Vector2Int mapRadius;
