@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public static PlayerController instance;
     [HideInInspector] public InputMaster controls;
     [HideInInspector] public playerState _playerState_value = playerState.idle;
+    PlayerInput playerInput;
     [HideInInspector]
     public playerState _playerState
     {
@@ -177,6 +178,9 @@ public class PlayerController : MonoBehaviour
     {
 
         instance = this;
+        playerInput = GetComponent<PlayerInput>();
+        SwitchInput();
+        Cursor.visible = false;
 
     }
 
@@ -244,8 +248,16 @@ public class PlayerController : MonoBehaviour
         arrowMouse.enabled = false;
 
 
+
+
         InitializeControls();
         if (giveResources) debugGiveResources(50);
+    }
+
+    public static void SwitchInput()
+    {
+        if (instance == null) return;
+        isPlayingWithGamepad = instance.playerInput.currentControlScheme == "Gamepad";
     }
 
     void debugGiveResources(int amount)
@@ -302,12 +314,9 @@ public class PlayerController : MonoBehaviour
 
         controls.Player.Pause.performed += context => PauseMenu.instance.PauseGame();
 
-        controls.Player.Aim.started += context => isPlayingWithGamepad = true;
-
         controls.Player.MouseAimActive.started += ctx =>
         {
             mouseAiming = true;
-            isPlayingWithGamepad = false;
         };
         controls.Player.MouseAimActive.canceled += ctx => { mouseAiming = false; };
 

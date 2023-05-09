@@ -223,7 +223,6 @@ public class TileManager : MonoBehaviour
                 {
                     Vector2Int pos = new Vector2Int(x, y);
                     tilesToWrapAroundMap.Add(pos);
-                    Debug.Log(pos);
                 }
             }
         }
