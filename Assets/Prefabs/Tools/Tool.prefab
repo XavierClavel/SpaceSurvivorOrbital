@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5109167104063420634}
   - component: {fileID: 5109167104063420632}
-  - component: {fileID: 5109167104063420635}
+  - component: {fileID: 8683045116971686767}
   m_Layer: 16
   m_Name: Tool
   m_TagString: Untagged
@@ -25,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5109167104063420633}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1, y: 0.33, z: 1}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb321231bda377943bb196b863755e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trigger: {fileID: 5109167104063420635}
---- !u!58 &5109167104063420635
-CircleCollider2D:
+  trigger: {fileID: 8683045116971686767}
+--- !u!70 &8683045116971686767
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -78,6 +78,6 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1
+  m_Offset: {x: 0, y: 1.32}
+  m_Size: {x: 2.76, y: 3.67}
+  m_Direction: 0

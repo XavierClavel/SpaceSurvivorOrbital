@@ -6,14 +6,14 @@ using System.Linq;
 public class Tool : MonoBehaviour
 {
     List<Resource> resourcesInRange = new List<Resource>();
-    [SerializeField] CircleCollider2D trigger;
+    [SerializeField] CapsuleCollider2D trigger;
     public static int toolPower;
     protected float toolReloadTime;
     private bool toolReload;
 
     private void Start()
     {
-        trigger.radius = PlayerManager.toolRange;
+        trigger.size = new Vector2(Helpers.FloorFloat(PlayerManager.toolRange, 2.5f), Helpers.FloorFloat(PlayerManager.toolRange, 3.5f));
         toolPower = PlayerManager.toolPower;
         toolReloadTime = PlayerManager.toolReloadTime;
     }
@@ -44,7 +44,7 @@ public class Tool : MonoBehaviour
     IEnumerator ToolReload()
     {
         toolReload = true;
-            yield return new WaitForSeconds (toolReloadTime);
+        yield return new WaitForSeconds(toolReloadTime);
         toolReload = false;
     }
 
