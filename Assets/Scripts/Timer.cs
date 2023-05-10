@@ -5,18 +5,22 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEditor.ShaderGraph;
+using UnityEngine.EventSystems;
 
 public class Timer : MonoBehaviour
 {
-    public float timeRemaining = 30;
-    public bool timerIsRunning = false;
-    public TextMeshProUGUI timeText; // r�f�rence au composant Text de l'UI
-    public float timeToAdd = 5; // temps � ajouter lorsqu'une touche est enfonc�e
-    public GameObject youLooseScreen;
+    [SerializeField] float timeRemaining = 30;
+    [SerializeField] bool timerIsRunning = false;
+    [SerializeField] TextMeshProUGUI timeText; // r�f�rence au composant Text de l'UI
+    [SerializeField] float timeToAdd = 5; // temps � ajouter lorsqu'une touche est enfonc�e
+    [SerializeField] GameObject youLooseScreen;
+    EventSystem eventSystem;
+    [SerializeField] GameObject button;
 
     void Start()
     {
         timerIsRunning = true;
+        eventSystem = EventSystem.current;
     }
 
     void Update()
@@ -31,7 +35,8 @@ public class Timer : MonoBehaviour
         else
         {
             youLooseScreen.SetActive(true);
-            PauseGame();
+            PauseMenu.instance.PauseGame();
+            if (PlayerController.isPlayingWithGamepad) eventSystem.SetSelectedGameObject(button);
             timeRemaining = 0;
             timerIsRunning = false;
         }
@@ -39,7 +44,7 @@ public class Timer : MonoBehaviour
 
     public void OnClick()
     {
-        ResumeGame();
+        PauseMenu.instance.ResumeGame();
         SceneManager.LoadScene("SampleScene");
         youLooseScreen.SetActive(false);
     }
@@ -54,31 +59,6 @@ public class Timer : MonoBehaviour
     void OnDisable()
     {
         controls.Disable();
-    }
-
-    public void PauseGame()
-    {
-        if (!PlayerController.isPlayingWithGamepad) Cursor.visible = true;
-        Time.timeScale = 0f;
-        Time.fixedDeltaTime = 0f;
-
-        PlayerController.instance.controls.Disable();
-        controls.Enable();
-
-        SoundManager.instance.StopTime();
-
-    }
-    public void ResumeGame()
-    {
-        if (!PlayerController.isPlayingWithGamepad) Cursor.visible = false;
-
-        Time.timeScale = 1f;
-        Time.fixedDeltaTime = 0.02f;
-        
-        controls.PauseMenu.Disable();
-        PlayerController.instance.controls.Enable();
-
-        SoundManager.instance.ResumeTime();
     }
 
 }
