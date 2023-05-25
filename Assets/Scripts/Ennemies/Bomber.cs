@@ -56,6 +56,7 @@ public class Bomber : Ennemy
 
     protected override void FixedUpdate()
     {
+        if (knockback) return;
         base.FixedUpdate();
         switch (ennemyState)
         {

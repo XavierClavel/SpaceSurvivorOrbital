@@ -48,6 +48,11 @@ public class Ennemy : MonoBehaviour
         }
     }
 
+    protected bool knockback = false;
+    float knockbackDuration = 0.15f;
+    float knockbackForce = 5f;
+    WaitForSeconds knockbackWindow;
+
 
     protected virtual void Start()
     {
@@ -63,10 +68,16 @@ public class Ennemy : MonoBehaviour
         waitPoison = Helpers.GetWait(PlayerManager.poisonDuration);
         waitPoisonDamage = Helpers.GetWait(PlayerManager.poisonPeriod);
         waitIce = Helpers.GetWait(PlayerManager.iceDuration);
+        knockbackWindow = Helpers.GetWait(knockbackDuration);
 
         //TODO : static initalizer
 
         SpawnManager.dictObjectToEnnemy.Add(gameObject, this);
+    }
+
+    private void Update()
+    {
+        if (knockback) Debug.Log(rb.velocity);
     }
 
     protected virtual void FixedUpdate()
@@ -115,7 +126,26 @@ public class Ennemy : MonoBehaviour
                 StartCoroutine("FireEffect");
                 break;
         }
+        StartCoroutine("Knockback");
     }
+
+    IEnumerator Knockback()
+    {
+        OnKnockbackStart();
+        knockback = true;
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(DOTween.To(() => rb.velocity, x => rb.velocity = x, (Vector2)(transform.position - player.transform.position).normalized * knockbackForce, 0.10f));
+        sequence.Append(DOTween.To(() => rb.velocity, x => rb.velocity = x, Vector2.zero, 0.10f));
+
+        yield return knockbackWindow;
+        rb.velocity = Vector2.zero;
+        knockback = false;
+        OnKnockbackEnd();
+    }
+
+    protected virtual void OnKnockbackStart() { }
+
+    protected virtual void OnKnockbackEnd() { }
 
     public void HealSelf(int amount)
     {
@@ -130,6 +160,11 @@ public class Ennemy : MonoBehaviour
         SpawnManager.dictObjectToEnnemy.Remove(gameObject);
         Destroy(gameObject);
     }
+
+
+
+
+    #region elementalEffects
 
     IEnumerator PoisonEffect()
     {
@@ -171,4 +206,7 @@ public class Ennemy : MonoBehaviour
         yield return waitIce;
         speedMultiplier = 1f;
     }
+
+    #endregion
+
 }

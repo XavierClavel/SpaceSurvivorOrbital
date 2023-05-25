@@ -4,13 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEditor.ShaderGraph;
 using UnityEngine.EventSystems;
 
 public class Timer : MonoBehaviour
 {
     [SerializeField] float timeRemaining = 30;
-    [SerializeField] bool timerIsRunning = false;
+    bool timerIsRunning = false;
     [SerializeField] TextMeshProUGUI timeText; // r�f�rence au composant Text de l'UI
     [SerializeField] float timeToAdd = 5; // temps � ajouter lorsqu'une touche est enfonc�e
     [SerializeField] GameObject youLooseScreen;

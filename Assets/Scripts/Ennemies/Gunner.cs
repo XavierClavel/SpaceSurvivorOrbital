@@ -68,6 +68,7 @@ public class Gunner : Ennemy
     protected override void FixedUpdate()
     //TODO : run on lower frequency
     {
+        if (knockback) return;
         base.FixedUpdate();
         switch (ennemyState)
         {

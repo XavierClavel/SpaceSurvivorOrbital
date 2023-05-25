@@ -8,6 +8,7 @@ public class Runner : Ennemy
 
     protected override void FixedUpdate()
     {
+        if (knockback) return;
         base.FixedUpdate();
         Move(directionToPlayer);
     }

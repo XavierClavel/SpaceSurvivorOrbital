@@ -69,6 +69,7 @@ public class Healer : Ennemy
     protected override void FixedUpdate()
     //TODO : run on lower frequency
     {
+        if (knockback) return;
         base.FixedUpdate();
         switch (ennemyState)
         {
