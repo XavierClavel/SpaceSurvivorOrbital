@@ -8,6 +8,7 @@ public class Gun : Weapon
     LayoutManager bulletsLayoutManager;
     WaitForSeconds magazineReloadWindow;
     Bullet bulletPrefab;
+    [SerializeField] bool autoReload = false;
 
     int damage;
     bool critical;
@@ -46,7 +47,7 @@ public class Gun : Weapon
         currentMagazine--;
         bulletsLayoutManager.DecreaseAmount();
 
-        if (currentMagazine == 0) StartCoroutine("ReloadMagazine");
+        if (autoReload && currentMagazine == 0) StartCoroutine("ReloadMagazine");
     }
 
     public override void Reload()

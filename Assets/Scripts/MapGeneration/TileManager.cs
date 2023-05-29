@@ -23,6 +23,7 @@ public class TileManager : MonoBehaviour
 
     float noiseFactor = 0.3f;   //chance to collapse a random tile
     static TileManager instance;
+    const float tileRotationPeriod = 3f;
 
 
     public static Tile getTileToPlace(List<Tile> possibleStates)
@@ -199,7 +200,7 @@ public class TileManager : MonoBehaviour
     {
         while (true)
         {
-            yield return Helpers.GetWait(5f);
+            yield return Helpers.GetWait(tileRotationPeriod);
             UpdateActiveTiles();
         }
     }

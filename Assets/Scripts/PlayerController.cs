@@ -347,7 +347,7 @@ public class PlayerController : MonoBehaviour
         if (input == Vector2.zero)
         {
             arrowMouse.enabled = false;
-            weapon.Reload();
+            //weapon.Reload();
         }
         if (input != Vector2.zero)
         {
@@ -374,7 +374,7 @@ public class PlayerController : MonoBehaviour
         {
             Cursor.visible = false;
             arrowMouse.enabled = false;
-            weapon.Reload();
+            //weapon.Reload();
         }
         return input;
     }
