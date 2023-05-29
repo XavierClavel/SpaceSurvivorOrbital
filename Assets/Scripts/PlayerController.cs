@@ -346,7 +346,6 @@ public class PlayerController : MonoBehaviour
         if (input == Vector2.zero)
         {
             arrowMouse.enabled = false;
-            //weapon.Reload();
         }
         if (input != Vector2.zero)
         {
@@ -373,7 +372,6 @@ public class PlayerController : MonoBehaviour
         {
             Cursor.visible = false;
             arrowMouse.enabled = false;
-            //weapon.Reload();
         }
         return input;
     }
@@ -386,6 +384,7 @@ public class PlayerController : MonoBehaviour
         {
             input = moveDir == Vector2.zero ? prevMoveDir : moveDir;
             speed = baseSpeed;
+            //weapon.Reload();
 
         }
         else

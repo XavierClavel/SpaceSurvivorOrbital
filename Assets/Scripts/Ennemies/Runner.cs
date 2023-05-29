@@ -19,21 +19,8 @@ public class Runner : Ennemy
         if (other.gameObject.CompareTag("Player"))
         {
             if (PlayerController.instance.hasWon) return;
-            StartCoroutine("Hurt");
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Player")) StopCoroutine("Hurt");
-    }
-
-    IEnumerator Hurt()
-    {
-        while (true)
-        {
             PlayerController.Hurt(baseDamage);
-            yield return wait;
+            ApplyKnockback();
         }
     }
 

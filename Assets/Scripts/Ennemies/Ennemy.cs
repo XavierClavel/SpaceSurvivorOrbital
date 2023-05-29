@@ -23,6 +23,13 @@ public class Ennemy : MonoBehaviour
     float speedMultiplier = 1f;
     public int cost;
 
+    [Header("Knockback Parameters")]
+    [SerializeField] float knockbackForce = 5f;
+    [SerializeField] float knockbackRiseDuration = 0.10f;
+    [SerializeField] float knockbackPlateauDuration = 0.10f;
+    [SerializeField] float knockbackFallDuration = 0.10f;
+    [SerializeField] float knockbackStunDuration = 0.10f;
+
 
     [Header("Parameters")]
     [SerializeField] protected int baseHealth = 150;
@@ -49,8 +56,7 @@ public class Ennemy : MonoBehaviour
     }
 
     protected bool knockback = false;
-    float knockbackDuration = 0.15f;
-    float knockbackForce = 5f;
+
     WaitForSeconds knockbackWindow;
 
 
@@ -68,7 +74,7 @@ public class Ennemy : MonoBehaviour
         waitPoison = Helpers.GetWait(PlayerManager.poisonDuration);
         waitPoisonDamage = Helpers.GetWait(PlayerManager.poisonPeriod);
         waitIce = Helpers.GetWait(PlayerManager.iceDuration);
-        knockbackWindow = Helpers.GetWait(knockbackDuration);
+        knockbackWindow = Helpers.GetWait(knockbackRiseDuration);
 
         //TODO : static initalizer
 
@@ -126,26 +132,31 @@ public class Ennemy : MonoBehaviour
                 StartCoroutine("FireEffect");
                 break;
         }
-        StartCoroutine("Knockback");
+        ApplyKnockback();
     }
 
-    IEnumerator Knockback()
+    public void ApplyKnockback()
     {
         OnKnockbackStart();
-        knockback = true;
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(DOTween.To(() => rb.velocity, x => rb.velocity = x, (Vector2)(transform.position - player.transform.position).normalized * knockbackForce, 0.10f));
-        sequence.Append(DOTween.To(() => rb.velocity, x => rb.velocity = x, Vector2.zero, 0.10f));
 
-        yield return knockbackWindow;
-        rb.velocity = Vector2.zero;
-        knockback = false;
-        OnKnockbackEnd();
+        sequence.Append(DOTween.To(() => rb.velocity, x => rb.velocity = x, (Vector2)(transform.position - player.transform.position).normalized * knockbackForce, knockbackRiseDuration));
+        sequence.AppendInterval(knockbackPlateauDuration);
+        sequence.Append(DOTween.To(() => rb.velocity, x => rb.velocity = x, Vector2.zero, knockbackFallDuration));
+        sequence.AppendInterval(knockbackStunDuration);
+        sequence.onComplete += OnKnockbackEnd;
     }
 
-    protected virtual void OnKnockbackStart() { }
+    protected virtual void OnKnockbackStart()
+    {
+        knockback = true;
+    }
 
-    protected virtual void OnKnockbackEnd() { }
+    protected virtual void OnKnockbackEnd()
+    {
+        knockback = false;
+        rb.velocity = Vector2.zero;
+    }
 
     public void HealSelf(int amount)
     {
