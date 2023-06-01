@@ -9,6 +9,7 @@ public enum healthChange { hit, critical, heal, poison, fire };
 public class DamageDisplayHandler : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI damageDisplayPrefab;
+    [SerializeField] Canvas canvas;
     static DamageDisplayHandler instance;
     static Vector3 scaleTarget = new Vector3(1.5f, 1.5f, 1.5f);
     static Vector3 exitScale = new Vector3(0.5f, 0.5f, 0.5f);
@@ -28,11 +29,15 @@ public class DamageDisplayHandler : MonoBehaviour
 
     public static void DisplayDamage(int damage, Vector2 position, healthChange type = healthChange.hit)
     {
+        GameObject container = new GameObject();
+        container.transform.position = new Vector3(position.x, position.y, 2f);
         TextMeshProUGUI damageDisplay = Instantiate(instance.damageDisplayPrefab, position, Quaternion.identity);
+        damageDisplay.transform.SetParent(container.transform);
+
         damageDisplay.text = damage.ToString();
         GameObject displayObject = damageDisplay.gameObject;
         RectTransform displayTransform = displayObject.GetComponent<RectTransform>();
-        displayTransform.DOMoveY(displayTransform.position.y + 2f, 2f);
+        //displayTransform.DOMoveY(displayTransform.position.y + 2f, 2f);
         Color targetColor;
         switch (type)
         {
@@ -63,11 +68,17 @@ public class DamageDisplayHandler : MonoBehaviour
                 targetColor = targetColor_white;
                 break;
         }
-        damageDisplay.DOColor(targetColor, 1f).SetEase(Ease.InQuad);
-        Sequence sequence = DOTween.Sequence();
-        sequence.Append(displayTransform.DOScale(scaleTarget, 0.25f));
-        sequence.Append(displayTransform.DOScale(exitScale, 1.5f)).SetEase(Ease.OutQuad);
-        Helpers.instance.WaitAndKill(2f, displayObject);
+        //damageDisplay.DOColor(targetColor, 1f).SetEase(Ease.InQuad);
+        //Sequence sequence = DOTween.Sequence();
+
+
+        //sequence.Append(displayTransform.DOScale(scaleTarget, 0.25f));
+
+        //sequence.Append(displayTransform.DOScaleX(scaleTarget.x, 0.25f));
+        //sequence.Append(displayTransform.DOScaleY(scaleTarget.y, 0.25f));
+
+        //sequence.Append(displayTransform.DOScale(exitScale, 1.5f)).SetEase(Ease.OutQuad);
+        Helpers.instance.WaitAndKill(1f, container);
     }
 
 }
