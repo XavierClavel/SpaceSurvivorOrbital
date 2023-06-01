@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour
     bool reloadingMining = false;
     bool shooting = false;
     bool mining = false;
+    bool aiming = false;
     [SerializeField] Slider healthBar;
     float _health;
     [HideInInspector] public GameObject spaceship;
@@ -282,10 +283,13 @@ public class PlayerController : MonoBehaviour
         controls = new InputMaster();
         controls.Player.Shoot.started += ctx =>
         {
-            shooting = true;
-            mining = false;
-            if (reloading) return;
-            weapon.Shoot();
+            if (aiming)
+            {
+                shooting = true;
+                mining = false;
+                if (reloading) return;
+                weapon.Shoot();
+            }
 
         };
         controls.Player.Shoot.canceled += ctx =>
@@ -380,15 +384,19 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 input = isPlayingWithGamepad ? getGamepadAimInput() : getMouseAimInput();
 
+        
+
         if (input == Vector2.zero)
         {
+            weapon.Reload();
             input = moveDir == Vector2.zero ? prevMoveDir : moveDir;
             speed = baseSpeed;
-            //weapon.Reload();
+            aiming = false;
 
         }
         else
         {
+            aiming = true;
             speed = baseSpeed * speed_aimingDemultiplier;
         }
 
