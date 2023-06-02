@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Linq;
 using UnityEngine.InputSystem;
+using DG.Tweening;
 
 public class SkillTree : MonoBehaviour
 {
@@ -14,19 +15,17 @@ public class SkillTree : MonoBehaviour
     public static List<skillButtonStatus> skillButtonStatuses;
     [SerializeField] GameObject buttonsContainer;
     DefaultInputActions inputActions;
+    [SerializeField] ScrollRect scrollRect;
+    RectTransform scrollRectTransform;
+    RectTransform contentPanel;
+    GameObject previousSelected;
+
 
     private void Awake()
     {
-        inputActions = new DefaultInputActions();
-        inputActions.UI.Navigate.performed += ctx =>
-        {
-            Debug.Log(eventSystem.currentSelectedGameObject.transform.position);
-            float distanceY = (buttonsContainer.transform.position - eventSystem.currentSelectedGameObject.transform.position).y;
-            if (distanceY > 12f)
-            {
-                buttonsContainer.transform.position += Vector3.up * (distanceY - 10f);
-            }
-        };
+        scrollRectTransform = scrollRect.GetComponent<RectTransform>();
+        contentPanel = scrollRect.content;
+
         inputActions.Enable();
         instance = this;
         skillButtons = buttonsContainer.GetComponentsInChildren<SkillButton>().ToList();
@@ -44,6 +43,40 @@ public class SkillTree : MonoBehaviour
         if (!PlayerManager.isPlayingWithGamepad) Cursor.visible = true;
         SkillButton.greenRessource = PlayerManager.amountGreen;
         SkillButton.yellowRessource = PlayerManager.amountOrange;
+    }
+
+    private void Update()
+    {
+        if (eventSystem.currentSelectedGameObject == previousSelected) return;
+        previousSelected = eventSystem.currentSelectedGameObject;
+        RectTransform selectedRectTransform = eventSystem.currentSelectedGameObject.GetComponent<RectTransform>();
+        // The position of the selected UI element is the absolute anchor position,
+        // ie. the local position within the scroll rect + its height if we're
+        // scrolling down. If we're scrolling up it's just the absolute anchor position.
+        //float selectedPositionY = Mathf.Abs(selectedRectTransform.anchoredPosition.y) + selectedRectTransform.rect.height;
+        float selectedPositionY = selectedRectTransform.anchoredPosition.y + selectedRectTransform.rect.height;
+        // The upper bound of the scroll view is the anchor position of the content we're scrolling.
+        float scrollViewMinY = contentPanel.anchoredPosition.y;
+        // The lower bound is the anchor position + the height of the scroll rect.
+        float scrollViewMaxY = contentPanel.anchoredPosition.y + scrollRectTransform.rect.height;
+
+
+        Debug.Log("min y : " + scrollViewMinY);
+        Debug.Log("max y : " + scrollViewMaxY);
+        Debug.Log("current y :" + selectedPositionY);
+        // If the selected position is below the current lower bound of the scroll view we scroll down.
+        if (selectedPositionY > scrollViewMaxY)
+        {
+            float newY = selectedPositionY - scrollRectTransform.rect.height;
+            //contentPanel.anchoredPosition =;
+            contentPanel.DOAnchorPos(new Vector2(contentPanel.anchoredPosition.x, newY), 0.5f);
+        }
+        // If the selected position is above the current upper bound of the scroll view we scroll up.
+        else if (selectedRectTransform.anchoredPosition.y < scrollViewMinY)
+        {
+            //contentPanel.anchoredPosition = ;
+            contentPanel.DOAnchorPos(new Vector2(contentPanel.anchoredPosition.x, Mathf.Abs(selectedRectTransform.anchoredPosition.y)), 0.5f);
+        }
     }
 
     public static void UpdateButton(SkillButton skillButton, skillButtonStatus newStatus)
@@ -65,7 +98,6 @@ public class SkillTree : MonoBehaviour
     {
         for (int i = 0; i < skillButtonStatuses.Count; i++)
         {
-            //skillButtons[i].button.interactable = skillButtonStatuses[i] == skillButtonStatus.unlocked;
             skillButtons[i].UpdateStatus(skillButtonStatuses[i]);
         }
 

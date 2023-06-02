@@ -27,12 +27,6 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame(bool pauseUI = true)
     {
-        Debug.Log(PlayerController.isPlayingWithGamepad);
-        if (!PlayerController.isPlayingWithGamepad)
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.Confined;
-        }
         Time.timeScale = 0f;
         Time.fixedDeltaTime = 0f;
         SoundManager.instance.StopTime();
@@ -49,7 +43,6 @@ public class PauseMenu : MonoBehaviour
 
     public void ResumeGame()
     {
-        if (!PlayerController.isPlayingWithGamepad) Cursor.visible = false;
 
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f;

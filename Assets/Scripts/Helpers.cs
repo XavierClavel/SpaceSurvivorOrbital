@@ -79,8 +79,7 @@ public static class Extensions
 
     public static int mod(ref this int x, int m)
     {
-        x = (x % m + m) % m;
-        return x;
+        return (x % m + m) % m;
     }
 
     public static T getRandom<T>(this IList<T> list)
