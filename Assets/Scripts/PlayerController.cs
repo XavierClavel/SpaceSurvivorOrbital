@@ -182,7 +182,6 @@ public class PlayerController : MonoBehaviour
         instance = this;
         playerInput = GetComponent<PlayerInput>();
         SwitchInput();
-        Cursor.visible = false;
 
     }
 
@@ -229,10 +228,6 @@ public class PlayerController : MonoBehaviour
         tool = Instantiate(PlayerManager.tool, transform.position, Quaternion.identity);
         tool.transform.SetParent(transform);
 
-
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;
-
         rb = GetComponent<Rigidbody2D>();
         cameraTransform = Camera.main.transform;
         soundManager = SoundManager.instance;
@@ -260,6 +255,16 @@ public class PlayerController : MonoBehaviour
     {
         if (instance == null) return;
         isPlayingWithGamepad = instance.playerInput.currentControlScheme == "Gamepad";
+        if (isPlayingWithGamepad)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+        }
     }
 
     void debugGiveResources(int amount)
@@ -345,9 +350,6 @@ public class PlayerController : MonoBehaviour
 
     Vector2 getGamepadAimInput()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
         Vector2 input = controls.Player.Aim.ReadValue<Vector2>();
         if (input == Vector2.zero)
         {
@@ -362,12 +364,10 @@ public class PlayerController : MonoBehaviour
 
     Vector2 getMouseAimInput()
     {
-
-        Cursor.lockState = CursorLockMode.Confined;
         Vector2 input = Vector2.zero;
         if (mouseAiming)
         {
-            Cursor.visible = true;
+
             arrowMouse.enabled = true;
             Vector2 mousePos = controls.Player.MousePosition.ReadValue<Vector2>();
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
@@ -376,7 +376,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            Cursor.visible = false;
             arrowMouse.enabled = false;
         }
         return input;

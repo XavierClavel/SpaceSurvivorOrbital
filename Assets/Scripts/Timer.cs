@@ -34,7 +34,7 @@ public class Timer : MonoBehaviour
         else
         {
             youLooseScreen.SetActive(true);
-            PauseMenu.instance.PauseGame();
+            PauseMenu.instance.PauseGame(false);
             if (PlayerController.isPlayingWithGamepad) eventSystem.SetSelectedGameObject(button);
             timeRemaining = 0;
             timerIsRunning = false;

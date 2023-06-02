@@ -25,18 +25,25 @@ public class PauseMenu : MonoBehaviour
         controls.Disable();
     }
 
-    public void PauseGame()
+    public void PauseGame(bool pauseUI = true)
     {
-        if (!PlayerController.isPlayingWithGamepad) Cursor.visible = true;
+        Debug.Log(PlayerController.isPlayingWithGamepad);
+        if (!PlayerController.isPlayingWithGamepad)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+        }
         Time.timeScale = 0f;
         Time.fixedDeltaTime = 0f;
-
-        pauseMenu.SetActive(true);
+        SoundManager.instance.StopTime();
 
         PlayerController.instance.controls.Disable();
-        controls.Enable();
 
-        SoundManager.instance.StopTime();
+        if (pauseUI)
+        {
+            pauseMenu.SetActive(true);
+            controls.Enable();
+        }
 
     }
 
