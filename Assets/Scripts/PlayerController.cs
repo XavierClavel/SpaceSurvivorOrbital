@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("References")]
     public Bullet bulletPrefab;
+    [HideInInspector] public Transform attractorTransform;
     [HideInInspector] public static PlayerController instance;
     [HideInInspector] public InputMaster controls;
     [HideInInspector] public playerState _playerState_value = playerState.idle;
@@ -331,6 +332,7 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Aim();
+        attractorTransform.position = transform.position;
     }
 
     void Move()
@@ -384,7 +386,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 input = isPlayingWithGamepad ? getGamepadAimInput() : getMouseAimInput();
 
-        
+
 
         if (input == Vector2.zero)
         {

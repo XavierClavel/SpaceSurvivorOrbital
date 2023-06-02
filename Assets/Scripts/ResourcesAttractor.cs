@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ResourcesAttractor : MonoBehaviour
 {
-
     [SerializeField] CircleCollider2D attractorZone;
     float attractorForce;
 
@@ -12,6 +11,7 @@ public class ResourcesAttractor : MonoBehaviour
     {
         attractorZone.radius = PlayerManager.attractorRange;
         attractorForce = PlayerManager.attractorForce;
+        PlayerController.instance.attractorTransform = transform;
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -22,6 +22,7 @@ public class ResourcesAttractor : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        Debug.Log("collision");
         switch (other.gameObject.tag)
         {
             case "VioletCollectible":
