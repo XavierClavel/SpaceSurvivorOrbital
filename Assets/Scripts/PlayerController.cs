@@ -294,6 +294,7 @@ public class PlayerController : MonoBehaviour
                 shooting = true;
                 mining = false;
                 if (reloading) return;
+                weapon.StartFiring();
                 weapon.Shoot();
             }
 
@@ -301,6 +302,7 @@ public class PlayerController : MonoBehaviour
         controls.Player.Shoot.canceled += ctx =>
         {
             shooting = false;
+            weapon.StopFiring();
         };
 
         controls.Player.Mine.started += ctx =>
@@ -389,7 +391,6 @@ public class PlayerController : MonoBehaviour
 
         if (input == Vector2.zero)
         {
-            weapon.Reload();
             input = moveDir == Vector2.zero ? prevMoveDir : moveDir;
             speed = baseSpeed;
             aiming = false;

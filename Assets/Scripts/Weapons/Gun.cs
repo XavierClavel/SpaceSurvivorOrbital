@@ -8,7 +8,6 @@ public class Gun : Weapon
     LayoutManager bulletsLayoutManager;
     WaitForSeconds magazineReloadWindow;
     Bullet bulletPrefab;
-    [SerializeField] bool autoReload = false;
 
     int damage;
     bool critical;
@@ -19,7 +18,7 @@ public class Gun : Weapon
         bulletLifetime = range / attackSpeed;
         bulletsLayoutManager = player.bulletsLayoutManager;
         bulletsLayoutManager.Setup(magazine);
-        magazineReloadWindow = Helpers.GetWait(magazineReloadTime / 6f);
+        magazineReloadWindow = Helpers.GetWait(magazineReloadTime);
         bulletPrefab = player.bulletPrefab;
         currentMagazine = magazine;
     }
@@ -28,8 +27,9 @@ public class Gun : Weapon
     public override void Shoot()
     {
         if (currentMagazine == 0) return;
-        if (reloadingMagazine) return;
         player.StartCoroutine("Reload");
+
+
         soundManager.PlaySfx(transform, sfx.shoot);
         Bullet bullet = Instantiate(bulletPrefab, transform.position - transform.forward * 6f, aimTransform.rotation);
         bullet.Fire(attackSpeed, bulletLifetime);
@@ -47,25 +47,25 @@ public class Gun : Weapon
         currentMagazine--;
         bulletsLayoutManager.DecreaseAmount();
 
-        if (autoReload && currentMagazine == 0) StartCoroutine("ReloadMagazine");
+        if (currentMagazine == 0) StartCoroutine("ReloadMagazine");
+    }
+    public override void StartFiring()
+    {
+        base.StartFiring();
+        StopCoroutine("ReloadMagazine");
     }
 
-    public override void Reload()
+    public override void StopFiring()
     {
-        base.Reload();
-        if (!reloadingMagazine) StartCoroutine(ReloadMagazine());
+        base.StopFiring();
+        StartCoroutine("ReloadMagazine");
     }
 
     IEnumerator ReloadMagazine()
     {
-        reloadingMagazine = true;
-        while (currentMagazine < magazine)
-        {
-            yield return magazineReloadWindow;
-            bulletsLayoutManager.IncreaseAmount();
-            currentMagazine++;
-        }
-        reloadingMagazine = false;
+        yield return magazineReloadWindow;
+        bulletsLayoutManager.SetAmount(magazine);
+        currentMagazine = magazine;
         SoundManager.instance.PlaySfx(transform, sfx.reload);
     }
 }

@@ -14,7 +14,6 @@ public class SkillTree : MonoBehaviour
     public static List<SkillButton> skillButtons = new List<SkillButton>();
     public static List<skillButtonStatus> skillButtonStatuses;
     [SerializeField] GameObject buttonsContainer;
-    DefaultInputActions inputActions;
     [SerializeField] ScrollRect scrollRect;
     RectTransform scrollRectTransform;
     RectTransform contentPanel;
@@ -26,7 +25,6 @@ public class SkillTree : MonoBehaviour
         scrollRectTransform = scrollRect.GetComponent<RectTransform>();
         contentPanel = scrollRect.content;
 
-        inputActions.Enable();
         instance = this;
         skillButtons = buttonsContainer.GetComponentsInChildren<SkillButton>().ToList();
 
@@ -60,21 +58,15 @@ public class SkillTree : MonoBehaviour
         // The lower bound is the anchor position + the height of the scroll rect.
         float scrollViewMaxY = contentPanel.anchoredPosition.y + scrollRectTransform.rect.height;
 
-
-        Debug.Log("min y : " + scrollViewMinY);
-        Debug.Log("max y : " + scrollViewMaxY);
-        Debug.Log("current y :" + selectedPositionY);
         // If the selected position is below the current lower bound of the scroll view we scroll down.
         if (selectedPositionY > scrollViewMaxY)
         {
             float newY = selectedPositionY - scrollRectTransform.rect.height;
-            //contentPanel.anchoredPosition =;
             contentPanel.DOAnchorPos(new Vector2(contentPanel.anchoredPosition.x, newY), 0.5f);
         }
         // If the selected position is above the current upper bound of the scroll view we scroll up.
         else if (selectedRectTransform.anchoredPosition.y < scrollViewMinY)
         {
-            //contentPanel.anchoredPosition = ;
             contentPanel.DOAnchorPos(new Vector2(contentPanel.anchoredPosition.x, Mathf.Abs(selectedRectTransform.anchoredPosition.y)), 0.5f);
         }
     }
