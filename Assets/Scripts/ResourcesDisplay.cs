@@ -7,7 +7,7 @@ using TMPro;
 public class ResourcesDisplay : MonoBehaviour
 {
     public TextMeshProUGUI greenText;
-
+    public TextMeshProUGUI purpleText;
     public TextMeshProUGUI yellowText;
     static ResourcesDisplay instance;
 
@@ -21,6 +21,7 @@ public class ResourcesDisplay : MonoBehaviour
     {
         instance.greenText.text = PlayerManager.amountGreen.ToString();
         instance.yellowText.text = PlayerManager.amountOrange.ToString();
+        instance.purpleText.text = PlayerManager.amountViolet.ToString();
     }
 
 }

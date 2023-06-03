@@ -869,8 +869,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1700240055}
-        m_TargetAssemblyTypeName: Timer, Assembly-CSharp
+      - m_Target: {fileID: 169695426}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
@@ -1102,6 +1102,8 @@ MonoBehaviour:
   smallSize: 5
   largeSize: 40
   effect: 0
+  youLooseScreen: {fileID: 38107356}
+  button: {fileID: 157606359}
 --- !u!95 &169695427
 Animator:
   serializedVersion: 5
@@ -9766,7 +9768,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ennemyPrefabs:
   - {fileID: 516386350, guid: 768cf1381437d3946930748b6aa8c2d9, type: 3}
-  - {fileID: 516386350, guid: 213a79b795757bf478d0ea331fcf1e81, type: 3}
   waveLength: 20
   doEnnemySpawn: 1
   cost: 5
@@ -10151,8 +10152,7 @@ MonoBehaviour:
   timeRemaining: 120
   timeText: {fileID: 1700240053}
   timeToAdd: 5
-  youLooseScreen: {fileID: 38107356}
-  button: {fileID: 157606359}
+  boss: {fileID: 1013518959079814096, guid: 213a79b795757bf478d0ea331fcf1e81, type: 3}
 --- !u!1 &1754425189
 GameObject:
   m_ObjectHideFlags: 0
