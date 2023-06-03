@@ -32,6 +32,7 @@ public class PauseMenu : MonoBehaviour
         SoundManager.instance.StopTime();
 
         PlayerController.instance.controls.Disable();
+        if (!PlayerController.isPlayingWithGamepad) Cursor.visible = true;
 
         if (pauseUI)
         {
@@ -52,6 +53,7 @@ public class PauseMenu : MonoBehaviour
 
         controls.PauseMenu.Disable();
         PlayerController.instance.controls.Enable();
+        PlayerController.SwitchInput();
 
         SoundManager.instance.ResumeTime();
     }

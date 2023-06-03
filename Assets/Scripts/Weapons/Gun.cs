@@ -8,6 +8,7 @@ public class Gun : Weapon
     LayoutManager bulletsLayoutManager;
     WaitForSeconds magazineReloadWindow;
     Bullet bulletPrefab;
+    bool autoReload = true;
 
     int damage;
     bool critical;
@@ -52,13 +53,13 @@ public class Gun : Weapon
     public override void StartFiring()
     {
         base.StartFiring();
-        StopCoroutine("ReloadMagazine");
+        if (autoReload) StopCoroutine("ReloadMagazine");
     }
 
     public override void StopFiring()
     {
         base.StopFiring();
-        StartCoroutine("ReloadMagazine");
+        if (autoReload) StartCoroutine("ReloadMagazine");
     }
 
     IEnumerator ReloadMagazine()

@@ -276,9 +276,11 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            Cursor.visible = true;
+            //Cursor.visible = true;
+            Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Confined;
         }
+        Debug.Log(Cursor.visible);
     }
 
     void debugGiveResources(int amount)
