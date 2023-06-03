@@ -69,7 +69,6 @@ public class PlayerController : MonoBehaviour
     Vector3 targetMoveAmount;
     SoundManager soundManager;
     Vector2 prevMoveDir = Vector2.zero;
-    WaitForSeconds bulletReloadWindow;
     bool reloading = false;
     bool reloadingMining = false;
     bool shooting = false;
@@ -119,7 +118,11 @@ public class PlayerController : MonoBehaviour
     private int maxHealth;
     private float baseSpeed;
     private float damageResistanceMultiplier;
+    private static bool invulnerable = false;
 
+    //Wait
+    WaitForSeconds bulletReloadWindow;
+    WaitForSeconds invulnerabilityFrameDuration;
 
     float bulletReloadTime;
     float speed_aimingDemultiplier;
@@ -139,7 +142,16 @@ public class PlayerController : MonoBehaviour
     #region interface
     public static void Hurt(float amount)
     {
+        if (invulnerable) return;
         instance.health -= amount * (1 - instance.damageResistanceMultiplier);
+        instance.StartCoroutine("InvulnerabilityFrame");
+    }
+
+    IEnumerator InvulnerabilityFrame()
+    {
+        invulnerable = true;
+        yield return
+        invulnerable = false;
     }
 
     public static void ActivateSpaceship()
@@ -237,6 +249,8 @@ public class PlayerController : MonoBehaviour
         layoutManagerGreen.Setup(maxGreen, fillAmountGreen, resourceType.green);
 
         bulletReloadWindow = Helpers.GetWait(bulletReloadTime);
+        invulnerabilityFrameDuration = Helpers.GetWait(PlayerManager.invulnerabilityFrameDuration);
+
         _health = maxHealth;
 
         healthBar.maxValue = maxHealth;

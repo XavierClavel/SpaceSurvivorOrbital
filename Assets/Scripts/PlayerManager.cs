@@ -21,6 +21,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private int _maxHealth = 100;
     [SerializeField] private float _baseSpeed = 30f;
     [SerializeField] private float _damageResistanceMultiplier = 0f;
+    [SerializeField] private float _invulnerabilityFrameDuration = 0.2f;
 
 
     [Header("Weapon parameters")]
@@ -82,6 +83,7 @@ public class PlayerManager : MonoBehaviour
     public static int maxHealth { get; set; }
     public static float baseSpeed { get; private set; }
     public static float damageResistanceMultiplier { get; private set; }
+    public static float invulnerabilityFrameDuration { get; private set; }
 
 
     public static Vector2Int baseDamage { get; private set; }
@@ -148,6 +150,7 @@ public class PlayerManager : MonoBehaviour
             maxHealth = _maxHealth;
             baseSpeed = _baseSpeed;
             damageResistanceMultiplier = _damageResistanceMultiplier;
+            invulnerabilityFrameDuration = _invulnerabilityFrameDuration;
 
 
             baseDamage = _baseDamage;
