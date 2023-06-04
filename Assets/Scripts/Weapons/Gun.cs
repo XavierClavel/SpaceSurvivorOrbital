@@ -28,6 +28,7 @@ public class Gun : Weapon
     public override void Shoot()
     {
         if (currentMagazine == 0) return;
+        if (autoReload) StopCoroutine("ReloadMagazine");
         player.StartCoroutine("Reload");
 
 
@@ -53,7 +54,6 @@ public class Gun : Weapon
     public override void StartFiring()
     {
         base.StartFiring();
-        if (autoReload) StopCoroutine("ReloadMagazine");
     }
 
     public override void StopFiring()

@@ -281,7 +281,6 @@ public class PlayerController : MonoBehaviour
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Confined;
         }
-        Debug.Log(Cursor.visible);
     }
 
     void debugGiveResources(int amount)

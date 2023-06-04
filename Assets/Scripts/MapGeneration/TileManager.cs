@@ -12,7 +12,8 @@ public class TileManager : MonoBehaviour
     List<TileWaveFunction> uncollapsedTiles = new List<TileWaveFunction>();
     Dictionary<Vector2Int, GameObject> dictPositionToTile = new Dictionary<Vector2Int, GameObject>();
     PlayerController player;
-    [SerializeField] Vector2Int mapSize = new Vector2Int(9, 9);
+    [SerializeField] int planetSize = 9;
+    Vector2Int mapSize;
     Vector2Int activationRadius = new Vector2Int(3, 3); //radius around player in which tiles are activated
     Vector2Int lastPos = Vector2Int.zero;
     Vector2Int mapRadius;
@@ -23,7 +24,8 @@ public class TileManager : MonoBehaviour
 
     float noiseFactor = 0.3f;   //chance to collapse a random tile
     static TileManager instance;
-    const float tileRotationPeriod = 3f;
+    const float tileRotationPeriod = 1f;
+    //TODO : adapat tilerotationperiod to planet size
 
 
     public static Tile getTileToPlace(List<Tile> possibleStates)
@@ -38,6 +40,7 @@ public class TileManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        SetupPlanet();
 
         mapRadius = (mapSize - Vector2Int.one) / 2;
         player = PlayerController.instance;
@@ -62,6 +65,15 @@ public class TileManager : MonoBehaviour
         PlaceTiles();
 
         StartCoroutine("TileManagement");
+    }
+
+    void SetupPlanet()
+    {
+        if (PlanetManager.planetData != null)
+        {
+            planetSize = PlanetManager.getSize();
+        }
+        mapSize = new Vector2Int(planetSize, planetSize);
     }
 
     void InitalizeMap()
@@ -109,7 +121,6 @@ public class TileManager : MonoBehaviour
             TileWaveFunction newTileWaveFunction = GetUncollapsedTileOfLeastEntropy();
             if (newTileWaveFunction == null)    //no TileWaveFunction left to collapse
             {
-                Debug.Log("remaining tiles : " + uncollapsedTiles.Count);
                 break;
             }
             CollapseWaveFunction(newTileWaveFunction);

@@ -170,6 +170,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &133157967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 133157969}
+  - component: {fileID: 133157968}
+  m_Layer: 0
+  m_Name: PlanetSelector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &133157968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133157967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7d80dd54f571f438cded0e1c29bf34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &133157969
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133157967}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 920.52515, y: 150.77747, z: 2.6683903}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &514437440
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,7 +466,6 @@ GameObject:
   - component: {fileID: 603383156}
   - component: {fileID: 603383155}
   - component: {fileID: 603383154}
-  - component: {fileID: 603383157}
   m_Layer: 0
   m_Name: Button (1)
   m_TagString: Untagged
@@ -495,13 +538,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 603383157}
-        m_TargetAssemblyTypeName: LoadNextScene, Assembly-CSharp
-        m_MethodName: OnClickPlanet
-        m_Mode: 1
+      - m_Target: {fileID: 133157968}
+        m_TargetAssemblyTypeName: PlanetSelector, Assembly-CSharp
+        m_MethodName: SelectPlanet
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1248320081}
+          m_ObjectArgumentAssemblyTypeName: Planet, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -545,19 +588,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 603383152}
   m_CullTransparentMesh: 1
---- !u!114 &603383157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603383152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dfffcbdde82089429cf0b36951a5d96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: BrownPlanet
 --- !u!1 &1053840025
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,6 +732,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1248320078}
+  - component: {fileID: 1248320081}
   - component: {fileID: 1248320080}
   - component: {fileID: 1248320079}
   m_Layer: 5
@@ -770,6 +801,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1248320077}
   m_CullTransparentMesh: 1
+--- !u!114 &1248320081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248320077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027bab369f3b0c4dad657eb55f6296f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  planetData:
+    size: 1
+    dangerosity: 0
+    violetScarcity: 0
+    orangeScarcity: 0
+    blueScarcity: 0
 --- !u!1 &1274412571
 GameObject:
   m_ObjectHideFlags: 0
@@ -1308,7 +1357,6 @@ GameObject:
   - component: {fileID: 1830868918}
   - component: {fileID: 1830868917}
   - component: {fileID: 1830868916}
-  - component: {fileID: 1830868919}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -1381,13 +1429,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1830868919}
-        m_TargetAssemblyTypeName: LoadNextScene, Assembly-CSharp
-        m_MethodName: OnClickPlanet
-        m_Mode: 1
+      - m_Target: {fileID: 133157968}
+        m_TargetAssemblyTypeName: PlanetSelector, Assembly-CSharp
+        m_MethodName: SelectPlanet
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 2045338120}
+          m_ObjectArgumentAssemblyTypeName: Planet, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1431,19 +1479,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1830868914}
   m_CullTransparentMesh: 1
---- !u!114 &1830868919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1830868914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dfffcbdde82089429cf0b36951a5d96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: BluePlanet
 --- !u!1 &1859285559
 GameObject:
   m_ObjectHideFlags: 0
@@ -1574,7 +1609,6 @@ GameObject:
   - component: {fileID: 1877005076}
   - component: {fileID: 1877005075}
   - component: {fileID: 1877005074}
-  - component: {fileID: 1877005077}
   m_Layer: 0
   m_Name: Button (2)
   m_TagString: Untagged
@@ -1647,13 +1681,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1877005077}
-        m_TargetAssemblyTypeName: LoadNextScene, Assembly-CSharp
-        m_MethodName: OnClickPlanet
-        m_Mode: 1
+      - m_Target: {fileID: 133157968}
+        m_TargetAssemblyTypeName: PlanetSelector, Assembly-CSharp
+        m_MethodName: SelectPlanet
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 2094076510}
+          m_ObjectArgumentAssemblyTypeName: Planet, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1697,19 +1731,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1877005072}
   m_CullTransparentMesh: 1
---- !u!114 &1877005077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1877005072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dfffcbdde82089429cf0b36951a5d96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: RedPlanet
 --- !u!1 &1987604838
 GameObject:
   m_ObjectHideFlags: 0
@@ -1764,6 +1785,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2045338116}
+  - component: {fileID: 2045338120}
   - component: {fileID: 2045338119}
   - component: {fileID: 2045338118}
   m_Layer: 5
@@ -1832,6 +1854,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2045338115}
   m_CullTransparentMesh: 1
+--- !u!114 &2045338120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045338115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027bab369f3b0c4dad657eb55f6296f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  planetData:
+    size: 2
+    dangerosity: 0
+    violetScarcity: 0
+    orangeScarcity: 0
+    blueScarcity: 0
 --- !u!1 &2094076506
 GameObject:
   m_ObjectHideFlags: 0
@@ -1841,6 +1881,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2094076507}
+  - component: {fileID: 2094076510}
   - component: {fileID: 2094076509}
   - component: {fileID: 2094076508}
   m_Layer: 5
@@ -1909,3 +1950,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2094076506}
   m_CullTransparentMesh: 1
+--- !u!114 &2094076510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094076506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d027bab369f3b0c4dad657eb55f6296f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  planetData:
+    size: 0
+    dangerosity: 0
+    violetScarcity: 0
+    orangeScarcity: 0
+    blueScarcity: 0
