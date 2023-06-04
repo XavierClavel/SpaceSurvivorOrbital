@@ -12,14 +12,16 @@ public class Timer : MonoBehaviour
     bool timerIsRunning = false;
     [SerializeField] TextMeshProUGUI timeText; // r�f�rence au composant Text de l'UI
     [SerializeField] float timeToAdd = 5; // temps � ajouter lorsqu'une touche est enfonc�e
-    [SerializeField] GameObject youLooseScreen;
-    EventSystem eventSystem;
-    [SerializeField] GameObject button;
+
+    [SerializeField] GameObject boss;
+    Transform playerTransform;
+    GameObject spaceShip;
 
     void Start()
     {
         timerIsRunning = true;
-        eventSystem = EventSystem.current;
+        playerTransform = PlayerController.instance.transform;
+        spaceShip = GameObject.FindGameObjectWithTag("Ship");
     }
 
     void Update()
@@ -33,19 +35,11 @@ public class Timer : MonoBehaviour
         }
         else
         {
-            youLooseScreen.SetActive(true);
-            PauseMenu.instance.PauseGame(false);
-            if (PlayerController.isPlayingWithGamepad) eventSystem.SetSelectedGameObject(button);
+            Instantiate(boss, randomPos() + playerTransform.position, Quaternion.identity);
+            Destroy(spaceShip);
             timeRemaining = 0;
             timerIsRunning = false;
         }
-    }
-
-    public void OnClick()
-    {
-        PauseMenu.instance.ResumeGame();
-        SceneManager.LoadScene("SampleScene");
-        youLooseScreen.SetActive(false);
     }
 
     InputMaster controls;
@@ -58,6 +52,12 @@ public class Timer : MonoBehaviour
     void OnDisable()
     {
         controls.Disable();
+    }
+        Vector3 randomPos()
+    {
+        float signA = Random.Range(0, 2) * 2 - 1;
+        float signB = Random.Range(0, 2) * 2 - 1;
+        return signA * Random.Range(6f, 12f) * Vector2.up + signB * Random.Range(4f, 8f) * Vector2.right;
     }
 
 }

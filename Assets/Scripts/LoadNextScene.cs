@@ -8,8 +8,14 @@ public class LoadNextScene : MonoBehaviour
 {
     public string text;
 
-    public void OnClick()
+    public void OnClickShip()
     {
+        SceneManager.LoadScene(text);
+    }
+
+    public void OnClickPlanet()
+    {
+        PlayerManager.SpendPurple(1);
         SceneManager.LoadScene(text);
     }
 }

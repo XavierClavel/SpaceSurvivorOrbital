@@ -346,4 +346,9 @@ public class PlayerManager : MonoBehaviour
         amountGreen -= costGreen;
         amountOrange -= costOrange;
     }
+
+    public static void SpendPurple(int costPurple)
+    {
+        amountViolet -= costPurple;
+    }
 }

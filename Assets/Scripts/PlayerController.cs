@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public enum playerState { idle, walking, shooting, mining };
 public enum playerDirection { front, left, back, right };
@@ -336,7 +337,7 @@ public class PlayerController : MonoBehaviour
 
         controls.Player.Reload.performed += context =>
         {
-            weapon.Reload();
+            //weapon.Reload();
             Camera.main.orthographicSize = (Camera.main.orthographicSize == smallSize) ? largeSize : smallSize;
         };
 
@@ -472,24 +473,27 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
-
     void Mine()
     {
         StartCoroutine("ReloadMining");
         tool.Hit();
     }
 
-    void Restart()
-    {
-        Scene scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(scene.name);
-    }
+    [SerializeField] GameObject youLooseScreen;
+    EventSystem eventSystem;
+    [SerializeField] GameObject button;
 
     void Death()
     {
-        controls.Disable();
-        Restart();
+        youLooseScreen.SetActive(true);
+        PauseMenu.instance.PauseGame(false);
+        if (PlayerController.isPlayingWithGamepad) eventSystem.SetSelectedGameObject(button);
+    }
+    public void OnClick()
+    {
+        PauseMenu.instance.ResumeGame();
+        SceneManager.LoadScene("SampleScene");
+        youLooseScreen.SetActive(false);
     }
 
 
