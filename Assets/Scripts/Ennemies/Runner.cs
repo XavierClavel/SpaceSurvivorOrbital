@@ -18,7 +18,6 @@ public class Runner : Ennemy
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if (PlayerController.instance.hasWon) return;
             PlayerController.Hurt(baseDamage);
             ApplyKnockback();
         }

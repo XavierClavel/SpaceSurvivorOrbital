@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator InvulnerabilityFrame()
     {
         invulnerable = true;
-        yield return
+        yield return invulnerabilityFrameDuration;
         invulnerable = false;
     }
 
