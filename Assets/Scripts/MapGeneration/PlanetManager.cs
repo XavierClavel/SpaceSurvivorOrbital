@@ -24,4 +24,9 @@ public static class PlanetManager
         }
     }
 
+    public static Color getGroundColor()
+    {
+        return planetData.groundColor;
+    }
+
 }

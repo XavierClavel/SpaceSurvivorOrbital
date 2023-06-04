@@ -15,4 +15,5 @@ public class PlanetData
     public planetResourceScarcity violetScarcity;
     public planetResourceScarcity orangeScarcity;
     public planetResourceScarcity blueScarcity;
+    public Color groundColor;
 }
