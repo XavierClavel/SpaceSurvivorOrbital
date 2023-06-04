@@ -70,7 +70,7 @@ public class TileManager : MonoBehaviour
 
     void SetupPlanet()
     {
-        if (PlanetManager.planetData != null)
+        if (PlanetManager.hasData())
         {
             groundSprite.color = PlanetManager.getGroundColor();
             planetSize = PlanetManager.getSize();

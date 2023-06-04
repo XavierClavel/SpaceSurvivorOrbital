@@ -7,7 +7,7 @@ public class PlanetSelector : MonoBehaviour
 {
     public void SelectPlanet(Planet planet)
     {
-        PlanetManager.planetData = planet.planetData;
+        PlanetManager.setData(planet.planetData);
         SceneManager.LoadScene("Planet");
     }
 

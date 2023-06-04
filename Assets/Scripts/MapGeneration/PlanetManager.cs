@@ -4,7 +4,18 @@ using UnityEngine;
 
 public static class PlanetManager
 {
-    public static PlanetData planetData;
+    static PlanetData planetData;
+
+    public static void setData(PlanetData data)
+    {
+        planetData = data;
+    }
+
+    public static bool hasData()
+    {
+        return planetData != null;
+    }
+
     public static int getSize()
     {
         Debug.Log(planetData.size);
