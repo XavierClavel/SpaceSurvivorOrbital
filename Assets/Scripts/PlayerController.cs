@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("References")]
     public Bullet bulletPrefab;
+    [SerializeField] Slider reloadSlider;
     [HideInInspector] public Transform attractorTransform;
     [HideInInspector] public static PlayerController instance;
     [HideInInspector] public InputMaster controls;
@@ -237,6 +238,7 @@ public class PlayerController : MonoBehaviour
 
         weapon = Instantiate(PlayerManager.weapon, transform.position, Quaternion.identity);
         weapon.transform.SetParent(transform);
+        weapon.reloadSlider = reloadSlider;
 
         tool = Instantiate(PlayerManager.tool, transform.position, Quaternion.identity);
         tool.transform.SetParent(transform);

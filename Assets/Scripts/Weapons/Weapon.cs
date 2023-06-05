@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class Weapon : MonoBehaviour
     protected int currentMagazine;
     protected bool reloadingMagazine = false;
     protected PlayerController player;
+    [HideInInspector] public Slider reloadSlider;
 
     protected virtual void Start()
     {

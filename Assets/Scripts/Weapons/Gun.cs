@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class Gun : Weapon
 {
@@ -28,7 +30,11 @@ public class Gun : Weapon
     public override void Shoot()
     {
         if (currentMagazine == 0) return;
-        if (autoReload) StopCoroutine("ReloadMagazine");
+        if (autoReload)
+        {
+            StopCoroutine("ReloadMagazine");
+            reloadSlider.gameObject.SetActive(false);
+        }
         player.StartCoroutine("Reload");
 
 
@@ -64,7 +70,11 @@ public class Gun : Weapon
 
     IEnumerator ReloadMagazine()
     {
+        reloadSlider.gameObject.SetActive(true);
+        reloadSlider.value = 0f;
+        reloadSlider.DOValue(1f, magazineReloadTime).SetEase(Ease.Linear);
         yield return magazineReloadWindow;
+        reloadSlider.gameObject.SetActive(false);
         bulletsLayoutManager.SetAmount(magazine);
         currentMagazine = magazine;
         SoundManager.instance.PlaySfx(transform, sfx.reload);
