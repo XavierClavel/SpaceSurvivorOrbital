@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class PlanetSelector : MonoBehaviour
 {
+    public bool generateRandomPlanets = true;
+    public static PlanetSelector instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public void SelectPlanet(Planet planet)
     {
         PlanetManager.setData(planet.planetData);

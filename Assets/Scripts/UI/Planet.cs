@@ -11,8 +11,18 @@ public class Planet : MonoBehaviour
     [SerializeField] DiscreteBarHandler orangeBar;
     [SerializeField] DiscreteBarHandler greenBar;
 
-    private void Awake()
+    private void Start()
     {
+        if (PlanetSelector.instance.generateRandomPlanets)
+        {
+            planetData.size = Helpers.getRandomEnum(planetSize.large);
+            planetData.dangerosity = Helpers.getRandomEnum(planetDangerosity.peaceful);
+            planetData.violetScarcity = Helpers.getRandomEnum(planetResourceScarcity.none);
+            planetData.orangeScarcity = Helpers.getRandomEnum(planetResourceScarcity.none);
+            planetData.greenScarcity = Helpers.getRandomEnum(planetResourceScarcity.none);
+        }
+
+
         sizeBar.maxAmount = 3;
         sizeBar.currentAmount = (int)planetData.size + 1;
         sizeBar.Initialize();

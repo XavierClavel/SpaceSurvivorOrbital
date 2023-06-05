@@ -10,6 +10,29 @@ using System.Linq;
 public static class Extensions
 {
 
+    public static TEnum getRandom<TEnum>() where TEnum : System.Enum
+    {
+        if (!typeof(TEnum).IsEnum)
+        {
+            throw new ArgumentException("T must be an enumerated type");
+        }
+
+        Array values = Enum.GetValues(typeof(TEnum));
+        return (TEnum)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+    }
+
+
+    public static TEnum getRandomA<TEnum>(TEnum enumType) where TEnum : System.Enum
+    {
+        if (!typeof(TEnum).IsEnum)
+        {
+            throw new ArgumentException("T must be an enumerated type");
+        }
+
+        Array values = Enum.GetValues(typeof(TEnum));
+        return (TEnum)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+    }
+
     ///<summary>
     ///Removes the item from the list if it is present, else does nothing.
     ///</summary>
@@ -262,6 +285,17 @@ public class Helpers : MonoBehaviour
     public static int IntAbs(int value)
     {
         return value < 0 ? -value : value;
+    }
+
+    public static TEnum getRandomEnum<TEnum>(TEnum enumType) where TEnum : System.Enum
+    {
+        if (!typeof(TEnum).IsEnum)
+        {
+            throw new ArgumentException("T must be an enumerated type");
+        }
+
+        Array values = Enum.GetValues(typeof(TEnum));
+        return (TEnum)values.GetValue(UnityEngine.Random.Range(0, values.Length));
     }
 
 
