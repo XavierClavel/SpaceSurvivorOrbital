@@ -8,52 +8,38 @@ using UnityEngine.EventSystems;
 
 public class Timer : MonoBehaviour
 {
-    [SerializeField] float timeRemaining = 30;
-    bool timerIsRunning = false;
+    public static int timeRemaining = 120;
     [SerializeField] TextMeshProUGUI timeText; // r�f�rence au composant Text de l'UI
     [SerializeField] float timeToAdd = 5; // temps � ajouter lorsqu'une touche est enfonc�e
+    int time;
 
     [SerializeField] GameObject boss;
     Transform playerTransform;
     GameObject spaceShip;
+    WaitForSeconds waitSecond;
 
     void Start()
     {
-        timerIsRunning = true;
+        timeRemaining = PlayerManager.currentTimer += 120;
         playerTransform = PlayerController.instance.transform;
         spaceShip = GameObject.FindGameObjectWithTag("Ship");
+        waitSecond = Helpers.GetWait(1f);
+        StartCoroutine("RunTimer");
     }
 
-    void Update()
+    IEnumerator RunTimer()
     {
-        if (!timerIsRunning) return;
-
-        if (timeRemaining > 0)
+        while (timeRemaining > 0)
         {
-            timeRemaining -= Time.deltaTime;
             timeText.text = "Temps restant : " + Mathf.RoundToInt(timeRemaining).ToString(); // affiche le temps restant dans l'UI
+            yield return waitSecond;
+            timeRemaining--;
         }
-        else
-        {
-            Instantiate(boss, randomPos() + playerTransform.position, Quaternion.identity);
-            Destroy(spaceShip);
-            timeRemaining = 0;
-            timerIsRunning = false;
-        }
+        Instantiate(boss, randomPos() + playerTransform.position, Quaternion.identity);
+        Destroy(spaceShip);
     }
 
-    InputMaster controls;
-
-    void Awake()
-    {
-        controls = new InputMaster();
-    }
-
-    void OnDisable()
-    {
-        controls.Disable();
-    }
-        Vector3 randomPos()
+    Vector3 randomPos()
     {
         float signA = Random.Range(0, 2) * 2 - 1;
         float signB = Random.Range(0, 2) * 2 - 1;

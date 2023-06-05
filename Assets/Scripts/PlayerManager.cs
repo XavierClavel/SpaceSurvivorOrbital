@@ -131,6 +131,7 @@ public class PlayerManager : MonoBehaviour
     public static int amountOrange { get; private set; }
 
     public static bool isPlayingWithGamepad { get; private set; }
+    public static int currentTimer { get; set; }
 
     void Awake()
     {
