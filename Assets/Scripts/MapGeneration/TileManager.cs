@@ -8,7 +8,7 @@ public class TileManager : MonoBehaviour
     [SerializeField] TilesBank tilesBank;
     TileWaveFunction[,] map;
     [SerializeField] DistanceConstraintsManager distanceConstraintsManager;
-    [SerializeField] Vector2Int tileSize = new Vector2Int(10, 10);
+    public Vector2Int tileSize = new Vector2Int(10, 10);
     [SerializeField] List<Tile> tiles;
     [SerializeField] Tile spaceship;
     List<TileWaveFunction> uncollapsedTiles = new List<TileWaveFunction>();
@@ -33,7 +33,7 @@ public class TileManager : MonoBehaviour
     [HideInInspector] public static int tilesToPlaceAmount => instance.tilesToPlace.Count;
 
     float noiseFactor = 0.3f;   //chance to collapse a random tile
-    static TileManager instance;
+    public static TileManager instance;
     const float tileRotationPeriod = 1f;
     //TODO : adapat tilerotationperiod to planet size
 

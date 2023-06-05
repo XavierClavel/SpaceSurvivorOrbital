@@ -100,9 +100,32 @@ public static class Extensions
         return list;
     }
 
-    public static int mod(ref this int x, int m)
+    public static int mod(this int x, int m)
     {
         return (x % m + m) % m;
+    }
+
+    public static float mod(this float x, int m)
+    {
+        return (x % m + m) % m;
+    }
+
+    public static Vector3 mod(this Vector3 v, Vector3 m)
+    {
+        return new Vector3(
+            (v.x % m.x + m.x) % m.x,
+            (v.y % m.y + m.y) % m.y,
+            (v.z % m.z + m.z) % m.z
+        );
+    }
+
+    public static Vector3 mod(this Vector3 v, int m)
+    {
+        return new Vector3(
+            (v.x % m + m) % m,
+            (v.y % m + m) % m,
+            (v.z % m + m) % m
+        );
     }
 
     public static T getRandom<T>(this IList<T> list)
