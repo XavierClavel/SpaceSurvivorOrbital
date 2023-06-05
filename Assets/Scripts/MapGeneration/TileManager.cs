@@ -81,6 +81,8 @@ public class TileManager : MonoBehaviour
             //if (PlanetManager.getVioletScarcity() != planetResourceScarcity.none) tiles.AddList(tilesBank.violetTiles);
             //if (PlanetManager.getOrangeScarcity() != planetResourceScarcity.none) tiles.AddList(tilesBank.orangeTiles);
             //if (PlanetManager.getGreenScarcity() != planetResourceScarcity.none) tiles.AddList(tilesBank.greenTiles);
+
+
         }
         mapSize = new Vector2Int(planetSize, planetSize);
     }

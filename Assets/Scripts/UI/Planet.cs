@@ -32,19 +32,19 @@ public class Planet : MonoBehaviour
         sizeBar.currentAmount = (int)planetData.size + 1;
         sizeBar.Initialize();
 
-        dangerosityBar.maxAmount = 5;
+        dangerosityBar.maxAmount = 3;
         dangerosityBar.currentAmount = (int)planetData.dangerosity + 1;
         dangerosityBar.Initialize();
 
-        violetBar.maxAmount = 5;
+        violetBar.maxAmount = 4;
         violetBar.currentAmount = (int)planetData.violetScarcity;
         violetBar.Initialize();
 
-        orangeBar.maxAmount = 5;
+        orangeBar.maxAmount = 4;
         orangeBar.currentAmount = (int)planetData.orangeScarcity;
         orangeBar.Initialize();
 
-        greenBar.maxAmount = 5;
+        greenBar.maxAmount = 4;
         greenBar.currentAmount = (int)planetData.greenScarcity;
         greenBar.Initialize();
     }
@@ -84,4 +84,6 @@ public class Planet : MonoBehaviour
                 return new Color32(92, 106, 147, 255); ;
         }
     }
+
+
 }

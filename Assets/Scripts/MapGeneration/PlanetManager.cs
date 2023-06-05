@@ -54,6 +54,50 @@ public static class PlanetManager
 
     }
 
+    public static int getArea()
+    {
+        return (int)Mathf.Pow(getSize(), 2);
+    }
+
+    public static float getScarcity(planetResourceScarcity scarcity)
+    {
+        switch (scarcity)
+        {
+            case planetResourceScarcity.none:
+                return 0f;
+
+            case planetResourceScarcity.rare:
+                return 0.1f;
+
+            case planetResourceScarcity.medium:
+                return 0.2f;
+
+            case planetResourceScarcity.common:
+                return 0.3f;
+        }
+        return 0.2f;
+    }
+
+    static int getResourceAmount(planetResourceScarcity scarcity)
+    {
+        return (int)(getArea() * getScarcity(scarcity));
+    }
+
+    public static int getVioletAmount()
+    {
+        return getResourceAmount(planetData.violetScarcity);
+    }
+
+    public static int getOrangeAmount()
+    {
+        return getResourceAmount(planetData.orangeScarcity);
+    }
+
+    public static int getGreenAmount()
+    {
+        return getResourceAmount(planetData.greenScarcity);
+    }
+
     public static planetResourceScarcity getVioletScarcity()
     {
         return planetData.violetScarcity;
@@ -67,6 +111,22 @@ public static class PlanetManager
     public static planetResourceScarcity getGreenScarcity()
     {
         return planetData.greenScarcity;
+    }
+
+    public static int getInitialCost()
+    {
+        switch (planetData.dangerosity)
+        {
+            case planetDangerosity.peaceful:
+                return Random.Range(5, 15);
+
+            case planetDangerosity.medium:
+                return Random.Range(15, 25);
+
+            case planetDangerosity.hard:
+                return Random.Range(25, 35);
+        }
+        return 15;
     }
 
 }

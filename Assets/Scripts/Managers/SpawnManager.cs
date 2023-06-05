@@ -14,11 +14,12 @@ public class SpawnManager : MonoBehaviour
     public static Dictionary<GameObject, Ennemy> dictObjectToEnnemy = new Dictionary<GameObject, Ennemy>();
     public static Dictionary<GameObject, Resource> dictObjectToResource = new Dictionary<GameObject, Resource>();
     public static Dictionary<GameObject, IInteractable> dictObjectToInteractable = new Dictionary<GameObject, IInteractable>();
-    public int cost = 10;
+    int cost = 10;
 
     private void Awake()
     {
         instance = this;
+        cost = PlanetManager.getInitialCost();
     }
 
     IEnumerator SpawnController()

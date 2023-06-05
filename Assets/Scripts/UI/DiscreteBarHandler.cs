@@ -73,7 +73,6 @@ public class DiscreteBarHandler : MonoBehaviour
         {
             GameObject instance = Instantiate(fullDisplay);
             instance.transform.SetParent(layout.transform);
-            //instance.GetComponent<RectTransform>().localScale = new Vector3(50, 50, 50);
             fullList.Add(instance);
         }
         for (int i = 0; i < maxAmount; i++)

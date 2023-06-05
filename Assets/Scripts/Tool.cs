@@ -13,7 +13,7 @@ public class Tool : MonoBehaviour
 
     private void Start()
     {
-        trigger.size = new Vector2(Helpers.FloorFloat(PlayerManager.toolRange, 2.5f), Helpers.FloorFloat(PlayerManager.toolRange, 3.5f));
+        trigger.size = new Vector2(Helpers.FloorFloat(PlayerManager.toolRange, 3.5f), Helpers.FloorFloat(PlayerManager.toolRange, 3.5f));
         toolPower = PlayerManager.toolPower;
         toolReloadTime = PlayerManager.toolReloadTime;
     }

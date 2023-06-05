@@ -4,8 +4,8 @@ using UnityEngine;
 
 
 public enum planetSize { small, medium, large }
-public enum planetDangerosity { peaceful, agitated, medium, violent, hardcore }
-public enum planetResourceScarcity { none, rare, uncommon, medium, common, abundant }
+public enum planetDangerosity { peaceful, medium, hard }
+public enum planetResourceScarcity { none, rare, medium, common }
 public enum planetType { blue, red, brown }
 
 [System.Serializable]
