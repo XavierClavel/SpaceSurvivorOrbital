@@ -20,6 +20,9 @@ public class TileManager : MonoBehaviour
     Vector2Int lastPos = Vector2Int.zero;
     Vector2Int mapRadius;
     List<Tile> tilesToPlace = new List<Tile>();
+    [SerializeField] Tile green1;
+    [SerializeField] Tile green2;
+    [SerializeField] Tile green3;
 
     [HideInInspector] public static int tilesInAdvance => instance.uncollapsedTiles.Count - instance.tilesToPlace.Count;
     [HideInInspector] public static int tilesToPlaceAmount => instance.tilesToPlace.Count;
@@ -76,6 +79,19 @@ public class TileManager : MonoBehaviour
             groundSprite.color = PlanetManager.getGroundColor();
             planetSize = PlanetManager.getSize();
 
+            Vector3Int greenResourceAllocation = AllocateResource(PlanetManager.getGreenAmount());
+            Debug.Log(greenResourceAllocation);
+            green1.setSpecificAmount(greenResourceAllocation.x);
+            green2.setSpecificAmount(greenResourceAllocation.y);
+            green3.setSpecificAmount(greenResourceAllocation.z);
+
+            if (green1.maxAmount == 0) tiles.Remove(green1);
+            if (green2.maxAmount == 0) tiles.Remove(green2);
+            if (green3.maxAmount == 0) tiles.Remove(green3);
+
+
+
+
             //tiles = new List<Tile>();
             //tiles.AddList(tilesBank.emptyTiles);
             //if (PlanetManager.getVioletScarcity() != planetResourceScarcity.none) tiles.AddList(tilesBank.violetTiles);
@@ -85,6 +101,22 @@ public class TileManager : MonoBehaviour
 
         }
         mapSize = new Vector2Int(planetSize, planetSize);
+    }
+
+    Vector3Int AllocateResource(int resourceAmount)
+    {
+        int amountBlock1 = resourceAmount;
+        int amountBlock2 = 0;
+        int amountBlock3 = 0;
+        if (resourceAmount == 0) return new Vector3Int(amountBlock1, amountBlock2, amountBlock3);
+
+        amountBlock3 = Random.Range(0, resourceAmount / 3);
+        amountBlock1 -= amountBlock3 * 3;
+
+        amountBlock2 = Random.Range(0, amountBlock1 / 2);
+        amountBlock1 -= amountBlock2 * 2;
+
+        return new Vector3Int(amountBlock1, amountBlock2, amountBlock3);
     }
 
     void InitalizeMap()

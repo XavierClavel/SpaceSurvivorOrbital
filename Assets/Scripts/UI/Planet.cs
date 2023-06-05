@@ -23,6 +23,7 @@ public class Planet : MonoBehaviour
             planetData.orangeScarcity = Helpers.getRandomEnum(planetResourceScarcity.none);
             planetData.greenScarcity = Helpers.getRandomEnum(planetResourceScarcity.none);
             planetData.type = Helpers.getRandomEnum(planetType.blue);
+
         }
 
         planet.sprite = getSprite();
@@ -36,15 +37,15 @@ public class Planet : MonoBehaviour
         dangerosityBar.currentAmount = (int)planetData.dangerosity + 1;
         dangerosityBar.Initialize();
 
-        violetBar.maxAmount = 4;
+        violetBar.maxAmount = 3;
         violetBar.currentAmount = (int)planetData.violetScarcity;
         violetBar.Initialize();
 
-        orangeBar.maxAmount = 4;
+        orangeBar.maxAmount = 3;
         orangeBar.currentAmount = (int)planetData.orangeScarcity;
         orangeBar.Initialize();
 
-        greenBar.maxAmount = 4;
+        greenBar.maxAmount = 3;
         greenBar.currentAmount = (int)planetData.greenScarcity;
         greenBar.Initialize();
     }

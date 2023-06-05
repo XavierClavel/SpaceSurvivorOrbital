@@ -34,6 +34,12 @@ public class Tile : ScriptableObject
         constraints = new List<TileConstraint>();
     }
 
+    public void setSpecificAmount(int amount)
+    {
+        minAmount = amount;
+        maxAmount = amount;
+    }
+
 
 
 }

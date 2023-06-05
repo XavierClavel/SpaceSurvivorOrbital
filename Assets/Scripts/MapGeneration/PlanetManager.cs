@@ -18,7 +18,6 @@ public static class PlanetManager
 
     public static int getSize()
     {
-        Debug.Log(planetData.size);
         switch (planetData.size)
         {
             case planetSize.small:
