@@ -13,59 +13,6 @@ public class DiscreteBarHandler : MonoBehaviour
     List<GameObject> emptyList = new List<GameObject>();
     List<GameObject> fullList = new List<GameObject>();
 
-    /*
-        public void SetMaxAmount(int amount, bool initialize = false)
-        {
-            if (initialize) maxAmount = 0;
-            if (maxAmount == amount) return;
-            if (maxAmount < amount)
-            {
-                for (int i = 0; i < amount - maxAmount; i++)
-                {
-                    GameObject instance = Instantiate(emptyDisplay);
-                    instance.transform.SetParent(layout.transform);
-                }
-            }
-            if (maxAmount > amount)
-            {
-                for (int i = maxAmount - 1; i >= amount; i--)
-                {
-                    Destroy(layout.transform.GetChild(i).gameObject);
-                }
-            }
-            maxAmount = amount;
-        }
-        */
-
-    public void SetAmount(int amount)
-    {
-        if (currentAmount == amount) return;
-        int difference = currentAmount - amount;
-        if (currentAmount > amount)
-        {
-            for (int i = amount; i < currentAmount; i++)
-            {
-                Destroy(layout.transform.GetChild(i).gameObject);
-            }
-            for (int i = 0; i < difference; i++)
-            {
-                GameObject instance = Instantiate(emptyDisplay);
-                instance.transform.SetParent(layout.transform);
-            }
-        }
-        if (currentAmount < amount)
-        {
-            for (int i = maxAmount - 1; i >= maxAmount - difference; i--)
-            {
-                Destroy(layout.transform.GetChild(i).gameObject);
-            }
-            for (int i = 0; i < difference; i++)
-            {
-
-            }
-        }
-        currentAmount = amount;
-    }
 
     public void Initialize()
     {
