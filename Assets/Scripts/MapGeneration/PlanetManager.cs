@@ -37,7 +37,21 @@ public static class PlanetManager
 
     public static Color getGroundColor()
     {
-        return planetData.groundColor;
+        switch (planetData.type)
+        {
+            case planetType.blue:
+                return new Color32(92, 106, 147, 255);
+
+            case planetType.red:
+                return new Color32(195, 93, 94, 255);
+
+            case planetType.brown:
+                return new Color32(164, 93, 61, 255);
+
+            default:
+                return new Color32(92, 106, 147, 255); ;
+        }
+
     }
 
     public static planetResourceScarcity getVioletScarcity()

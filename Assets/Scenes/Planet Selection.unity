@@ -199,6 +199,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e7d80dd54f571f438cded0e1c29bf34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  generateRandomPlanets: 1
+  planetBlue: {fileID: 21300000, guid: 92e0d044fe2720a42aa627f7c7b9cfc3, type: 3}
+  planetBrown: {fileID: 21300000, guid: 2c01afd5c60fe314694be5ed667050f8, type: 3}
+  planetRed: {fileID: 21300000, guid: 52488f141578fcc488878f8a6e3f5d95, type: 3}
 --- !u!4 &133157969
 Transform:
   m_ObjectHideFlags: 0
@@ -551,6 +555,10 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 52488f141578fcc488878f8a6e3f5d95, type: 3}
     - target: {fileID: 8910134057242515218, guid: 9fe2751d668581b40b79b1f29a33393c, type: 3}
       propertyPath: planetData.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910134057242515218, guid: 9fe2751d668581b40b79b1f29a33393c, type: 3}
+      propertyPath: planetData.type
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8910134057242515218, guid: 9fe2751d668581b40b79b1f29a33393c, type: 3}
@@ -945,6 +953,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8910134057242515218, guid: 9fe2751d668581b40b79b1f29a33393c, type: 3}
+      propertyPath: planetData.type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910134057242515218, guid: 9fe2751d668581b40b79b1f29a33393c, type: 3}
       propertyPath: planetData.dangerosity
       value: 2
       objectReference: {fileID: 0}
@@ -1225,7 +1237,8 @@ MonoBehaviour:
     violetScarcity: 0
     orangeScarcity: 0
     greenScarcity: 0
-    groundColor: {r: 0.7647059, g: 0.3647059, b: 0.36862746, a: 1}
+    type: 0
+  planet: {fileID: 0}
   sizeBar: {fileID: 0}
   dangerosityBar: {fileID: 0}
   violetBar: {fileID: 0}
@@ -2154,7 +2167,8 @@ MonoBehaviour:
     violetScarcity: 0
     orangeScarcity: 0
     greenScarcity: 0
-    groundColor: {r: 0.36078432, g: 0.41568628, b: 0.5764706, a: 1}
+    type: 0
+  planet: {fileID: 0}
   sizeBar: {fileID: 0}
   dangerosityBar: {fileID: 0}
   violetBar: {fileID: 0}
@@ -2256,7 +2270,8 @@ MonoBehaviour:
     violetScarcity: 0
     orangeScarcity: 0
     greenScarcity: 0
-    groundColor: {r: 0.6431373, g: 0.3647059, b: 0.23921569, a: 1}
+    type: 0
+  planet: {fileID: 0}
   sizeBar: {fileID: 0}
   dangerosityBar: {fileID: 0}
   violetBar: {fileID: 0}
