@@ -24,6 +24,11 @@ public class TileManager : MonoBehaviour
     [SerializeField] Tile green2;
     [SerializeField] Tile green3;
 
+    [SerializeField] Tile orange1;
+    [SerializeField] Tile orange2;
+    [SerializeField] Tile orange3;
+    [SerializeField] Tile violet;
+
     [HideInInspector] public static int tilesInAdvance => instance.uncollapsedTiles.Count - instance.tilesToPlace.Count;
     [HideInInspector] public static int tilesToPlaceAmount => instance.tilesToPlace.Count;
 
@@ -89,14 +94,21 @@ public class TileManager : MonoBehaviour
             if (green2.maxAmount == 0) tiles.Remove(green2);
             if (green3.maxAmount == 0) tiles.Remove(green3);
 
+            Vector3Int orangeResourceAllocation = AllocateResource(PlanetManager.getOrangeAmount());
+            Debug.Log(orangeResourceAllocation);
+            orange1.setSpecificAmount(orangeResourceAllocation.x);
+            orange2.setSpecificAmount(orangeResourceAllocation.y);
+            orange3.setSpecificAmount(orangeResourceAllocation.z);
 
+            if (orange1.maxAmount == 0) tiles.Remove(orange1);
+            if (orange2.maxAmount == 0) tiles.Remove(orange2);
+            if (orange3.maxAmount == 0) tiles.Remove(orange3);
 
+            int violetAmount = PlanetManager.getVioletAmount();
+            violet.setSpecificAmount(violetAmount);
+            Debug.Log(violetAmount);
 
-            //tiles = new List<Tile>();
-            //tiles.AddList(tilesBank.emptyTiles);
-            //if (PlanetManager.getVioletScarcity() != planetResourceScarcity.none) tiles.AddList(tilesBank.violetTiles);
-            //if (PlanetManager.getOrangeScarcity() != planetResourceScarcity.none) tiles.AddList(tilesBank.orangeTiles);
-            //if (PlanetManager.getGreenScarcity() != planetResourceScarcity.none) tiles.AddList(tilesBank.greenTiles);
+            if (violet.maxAmount == 0) tiles.Remove(violet);
 
 
         }

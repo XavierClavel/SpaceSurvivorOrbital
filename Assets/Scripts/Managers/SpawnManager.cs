@@ -19,7 +19,7 @@ public class SpawnManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        cost = PlanetManager.getInitialCost();
+        if (PlanetManager.hasData()) cost = PlanetManager.getInitialCost();
     }
 
     IEnumerator SpawnController()

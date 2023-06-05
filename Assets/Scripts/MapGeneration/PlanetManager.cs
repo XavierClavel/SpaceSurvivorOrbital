@@ -58,7 +58,7 @@ public static class PlanetManager
         return (int)Mathf.Pow(getSize(), 2);
     }
 
-    public static float getScarcity(planetResourceScarcity scarcity)
+    static float getScarcity(planetResourceScarcity scarcity)
     {
         switch (scarcity)
         {
