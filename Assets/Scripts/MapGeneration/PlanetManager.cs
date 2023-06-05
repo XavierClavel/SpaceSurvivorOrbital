@@ -40,4 +40,19 @@ public static class PlanetManager
         return planetData.groundColor;
     }
 
+    public static planetResourceScarcity getVioletScarcity()
+    {
+        return planetData.violetScarcity;
+    }
+
+    public static planetResourceScarcity getOrangeScarcity()
+    {
+        return planetData.orangeScarcity;
+    }
+
+    public static planetResourceScarcity getGreenScarcity()
+    {
+        return planetData.greenScarcity;
+    }
+
 }

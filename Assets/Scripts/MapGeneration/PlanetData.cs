@@ -6,6 +6,7 @@ using UnityEngine;
 public enum planetSize { small, medium, large }
 public enum planetDangerosity { peaceful, agitated, medium, violent, hardcore }
 public enum planetResourceScarcity { none, rare, uncommon, medium, common, abundant }
+public enum planetType { blue, red, brown }
 
 [System.Serializable]
 public class PlanetData
@@ -14,6 +15,6 @@ public class PlanetData
     public planetDangerosity dangerosity;
     public planetResourceScarcity violetScarcity;
     public planetResourceScarcity orangeScarcity;
-    public planetResourceScarcity blueScarcity;
+    public planetResourceScarcity greenScarcity;
     public Color groundColor;
 }

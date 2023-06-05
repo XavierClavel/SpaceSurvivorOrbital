@@ -5,6 +5,7 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
     [SerializeField] SpriteRenderer groundSprite;
+    [SerializeField] TilesBank tilesBank;
     TileWaveFunction[,] map;
     [SerializeField] DistanceConstraintsManager distanceConstraintsManager;
     [SerializeField] Vector2Int tileSize = new Vector2Int(10, 10);
@@ -74,6 +75,12 @@ public class TileManager : MonoBehaviour
         {
             groundSprite.color = PlanetManager.getGroundColor();
             planetSize = PlanetManager.getSize();
+
+            //tiles = new List<Tile>();
+            //tiles.AddList(tilesBank.emptyTiles);
+            //if (PlanetManager.getVioletScarcity() != planetResourceScarcity.none) tiles.AddList(tilesBank.violetTiles);
+            //if (PlanetManager.getOrangeScarcity() != planetResourceScarcity.none) tiles.AddList(tilesBank.orangeTiles);
+            //if (PlanetManager.getGreenScarcity() != planetResourceScarcity.none) tiles.AddList(tilesBank.greenTiles);
         }
         mapSize = new Vector2Int(planetSize, planetSize);
     }

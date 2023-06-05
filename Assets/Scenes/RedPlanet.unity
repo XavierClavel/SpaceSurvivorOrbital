@@ -1847,6 +1847,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d5028337eb3a584d9ec3e8d04ca6f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundSprite: {fileID: 0}
+  tilesBank: {fileID: 0}
   distanceConstraintsManager: {fileID: 11400000, guid: 2d707b2ee9386e44c815ae33e7a09322, type: 2}
   tileSize: {x: 6, y: 6}
   tiles:
@@ -1863,7 +1865,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5a2097c19a4edf84a99b2bf162c0c539, type: 2}
   - {fileID: 11400000, guid: 3bf4088cc3bcd584e8f984f855128f98, type: 2}
   spaceship: {fileID: 11400000, guid: 4215aec2f1b449c43a4023921e54204f, type: 2}
-  mapSize: {x: 6, y: 6}
+  planetSize: 9
 --- !u!1 &639354521
 GameObject:
   m_ObjectHideFlags: 0
@@ -2758,6 +2760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageDisplayPrefab: {fileID: 4759769672159371814, guid: 6f295e5f5c496a14484cbea1770b480f, type: 3}
+  canvas: {fileID: 0}
 --- !u!1 &968670307
 GameObject:
   m_ObjectHideFlags: 0
@@ -3734,6 +3737,7 @@ MonoBehaviour:
   _maxHealth: 100
   _baseSpeed: 3.5
   _damageResistanceMultiplier: 0
+  _invulnerabilityFrameDuration: 0.2
   _baseDamage: {x: 50, y: 75}
   _attackSpeed: 10
   _range: 10
@@ -4734,8 +4738,7 @@ MonoBehaviour:
   timeRemaining: 120
   timeText: {fileID: 1700240053}
   timeToAdd: 5
-  youLooseScreen: {fileID: 38107356}
-  button: {fileID: 0}
+  boss: {fileID: 0}
 --- !u!1001 &1804189738
 PrefabInstance:
   m_ObjectHideFlags: 0
