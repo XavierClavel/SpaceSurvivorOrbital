@@ -6,9 +6,24 @@ using UnityEditor;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using UnityEngine;
 
 public static class Extensions
 {
+    public static void updateX(this Transform t, float value)
+    {
+        t.position = new Vector3(value, t.position.y, t.position.z);
+    }
+
+    public static void updateY(this Transform t, float value)
+    {
+        t.position = new Vector3(t.position.x, value, t.position.z);
+    }
+
+    public static void updateZ(this Transform t, float value)
+    {
+        t.position = new Vector3(t.position.x, t.position.y, value);
+    }
 
     public static TEnum getRandom<TEnum>() where TEnum : System.Enum
     {
