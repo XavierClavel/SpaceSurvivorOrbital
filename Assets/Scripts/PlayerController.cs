@@ -363,6 +363,7 @@ public class PlayerController : MonoBehaviour
     void Move()
     {
         moveDir = controls.Player.Move.ReadValue<Vector2>();
+        if (moveDir.sqrMagnitude > 1) moveDir = moveDir.normalized;
         if (moveDir != Vector2.zero) prevMoveDir = moveDir;
         targetMoveAmount = moveDir * speed;
         moveAmount = Vector2.SmoothDamp(moveAmount, targetMoveAmount, ref smoothMoveVelocity, 0.10f);
