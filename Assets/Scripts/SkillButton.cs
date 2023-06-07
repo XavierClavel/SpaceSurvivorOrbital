@@ -297,6 +297,6 @@ public class SkillButton : MonoBehaviour
 
     public void ActiveOnClick()
     {
-        radar.isActive = true;
+        
     }
 }
