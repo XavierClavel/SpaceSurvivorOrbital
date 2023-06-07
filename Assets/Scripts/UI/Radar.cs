@@ -45,21 +45,21 @@ public class Radar : MonoBehaviour
         //Debug.Log(y);
         longitude = playerTransform.position.x * scaleFactor;
         //var longitude = Mathf.Rad2Deg * Mathf.Atan2(playerTransform.position.y, playerTransform.position.x); // radians
-        latitude = 0.5f * ((playerTransform.position.y + planetRadius).mod(planetCircumference) - planetRadius) * 180f / planetCircumference;
+        //latitude = 0.5f * ((playerTransform.position.y + planetRadius).mod(planetCircumference) - planetRadius) * 180f / planetCircumference;
         latitude = playerTransform.position.y * scaleFactor;
         //latitude = Mathf.Cos(Mathf.Deg2Rad * latitude) * 180f;
 
 
         //latitude = Mathf.Rad2Deg * 2 * Mathf.Atan(Mathf.Exp(Mathf.Deg2Rad * y * scaleFactor)) - 90f;
-        latitude = gudermannianDeg(y);
-        latitude *= -1f;
+        //latitude = gudermannianDeg(y);
+        //latitude *= -1f;
 
-        Debug.Log(gudermannianDeg(y));
+        //Debug.Log(gudermannianDeg(y));
         //Debug.Log(latitude);
         float clampedLatitude = -Mathf.Clamp((latitude + 180).mod(360) - 180, -60f, 60f);
 
         //var q = latitude * longitude;
-        xRotator.eulerAngles = latitude * Vector3.right;
+        xRotator.eulerAngles = -latitude * Vector3.right;
         yRotator.localEulerAngles = longitude * Vector3.up;
 
         //transform.eulerAngles = new Vector3(latitude, longitude);
