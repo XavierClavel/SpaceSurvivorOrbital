@@ -292,4 +292,11 @@ public class SkillButton : MonoBehaviour
                 break;
         }
     }
+
+    public Radar radar;
+
+    public void ActiveOnClick()
+    {
+        
+    }
 }

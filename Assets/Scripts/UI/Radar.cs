@@ -14,6 +14,7 @@ public class Radar : MonoBehaviour
     float planetRadius;
     float latitude;
     float longitude;
+
     float scaleFactor;
     float scaleFactorRad;
 
