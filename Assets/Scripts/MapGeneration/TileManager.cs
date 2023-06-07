@@ -276,9 +276,25 @@ public class TileManager : MonoBehaviour
         Vector2Int currentPos = Helpers.RoundToVector2IndexStep(player.transform.position, tileSize);
         Vector2Int offset = currentPos - lastPos;
 
+        bool goingRight = offset.x >= 0;
+        bool goingUp = offset.y >= 0;
+
         if (offset == Vector2Int.zero) return;
 
         List<Vector2Int> tilesToWrapAroundMap = new List<Vector2Int>();
+
+        int borderX = goingRight ? int.MinValue : int.MaxValue;
+        int borderY = goingUp ? int.MinValue : int.MaxValue;
+
+        Vector2Int lastCorner = lastPos;
+        lastCorner += Vector2Int.right * (goingRight ? mapRadius.x : -mapRadius.x);
+        lastCorner += Vector2Int.up * (goingUp ? mapRadius.y : -mapRadius.y);
+
+        Vector2Int newCorner = currentPos - (lastCorner - lastPos);
+
+        //TODo : offset with tile and last corner applied to new corner
+
+
 
         int signx = Helpers.IntSign(offset.x);
         int signy = Helpers.IntSign(offset.y);
@@ -294,13 +310,20 @@ public class TileManager : MonoBehaviour
             }
         }
 
-
+        //TODO : no central symmetry
         foreach (Vector2Int pos in tilesToWrapAroundMap)
         {
             if (!dictPositionToTile.ContainsKey(pos)) continue;
             GameObject tile = dictPositionToTile[pos];
             dictPositionToTile.Remove(pos);
-            Vector2Int newPos = Helpers.CentralSymmetry(pos, lastPos) + offset;
+            //Vector2Int newPos = Helpers.CentralSymmetry(pos, lastPos) + offset;
+            Vector2Int newPos = pos;// - offset;
+            if (newPos.x > currentPos.x + mapRadius.x) newPos.x -= mapSize.x;
+            else if (newPos.x < currentPos.x - mapRadius.x) newPos.x += mapSize.x;
+
+            if (newPos.y > currentPos.y + mapRadius.y) newPos.y -= mapSize.y;
+            else if (newPos.y < currentPos.y - mapRadius.y) newPos.y += mapSize.y;
+
             dictPositionToTile.Add(newPos, tile);
             tile.transform.position = PositionToWorld(newPos);
         }
