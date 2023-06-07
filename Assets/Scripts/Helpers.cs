@@ -308,6 +308,11 @@ public class Helpers : MonoBehaviour
     private static Dictionary<int, TextMeshProUGUI> dictDebugDisplays = new Dictionary<int, TextMeshProUGUI>();
     [SerializeField] GameObject debugDisplayPrefab;
 
+    public static float Sinh(float value)
+    {
+        return 0.5f * (Mathf.Exp(value) - Mathf.Exp(-value));
+    }
+
     public static Color color_whiteTransparent = new Color(1f, 1f, 1f, 0f);
 
     public static Color ColorFromInt(int r, int g, int b, int a)
