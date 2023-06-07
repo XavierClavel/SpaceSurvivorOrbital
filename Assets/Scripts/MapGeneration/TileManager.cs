@@ -11,7 +11,8 @@ public class TileManager : MonoBehaviour
     [SerializeField] DistanceConstraintsManager distanceConstraintsManager;
     public Vector2Int tileSize = new Vector2Int(10, 10);
     [SerializeField] Vector2Int overrideMapSize;
-    [SerializeField] List<Tile> tiles;
+    [SerializeField] List<Tile> tilesPresent;
+    List<Tile> tiles;
     [SerializeField] Tile spaceship;
     List<TileWaveFunction> uncollapsedTiles = new List<TileWaveFunction>();
     Dictionary<Vector2Int, GameObject> dictPositionToTile = new Dictionary<Vector2Int, GameObject>();
@@ -52,6 +53,7 @@ public class TileManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        tiles = tilesPresent.Copy();
         SetupPlanet();
 
         mapRadius = (mapSize - Vector2Int.one) / 2;
@@ -61,6 +63,7 @@ public class TileManager : MonoBehaviour
         {
             tile.Reset();
             tilesToPlace.AddMultiple(tile, tile.minAmount);
+            Debug.Log(tile.name + " " + tile.minAmount);
         }
 
         foreach (DistanceConstraint distanceConstraint in distanceConstraintsManager.distanceConstraints)
@@ -87,6 +90,11 @@ public class TileManager : MonoBehaviour
         groundSprite.color = PlanetManager.getGroundColor();
         planetSize = PlanetManager.getSize();
 
+        int violetAmount = PlanetManager.getVioletAmount();
+        violet.setSpecificAmount(violetAmount);
+        Debug.Log(violetAmount);
+        if (violet.maxAmount == 0) tiles.Remove(violet);
+
         Vector3Int greenResourceAllocation = AllocateResource(PlanetManager.getGreenAmount());
         Debug.Log(greenResourceAllocation);
         green1.setSpecificAmount(greenResourceAllocation.x);
@@ -106,12 +114,6 @@ public class TileManager : MonoBehaviour
         if (orange1.maxAmount == 0) tiles.Remove(orange1);
         if (orange2.maxAmount == 0) tiles.Remove(orange2);
         if (orange3.maxAmount == 0) tiles.Remove(orange3);
-
-        int violetAmount = PlanetManager.getVioletAmount();
-        violet.setSpecificAmount(violetAmount);
-        Debug.Log(violetAmount);
-
-        if (violet.maxAmount == 0) tiles.Remove(violet);
 
         if (overrideMapSize != Vector2Int.zero) planetSize = overrideMapSize.x;
 

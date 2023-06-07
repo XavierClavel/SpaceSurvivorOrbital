@@ -24,6 +24,7 @@ public class DistanceConstraint
 
     public void Apply()
     {
+        Debug.Log(tile1.name + " and " + tile2.name + " : " + distance);
         tile1.constraints.Add(new TileConstraint(tile2, distance));
         tile2.constraints.Add(new TileConstraint(tile1, distance));
     }
