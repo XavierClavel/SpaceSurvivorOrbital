@@ -70,6 +70,14 @@ public class TilesBankManager : MonoBehaviour
         TileManager.instance.orange3 = orange3;
 
         TileManager.instance.tiles = usedEmptyTiles.Copy();
+
+        TileManager.instance.groundSprite.color = bank.groundColor;
+    }
+
+    public List<Ennemy> GetEnnemies()
+    {
+        TilesBank bank = getBank();
+        return bank.ennemies.Copy();
     }
 
     TilesBank getBank()

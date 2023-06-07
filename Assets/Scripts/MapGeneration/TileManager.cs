@@ -4,7 +4,7 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
     [SerializeField] PlanetData planetData;
-    [SerializeField] SpriteRenderer groundSprite;
+    public SpriteRenderer groundSprite;
     [SerializeField] TilesBankManager tilesBankManager;
     TileWaveFunction[,] map;
     [SerializeField] DistanceConstraintsManager distanceConstraintsManager;
@@ -28,6 +28,7 @@ public class TileManager : MonoBehaviour
     [HideInInspector] public Tile orange1;
     [HideInInspector] public Tile orange2;
     [HideInInspector] public Tile orange3;
+
     [HideInInspector] public Tile violet1;
     [HideInInspector] public Tile violet2;
     [HideInInspector] public Tile violet3;

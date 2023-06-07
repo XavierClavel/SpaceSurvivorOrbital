@@ -7,7 +7,8 @@ using DG.Tweening;
 public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager instance;
-    [SerializeField] List<Ennemy> ennemyPrefabs = new List<Ennemy>();
+    [SerializeField] TilesBankManager tilesBankManager;
+    List<Ennemy> ennemyPrefabs;
     [SerializeField] float waveLength = 4f;
     Transform playerTransform;
     [SerializeField] bool doEnnemySpawn = true;
@@ -16,10 +17,16 @@ public class SpawnManager : MonoBehaviour
     public static Dictionary<GameObject, IInteractable> dictObjectToInteractable = new Dictionary<GameObject, IInteractable>();
     int cost = 10;
 
-    private void Awake()
+    void Start()
     {
         instance = this;
-        if (PlanetManager.hasData()) cost = PlanetManager.getInitialCost();
+        cost = PlanetManager.getInitialCost();
+        ennemyPrefabs = tilesBankManager.GetEnnemies();
+        playerTransform = PlayerController.instance.transform;
+        if (doEnnemySpawn)
+        {
+            StartCoroutine("SpawnController");
+        }
     }
 
     IEnumerator SpawnController()
@@ -29,15 +36,6 @@ public class SpawnManager : MonoBehaviour
             yield return Helpers.GetWait(waveLength);
             StartCoroutine("SpawnWave", cost);
             cost += 5;
-        }
-    }
-
-    void Start()
-    {
-        playerTransform = PlayerController.instance.transform;
-        if (doEnnemySpawn)
-        {
-            StartCoroutine("SpawnController");
         }
     }
 
