@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
+    [SerializeField] PlanetData planetData;
     [SerializeField] SpriteRenderer groundSprite;
     [SerializeField] TilesBank tilesBank;
     TileWaveFunction[,] map;
@@ -14,7 +15,7 @@ public class TileManager : MonoBehaviour
     List<TileWaveFunction> uncollapsedTiles = new List<TileWaveFunction>();
     Dictionary<Vector2Int, GameObject> dictPositionToTile = new Dictionary<Vector2Int, GameObject>();
     PlayerController player;
-    [SerializeField] int planetSize = 9;
+    int planetSize = 9;
     Vector2Int mapSize;
     Vector2Int activationRadius = new Vector2Int(3, 3); //radius around player in which tiles are activated
     Vector2Int lastPos = Vector2Int.zero;
@@ -79,39 +80,39 @@ public class TileManager : MonoBehaviour
 
     void SetupPlanet()
     {
-        if (PlanetManager.hasData())
-        {
-            groundSprite.color = PlanetManager.getGroundColor();
-            planetSize = PlanetManager.getSize();
-
-            Vector3Int greenResourceAllocation = AllocateResource(PlanetManager.getGreenAmount());
-            Debug.Log(greenResourceAllocation);
-            green1.setSpecificAmount(greenResourceAllocation.x);
-            green2.setSpecificAmount(greenResourceAllocation.y);
-            green3.setSpecificAmount(greenResourceAllocation.z);
-
-            if (green1.maxAmount == 0) tiles.Remove(green1);
-            if (green2.maxAmount == 0) tiles.Remove(green2);
-            if (green3.maxAmount == 0) tiles.Remove(green3);
-
-            Vector3Int orangeResourceAllocation = AllocateResource(PlanetManager.getOrangeAmount());
-            Debug.Log(orangeResourceAllocation);
-            orange1.setSpecificAmount(orangeResourceAllocation.x);
-            orange2.setSpecificAmount(orangeResourceAllocation.y);
-            orange3.setSpecificAmount(orangeResourceAllocation.z);
-
-            if (orange1.maxAmount == 0) tiles.Remove(orange1);
-            if (orange2.maxAmount == 0) tiles.Remove(orange2);
-            if (orange3.maxAmount == 0) tiles.Remove(orange3);
-
-            int violetAmount = PlanetManager.getVioletAmount();
-            violet.setSpecificAmount(violetAmount);
-            Debug.Log(violetAmount);
-
-            if (violet.maxAmount == 0) tiles.Remove(violet);
+        if (!PlanetManager.hasData()) PlanetManager.setData(planetData);
 
 
-        }
+        groundSprite.color = PlanetManager.getGroundColor();
+        planetSize = PlanetManager.getSize();
+
+        Vector3Int greenResourceAllocation = AllocateResource(PlanetManager.getGreenAmount());
+        Debug.Log(greenResourceAllocation);
+        green1.setSpecificAmount(greenResourceAllocation.x);
+        green2.setSpecificAmount(greenResourceAllocation.y);
+        green3.setSpecificAmount(greenResourceAllocation.z);
+
+        if (green1.maxAmount == 0) tiles.Remove(green1);
+        if (green2.maxAmount == 0) tiles.Remove(green2);
+        if (green3.maxAmount == 0) tiles.Remove(green3);
+
+        Vector3Int orangeResourceAllocation = AllocateResource(PlanetManager.getOrangeAmount());
+        Debug.Log(orangeResourceAllocation);
+        orange1.setSpecificAmount(orangeResourceAllocation.x);
+        orange2.setSpecificAmount(orangeResourceAllocation.y);
+        orange3.setSpecificAmount(orangeResourceAllocation.z);
+
+        if (orange1.maxAmount == 0) tiles.Remove(orange1);
+        if (orange2.maxAmount == 0) tiles.Remove(orange2);
+        if (orange3.maxAmount == 0) tiles.Remove(orange3);
+
+        int violetAmount = PlanetManager.getVioletAmount();
+        violet.setSpecificAmount(violetAmount);
+        Debug.Log(violetAmount);
+
+        if (violet.maxAmount == 0) tiles.Remove(violet);
+
+
         mapSize = new Vector2Int(planetSize, planetSize);
     }
 
@@ -310,7 +311,8 @@ public class TileManager : MonoBehaviour
             }
         }
 
-        //TODO : no central symmetry
+        Debug.Log(tilesToWrapAroundMap.Count);
+
         foreach (Vector2Int pos in tilesToWrapAroundMap)
         {
             if (!dictPositionToTile.ContainsKey(pos)) continue;
