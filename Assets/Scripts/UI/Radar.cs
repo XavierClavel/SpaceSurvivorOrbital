@@ -48,7 +48,7 @@ public class Radar : MonoBehaviour
         //var longitude = Mathf.Rad2Deg * Mathf.Atan2(playerTransform.position.y, playerTransform.position.x); // radians
         //latitude = 0.5f * ((playerTransform.position.y + planetRadius).mod(planetCircumference) - planetRadius) * 180f / planetCircumference;
         latitude = playerTransform.position.y * scaleFactor;
-        latitude = -Mathf.Sin(Mathf.Deg2Rad * latitude * 0.50f) * 90f;
+        //latitude = -Mathf.Sin(Mathf.Deg2Rad * latitude * 0.50f) * 90f;
 
 
         //latitude = Mathf.Rad2Deg * 2 * Mathf.Atan(Mathf.Exp(Mathf.Deg2Rad * y * scaleFactor)) - 90f;
@@ -60,7 +60,7 @@ public class Radar : MonoBehaviour
         //float clampedLatitude = -Mathf.Clamp(latitude.mod(360), -60f, 60f);
 
         //var q = latitude * longitude;
-        if (Mathf.Abs(latitude) > 90) longitude += 180f;
+        //if (Mathf.Abs(latitude) > 90) longitude += 180f;
         xRotator.eulerAngles = latitude * Vector3.right;
         yRotator.localEulerAngles = longitude * Vector3.up;
 
