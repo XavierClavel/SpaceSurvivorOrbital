@@ -49,3 +49,15 @@ public class DistanceConstraintGroup
         }
     }
 }
+
+[System.Serializable]
+public class SelfDistanceConstraint
+{
+    public Tile tile;
+    public int distance;
+
+    public void Apply()
+    {
+        tile.constraints.Add(new TileConstraint(tile, distance));
+    }
+}

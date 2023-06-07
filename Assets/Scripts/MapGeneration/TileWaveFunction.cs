@@ -12,7 +12,7 @@ public class TileWaveFunction
     public Vector2Int index;
     public TileWaveFunction(List<Tile> tileList, Vector2Int index)    //constructor
     {
-        this.possibleStates = tileList.ToArray().ToList();
+        this.possibleStates = tileList.Copy();
         this.entropy = tileList.Count;
         this.index = index;
     }

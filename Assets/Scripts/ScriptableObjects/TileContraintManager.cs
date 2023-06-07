@@ -7,4 +7,6 @@ public class DistanceConstraintsManager : ScriptableObject
 {
     public List<DistanceConstraint> distanceConstraints = new List<DistanceConstraint>();
     public List<DistanceConstraintGroup> distanceConstraintGroups = new List<DistanceConstraintGroup>();
+    public List<SelfDistanceConstraint> selfDistanceConstraints = new List<SelfDistanceConstraint>();
+
 }

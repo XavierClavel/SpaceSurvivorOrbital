@@ -53,6 +53,7 @@ public class TileManager : MonoBehaviour
     {
         instance = this;
         tiles = tilesPresent.Copy();
+        tiles.TryAdd(spaceship);
         tiles.TryAdd(violet);
         tiles.TryAdd(green1);
         tiles.TryAdd(green2);
@@ -64,6 +65,8 @@ public class TileManager : MonoBehaviour
 
         mapRadius = (mapSize - Vector2Int.one) / 2;
         player = PlayerController.instance;
+
+
 
         foreach (Tile tile in tiles)
         {
@@ -80,6 +83,11 @@ public class TileManager : MonoBehaviour
         foreach (DistanceConstraintGroup distanceConstraintGroup in distanceConstraintsManager.distanceConstraintGroups)
         {
             distanceConstraintGroup.Apply();
+        }
+
+        foreach (SelfDistanceConstraint selfDistanceConstraint in distanceConstraintsManager.selfDistanceConstraints)
+        {
+            selfDistanceConstraint.Apply();
         }
 
         InitalizeMap();
@@ -245,6 +253,7 @@ public class TileManager : MonoBehaviour
         foreach (TileConstraint constraint in newTile.constraints)
         {
             tilesToCollapse = index.GetPosInRange(constraint.distance);
+            Debug.Log(newTile.name + " and " + constraint.otherTile.name + " : " + constraint.distance);
             ApplyConstraint(tilesToCollapse, constraint.otherTile);
         }
 

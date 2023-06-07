@@ -6,7 +6,6 @@ using UnityEditor;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
-using UnityEngine;
 
 public static class Extensions
 {
