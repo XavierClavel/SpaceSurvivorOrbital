@@ -29,7 +29,9 @@ public class TileManager : MonoBehaviour
     [SerializeField] Tile orange1;
     [SerializeField] Tile orange2;
     [SerializeField] Tile orange3;
-    [SerializeField] Tile violet;
+    [SerializeField] Tile violet1;
+    [SerializeField] Tile violet2;
+    [SerializeField] Tile violet3;
 
     [HideInInspector] public static int tilesInAdvance => instance.uncollapsedTiles.Count - instance.tilesToPlace.Count;
     [HideInInspector] public static int tilesToPlaceAmount => instance.tilesToPlace.Count;
@@ -54,13 +56,6 @@ public class TileManager : MonoBehaviour
         instance = this;
         tiles = tilesPresent.Copy();
         tiles.TryAdd(spaceship);
-        tiles.TryAdd(violet);
-        tiles.TryAdd(green1);
-        tiles.TryAdd(green2);
-        tiles.TryAdd(green3);
-        tiles.TryAdd(orange1);
-        tiles.TryAdd(orange2);
-        tiles.TryAdd(orange3);
         SetupPlanet();
 
         mapRadius = (mapSize - Vector2Int.one) / 2;
@@ -104,30 +99,9 @@ public class TileManager : MonoBehaviour
         groundSprite.color = PlanetManager.getGroundColor();
         planetSize = PlanetManager.getSize();
 
-        int violetAmount = PlanetManager.getVioletAmount();
-        violet.setSpecificAmount(violetAmount);
-        Debug.Log(violetAmount);
-        if (violet.maxAmount == 0) tiles.Remove(violet);
-
-        Vector3Int greenResourceAllocation = AllocateResource(PlanetManager.getGreenAmount());
-        Debug.Log(greenResourceAllocation);
-        green1.setSpecificAmount(greenResourceAllocation.x);
-        green2.setSpecificAmount(greenResourceAllocation.y);
-        green3.setSpecificAmount(greenResourceAllocation.z);
-
-        if (green1.maxAmount == 0) tiles.Remove(green1);
-        if (green2.maxAmount == 0) tiles.Remove(green2);
-        if (green3.maxAmount == 0) tiles.Remove(green3);
-
-        Vector3Int orangeResourceAllocation = AllocateResource(PlanetManager.getOrangeAmount());
-        Debug.Log(orangeResourceAllocation);
-        orange1.setSpecificAmount(orangeResourceAllocation.x);
-        orange2.setSpecificAmount(orangeResourceAllocation.y);
-        orange3.setSpecificAmount(orangeResourceAllocation.z);
-
-        if (orange1.maxAmount == 0) tiles.Remove(orange1);
-        if (orange2.maxAmount == 0) tiles.Remove(orange2);
-        if (orange3.maxAmount == 0) tiles.Remove(orange3);
+        AllocateResource(PlanetManager.getVioletAmount(), violet1, violet2, violet3);
+        AllocateResource(PlanetManager.getGreenAmount(), green1, green2, green3);
+        AllocateResource(PlanetManager.getOrangeAmount(), orange1, orange2, orange3);
 
         if (overrideMapSize != Vector2Int.zero) planetSize = overrideMapSize.x;
 
@@ -137,20 +111,26 @@ public class TileManager : MonoBehaviour
         if (mapSize.x % 2 == 0 || mapSize.y % 2 == 0) throw new System.ArgumentOutOfRangeException("map size must be odd");
     }
 
-    Vector3Int AllocateResource(int resourceAmount)
+    void AllocateResource(int resourceAmount, Tile size1, Tile size2, Tile size3)
     {
         int amountBlock1 = resourceAmount;
         int amountBlock2 = 0;
         int amountBlock3 = 0;
-        if (resourceAmount == 0) return new Vector3Int(amountBlock1, amountBlock2, amountBlock3);
+        if (resourceAmount != 0)
+        {
+            amountBlock3 = Random.Range(0, resourceAmount / 3);
+            amountBlock1 -= amountBlock3 * 3;
 
-        amountBlock3 = Random.Range(0, resourceAmount / 3);
-        amountBlock1 -= amountBlock3 * 3;
+            amountBlock2 = Random.Range(0, amountBlock1 / 2);
+            amountBlock1 -= amountBlock2 * 2;
+        }
+        size3.setSpecificAmount(amountBlock3);
+        size2.setSpecificAmount(amountBlock2);
+        size1.setSpecificAmount(amountBlock1);
 
-        amountBlock2 = Random.Range(0, amountBlock1 / 2);
-        amountBlock1 -= amountBlock2 * 2;
-
-        return new Vector3Int(amountBlock1, amountBlock2, amountBlock3);
+        if (size1.maxAmount != 0) tiles.TryAdd(size1);
+        if (size2.maxAmount != 0) tiles.TryAdd(size2);
+        if (size3.maxAmount != 0) tiles.TryAdd(size3);
     }
 
     void InitalizeMap()
