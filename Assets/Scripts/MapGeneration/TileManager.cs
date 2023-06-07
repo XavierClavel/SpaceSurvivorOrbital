@@ -5,14 +5,13 @@ public class TileManager : MonoBehaviour
 {
     [SerializeField] PlanetData planetData;
     [SerializeField] SpriteRenderer groundSprite;
-    [SerializeField] TilesBank tilesBank;
+    [SerializeField] TilesBankManager tilesBankManager;
     TileWaveFunction[,] map;
     [SerializeField] DistanceConstraintsManager distanceConstraintsManager;
     public Vector2Int tileSize = new Vector2Int(10, 10);
     [SerializeField] Vector2Int overrideMapSize;
-    [SerializeField] List<Tile> tilesPresent;
-    List<Tile> tiles;
-    [SerializeField] Tile spaceship;
+    [HideInInspector] public List<Tile> tiles;
+    [HideInInspector] public Tile spaceship;
     List<TileWaveFunction> uncollapsedTiles = new List<TileWaveFunction>();
     Dictionary<Vector2Int, GameObject> dictPositionToTile = new Dictionary<Vector2Int, GameObject>();
     PlayerController player;
@@ -22,16 +21,16 @@ public class TileManager : MonoBehaviour
     Vector2Int lastPos = Vector2Int.zero;
     Vector2Int mapRadius;
     List<Tile> tilesToPlace = new List<Tile>();
-    [SerializeField] Tile green1;
-    [SerializeField] Tile green2;
-    [SerializeField] Tile green3;
+    [HideInInspector] public Tile green1;
+    [HideInInspector] public Tile green2;
+    [HideInInspector] public Tile green3;
 
-    [SerializeField] Tile orange1;
-    [SerializeField] Tile orange2;
-    [SerializeField] Tile orange3;
-    [SerializeField] Tile violet1;
-    [SerializeField] Tile violet2;
-    [SerializeField] Tile violet3;
+    [HideInInspector] public Tile orange1;
+    [HideInInspector] public Tile orange2;
+    [HideInInspector] public Tile orange3;
+    [HideInInspector] public Tile violet1;
+    [HideInInspector] public Tile violet2;
+    [HideInInspector] public Tile violet3;
 
     [HideInInspector] public static int tilesInAdvance => instance.uncollapsedTiles.Count - instance.tilesToPlace.Count;
     [HideInInspector] public static int tilesToPlaceAmount => instance.tilesToPlace.Count;
@@ -54,8 +53,8 @@ public class TileManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        tiles = tilesPresent.Copy();
-        tiles.TryAdd(spaceship);
+        if (!PlanetManager.hasData()) PlanetManager.setData(planetData);
+        tilesBankManager.getTiles();
         SetupPlanet();
 
         mapRadius = (mapSize - Vector2Int.one) / 2;
@@ -93,9 +92,6 @@ public class TileManager : MonoBehaviour
 
     void SetupPlanet()
     {
-        if (!PlanetManager.hasData()) PlanetManager.setData(planetData);
-
-
         groundSprite.color = PlanetManager.getGroundColor();
         planetSize = PlanetManager.getSize();
 

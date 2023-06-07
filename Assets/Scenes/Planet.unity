@@ -2184,17 +2184,11 @@ MonoBehaviour:
     greenScarcity: 1
     type: 2
   groundSprite: {fileID: 1282298096}
-  tilesBank: {fileID: 0}
+  tilesBankManager: {fileID: 1539216222}
   distanceConstraintsManager: {fileID: 11400000, guid: 2d707b2ee9386e44c815ae33e7a09322, type: 2}
   tileSize: {x: 20, y: 20}
   overrideMapSize: {x: 3, y: 3}
-  tilesPresent:
-  - {fileID: 11400000, guid: 9c3ac933118c50a48af9f29504b65cc9, type: 2}
-  - {fileID: 11400000, guid: 6ffb1010cec471e48954c899a288228c, type: 2}
-  - {fileID: 11400000, guid: ae205b1afdebd7440ad78f526153b214, type: 2}
-  - {fileID: 11400000, guid: 5a2097c19a4edf84a99b2bf162c0c539, type: 2}
-  - {fileID: 11400000, guid: 3bf4088cc3bcd584e8f984f855128f98, type: 2}
-  - {fileID: 11400000, guid: d6d5b0ef3f7385b48b14f098d58ea759, type: 2}
+  tiles: []
   spaceship: {fileID: 11400000, guid: 4215aec2f1b449c43a4023921e54204f, type: 2}
   green1: {fileID: 11400000, guid: 36cd78e34a296df4899d9c817de17669, type: 2}
   green2: {fileID: 11400000, guid: f7bf1276eda37544dad0ccf8cc6f1e6b, type: 2}
@@ -10274,6 +10268,70 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3651543051882345906, guid: 58540db277822934293c84efab96fe7d, type: 3}
   m_PrefabInstance: {fileID: 1533900271}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1539216220
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1539216221}
+  - component: {fileID: 1539216222}
+  m_Layer: 0
+  m_Name: TilesBankManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1539216221
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539216220}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1958277321}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1539216222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539216220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ef3dcdce92cfd4680c58af0ef91468, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bluePlanetBank: {fileID: 11400000, guid: 3d6b2ec7cc45ccc4b926eefdb8ed4bb7, type: 2}
+  brownPlanetBank: {fileID: 11400000, guid: 3d6b2ec7cc45ccc4b926eefdb8ed4bb7, type: 2}
+  redPlanetBank: {fileID: 11400000, guid: 3d6b2ec7cc45ccc4b926eefdb8ed4bb7, type: 2}
+  spaceship: {fileID: 11400000, guid: 4215aec2f1b449c43a4023921e54204f, type: 2}
+  violet1: {fileID: 11400000, guid: a22640ce935762a4cbef5ae0ba69d061, type: 2}
+  violet2: {fileID: 11400000, guid: e956f2cff71d02d47be08decc5fa522b, type: 2}
+  violet3: {fileID: 11400000, guid: 951ffa83698614041963c6e09c88436e, type: 2}
+  green1: {fileID: 11400000, guid: 36cd78e34a296df4899d9c817de17669, type: 2}
+  green2: {fileID: 11400000, guid: f7bf1276eda37544dad0ccf8cc6f1e6b, type: 2}
+  green3: {fileID: 11400000, guid: 418f173586daa8a4ea2a23ab890a4368, type: 2}
+  orange1: {fileID: 11400000, guid: 931917c71ee72634eb4c0e39cf037ca3, type: 2}
+  orange2: {fileID: 11400000, guid: d87c1d6bab41c3a46b42c8049b566f35, type: 2}
+  orange3: {fileID: 11400000, guid: 82635dd97b0423843aa03c9bf1439c62, type: 2}
+  emptyTiles:
+  - {fileID: 11400000, guid: 9c3ac933118c50a48af9f29504b65cc9, type: 2}
+  - {fileID: 11400000, guid: 6ffb1010cec471e48954c899a288228c, type: 2}
+  - {fileID: 11400000, guid: ae205b1afdebd7440ad78f526153b214, type: 2}
+  - {fileID: 11400000, guid: 5a2097c19a4edf84a99b2bf162c0c539, type: 2}
+  - {fileID: 11400000, guid: 3bf4088cc3bcd584e8f984f855128f98, type: 2}
+  - {fileID: 11400000, guid: d6d5b0ef3f7385b48b14f098d58ea759, type: 2}
 --- !u!1 &1574685456
 GameObject:
   m_ObjectHideFlags: 0
@@ -11609,6 +11667,7 @@ Transform:
   - {fileID: 475645623}
   - {fileID: 864999404}
   - {fileID: 582762390}
+  - {fileID: 1539216221}
   - {fileID: 1210257086}
   - {fileID: 1574685457}
   m_Father: {fileID: 0}

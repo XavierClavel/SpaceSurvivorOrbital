@@ -34,6 +34,11 @@ public static class PlanetManager
         }
     }
 
+    public static planetType getType()
+    {
+        return planetData.type;
+    }
+
     public static Color getGroundColor()
     {
         switch (planetData.type)
