@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: TileConstraintManager
   m_EditorClassIdentifier: 
   distanceConstraints:
+  - tile1: {fileID: 11400000, guid: a22640ce935762a4cbef5ae0ba69d061, type: 2}
+    tile2: {fileID: 11400000, guid: 4215aec2f1b449c43a4023921e54204f, type: 2}
+    distance: 1
   - tile1: {fileID: 11400000, guid: 9c3ac933118c50a48af9f29504b65cc9, type: 2}
     tile2: {fileID: 11400000, guid: 9c3ac933118c50a48af9f29504b65cc9, type: 2}
     distance: 1
@@ -40,4 +43,9 @@ MonoBehaviour:
   - tile1: {fileID: 11400000, guid: 931917c71ee72634eb4c0e39cf037ca3, type: 2}
     tile2: {fileID: 11400000, guid: 82635dd97b0423843aa03c9bf1439c62, type: 2}
     distance: 2
-  distanceConstraintGroups: []
+  distanceConstraintGroups:
+  - tiles:
+    - {fileID: 11400000, guid: 36cd78e34a296df4899d9c817de17669, type: 2}
+    - {fileID: 11400000, guid: 418f173586daa8a4ea2a23ab890a4368, type: 2}
+    - {fileID: 11400000, guid: f7bf1276eda37544dad0ccf8cc6f1e6b, type: 2}
+    distance: 2
