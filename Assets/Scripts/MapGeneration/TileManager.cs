@@ -10,6 +10,7 @@ public class TileManager : MonoBehaviour
     TileWaveFunction[,] map;
     [SerializeField] DistanceConstraintsManager distanceConstraintsManager;
     public Vector2Int tileSize = new Vector2Int(10, 10);
+    [SerializeField] Vector2Int overrideMapSize;
     [SerializeField] List<Tile> tiles;
     [SerializeField] Tile spaceship;
     List<TileWaveFunction> uncollapsedTiles = new List<TileWaveFunction>();
@@ -111,6 +112,8 @@ public class TileManager : MonoBehaviour
         Debug.Log(violetAmount);
 
         if (violet.maxAmount == 0) tiles.Remove(violet);
+
+        if (overrideMapSize != Vector2Int.zero) planetSize = overrideMapSize.x;
 
 
         mapSize = new Vector2Int(planetSize, planetSize);
