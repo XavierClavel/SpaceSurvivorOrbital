@@ -14,9 +14,13 @@ public class Radar : MonoBehaviour
     float planetRadius;
     float latitude;
     float longitude;
+    public bool isActive = false;
 
     private void Start()
     {
+        if (!isActive) { this.gameObject.SetActive(false); }
+        else if (isActive) { this.gameObject.SetActive(true); }
+
         playerTransform = PlayerController.instance.transform;
         planetSize = (PlanetManager.hasData() ? PlanetManager.getSize() : 9) * TileManager.instance.tileSize.x;
         planetRadius = (float)planetSize * 0.5f;
