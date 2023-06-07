@@ -57,6 +57,14 @@ public static class Extensions
     }
 
     ///<summary>
+    ///Adds the item to the list if it is absent, else does nothing.
+    ///</summary>
+    public static void TryAdd<T>(this List<T> list, T value)
+    {
+        if (!list.Contains(value)) list.Add(value);
+    }
+
+    ///<summary>
     ///Adds an object X times to a list
     ///</summary>
     public static void AddMultiple<T>(this List<T> list, T value, int amount)

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class TileManager : MonoBehaviour
 {
     [SerializeField] PlanetData planetData;
@@ -54,6 +53,13 @@ public class TileManager : MonoBehaviour
     {
         instance = this;
         tiles = tilesPresent.Copy();
+        tiles.TryAdd(violet);
+        tiles.TryAdd(green1);
+        tiles.TryAdd(green2);
+        tiles.TryAdd(green3);
+        tiles.TryAdd(orange1);
+        tiles.TryAdd(orange2);
+        tiles.TryAdd(orange3);
         SetupPlanet();
 
         mapRadius = (mapSize - Vector2Int.one) / 2;
@@ -119,6 +125,8 @@ public class TileManager : MonoBehaviour
 
 
         mapSize = new Vector2Int(planetSize, planetSize);
+
+        if (mapSize.x % 2 == 0 || mapSize.y % 2 == 0) throw new System.ArgumentOutOfRangeException("map size must be odd");
     }
 
     Vector3Int AllocateResource(int resourceAmount)
