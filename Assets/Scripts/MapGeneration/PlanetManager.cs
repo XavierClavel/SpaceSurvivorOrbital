@@ -79,7 +79,7 @@ public static class PlanetManager
 
     static int getResourceAmount(planetResourceScarcity scarcity)
     {
-        return (int)(getArea() * getScarcity(scarcity));
+        return (int)Mathf.Ceil(getArea() * getScarcity(scarcity));
     }
 
     public static int getVioletAmount()

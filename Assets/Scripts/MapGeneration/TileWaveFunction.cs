@@ -29,14 +29,8 @@ public class TileWaveFunction
 
     public Tile CollapseWaveFunction()
     {
-        foreach (Tile tile in possibleStates)
-        {
-            Debug.Log(tile.name);
-        }
-        Debug.Log("__________________");
         Tile tileToPlace = TileManager.getTileToPlace(possibleStates);
 
-        Debug.Log("result : " + (tileToPlace == null ? "null" : tileToPlace.name));
         if (tileToPlace == null) return getWeightedRandomTile();
 
         /*
