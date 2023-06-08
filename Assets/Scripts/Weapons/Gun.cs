@@ -11,6 +11,7 @@ public class Gun : Weapon
     WaitForSeconds magazineReloadWindow;
     Bullet bulletPrefab;
     bool autoReload = true;
+    Tween sliderTween;
 
     int damage;
     bool critical;
@@ -27,15 +28,16 @@ public class Gun : Weapon
     }
 
 
-    public override void Shoot()
+    protected override void Shoot()
     {
         if (currentMagazine == 0) return;
         if (autoReload)
         {
-            StopCoroutine("ReloadMagazine");
+            StopCoroutine(nameof(ReloadMagazine));
+            if (sliderTween != null) sliderTween.Kill();
             reloadSlider.gameObject.SetActive(false);
         }
-        player.StartCoroutine("Reload");
+        StartCoroutine(nameof(Reload));
 
 
         soundManager.PlaySfx(transform, sfx.shoot);
@@ -55,24 +57,20 @@ public class Gun : Weapon
         currentMagazine--;
         bulletsLayoutManager.DecreaseAmount();
 
-        if (currentMagazine == 0) StartCoroutine("ReloadMagazine");
-    }
-    public override void StartFiring()
-    {
-        base.StartFiring();
+        if (currentMagazine == 0) StartCoroutine(nameof(ReloadMagazine));
     }
 
     public override void StopFiring()
     {
+        if (autoReload && firing) StartCoroutine(nameof(ReloadMagazine));
         base.StopFiring();
-        if (autoReload) StartCoroutine("ReloadMagazine");
     }
 
     IEnumerator ReloadMagazine()
     {
         reloadSlider.gameObject.SetActive(true);
         reloadSlider.value = 0f;
-        reloadSlider.DOValue(1f, magazineReloadTime).SetEase(Ease.Linear);
+        sliderTween = reloadSlider.DOValue(1f, magazineReloadTime).SetEase(Ease.Linear);
         yield return magazineReloadWindow;
         reloadSlider.gameObject.SetActive(false);
         bulletsLayoutManager.SetAmount(magazine);

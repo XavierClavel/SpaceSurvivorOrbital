@@ -71,10 +71,6 @@ public class PlayerController : MonoBehaviour
     Vector3 targetMoveAmount;
     SoundManager soundManager;
     Vector2 prevMoveDir = Vector2.zero;
-    bool reloading = false;
-    bool reloadingMining = false;
-    bool shooting = false;
-    bool mining = false;
     bool aiming = false;
     [SerializeField] Slider healthBar;
     float _health;
@@ -199,24 +195,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    IEnumerator Reload()
-    {
-        reloading = true;
-        yield return bulletReloadWindow;
-        reloading = false;
-        if (shooting) weapon.Shoot();
-    }
-
-
-
-    IEnumerator ReloadMining()
-    {
-        reloadingMining = true;
-        yield return bulletReloadWindow;
-        reloadingMining = false;
-        if (mining) Mine();
-    }
-
     void Start()
     {
         maxViolet = PlayerManager.maxViolet;
@@ -242,6 +220,8 @@ public class PlayerController : MonoBehaviour
 
         tool = Instantiate(PlayerManager.tool, transform.position, Quaternion.identity);
         tool.transform.SetParent(transform);
+        tool.Initialize(new Vector2(PlayerManager.toolRange, PlayerManager.toolRange), PlayerManager.toolPower, PlayerManager.toolReloadTime);
+        //TODO? Vector2 for toolRange in PlayerManager
 
         rb = GetComponent<Rigidbody2D>();
         cameraTransform = Camera.main.transform;
@@ -309,31 +289,25 @@ public class PlayerController : MonoBehaviour
         {
             if (aiming)
             {
-                shooting = true;
-                mining = false;
-                if (reloading) return;
+                tool.StopMining();
                 weapon.StartFiring();
-                weapon.Shoot();
             }
 
         };
         controls.Player.Shoot.canceled += ctx =>
         {
-            shooting = false;
             weapon.StopFiring();
         };
 
         controls.Player.Mine.started += ctx =>
         {
-            mining = true;
-            shooting = false;
-            if (reloadingMining) return;
-            Mine();
+            weapon.StopFiring();
+            tool.StartMining();
         };
 
         controls.Player.Mine.canceled += ctx =>
         {
-            mining = false;
+            tool.StopMining();
         };
 
         controls.Player.Reload.performed += context =>
@@ -450,13 +424,6 @@ public class PlayerController : MonoBehaviour
         if (!playerControlled) return;
 
         Vector2 localMove = moveAmount * Time.fixedDeltaTime;
-        if (mining)
-        {
-            _playerState = playerState.mining;
-            rb.MovePosition(rb.position);
-            arrowTransform.position = transform.position;
-            return;
-        }
         _walkDirection = angleToDirection(Vector2.SignedAngle(localMove, Vector2.down) + 180f);
 
 
@@ -465,20 +432,9 @@ public class PlayerController : MonoBehaviour
         arrowTransform.position = transform.position;
         cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
 
-        if (shooting)
-        {
-            _playerState = playerState.shooting;
-            return;
-        }
         _playerState = localMove.sqrMagnitude < 1e-4f ? playerState.idle : playerState.walking;
 
 
-    }
-
-    void Mine()
-    {
-        StartCoroutine("ReloadMining");
-        tool.Hit();
     }
 
     [SerializeField] GameObject youLooseScreen;

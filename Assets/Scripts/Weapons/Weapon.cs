@@ -26,6 +26,9 @@ public class Weapon : MonoBehaviour
     protected PlayerController player;
     [HideInInspector] public Slider reloadSlider;
 
+    protected bool firing = false;
+    protected bool reloading = false;
+
     protected virtual void Start()
     {
         baseDamage = PlayerManager.baseDamage;
@@ -46,10 +49,24 @@ public class Weapon : MonoBehaviour
 
     }
 
-    public virtual void Shoot() { }
+    protected virtual void Shoot() { }
 
-    public virtual void Reload() { }
+    protected IEnumerator Reload()
+    {
+        reloading = true;
+        yield return new WaitForSeconds(bulletReloadTime);
+        reloading = false;
+        if (firing) Shoot();
+    }
 
-    public virtual void StartFiring() { }
-    public virtual void StopFiring() { }
+    public virtual void StartFiring()
+    {
+        firing = true;
+        if (!reloading) Shoot();
+    }
+
+    public virtual void StopFiring()
+    {
+        firing = false;
+    }
 }

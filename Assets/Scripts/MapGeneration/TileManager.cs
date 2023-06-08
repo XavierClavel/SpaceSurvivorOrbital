@@ -310,7 +310,6 @@ public class TileManager : MonoBehaviour
             }
         }
 
-        Debug.Log(tilesToWrapAroundMap.Count);
 
         foreach (Vector2Int pos in tilesToWrapAroundMap)
         {

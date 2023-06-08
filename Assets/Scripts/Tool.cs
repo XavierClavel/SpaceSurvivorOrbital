@@ -7,10 +7,20 @@ public class Tool : MonoBehaviour
 {
     List<Resource> resourcesInRange = new List<Resource>();
     [SerializeField] CapsuleCollider2D trigger;
-    public static int toolPower;
+    protected int toolPower;
     protected float toolReloadTime;
-    private bool toolReload;
 
+    private bool toolReloading = false;
+    private bool mining = false;
+
+    public void Initialize(Vector2 toolRange, int toolPower, float toolReloadTime)
+    {
+        trigger.size = toolRange;
+        this.toolPower = toolPower;
+        this.toolReloadTime = toolReloadTime;
+    }
+
+    //TODO : replace with initialize method
     private void Start()
     {
         trigger.size = new Vector2(Helpers.FloorFloat(PlayerManager.toolRange, 3.5f), Helpers.FloorFloat(PlayerManager.toolRange, 3.5f));
@@ -33,19 +43,28 @@ public class Tool : MonoBehaviour
         List<Resource> resourcesToHit = resourcesInRange.ToArray().ToList();
         foreach (Resource resource in resourcesToHit)
         {
-            if (!toolReload)
-            {
-                resource.Hit(toolPower);
-                StartCoroutine(ToolReload());
-            }
-
+            resource.Hit(toolPower);
         }
+        StartCoroutine(nameof(ToolReload));
     }
     IEnumerator ToolReload()
     {
-        toolReload = true;
+        toolReloading = true;
         yield return new WaitForSeconds(toolReloadTime);
-        toolReload = false;
+        toolReloading = false;
+        if (mining) Hit();
     }
+
+    public void StartMining()
+    {
+        mining = true;
+        if (!toolReloading) Hit();
+    }
+
+    public void StopMining()
+    {
+        mining = false;
+    }
+
 
 }
