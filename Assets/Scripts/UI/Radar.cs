@@ -21,7 +21,8 @@ public class Radar : MonoBehaviour
     private void Start()
     {
         playerTransform = PlayerController.instance.transform;
-        planetCircumference = (PlanetManager.hasData() ? PlanetManager.getSize() : 9) * TileManager.instance.tileSize.x;
+        planetCircumference = TileManager.planetSize * TileManager.instance.tileSize.x;
+        Debug.Log(PlanetManager.getSize());
         planetRadius = (float)planetCircumference * 0.5f;
         scaleFactor = 360f / (float)planetCircumference;
         scaleFactorRad = Mathf.Deg2Rad * scaleFactor;

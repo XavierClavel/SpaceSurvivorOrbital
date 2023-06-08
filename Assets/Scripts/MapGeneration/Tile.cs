@@ -8,7 +8,7 @@ using MyBox;
 public class Tile : ScriptableObject
 {
     public int weight = 1;
-    public GameObject tileObject;
+    [HideInInspector] public GameObject tileObject;
     public bool hasLimitedAmount;
 
     [ConditionalField(nameof(hasLimitedAmount))]

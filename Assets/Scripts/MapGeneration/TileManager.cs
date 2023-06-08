@@ -15,7 +15,7 @@ public class TileManager : MonoBehaviour
     List<TileWaveFunction> uncollapsedTiles = new List<TileWaveFunction>();
     Dictionary<Vector2Int, GameObject> dictPositionToTile = new Dictionary<Vector2Int, GameObject>();
     PlayerController player;
-    int planetSize = 9;
+    public static int planetSize = 9;
     Vector2Int mapSize;
     Vector2Int activationRadius = new Vector2Int(3, 3); //radius around player in which tiles are activated
     Vector2Int lastPos = Vector2Int.zero;
@@ -56,6 +56,7 @@ public class TileManager : MonoBehaviour
         instance = this;
         if (!PlanetManager.hasData()) PlanetManager.setData(planetData);
         tilesBankManager.getTiles();
+        tiles.Add(spaceship);
         SetupPlanet();
 
         mapRadius = (mapSize - Vector2Int.one) / 2;
@@ -67,7 +68,7 @@ public class TileManager : MonoBehaviour
         {
             tile.Reset();
             tilesToPlace.AddMultiple(tile, tile.minAmount);
-            Debug.Log(tile.name + " " + tile.minAmount);
+            //Debug.Log(tile.name + " " + tile.minAmount);
         }
 
         foreach (DistanceConstraint distanceConstraint in distanceConstraintsManager.distanceConstraints)
@@ -229,7 +230,7 @@ public class TileManager : MonoBehaviour
         foreach (TileConstraint constraint in newTile.constraints)
         {
             tilesToCollapse = index.GetPosInRange(constraint.distance);
-            Debug.Log(newTile.name + " and " + constraint.otherTile.name + " : " + constraint.distance);
+            //Debug.Log(newTile.name + " and " + constraint.otherTile.name + " : " + constraint.distance);
             ApplyConstraint(tilesToCollapse, constraint.otherTile);
         }
 
