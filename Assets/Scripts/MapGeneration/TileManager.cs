@@ -93,7 +93,6 @@ public class TileManager : MonoBehaviour
 
     void SetupPlanet()
     {
-        groundSprite.color = PlanetManager.getGroundColor();
         planetSize = PlanetManager.getSize();
 
         AllocateResource(PlanetManager.getVioletAmount(), violet1, violet2, violet3);

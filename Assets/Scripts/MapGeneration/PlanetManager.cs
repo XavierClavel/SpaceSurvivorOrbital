@@ -39,25 +39,6 @@ public static class PlanetManager
         return planetData.type;
     }
 
-    public static Color getGroundColor()
-    {
-        switch (planetData.type)
-        {
-            case planetType.blue:
-                return new Color32(92, 106, 147, 255);
-
-            case planetType.red:
-                return new Color32(195, 93, 94, 255);
-
-            case planetType.brown:
-                return new Color32(164, 93, 61, 255);
-
-            default:
-                return new Color32(92, 106, 147, 255); ;
-        }
-
-    }
-
     public static int getArea()
     {
         return (int)Mathf.Pow(getSize(), 2);
