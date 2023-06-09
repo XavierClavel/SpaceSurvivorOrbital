@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Events;
 
 public class Tool : MonoBehaviour
 {
-    List<Resource> resourcesInRange = new List<Resource>();
+    [HideInInspector] public List<Resource> resourcesInRange = new List<Resource>();
     [SerializeField] CapsuleCollider2D trigger;
     protected int toolPower;
     protected float toolReloadTime;
 
     private bool toolReloading = false;
     private bool mining = false;
+
+    [HideInInspector] public UnityEvent onNoRessourcesLeft = new UnityEvent();
+    [HideInInspector] public UnityEvent<GameObject> onResourceExit = new UnityEvent<GameObject>();
 
     public void Initialize(Vector2 toolRange, int toolPower, float toolReloadTime)
     {
@@ -20,23 +24,28 @@ public class Tool : MonoBehaviour
         this.toolReloadTime = toolReloadTime;
     }
 
-    //TODO : replace with initialize method
-    private void Start()
-    {
-        trigger.size = new Vector2(Helpers.FloorFloat(PlayerManager.toolRange, 3.5f), Helpers.FloorFloat(PlayerManager.toolRange, 3.5f));
-        toolPower = PlayerManager.toolPower;
-        toolReloadTime = PlayerManager.toolReloadTime;
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("tool trigger");
         resourcesInRange.Add(SpawnManager.dictObjectToResource[other.gameObject]);
+        if (!mining) return;
+        if (toolReloading) return;
+        Hit();
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         resourcesInRange.Remove(SpawnManager.dictObjectToResource[other.gameObject]);
+        onResourceExit.Invoke(other.gameObject);
+
+        if (mining && resourcesInRange.Count == 0)
+        {
+            mining = false;
+            onNoRessourcesLeft.Invoke();
+
+        }
     }
+
 
     public void Hit()
     {
@@ -57,7 +66,9 @@ public class Tool : MonoBehaviour
 
     public void StartMining()
     {
+        Debug.Log(resourcesInRange.Count);
         mining = true;
+        if (resourcesInRange.Count == 0) return;
         if (!toolReloading) Hit();
     }
 
