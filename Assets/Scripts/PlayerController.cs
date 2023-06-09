@@ -247,6 +247,10 @@ public class PlayerController : MonoBehaviour
         layoutManagerOrange.Setup(maxOrange, fillAmountOrange, resourceType.orange);
         layoutManagerGreen.Setup(maxGreen, fillAmountGreen, resourceType.green);
 
+        layoutManagerViolet.FillNSliders(PlayerManager.amountViolet);
+        layoutManagerOrange.FillNSliders(PlayerManager.amountOrange);
+        layoutManagerGreen.FillNSliders(PlayerManager.amountGreen);
+
         bulletReloadWindow = Helpers.GetWait(bulletReloadTime);
         invulnerabilityFrameDuration = Helpers.GetWait(PlayerManager.invulnerabilityFrameDuration);
 

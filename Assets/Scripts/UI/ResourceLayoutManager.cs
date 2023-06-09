@@ -31,13 +31,31 @@ public class ResourceLayoutManager : MonoBehaviour
         if (full) return;
         sliders[sliderIndex].value++;
         if (sliders[sliderIndex].value < amountToFill) return;
-        sliderIndex++;
         OnSliderComplete();
-        full = sliderIndex >= sliders.Count;
     }
+
+    void FillSlider()
+    {
+        if (full) return;
+        sliders[sliderIndex].value = amountToFill;
+        OnSliderComplete();
+    }
+
+    public void FillNSliders(int N)
+    {
+        for (int i = 0; i < N; i++)
+        {
+            FillSlider();
+        }
+    }
+
+
 
     void OnSliderComplete()
     {
+        sliderIndex++;
+        full = sliderIndex >= sliders.Count;
+
         switch (resource)
         {
             case resourceType.orange:
@@ -50,7 +68,6 @@ public class ResourceLayoutManager : MonoBehaviour
 
             case resourceType.violet:
                 PlayerManager.GatherResourceViolet();
-                //PlayerController.ActivateSpaceship();
                 break;
         }
     }
