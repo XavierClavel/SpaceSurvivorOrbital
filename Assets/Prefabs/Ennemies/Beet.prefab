@@ -53,7 +53,12 @@ MonoBehaviour:
   healthBar: {fileID: 2853218550413945330}
   rb: {fileID: 5132843330540273407}
   spriteOverlay: {fileID: 3929814262209255274}
-  cost: 1
+  cost: 2
+  knockbackForce: 5
+  knockbackRiseDuration: 0.1
+  knockbackPlateauDuration: 0.1
+  knockbackFallDuration: 0.1
+  knockbackStunDuration: 0.1
   baseHealth: 110
   speed: 1.5
   fleeSpeed: 2
@@ -172,9 +177,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0058995187, y: -0.049755387}
+  m_Offset: {x: 0.04216093, y: -0.016113102}
   serializedVersion: 2
-  m_Radius: 0.49978158
+  m_Radius: 0.3267643
 --- !u!1 &3542452932831592109
 GameObject:
   m_ObjectHideFlags: 0
