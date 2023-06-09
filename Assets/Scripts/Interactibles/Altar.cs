@@ -13,7 +13,7 @@ public class Altar : MonoBehaviour, IInteractable
 
     public void StartInteracting()
     {
-        PlayerController.instance.SpawnMinerBot();
+        ObjectManager.DisplayAltarUI();
         Destroy(gameObject);
     }
 
