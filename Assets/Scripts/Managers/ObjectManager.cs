@@ -48,5 +48,12 @@ public class ObjectManager : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        dictObjectToEnnemy = new Dictionary<GameObject, Ennemy>();
+        dictObjectToInteractable = new Dictionary<GameObject, IInteractable>();
+        dictObjectToResource = new Dictionary<GameObject, Resource>();
+    }
+
 
 }
