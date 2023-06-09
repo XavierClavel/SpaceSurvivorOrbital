@@ -62,18 +62,18 @@ public class SkillTree : MonoBehaviour
         float selectedPositionY = selectedRectTransform.anchoredPosition.y + selectedRectTransform.rect.height;
         selectedPositionY += parentRectTransform.anchoredPosition.y;
         // The upper bound of the scroll view is the anchor position of the content we're scrolling.
-        float scrollViewMinY = contentPanel.anchoredPosition.y;
+        float scrollViewBottom = contentPanel.anchoredPosition.y;
         // The lower bound is the anchor position + the height of the scroll rect.
-        float scrollViewMaxY = contentPanel.anchoredPosition.y + scrollRectTransform.rect.height;
+        float scrollViewTop = contentPanel.anchoredPosition.y + scrollRectTransform.rect.height;
 
         //selectedPositionY *= -1f;
 
-        Debug.Log(scrollViewMaxY);
-        Debug.Log(scrollViewMinY);
+        Debug.Log(scrollViewTop);
+        Debug.Log(scrollViewBottom);
         Debug.Log("current : " + selectedPositionY);
 
         // If the selected position is below the current lower bound of the scroll view we scroll down.
-        if (selectedPositionY > scrollViewMaxY)
+        if (selectedPositionY > scrollViewTop)
         {
             float newY = selectedPositionY - scrollRectTransform.rect.height;
             Debug.Log("new y : " + newY);
@@ -81,9 +81,10 @@ public class SkillTree : MonoBehaviour
             //contentPanel.DOAnchorPos(new Vector2(contentPanel.anchoredPosition.x, newY), 0.5f);
         }
         // If the selected position is above the current upper bound of the scroll view we scroll up.
-        else if (selectedPositionY < scrollViewMinY)
+        else if (selectedPositionY < scrollViewBottom)
         {
-            contentPanel.DOAnchorPos(new Vector2(contentPanel.anchoredPosition.x, Mathf.Abs(selectedRectTransform.anchoredPosition.y)), 0.5f);
+            //contentPanel.DOAnchorPos(new Vector2(contentPanel.anchoredPosition.x, Mathf.Abs(selectedRectTransform.anchoredPosition.y)), 0.5f);
+            contentPanel.DOAnchorPos(new Vector2(contentPanel.anchoredPosition.x, -selectedPositionY - 400f), 0.5f);
         }
     }
 
