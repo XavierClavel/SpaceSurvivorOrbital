@@ -45,6 +45,8 @@ public class SkillTree : MonoBehaviour
 
     private void Update()
     {
+        //TODO : make input switch from playerManager
+        if (!PlayerManager.isPlayingWithGamepad) return;
         if (eventSystem.currentSelectedGameObject == previousSelected) return;
         previousSelected = eventSystem.currentSelectedGameObject;
         RectTransform selectedRectTransform = eventSystem.currentSelectedGameObject.GetComponent<RectTransform>();
