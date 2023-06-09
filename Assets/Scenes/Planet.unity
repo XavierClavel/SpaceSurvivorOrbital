@@ -1100,12 +1100,13 @@ MonoBehaviour:
   bulletsLayoutManager: {fileID: 485862576}
   youLooseScreen: {fileID: 38107356}
   button: {fileID: 157606359}
-  giveResources: 0
+  giveResources: 1
   smallSize: 5
   largeSize: 40
   radar: {fileID: 1232134763}
   isRadarActive: 0
   spaceshipIndicator: {fileID: 1682673399}
+  isArrowShipActive: 0
   effect: 0
 --- !u!95 &169695427
 Animator:
@@ -2201,6 +2202,7 @@ MonoBehaviour:
   violet1: {fileID: 11400000, guid: a22640ce935762a4cbef5ae0ba69d061, type: 2}
   violet2: {fileID: 11400000, guid: e956f2cff71d02d47be08decc5fa522b, type: 2}
   violet3: {fileID: 11400000, guid: 951ffa83698614041963c6e09c88436e, type: 2}
+  autel: {fileID: 0}
 --- !u!1 &639354521
 GameObject:
   m_ObjectHideFlags: 0
@@ -10327,6 +10329,7 @@ MonoBehaviour:
   orange1: {fileID: 11400000, guid: 931917c71ee72634eb4c0e39cf037ca3, type: 2}
   orange2: {fileID: 11400000, guid: d87c1d6bab41c3a46b42c8049b566f35, type: 2}
   orange3: {fileID: 11400000, guid: 82635dd97b0423843aa03c9bf1439c62, type: 2}
+  autel: {fileID: 11400000, guid: a486aa8ed31542447b4689e422d6bda1, type: 2}
   emptyTiles:
   - {fileID: 11400000, guid: 9c3ac933118c50a48af9f29504b65cc9, type: 2}
   - {fileID: 11400000, guid: 6ffb1010cec471e48954c899a288228c, type: 2}
@@ -10884,10 +10887,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 363366f1d565b774fb932f2dfdcb5543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visionRadius: 4
   tool: {fileID: 5109167104063420632, guid: ba3515255ae30cd488b74de8eae05da4, type: 3}
   toolRange: {x: 3, y: 3}
   toolPower: 2
   toolReloadTime: 0.5
+  maxDistanceToPlayer: 9
 --- !u!4 &1733704165
 Transform:
   m_ObjectHideFlags: 0

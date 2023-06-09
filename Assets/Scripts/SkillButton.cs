@@ -295,10 +295,44 @@ public class SkillButton : MonoBehaviour
     public void ActiveRadar()
     {
         PlayerManager.ActivateRadar();
+
+        if (status != skillButtonStatus.unlocked) return;
+
+        if (greenRessource < greenLifeCost || yellowRessource < yellowLifeCost)
+        {
+            return;
+        }
+
+        PlayerManager.SpendResources(greenLifeCost, yellowLifeCost);
+        ResourcesDisplay.UpdateDisplay();
+
+        greenRessource -= greenLifeCost;
+        yellowRessource -= yellowLifeCost;
+
+        SkillTree.UpdateList(activateButton, skillButtonStatus.unlocked);
+        SkillTree.UpdateList(desactivateButton, skillButtonStatus.locked);
+        SkillTree.UpdateButton(this, skillButtonStatus.bought);
     }
 
     public void ActiveShipArrow()
     {
         PlayerManager.ActivateShipArrow();
+
+        if (status != skillButtonStatus.unlocked) return;
+
+        if (greenRessource < greenLifeCost || yellowRessource < yellowLifeCost)
+        {
+            return;
+        }
+
+        PlayerManager.SpendResources(greenLifeCost, yellowLifeCost);
+        ResourcesDisplay.UpdateDisplay();
+
+        greenRessource -= greenLifeCost;
+        yellowRessource -= yellowLifeCost;
+
+        SkillTree.UpdateList(activateButton, skillButtonStatus.unlocked);
+        SkillTree.UpdateList(desactivateButton, skillButtonStatus.locked);
+        SkillTree.UpdateButton(this, skillButtonStatus.bought);
     }
 }

@@ -27,6 +27,9 @@ public class TilesBankManager : MonoBehaviour
     [SerializeField] Tile orange2;
     [SerializeField] Tile orange3;
 
+    [Header("Bonus")]
+    [SerializeField] Tile autel;
+
     [SerializeField] List<Tile> emptyTiles;
 
     public void getTiles()
@@ -48,6 +51,8 @@ public class TilesBankManager : MonoBehaviour
         orange2.tileObject = bank.orange2;
         orange3.tileObject = bank.orange3;
 
+        autel.tileObject = bank.autel;
+
         for (int i = 0; i < bank.emptyTiles.Count; i++)
         {
             emptyTiles[i].tileObject = bank.emptyTiles[i];
@@ -68,6 +73,8 @@ public class TilesBankManager : MonoBehaviour
         TileManager.instance.orange1 = orange1;
         TileManager.instance.orange2 = orange2;
         TileManager.instance.orange3 = orange3;
+
+        TileManager.instance.autel = autel;
 
         TileManager.instance.tiles = usedEmptyTiles.Copy();
 

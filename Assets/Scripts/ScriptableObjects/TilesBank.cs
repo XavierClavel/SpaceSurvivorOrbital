@@ -23,5 +23,8 @@ public class TilesBank : ScriptableObject
     public GameObject orange2;
     public GameObject orange3;
 
+    [Header("Bonus")]
+    public GameObject autel;
+
     public List<Ennemy> ennemies;
 }

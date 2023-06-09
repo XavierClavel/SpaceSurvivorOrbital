@@ -33,6 +33,8 @@ public class TileManager : MonoBehaviour
     [HideInInspector] public Tile violet2;
     [HideInInspector] public Tile violet3;
 
+    [HideInInspector] public Tile autel;
+
     [HideInInspector] public static int tilesInAdvance => instance.uncollapsedTiles.Count - instance.tilesToPlace.Count;
     [HideInInspector] public static int tilesToPlaceAmount => instance.tilesToPlace.Count;
 
