@@ -103,13 +103,13 @@ public static class PlanetManager
         switch (planetData.dangerosity)
         {
             case planetDangerosity.peaceful:
-                return Random.Range(5, 15);
+                return Random.Range(5, 10);
 
             case planetDangerosity.medium:
-                return Random.Range(15, 25);
+                return Random.Range(11, 16);
 
             case planetDangerosity.hard:
-                return Random.Range(25, 35);
+                return Random.Range(17, 22);
         }
         return 15;
     }

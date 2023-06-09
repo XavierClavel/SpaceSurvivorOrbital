@@ -88,17 +88,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] ResourceLayoutManager layoutManagerOrange;
     [SerializeField] ResourceLayoutManager layoutManagerGreen;
     public LayoutManager bulletsLayoutManager;
-    [SerializeField] GameObject spaceshipIndicator;
+    [SerializeField] GameObject youLooseScreen;
+    EventSystem eventSystem;
+    [SerializeField] GameObject button;
 
     [Header("Debug")]
     [SerializeField] bool giveResources = false;
-
+    
     private bool mouseAiming = false;
     private bool playerControlled = true;
     private bool shootWhileAiming;
 
     public float smallSize = 3.0f;
     public float largeSize = 5.0f;
+
+    [Header("Bonus")]
+    [SerializeField] public GameObject radar;
+    [SerializeField] public bool isRadarActive;
+    [SerializeField] GameObject spaceshipIndicator;
 
     //ResourceParameters
     private int maxViolet;
@@ -122,9 +129,14 @@ public class PlayerController : MonoBehaviour
     WaitForSeconds bulletReloadWindow;
     WaitForSeconds invulnerabilityFrameDuration;
 
+
+
     float bulletReloadTime;
     float speed_aimingDemultiplier;
     [HideInInspector] public status effect;
+
+
+
     float health
     {
         get { return _health; }
@@ -197,6 +209,10 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        ActivateSpaceship();
+        
+        if (PlayerManager.activateRadar) { radar.SetActive(true); } else { radar.SetActive(false); }
+
         maxViolet = PlayerManager.maxViolet;
         maxOrange = PlayerManager.maxOrange;
         maxGreen = PlayerManager.maxGreen;
@@ -434,12 +450,7 @@ public class PlayerController : MonoBehaviour
 
         _playerState = localMove.sqrMagnitude < 1e-4f ? playerState.idle : playerState.walking;
 
-
     }
-
-    [SerializeField] GameObject youLooseScreen;
-    EventSystem eventSystem;
-    [SerializeField] GameObject button;
 
     void Death()
     {
@@ -453,6 +464,4 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene("SampleScene");
         youLooseScreen.SetActive(false);
     }
-
-
 }

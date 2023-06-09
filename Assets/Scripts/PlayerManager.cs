@@ -68,6 +68,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] Weapon _weapon;
     [SerializeField] Tool _tool;
 
+    [Header("Bonus")]
+    [SerializeField] public static bool activateRadar = false;
+
 
     //Static accessors
 
@@ -351,5 +354,10 @@ public class PlayerManager : MonoBehaviour
     public static void SpendPurple(int costPurple)
     {
         amountViolet -= costPurple;
+    }
+
+    public static void ActivateRadar()
+    {
+        activateRadar = true;
     }
 }
