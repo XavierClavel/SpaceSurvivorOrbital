@@ -31,30 +31,32 @@ public class ResourceLayoutManager : MonoBehaviour
         if (full) return;
         sliders[sliderIndex].value++;
         if (sliders[sliderIndex].value < amountToFill) return;
-        OnSliderComplete();
+        OnSliderComplete(true);
     }
 
-    void FillSlider()
+    void FillSlider(bool newResources = false)
     {
         if (full) return;
         sliders[sliderIndex].value = amountToFill;
-        OnSliderComplete();
+        OnSliderComplete(newResources);
     }
 
-    public void FillNSliders(int N)
+    public void FillNSliders(int N, bool newResources = false)
     {
         for (int i = 0; i < N; i++)
         {
-            FillSlider();
+            FillSlider(newResources);
         }
     }
 
 
 
-    void OnSliderComplete()
+    void OnSliderComplete(bool newResources)
     {
         sliderIndex++;
         full = sliderIndex >= sliders.Count;
+
+        if (!newResources) return;
 
         switch (resource)
         {
