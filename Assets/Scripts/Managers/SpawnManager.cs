@@ -11,11 +11,17 @@ public class SpawnManager : MonoBehaviour
     List<Ennemy> ennemyPrefabs;
     [SerializeField] float waveLength = 4f;
     Transform playerTransform;
-    [SerializeField] bool doEnnemySpawn = true;
+    bool doEnnemySpawn = true;
     public static Dictionary<GameObject, Ennemy> dictObjectToEnnemy = new Dictionary<GameObject, Ennemy>();
     public static Dictionary<GameObject, Resource> dictObjectToResource = new Dictionary<GameObject, Resource>();
     public static Dictionary<GameObject, IInteractable> dictObjectToInteractable = new Dictionary<GameObject, IInteractable>();
     int cost = 10;
+
+    public void debug_StopEnnemySpawn()
+    {
+        doEnnemySpawn = false;
+        StopCoroutine(nameof(SpawnController));
+    }
 
     void Start()
     {
@@ -25,7 +31,7 @@ public class SpawnManager : MonoBehaviour
         playerTransform = PlayerController.instance.transform;
         if (doEnnemySpawn)
         {
-            StartCoroutine("SpawnController");
+            StartCoroutine(nameof(SpawnController));
         }
     }
 
@@ -34,7 +40,7 @@ public class SpawnManager : MonoBehaviour
         while (true)
         {
             yield return Helpers.GetWait(waveLength);
-            StartCoroutine("SpawnWave", cost);
+            StartCoroutine(nameof(SpawnWave), cost);
             cost += 5;
         }
     }

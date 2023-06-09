@@ -106,7 +106,6 @@ public class TileManager : MonoBehaviour
         {
             autel.setSpecificAmount(1);
             tiles.Add(autel);
-            Debug.Log("alter specified");
         }
 
         if (overrideMapSize != Vector2Int.zero) planetSize = overrideMapSize.x;

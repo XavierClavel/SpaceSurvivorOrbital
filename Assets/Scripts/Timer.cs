@@ -17,6 +17,13 @@ public class Timer : MonoBehaviour
     Transform playerTransform;
     GameObject spaceShip;
     WaitForSeconds waitSecond;
+    public static Timer instance;
+    bool doTimerRun = true;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
@@ -24,7 +31,13 @@ public class Timer : MonoBehaviour
         playerTransform = PlayerController.instance.transform;
         spaceShip = GameObject.FindGameObjectWithTag("Ship");
         waitSecond = Helpers.GetWait(1f);
-        StartCoroutine("RunTimer");
+        if (doTimerRun) StartCoroutine(nameof(RunTimer));
+    }
+
+    public void debug_StopTimer()
+    {
+        doTimerRun = false;
+        StopCoroutine(nameof(RunTimer));
     }
 
     IEnumerator RunTimer()

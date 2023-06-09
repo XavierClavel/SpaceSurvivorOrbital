@@ -93,9 +93,6 @@ public class PlayerController : MonoBehaviour
     EventSystem eventSystem;
     [SerializeField] GameObject button;
 
-    [Header("Debug")]
-    [SerializeField] bool giveResources = false;
-
     private bool mouseAiming = false;
     private bool playerControlled = true;
     private bool shootWhileAiming;
@@ -209,12 +206,12 @@ public class PlayerController : MonoBehaviour
 
     }
 
+
     void Start()
     {
         ActivateSpaceship();
-
-        if (PlayerManager.activateRadar) { radar.SetActive(true); } else { radar.SetActive(false); }
-        if (PlayerManager.activateShipArrow) { spaceshipIndicator.SetActive(true); } else { spaceshipIndicator.SetActive(false); }
+        radar.SetActive(PlayerManager.activateRadar);
+        spaceshipIndicator.SetActive(PlayerManager.activateShipArrow);
 
         maxViolet = PlayerManager.maxViolet;
         maxOrange = PlayerManager.maxOrange;
@@ -264,7 +261,6 @@ public class PlayerController : MonoBehaviour
 
 
         InitializeControls();
-        if (giveResources) debugGiveResources(50);
 
     }
 
@@ -290,7 +286,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void debugGiveResources(int amount)
+    public void debug_GiveResources(int amount)
     {
         for (int i = 0; i < amount; i++)
         {
@@ -306,6 +302,12 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+    public void debug_ActivateRadar()
+    {
+        radar.SetActive(true);
+    }
+
 
     void InitializeControls()
     {
