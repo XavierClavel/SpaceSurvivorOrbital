@@ -102,6 +102,13 @@ public class TileManager : MonoBehaviour
         AllocateResource(PlanetManager.getGreenAmount(), green1, green2, green3);
         AllocateResource(PlanetManager.getOrangeAmount(), orange1, orange2, orange3);
 
+        if (PlanetManager.hasAltar())
+        {
+            autel.setSpecificAmount(1);
+            tiles.Add(autel);
+            Debug.Log("alter specified");
+        }
+
         if (overrideMapSize != Vector2Int.zero) planetSize = overrideMapSize.x;
 
 

@@ -16,6 +16,11 @@ public static class PlanetManager
         return planetData != null;
     }
 
+    public static bool hasAltar()
+    {
+        return planetData.hasAltar;
+    }
+
     public static int getSize()
     {
         switch (planetData.size)

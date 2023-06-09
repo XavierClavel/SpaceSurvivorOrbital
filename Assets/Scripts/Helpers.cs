@@ -337,6 +337,11 @@ public class Helpers : MonoBehaviour
         return value < 0 ? -value : value;
     }
 
+    public static bool getRandomBool()
+    {
+        return UnityEngine.Random.Range(0, 2) == 0;
+    }
+
     public static TEnum getRandomEnum<TEnum>(TEnum enumType) where TEnum : System.Enum
     {
         if (!typeof(TEnum).IsEnum)

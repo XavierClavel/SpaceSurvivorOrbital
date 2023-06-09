@@ -17,4 +17,5 @@ public class PlanetData
     public planetResourceScarcity orangeScarcity;
     public planetResourceScarcity greenScarcity;
     public planetType type;
+    public bool hasAltar;
 }

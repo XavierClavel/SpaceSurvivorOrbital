@@ -23,7 +23,7 @@ public class Planet : MonoBehaviour
             planetData.orangeScarcity = Helpers.getRandomEnum(planetResourceScarcity.none);
             planetData.greenScarcity = Helpers.getRandomEnum(planetResourceScarcity.none);
             planetData.type = Helpers.getRandomEnum(planetType.blue);
-
+            planetData.hasAltar = Helpers.ProbabilisticBool(0.3f);
         }
 
         planet.sprite = getSprite();
