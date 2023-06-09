@@ -8,11 +8,14 @@ public class MinerBot : MonoBehaviour
 
     state botState = state.following;
     Transform playerTransform;
+    [SerializeField] float visionRadius = 4f;
     [SerializeField] Tool tool;
     [SerializeField] Vector2 toolRange;
     [SerializeField] int toolPower;
     [SerializeField] float toolReloadTime;
     List<GameObject> resources = new List<GameObject>();
+    [SerializeField] float maxDistanceToPlayer = 9f;
+    float sqrMaxDistanceToPlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +28,10 @@ public class MinerBot : MonoBehaviour
         tool.onNoRessourcesLeft.AddListener(EndMining);
         tool.onResourceExit.AddListener(gameObject => resources.TryRemove(gameObject));
 
+        sqrMaxDistanceToPlayer = Mathf.Pow(maxDistanceToPlayer, 2);
+
+        GetComponent<CircleCollider2D>().radius = visionRadius;
+
     }
 
     // Update is called once per frame
@@ -34,6 +41,13 @@ public class MinerBot : MonoBehaviour
         {
             transform.position = playerTransform.position + Vector3.right;
         }
+        else if (botState == state.mining)
+        {
+            if ((playerTransform.position - transform.position).sqrMagnitude > sqrMaxDistanceToPlayer)
+            {
+                transform.position = playerTransform.position + Vector3.right;
+            }
+        }
 
     }
 
@@ -42,7 +56,6 @@ public class MinerBot : MonoBehaviour
         resources.Add(other.gameObject);
         if (botState != state.mining)
         {
-            Debug.Log("start mining");
             botState = state.mining;
             transform.position = other.transform.position - Vector3.down;
             tool.StartMining();
@@ -63,7 +76,7 @@ public class MinerBot : MonoBehaviour
             botState = state.following;
             return;
         }
-        transform.position = resources[0].transform.position - Vector3.down;
+        transform.position = resources[0].transform.position + Vector3.up;
         tool.StartMining();
 
     }

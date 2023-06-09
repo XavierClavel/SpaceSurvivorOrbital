@@ -13,6 +13,8 @@ public class Tool : MonoBehaviour
 
     private bool toolReloading = false;
     private bool mining = false;
+    int layerMask;
+    [SerializeField] LayerMask mask;
 
     [HideInInspector] public UnityEvent onNoRessourcesLeft = new UnityEvent();
     [HideInInspector] public UnityEvent<GameObject> onResourceExit = new UnityEvent<GameObject>();
@@ -22,11 +24,12 @@ public class Tool : MonoBehaviour
         trigger.size = toolRange;
         this.toolPower = toolPower;
         this.toolReloadTime = toolReloadTime;
+        layerMask = LayerMask.NameToLayer("ResourcesOnly");
+        layerMask = mask.value;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("tool trigger");
         resourcesInRange.Add(SpawnManager.dictObjectToResource[other.gameObject]);
         if (!mining) return;
         if (toolReloading) return;
@@ -66,9 +69,13 @@ public class Tool : MonoBehaviour
 
     public void StartMining()
     {
-        Debug.Log(resourcesInRange.Count);
+        RaycastHit2D hit = Physics2D.CapsuleCast(transform.position, trigger.size, trigger.direction, transform.eulerAngles.z, Vector2.up, 0f, layerMask);
+        if (!hit)
+        {
+            onNoRessourcesLeft.Invoke();
+            return;
+        }
         mining = true;
-        if (resourcesInRange.Count == 0) return;
         if (!toolReloading) Hit();
     }
 

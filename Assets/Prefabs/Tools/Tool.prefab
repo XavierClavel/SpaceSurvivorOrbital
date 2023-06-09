@@ -45,7 +45,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb321231bda377943bb196b863755e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourcesInRange: []
   trigger: {fileID: 8683045116971686767}
+  mask:
+    serializedVersion: 2
+    m_Bits: 4096
+  onNoRessourcesLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  onResourceExit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!70 &8683045116971686767
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
