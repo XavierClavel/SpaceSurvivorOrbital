@@ -39,8 +39,4 @@ public class Spaceship : MonoBehaviour, IInteractable
         inputPrompt.SetActive(false);
     }
 
-    public bool TryRemove()
-    {
-        return false;
-    }
 }

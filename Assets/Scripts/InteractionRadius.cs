@@ -15,7 +15,9 @@ public class InteractionRadius : MonoBehaviour
         controls.Player.Mine.started += ctx =>
         {
             interacting = true;
-            foreach (IInteractable interactable in interactables)
+            if (interactables.Count == 0) return;
+            List<IInteractable> list = interactables.ToArray().ToList();
+            foreach (IInteractable interactable in list)
             {
                 interactable.StartInteracting();
             }
@@ -26,7 +28,9 @@ public class InteractionRadius : MonoBehaviour
         controls.Player.Mine.canceled += ctx =>
         {
             interacting = false;
-            foreach (IInteractable interactable in interactables)
+            if (interactables.Count == 0) return;
+            List<IInteractable> list = interactables.ToArray().ToList();
+            foreach (IInteractable interactable in list)
             {
                 interactable.StopInteracting();
             }
