@@ -292,11 +292,8 @@ public class SkillButton : MonoBehaviour
                 break;
         }
     }
-
-    public Radar radar;
-
-    public void ActiveOnClick()
+    public void ActiveRadar()
     {
-        
+        PlayerManager.ActivateRadar();
     }
 }
