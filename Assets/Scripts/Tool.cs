@@ -30,7 +30,7 @@ public class Tool : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        resourcesInRange.Add(SpawnManager.dictObjectToResource[other.gameObject]);
+        resourcesInRange.Add(ObjectManager.dictObjectToResource[other.gameObject]);
         if (!mining) return;
         if (toolReloading) return;
         Hit();
@@ -38,7 +38,7 @@ public class Tool : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        resourcesInRange.Remove(SpawnManager.dictObjectToResource[other.gameObject]);
+        resourcesInRange.Remove(ObjectManager.dictObjectToResource[other.gameObject]);
         onResourceExit.Invoke(other.gameObject);
 
         if (mining && resourcesInRange.Count == 0)

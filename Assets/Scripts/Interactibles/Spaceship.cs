@@ -9,7 +9,7 @@ public class Spaceship : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        SpawnManager.dictObjectToInteractable.Add(gameObject, this);
+        ObjectManager.dictObjectToInteractable.Add(gameObject, this);
     }
 
     public void StartInteracting()

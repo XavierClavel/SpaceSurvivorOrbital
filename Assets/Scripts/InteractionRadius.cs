@@ -52,13 +52,13 @@ public class InteractionRadius : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        interactables.Add(SpawnManager.dictObjectToInteractable[other.gameObject]);
+        interactables.Add(ObjectManager.dictObjectToInteractable[other.gameObject]);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (!SpawnManager.dictObjectToInteractable.ContainsKey(other.gameObject)) return;
-        IInteractable interactable = SpawnManager.dictObjectToInteractable[other.gameObject];
+        if (!ObjectManager.dictObjectToInteractable.ContainsKey(other.gameObject)) return;
+        IInteractable interactable = ObjectManager.dictObjectToInteractable[other.gameObject];
         interactables.Remove(interactable);
 
     }

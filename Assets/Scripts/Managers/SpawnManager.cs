@@ -12,9 +12,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] float waveLength = 4f;
     Transform playerTransform;
     bool doEnnemySpawn = true;
-    public static Dictionary<GameObject, Ennemy> dictObjectToEnnemy = new Dictionary<GameObject, Ennemy>();
-    public static Dictionary<GameObject, Resource> dictObjectToResource = new Dictionary<GameObject, Resource>();
-    public static Dictionary<GameObject, IInteractable> dictObjectToInteractable = new Dictionary<GameObject, IInteractable>();
+
     int cost = 10;
 
     public void debug_StopEnnemySpawn()

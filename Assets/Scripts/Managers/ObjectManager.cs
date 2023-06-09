@@ -8,6 +8,10 @@ public class ObjectManager : MonoBehaviour
     [SerializeField] GameObject altarUI;
     static ObjectManager instance;
 
+    public static Dictionary<GameObject, Ennemy> dictObjectToEnnemy = new Dictionary<GameObject, Ennemy>();
+    public static Dictionary<GameObject, Resource> dictObjectToResource = new Dictionary<GameObject, Resource>();
+    public static Dictionary<GameObject, IInteractable> dictObjectToInteractable = new Dictionary<GameObject, IInteractable>();
+
     private void Awake()
     {
         instance = this;

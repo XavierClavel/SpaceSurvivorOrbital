@@ -107,7 +107,7 @@ public class Healer : Ennemy
         foreach (RaycastHit2D hit in hits)
         {
             if (hit.collider.gameObject == gameObject) continue; //Does not heal himself
-            Ennemy ennemy = SpawnManager.dictObjectToEnnemy[hit.collider.gameObject];
+            Ennemy ennemy = ObjectManager.dictObjectToEnnemy[hit.collider.gameObject];
             if (ennemy.GetType() != this.GetType()) ennemy.HealSelf(baseDamage);    //does not heal other healers
         }
         needsToRecharge = true;

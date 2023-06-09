@@ -32,7 +32,7 @@ public class Resource : MonoBehaviour
 
     private void Awake()
     {
-        SpawnManager.dictObjectToResource.Add(gameObject, this);
+        ObjectManager.dictObjectToResource.Add(gameObject, this);
     }
 
     private void Start()

@@ -29,7 +29,7 @@ public class LiquidResource : MonoBehaviour, IInteractable
         increment = 1f / (float)nbResources;
         currentIncrement = nbResources;
 
-        SpawnManager.dictObjectToInteractable.Add(gameObject, this);
+        ObjectManager.dictObjectToInteractable.Add(gameObject, this);
     }
 
     public void StartInteracting()
@@ -71,8 +71,8 @@ public class LiquidResource : MonoBehaviour, IInteractable
     void Break()
     {
         SoundManager.instance.PlaySfx(transform, sfx.breakResource);
-        InteractionRadius.interactables.Remove(SpawnManager.dictObjectToInteractable[gameObject]);
-        SpawnManager.dictObjectToInteractable.Remove(gameObject);
+        InteractionRadius.interactables.Remove(ObjectManager.dictObjectToInteractable[gameObject]);
+        ObjectManager.dictObjectToInteractable.Remove(gameObject);
         Destroy(gameObject);
     }
 

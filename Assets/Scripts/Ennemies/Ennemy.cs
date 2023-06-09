@@ -78,7 +78,7 @@ public class Ennemy : MonoBehaviour
 
         //TODO : static initalizer
 
-        SpawnManager.dictObjectToEnnemy.Add(gameObject, this);
+        ObjectManager.dictObjectToEnnemy.Add(gameObject, this);
     }
 
     private void Update()
@@ -168,7 +168,7 @@ public class Ennemy : MonoBehaviour
     {
         StressTest.nbEnnemies--;
         soundManager.PlaySfx(transform, sfx.ennemyExplosion);
-        SpawnManager.dictObjectToEnnemy.Remove(gameObject);
+        ObjectManager.dictObjectToEnnemy.Remove(gameObject);
         Destroy(gameObject);
     }
 
