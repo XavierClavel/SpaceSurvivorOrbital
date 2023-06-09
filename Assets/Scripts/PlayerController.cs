@@ -15,6 +15,7 @@ public enum playerDirection { front, left, back, right };
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] GameObject minerBot;
     public Bullet bulletPrefab;
     [SerializeField] Slider reloadSlider;
     [HideInInspector] public Transform attractorTransform;
@@ -94,7 +95,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] bool giveResources = false;
-    
+
     private bool mouseAiming = false;
     private bool playerControlled = true;
     private bool shootWhileAiming;
@@ -211,7 +212,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         ActivateSpaceship();
-        
+
         if (PlayerManager.activateRadar) { radar.SetActive(true); } else { radar.SetActive(false); }
         if (PlayerManager.activateShipArrow) { spaceshipIndicator.SetActive(true); } else { spaceshipIndicator.SetActive(false); }
 
@@ -264,6 +265,12 @@ public class PlayerController : MonoBehaviour
 
         InitializeControls();
         if (giveResources) debugGiveResources(50);
+
+    }
+
+    public void SpawnMinerBot()
+    {
+        Instantiate(minerBot);
     }
 
     public static void SwitchInput()
