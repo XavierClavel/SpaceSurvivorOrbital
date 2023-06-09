@@ -296,4 +296,9 @@ public class SkillButton : MonoBehaviour
     {
         PlayerManager.ActivateRadar();
     }
+
+    public void ActiveShipArrow()
+    {
+        PlayerManager.ActivateShipArrow();
+    }
 }

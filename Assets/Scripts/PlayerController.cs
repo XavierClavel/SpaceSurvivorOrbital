@@ -106,6 +106,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public GameObject radar;
     [SerializeField] public bool isRadarActive;
     [SerializeField] GameObject spaceshipIndicator;
+    [SerializeField] public bool isArrowShipActive;
 
     //ResourceParameters
     private int maxViolet;
@@ -212,6 +213,7 @@ public class PlayerController : MonoBehaviour
         ActivateSpaceship();
         
         if (PlayerManager.activateRadar) { radar.SetActive(true); } else { radar.SetActive(false); }
+        if (PlayerManager.activateShipArrow) { spaceshipIndicator.SetActive(true); } else { spaceshipIndicator.SetActive(false); }
 
         maxViolet = PlayerManager.maxViolet;
         maxOrange = PlayerManager.maxOrange;

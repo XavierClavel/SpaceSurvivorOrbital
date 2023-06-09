@@ -70,6 +70,7 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Bonus")]
     [SerializeField] public static bool activateRadar = false;
+    [SerializeField] public static bool activateShipArrow = false;
 
 
     //Static accessors
@@ -359,5 +360,9 @@ public class PlayerManager : MonoBehaviour
     public static void ActivateRadar()
     {
         activateRadar = true;
+    }
+    public static void ActivateShipArrow()
+    {
+        activateShipArrow = true;
     }
 }
