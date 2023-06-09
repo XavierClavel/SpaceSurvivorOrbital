@@ -32,7 +32,7 @@ public class Healer : Ennemy
         sqrFleeRange = Mathf.Pow(healRange.x, 2);
         sqrHealRange = Mathf.Pow(healRange.y, 2);
 
-        StartCoroutine("SwitchState");
+        StartCoroutine(nameof(SwitchState));
     }
 
     IEnumerator SwitchState()
@@ -81,7 +81,7 @@ public class Healer : Ennemy
             case state.healing:
                 Move(currentDir, currentSpeed);
                 if (recharging) break;
-                if (needsToRecharge) StartCoroutine("Recharge");
+                if (needsToRecharge) StartCoroutine(nameof(Recharge));
                 else Heal();
                 break;
 
@@ -111,6 +111,6 @@ public class Healer : Ennemy
             if (ennemy.GetType() != this.GetType()) ennemy.HealSelf(baseDamage);    //does not heal other healers
         }
         needsToRecharge = true;
-        StartCoroutine("Recharge");
+        StartCoroutine(nameof(Recharge));
     }
 }

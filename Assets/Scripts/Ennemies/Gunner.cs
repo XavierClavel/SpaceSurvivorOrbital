@@ -31,7 +31,7 @@ public class Gunner : Ennemy
         sqrFleeRange = Mathf.Pow(shootRange.x, 2);
         sqrShootRange = Mathf.Pow(shootRange.y, 2);
 
-        StartCoroutine("SwitchState");
+        StartCoroutine(nameof(SwitchState));
     }
 
     IEnumerator SwitchState()
@@ -80,7 +80,7 @@ public class Gunner : Ennemy
             case state.shooting:
                 Move(currentDir, currentSpeed);
                 if (reloading) break;
-                if (needsToReload) StartCoroutine("Reload");
+                if (needsToReload) StartCoroutine(nameof(Reload));
                 else Shoot();
                 break;
 
@@ -107,6 +107,6 @@ public class Gunner : Ennemy
         bullet.gameObject.SetActive(true);
         bullet.Fire(bulletSpeed, lifetime, baseDamage);
         needsToReload = true;
-        StartCoroutine("Reload");
+        StartCoroutine(nameof(Reload));
     }
 }

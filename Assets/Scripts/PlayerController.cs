@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
     {
         if (invulnerable) return;
         instance.health -= amount * (1 - instance.damageResistanceMultiplier);
-        instance.StartCoroutine("InvulnerabilityFrame");
+        instance.StartCoroutine(nameof(InvulnerabilityFrame));
     }
 
     IEnumerator InvulnerabilityFrame()

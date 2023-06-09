@@ -91,7 +91,7 @@ public class TileManager : MonoBehaviour
         InitalizeMap();
         PlaceTiles();
 
-        StartCoroutine("TileManagement");
+        StartCoroutine(nameof(TileManagement));
     }
 
     void SetupPlanet()

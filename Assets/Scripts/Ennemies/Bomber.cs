@@ -25,7 +25,7 @@ public class Bomber : Ennemy
         playerLayer = LayerMask.GetMask("Player");
 
 
-        StartCoroutine("SwitchState");
+        StartCoroutine(nameof(SwitchState));
     }
 
     IEnumerator SwitchState()

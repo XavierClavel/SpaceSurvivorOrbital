@@ -121,15 +121,15 @@ public class Ennemy : MonoBehaviour
                 break;
 
             case status.poison:
-                StartCoroutine("PoisonEffect");
+                StartCoroutine(nameof(PoisonEffect));
                 break;
 
             case status.ice:
-                StartCoroutine("IceEffect");
+                StartCoroutine(nameof(IceEffect));
                 break;
 
             case status.fire:
-                StartCoroutine("FireEffect");
+                StartCoroutine(nameof(FireEffect));
                 break;
         }
         ApplyKnockback();
@@ -179,9 +179,9 @@ public class Ennemy : MonoBehaviour
 
     IEnumerator PoisonEffect()
     {
-        StartCoroutine("PoisonDamage");
+        StartCoroutine(nameof(PoisonDamage));
         yield return waitPoison;
-        StopCoroutine("PoisonDamage");
+        StopCoroutine(nameof(PoisonDamage));
     }
 
     IEnumerator PoisonDamage()
@@ -196,9 +196,9 @@ public class Ennemy : MonoBehaviour
 
     IEnumerator FireEffect()
     {
-        StartCoroutine("FireDamage");
+        StartCoroutine(nameof(FireDamage));
         yield return waitFire;
-        StopCoroutine("FireDamage");
+        StopCoroutine(nameof(FireDamage));
     }
 
     IEnumerator FireDamage()

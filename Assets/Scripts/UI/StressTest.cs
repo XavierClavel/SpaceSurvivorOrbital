@@ -13,8 +13,8 @@ public class StressTest : MonoBehaviour
     void Start()
     {
         controls = new InputMaster();
-        controls.Player.Jump.started += ctx => StartCoroutine("SpawnEnnemies");
-        controls.Player.Jump.canceled += ctx => StopCoroutine("SpawnEnnemies");
+        controls.Player.Jump.started += ctx => StartCoroutine(nameof(SpawnEnnemies));
+        controls.Player.Jump.canceled += ctx => StopCoroutine(nameof(SpawnEnnemies));
         if (StressTestEnabled) controls.Enable();
         //Helpers.CreateDebugDisplay();
     }
