@@ -222,7 +222,7 @@ public class SkillButton : MonoBehaviour
     public skillButtonStatus status { get; private set; }
     [HideInInspector] public Button button;
     Image image;
-
+    delegate void buttonAction();
     public bool isFirst;
 
     private void Awake()
@@ -236,6 +236,19 @@ public class SkillButton : MonoBehaviour
 
 
     public void OnClick()
+    {
+        Execute(ApplyEffects);
+    }
+
+    void ApplyEffects()
+    {
+        foreach (Effect effect in effects)
+        {
+            effect.Apply();
+        }
+    }
+
+    void Execute(buttonAction action)
     {
         if (status != skillButtonStatus.unlocked) return;
 
@@ -254,24 +267,7 @@ public class SkillButton : MonoBehaviour
         SkillTree.UpdateList(desactivateButton, skillButtonStatus.locked);
         SkillTree.UpdateButton(this, skillButtonStatus.bought);
 
-        /*
-        button.interactable = false;
-        foreach (SkillButton skillButton in activateButton)
-        {
-            skillButton.button.interactable = true;
-        }
-
-        foreach (SkillButton skillButton in desactivateButton)
-        {
-            skillButton.button.interactable = false;
-        }
-        */
-
-        foreach (Effect effect in effects)
-        {
-            effect.Apply();
-        }
-
+        action();
     }
 
     public void UpdateStatus(skillButtonStatus status)
@@ -294,45 +290,11 @@ public class SkillButton : MonoBehaviour
     }
     public void ActiveRadar()
     {
-        PlayerManager.ActivateRadar();
-
-        if (status != skillButtonStatus.unlocked) return;
-
-        if (greenRessource < greenLifeCost || yellowRessource < yellowLifeCost)
-        {
-            return;
-        }
-
-        PlayerManager.SpendResources(greenLifeCost, yellowLifeCost);
-        ResourcesDisplay.UpdateDisplay();
-
-        greenRessource -= greenLifeCost;
-        yellowRessource -= yellowLifeCost;
-
-        SkillTree.UpdateList(activateButton, skillButtonStatus.unlocked);
-        SkillTree.UpdateList(desactivateButton, skillButtonStatus.locked);
-        SkillTree.UpdateButton(this, skillButtonStatus.bought);
+        Execute(PlayerManager.ActivateRadar);
     }
 
     public void ActiveShipArrow()
     {
-        PlayerManager.ActivateShipArrow();
-
-        if (status != skillButtonStatus.unlocked) return;
-
-        if (greenRessource < greenLifeCost || yellowRessource < yellowLifeCost)
-        {
-            return;
-        }
-
-        PlayerManager.SpendResources(greenLifeCost, yellowLifeCost);
-        ResourcesDisplay.UpdateDisplay();
-
-        greenRessource -= greenLifeCost;
-        yellowRessource -= yellowLifeCost;
-
-        SkillTree.UpdateList(activateButton, skillButtonStatus.unlocked);
-        SkillTree.UpdateList(desactivateButton, skillButtonStatus.locked);
-        SkillTree.UpdateButton(this, skillButtonStatus.bought);
+        Execute(PlayerManager.ActivateShipArrow);
     }
 }
