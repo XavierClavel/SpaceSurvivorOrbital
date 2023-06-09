@@ -18,10 +18,15 @@ public class SkillTree : MonoBehaviour
     RectTransform scrollRectTransform;
     RectTransform contentPanel;
     GameObject previousSelected;
+    DefaultInputActions inputActions;
 
 
     private void Awake()
     {
+        inputActions = new DefaultInputActions();
+        inputActions.UI.Navigate.performed += ctx => OnNavigate();
+        inputActions.Enable();
+
         scrollRectTransform = scrollRect.GetComponent<RectTransform>();
         contentPanel = scrollRect.content;
 
@@ -43,31 +48,40 @@ public class SkillTree : MonoBehaviour
         SkillButton.yellowRessource = PlayerManager.amountOrange;
     }
 
-    private void Update()
+    void OnNavigate()
     {
-        //TODO : make input switch from playerManager
-        if (!PlayerManager.isPlayingWithGamepad) return;
         if (eventSystem.currentSelectedGameObject == previousSelected) return;
+
         previousSelected = eventSystem.currentSelectedGameObject;
         RectTransform selectedRectTransform = eventSystem.currentSelectedGameObject.GetComponent<RectTransform>();
+        RectTransform parentRectTransform = selectedRectTransform.parent.GetComponent<RectTransform>(); ;
         // The position of the selected UI element is the absolute anchor position,
         // ie. the local position within the scroll rect + its height if we're
         // scrolling down. If we're scrolling up it's just the absolute anchor position.
         //float selectedPositionY = Mathf.Abs(selectedRectTransform.anchoredPosition.y) + selectedRectTransform.rect.height;
         float selectedPositionY = selectedRectTransform.anchoredPosition.y + selectedRectTransform.rect.height;
+        selectedPositionY += parentRectTransform.anchoredPosition.y;
         // The upper bound of the scroll view is the anchor position of the content we're scrolling.
         float scrollViewMinY = contentPanel.anchoredPosition.y;
         // The lower bound is the anchor position + the height of the scroll rect.
         float scrollViewMaxY = contentPanel.anchoredPosition.y + scrollRectTransform.rect.height;
 
+        //selectedPositionY *= -1f;
+
+        Debug.Log(scrollViewMaxY);
+        Debug.Log(scrollViewMinY);
+        Debug.Log("current : " + selectedPositionY);
+
         // If the selected position is below the current lower bound of the scroll view we scroll down.
         if (selectedPositionY > scrollViewMaxY)
         {
             float newY = selectedPositionY - scrollRectTransform.rect.height;
-            contentPanel.DOAnchorPos(new Vector2(contentPanel.anchoredPosition.x, newY), 0.5f);
+            Debug.Log("new y : " + newY);
+            contentPanel.anchoredPosition = new Vector2(contentPanel.anchoredPosition.x, newY);
+            //contentPanel.DOAnchorPos(new Vector2(contentPanel.anchoredPosition.x, newY), 0.5f);
         }
         // If the selected position is above the current upper bound of the scroll view we scroll up.
-        else if (selectedRectTransform.anchoredPosition.y < scrollViewMinY)
+        else if (selectedPositionY < scrollViewMinY)
         {
             contentPanel.DOAnchorPos(new Vector2(contentPanel.anchoredPosition.x, Mathf.Abs(selectedRectTransform.anchoredPosition.y)), 0.5f);
         }
