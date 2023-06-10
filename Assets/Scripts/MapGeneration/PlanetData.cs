@@ -4,7 +4,6 @@ using UnityEngine;
 
 
 public enum planetSize { small, medium, large }
-public enum planetDangerosity { peaceful, medium, hard }
 public enum planetResourceScarcity { none, rare, medium, common }
 public enum planetType { blue, red, brown }
 
@@ -12,7 +11,7 @@ public enum planetType { blue, red, brown }
 public class PlanetData
 {
     public planetSize size;
-    public planetDangerosity dangerosity;
+    public int difficulty;
     public planetResourceScarcity violetScarcity;
     public planetResourceScarcity orangeScarcity;
     public planetResourceScarcity greenScarcity;

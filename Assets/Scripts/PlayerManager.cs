@@ -196,6 +196,7 @@ public class PlayerManager : MonoBehaviour
 
             weapon = _weapon;
             tool = _tool;
+
         }
         else if (instance != this) Destroy(gameObject);
         DontDestroyOnLoad(gameObject);

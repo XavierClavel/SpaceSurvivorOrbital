@@ -50,6 +50,11 @@ public class SkillTree : MonoBehaviour
         SkillButton.yellowRessource = PlayerManager.amountOrange;
     }
 
+    private void OnDisable()
+    {
+        inputActions.Disable();
+    }
+
 
     IEnumerator OnNavigate()
     {

@@ -12,8 +12,9 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] float waveLength = 4f;
     Transform playerTransform;
     bool doEnnemySpawn = true;
+    [SerializeField] int baseCost = 10;
 
-    int cost = 10;
+    int cost;
 
     public void debug_StopEnnemySpawn()
     {
@@ -24,7 +25,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         instance = this;
-        cost = PlanetManager.getInitialCost();
+        cost = baseCost + 2 * PlanetManager.getDifficulty();
         ennemyPrefabs = tilesBankManager.GetEnnemies();
         playerTransform = PlayerController.instance.transform;
         if (doEnnemySpawn)

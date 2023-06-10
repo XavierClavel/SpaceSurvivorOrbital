@@ -20,14 +20,13 @@ public class Planet : MonoBehaviour
         if (PlanetSelector.instance.generateRandomPlanets)
         {
             planetData.size = Helpers.getRandomEnum(planetSize.large);
-            planetData.dangerosity = Helpers.getRandomEnum(planetDangerosity.peaceful);
             planetData.violetScarcity = Helpers.getRandomEnum(planetResourceScarcity.none);
             planetData.orangeScarcity = Helpers.getRandomEnum(planetResourceScarcity.none);
             planetData.greenScarcity = Helpers.getRandomEnum(planetResourceScarcity.none);
             planetData.type = Helpers.getRandomEnum(planetType.blue);
             planetData.hasAltar = Helpers.ProbabilisticBool(0.3f);
 
-            planetData.dangerosity = PlanetSelector.getDangerosity(planetData);
+            planetData.difficulty = PlanetSelector.getDifficulty(planetData);
 
         }
 
@@ -38,8 +37,8 @@ public class Planet : MonoBehaviour
         sizeBar.currentAmount = (int)planetData.size + 1;
         sizeBar.Initialize();
 
-        dangerosityBar.maxAmount = 3;
-        dangerosityBar.currentAmount = (int)planetData.dangerosity + 1;
+        dangerosityBar.maxAmount = 10;
+        dangerosityBar.currentAmount = planetData.difficulty + 1;
         dangerosityBar.Initialize();
 
         violetBar.maxAmount = 3;

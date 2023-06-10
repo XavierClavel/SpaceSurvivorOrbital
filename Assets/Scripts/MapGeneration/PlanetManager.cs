@@ -103,20 +103,9 @@ public static class PlanetManager
         return planetData.greenScarcity;
     }
 
-    public static int getInitialCost()
+    public static int getDifficulty()
     {
-        switch (planetData.dangerosity)
-        {
-            case planetDangerosity.peaceful:
-                return Random.Range(5, 10);
-
-            case planetDangerosity.medium:
-                return Random.Range(11, 16);
-
-            case planetDangerosity.hard:
-                return Random.Range(17, 22);
-        }
-        return 15;
+        return planetData.difficulty;
     }
 
 }
