@@ -12,7 +12,7 @@ public class SkillTree : MonoBehaviour
     [SerializeField] EventSystem eventSystem;
     [SerializeField] TreePanelsManager treePanelsManager;
     static SkillTree instance;
-    public static List<SkillButton> skillButtons = new List<SkillButton>();
+    public static List<TreeButton> skillButtons = new List<TreeButton>();
     public static List<skillButtonStatus> skillButtonStatuses;
     [SerializeField] GameObject buttonsContainer;
     [SerializeField] ScrollRect scrollRect;
@@ -39,12 +39,12 @@ public class SkillTree : MonoBehaviour
         contentPanel = scrollRect.content;
 
         instance = this;
-        skillButtons = buttonsContainer.GetComponentsInChildren<SkillButton>().ToList();
+        skillButtons = buttonsContainer.GetComponentsInChildren<TreeButton>().ToList();
 
         if (skillButtonStatuses == null)
         {
             skillButtonStatuses = new List<skillButtonStatus>();
-            foreach (SkillButton skillButton in skillButtons)
+            foreach (TreeButton skillButton in skillButtons)
             {
                 skillButtonStatus status = skillButton.isFirst ? skillButtonStatus.unlocked : skillButtonStatus.locked;
                 skillButtonStatuses.Add(status);
@@ -52,8 +52,6 @@ public class SkillTree : MonoBehaviour
         }
 
         if (!PlayerManager.isPlayingWithGamepad) Cursor.visible = true;
-        SkillButton.greenRessource = PlayerManager.amountGreen;
-        SkillButton.yellowRessource = PlayerManager.amountOrange;
     }
 
     void KillAllChildren()
@@ -137,16 +135,16 @@ public class SkillTree : MonoBehaviour
         }
     }
 
-    public static void UpdateButton(SkillButton skillButton, skillButtonStatus newStatus)
+    public static void UpdateButton(TreeButton skillButton, skillButtonStatus newStatus)
     {
         int index = skillButtons.IndexOf(skillButton);
         skillButtonStatuses[index] = newStatus;
         skillButton.UpdateStatus(newStatus);
     }
 
-    public static void UpdateList(List<SkillButton> skillButtons, skillButtonStatus newStatus)
+    public static void UpdateList(List<TreeButton> skillButtons, skillButtonStatus newStatus)
     {
-        foreach (SkillButton skillButton in skillButtons)
+        foreach (TreeButton skillButton in skillButtons)
         {
             UpdateButton(skillButton, newStatus);
         }

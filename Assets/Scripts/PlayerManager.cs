@@ -231,9 +231,9 @@ public class PlayerManager : MonoBehaviour
         upgradePointsAmount++;
     }
 
-    public static void SpendUpgradePoint()
+    public static void SpendUpgradePoints(int amount)
     {
-        upgradePointsAmount--;
+        upgradePointsAmount -= amount;
     }
 
     public static void ApplyModification(Effect effect)

@@ -204,90 +204,32 @@ public class Effect
 
 public enum skillButtonStatus { undefined, locked, unlocked, bought }
 
-public class SkillButton : MonoBehaviour
+public class SkillButton : TreeButton
 {
-    public static int greenRessource;
-    public static int yellowRessource;
 
-    public int greenLifeCost;
-    public int yellowLifeCost;
+    [SerializeField] int greenLifeCost;
+    [SerializeField] int yellowLifeCost;
 
-    public List<SkillButton> activateButton = new List<SkillButton>();
-    public List<SkillButton> desactivateButton = new List<SkillButton>();
-    public List<Effect> effects = new List<Effect>();
+    [SerializeField] TextMeshProUGUI greenCostText;
+    [SerializeField] TextMeshProUGUI yellowCostText;
 
-    public TextMeshProUGUI greenCostText;
-    public TextMeshProUGUI yellowCostText;
-
-    public skillButtonStatus status { get; private set; }
-    [HideInInspector] public Button button;
-    Image image;
-    delegate void buttonAction();
-    public bool isFirst;
-
-    private void Awake()
+    protected override void Awake()
     {
-        button = GetComponent<Button>();
-        image = GetComponent<Image>();
+        base.Awake();
 
         greenCostText.text = greenLifeCost.ToString();
         yellowCostText.text = yellowLifeCost.ToString();
     }
 
 
-    public void OnClick()
+    protected override bool SpendResources()
     {
-        Execute(ApplyEffects);
-    }
-
-    void ApplyEffects()
-    {
-        foreach (Effect effect in effects)
-        {
-            effect.Apply();
-        }
-    }
-
-    void Execute(buttonAction action)
-    {
-        if (status != skillButtonStatus.unlocked) return;
-
-        if (greenRessource < greenLifeCost || yellowRessource < yellowLifeCost)
-        {
-            return;
-        }
+        if (PlayerManager.amountGreen < greenLifeCost || PlayerManager.amountOrange < yellowLifeCost) return false;
 
         PlayerManager.SpendResources(greenLifeCost, yellowLifeCost);
-        ResourcesDisplay.UpdateDisplay();
-
-        greenRessource -= greenLifeCost;
-        yellowRessource -= yellowLifeCost;
-
-        SkillTree.UpdateList(activateButton, skillButtonStatus.unlocked);
-        SkillTree.UpdateList(desactivateButton, skillButtonStatus.locked);
-        SkillTree.UpdateButton(this, skillButtonStatus.bought);
-
-        action();
+        return true;
     }
 
-    public void UpdateStatus(skillButtonStatus status)
-    {
-        this.status = status;
-        switch (status)
-        {
-            case skillButtonStatus.bought:
-                image.color = Color.green;
-                break;
-
-            case skillButtonStatus.unlocked:
-                image.color = Color.white;
-                break;
-
-            case skillButtonStatus.locked:
-                image.color = Color.gray;
-                break;
-        }
-    }
     public void ActiveRadar()
     {
         Execute(PlayerManager.ActivateRadar);
