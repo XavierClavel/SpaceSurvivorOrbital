@@ -11,6 +11,11 @@ public class PlanetSelector : MonoBehaviour
     public Sprite planetBrown;
     public Sprite planetRed;
 
+    [Header("Parameters")]
+    [SerializeField] float resourceMultiplier = 0.33f;
+    [SerializeField] float altarMultiplier = 0.5f;
+    [SerializeField] float randomMultiplier = 0.5f;
+
     private void Awake()
     {
         instance = this;
@@ -20,6 +25,19 @@ public class PlanetSelector : MonoBehaviour
     {
         PlanetManager.setData(planet.planetData);
         SceneManager.LoadScene("Planet");
+    }
+
+    public static planetDangerosity getDangerosity(PlanetData planetData)
+    {
+        int resourceAmount = (int)planetData.violetScarcity + (int)planetData.orangeScarcity + (int)planetData.greenScarcity;
+        float resourceFactor = instance.resourceMultiplier * (float)resourceAmount;
+        float altarFactor = instance.altarMultiplier * (planetData.hasAltar ? 1 : 0);
+        float randomFactor = instance.randomMultiplier * Random.Range(-1f, 1f);
+        float dangerosityValue = resourceFactor + altarFactor + randomFactor;
+        Debug.Log(dangerosityValue);
+        if (dangerosityValue <= 1) return planetDangerosity.peaceful;
+        else if (dangerosityValue > 2) return planetDangerosity.hard;
+        else return planetDangerosity.medium;
     }
 
 }
