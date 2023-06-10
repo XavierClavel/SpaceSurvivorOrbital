@@ -9,12 +9,14 @@ public class SpawnManager : MonoBehaviour
     public static SpawnManager instance;
     [SerializeField] TilesBankManager tilesBankManager;
     List<Ennemy> ennemyPrefabs;
-    [SerializeField] float waveLength = 4f;
+   
     Transform playerTransform;
     bool doEnnemySpawn = true;
-    [SerializeField] int baseCost = 10;
-    [SerializeField] int increaseByDifficultLevel = 2;
-    [SerializeField] int increaseByWave = 5;
+    [SerializeField] List<int> baseCost = new List<int>();
+    [SerializeField] List<int> increaseByWave = new List<int>();
+    [SerializeField] List<int> waveLength = new List<int>();
+
+    private int difficulty;
 
     int cost;
 
@@ -27,9 +29,11 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         instance = this;
-        cost = baseCost + increaseByDifficultLevel * PlanetManager.getDifficulty();
+        difficulty = PlanetManager.getDifficulty();
+        cost = baseCost[difficulty];
         ennemyPrefabs = tilesBankManager.GetEnnemies();
         playerTransform = PlayerController.instance.transform;
+        
         if (doEnnemySpawn)
         {
             StartCoroutine(nameof(SpawnController));
@@ -40,9 +44,9 @@ public class SpawnManager : MonoBehaviour
     {
         while (true)
         {
-            yield return Helpers.GetWait(waveLength);
+            yield return Helpers.GetWait(waveLength[difficulty]);
             StartCoroutine(nameof(SpawnWave), cost);
-            cost += increaseByWave; ;
+            cost += increaseByWave[difficulty]; ;
         }
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class TileManager : MonoBehaviour
 {
-    [SerializeField] PlanetData planetData;
+    public PlanetData planetData;
     public SpriteRenderer groundSprite;
     [SerializeField] TilesBankManager tilesBankManager;
     TileWaveFunction[,] map;
