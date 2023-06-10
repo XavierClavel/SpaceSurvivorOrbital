@@ -13,6 +13,8 @@ public class SpawnManager : MonoBehaviour
     Transform playerTransform;
     bool doEnnemySpawn = true;
     [SerializeField] int baseCost = 10;
+    [SerializeField] int increaseByDifficultLevel = 2;
+    [SerializeField] int increaseByWave = 5;
 
     int cost;
 
@@ -25,7 +27,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         instance = this;
-        cost = baseCost + 2 * PlanetManager.getDifficulty();
+        cost = baseCost + increaseByDifficultLevel * PlanetManager.getDifficulty();
         ennemyPrefabs = tilesBankManager.GetEnnemies();
         playerTransform = PlayerController.instance.transform;
         if (doEnnemySpawn)
@@ -40,7 +42,7 @@ public class SpawnManager : MonoBehaviour
         {
             yield return Helpers.GetWait(waveLength);
             StartCoroutine(nameof(SpawnWave), cost);
-            cost += 5;
+            cost += increaseByWave; ;
         }
     }
 
