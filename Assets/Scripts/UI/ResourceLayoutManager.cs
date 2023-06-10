@@ -44,6 +44,11 @@ public class ResourceLayoutManager : MonoBehaviour
     public void EmptySlider()
     {
         if (sliderIndex == 0) return;
+        if (full)
+        {
+            sliderIndex--;
+            full = false;
+        }
         sliders[sliderIndex - 1].value = sliders[sliderIndex].value;
         sliders[sliderIndex].value = 0f;
         sliderIndex--;
