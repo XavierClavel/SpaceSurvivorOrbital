@@ -41,6 +41,14 @@ public class ResourceLayoutManager : MonoBehaviour
         OnSliderComplete(newResources);
     }
 
+    public void EmptySlider()
+    {
+        if (sliderIndex == 0) return;
+        sliders[sliderIndex - 1].value = sliders[sliderIndex].value;
+        sliders[sliderIndex].value = 0f;
+        sliderIndex--;
+    }
+
     public void FillNSliders(int N, bool newResources = false)
     {
         for (int i = 0; i < N; i++)

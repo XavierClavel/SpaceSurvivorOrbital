@@ -175,6 +175,11 @@ public class PlayerController : MonoBehaviour
         layoutManagerViolet.AddResource();
     }
 
+    public void SpendVioletCapsule()
+    {
+        layoutManagerViolet.EmptySlider();
+    }
+
     public void IncreaseOrange()
     {
         layoutManagerOrange.AddResource();

@@ -9,12 +9,12 @@ public class Altar : MonoBehaviour, IInteractable
     private void Start()
     {
         ObjectManager.dictObjectToInteractable.Add(gameObject, this);
+        ObjectManager.altar = this;
     }
 
     public void StartInteracting()
     {
         ObjectManager.DisplayAltarUI();
-        Destroy(gameObject);
     }
 
     public void StopInteracting() { }

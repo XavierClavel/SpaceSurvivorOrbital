@@ -7,6 +7,7 @@ public class ObjectManager : MonoBehaviour
     [SerializeField] PauseMenu pauseMenu;
     [SerializeField] GameObject altarUI;
     static ObjectManager instance;
+    public static Altar altar;
 
     public static Dictionary<GameObject, Ennemy> dictObjectToEnnemy = new Dictionary<GameObject, Ennemy>();
     public static Dictionary<GameObject, Resource> dictObjectToResource = new Dictionary<GameObject, Resource>();
@@ -29,25 +30,37 @@ public class ObjectManager : MonoBehaviour
         instance.pauseMenu.ResumeGame();
     }
 
+    bool Transaction()
+    {
+        if (PlayerManager.amountViolet == 0) return false;
+        PlayerManager.SpendPurple(1);
+        PlayerController.instance.SpendVioletCapsule();
+        Destroy(altar.gameObject);
+
+        return true;
+    }
+
     public void SelectMinerBot()
     {
+        if (!Transaction()) return;
+
         PlayerController.instance.SpawnMinerBot();
         HideAltarUI();
         PlayerManager.AcquirePower(power.minerBot);
     }
 
-
-    // Start is called before the first frame update
-    void Start()
+    public void SelectUpgradePoint()
     {
-
+        if (!Transaction()) return;
+        PlayerManager.AcquireUpgradePoint();
+        HideAltarUI();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Close()
     {
-
+        HideAltarUI();
     }
+
 
     private void OnDestroy()
     {

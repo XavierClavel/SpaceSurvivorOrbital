@@ -141,6 +141,7 @@ public class PlayerManager : MonoBehaviour
 
     public static power power1 { get; private set; }
     public static power power2 { get; private set; }
+    public static int upgradePointsAmount { get; private set; }
 
     void Awake()
     {
@@ -205,6 +206,8 @@ public class PlayerManager : MonoBehaviour
             power1 = power.none;
             power2 = power.none;
 
+            upgradePointsAmount = 0;
+
         }
         else if (instance != this) Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
@@ -221,6 +224,16 @@ public class PlayerManager : MonoBehaviour
     {
         if (power1 == power.none) power1 = newPower;
         else if (power2 == power.none) power2 = newPower;
+    }
+
+    public static void AcquireUpgradePoint()
+    {
+        upgradePointsAmount++;
+    }
+
+    public static void SpendUpgradePoint()
+    {
+        upgradePointsAmount--;
     }
 
     public static void ApplyModification(Effect effect)
