@@ -13,6 +13,10 @@ public class Planet : MonoBehaviour
     [SerializeField] DiscreteBarHandler orangeBar;
     [SerializeField] DiscreteBarHandler greenBar;
 
+    const float resourceMultiplier = 0.33f;
+    const float altarMultiplier = 0.5f;
+    const float randomMultiplier = 0.5f;
+
     private void Start()
     {
         if (PlanetSelector.instance.generateRandomPlanets)
@@ -24,6 +28,9 @@ public class Planet : MonoBehaviour
             planetData.greenScarcity = Helpers.getRandomEnum(planetResourceScarcity.none);
             planetData.type = Helpers.getRandomEnum(planetType.blue);
             planetData.hasAltar = Helpers.ProbabilisticBool(0.3f);
+
+            planetData.dangerosity = getDangerosity();
+
         }
 
         planet.sprite = getSprite();
@@ -48,6 +55,19 @@ public class Planet : MonoBehaviour
         greenBar.maxAmount = 3;
         greenBar.currentAmount = (int)planetData.greenScarcity;
         greenBar.Initialize();
+    }
+
+    planetDangerosity getDangerosity()
+    {
+        int resourceAmount = (int)planetData.violetScarcity + (int)planetData.orangeScarcity + (int)planetData.greenScarcity;
+        float resourceFactor = resourceMultiplier * (float)resourceAmount;
+        float altarFactor = altarMultiplier * (planetData.hasAltar ? 1 : 0);
+        float randomFactor = randomMultiplier * Random.Range(-1f, 1f);
+        float dangerosityValue = resourceFactor + altarFactor + randomFactor;
+        Debug.Log(dangerosityValue);
+        if (dangerosityValue <= 1) return planetDangerosity.peaceful;
+        else if (dangerosityValue > 2) return planetDangerosity.hard;
+        else return planetDangerosity.medium;
     }
 
     Sprite getSprite()
