@@ -33,6 +33,7 @@ public class ObjectManager : MonoBehaviour
     {
         PlayerController.instance.SpawnMinerBot();
         HideAltarUI();
+        PlayerManager.AcquirePower(power.minerBot);
     }
 
 

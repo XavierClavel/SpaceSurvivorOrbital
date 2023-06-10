@@ -45,12 +45,26 @@ public class TreePanelsManager : MonoBehaviour
 
     public GameObject getPower1()
     {
-        return minerBot;
+        switch (PlayerManager.power1)
+        {
+            case power.minerBot:
+                return minerBot;
+
+            default:
+                return null;
+        }
     }
 
     public GameObject getPower2()
     {
-        return null;
+        switch (PlayerManager.power2)
+        {
+            case power.minerBot:
+                return minerBot;
+
+            default:
+                return null;
+        }
     }
 
     public GameObject getNext()

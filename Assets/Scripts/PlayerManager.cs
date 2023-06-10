@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+public enum power { none, minerBot };
+
 public class PlayerManager : MonoBehaviour
 {
     //To delete after the switch to excel files
@@ -137,6 +139,9 @@ public class PlayerManager : MonoBehaviour
     public static bool isPlayingWithGamepad { get; private set; }
     public static int currentTimer { get; set; }
 
+    public static power power1 { get; private set; }
+    public static power power2 { get; private set; }
+
     void Awake()
     {
         if (instance == null)
@@ -197,6 +202,9 @@ public class PlayerManager : MonoBehaviour
             weapon = _weapon;
             tool = _tool;
 
+            power1 = power.none;
+            power2 = power.none;
+
         }
         else if (instance != this) Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
@@ -208,6 +216,12 @@ public class PlayerManager : MonoBehaviour
     public static void GatherResourceViolet() => amountViolet++;
 
     public static void SetControlMode(bool boolean) => isPlayingWithGamepad = boolean;
+
+    public static void AcquirePower(power newPower)
+    {
+        if (power1 == power.none) power1 = newPower;
+        else if (power2 == power.none) power2 = newPower;
+    }
 
     public static void ApplyModification(Effect effect)
     {
