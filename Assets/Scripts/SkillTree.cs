@@ -10,6 +10,7 @@ using DG.Tweening;
 public class SkillTree : MonoBehaviour
 {
     [SerializeField] EventSystem eventSystem;
+    [SerializeField] TreePanelsManager treePanelsManager;
     static SkillTree instance;
     public static List<SkillButton> skillButtons = new List<SkillButton>();
     public static List<skillButtonStatus> skillButtonStatuses;
@@ -23,6 +24,11 @@ public class SkillTree : MonoBehaviour
 
     private void Awake()
     {
+
+
+        SetupDisplay();
+
+
         inputActions = new InputMaster();
         inputActions.UI.Navigate.started += ctx => StartCoroutine(nameof(OnNavigate));
         inputActions.UI.Navigate.canceled += ctx => StopCoroutine(nameof(OnNavigate));
@@ -50,9 +56,39 @@ public class SkillTree : MonoBehaviour
         SkillButton.yellowRessource = PlayerManager.amountOrange;
     }
 
-    private void OnDisable()
+    void KillAllChildren()
     {
-        inputActions.Disable();
+        foreach (Transform child in buttonsContainer.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+    }
+
+    void SetupDisplay()
+    {
+        KillAllChildren();
+        AddPanelToDisplay(treePanelsManager.getCharacterPanel());
+        AddPanelToDisplay(treePanelsManager.getWeaponPanel());
+        AddPanelToDisplay(treePanelsManager.getToolPanel());
+        AddPanelToDisplay(treePanelsManager.getShipPanel());
+
+        GameObject panelPower1 = treePanelsManager.getPower1();
+        GameObject panelPower2 = treePanelsManager.getPower2();
+
+        if (panelPower1 != null) AddPanelToDisplay(panelPower1);
+        if (panelPower2 != null) AddPanelToDisplay(panelPower2);
+
+        AddPanelToDisplay(treePanelsManager.getNext());
+    }
+
+    void AddPanelToDisplay(GameObject panel)
+    {
+        GameObject newPanel = Instantiate(panel);
+        newPanel.transform.SetParent(buttonsContainer.transform);
+        newPanel.transform.SetSiblingIndex(buttonsContainer.transform.childCount - 2);
+        RectTransform newPanelRectTransform = newPanel.GetComponent<RectTransform>();
+        newPanelRectTransform.localScale = Vector3.one;
+        newPanelRectTransform.anchoredPosition3D = new Vector3(newPanelRectTransform.anchoredPosition.x, newPanelRectTransform.anchoredPosition.y, 0f);
     }
 
 
@@ -123,5 +159,10 @@ public class SkillTree : MonoBehaviour
             skillButtons[i].UpdateStatus(skillButtonStatuses[i]);
         }
 
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Disable();
     }
 }
