@@ -52,7 +52,6 @@ public class SkillTree : MonoBehaviour
             {
                 skillButtonStatus status = skillButton.isFirst ? skillButtonStatus.unlocked : skillButtonStatus.locked;
                 skillButtonStatuses.Add(status);
-                Debug.Log(skillButton.name);
             }
         }
 
