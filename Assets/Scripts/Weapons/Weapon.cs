@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour
 {
     protected Vector2Int baseDamage;
     protected int attackSpeed;
@@ -49,7 +49,7 @@ public class Weapon : MonoBehaviour
 
     }
 
-    protected virtual void Shoot() { }
+    protected abstract void Shoot();
 
     protected IEnumerator Reload()
     {

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6247577526394543101}
-  - component: {fileID: -5940153223041813491}
+  - component: {fileID: 6882324194546309293}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -30,9 +30,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5940153223041813491
+--- !u!114 &6882324194546309293
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,6 +41,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6247577526394543100}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82bd45600e2926d429e97ab42beb19a8, type: 3}
+  m_Script: {fileID: 11500000, guid: a584c069a418e224583df1d8aa685497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reloadSlider: {fileID: 0}
+  firePoint: {fileID: 6247577526394543101}
+  bulletPrefab: {fileID: 4478075856262805781, guid: c318572b656b92542abd302bed3be5af, type: 3}
+  projectiles: 3
+  distanceOffsetBetweenBullets: 0.1
+  spread: 30

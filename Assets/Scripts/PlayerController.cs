@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] GameObject minerBot;
-    public Bullet bulletPrefab;
     [SerializeField] Slider reloadSlider;
     [HideInInspector] public Transform attractorTransform;
     [HideInInspector] public static PlayerController instance;
@@ -430,6 +429,7 @@ public class PlayerController : MonoBehaviour
 
         float angle = Vector2.SignedAngle(Vector2.up, input);
         arrowTransform.rotation = Quaternion.Euler(0f, 0f, angle);
+        weapon.transform.rotation = arrowTransform.rotation;
         _aimDirection = angleToDirection(Vector2.SignedAngle(input, Vector2.down) + 180f);
 
     }

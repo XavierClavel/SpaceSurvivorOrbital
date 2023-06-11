@@ -4,17 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class Gun : Weapon
+public abstract class Gun : Weapon
 {
-    float bulletLifetime;
+    protected float bulletLifetime;
     LayoutManager bulletsLayoutManager;
     WaitForSeconds magazineReloadWindow;
-    Bullet bulletPrefab;
     bool autoReload = true;
     Tween sliderTween;
+    [SerializeField] protected Transform firePoint;
 
-    int damage;
-    bool critical;
 
     protected override void Start()
     {
@@ -23,7 +21,6 @@ public class Gun : Weapon
         bulletsLayoutManager = player.bulletsLayoutManager;
         bulletsLayoutManager.Setup(magazine);
         magazineReloadWindow = Helpers.GetWait(magazineReloadTime);
-        bulletPrefab = player.bulletPrefab;
         currentMagazine = magazine;
     }
 
@@ -38,27 +35,15 @@ public class Gun : Weapon
             reloadSlider.gameObject.SetActive(false);
         }
         StartCoroutine(nameof(Reload));
-
-
-        soundManager.PlaySfx(transform, sfx.shoot);
-        Bullet bullet = Instantiate(bulletPrefab, transform.position - transform.forward * 6f, aimTransform.rotation);
-        bullet.Fire(attackSpeed, bulletLifetime);
-        bullet.pierce = pierce;
-
-        damage = Random.Range(baseDamage.x, baseDamage.y + 1);
-        critical = Random.Range(0f, 1f) < criticalChance;
-        if (critical) damage = (int)((float)damage * criticalMultiplier);
-
-        bullet.damage = damage;
-        bullet.critical = critical;
-        bullet.effect = player.effect;
-
+        Fire();
 
         currentMagazine--;
         bulletsLayoutManager.DecreaseAmount();
 
         if (currentMagazine == 0) StartCoroutine(nameof(ReloadMagazine));
     }
+
+    protected abstract void Fire();
 
     public override void StopFiring()
     {
