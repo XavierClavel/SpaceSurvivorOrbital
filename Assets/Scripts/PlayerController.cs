@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public static PlayerController instance;
     [HideInInspector] public InputMaster controls;
     [HideInInspector] public playerState _playerState_value = playerState.idle;
-    PlayerInput playerInput;
     [HideInInspector]
     public playerState _playerState
     {
@@ -206,8 +205,6 @@ public class PlayerController : MonoBehaviour
     {
 
         instance = this;
-        playerInput = GetComponent<PlayerInput>();
-        SwitchInput();
 
     }
 
@@ -278,10 +275,10 @@ public class PlayerController : MonoBehaviour
         Instantiate(minerBot);
     }
 
-    public static void SwitchInput()
+    public static void SwitchInput(bool newValue)
     {
         if (instance == null) return;
-        isPlayingWithGamepad = instance.playerInput.currentControlScheme == "Gamepad";
+        isPlayingWithGamepad = newValue;
         if (isPlayingWithGamepad)
         {
             Cursor.visible = false;

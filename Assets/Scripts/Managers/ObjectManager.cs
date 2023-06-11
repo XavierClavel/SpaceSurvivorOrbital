@@ -6,6 +6,7 @@ public class ObjectManager : MonoBehaviour
 {
     [SerializeField] PauseMenu pauseMenu;
     [SerializeField] GameObject altarUI;
+    [SerializeField] GameObject firstSelected;
     static ObjectManager instance;
     public static Altar altar;
 
@@ -22,6 +23,7 @@ public class ObjectManager : MonoBehaviour
     {
         instance.altarUI.SetActive(true);
         instance.pauseMenu.PauseGame(false);
+        InputManager.setSelectedObject(instance.firstSelected);
     }
 
     public static void HideAltarUI()

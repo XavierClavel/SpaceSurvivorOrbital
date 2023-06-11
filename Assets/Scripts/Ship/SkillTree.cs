@@ -9,7 +9,7 @@ using DG.Tweening;
 
 public class SkillTree : MonoBehaviour
 {
-    [SerializeField] EventSystem eventSystem;
+    EventSystem eventSystem;
     [SerializeField] TreePanelsManager treePanelsManager;
     static SkillTree instance;
     public static List<TreeButton> skillButtons = new List<TreeButton>();
@@ -22,9 +22,12 @@ public class SkillTree : MonoBehaviour
     InputMaster inputActions;
 
 
+
     private void Awake()
     {
+        eventSystem = EventSystem.current;
 
+        List<TreeButton> removedButtons = buttonsContainer.GetComponentsInChildren<TreeButton>().ToList();
 
         SetupDisplay();
 
@@ -40,6 +43,7 @@ public class SkillTree : MonoBehaviour
 
         instance = this;
         skillButtons = buttonsContainer.GetComponentsInChildren<TreeButton>().ToList();
+        skillButtons.RemoveList(removedButtons);
 
         if (skillButtonStatuses == null)
         {
@@ -48,17 +52,24 @@ public class SkillTree : MonoBehaviour
             {
                 skillButtonStatus status = skillButton.isFirst ? skillButtonStatus.unlocked : skillButtonStatus.locked;
                 skillButtonStatuses.Add(status);
+                Debug.Log(skillButton.name);
             }
         }
 
         if (!PlayerManager.isPlayingWithGamepad) Cursor.visible = true;
+
+    }
+
+    void RemoveChildrenFromList()
+    {
+
     }
 
     void KillAllChildren()
     {
         foreach (Transform child in buttonsContainer.transform)
         {
-            GameObject.Destroy(child.gameObject);
+            Destroy(child.gameObject);
         }
     }
 
@@ -156,6 +167,12 @@ public class SkillTree : MonoBehaviour
         {
             skillButtons[i].UpdateStatus(skillButtonStatuses[i]);
         }
+
+
+        InputManager.setSelectedObject(skillButtons[0].gameObject);
+        Debug.Log(skillButtons[0].name);
+        eventSystem.SetSelectedGameObject(skillButtons[0].gameObject);
+        eventSystem.firstSelectedGameObject = skillButtons[0].gameObject;
 
     }
 

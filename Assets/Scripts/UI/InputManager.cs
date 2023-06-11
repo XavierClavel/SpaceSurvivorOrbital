@@ -1,0 +1,54 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+
+public class InputManager : MonoBehaviour
+{
+    static GameObject selectedObject;
+    static InputManager instance;
+    static bool isPlayingWithGamepad = false;
+    static PlayerInput playerInput;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this) Destroy(gameObject);
+        playerInput = GetComponent<PlayerInput>();
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public static void setSelectedObject(GameObject newObject)
+    {
+        selectedObject = newObject;
+        OnSelectChange();
+    }
+
+    public void TEST()
+    {
+        Debug.Log("test");
+    }
+
+    public static void OnInputChange()
+    {
+        //if (instance == null) return;
+        //isPlayingWithGamepad = playerInput.currentControlScheme == "Gamepad";
+        //OnSelectChange();
+        //PlayerController.SwitchInput(isPlayingWithGamepad);
+    }
+
+
+
+    public static void OnSelectChange()
+    {
+        EventSystem.current.SetSelectedGameObject(selectedObject);
+        /*
+        if (isPlayingWithGamepad) EventSystem.current.SetSelectedGameObject(selectedObject);
+        else EventSystem.current.SetSelectedGameObject(null);
+        */
+    }
+}

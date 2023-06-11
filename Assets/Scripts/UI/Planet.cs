@@ -52,6 +52,7 @@ public class Planet : MonoBehaviour
         greenBar.maxAmount = 3;
         greenBar.currentAmount = (int)planetData.greenScarcity;
         greenBar.Initialize();
+
     }
 
 

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject firstSelected;
 
     public static PauseMenu instance;
     public static bool canGameBePaused = true;
@@ -38,6 +39,7 @@ public class PauseMenu : MonoBehaviour
         {
             pauseMenu.SetActive(true);
             controls.Enable();
+            InputManager.setSelectedObject(firstSelected);
         }
 
     }
@@ -53,7 +55,7 @@ public class PauseMenu : MonoBehaviour
 
         controls.PauseMenu.Disable();
         PlayerController.instance.controls.Enable();
-        PlayerController.SwitchInput();
+        InputManager.setSelectedObject(null);
 
         SoundManager.instance.ResumeTime();
     }

@@ -12,6 +12,7 @@ public class PlanetSelector : MonoBehaviour
     public Sprite planetBlue;
     public Sprite planetBrown;
     public Sprite planetRed;
+    [SerializeField] GameObject firstSelected;
 
     [Header("Parameters")]
     [SerializeField] float resourceMultiplier = 0.33f;
@@ -24,6 +25,7 @@ public class PlanetSelector : MonoBehaviour
     {
         instance = this;
         globalDifficulty++;
+        InputManager.setSelectedObject(firstSelected);
     }
 
     public void SelectPlanet(Planet planet)
