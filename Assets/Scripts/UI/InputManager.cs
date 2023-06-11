@@ -28,17 +28,13 @@ public class InputManager : MonoBehaviour
         OnSelectChange();
     }
 
-    public void TEST()
-    {
-        Debug.Log("test");
-    }
 
     public static void OnInputChange()
     {
-        //if (instance == null) return;
-        //isPlayingWithGamepad = playerInput.currentControlScheme == "Gamepad";
-        //OnSelectChange();
-        //PlayerController.SwitchInput(isPlayingWithGamepad);
+        if (instance == null) return;
+        isPlayingWithGamepad = playerInput.currentControlScheme == "Gamepad";
+        OnSelectChange();
+        PlayerController.SwitchInput(isPlayingWithGamepad);
     }
 
 
