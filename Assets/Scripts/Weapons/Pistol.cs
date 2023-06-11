@@ -5,15 +5,15 @@ using UnityEngine;
 public class Pistol : Gun
 {
     [SerializeField] Bullet bulletPrefab;
-    [SerializeField] int projectiles = 1;
+    int projectiles;
+    float spread = 0f;
     [SerializeField] float distanceOffsetBetweenBullets = 0.1f;
-    [SerializeField] float spread = 0f;
-    float angleOffsetBetweenBullets = 0f;
 
     protected override void Start()
     {
         base.Start();
-        if (projectiles > 1) angleOffsetBetweenBullets = spread / (projectiles - 1);
+        projectiles = PlayerManager.projectiles;
+        spread = PlayerManager.spread;
         bulletPrefab.pierce = pierce;
     }
 
@@ -49,7 +49,7 @@ public class Pistol : Gun
     void FireBulletByIndex(float i)
     {
         Vector3 position = firePoint.position + i * distanceOffsetBetweenBullets * firePoint.right;
-        Vector3 eulerRotation = firePoint.eulerAngles + i * angleOffsetBetweenBullets * Vector3.forward;
+        Vector3 eulerRotation = firePoint.eulerAngles + i * spread * Vector3.forward;
         FireBullet(position, eulerRotation);
     }
 

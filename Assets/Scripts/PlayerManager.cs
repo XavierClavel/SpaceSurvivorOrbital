@@ -37,6 +37,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float _criticalChance = 0.2f;    //between 0 and 1
     [SerializeField] private float _criticalMultiplier = 2f;  //superior to 1
 
+    [SerializeField] private int _projectiles = 1;
+    [SerializeField] private float _spread = 0f;
     [SerializeField] private int _pierce = 0;
     [SerializeField] private float _speed_aimingDemultiplier = 0.7f;
     [SerializeField] private int _magazine = 6;
@@ -91,7 +93,7 @@ public class PlayerManager : MonoBehaviour
     public static float damageResistanceMultiplier { get; private set; }
     public static float invulnerabilityFrameDuration { get; private set; }
 
-
+    //Weapon
     public static Vector2Int baseDamage { get; private set; }
     public static int attackSpeed { get; private set; }
     public static float range { get; private set; }
@@ -102,6 +104,8 @@ public class PlayerManager : MonoBehaviour
     public static float criticalChance { get; private set; }
     public static float criticalMultiplier { get; private set; }
 
+    public static int projectiles { get; private set; }
+    public static float spread { get; private set; }
     public static int pierce { get; private set; }
     public static float speed_aimingDemultiplier { get; private set; }
     public static int magazine { get; private set; }
@@ -174,6 +178,8 @@ public class PlayerManager : MonoBehaviour
             criticalChance = _criticalChance;
             criticalMultiplier = _criticalMultiplier;
 
+            projectiles = _projectiles;
+            spread = _spread;
             pierce = _pierce;
             speed_aimingDemultiplier = _speed_aimingDemultiplier;
             magazine = _magazine;
@@ -302,6 +308,14 @@ public class PlayerManager : MonoBehaviour
 
             case effectType.criticalMultiplier:
                 criticalMultiplier = effect.ApplyOperation(criticalMultiplier);
+                break;
+
+            case effectType.projectiles:
+                projectiles = effect.ApplyOperation(projectiles);
+                break;
+
+            case effectType.spread:
+                spread = effect.ApplyOperation(spread);
                 break;
 
             case effectType.pierce:
