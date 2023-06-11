@@ -72,9 +72,14 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] Weapon _weapon;
     [SerializeField] Tool _tool;
 
+    [Header("Powers")]
+    [SerializeField] int _minerBotPower = 10;
+    [SerializeField] float _minerBotSpeed = 1f;
+
     [Header("Bonus")]
-    [SerializeField] public static bool activateRadar = false;
-    [SerializeField] public static bool activateShipArrow = false;
+    public static bool activateRadar = false;
+    public static bool activateShipArrow = false;
+    public static bool activateMinerBotAttractor = false;
 
 
     //Static accessors
@@ -133,6 +138,11 @@ public class PlayerManager : MonoBehaviour
 
     public static Weapon weapon { get; private set; }
     public static Tool tool { get; private set; }
+
+    public static int minerBotPower { get; private set; }
+    public static float mineerBotSpeed { get; private set; }
+
+
 
     public static PlayerManager instance;
 
@@ -209,6 +219,9 @@ public class PlayerManager : MonoBehaviour
             weapon = _weapon;
             tool = _tool;
 
+            minerBotPower = _minerBotPower;
+            mineerBotSpeed = _minerBotSpeed;
+
             power1 = power.none;
             power2 = power.none;
 
@@ -246,7 +259,7 @@ public class PlayerManager : MonoBehaviour
     {
         switch (effect.effect)
         {
-            case effectType.maxViolet:
+            case effectType.CHARACTERMaxViolet:
                 maxViolet = effect.ApplyOperation(maxViolet);
                 break;
 
@@ -282,51 +295,51 @@ public class PlayerManager : MonoBehaviour
                 damageResistanceMultiplier = effect.ApplyOperation(damageResistanceMultiplier);
                 break;
 
-            case effectType.baseDamage:
+            case effectType.WEAPONBaseDamage:
                 baseDamage = effect.ApplyOperation(baseDamage);
                 break;
 
-            case effectType.attackSpeed:
+            case effectType.WEAPONAttackSpeed:
                 attackSpeed = effect.ApplyOperation(attackSpeed);
                 break;
 
-            case effectType.range:
+            case effectType.WEAPONRange:
                 range = effect.ApplyOperation(range);
                 break;
 
-            case effectType.bulletReloadTime:
+            case effectType.WEAPONBulletReloadTime:
                 bulletReloadTime = effect.ApplyOperation(bulletReloadTime);
                 break;
 
-            case effectType.magazineReloadTime:
+            case effectType.WEAPONMagazineReloadTime:
                 magazineReloadTime = effect.ApplyOperation(magazineReloadTime);
                 break;
 
-            case effectType.criticalChance:
+            case effectType.WEAPONCriticalChance:
                 criticalChance = effect.ApplyOperation(criticalChance);
                 break;
 
-            case effectType.criticalMultiplier:
+            case effectType.WEAPONCriticalMultiplier:
                 criticalMultiplier = effect.ApplyOperation(criticalMultiplier);
                 break;
 
-            case effectType.projectiles:
+            case effectType.WEAPONProjectiles:
                 projectiles = effect.ApplyOperation(projectiles);
                 break;
 
-            case effectType.spread:
+            case effectType.WEAPONSpread:
                 spread = effect.ApplyOperation(spread);
                 break;
 
-            case effectType.pierce:
+            case effectType.WEAPONPierce:
                 pierce = effect.ApplyOperation(pierce);
                 break;
 
-            case effectType.speed_aimingDemultiplier:
+            case effectType.WEAPONSpeedWhileAimingDecrease:
                 speed_aimingDemultiplier = effect.ApplyOperation(speed_aimingDemultiplier);
                 break;
 
-            case effectType.magazine:
+            case effectType.WEAPONMagazine:
                 magazine = effect.ApplyOperation(magazine);
                 break;
 
@@ -358,23 +371,23 @@ public class PlayerManager : MonoBehaviour
                 firePeriod = effect.ApplyOperation(firePeriod);
                 break;
 
-            case effectType.toolPower:
+            case effectType.TOOLPower:
                 toolPower = effect.ApplyOperation(toolPower);
                 break;
 
-            case effectType.toolReloadTime:
+            case effectType.TOOLReloadTime:
                 toolReloadTime = effect.ApplyOperation(toolReloadTime);
                 break;
 
-            case effectType.toolRange:
+            case effectType.TOOLRange:
                 toolRange = effect.ApplyOperation(toolRange);
                 break;
 
-            case effectType.attractorRange:
+            case effectType.TOOLAttractorRange:
                 attractorRange = effect.ApplyOperation(attractorRange);
                 break;
 
-            case effectType.attractorForce:
+            case effectType.TOOLAttractorForce:
                 attractorForce = effect.ApplyOperation(attractorForce);
                 break;
 
@@ -384,6 +397,14 @@ public class PlayerManager : MonoBehaviour
 
             case effectType.tool:
                 tool = effect.ApplyOperation(tool);
+                break;
+
+            case effectType.POWERMinerBotPower:
+                minerBotPower = effect.ApplyOperation(minerBotPower);
+                break;
+
+            case effectType.POWERMinerBotSpeed:
+                mineerBotSpeed = effect.ApplyOperation(mineerBotSpeed);
                 break;
         }
     }
@@ -406,5 +427,10 @@ public class PlayerManager : MonoBehaviour
     public static void ActivateShipArrow()
     {
         activateShipArrow = true;
+    }
+
+    public static void ActivateMinerBotAttractor()
+    {
+        activateMinerBotAttractor = true;
     }
 }

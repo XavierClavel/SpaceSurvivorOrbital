@@ -162,8 +162,7 @@ public class TileManager : MonoBehaviour
         map[mapRadius.x, mapRadius.y].possibleStates.Add(spaceship);
         map[mapRadius.x, mapRadius.y].entropy = int.MinValue;
 
-        //TODO : remove setting value of playercontroller variable
-        PlayerController.instance.spaceship = CollapseWaveFunction(map[mapRadius.x, mapRadius.y]);
+        CollapseWaveFunction(map[mapRadius.x, mapRadius.y]);
     }
 
 

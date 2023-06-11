@@ -45,4 +45,9 @@ public class SkillButton : TreeButton
     {
         Execute(PlayerManager.ActivateShipArrow);
     }
+
+    public void ActivateMinerBotAttractor()
+    {
+        Execute(PlayerManager.ActivateMinerBotAttractor);
+    }
 }

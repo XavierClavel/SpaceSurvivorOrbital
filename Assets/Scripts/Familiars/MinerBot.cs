@@ -12,8 +12,8 @@ public class MinerBot : MonoBehaviour
     [SerializeField] float visionRadius = 4f;
     [SerializeField] Tool tool;
     [SerializeField] Vector2 toolRange;
-    [SerializeField] int toolPower;
-    [SerializeField] float toolReloadTime;
+    int toolPower;
+    float toolReloadTime;
     List<GameObject> resources = new List<GameObject>();
     [SerializeField] float maxDistanceToPlayer = 9f;
     float sqrMaxDistanceToPlayer;
@@ -36,6 +36,9 @@ public class MinerBot : MonoBehaviour
     void Start()
     {
         playerTransform = PlayerController.instance.transform;
+        toolPower = PlayerManager.minerBotPower;
+        toolReloadTime = 1f / PlayerManager.mineerBotSpeed;
+
 
         tool = Instantiate(PlayerManager.tool, transform.position, Quaternion.identity);
         tool.transform.SetParent(transform);

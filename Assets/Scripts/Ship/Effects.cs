@@ -7,7 +7,7 @@ using System;
 public enum effectType
 {
     //Ressources
-    maxViolet,
+    CHARACTERMaxViolet,
     maxOrange,
     maxGreen,
 
@@ -21,21 +21,21 @@ public enum effectType
     damageResistanceMultiplier,
 
     //Weapon
-    baseDamage,
-    attackSpeed,
-    range,
-    magazine,
+    WEAPONBaseDamage,
+    WEAPONAttackSpeed,
+    WEAPONRange,
+    WEAPONMagazine,
 
-    bulletReloadTime,
-    magazineReloadTime,
+    WEAPONBulletReloadTime,
+    WEAPONMagazineReloadTime,
 
-    criticalChance,
-    criticalMultiplier,
+    WEAPONCriticalChance,
+    WEAPONCriticalMultiplier,
 
-    projectiles,
-    spread,
-    pierce,
-    speed_aimingDemultiplier,
+    WEAPONProjectiles,
+    WEAPONSpread,
+    WEAPONPierce,
+    WEAPONSpeedWhileAimingDecrease,
 
 
     //Other
@@ -52,21 +52,55 @@ public enum effectType
     iceSpeedMultiplier,
     iceDuration,
 
-    toolPower,
-    toolReloadTime,
-    toolRange,
+    TOOLPower,
+    TOOLReloadTime,
+    TOOLRange,
 
-    attractorRange,
-    attractorForce,
+    TOOLAttractorRange,
+    TOOLAttractorForce,
 
     weapon,
-    tool
+    tool,
 
+    POWERMinerBotPower,
+    POWERMinerBotSpeed
+
+}
+
+public enum weaponParameter
+{
+    baseDamage,
+    attackSpeed,
+    range,
+    magazine,
+
+    bulletReloadTime,
+    magazineReloadTime,
+
+    criticalChance,
+    criticalMultiplier,
+
+    projectiles,
+    spread,
+    pierce,
+    speed_aimingDemultiplier,
 }
 
 public enum operationType
 {
     add, substract, multiply, divide, assignation
+}
+
+
+[Serializable]
+public class WeaponEffect : Effect
+{
+    public weaponParameter parameter;
+    [ConditionalField(nameof(parameter), false,
+    weaponParameter.attackSpeed, weaponParameter.projectiles, weaponParameter.pierce, weaponParameter.magazine
+    )]
+    new public int valueInt;
+    new public float valueFloat;
 }
 
 
@@ -77,28 +111,33 @@ public class Effect
     public operationType operation;
 
     [ConditionalField(nameof(effect), false,
-    effectType.maxViolet, effectType.maxOrange, effectType.maxGreen,
+    effectType.CHARACTERMaxViolet, effectType.maxOrange, effectType.maxGreen,
     effectType.fillAmountViolet, effectType.fillAmountOrange, effectType.fillAmountGreen,
-    effectType.maxHealth, effectType.attackSpeed, effectType.projectiles, effectType.pierce, effectType.magazine,
+    effectType.maxHealth, effectType.WEAPONAttackSpeed, effectType.WEAPONProjectiles, effectType.WEAPONPierce, effectType.WEAPONMagazine,
     effectType.poisonDamage, effectType.fireDamage,
-    effectType.toolPower)]
+    effectType.TOOLPower,
+    effectType.POWERMinerBotPower)]
     public int valueInt;
 
 
     [ConditionalField(nameof(effect), false,
     effectType.baseSpeed, effectType.damageResistanceMultiplier,
-    effectType.range, effectType.spread,
-    effectType.bulletReloadTime, effectType.magazineReloadTime,
-    effectType.criticalChance, effectType.criticalMultiplier, effectType.speed_aimingDemultiplier,
+    effectType.WEAPONRange, effectType.WEAPONSpread,
+    effectType.WEAPONBulletReloadTime, effectType.WEAPONMagazineReloadTime,
+    effectType.WEAPONCriticalChance, effectType.WEAPONCriticalMultiplier, effectType.WEAPONSpeedWhileAimingDecrease,
     effectType.poisonDuration, effectType.poisonPeriod,
     effectType.fireDuration, effectType.firePeriod,
     effectType.iceSpeedMultiplier, effectType.iceDuration,
-    effectType.toolPower, effectType.toolReloadTime, effectType.toolRange,
-    effectType.attractorRange, effectType.attractorForce)]
+    effectType.TOOLPower, effectType.TOOLReloadTime, effectType.TOOLRange,
+    effectType.TOOLAttractorRange, effectType.TOOLAttractorForce,
+    effectType.POWERMinerBotSpeed)]
     public float valueFloat;
 
 
-    [ConditionalField(nameof(effect), false, effectType.baseDamage)]
+    public bool valueBool;
+
+
+    [ConditionalField(nameof(effect), false, effectType.WEAPONBaseDamage)]
     public Vector2Int valueV2Int;
 
 
