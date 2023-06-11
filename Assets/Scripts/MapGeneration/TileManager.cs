@@ -50,6 +50,7 @@ public class TileManager : MonoBehaviour
     const float tileRotationPeriod = 1f;
     //TODO : adapat tilerotationperiod to planet size
 
+    public bool generateMap;
 
     public static Tile getTileToPlace(List<Tile> possibleStates)
     {
@@ -64,6 +65,7 @@ public class TileManager : MonoBehaviour
     {
         instance = this;
         if (!PlanetManager.hasData()) PlanetManager.setData(planetData);
+        if (!generateMap) return;
         tilesBankManager.getTiles();
         tiles.Add(spaceship);
         SetupPlanet();

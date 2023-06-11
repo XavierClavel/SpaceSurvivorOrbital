@@ -10,6 +10,7 @@ public class Spaceship : MonoBehaviour, IInteractable
     private void Start()
     {
         ObjectManager.dictObjectToInteractable.Add(gameObject, this);
+        PlayerController.ActivateSpaceship(gameObject);
     }
 
     public void StartInteracting()
