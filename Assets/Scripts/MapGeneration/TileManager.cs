@@ -288,6 +288,31 @@ public class TileManager : MonoBehaviour
         }
     }
 
+    public void SetMap(List<TileRow> tileRows, Vector2Int tileSize)
+    {
+        this.tileSize = tileSize;
+        mapSize = new Vector2Int(tileRows.Count, tileRows.Count);
+        mapRadius = (mapSize - Vector2Int.one) / 2;
+        player = PlayerController.instance;
+
+        Vector2Int index = Vector2Int.zero;
+        foreach (TileRow tileRow in tileRows)
+        {
+            foreach (GameObject tile in tileRow.tileRow)
+            {
+                Vector2Int position = IndexToPosition(index);
+                Debug.Log(position);
+                dictPositionToTile.Add(position, tile);
+                index.x++;
+            }
+            index.y++;
+            index.x = 0;
+        }
+
+        StartCoroutine(nameof(TileManagement));
+
+    }
+
     void UpdateActiveTiles()
     {
         Vector2Int currentPos = Helpers.RoundToVector2IndexStep(player.transform.position, tileSize);
@@ -300,16 +325,6 @@ public class TileManager : MonoBehaviour
 
         List<Vector2Int> tilesToWrapAroundMap = new List<Vector2Int>();
 
-        int borderX = goingRight ? int.MinValue : int.MaxValue;
-        int borderY = goingUp ? int.MinValue : int.MaxValue;
-
-        Vector2Int lastCorner = lastPos;
-        lastCorner += Vector2Int.right * (goingRight ? mapRadius.x : -mapRadius.x);
-        lastCorner += Vector2Int.up * (goingUp ? mapRadius.y : -mapRadius.y);
-
-        Vector2Int newCorner = currentPos - (lastCorner - lastPos);
-
-        //TODo : offset with tile and last corner applied to new corner
 
 
 
@@ -344,17 +359,6 @@ public class TileManager : MonoBehaviour
             dictPositionToTile.Add(newPos, tile);
             tile.transform.position = PositionToWorld(newPos);
         }
-
-
-        List<GameObject> tilesToDeactivate = new List<GameObject>();
-        List<GameObject> tilesToActivate = new List<GameObject>();
-
-        /*
-        for (int x = currentPos.x - activationRadius.x; x < -currentPos.x + activationRadius.x; x++)
-        {
-            for (int )
-        }
-        */
 
         lastPos = currentPos;
     }
