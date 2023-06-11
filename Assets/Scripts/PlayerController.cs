@@ -161,8 +161,9 @@ public class PlayerController : MonoBehaviour
         invulnerable = false;
     }
 
-    public static void ActivateSpaceship()
+    public static void ActivateSpaceship(GameObject spaceship)
     {
+        instance.spaceship = spaceship;
         instance.spaceship.GetComponent<CircleCollider2D>().enabled = true;
         instance.spaceshipIndicator.SetActive(true);
         instance.spaceshipIndicator.GetComponent<ObjectIndicator>().target = instance.spaceship.transform;
@@ -210,7 +211,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        ActivateSpaceship();
         radar.SetActive(PlayerManager.activateRadar);
         spaceshipIndicator.SetActive(PlayerManager.activateShipArrow);
 
