@@ -17,6 +17,7 @@ public class PlanetSelector : MonoBehaviour
     [Header("Parameters")]
     [SerializeField] float resourceMultiplier = 0.33f;
     [SerializeField] float altarMultiplier = 0.5f;
+    [SerializeField] float sizeMultiplier = 0.1f;
     [SerializeField] float randomMultiplier = 0.5f;
     [SerializeField] float globalDifficultyMultiplier = 0.8f;
     static int globalDifficulty = -1;
@@ -39,9 +40,10 @@ public class PlanetSelector : MonoBehaviour
         int resourceAmount = (int)planetData.violetScarcity + (int)planetData.orangeScarcity + (int)planetData.greenScarcity;
         float resourceFactor = instance.resourceMultiplier * (float)resourceAmount;
         float altarFactor = instance.altarMultiplier * (planetData.hasAltar ? 1 : 0);
+        float sizeFactor = instance.sizeMultiplier * ((float)planetData.size - 1f);
         float randomFactor = instance.randomMultiplier * Random.Range(-1f, 1f);
         float globalFactor = instance.globalDifficultyMultiplier * globalDifficulty;
-        float difficultyValue = resourceFactor + altarFactor + randomFactor + globalFactor;
+        float difficultyValue = resourceFactor + altarFactor + randomFactor + globalFactor - sizeFactor;
         return (int)difficultyValue;
     }
 
