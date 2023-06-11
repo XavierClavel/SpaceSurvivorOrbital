@@ -14,14 +14,20 @@ public class TilesBank : ScriptableObject
     public GameObject violet3;
 
     [Header("Green")]
-    public GameObject green1;
-    public GameObject green2;
-    public GameObject green3;
+    public GameObject greenLow0;
+    public GameObject greenLow1;
+    public GameObject greenMid0; 
+    public GameObject greenMid1;
+    public GameObject greenStrong0;
+    public GameObject greenStrong1;
 
-    [Header("Orange")]
-    public GameObject orange1;
-    public GameObject orange2;
-    public GameObject orange3;
+    [Header("Yellow")]
+    public GameObject yellowLow0;
+    public GameObject yellowLow1;
+    public GameObject yellowMid0;
+    public GameObject yellowMid1;
+    public GameObject yellowStrong0;
+    public GameObject yellowStrong1;
 
     [Header("Bonus")]
     public GameObject autel;

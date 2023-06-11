@@ -21,13 +21,20 @@ public class TileManager : MonoBehaviour
     Vector2Int lastPos = Vector2Int.zero;
     Vector2Int mapRadius;
     List<Tile> tilesToPlace = new List<Tile>();
-    [HideInInspector] public Tile green1;
-    [HideInInspector] public Tile green2;
-    [HideInInspector] public Tile green3;
 
-    [HideInInspector] public Tile orange1;
-    [HideInInspector] public Tile orange2;
-    [HideInInspector] public Tile orange3;
+    [HideInInspector] public Tile greenLow0;
+    [HideInInspector] public Tile greenLow1;
+    [HideInInspector] public Tile greenMid0;
+    [HideInInspector] public Tile greenMid1;
+    [HideInInspector] public Tile greenStrong0;
+    [HideInInspector] public Tile greenStrong1;
+
+    [HideInInspector] public Tile yellowLow0;
+    [HideInInspector] public Tile yellowLow1;
+    [HideInInspector] public Tile yellowMid0;
+    [HideInInspector] public Tile yellowMid1;
+    [HideInInspector] public Tile yellowStrong0;
+    [HideInInspector] public Tile yellowStrong1;
 
     [HideInInspector] public Tile violet1;
     [HideInInspector] public Tile violet2;
@@ -99,8 +106,8 @@ public class TileManager : MonoBehaviour
         planetSize = PlanetManager.getSize();
 
         AllocateResource(PlanetManager.getVioletAmount(), violet1, violet2, violet3);
-        AllocateResource(PlanetManager.getGreenAmount(), green1, green2, green3);
-        AllocateResource(PlanetManager.getOrangeAmount(), orange1, orange2, orange3);
+        AllocateResource(PlanetManager.getGreenAmount(), greenLow0, greenMid0, greenStrong0);
+        AllocateResource(PlanetManager.getOrangeAmount(), yellowLow0, yellowMid0, yellowStrong0);
 
         if (PlanetManager.hasAltar())
         {

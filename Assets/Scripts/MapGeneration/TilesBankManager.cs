@@ -18,14 +18,20 @@ public class TilesBankManager : MonoBehaviour
     [SerializeField] Tile violet3;
 
     [Header("Green")]
-    [SerializeField] Tile green1;
-    [SerializeField] Tile green2;
-    [SerializeField] Tile green3;
+    [SerializeField] Tile greenLow0;
+    [SerializeField] Tile greenLow1;
+    [SerializeField] Tile greenMid0;
+    [SerializeField] Tile greenMid1;
+    [SerializeField] Tile greenStrong0;
+    [SerializeField] Tile greenStrong1;
 
-    [Header("Orange")]
-    [SerializeField] Tile orange1;
-    [SerializeField] Tile orange2;
-    [SerializeField] Tile orange3;
+    [Header("Yellow")]
+    [SerializeField] Tile yellowLow0;
+    [SerializeField] Tile yellowLow1;
+    [SerializeField] Tile yellowMid0;
+    [SerializeField] Tile yellowMid1;
+    [SerializeField] Tile yellowStrong0;
+    [SerializeField] Tile yellowStrong1;
 
     [Header("Bonus")]
     [SerializeField] Tile autel;
@@ -43,13 +49,19 @@ public class TilesBankManager : MonoBehaviour
         violet2.tileObject = bank.violet2;
         violet3.tileObject = bank.violet3;
 
-        green1.tileObject = bank.green1;
-        green2.tileObject = bank.green2;
-        green3.tileObject = bank.green3;
+        greenLow0.tileObject = bank.greenLow0;
+        greenLow1.tileObject = bank.greenLow1;
+        greenMid0.tileObject = bank.greenMid0;
+        greenMid1.tileObject = bank.greenMid1;
+        greenStrong0.tileObject = bank.greenStrong0;
+        greenStrong1.tileObject = bank.greenStrong1;
 
-        orange1.tileObject = bank.orange1;
-        orange2.tileObject = bank.orange2;
-        orange3.tileObject = bank.orange3;
+        yellowLow0.tileObject = bank.yellowLow0;
+        yellowLow1.tileObject = bank.yellowLow1;
+        yellowMid0.tileObject = bank.yellowMid0;
+        yellowMid1.tileObject = bank.yellowMid1;
+        yellowStrong0.tileObject = bank.yellowStrong0;
+        yellowStrong1.tileObject = bank.yellowStrong1;
 
         autel.tileObject = bank.autel;
 
@@ -66,13 +78,19 @@ public class TilesBankManager : MonoBehaviour
         TileManager.instance.violet2 = violet2;
         TileManager.instance.violet3 = violet3;
 
-        TileManager.instance.green1 = green1;
-        TileManager.instance.green2 = green2;
-        TileManager.instance.green3 = green3;
+        TileManager.instance.greenLow0 = greenLow0;
+        TileManager.instance.greenLow1 = greenLow1;
+        TileManager.instance.greenMid0 = greenMid0;
+        TileManager.instance.greenMid1 = greenMid1;
+        TileManager.instance.greenStrong0 = greenStrong0;
+        TileManager.instance.greenStrong1 = greenStrong1;
 
-        TileManager.instance.orange1 = orange1;
-        TileManager.instance.orange2 = orange2;
-        TileManager.instance.orange3 = orange3;
+        TileManager.instance.yellowLow0 = yellowLow0;
+        TileManager.instance.yellowLow1 = yellowLow1;
+        TileManager.instance.yellowMid0 = yellowMid0;
+        TileManager.instance.yellowMid1 = yellowMid1;
+        TileManager.instance.yellowStrong0 = yellowStrong0;
+        TileManager.instance.yellowStrong1 = yellowStrong1;
 
         TileManager.instance.autel = autel;
 

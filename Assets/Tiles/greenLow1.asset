@@ -10,11 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa5bec965166ea948af47c42084c9d23, type: 3}
-  m_Name: ResourceGreen 2
+  m_Name: greenLow1
   m_EditorClassIdentifier: 
   weight: 1
-  tileObject: {fileID: 8118553817093898150, guid: e0441fffc5f4dbe4e9f39613c21b30fd, type: 3}
+  tileObject: {fileID: 8118553817093898150, guid: 857566de57c263b419ade6d60bde6bfa, type: 3}
   hasLimitedAmount: 1
-  maxAmount: 1
-  constraints: []
-  currentAmount: 0
+  maxAmount: 2
+  minAmount: 0
+  constraints:
+  - otherTile: {fileID: 11400000, guid: 418f173586daa8a4ea2a23ab890a4368, type: 2}
+    distance: 2
+  - otherTile: {fileID: 11400000, guid: f7bf1276eda37544dad0ccf8cc6f1e6b, type: 2}
+    distance: 2
+  currentAmount: 1
