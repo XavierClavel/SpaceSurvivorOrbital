@@ -73,7 +73,6 @@ public class PlayerController : MonoBehaviour
     bool aiming = false;
     [SerializeField] Slider healthBar;
     float _health;
-    [HideInInspector] public GameObject spaceship;
     [SerializeField] Animator animator;
     [HideInInspector] public bool hasWon = false;
     public SpriteRenderer arrowMouse;
@@ -163,10 +162,8 @@ public class PlayerController : MonoBehaviour
 
     public static void ActivateSpaceship(GameObject spaceship)
     {
-        instance.spaceship = spaceship;
-        instance.spaceship.GetComponent<CircleCollider2D>().enabled = true;
         instance.spaceshipIndicator.SetActive(true);
-        instance.spaceshipIndicator.GetComponent<ObjectIndicator>().target = instance.spaceship.transform;
+        instance.spaceshipIndicator.GetComponent<ObjectIndicator>().target = spaceship.transform;
     }
 
     public void IncreaseViolet()
