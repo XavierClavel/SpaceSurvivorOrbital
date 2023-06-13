@@ -8,6 +8,10 @@ public enum power { none, minerBot };
 
 public class PlayerManager : MonoBehaviour
 {
+    [SerializeField] CharacterData characterData;
+    [SerializeField] WeaponData weaponData;
+    [SerializeField] ToolData toolData;
+
     //To delete after the switch to excel files
     [Header("Resources parameters")]
     [SerializeField] private int _maxViolet = 2;
@@ -20,28 +24,7 @@ public class PlayerManager : MonoBehaviour
 
 
     [Header("Player parameters")]
-    [SerializeField] private int _maxHealth = 100;
-    [SerializeField] private float _baseSpeed = 30f;
-    [SerializeField] private float _damageResistanceMultiplier = 0f;
     [SerializeField] private float _invulnerabilityFrameDuration = 0.2f;
-
-
-    [Header("Weapon parameters")]
-    [SerializeField] private Vector2Int _baseDamage = new Vector2Int(50, 75);
-    [SerializeField] private int _attackSpeed = 10;
-    [SerializeField] private float _range = 30;
-
-    [SerializeField] private float _bulletReloadTime = 0.5f;
-    [SerializeField] private float _magazineReloadTime = 2f;
-
-    [SerializeField] private float _criticalChance = 0.2f;    //between 0 and 1
-    [SerializeField] private float _criticalMultiplier = 2f;  //superior to 1
-
-    [SerializeField] private int _projectiles = 1;
-    [SerializeField] private float _spread = 0f;
-    [SerializeField] private int _pierce = 0;
-    [SerializeField] private float _speed_aimingDemultiplier = 0.7f;
-    [SerializeField] private int _magazine = 6;
 
     [SerializeField] private status _effect = status.none;
 
@@ -57,20 +40,6 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private float _iceSpeedMultiplier;
     [SerializeField] private float _iceDuration;
-
-
-    [Header("Tool parameters")]
-    [SerializeField] private int _toolPower = 50;
-    [SerializeField] private float _toolReloadTime = 0.5f;
-    [SerializeField] private float _toolRange;
-
-    [Header("Attractor parameters")]
-    [SerializeField] private float _attractorRange = 2.5f;
-    [SerializeField] private float _attractorForce = 2.5f;
-
-    [Header("Others")]
-    [SerializeField] Weapon _weapon;
-    [SerializeField] Tool _tool;
 
     [Header("Powers")]
     [SerializeField] int _minerBotPower = 10;
@@ -172,27 +141,27 @@ public class PlayerManager : MonoBehaviour
             fillAmountGreen = _fillAmountGreen;
 
 
-            maxHealth = _maxHealth;
-            baseSpeed = _baseSpeed;
-            damageResistanceMultiplier = _damageResistanceMultiplier;
+            maxHealth = characterData.maxHealth;
+            baseSpeed = characterData.baseSpeed;
+            damageResistanceMultiplier = characterData.damageResistance;
             invulnerabilityFrameDuration = _invulnerabilityFrameDuration;
 
 
-            baseDamage = _baseDamage;
-            attackSpeed = _attackSpeed;
-            range = _range;
+            baseDamage = weaponData.baseDamage;
+            attackSpeed = weaponData.attackSpeed;
+            range = weaponData.range;
 
-            bulletReloadTime = _bulletReloadTime;
-            magazineReloadTime = _magazineReloadTime;
+            bulletReloadTime = weaponData.bulletReloadTime;
+            magazineReloadTime = weaponData.magazineReloadTime;
 
-            criticalChance = _criticalChance;
-            criticalMultiplier = _criticalMultiplier;
+            criticalChance = weaponData.criticalChance;
+            criticalMultiplier = weaponData.criticalMultiplier;
 
-            projectiles = _projectiles;
-            spread = _spread;
-            pierce = _pierce;
-            speed_aimingDemultiplier = _speed_aimingDemultiplier;
-            magazine = _magazine;
+            projectiles = weaponData.projectiles;
+            spread = weaponData.spread;
+            pierce = weaponData.pierce;
+            speed_aimingDemultiplier = weaponData.speedWhileAiming;
+            magazine = weaponData.magazine;
 
             statusEffect = _effect;
 
@@ -209,15 +178,15 @@ public class PlayerManager : MonoBehaviour
             iceDuration = _iceDuration;
 
 
-            toolPower = _toolPower;
-            toolReloadTime = _toolReloadTime;
-            toolRange = _toolRange;
+            toolPower = toolData.power;
+            toolReloadTime = toolData.reloadTime;
+            toolRange = toolData.range;
 
-            attractorRange = _attractorRange;
-            attractorForce = _attractorForce;
+            attractorRange = toolData.attractorRange;
+            attractorForce = toolData.attractorForce;
 
-            weapon = _weapon;
-            tool = _tool;
+            weapon = weaponData.weapon;
+            tool = toolData.tool;
 
             minerBotPower = _minerBotPower;
             mineerBotSpeed = _minerBotSpeed;

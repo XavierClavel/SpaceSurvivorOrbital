@@ -179,8 +179,7 @@ GameObject:
   - component: {fileID: 8369990666557462575}
   - component: {fileID: 2510339639737675148}
   - component: {fileID: 5422231929958480027}
-  - component: {fileID: 7713573961209155227}
-  - component: {fileID: 62282979170150975}
+  - component: {fileID: 8271505379113111870}
   m_Layer: 12
   m_Name: Orange crystal
   m_TagString: Resource
@@ -275,43 +274,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &7713573961209155227
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8369990666557462571}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.05359982, y: -0.039518}
-  serializedVersion: 2
-  m_Radius: 0.53365135
---- !u!61 &62282979170150975
-BoxCollider2D:
+--- !u!60 &8271505379113111870
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -342,7 +306,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.048569605}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -352,9 +316,22 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.23, y: 0.6866753}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.31612825, y: 0.259117}
+      - {x: -0.56950575, y: -0.00097072124}
+      - {x: -0.5455667, y: -0.23382443}
+      - {x: -0.3640219, y: -0.39215726}
+      - {x: -0.16161959, y: -0.40901506}
+      - {x: 0.06784733, y: -0.35992146}
+      - {x: 0.414661, y: -0.43947247}
+      - {x: 0.57166666, y: -0.22666667}
+      - {x: 0.6002623, y: 0.050919503}
+      - {x: 0.5441793, y: 0.18447088}
+      - {x: 0.40494782, y: 0.22160737}
+      - {x: 0.22745672, y: 0.41480184}
+      - {x: 0.08704767, y: 0.44225222}
+  m_UseDelaunayMesh: 0
 --- !u!1001 &7247969988528229786
 PrefabInstance:
   m_ObjectHideFlags: 0

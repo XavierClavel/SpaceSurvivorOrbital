@@ -301,7 +301,6 @@ public class TileManager : MonoBehaviour
             foreach (GameObject tile in tileRow.tileRow)
             {
                 Vector2Int position = IndexToPosition(index);
-                Debug.Log(position);
                 dictPositionToTile.Add(position, tile);
                 index.x++;
             }
