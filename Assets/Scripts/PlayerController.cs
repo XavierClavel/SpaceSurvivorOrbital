@@ -238,7 +238,7 @@ public class PlayerController : MonoBehaviour
         weapon = Instantiate(PlayerManager.weapon, transform.position, Quaternion.identity);
         weapon.reloadSlider = reloadSlider;
         weapon.transform.SetParent(arm.transform);
-        weapon.transform.position = 0.6f * Vector3.right;
+        weapon.transform.position = transform.position + 0.3f * Vector3.left;
 
         tool = Instantiate(PlayerManager.tool, transform.position, Quaternion.identity);
         tool.transform.SetParent(transform);
