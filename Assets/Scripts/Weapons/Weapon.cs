@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public abstract class Weapon : MonoBehaviour
 {
+    [SerializeField] protected SpriteRenderer spriteRenderer;
     protected Vector2Int baseDamage;
     protected int attackSpeed;
     protected float range;
@@ -28,6 +29,16 @@ public abstract class Weapon : MonoBehaviour
 
     protected bool firing = false;
     protected bool reloading = false;
+
+    public void DisplayWeapon()
+    {
+        spriteRenderer.enabled = true;
+    }
+
+    public void HideWeapon()
+    {
+        spriteRenderer.enabled = false;
+    }
 
     protected virtual void Start()
     {
