@@ -243,15 +243,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: greenLifeCost
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: yellowLifeCost
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: activateButton.Array.size
@@ -290,6 +290,10 @@ PrefabInstance:
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[4].effect
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[0].valueInt
       value: 50
       objectReference: {fileID: 0}
@@ -303,6 +307,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[3].valueInt
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[4].valueInt
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
@@ -350,6 +358,10 @@ PrefabInstance:
       value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[4].valueFloat
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[0].valueV2Int.x
       value: 10
       objectReference: {fileID: 0}
@@ -379,6 +391,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[3].valueV2Int.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[4].valueV2Int.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[4].valueV2Int.y
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565453, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
@@ -1702,7 +1722,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: activateButton.Array.size
@@ -1737,6 +1757,10 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[3].effect
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[0].valueInt
       value: 6
       objectReference: {fileID: 0}
@@ -1747,6 +1771,10 @@ PrefabInstance:
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[2].valueInt
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[3].valueInt
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: desactivateButton.Array.data[0]
@@ -1777,6 +1805,10 @@ PrefabInstance:
       value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[3].valueFloat
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[0].valueV2Int.x
       value: 10
       objectReference: {fileID: 0}
@@ -1798,6 +1830,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[2].valueV2Int.y
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[3].valueV2Int.x
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[3].valueV2Int.y
       value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565453, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
@@ -1969,7 +2009,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.size
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: activateButton.Array.size
@@ -2001,7 +2041,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[2].effect
-      value: 11
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[3].effect
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[4].effect
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[0].valueInt
@@ -2014,6 +2062,14 @@ PrefabInstance:
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[2].valueInt
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[3].valueInt
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[4].valueInt
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: desactivateButton.Array.data[0]
@@ -2033,6 +2089,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[2].operation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[4].operation
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
@@ -2046,6 +2106,14 @@ PrefabInstance:
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[2].valueFloat
       value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[3].valueFloat
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[4].valueFloat
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[0].valueV2Int.x
@@ -2069,6 +2137,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
       propertyPath: effects.Array.data[2].valueV2Int.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[3].valueV2Int.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[3].valueV2Int.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[4].valueV2Int.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272894740263565449, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
+      propertyPath: effects.Array.data[4].valueV2Int.y
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2272894740263565453, guid: ded5166f2369c4842a56788f0aef62b1, type: 3}
