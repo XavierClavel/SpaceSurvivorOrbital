@@ -100,7 +100,6 @@ public class Ennemy : MonoBehaviour
 
     public void Hurt(int damage, status effect, bool critical)
     {
-        Debug.Log(damage);
         Sequence sequence = DOTween.Sequence();
         sequence.Append(spriteOverlay.DOColor(Color.white, 0.1f));
         sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));

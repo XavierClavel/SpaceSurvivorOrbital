@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class Tool : MonoBehaviour
 {
     [HideInInspector] public List<Resource> resourcesInRange = new List<Resource>();
-    [SerializeField] CapsuleCollider2D trigger;
+    CapsuleCollider2D trigger;
     protected int toolPower;
     protected float toolReloadTime;
 
@@ -21,6 +21,7 @@ public class Tool : MonoBehaviour
 
     public void Initialize(Vector2 toolRange, int toolPower, float toolReloadTime)
     {
+        trigger = GetComponent<CapsuleCollider2D>();
         trigger.size = toolRange;
         this.toolPower = toolPower;
         this.toolReloadTime = toolReloadTime;
