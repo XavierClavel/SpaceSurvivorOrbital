@@ -475,7 +475,7 @@ public class PlayerController : MonoBehaviour
     public void OnClick()
     {
         PauseMenu.instance.ResumeGame();
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Title Screen");
         youLooseScreen.SetActive(false);
     }
 }
