@@ -24,6 +24,8 @@ public class LoadNextScene : MonoBehaviour
     {
         SceneManager.LoadScene(text);
 
+        Destroy(GameObject.FindGameObjectWithTag("Win"));
+
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f;
 

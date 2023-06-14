@@ -48,6 +48,7 @@ public class Timer : MonoBehaviour
             yield return waitSecond;
             timeRemaining--;
         }
+        //Destroy(spaceShip);
         Instantiate(boss, randomPos() + playerTransform.position, Quaternion.identity);
     }
 
