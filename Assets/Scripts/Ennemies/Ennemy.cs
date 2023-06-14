@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Events;
 
 public class Ennemy : MonoBehaviour
 {
+    public UnityEvent onDeath = new UnityEvent();
+
     protected PlayerController player;
     [SerializeField] Slider healthBar;
     [SerializeField] protected Rigidbody2D rb;
@@ -165,6 +168,8 @@ public class Ennemy : MonoBehaviour
         StressTest.nbEnnemies--;
         soundManager.PlaySfx(transform, sfx.ennemyExplosion);
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
+
+        onDeath.Invoke();
         Destroy(gameObject);
     }
 

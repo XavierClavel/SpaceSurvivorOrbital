@@ -22,17 +22,7 @@ public class LoadNextScene : MonoBehaviour
 
     public void OnclickWin()
     {
+        PauseMenu.instance.ResumeGame();
         SceneManager.LoadScene(text);
-
-        Destroy(GameObject.FindGameObjectWithTag("Win"));
-
-        Time.timeScale = 1f;
-        Time.fixedDeltaTime = 0.02f;
-
-        PlayerController.instance.controls.Enable();
-        InputManager.setSelectedObject(null);
-
-        SoundManager.instance.ResumeTime();
-        Destroy(this);
     }
 }

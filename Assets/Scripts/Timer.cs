@@ -13,12 +13,13 @@ public class Timer : MonoBehaviour
     [SerializeField] TextMeshProUGUI timeText; // r�f�rence au composant Text de l'UI
     int time;
 
-    [SerializeField] GameObject boss;
+    [SerializeField] Ennemy boss;
     Transform playerTransform;
     GameObject spaceShip;
     WaitForSeconds waitSecond;
     public static Timer instance;
     bool doTimerRun = true;
+    public GameObject winText;
 
     private void Awake()
     {
@@ -49,7 +50,7 @@ public class Timer : MonoBehaviour
             timeRemaining--;
         }
         //Destroy(spaceShip);
-        Instantiate(boss, randomPos() + playerTransform.position, Quaternion.identity);
+        Instantiate(boss, randomPos() + playerTransform.position, Quaternion.identity).onDeath.AddListener(OnBossDefeat);
     }
 
     Vector3 randomPos()
@@ -57,6 +58,13 @@ public class Timer : MonoBehaviour
         float signA = Random.Range(0, 2) * 2 - 1;
         float signB = Random.Range(0, 2) * 2 - 1;
         return signA * Random.Range(6f, 12f) * Vector2.up + signB * Random.Range(4f, 8f) * Vector2.right;
+    }
+
+    public void OnBossDefeat()
+    {
+        PauseMenu.instance.PauseGame(false);
+        Instantiate(winText);
+        //InputManager.setSelectedObject(firstSelected);
     }
 
 }

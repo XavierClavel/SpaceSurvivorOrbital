@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5132843330540273407}
   - component: {fileID: 320162684498431986}
   - component: {fileID: -2765918789957504826}
-  - component: {fileID: -2462691129020275083}
   m_Layer: 11
   m_Name: BigBoy
   m_TagString: Ennemy
@@ -51,6 +50,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2683960f5fbd17448858efb0b4fbef82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
   healthBar: {fileID: 2853218550413945330}
   rb: {fileID: 5132843330540273407}
   spriteOverlay: {fileID: 5503021094613686847}
@@ -181,19 +183,6 @@ CircleCollider2D:
   m_Offset: {x: 0.011001706, y: -0.049755394}
   serializedVersion: 2
   m_Radius: 0.70018244
---- !u!114 &-2462691129020275083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1013518959079814096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54d1eac2790a6974e948648dfcf14d07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  winText: {fileID: 6080544551730886748, guid: 59da4376dd2ed2c4d84c795f064dc8d5, type: 3}
 --- !u!1 &4999769606203076763
 GameObject:
   m_ObjectHideFlags: 0
