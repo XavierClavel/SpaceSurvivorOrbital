@@ -131,6 +131,7 @@ public class PlayerController : MonoBehaviour
     float speed_aimingDemultiplier;
     [HideInInspector] public status effect;
 
+    static Spaceship spaceship;
 
 
     float health
@@ -160,8 +161,14 @@ public class PlayerController : MonoBehaviour
         invulnerable = false;
     }
 
-    public static void ActivateSpaceship(GameObject spaceship)
+    public static void SetupSpaceship(Spaceship spaceshipObject)
     {
+        spaceship = spaceshipObject;
+    }
+
+    public static void ActivateSpaceship()
+    {
+        spaceship.Activate();
         instance.spaceshipIndicator.SetActive(true);
         instance.spaceshipIndicator.GetComponent<ObjectIndicator>().target = spaceship.transform;
     }
@@ -248,6 +255,8 @@ public class PlayerController : MonoBehaviour
         layoutManagerViolet.FillNSliders(PlayerManager.amountViolet);
         layoutManagerOrange.FillNSliders(PlayerManager.amountOrange);
         layoutManagerGreen.FillNSliders(PlayerManager.amountGreen);
+
+        if (PlayerManager.amountViolet > 0) ActivateSpaceship();
 
         bulletReloadWindow = Helpers.GetWait(bulletReloadTime);
         invulnerabilityFrameDuration = Helpers.GetWait(PlayerManager.invulnerabilityFrameDuration);

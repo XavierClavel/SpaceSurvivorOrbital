@@ -7,10 +7,15 @@ public class Spaceship : MonoBehaviour, IInteractable
 {
     [SerializeField] GameObject inputPrompt;
 
+    public void Activate()
+    {
+        GetComponent<CircleCollider2D>().enabled = true;
+    }
+
     private void Start()
     {
         ObjectManager.dictObjectToInteractable.Add(gameObject, this);
-        PlayerController.ActivateSpaceship(gameObject);
+        PlayerController.SetupSpaceship(this);
     }
 
     public void StartInteracting()

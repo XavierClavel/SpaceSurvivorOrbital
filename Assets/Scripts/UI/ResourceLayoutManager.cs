@@ -83,6 +83,7 @@ public class ResourceLayoutManager : MonoBehaviour
 
             case resourceType.violet:
                 PlayerManager.GatherResourceViolet();
+                PlayerController.ActivateSpaceship();
                 break;
         }
     }
