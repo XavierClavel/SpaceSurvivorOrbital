@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
 
 
     float bulletReloadTime;
-    float speed_aimingDemultiplier;
+    float speedWhileAiming;
     [HideInInspector] public status effect;
 
     static Spaceship spaceship;
@@ -232,7 +232,7 @@ public class PlayerController : MonoBehaviour
 
 
         bulletReloadTime = PlayerManager.bulletReloadTime;
-        speed_aimingDemultiplier = PlayerManager.speed_aimingDemultiplier;
+        speedWhileAiming = PlayerManager.speed_aimingDemultiplier;
         effect = PlayerManager.statusEffect;
 
         weapon = Instantiate(PlayerManager.weapon, transform.position, Quaternion.identity);
@@ -430,7 +430,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             aiming = true;
-            speed = baseSpeed * speed_aimingDemultiplier;
+            speed = baseSpeed * speedWhileAiming;
         }
 
         float angle = Vector2.SignedAngle(Vector2.up, input);
