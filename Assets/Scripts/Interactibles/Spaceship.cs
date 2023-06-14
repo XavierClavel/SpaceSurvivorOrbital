@@ -15,12 +15,12 @@ public class Spaceship : MonoBehaviour, IInteractable
     private void Awake()
     {
         GetComponent<CircleCollider2D>().enabled = false;
+        PlayerController.SetupSpaceship(this);
     }
 
     private void Start()
     {
         ObjectManager.dictObjectToInteractable.Add(gameObject, this);
-        PlayerController.SetupSpaceship(this);
     }
 
     public void StartInteracting()
@@ -48,6 +48,11 @@ public class Spaceship : MonoBehaviour, IInteractable
     private void OnTriggerExit2D(Collider2D other)
     {
         inputPrompt.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("ship destroyed");
     }
 
 }
