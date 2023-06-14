@@ -12,9 +12,13 @@ public class Spaceship : MonoBehaviour, IInteractable
         GetComponent<CircleCollider2D>().enabled = true;
     }
 
-    private void Start()
+    private void Awake()
     {
         GetComponent<CircleCollider2D>().enabled = false;
+    }
+
+    private void Start()
+    {
         ObjectManager.dictObjectToInteractable.Add(gameObject, this);
         PlayerController.SetupSpaceship(this);
     }
