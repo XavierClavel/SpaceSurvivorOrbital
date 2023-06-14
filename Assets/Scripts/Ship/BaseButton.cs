@@ -40,7 +40,7 @@ public abstract class TreeButton : MonoBehaviour
     {
         if (status != skillButtonStatus.unlocked) return;
 
-        SpendResources();
+        if (!SpendResources()) return;
         ResourcesDisplay.UpdateDisplay();
 
         SkillTree.UpdateList(activateButton, skillButtonStatus.unlocked);
