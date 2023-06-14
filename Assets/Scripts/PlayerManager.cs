@@ -11,41 +11,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] CharacterData characterData;
     [SerializeField] WeaponData weaponData;
     [SerializeField] ToolData toolData;
+    [SerializeField] GameData gameData;
 
-    //To delete after the switch to excel files
-    [Header("Resources parameters")]
-    [SerializeField] private int _maxViolet = 2;
-    [SerializeField] private int _maxOrange = 2;
-    [SerializeField] private int _maxGreen = 2;
-
-    [SerializeField] private int _fillAmountViolet = 20;
-    [SerializeField] private int _fillAmountOrange = 20;
-    [SerializeField] private int _fillAmountGreen = 20;
-
-
-    [Header("Player parameters")]
-    [SerializeField] private float _invulnerabilityFrameDuration = 0.2f;
-
-    [SerializeField] private status _effect = status.none;
-
-
-    [Header("Game Parameters")]
-    [SerializeField] private int _poisonDamage;
-    [SerializeField] private float _poisonDuration;
-    [SerializeField] private float _poisonPeriod;
-
-    [SerializeField] private int _fireDamage;
-    [SerializeField] private float _fireDuration;
-    [SerializeField] private float _firePeriod;
-
-    [SerializeField] private float _iceSpeedMultiplier;
-    [SerializeField] private float _iceDuration;
-
-    [Header("Powers")]
-    [SerializeField] int _minerBotPower = 10;
-    [SerializeField] float _minerBotSpeed = 1f;
-
-    [Header("Bonus")]
     public static bool activateRadar = false;
     public static bool activateShipArrow = false;
     public static bool activateMinerBotAttractor = false;
@@ -132,19 +99,19 @@ public class PlayerManager : MonoBehaviour
         {
             instance = this;
 
-            maxViolet = _maxViolet;
-            maxOrange = _maxOrange;
-            maxGreen = _maxGreen;
+            maxViolet = gameData.maxViolet;
+            maxOrange = gameData.maxOrange;
+            maxGreen = gameData.maxGreen;
 
-            fillAmountViolet = _fillAmountViolet;
-            fillAmountOrange = _fillAmountOrange;
-            fillAmountGreen = _fillAmountGreen;
+            fillAmountViolet = gameData.fillAmountViolet;
+            fillAmountOrange = gameData.fillAmountOrange;
+            fillAmountGreen = gameData.fillAmountGreen;
 
 
             maxHealth = characterData.maxHealth;
             baseSpeed = characterData.baseSpeed;
             damageResistanceMultiplier = characterData.damageResistance;
-            invulnerabilityFrameDuration = _invulnerabilityFrameDuration;
+            invulnerabilityFrameDuration = gameData.invulnerabilityFrameDuration;
 
 
             baseDamage = weaponData.baseDamage;
@@ -163,19 +130,19 @@ public class PlayerManager : MonoBehaviour
             speed_aimingDemultiplier = weaponData.speedWhileAiming;
             magazine = weaponData.magazine;
 
-            statusEffect = _effect;
+            statusEffect = gameData.effect;
 
 
-            poisonDamage = _poisonDamage;
-            poisonDuration = _poisonDuration;
-            poisonPeriod = _poisonPeriod;
+            poisonDamage = gameData.poisonDamage;
+            poisonDuration = gameData.poisonDuration;
+            poisonPeriod = gameData.poisonPeriod;
 
-            fireDamage = _fireDamage;
-            fireDuration = _fireDuration;
-            firePeriod = _firePeriod;
+            fireDamage = gameData.fireDamage;
+            fireDuration = gameData.fireDuration;
+            firePeriod = gameData.firePeriod;
 
-            iceSpeedMultiplier = _iceSpeedMultiplier;
-            iceDuration = _iceDuration;
+            iceSpeedMultiplier = gameData.iceSpeedMultiplier;
+            iceDuration = gameData.iceDuration;
 
 
             toolPower = toolData.power;
@@ -188,8 +155,8 @@ public class PlayerManager : MonoBehaviour
             weapon = weaponData.weapon;
             tool = toolData.tool;
 
-            minerBotPower = _minerBotPower;
-            mineerBotSpeed = _minerBotSpeed;
+            minerBotPower = gameData.minerBotPower;
+            mineerBotSpeed = gameData.minerBotSpeed;
 
             power1 = power.none;
             power2 = power.none;
