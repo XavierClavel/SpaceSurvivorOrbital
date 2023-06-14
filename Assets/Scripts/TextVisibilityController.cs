@@ -12,7 +12,7 @@ public class TextVisibilityController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             textObject.SetActive(true);
-            monster.SetActive(true);
+            if (monster != null) monster.SetActive(true);
         }
     }
 
