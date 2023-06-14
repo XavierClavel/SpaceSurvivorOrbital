@@ -8,9 +8,9 @@ using UnityEngine.EventSystems;
 
 public class Timer : MonoBehaviour
 {
-    public static int timeRemaining = 120;
+    public static int timeRemaining;
+    public int setTime;
     [SerializeField] TextMeshProUGUI timeText; // r�f�rence au composant Text de l'UI
-    [SerializeField] float timeToAdd = 5; // temps � ajouter lorsqu'une touche est enfonc�e
     int time;
 
     [SerializeField] GameObject boss;
@@ -27,7 +27,7 @@ public class Timer : MonoBehaviour
 
     void Start()
     {
-        timeRemaining = PlayerManager.currentTimer += 120;
+        timeRemaining = PlayerManager.currentTimer += setTime;
         playerTransform = PlayerController.instance.transform;
         spaceShip = GameObject.FindGameObjectWithTag("Ship");
         waitSecond = Helpers.GetWait(1f);
@@ -49,7 +49,6 @@ public class Timer : MonoBehaviour
             timeRemaining--;
         }
         Instantiate(boss, randomPos() + playerTransform.position, Quaternion.identity);
-        Destroy(spaceShip);
     }
 
     Vector3 randomPos()

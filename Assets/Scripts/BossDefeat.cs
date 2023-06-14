@@ -8,6 +8,12 @@ public class BossDefeat : MonoBehaviour
     
     private void OnDestroy()
     {
-        winText.SetActive(true);
+        Instantiate(winText);
+        Time.timeScale = 0f;
+        Time.fixedDeltaTime = 0f;
+        SoundManager.instance.StopTime();
+
+        PlayerController.instance.controls.Disable();
+        if (!PlayerController.isPlayingWithGamepad) Cursor.visible = true;
     }
 }

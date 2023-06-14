@@ -992,6 +992,7 @@ GameObject:
   - component: {fileID: 157606364}
   - component: {fileID: 157606363}
   - component: {fileID: 157606362}
+  - component: {fileID: 157606365}
   m_Layer: 5
   m_Name: Restart button
   m_TagString: Untagged
@@ -1064,9 +1065,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 169695426}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnClick
+      - m_Target: {fileID: 157606365}
+        m_TargetAssemblyTypeName: LoadNextScene, Assembly-CSharp
+        m_MethodName: OnClickShip
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1114,6 +1115,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157606359}
   m_CullTransparentMesh: 1
+--- !u!114 &157606365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157606359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dfffcbdde82089429cf0b36951a5d96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: TitleScreen
 --- !u!1001 &161505935
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1228,17 +1242,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3651543051882345906, guid: 58540db277822934293c84efab96fe7d, type: 3}
   m_PrefabInstance: {fileID: 161505935}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &169695426 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5794317926654119749, guid: 94209ee71c76b454e972a73d03b64b6b, type: 3}
-  m_PrefabInstance: {fileID: 5794317926823155591}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1975eba2083998438719c6a40084251, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &194439147
 GameObject:
   m_ObjectHideFlags: 0
@@ -7479,6 +7482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0083788f26f02394f8930fad8ecd6b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  setTime: 5
   timeText: {fileID: 1700240053}
   timeToAdd: 5
   boss: {fileID: 1013518959079814096, guid: 213a79b795757bf478d0ea331fcf1e81, type: 3}
@@ -9588,6 +9592,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2609226017972437753, guid: 030a56f1b7838fd4eb210eeb16d03bd3, type: 3}
+      propertyPath: audioClips.Array.data[1].volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2609226017972437753, guid: 030a56f1b7838fd4eb210eeb16d03bd3, type: 3}
+      propertyPath: audioClips.Array.data[3].volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2609226017972437753, guid: 030a56f1b7838fd4eb210eeb16d03bd3, type: 3}
+      propertyPath: audioClips.Array.data[4].volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2609226017972437753, guid: 030a56f1b7838fd4eb210eeb16d03bd3, type: 3}
+      propertyPath: audioClips.Array.data[5].volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2609226017972437753, guid: 030a56f1b7838fd4eb210eeb16d03bd3, type: 3}
+      propertyPath: audioClips.Array.data[6].volume
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 4324446819829407020, guid: 030a56f1b7838fd4eb210eeb16d03bd3, type: 3}
       propertyPath: pauseMenu
       value: 
