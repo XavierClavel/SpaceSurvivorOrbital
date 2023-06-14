@@ -104,10 +104,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1975eba2083998438719c6a40084251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 4478075856262805781, guid: c318572b656b92542abd302bed3be5af, type: 3}
+  minerBot: {fileID: 0}
+  reloadSlider: {fileID: 0}
+  attractorTransform: {fileID: 0}
   _playerState_value: 0
   healthBar: {fileID: 0}
-  spaceship: {fileID: 0}
   animator: {fileID: 4598408445869519900}
   hasWon: 0
   arrowMouse: {fileID: 4598408446789003102}
@@ -116,10 +117,14 @@ MonoBehaviour:
   layoutManagerOrange: {fileID: 0}
   layoutManagerGreen: {fileID: 0}
   bulletsLayoutManager: {fileID: 0}
-  spaceshipIndicator: {fileID: 0}
-  giveResources: 0
+  youLooseScreen: {fileID: 0}
+  button: {fileID: 0}
   smallSize: 5
   largeSize: 40
+  radar: {fileID: 0}
+  isRadarActive: 0
+  spaceshipIndicator: {fileID: 0}
+  isArrowShipActive: 0
   effect: 0
 --- !u!212 &4598408445869519902
 SpriteRenderer:
@@ -162,7 +167,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 5f740a456a67239469b94b7956b86e63, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fa3b07fb7cc800643b44da343b6acda4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -332,6 +337,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c83d6f25-2804-41d1-b5b1-c5703fcb396b
     m_ActionName: PauseMenu/Validate[/XInputControllerWindows/buttonWest,/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e8820ab5-b04e-4856-acb0-7fd7eae54140
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
