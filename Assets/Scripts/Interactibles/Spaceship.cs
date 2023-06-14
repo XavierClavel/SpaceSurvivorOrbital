@@ -50,9 +50,5 @@ public class Spaceship : MonoBehaviour, IInteractable
         inputPrompt.SetActive(false);
     }
 
-    private void OnDestroy()
-    {
-        Debug.Log("ship destroyed");
-    }
 
 }
