@@ -61,6 +61,8 @@ public abstract class Gun : Weapon
         bulletsLayoutManager.SetAmount(magazine);
         currentMagazine = magazine;
         SoundManager.instance.PlaySfx(transform, sfx.reload);
+
+        if (firing) Shoot();
     }
 }
 

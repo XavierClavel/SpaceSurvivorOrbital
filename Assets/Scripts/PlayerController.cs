@@ -385,14 +385,6 @@ public class PlayerController : MonoBehaviour
     Vector2 getGamepadAimInput()
     {
         Vector2 input = controls.Player.Aim.ReadValue<Vector2>();
-        if (input == Vector2.zero)
-        {
-            weapon.HideWeapon();
-        }
-        if (input != Vector2.zero)
-        {
-            weapon.DisplayWeapon();
-        }
         return input;
     }
 
@@ -401,16 +393,10 @@ public class PlayerController : MonoBehaviour
         Vector2 input = Vector2.zero;
         if (mouseAiming)
         {
-
-            weapon.DisplayWeapon();
             Vector2 mousePos = controls.Player.MousePosition.ReadValue<Vector2>();
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
             Vector2 direction = (worldPos - transform.position);
             input = direction.normalized;
-        }
-        else
-        {
-            weapon.HideWeapon();
         }
         return input;
     }
@@ -423,6 +409,11 @@ public class PlayerController : MonoBehaviour
 
         if (input == Vector2.zero)
         {
+            if (aiming)
+            {
+                weapon.StopFiring();
+                weapon.HideWeapon();
+            }
             input = moveDir == Vector2.zero ? prevMoveDir : moveDir;
             speed = baseSpeed;
             aiming = false;
@@ -430,13 +421,17 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            aiming = true;
-            speed = baseSpeed * speedWhileAiming;
+            float angle = Vector2.SignedAngle(Vector2.up, input) + 90f;
+            arrowTransform.rotation = Quaternion.Euler(0f, 0f, angle);
+            if (!aiming)
+            {
+                weapon.DisplayWeapon();
+                weapon.StartFiring();
+                aiming = true;
+                speed = baseSpeed * speedWhileAiming;
+            }
         }
 
-        float angle = Vector2.SignedAngle(Vector2.up, input) + 90f;
-        arrowTransform.rotation = Quaternion.Euler(0f, 0f, angle);
-        weapon.transform.rotation = arrowTransform.rotation;
         _aimDirection = angleToDirection(Vector2.SignedAngle(input, Vector2.down) + 180f);
 
     }
