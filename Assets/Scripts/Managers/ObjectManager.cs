@@ -7,7 +7,7 @@ public class ObjectManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] PauseMenu pauseMenu;
     [SerializeField] GameObject altarUI;
-    [SerializeField] GameObject firstSelected;
+    [SerializeField] GameObject altarFirstSelected;
     [SerializeField] GameObject loseScreen;
     [SerializeField] GameObject loseScreenFirstSelected;
     static ObjectManager instance;
@@ -26,7 +26,7 @@ public class ObjectManager : MonoBehaviour
     {
         instance.altarUI.SetActive(true);
         instance.pauseMenu.PauseGame(false);
-        InputManager.setSelectedObject(instance.firstSelected);
+        InputManager.setSelectedObject(instance.altarFirstSelected);
     }
 
     public static void HideAltarUI()
@@ -68,6 +68,7 @@ public class ObjectManager : MonoBehaviour
 
     public static void DisplayLoseScreen()
     {
+        instance.pauseMenu.PauseGame(false);
         instance.loseScreen.SetActive(true);
         InputManager.setSelectedObject(instance.loseScreenFirstSelected);
     }

@@ -303,8 +303,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            //Cursor.visible = true;
-            Cursor.visible = false;
+            Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;
         }
     }
@@ -371,8 +370,10 @@ public class PlayerController : MonoBehaviour
         controls.Player.MouseAimActive.started += ctx =>
         {
             mouseAiming = true;
+            Aim();
+            StartFiring();
         };
-        controls.Player.MouseAimActive.canceled += ctx => { mouseAiming = false; };
+        controls.Player.MouseAimActive.canceled += ctx => { StopFiring(); mouseAiming = false; };
 
         controls.Enable();
     }
@@ -485,7 +486,6 @@ public class PlayerController : MonoBehaviour
     void Death()
     {
         ObjectManager.DisplayLoseScreen();
-        PauseMenu.instance.PauseGame(false);
     }
     public void OnClick()
     {
