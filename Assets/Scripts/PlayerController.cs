@@ -14,6 +14,7 @@ public enum playerDirection { front, left, back, right };
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] LayerMask resourceMask;
     [Header("References")]
     [SerializeField] GameObject arm;
     [SerializeField] GameObject minerBot;
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public InputMaster controls;
     [HideInInspector] public playerState _playerState_value = playerState.idle;
     [HideInInspector]
-    public playerState _playerState
+    public playerState state
     {
         get
         {
@@ -132,6 +133,8 @@ public class PlayerController : MonoBehaviour
     static bool inRangeOfResource = false;
 
     static Spaceship spaceship;
+
+    bool action = false;
 
 
     float health
@@ -245,6 +248,7 @@ public class PlayerController : MonoBehaviour
         tool.Initialize(new Vector2(PlayerManager.toolRange, PlayerManager.toolRange), PlayerManager.toolPower, PlayerManager.toolReloadTime);
         tool.onEnterResourceRange.AddListener(EnterResourceRange);
         tool.onLeaveResourceRange.AddListener(LeaveResourceRange);
+        tool.onNoRessourcesLeft.AddListener(OnNoRessourcesLeft);
         //TODO? Vector2 for toolRange in PlayerManager
 
         rb = GetComponent<Rigidbody2D>();
@@ -281,24 +285,81 @@ public class PlayerController : MonoBehaviour
     public void EnterResourceRange()
     {
         inRangeOfResource = true;
-        if (!instance.weapon.firing) instance.tool.StartMining();
+        //if (!instance.weapon.firing) instance.tool.StartMining();
     }
 
     public void LeaveResourceRange()
     {
         inRangeOfResource = false;
+        StopCoroutine(nameof(MineOrShoot));
+    }
+
+    void StartAction()
+    {
+        action = true;
+        if (inRangeOfResource) StartCoroutine(nameof(MineOrShoot));
+        else StartFiring();
+    }
+
+    void StopAction()
+    {
+        action = false;
+        StopCoroutine(nameof(MineOrShoot));
+        Debug.Log(state);
+        switch (state)
+        {
+            case playerState.shooting:
+                StopFiring();
+                break;
+
+            case playerState.mining:
+                tool.StopMining();
+                break;
+        }
+        state = playerState.idle;
     }
 
     public void StartFiring()
     {
-        weapon.StartFiring();
         tool.StopMining();
+        weapon.StartFiring();
+        state = playerState.shooting;
+        weapon.DisplayWeapon();
     }
 
     public void StopFiring()
     {
         weapon.StopFiring();
-        if (inRangeOfResource) tool.StartMining();
+        weapon.HideWeapon();
+        state = playerState.idle;
+        //if (inRangeOfResource) tool.StartMining();
+    }
+
+    void StartMining()
+    {
+        weapon.StopFiring();
+        tool.StartMining();
+        state = playerState.mining;
+    }
+
+    void OnNoRessourcesLeft()
+    {
+        if (action) StartFiring();
+    }
+
+    IEnumerator MineOrShoot()
+    {
+        while (true)
+        {
+            yield return Helpers.GetWaitFixed;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, arrowTransform.right, PlayerManager.toolRange, resourceMask);
+            Debug.DrawLine(transform.position, transform.position + arrowTransform.right * PlayerManager.toolRange);
+            if (hit)
+            {
+                if (state != playerState.mining) StartMining();
+            }
+            else if (state != playerState.shooting) StartFiring();
+        }
     }
 
     public void SpawnMinerBot()
@@ -371,9 +432,9 @@ public class PlayerController : MonoBehaviour
         {
             mouseAiming = true;
             Aim();
-            StartFiring();
+            StartAction();
         };
-        controls.Player.MouseAimActive.canceled += ctx => { StopFiring(); mouseAiming = false; };
+        controls.Player.MouseAimActive.canceled += ctx => { StopAction(); mouseAiming = false; };
 
         controls.Enable();
     }
@@ -423,7 +484,7 @@ public class PlayerController : MonoBehaviour
         {
             if (aiming)
             {
-                weapon.StopFiring();
+                StopFiring();
                 weapon.HideWeapon();
             }
             input = moveDir == Vector2.zero ? prevMoveDir : moveDir;
@@ -437,8 +498,9 @@ public class PlayerController : MonoBehaviour
             arrowTransform.rotation = Quaternion.Euler(0f, 0f, angle);
             if (!aiming)
             {
-                weapon.DisplayWeapon();
-                weapon.StartFiring();
+
+                //weapon.StartFiring();
+                StartAction();
                 aiming = true;
                 speed = baseSpeed * speedWhileAiming;
             }
@@ -479,7 +541,7 @@ public class PlayerController : MonoBehaviour
         arrowTransform.position = transform.position;
         cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
 
-        _playerState = localMove.sqrMagnitude < 1e-4f ? playerState.idle : playerState.walking;
+        //state = localMove.sqrMagnitude < 1e-4f ? playerState.idle : playerState.walking;
 
     }
 
