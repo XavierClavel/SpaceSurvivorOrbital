@@ -15,7 +15,8 @@ public class Tool : MonoBehaviour
     private bool mining = false;
     int layerMask;
     [SerializeField] LayerMask mask;
-
+    [HideInInspector] public UnityEvent onEnterResourceRange = new UnityEvent();
+    [HideInInspector] public UnityEvent onLeaveResourceRange = new UnityEvent();
     [HideInInspector] public UnityEvent onNoRessourcesLeft = new UnityEvent();
     [HideInInspector] public UnityEvent<GameObject> onResourceExit = new UnityEvent<GameObject>();
 
@@ -31,6 +32,7 @@ public class Tool : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (resourcesInRange.Count == 0) onEnterResourceRange.Invoke();
         resourcesInRange.Add(ObjectManager.dictObjectToResource[other.gameObject]);
         if (!mining) return;
         if (toolReloading) return;
@@ -42,7 +44,9 @@ public class Tool : MonoBehaviour
         resourcesInRange.Remove(ObjectManager.dictObjectToResource[other.gameObject]);
         onResourceExit.Invoke(other.gameObject);
 
-        if (mining && resourcesInRange.Count == 0)
+        if (resourcesInRange.Count != 0) return;
+        onLeaveResourceRange.Invoke();
+        if (mining)
         {
             mining = false;
             onNoRessourcesLeft.Invoke();

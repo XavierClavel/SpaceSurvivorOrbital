@@ -129,6 +129,7 @@ public class PlayerController : MonoBehaviour
     float bulletReloadTime;
     float speedWhileAiming;
     [HideInInspector] public status effect;
+    static bool inRangeOfResource = false;
 
     static Spaceship spaceship;
 
@@ -242,6 +243,8 @@ public class PlayerController : MonoBehaviour
         tool = Instantiate(PlayerManager.tool, transform.position, Quaternion.identity);
         tool.transform.SetParent(transform);
         tool.Initialize(new Vector2(PlayerManager.toolRange, PlayerManager.toolRange), PlayerManager.toolPower, PlayerManager.toolReloadTime);
+        tool.onEnterResourceRange.AddListener(EnterResourceRange);
+        tool.onLeaveResourceRange.AddListener(LeaveResourceRange);
         //TODO? Vector2 for toolRange in PlayerManager
 
         rb = GetComponent<Rigidbody2D>();
@@ -275,6 +278,17 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void EnterResourceRange()
+    {
+        inRangeOfResource = true;
+        if (!instance.weapon.firing) instance.tool.StartMining();
+    }
+
+    public void LeaveResourceRange()
+    {
+        inRangeOfResource = false;
+    }
+
     public void StartFiring()
     {
         weapon.StartFiring();
@@ -284,7 +298,7 @@ public class PlayerController : MonoBehaviour
     public void StopFiring()
     {
         weapon.StopFiring();
-        tool.StartMining();
+        if (inRangeOfResource) tool.StartMining();
     }
 
     public void SpawnMinerBot()

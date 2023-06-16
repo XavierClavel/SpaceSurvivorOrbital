@@ -27,7 +27,7 @@ public abstract class Weapon : MonoBehaviour
     protected PlayerController player;
     [HideInInspector] public Slider reloadSlider;
 
-    protected bool firing = false;
+    public bool firing = false;
     protected bool reloading = false;
 
     public void DisplayWeapon()
