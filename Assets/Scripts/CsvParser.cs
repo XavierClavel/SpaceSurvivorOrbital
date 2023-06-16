@@ -1,31 +1,35 @@
 using UnityEngine;
 using System.IO;
 using System.Text;
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
 
-public class CsvParser
+public class CsvParser : MonoBehaviour
 {
     string pathToCsv = "";
+    [SerializeField] TextAsset characterData;
+    delegate void Formatter(List<string> s);
+    public static Dictionary<string, CharacterData> dictCharacters = new Dictionary<string, CharacterData>();
 
-
-    public string loadText(string pathToText, string defaultText)
+    private void Awake()
     {
-        var strBuilder = new StringBuilder();
-        if (File.Exists(pathToText))
-        {
-            StreamReader reader = new StreamReader(pathToText);
-
-            while (!reader.EndOfStream)
-            {
-                strBuilder.Append(reader.ReadLine() + "\n");
-            }
-
-            reader.Close();
-        }
-        else
-        {
-            strBuilder.Append(defaultText);
-        }
-        return strBuilder.ToString();
+        if (dictCharacters.Count != 0) return;
+        loadText(characterData.text, x => new CharacterData(x));
+        PlayerManager.setCharacter(dictCharacters["Pistolero"]);
     }
+
+    void loadText(string text, Formatter formatter)
+    {
+
+        List<string> stringArray = text.Split('\n').ToList();
+        stringArray.RemoveAt(0);
+
+        foreach (string s in stringArray)
+        {
+            formatter(s.Split(';').ToList());
+        }
+    }
+
 }
 

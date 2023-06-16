@@ -8,7 +8,7 @@ public enum power { none, minerBot };
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] CharacterData characterData;
+    static CharacterData characterData;
     [SerializeField] WeaponData weaponData;
     [SerializeField] ToolData toolData;
     [SerializeField] GameData gameData;
@@ -93,6 +93,14 @@ public class PlayerManager : MonoBehaviour
     public static power power2 { get; private set; }
     public static int upgradePointsAmount { get; private set; }
 
+    public static void setCharacter(CharacterData newCharacterData)
+    {
+        characterData = newCharacterData;
+        maxHealth = characterData.maxHealth;
+        baseSpeed = characterData.baseSpeed;
+        damageResistanceMultiplier = characterData.damageResistance;
+    }
+
     void Awake()
     {
         if (instance == null)
@@ -107,10 +115,6 @@ public class PlayerManager : MonoBehaviour
             fillAmountOrange = gameData.fillAmountOrange;
             fillAmountGreen = gameData.fillAmountGreen;
 
-
-            maxHealth = characterData.maxHealth;
-            baseSpeed = characterData.baseSpeed;
-            damageResistanceMultiplier = characterData.damageResistance;
             invulnerabilityFrameDuration = gameData.invulnerabilityFrameDuration;
 
 

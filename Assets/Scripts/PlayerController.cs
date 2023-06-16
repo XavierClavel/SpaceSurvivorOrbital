@@ -348,19 +348,6 @@ public class PlayerController : MonoBehaviour
     void InitializeControls()
     {
         controls = new InputMaster();
-        controls.Player.Shoot.started += ctx =>
-        {
-            if (aiming)
-            {
-                tool.StopMining();
-                weapon.StartFiring();
-            }
-
-        };
-        controls.Player.Shoot.canceled += ctx =>
-        {
-            weapon.StopFiring();
-        };
 
         controls.Player.Mine.started += ctx =>
         {
@@ -375,7 +362,6 @@ public class PlayerController : MonoBehaviour
 
         controls.Player.Reload.performed += context =>
         {
-            //weapon.Reload();
             Camera.main.orthographicSize = (Camera.main.orthographicSize == smallSize) ? largeSize : smallSize;
         };
 
