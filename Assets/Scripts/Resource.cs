@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 enum type { violet, orange, green }
 
-public class Resource : MonoBehaviour
+public class Resource : MonoBehaviour, IResource
 {
     [SerializeField] GameObject itemPrefab;
     [SerializeField] Slider healthBar;
@@ -71,4 +71,7 @@ public class Resource : MonoBehaviour
         float signB = Random.Range(0, 2) * 2 - 1;
         return signA * Random.Range(0f, 1.5f) * Vector2.up + signB * Random.Range(0f, 1.5f) * Vector2.right;
     }
+
+    public void StartMining() { }
+    public void StopMining() { }
 }

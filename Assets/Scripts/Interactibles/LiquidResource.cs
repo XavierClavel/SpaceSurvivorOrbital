@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LiquidResource : MonoBehaviour, IInteractable
+public class LiquidResource : MonoBehaviour, IResource
 {
     bool interacting = false;
     [Header("References")]
@@ -29,50 +29,50 @@ public class LiquidResource : MonoBehaviour, IInteractable
         increment = 1f / (float)nbResources;
         currentIncrement = nbResources;
 
-        ObjectManager.dictObjectToInteractable.Add(gameObject, this);
+        ObjectManager.dictObjectToResource.Add(gameObject, this);
     }
 
-    public void StartInteracting()
+    public void StartMining()
     {
-        interacting = true;
-    }
-
-    public void Interacting()
-    {
-        if (!interacting) return;
-        fillAmount -= Time.fixedDeltaTime * factor;
-
-        if (fillAmount <= 0) Break();
-
-        int value = (int)(fillAmount / increment);
-        if (value != currentIncrement)
-        {
-            currentIncrement = value;
-            PlayerController.instance.IncreaseViolet();
-        }
-        image.fillAmount = fillAmount;
-    }
-
-    public void StopInteracting()
-    {
-        interacting = false;
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
+        StartCoroutine(nameof(Mine));
         image.gameObject.SetActive(true);
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    public void StopMining()
     {
-        image.gameObject.SetActive(false);
+        StopCoroutine(nameof(Mine));
     }
+
+    public void Hit(int damage) { }
+
+    IEnumerator Mine()
+    {
+        while (fillAmount > 0)
+        {
+            yield return Helpers.GetWaitFixed;
+
+            fillAmount -= Time.fixedDeltaTime * factor;
+
+            int value = (int)(fillAmount / increment);
+            if (value != currentIncrement)
+            {
+                currentIncrement = value;
+                PlayerController.instance.IncreaseViolet();
+            }
+            image.fillAmount = fillAmount;
+        }
+        Break();
+    }
+
+    public void Mining()
+    {
+
+    }
+
 
     void Break()
     {
         SoundManager.instance.PlaySfx(transform, sfx.breakResource);
-        InteractionRadius.interactables.Remove(ObjectManager.dictObjectToInteractable[gameObject]);
-        ObjectManager.dictObjectToInteractable.Remove(gameObject);
         Destroy(gameObject);
     }
 

@@ -110,8 +110,8 @@ GameObject:
   - component: {fileID: 8515297067291882102}
   - component: {fileID: 3787455150824348327}
   - component: {fileID: 5199703571332171701}
-  - component: {fileID: 7938505892446690282}
-  m_Layer: 19
+  - component: {fileID: 4755659449361192367}
+  m_Layer: 12
   m_Name: Violet Crystal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 2000134072630087330}
   sprite: {fileID: 5199703571332171701}
-  collider: {fileID: 7938505892446690282}
+  collider: {fileID: 0}
   timeToFill: 2
   resourcesAmount: {x: 5, y: 10}
 --- !u!212 &5199703571332171701
@@ -203,8 +203,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &7938505892446690282
-CircleCollider2D:
+--- !u!60 &4755659449361192367
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -235,6 +235,32 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.28915417, y: -0.15355667}
-  serializedVersion: 2
-  m_Radius: 0.49080265
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.4366665, y: 1.4416667}
+    newSize: {x: 0.14, y: 0.15}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -2.6096773, y: 0.5843756}
+      - {x: -2.7264507, y: 0.42908376}
+      - {x: -2.4159913, y: -0.039012223}
+      - {x: -2.2391458, y: -0.3390297}
+      - {x: -0.82511204, y: -0.3675269}
+      - {x: 0.023518804, y: -0.63567483}
+      - {x: 0.7216667, y: -0.69416666}
+      - {x: 0.84137344, y: -0.51914567}
+      - {x: 0.70451045, y: -0.26955396}
+      - {x: 0.8021494, y: -0.03826236}
+      - {x: 1.1681141, y: 0.02827473}
+      - {x: 2.4892325, y: 0.08532673}
+      - {x: 2.6615133, y: 0.22985035}
+      - {x: 2.6813066, y: 0.5988984}
+      - {x: 2.490119, y: 0.64641964}
+      - {x: -2.1114416, y: 0.7367541}
+  m_UseDelaunayMesh: 0

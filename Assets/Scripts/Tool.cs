@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class Tool : MonoBehaviour
 {
-    [HideInInspector] public List<Resource> resourcesInRange = new List<Resource>();
+    [HideInInspector] public List<IResource> resourcesInRange = new List<IResource>();
     CapsuleCollider2D trigger;
     protected int toolPower;
     protected float toolReloadTime;
@@ -57,8 +57,8 @@ public class Tool : MonoBehaviour
 
     public void Hit()
     {
-        List<Resource> resourcesToHit = resourcesInRange.ToArray().ToList();
-        foreach (Resource resource in resourcesToHit)
+        List<IResource> resourcesToHit = resourcesInRange.ToArray().ToList();
+        foreach (IResource resource in resourcesToHit)
         {
             resource.Hit(toolPower);
         }
@@ -81,12 +81,25 @@ public class Tool : MonoBehaviour
             return;
         }
         mining = true;
+
+        List<IResource> resourcesToHit = resourcesInRange.ToArray().ToList();
+        foreach (IResource resource in resourcesToHit)
+        {
+            resource.StartMining();
+        }
+
         if (!toolReloading) Hit();
     }
 
     public void StopMining()
     {
         mining = false;
+
+        List<IResource> resourcesToHit = resourcesInRange.ToArray().ToList();
+        foreach (IResource resource in resourcesToHit)
+        {
+            resource.StopMining();
+        }
     }
 
 

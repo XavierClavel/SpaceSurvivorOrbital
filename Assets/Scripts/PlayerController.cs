@@ -305,7 +305,6 @@ public class PlayerController : MonoBehaviour
     {
         action = false;
         StopCoroutine(nameof(MineOrShoot));
-        Debug.Log(state);
         switch (state)
         {
             case playerState.shooting:

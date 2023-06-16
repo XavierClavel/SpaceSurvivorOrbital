@@ -14,7 +14,7 @@ public class ObjectManager : MonoBehaviour
     public static Altar altar;
 
     public static Dictionary<GameObject, Ennemy> dictObjectToEnnemy = new Dictionary<GameObject, Ennemy>();
-    public static Dictionary<GameObject, Resource> dictObjectToResource = new Dictionary<GameObject, Resource>();
+    public static Dictionary<GameObject, IResource> dictObjectToResource = new Dictionary<GameObject, IResource>();
     public static Dictionary<GameObject, IInteractable> dictObjectToInteractable = new Dictionary<GameObject, IInteractable>();
 
     private void Awake()
@@ -78,7 +78,7 @@ public class ObjectManager : MonoBehaviour
     {
         dictObjectToEnnemy = new Dictionary<GameObject, Ennemy>();
         dictObjectToInteractable = new Dictionary<GameObject, IInteractable>();
-        dictObjectToResource = new Dictionary<GameObject, Resource>();
+        dictObjectToResource = new Dictionary<GameObject, IResource>();
     }
 
 
