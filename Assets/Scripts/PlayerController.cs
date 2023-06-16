@@ -86,7 +86,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] ResourceLayoutManager layoutManagerOrange;
     [SerializeField] ResourceLayoutManager layoutManagerGreen;
     public LayoutManager bulletsLayoutManager;
-    [SerializeField] GameObject youLooseScreen;
     EventSystem eventSystem;
     [SerializeField] GameObject button;
 
@@ -274,6 +273,18 @@ public class PlayerController : MonoBehaviour
 
         InitializeControls();
 
+    }
+
+    public void StartFiring()
+    {
+        weapon.StartFiring();
+        tool.StopMining();
+    }
+
+    public void StopFiring()
+    {
+        weapon.StopFiring();
+        tool.StartMining();
     }
 
     public void SpawnMinerBot()
@@ -473,14 +484,12 @@ public class PlayerController : MonoBehaviour
 
     void Death()
     {
-        youLooseScreen.SetActive(true);
+        ObjectManager.DisplayLoseScreen();
         PauseMenu.instance.PauseGame(false);
-        if (PlayerController.isPlayingWithGamepad) eventSystem.SetSelectedGameObject(button);
     }
     public void OnClick()
     {
         PauseMenu.instance.ResumeGame();
         SceneManager.LoadScene("Title Screen");
-        youLooseScreen.SetActive(false);
     }
 }

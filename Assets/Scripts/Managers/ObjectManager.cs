@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class ObjectManager : MonoBehaviour
 {
+    [Header("UI")]
     [SerializeField] PauseMenu pauseMenu;
     [SerializeField] GameObject altarUI;
     [SerializeField] GameObject firstSelected;
+    [SerializeField] GameObject loseScreen;
+    [SerializeField] GameObject loseScreenFirstSelected;
     static ObjectManager instance;
     public static Altar altar;
 
@@ -61,6 +64,12 @@ public class ObjectManager : MonoBehaviour
     public void Close()
     {
         HideAltarUI();
+    }
+
+    public static void DisplayLoseScreen()
+    {
+        instance.loseScreen.SetActive(true);
+        InputManager.setSelectedObject(instance.loseScreenFirstSelected);
     }
 
 
