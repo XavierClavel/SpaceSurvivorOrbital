@@ -8,11 +8,10 @@ public enum lang
     en
 }
 
-[CreateAssetMenu(fileName = "LocalizedString", menuName = "Space Survivor 2D/LocalizedString", order = 0)]
-public class LocalizedString : ScriptableObject
+public class LocalizedString
 {
-    [SerializeField] string string_FR;
-    [SerializeField] string string_EN;
+    public string string_FR;
+    public string string_EN;
 
     public static lang selectedLang = lang.en;
 
@@ -28,6 +27,17 @@ public class LocalizedString : ScriptableObject
         }
 
         return "error";
+    }
+
+    public LocalizedString(List<string> s)
+    {
+        Debug.Log(s.Count);
+        if (s.Count != 3) throw new System.ArgumentOutOfRangeException();
+
+        string_EN = s[1];
+        string_FR = s[2];
+
+        CsvParser.dictLocalization.Add(s[0], this);
     }
 
 }

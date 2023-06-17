@@ -5,14 +5,17 @@ using TMPro;
 
 public class StringLocalizer : MonoBehaviour
 {
-    TextMeshProUGUI textDisplay;
-    [SerializeField] LocalizedString localizedString;
+    [SerializeField] string key;
 
 
     private void Awake()
     {
-        textDisplay = GetComponent<TextMeshProUGUI>();
-        LocalizationManager.dictDisplayToLocalizedString.Add(textDisplay, localizedString);
+        if (!CsvParser.dictLocalization.ContainsKey(key))
+        {
+            throw new System.ArgumentException($"{gameObject.name} is trying to call the \"{key}\" key which does not exist.");
+        }
+        LocalizedString localizedString = CsvParser.dictLocalization[key];
+        LocalizationManager.dictDisplayToLocalizedString.Add(GetComponent<TextMeshProUGUI>(), localizedString);
     }
 
 

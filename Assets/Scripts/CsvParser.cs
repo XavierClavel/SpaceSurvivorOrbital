@@ -9,20 +9,24 @@ public class CsvParser : MonoBehaviour
 {
     string pathToCsv = "";
     [SerializeField] TextAsset characterData;
+    [SerializeField] TextAsset localizationData;
     delegate void Formatter(List<string> s);
     public static Dictionary<string, CharacterData> dictCharacters = new Dictionary<string, CharacterData>();
+    public static Dictionary<string, LocalizedString> dictLocalization = new Dictionary<string, LocalizedString>();
 
     private void Awake()
     {
         if (dictCharacters.Count != 0) return;
-        loadText(characterData.text, x => new CharacterData(x));
+        loadText(characterData, x => new CharacterData(x));
+        loadText(localizationData, x => new LocalizedString(x));
+
         PlayerManager.setCharacter(dictCharacters["Pistolero"]);
     }
 
-    void loadText(string text, Formatter formatter)
+    void loadText(TextAsset csv, Formatter formatter)
     {
 
-        List<string> stringArray = text.Split('\n').ToList();
+        List<string> stringArray = csv.text.Split('\n').ToList();
         stringArray.RemoveAt(0);
 
         foreach (string s in stringArray)
