@@ -42,7 +42,7 @@ public class LocalizedString
         CsvParser.dictLocalization.Add(s[0], this);
     }
 
-    public static void Initializer(List<string> values)
+    public static void Initialize(List<string> values)
     {
         mapper = new Dictionary<int, int>();
         for (int i = 1; i < values.Count; i++)

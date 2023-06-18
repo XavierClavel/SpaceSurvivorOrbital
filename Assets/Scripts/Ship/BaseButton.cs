@@ -8,7 +8,9 @@ public abstract class TreeButton : MonoBehaviour
 
     public List<TreeButton> activateButton = new List<TreeButton>();
     public List<TreeButton> desactivateButton = new List<TreeButton>();
-    public List<Effect> effects = new List<Effect>();
+    public string upgradeName;
+    [HideInInspector] public List<Effect> effects = new List<Effect>();
+
 
     public skillButtonStatus status { get; private set; }
     [HideInInspector] public Button button;
