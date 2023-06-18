@@ -18,15 +18,16 @@ public class CsvParser : MonoBehaviour
     {
         if (dictCharacters.Count != 0) return;
         loadText(characterData, x => new CharacterData(x));
-        loadText(localizationData, x => new LocalizedString(x));
+        loadText(localizationData, x => new LocalizedString(x), x => LocalizedString.Initializer(x));
 
         PlayerManager.setCharacter(dictCharacters["Pistolero"]);
     }
 
-    void loadText(TextAsset csv, Formatter formatter)
+    void loadText(TextAsset csv, Formatter formatter, Formatter initializer = null)
     {
 
         List<string> stringArray = csv.text.Split('\n').ToList();
+        if (initializer != null) initializer(stringArray[0].Split(';').ToList());
         stringArray.RemoveAt(0);
 
         foreach (string s in stringArray)

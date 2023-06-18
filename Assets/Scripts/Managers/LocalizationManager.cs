@@ -5,11 +5,14 @@ using TMPro;
 
 public class LocalizationManager : MonoBehaviour
 {
+    public static List<StringLocalizer> stringLocalizers = new List<StringLocalizer>();
     public static Dictionary<TextMeshProUGUI, LocalizedString> dictDisplayToLocalizedString = new Dictionary<TextMeshProUGUI, LocalizedString>();
     [SerializeField] lang selectedLang;
 
     private void Start()
     {
+        foreach (StringLocalizer stringLocalizer in stringLocalizers) stringLocalizer.Initialize();
+        stringLocalizers = new List<StringLocalizer>();
         LocalizedString.selectedLang = selectedLang;
         UpdateLocalization();
     }

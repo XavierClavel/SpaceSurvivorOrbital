@@ -7,8 +7,13 @@ public class StringLocalizer : MonoBehaviour
 {
     [SerializeField] string key;
 
-
     private void Awake()
+    {
+        LocalizationManager.stringLocalizers.Add(this);
+    }
+
+
+    public void Initialize()
     {
         if (!CsvParser.dictLocalization.ContainsKey(key))
         {
@@ -16,6 +21,8 @@ public class StringLocalizer : MonoBehaviour
         }
         LocalizedString localizedString = CsvParser.dictLocalization[key];
         LocalizationManager.dictDisplayToLocalizedString.Add(GetComponent<TextMeshProUGUI>(), localizedString);
+
+        Destroy(this);
     }
 
 

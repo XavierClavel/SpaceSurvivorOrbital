@@ -11,7 +11,6 @@ public class CharacterData
 
     public CharacterData(List<string> s)
     {
-        Debug.Log(s.Count);
         if (s.Count != 4) throw new System.ArgumentOutOfRangeException();
 
         maxHealth = int.Parse(s[1]);

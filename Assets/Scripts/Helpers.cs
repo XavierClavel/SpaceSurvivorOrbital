@@ -9,6 +9,26 @@ using System.Linq;
 
 public static class Extensions
 {
+
+    public static void RemoveFirst(this string str)
+    {
+        str.Remove(0);
+    }
+
+    public static void RemoveLast(this string str)
+    {
+        str.Remove(str.Length - 1);
+    }
+
+    public static char First(this string str)
+    {
+        return str[0];
+    }
+    public static char Last(this string str)
+    {
+        return str[str.Length - 1];
+    }
+
     public static void updateX(this Transform t, float value)
     {
         t.position = new Vector3(value, t.position.y, t.position.z);
