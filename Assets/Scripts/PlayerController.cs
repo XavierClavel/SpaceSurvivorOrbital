@@ -285,7 +285,7 @@ public class PlayerController : MonoBehaviour
     public void EnterResourceRange()
     {
         inRangeOfResource = true;
-        //if (!instance.weapon.firing) instance.tool.StartMining();
+        if (action) StartCoroutine(nameof(MineOrShoot));
     }
 
     public void LeaveResourceRange()
@@ -331,7 +331,6 @@ public class PlayerController : MonoBehaviour
         weapon.StopFiring();
         weapon.HideWeapon();
         state = playerState.idle;
-        //if (inRangeOfResource) tool.StartMining();
     }
 
     void StartMining()
