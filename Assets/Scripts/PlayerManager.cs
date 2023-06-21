@@ -373,4 +373,9 @@ public class PlayerManager : MonoBehaviour
     {
         activateMinerBotAttractor = true;
     }
+
+    public static void ResetTimer()
+    {
+        currentTimer = 0;
+    }
 }
