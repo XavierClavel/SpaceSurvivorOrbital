@@ -6,22 +6,38 @@ public abstract class Interactor : MonoBehaviour
 {
     public bool isUsing = false;
     protected bool reloading = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    float cooldown = 1f;
+    WaitForSeconds waitCoolDown;
 
     public virtual void StartUsing()
     {
         isUsing = true;
-        if (!reloading) Use();
+        if (reloading) return;
+        onStartUsing();
+        if (cooldown == 0f) return;
+        Use();
     }
 
-    public abstract void Use();
+    public void Use()
+    {
+        StartCoroutine(nameof(Reload));
+    }
 
-    public virtual void StopUsing()
+    public void StopUsing()
     {
         isUsing = false;
+        onStopUsing();
     }
+
+    protected IEnumerator Reload()
+    {
+        reloading = true;
+        yield return new WaitForSeconds(cooldown);
+        reloading = false;
+        if (isUsing) Use();
+    }
+
+    public abstract void onStartUsing();
+    public abstract void onStopUsing();
+    public abstract void onUse();
 }

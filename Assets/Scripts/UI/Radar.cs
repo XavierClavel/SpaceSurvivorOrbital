@@ -57,11 +57,11 @@ public class Radar : MonoBehaviour
 
         //Debug.Log(gudermannianDeg(y));
         //Debug.Log(latitude);
-        //float clampedLatitude = -Mathf.Clamp(latitude.mod(360), -60f, 60f);
+        float clampedLatitude = Mathf.Clamp((latitude * 0.5f + 90f).mod(180) - 90f, -60f, 60f);
 
         //var q = latitude * longitude;
         //if (Mathf.Abs(latitude) > 90) longitude += 180f;
-        xRotator.eulerAngles = latitude * Vector3.right;
+        xRotator.eulerAngles = clampedLatitude * Vector3.right;
         yRotator.localEulerAngles = longitude * Vector3.up;
 
         //transform.eulerAngles = new Vector3(latitude, longitude);
