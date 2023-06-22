@@ -7,7 +7,16 @@ public abstract class Interactor : MonoBehaviour
     public bool isUsing = false;
     protected bool reloading = false;
     float cooldown = 1f;
-    WaitForSeconds waitCoolDown;
+    WaitForSeconds waitCooldown;
+
+    static LayerMask weaponLayerMask;
+    static LayerMask toolLayerMask;
+    LayerMask currentLayerMask;
+
+    public void SwitchMode()
+    {
+        currentLayerMask = currentLayerMask == weaponLayerMask ? toolLayerMask : weaponLayerMask;
+    }
 
     public virtual void StartUsing()
     {
@@ -20,6 +29,7 @@ public abstract class Interactor : MonoBehaviour
 
     public void Use()
     {
+        onUse();
         StartCoroutine(nameof(Reload));
     }
 
@@ -32,7 +42,7 @@ public abstract class Interactor : MonoBehaviour
     protected IEnumerator Reload()
     {
         reloading = true;
-        yield return new WaitForSeconds(cooldown);
+        yield return waitCooldown;
         reloading = false;
         if (isUsing) Use();
     }
