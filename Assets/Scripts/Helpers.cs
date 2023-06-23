@@ -335,6 +335,16 @@ public class Helpers : MonoBehaviour
     private static Dictionary<int, TextMeshProUGUI> dictDebugDisplays = new Dictionary<int, TextMeshProUGUI>();
     [SerializeField] GameObject debugDisplayPrefab;
 
+    public static List<string> ParseList(string s)
+    {
+        string[] values = s.Split(',');
+        foreach (string value in values)
+        {
+            value.Trim();
+        }
+        return values.ToList();
+    }
+
     public static Vector2Int ParseVector2Int(string s)
     {
         string[] values = s.Split('-');
@@ -372,8 +382,7 @@ public class Helpers : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("no -");
-                    throw new ArgumentException($"Failed to parse \"{s}\" for variable \"{nameof(variable)}\"");
+                    value = ParseList(s);
                 }
                 break;
 

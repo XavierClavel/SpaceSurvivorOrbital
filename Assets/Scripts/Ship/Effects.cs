@@ -6,6 +6,7 @@ using System;
 
 public enum effectType
 {
+    none,
     //Ressources
     CHARACTERMaxViolet,
     maxOrange,
@@ -149,7 +150,7 @@ public class Effect
 
     public Vector2Int ApplyOperation(Vector2Int parameter)
     {
-        Vector2Int value = Vector2Int.zero;
+        Vector2Int value = Helpers.ParseVector2Int(this.value);
         switch (operation)
         {
             case operationType.add:

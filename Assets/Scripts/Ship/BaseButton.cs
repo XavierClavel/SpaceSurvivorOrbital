@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public abstract class TreeButton : MonoBehaviour
 {
 
-    public List<TreeButton> activateButton = new List<TreeButton>();
-    public List<TreeButton> desactivateButton = new List<TreeButton>();
+    protected List<string> activateButton = new List<string>();
+    protected List<string> desactivateButton = new List<string>();
     public string upgradeName;
-    [HideInInspector] public List<Effect> effects = new List<Effect>();
+    protected List<Effect> effects = new List<Effect>();
 
 
     public skillButtonStatus status { get; private set; }

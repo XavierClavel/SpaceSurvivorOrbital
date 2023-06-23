@@ -13,8 +13,8 @@ public enum skillButtonStatus { undefined, locked, unlocked, bought }
 public class SkillButton : TreeButton
 {
 
-    [SerializeField] int greenLifeCost;
-    [SerializeField] int yellowLifeCost;
+    int greenLifeCost;
+    int yellowLifeCost;
 
     [SerializeField] TextMeshProUGUI greenCostText;
     [SerializeField] TextMeshProUGUI yellowCostText;
@@ -30,6 +30,10 @@ public class SkillButton : TreeButton
 
         greenCostText.text = greenLifeCost.ToString();
         yellowCostText.text = yellowLifeCost.ToString();
+
+        activateButton = upgradeData.upgradesEnabled;
+        desactivateButton = upgradeData.upgradesDisabled;
+        desactivateButton.Add(upgradeName);
     }
 
 

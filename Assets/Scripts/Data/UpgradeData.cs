@@ -2,34 +2,107 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeData
+public class UpgradeData : TemplateData
 {
-    public List<Effect> effects = new List<Effect>();
+    public string name;
     public int costGreen;
     public int costOrange;
+    public List<string> upgradesEnabled;
+    public List<string> upgradesDisabled;
+    public List<Effect> effects = new List<Effect>();
 
     static Dictionary<int, effectType> dictColumnToEffect;
-    public static void Initialize(List<string> columnNames)
+
+    static List<string> firstLineValue = new List<string> {
+        "Name",
+        "CostGreen",
+        "CostOrange",
+        "UpgradesEnabled",
+        "UpgradesDisabled",
+
+        "MaxHealth",
+        "BaseSpeed",
+        "DamageResistance",
+
+        "BaseDamage",
+        "AttackSpeed",
+        "Range",
+        "Cooldown",
+        "Pierce",
+        "Projectiles",
+        "Spread",
+        "SpeedWhileAiming",
+        "CriticalChance",
+        "CriticalMultiplier",
+        "Magazine",
+        "MagazineReloadTime",
+
+        "MaxPurple",
+        "MaxGreen",
+        "MaxOrange"
+    };
+
+    static List<effectType> effectsList = new List<effectType> {
+        effectType.none,
+        effectType.none,
+        effectType.none,
+        effectType.none,
+        effectType.none,
+
+        effectType.maxHealth,
+        effectType.baseSpeed,
+        effectType.damageResistanceMultiplier,
+
+        effectType.WEAPONBaseDamage,
+        effectType.WEAPONAttackSpeed,
+        effectType.WEAPONRange,
+        effectType.WEAPONBulletReloadTime,
+        effectType.WEAPONPierce,
+        effectType.WEAPONProjectiles,
+        effectType.WEAPONSpread,
+        effectType.WEAPONSpeedWhileAimingDecrease,
+        effectType.WEAPONCriticalChance,
+        effectType.WEAPONCriticalMultiplier,
+        effectType.WEAPONMagazine,
+        effectType.WEAPONMagazineReloadTime,
+
+        effectType.CHARACTERMaxViolet,
+        effectType.maxGreen,
+        effectType.maxOrange
+
+    };
+
+
+
+
+    public static void Initialize(List<string> s)
     {
+        InitializeMapping(s, firstLineValue);
+
         dictColumnToEffect = new Dictionary<int, effectType>();
-        for (int i = 3; i < columnNames.Count; i++)
+        for (int i = 0; i < s.Count; i++)
         {
-            dictColumnToEffect[i] = columnNameToEffect(columnNames[i]);
+            dictColumnToEffect[mapper[i]] = effectsList[mapper[i]];
         }
     }
 
     public UpgradeData(List<string> s)
     {
-        costGreen = int.Parse(s[1]);
-        costOrange = int.Parse(s[2]);
-        for (int i = 3; i < s.Count; i++)
+        Helpers.SetMappedValue(s, mapper, 0, out name);
+        Helpers.SetMappedValue(s, mapper, 1, out costGreen);
+        Helpers.SetMappedValue(s, mapper, 2, out costOrange);
+        Helpers.SetMappedValue(s, mapper, 3, out upgradesEnabled);
+        Helpers.SetMappedValue(s, mapper, 4, out upgradesDisabled);
+
+        for (int i = 5; i < s.Count; i++)
         {
-            if (s[i] == "") continue;
-            Process(s[i], dictColumnToEffect[i]);
+
+            if (s[mapper[i]] == "") continue;
+            Process(s[mapper[i]], dictColumnToEffect[i]);
         }
 
 
-        CsvParser.dictUpgrades.Add(s[0], this);
+        CsvParser.dictUpgrades.Add(name, this);
     }
 
 

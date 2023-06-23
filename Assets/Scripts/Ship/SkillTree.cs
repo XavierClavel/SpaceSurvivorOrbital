@@ -21,6 +21,8 @@ public class SkillTree : MonoBehaviour
     GameObject previousSelected;
     InputMaster inputActions;
 
+    public static Dictionary<string, TreeButton> dictNameToButton = new Dictionary<string, TreeButton>();
+
 
 
     private void Awake()
@@ -52,6 +54,7 @@ public class SkillTree : MonoBehaviour
             {
                 skillButtonStatus status = skillButton.isFirst ? skillButtonStatus.unlocked : skillButtonStatus.locked;
                 skillButtonStatuses.Add(status);
+                dictNameToButton[skillButton.upgradeName] = skillButton;
             }
         }
 
@@ -152,11 +155,11 @@ public class SkillTree : MonoBehaviour
         skillButton.UpdateStatus(newStatus);
     }
 
-    public static void UpdateList(List<TreeButton> skillButtons, skillButtonStatus newStatus)
+    public static void UpdateList(List<string> skillButtons, skillButtonStatus newStatus)
     {
-        foreach (TreeButton skillButton in skillButtons)
+        foreach (string skillButton in skillButtons)
         {
-            UpdateButton(skillButton, newStatus);
+            UpdateButton(dictNameToButton[skillButton], newStatus);
         }
     }
 
