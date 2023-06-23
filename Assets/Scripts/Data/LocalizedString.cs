@@ -8,13 +8,18 @@ public enum lang
     en
 }
 
-public class LocalizedString
+public class LocalizedString : TemplateData
 {
-    public static Dictionary<int, int> mapper;
     public string string_FR;
     public string string_EN;
 
     public static lang selectedLang = lang.en;
+
+    static List<string> firstLineValue = new List<string> {
+        "Key",
+        "EN",
+        "FR"
+    };
 
     public string getText()
     {
@@ -34,37 +39,15 @@ public class LocalizedString
     {
         if (s.Count != 3) throw new System.ArgumentOutOfRangeException();
 
-        string_EN = s[mapper[1]];
-        string_FR = s[mapper[2]];
-
-        Debug.Log(s[0]);
+        Helpers.SetMappedValue(s, mapper, 1, out string_EN);
+        Helpers.SetMappedValue(s, mapper, 2, out string_FR);
 
         CsvParser.dictLocalization.Add(s[0], this);
     }
 
-    public static void Initialize(List<string> values)
+    public static void Initialize(List<string> s)
     {
-        mapper = new Dictionary<int, int>();
-        for (int i = 1; i < values.Count; i++)
-        {
-            mapper[i] = columnToKey(values[i]);
-        }
-    }
-
-    public static int columnToKey(string columnName)
-    {
-        columnName = columnName.Trim();
-        switch (columnName)
-        {
-            case "EN":
-                return 1;
-
-            case "FR":
-                return 2;
-
-            default:
-                throw new System.ArgumentException($"\"{columnName}\" column name is not recognized");
-        }
+        InitializeMapping(s, firstLineValue);
     }
 
 }

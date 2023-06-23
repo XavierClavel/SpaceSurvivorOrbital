@@ -8,7 +8,6 @@ public enum power { none, minerBot };
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] ToolData toolData;
     [SerializeField] GameData gameData;
 
     public static bool activateRadar = false;
@@ -148,16 +147,6 @@ public class PlayerManager : MonoBehaviour
 
             iceSpeedMultiplier = gameData.iceSpeedMultiplier;
             iceDuration = gameData.iceDuration;
-
-
-            toolPower = toolData.power;
-            toolReloadTime = toolData.reloadTime;
-            toolRange = toolData.range;
-
-            attractorRange = toolData.attractorRange;
-            attractorForce = toolData.attractorForce;
-
-            tool = toolData.tool;
 
             minerBotPower = gameData.minerBotPower;
             mineerBotSpeed = gameData.minerBotSpeed;

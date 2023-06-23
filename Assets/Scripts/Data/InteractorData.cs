@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractorData
+public class InteractorData : TemplateData
 {
     public string name;
     public Vector2Int baseDamage = new Vector2Int(80, 120);
@@ -22,9 +22,7 @@ public class InteractorData
     public int pierce = 0;
     public float speedWhileAiming = 0.7f;
 
-    static Dictionary<int, int> mapper = new Dictionary<int, int>();
-
-    static List<string> firstLine = new List<string> {
+    static List<string> firstLineValue = new List<string> {
         "Name",
         "BaseDamage",
         "AttackSpeed",
@@ -40,9 +38,13 @@ public class InteractorData
         "MagazineReloadTime"
     };
 
+    public static void Initialize(List<string> s)
+    {
+        InitializeMapping(s, firstLineValue);
+    }
+
     public InteractorData(List<string> s)
     {
-        Debug.Log("starting to parse");
         Helpers.SetMappedValue(s, mapper, 0, out name);
         Helpers.SetMappedValue(s, mapper, 1, out baseDamage);
         Helpers.SetMappedValue(s, mapper, 2, out attackSpeed);
@@ -56,30 +58,8 @@ public class InteractorData
         Helpers.SetMappedValue(s, mapper, 10, out criticalMultiplier);
         Helpers.SetMappedValue(s, mapper, 11, out magazine);
         Helpers.SetMappedValue(s, mapper, 12, out magazineReloadTime);
-        Debug.Log("parsing ended");
 
-
-        CsvParser.dictInteractors.Add(s[0], this);
-    }
-
-
-    public static void Initialize(List<string> values)
-    {
-        mapper = new Dictionary<int, int>();
-        for (int i = 0; i < values.Count; i++)
-        {
-            mapper[i] = columnToKey(values[i]);
-        }
-    }
-
-    public static int columnToKey(string columnName)
-    {
-        columnName = columnName.Trim();
-        if (firstLine.IndexOf(columnName) == -1)
-        {
-            throw new System.ArgumentException($"{columnName} not found");
-        }
-        return firstLine.IndexOf(columnName);
+        CsvParser.dictInteractors.Add(name, this);
     }
 
 }

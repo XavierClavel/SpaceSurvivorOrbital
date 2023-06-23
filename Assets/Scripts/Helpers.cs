@@ -338,8 +338,6 @@ public class Helpers : MonoBehaviour
     public static Vector2Int ParseVector2Int(string s)
     {
         string[] values = s.Split('-');
-        Debug.Log(values[0]);
-        Debug.Log(values[1]);
         int v1 = int.Parse(values[0].Trim());
         int v2 = int.Parse(values[1].Trim());
         return new Vector2Int(v1, v2);
@@ -347,9 +345,7 @@ public class Helpers : MonoBehaviour
 
     public static void SetMappedValue<T>(List<string> s, Dictionary<int, int> mapper, int i, out T variable)
     {
-        Debug.Log(s[mapper[i]]);
         setValue(out variable, s[mapper[i]].Trim());
-        Debug.Log("ok");
     }
 
     public static void setValue<T>(out T variable, string s)

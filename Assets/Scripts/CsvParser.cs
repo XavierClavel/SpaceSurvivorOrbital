@@ -21,7 +21,7 @@ public class CsvParser : MonoBehaviour
     private void Awake()
     {
         if (dictCharacters.Count != 0) return;
-        loadText(characterData, x => new CharacterData(x));
+        loadText(characterData, x => new CharacterData(x), x => CharacterData.Initialize(x));
         loadText(interactorData, x => new InteractorData(x), x => InteractorData.Initialize(x));
         loadText(localizationData, x => new LocalizedString(x), x => LocalizedString.Initialize(x));
         loadText(upgradesData, x => new UpgradeData(x), x => UpgradeData.Initialize(x));
