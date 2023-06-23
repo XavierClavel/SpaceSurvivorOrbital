@@ -23,6 +23,7 @@ public class ObjectManager : MonoBehaviour
     public static Dictionary<GameObject, Ennemy> dictObjectToEnnemy = new Dictionary<GameObject, Ennemy>();
     public static Dictionary<GameObject, IResource> dictObjectToResource = new Dictionary<GameObject, IResource>();
     public static Dictionary<GameObject, IInteractable> dictObjectToInteractable = new Dictionary<GameObject, IInteractable>();
+    public static Dictionary<GameObject, Breakable> dictObjectToBreakable = new Dictionary<GameObject, Breakable>();
 
     private void Awake()
     {

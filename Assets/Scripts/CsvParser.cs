@@ -27,7 +27,7 @@ public class CsvParser : MonoBehaviour
         loadText(upgradesData, x => new UpgradeData(x), x => UpgradeData.Initialize(x));
 
         PlayerManager.setCharacter(dictCharacters["Pistolero"]);
-        PlayerManager.setInteractor(dictInteractors["Gun"], objectReferencer.getInteractor("Gun"));
+        PlayerManager.setInteractor(dictInteractors["Laser"], objectReferencer.getInteractor("Laser"));
     }
 
     void loadText(TextAsset csv, Formatter formatter, Formatter initializer = null, int offset = 0)

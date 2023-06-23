@@ -20,7 +20,7 @@ public abstract class Interactor : MonoBehaviour
 
     [HideInInspector] public float speedWhileAiming;
 
-    public bool isUsing = false;
+    [HideInInspector] public bool isUsing = false;
     protected bool reloading = false;
     float cooldown = 0.1f;
     WaitForSeconds waitCooldown;
@@ -30,12 +30,14 @@ public abstract class Interactor : MonoBehaviour
     protected int currentMagazine;
     protected bool reloadingMagazine = false;
 
+    protected int dps;
+
     static LayerMask weaponLayerMask;
     static LayerMask toolLayerMask;
-    public LayerMask currentLayerMask;
+    public int currentLayerMask;
     protected Transform aimTransform;
 
-    public Slider reloadSlider;
+    [HideInInspector] public Slider reloadSlider;
 
     protected PlayerController player;
     protected bool autoCooldown;
@@ -51,6 +53,7 @@ public abstract class Interactor : MonoBehaviour
         pierce = PlayerManager.pierce;
         speedWhileAiming = PlayerManager.speedWhileAiming;
         magazine = PlayerManager.magazine;
+        dps = PlayerManager.dps;
 
         soundManager = SoundManager.instance;
         currentMagazine = magazine;

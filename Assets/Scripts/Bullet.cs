@@ -37,7 +37,7 @@ public class Bullet : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player")) PlayerController.Hurt(damage);
 
-        if (other.gameObject.CompareTag("Ennemy")) ObjectManager.dictObjectToEnnemy[other.gameObject].Hurt(damage, effect, critical);
+        if (other.gameObject.CompareTag("Ennemy")) ObjectManager.dictObjectToEnnemy[other.gameObject].Hit(damage, effect, critical);
 
         if (other.gameObject.CompareTag("Resource")) ObjectManager.dictObjectToResource[other.gameObject].Hit(damage);
 

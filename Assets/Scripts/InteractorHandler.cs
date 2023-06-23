@@ -23,7 +23,7 @@ public class InteractorHandler : MonoBehaviour
 
         if (tool == null)
         {
-            weapon.currentLayerMask = LayerMask.GetMask("EnnemiesOnly", "RessourcesOnly");
+            weapon.currentLayerMask = LayerMask.GetMask("Resources", "Ennemies");
         }
         else
         {
@@ -33,7 +33,7 @@ public class InteractorHandler : MonoBehaviour
             tool.transform.position = transform.position + 0.3f * Vector3.left;
 
             weapon.currentLayerMask = LayerMask.GetMask("EnnemiesOnly");
-            tool.currentLayerMask = LayerMask.GetMask("RessourcesOnly");
+            tool.currentLayerMask = LayerMask.GetMask("ResourcesOnly");
             //Instantiate(PlayerManager.tool, transform.position, Quaternion.identity);
             //tool.transform.SetParent(transform);
             //tool.Initialize(new Vector2(PlayerManager.toolRange, PlayerManager.toolRange), PlayerManager.toolPower, PlayerManager.toolReloadTime);

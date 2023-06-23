@@ -48,6 +48,8 @@ public class PlayerManager : MonoBehaviour
     public static float speedWhileAiming { get; private set; }
     public static int magazine { get; private set; }
 
+    public static int dps { get; private set; }
+
     public static status statusEffect { get; private set; }
 
     public static int poisonDamage { get; private set; }
@@ -114,6 +116,7 @@ public class PlayerManager : MonoBehaviour
         pierce = interactorData.pierce;
         speedWhileAiming = interactorData.speedWhileAiming;
         magazine = interactorData.magazine;
+        dps = interactorData.dps;
 
         weapon = interactor;
     }

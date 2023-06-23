@@ -22,6 +22,8 @@ public class InteractorData : TemplateData
     public int pierce = 0;
     public float speedWhileAiming = 0.7f;
 
+    public int dps = 50;
+
     static List<string> firstLineValue = new List<string> {
         "Name",
         "BaseDamage",
@@ -35,7 +37,8 @@ public class InteractorData : TemplateData
         "CriticalChance",
         "CriticalMultiplier",
         "Magazine",
-        "MagazineReloadTime"
+        "MagazineReloadTime",
+        "DPS"
     };
 
     public static void Initialize(List<string> s)
@@ -58,6 +61,7 @@ public class InteractorData : TemplateData
         Helpers.SetMappedValue(s, mapper, 10, out criticalMultiplier);
         Helpers.SetMappedValue(s, mapper, 11, out magazine);
         Helpers.SetMappedValue(s, mapper, 12, out magazineReloadTime);
+        Helpers.SetMappedValue(s, mapper, 13, out dps);
 
         CsvParser.dictInteractors.Add(name, this);
     }

@@ -5,14 +5,14 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.Events;
 
-public class Ennemy : MonoBehaviour
+//TODO: common interface for ennemies and ressources
+public class Ennemy : Breakable
 {
     public UnityEvent onDeath = new UnityEvent();
 
     protected PlayerController player;
     [SerializeField] Slider healthBar;
     [SerializeField] protected Rigidbody2D rb;
-    [SerializeField] SpriteRenderer spriteOverlay;
     SoundManager soundManager;
     protected Vector2 distanceToPlayer;
     protected Vector2 directionToPlayer;
@@ -25,7 +25,6 @@ public class Ennemy : MonoBehaviour
     static WaitForSeconds waitIce;
     float speedMultiplier = 1f;
     public int cost;
-    float stackedDamage = 0f;
 
     [Header("Knockback Parameters")]
     [SerializeField] float knockbackForce = 5f;
@@ -64,8 +63,10 @@ public class Ennemy : MonoBehaviour
     WaitForSeconds knockbackWindow;
 
 
-    protected virtual void Start()
+    protected override void Start()
     {
+        base.Start();
+
         soundManager = SoundManager.instance;
         player = PlayerController.instance;
         StressTest.nbEnnemies++;
@@ -102,12 +103,9 @@ public class Ennemy : MonoBehaviour
         rb.MovePosition(rb.position + direction * Time.fixedDeltaTime * speed * speedMultiplier);
     }
 
-    public void Hurt(int damage, status effect, bool critical)
+    public override void Hit(int damage, status effect, bool critical)
     {
-        Sequence sequence = DOTween.Sequence();
-        sequence.Append(spriteOverlay.DOColor(Color.white, 0.1f));
-        sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
-
+        base.Hit(damage, effect, critical);
         healthChange value = critical ? healthChange.critical : healthChange.hit;
         if (damage != 0)
         {
@@ -133,16 +131,6 @@ public class Ennemy : MonoBehaviour
                 break;
         }
         ApplyKnockback();
-    }
-
-    public void StackDamage(float dps)
-    {
-        stackedDamage += dps * Time.fixedDeltaTime;
-        if (stackedDamage < 1f) return;
-
-        int damage = (int)stackedDamage;
-        stackedDamage -= damage;
-        Hurt(damage, status.none, false);
     }
 
     public void ApplyKnockback()
@@ -183,7 +171,6 @@ public class Ennemy : MonoBehaviour
         onDeath.Invoke();
         Destroy(gameObject);
     }
-
 
 
 

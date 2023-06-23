@@ -7,11 +7,10 @@ using UnityEngine.Events;
 
 enum type { violet, orange, green }
 
-public class Resource : MonoBehaviour, IResource
+public class Resource : Breakable, IResource
 {
     [SerializeField] GameObject itemPrefab;
     [SerializeField] Slider healthBar;
-    [SerializeField] SpriteRenderer spriteOverlay;
 
     [Header("Parameters")]
     [SerializeField] int _health = 150;
@@ -35,19 +34,22 @@ public class Resource : MonoBehaviour, IResource
         ObjectManager.dictObjectToResource.Add(gameObject, this);
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         healthBar.maxValue = _health;
         healthBar.value = _health;
     }
 
+    public override void Hit(int damage, status effect, bool critical)
+    {
+        base.Hit(damage, effect, critical);
+        health -= damage;
+    }
+
     public void Hit(int damage)
     {
-        health -= damage;
 
-        Sequence sequence = DOTween.Sequence();
-        sequence.Append(spriteOverlay.DOColor(Color.white, 0.1f));
-        sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
     }
 
 

@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Laser : Interactor
 {
-
-    float dps = 50f;
+    [SerializeField] protected Transform firePoint;
     [SerializeField] LineRenderer lineRenderer;
+
+    protected override void Start()
+    {
+        base.Start();
+        lineRenderer.enabled = false;
+    }
 
 
 
@@ -24,34 +29,36 @@ public class Laser : Interactor
 
     IEnumerator UpdateLaserBeam()
     {
+        currentLayerMask = LayerMask.GetMask("Resources", "Ennemies");
         while (true)
         {
             yield return Helpers.GetWaitFixed;
 
-            lineRenderer.SetPosition(0, aimTransform.position);
+            lineRenderer.SetPosition(0, firePoint.position);
 
-            RaycastHit2D[] hits = Physics2D.RaycastAll(aimTransform.position, aimTransform.up, range, currentLayerMask);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(firePoint.position, firePoint.right, range, currentLayerMask);
             if (hits.Length == 0)
             {
-                lineRenderer.SetPosition(0, aimTransform.position + aimTransform.up * range);
-                yield break;
+                lineRenderer.SetPosition(1, firePoint.position + firePoint.right * range);
+                continue;
             }
 
-            lineRenderer.SetPosition(0, hits[hits.Length - 1].point);
-            for (int i = 0; i < Mathf.Max(hits.Length, pierce + 1); i++)
+            int stopIndex = Mathf.Max(hits.Length, pierce + 1);
+            lineRenderer.SetPosition(1, hits[stopIndex - 1].point);
+            for (int i = 0; i < stopIndex; i++)
             {
                 HurtEnnemy(hits[i].collider.gameObject);
             }
         }
     }
 
-    void HurtEnnemy(GameObject ennemyGO)
+    void HurtEnnemy(GameObject go)
     {
-        ObjectManager.dictObjectToEnnemy[ennemyGO].StackDamage(dps);
+        ObjectManager.dictObjectToBreakable[go].StackDamage(dps);
     }
 
     protected override void onUse()
     {
-        throw new System.NotImplementedException();
+
     }
 }
