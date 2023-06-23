@@ -25,6 +25,7 @@ public class Ennemy : MonoBehaviour
     static WaitForSeconds waitIce;
     float speedMultiplier = 1f;
     public int cost;
+    float stackedDamage = 0f;
 
     [Header("Knockback Parameters")]
     [SerializeField] float knockbackForce = 5f;
@@ -132,6 +133,16 @@ public class Ennemy : MonoBehaviour
                 break;
         }
         ApplyKnockback();
+    }
+
+    public void StackDamage(float dps)
+    {
+        stackedDamage += dps * Time.fixedDeltaTime;
+        if (stackedDamage < 1f) return;
+
+        int damage = (int)stackedDamage;
+        stackedDamage -= damage;
+        Hurt(damage, status.none, false);
     }
 
     public void ApplyKnockback()
