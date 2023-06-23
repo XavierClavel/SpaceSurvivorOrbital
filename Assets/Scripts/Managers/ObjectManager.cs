@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ObjectManager : MonoBehaviour
 {
@@ -10,7 +11,13 @@ public class ObjectManager : MonoBehaviour
     [SerializeField] GameObject altarFirstSelected;
     [SerializeField] GameObject loseScreen;
     [SerializeField] GameObject loseScreenFirstSelected;
-    static ObjectManager instance;
+    public Slider reloadSlider;
+    public Transform armTransform;
+
+    [Header("Interactors")]
+    public GameObject gun;
+
+    public static ObjectManager instance;
     public static Altar altar;
 
     public static Dictionary<GameObject, Ennemy> dictObjectToEnnemy = new Dictionary<GameObject, Ennemy>();

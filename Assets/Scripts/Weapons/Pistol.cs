@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pistol : Gun
 {
-    [SerializeField] Bullet bulletPrefab;
+
     int projectiles;
     float spread = 0f;
     [SerializeField] float distanceOffsetBetweenBullets = 0.1f;

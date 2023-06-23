@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] LayerMask resourceMask;
     [Header("References")]
+    InteractorHandler interactorHandler;
     [SerializeField] GameObject arm;
     [SerializeField] GameObject minerBot;
     [SerializeField] Slider reloadSlider;
@@ -79,8 +80,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool hasWon = false;
     public Transform arrowTransform;
     Vector2 moveDir;
-    private Weapon weapon;
-    private Tool tool;
 
     [Header("UI")]
     [SerializeField] ResourceLayoutManager layoutManagerViolet;
@@ -133,8 +132,6 @@ public class PlayerController : MonoBehaviour
     static bool inRangeOfResource = false;
 
     static Spaceship spaceship;
-
-    bool action = false;
 
 
     float health
@@ -212,7 +209,7 @@ public class PlayerController : MonoBehaviour
     {
 
         instance = this;
-
+        interactorHandler = GetComponent<InteractorHandler>();
     }
 
 
@@ -238,19 +235,6 @@ public class PlayerController : MonoBehaviour
         speedWhileAiming = PlayerManager.speed_aimingDemultiplier;
         effect = PlayerManager.statusEffect;
 
-        weapon = Instantiate(PlayerManager.weapon, transform.position, Quaternion.identity);
-        weapon.reloadSlider = reloadSlider;
-        weapon.transform.SetParent(arm.transform);
-        weapon.transform.position = transform.position + 0.3f * Vector3.left;
-
-        tool = Instantiate(PlayerManager.tool, transform.position, Quaternion.identity);
-        tool.transform.SetParent(transform);
-        tool.Initialize(new Vector2(PlayerManager.toolRange, PlayerManager.toolRange), PlayerManager.toolPower, PlayerManager.toolReloadTime);
-        tool.onEnterResourceRange.AddListener(EnterResourceRange);
-        tool.onLeaveResourceRange.AddListener(LeaveResourceRange);
-        tool.onNoRessourcesLeft.AddListener(OnNoRessourcesLeft);
-        //TODO? Vector2 for toolRange in PlayerManager
-
         rb = GetComponent<Rigidbody2D>();
         cameraTransform = Camera.main.transform;
         soundManager = SoundManager.instance;
@@ -273,92 +257,16 @@ public class PlayerController : MonoBehaviour
         healthBar.maxValue = maxHealth;
         healthBar.value = health;
 
-        weapon.HideWeapon();
-
-
-
-
         InitializeControls();
 
     }
 
-    public void EnterResourceRange()
+
+    public void setSpeed(float speedMultiplier)
     {
-        inRangeOfResource = true;
-        if (action) StartCoroutine(nameof(MineOrShoot));
+        speed = baseSpeed * speedMultiplier;
     }
 
-    public void LeaveResourceRange()
-    {
-        inRangeOfResource = false;
-        StopCoroutine(nameof(MineOrShoot));
-    }
-
-    void StartAction()
-    {
-        action = true;
-        if (inRangeOfResource) StartCoroutine(nameof(MineOrShoot));
-        else StartFiring();
-    }
-
-    void StopAction()
-    {
-        action = false;
-        StopCoroutine(nameof(MineOrShoot));
-        switch (state)
-        {
-            case playerState.shooting:
-                StopFiring();
-                break;
-
-            case playerState.mining:
-                tool.StopMining();
-                break;
-        }
-        state = playerState.idle;
-    }
-
-    public void StartFiring()
-    {
-        tool.StopMining();
-        weapon.StartFiring();
-        state = playerState.shooting;
-        weapon.DisplayWeapon();
-    }
-
-    public void StopFiring()
-    {
-        weapon.StopFiring();
-        weapon.HideWeapon();
-        state = playerState.idle;
-    }
-
-    void StartMining()
-    {
-        weapon.StopFiring();
-        tool.StartMining();
-        state = playerState.mining;
-    }
-
-    void OnNoRessourcesLeft()
-    {
-        if (action) StartFiring();
-    }
-
-    IEnumerator MineOrShoot()
-    {
-        while (true)
-        {
-            yield return Helpers.GetWaitFixed;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, arrowTransform.right, PlayerManager.toolRange, resourceMask);
-            Debug.DrawLine(transform.position, transform.position + arrowTransform.right * PlayerManager.toolRange);
-            if (hit)
-            {
-                if (state != playerState.mining) StartMining();
-            }
-            else if (state != playerState.shooting) StartFiring();
-        }
-    }
 
     public void SpawnMinerBot()
     {
@@ -408,17 +316,6 @@ public class PlayerController : MonoBehaviour
     {
         controls = new InputMaster();
 
-        controls.Player.Mine.started += ctx =>
-        {
-            weapon.StopFiring();
-            tool.StartMining();
-        };
-
-        controls.Player.Mine.canceled += ctx =>
-        {
-            tool.StopMining();
-        };
-
         controls.Player.Reload.performed += context =>
         {
             Camera.main.orthographicSize = (Camera.main.orthographicSize == smallSize) ? largeSize : smallSize;
@@ -430,9 +327,9 @@ public class PlayerController : MonoBehaviour
         {
             mouseAiming = true;
             Aim();
-            StartAction();
+            interactorHandler.StartAction();
         };
-        controls.Player.MouseAimActive.canceled += ctx => { StopAction(); mouseAiming = false; };
+        controls.Player.MouseAimActive.canceled += ctx => { interactorHandler.StopAction(); mouseAiming = false; };
 
         controls.Enable();
     }
@@ -462,13 +359,10 @@ public class PlayerController : MonoBehaviour
     Vector2 getMouseAimInput()
     {
         Vector2 input = Vector2.zero;
-        if (mouseAiming)
-        {
-            Vector2 mousePos = controls.Player.MousePosition.ReadValue<Vector2>();
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-            Vector2 direction = (worldPos - transform.position);
-            input = direction.normalized;
-        }
+        Vector2 mousePos = controls.Player.MousePosition.ReadValue<Vector2>();
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector2 direction = (worldPos - transform.position);
+        input = direction.normalized;
         return input;
     }
 
@@ -476,37 +370,21 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 input = isPlayingWithGamepad ? getGamepadAimInput() : getMouseAimInput();
 
-
-
-        if (input == Vector2.zero)
-        {
-            if (aiming)
-            {
-                StopFiring();
-                weapon.HideWeapon();
-            }
-            input = moveDir == Vector2.zero ? prevMoveDir : moveDir;
-            speed = baseSpeed;
-            aiming = false;
-
-        }
-        else
+        if (input != Vector2.zero)
         {
             float angle = Vector2.SignedAngle(Vector2.up, input) + 90f;
             arrowTransform.rotation = Quaternion.Euler(0f, 0f, angle);
-            if (!aiming)
-            {
-
-                //weapon.StartFiring();
-                StartAction();
-                aiming = true;
-                speed = baseSpeed * speedWhileAiming;
-            }
         }
 
         _aimDirection = angleToDirection(Vector2.SignedAngle(input, Vector2.down) + 180f);
 
+        if (!isPlayingWithGamepad) return;
+
+        if (input == Vector2.zero && interactorHandler.action) interactorHandler.StopAction();
+        if (input != Vector2.zero && !interactorHandler.action) interactorHandler.StartAction();
     }
+
+
 
     playerDirection angleToDirection(float angle)
     {

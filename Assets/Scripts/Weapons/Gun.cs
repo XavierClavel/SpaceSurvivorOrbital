@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public abstract class Gun : Weapon
+public abstract class Gun : Interactor
 {
+    [SerializeField] protected Transform firePoint;
+    [SerializeField] protected Bullet bulletPrefab;
     protected float bulletLifetime;
     LayoutManager bulletsLayoutManager;
     WaitForSeconds magazineReloadWindow;
-    bool autoReload = true;
     Tween sliderTween;
-    [SerializeField] protected Transform firePoint;
 
 
     protected override void Start()
@@ -22,19 +22,22 @@ public abstract class Gun : Weapon
         bulletsLayoutManager.Setup(magazine);
         magazineReloadWindow = Helpers.GetWait(magazineReloadTime);
         currentMagazine = magazine;
+
+        autoCooldown = false;
+        bulletPrefab.gameObject.layer = LayerMask.NameToLayer("RessourcesAndEnnemies");
+
     }
 
 
-    protected override void Shoot()
+    protected override void onUse()
     {
         if (currentMagazine == 0) return;
-        if (autoReload)
-        {
-            StopCoroutine(nameof(ReloadMagazine));
-            if (sliderTween != null) sliderTween.Kill();
-            reloadSlider.gameObject.SetActive(false);
-        }
-        StartCoroutine(nameof(Reload));
+
+        StopCoroutine(nameof(ReloadMagazine));
+        if (sliderTween != null) sliderTween.Kill();
+        reloadSlider.gameObject.SetActive(false);
+
+        StartCoroutine(nameof(Cooldown));
         Fire();
 
         currentMagazine--;
@@ -43,12 +46,17 @@ public abstract class Gun : Weapon
         if (currentMagazine == 0) StartCoroutine(nameof(ReloadMagazine));
     }
 
+
     protected abstract void Fire();
 
-    public override void StopFiring()
+    protected override void onStartUsing()
     {
-        if (autoReload && firing) StartCoroutine(nameof(ReloadMagazine));
-        base.StopFiring();
+
+    }
+
+    protected override void onStopUsing()
+    {
+        if (currentMagazine != magazine) StartCoroutine(nameof(ReloadMagazine));
     }
 
     IEnumerator ReloadMagazine()
@@ -62,7 +70,7 @@ public abstract class Gun : Weapon
         currentMagazine = magazine;
         SoundManager.instance.PlaySfx(transform, sfx.reload);
 
-        if (firing) Shoot();
+        if (isUsing) onUse();
     }
 }
 

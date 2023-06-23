@@ -72,7 +72,7 @@ public class PlayerManager : MonoBehaviour
     public static float attractorRange { get; private set; }
     public static float attractorForce { get; private set; }
 
-    public static Weapon weapon { get; private set; }
+    public static Interactor weapon { get; private set; }
     public static Tool tool { get; private set; }
 
     public static int minerBotPower { get; private set; }
@@ -329,10 +329,6 @@ public class PlayerManager : MonoBehaviour
 
             case effectType.TOOLAttractorForce:
                 attractorForce = effect.ApplyOperation(attractorForce);
-                break;
-
-            case effectType.weapon:
-                weapon = effect.ApplyOperation(weapon);
                 break;
 
             case effectType.tool:
