@@ -8,8 +8,6 @@ public enum power { none, minerBot };
 
 public class PlayerManager : MonoBehaviour
 {
-    static CharacterData characterData;
-    [SerializeField] WeaponData weaponData;
     [SerializeField] ToolData toolData;
     [SerializeField] GameData gameData;
 
@@ -39,7 +37,7 @@ public class PlayerManager : MonoBehaviour
     public static int attackSpeed { get; private set; }
     public static float range { get; private set; }
 
-    public static float bulletReloadTime { get; private set; }
+    public static float cooldown { get; private set; }
     public static float magazineReloadTime { get; private set; }
 
     public static float criticalChance { get; private set; }
@@ -93,12 +91,32 @@ public class PlayerManager : MonoBehaviour
     public static power power2 { get; private set; }
     public static int upgradePointsAmount { get; private set; }
 
-    public static void setCharacter(CharacterData newCharacterData)
+    public static void setCharacter(CharacterData characterData)
     {
-        characterData = newCharacterData;
         maxHealth = characterData.maxHealth;
         baseSpeed = characterData.baseSpeed;
         damageResistanceMultiplier = characterData.damageResistance;
+    }
+
+    public static void setInteractor(InteractorData interactorData, Interactor interactor)
+    {
+        baseDamage = interactorData.baseDamage;
+        attackSpeed = interactorData.attackSpeed;
+        range = interactorData.range;
+
+        cooldown = interactorData.cooldown;
+        magazineReloadTime = interactorData.magazineReloadTime;
+
+        criticalChance = interactorData.criticalChance;
+        criticalMultiplier = interactorData.criticalMultiplier;
+
+        projectiles = interactorData.projectiles;
+        spread = interactorData.spread;
+        pierce = interactorData.pierce;
+        speed_aimingDemultiplier = interactorData.speedWhileAiming;
+        magazine = interactorData.magazine;
+
+        weapon = interactor;
     }
 
     void Awake()
@@ -116,23 +134,6 @@ public class PlayerManager : MonoBehaviour
             fillAmountGreen = gameData.fillAmountGreen;
 
             invulnerabilityFrameDuration = gameData.invulnerabilityFrameDuration;
-
-
-            baseDamage = weaponData.baseDamage;
-            attackSpeed = weaponData.attackSpeed;
-            range = weaponData.range;
-
-            bulletReloadTime = weaponData.bulletReloadTime;
-            magazineReloadTime = weaponData.magazineReloadTime;
-
-            criticalChance = weaponData.criticalChance;
-            criticalMultiplier = weaponData.criticalMultiplier;
-
-            projectiles = weaponData.projectiles;
-            spread = weaponData.spread;
-            pierce = weaponData.pierce;
-            speed_aimingDemultiplier = weaponData.speedWhileAiming;
-            magazine = weaponData.magazine;
 
             statusEffect = gameData.effect;
 
@@ -156,7 +157,6 @@ public class PlayerManager : MonoBehaviour
             attractorRange = toolData.attractorRange;
             attractorForce = toolData.attractorForce;
 
-            weapon = weaponData.weapon;
             tool = toolData.tool;
 
             minerBotPower = gameData.minerBotPower;
@@ -248,7 +248,7 @@ public class PlayerManager : MonoBehaviour
                 break;
 
             case effectType.WEAPONBulletReloadTime:
-                bulletReloadTime = effect.ApplyOperation(bulletReloadTime);
+                cooldown = effect.ApplyOperation(cooldown);
                 break;
 
             case effectType.WEAPONMagazineReloadTime:

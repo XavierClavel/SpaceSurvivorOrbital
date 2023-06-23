@@ -335,9 +335,21 @@ public class Helpers : MonoBehaviour
     private static Dictionary<int, TextMeshProUGUI> dictDebugDisplays = new Dictionary<int, TextMeshProUGUI>();
     [SerializeField] GameObject debugDisplayPrefab;
 
+    public static Vector2Int ParseVector2Int(string s)
+    {
+        string[] values = s.Split('-');
+        Debug.Log(values[0]);
+        Debug.Log(values[1]);
+        int v1 = int.Parse(values[0].Trim());
+        int v2 = int.Parse(values[1].Trim());
+        return new Vector2Int(v1, v2);
+    }
+
     public static void SetMappedValue<T>(List<string> s, Dictionary<int, int> mapper, int i, out T variable)
     {
-        setValue(out variable, s[mapper[i]]);
+        Debug.Log(s[mapper[i]]);
+        setValue(out variable, s[mapper[i]].Trim());
+        Debug.Log("ok");
     }
 
     public static void setValue<T>(out T variable, string s)
@@ -349,13 +361,28 @@ public class Helpers : MonoBehaviour
                 value = int.Parse(s);
                 break;
 
-            case System.TypeCode.Decimal:
+            case System.TypeCode.Single:
                 value = float.Parse(s);
                 break;
 
             case System.TypeCode.String:
                 value = s;
                 break;
+
+            case System.TypeCode.Object:
+                if (s.Contains('-'))
+                {
+                    value = ParseVector2Int(s);
+                }
+                else
+                {
+                    Debug.Log("no -");
+                    throw new ArgumentException($"Failed to parse \"{s}\" for variable \"{nameof(variable)}\"");
+                }
+                break;
+
+            default:
+                throw new ArgumentException($"Failed to parse \"{s}\" for variable of type {System.Type.GetTypeCode(typeof(T))}");
         }
         variable = (T)value;
     }

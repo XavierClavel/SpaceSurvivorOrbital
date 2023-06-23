@@ -15,7 +15,7 @@ public class ObjectManager : MonoBehaviour
     public Transform armTransform;
 
     [Header("Interactors")]
-    public GameObject gun;
+    public Interactor gun;
 
     public static ObjectManager instance;
     public static Altar altar;

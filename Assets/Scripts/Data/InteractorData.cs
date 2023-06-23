@@ -34,23 +34,15 @@ public class InteractorData
         "Projectiles",
         "Spread",
         "SpeedWhileAiming",
+        "CriticalChance",
         "CriticalMultiplier",
         "Magazine",
         "MagazineReloadTime"
     };
 
-    public GameObject getObject()
-    {
-        switch (name)
-        {
-            case "gun":
-                return ObjectManager.instance.gun;
-        }
-        return null;
-    }
-
     public InteractorData(List<string> s)
     {
+        Debug.Log("starting to parse");
         Helpers.SetMappedValue(s, mapper, 0, out name);
         Helpers.SetMappedValue(s, mapper, 1, out baseDamage);
         Helpers.SetMappedValue(s, mapper, 2, out attackSpeed);
@@ -60,19 +52,21 @@ public class InteractorData
         Helpers.SetMappedValue(s, mapper, 6, out projectiles);
         Helpers.SetMappedValue(s, mapper, 7, out spread);
         Helpers.SetMappedValue(s, mapper, 8, out speedWhileAiming);
-        Helpers.SetMappedValue(s, mapper, 9, out criticalMultiplier);
-        Helpers.SetMappedValue(s, mapper, 10, out magazine);
-        Helpers.SetMappedValue(s, mapper, 11, out magazineReloadTime);
+        Helpers.SetMappedValue(s, mapper, 9, out criticalChance);
+        Helpers.SetMappedValue(s, mapper, 10, out criticalMultiplier);
+        Helpers.SetMappedValue(s, mapper, 11, out magazine);
+        Helpers.SetMappedValue(s, mapper, 12, out magazineReloadTime);
+        Debug.Log("parsing ended");
 
 
-        //CsvParser.dictUpgrades.Add(s[0], this);
+        CsvParser.dictInteractors.Add(s[0], this);
     }
 
 
     public static void Initialize(List<string> values)
     {
         mapper = new Dictionary<int, int>();
-        for (int i = 1; i < values.Count; i++)
+        for (int i = 0; i < values.Count; i++)
         {
             mapper[i] = columnToKey(values[i]);
         }
@@ -81,6 +75,10 @@ public class InteractorData
     public static int columnToKey(string columnName)
     {
         columnName = columnName.Trim();
+        if (firstLine.IndexOf(columnName) == -1)
+        {
+            throw new System.ArgumentException($"{columnName} not found");
+        }
         return firstLine.IndexOf(columnName);
     }
 

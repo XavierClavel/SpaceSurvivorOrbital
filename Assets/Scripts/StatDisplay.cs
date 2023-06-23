@@ -64,13 +64,13 @@ public class StatDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (effect == effectShow.maxHealth) { showText.text = PlayerManager.maxHealth.ToString();}
+        if (effect == effectShow.maxHealth) { showText.text = PlayerManager.maxHealth.ToString(); }
 
         if (effect == effectShow.baseSpeed) { showText.text = PlayerManager.baseSpeed.ToString(); }
 
@@ -82,7 +82,7 @@ public class StatDisplay : MonoBehaviour
 
         if (effect == effectShow.range) { showText.text = PlayerManager.range.ToString(); }
 
-        if (effect == effectShow.bulletReloadTime) { showText.text = PlayerManager.bulletReloadTime.ToString(); }
+        if (effect == effectShow.bulletReloadTime) { showText.text = PlayerManager.cooldown.ToString(); }
 
         if (effect == effectShow.magazineReloadTime) { showText.text = PlayerManager.magazineReloadTime.ToString(); }
 

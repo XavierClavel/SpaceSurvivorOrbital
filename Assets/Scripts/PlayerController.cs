@@ -231,7 +231,7 @@ public class PlayerController : MonoBehaviour
         damageResistanceMultiplier = PlayerManager.damageResistanceMultiplier;
 
 
-        bulletReloadTime = PlayerManager.bulletReloadTime;
+        bulletReloadTime = PlayerManager.cooldown;
         speedWhileAiming = PlayerManager.speed_aimingDemultiplier;
         effect = PlayerManager.statusEffect;
 

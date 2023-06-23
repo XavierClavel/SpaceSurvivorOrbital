@@ -45,7 +45,7 @@ public abstract class Weapon : MonoBehaviour
         baseDamage = PlayerManager.baseDamage;
         attackSpeed = PlayerManager.attackSpeed;
         range = PlayerManager.range;
-        bulletReloadTime = PlayerManager.bulletReloadTime;
+        bulletReloadTime = PlayerManager.cooldown;
         magazineReloadTime = PlayerManager.magazineReloadTime;
         criticalChance = PlayerManager.criticalChance;
         pierce = PlayerManager.pierce;
