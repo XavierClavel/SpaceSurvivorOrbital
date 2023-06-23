@@ -92,7 +92,7 @@ public class StatDisplay : MonoBehaviour
 
         if (effect == effectShow.pierce) { showText.text = PlayerManager.pierce.ToString(); }
 
-        if (effect == effectShow.speed_aimingDemultiplier) { showText.text = PlayerManager.speed_aimingDemultiplier.ToString(); }
+        if (effect == effectShow.speed_aimingDemultiplier) { showText.text = PlayerManager.speedWhileAiming.ToString(); }
 
         if (effect == effectShow.toolPower) { showText.text = PlayerManager.toolPower.ToString(); }
 

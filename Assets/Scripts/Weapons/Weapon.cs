@@ -49,7 +49,7 @@ public abstract class Weapon : MonoBehaviour
         magazineReloadTime = PlayerManager.magazineReloadTime;
         criticalChance = PlayerManager.criticalChance;
         pierce = PlayerManager.pierce;
-        speed_aimingDemultiplier = PlayerManager.speed_aimingDemultiplier;
+        speed_aimingDemultiplier = PlayerManager.speedWhileAiming;
         magazine = PlayerManager.magazine;
 
         soundManager = SoundManager.instance;

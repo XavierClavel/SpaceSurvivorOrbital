@@ -232,7 +232,7 @@ public class PlayerController : MonoBehaviour
 
 
         bulletReloadTime = PlayerManager.cooldown;
-        speedWhileAiming = PlayerManager.speed_aimingDemultiplier;
+        speedWhileAiming = PlayerManager.speedWhileAiming;
         effect = PlayerManager.statusEffect;
 
         rb = GetComponent<Rigidbody2D>();

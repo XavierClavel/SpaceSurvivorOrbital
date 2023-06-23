@@ -16,7 +16,6 @@ public abstract class Interactor : MonoBehaviour
     protected float criticalMultiplier;  //superior to 1
 
     protected int pierce;
-    protected float speed_aimingDemultiplier;
     protected SoundManager soundManager;
 
     [HideInInspector] public float speedWhileAiming;
@@ -50,7 +49,7 @@ public abstract class Interactor : MonoBehaviour
         magazineReloadTime = PlayerManager.magazineReloadTime;
         criticalChance = PlayerManager.criticalChance;
         pierce = PlayerManager.pierce;
-        speed_aimingDemultiplier = PlayerManager.speed_aimingDemultiplier;
+        speedWhileAiming = PlayerManager.speedWhileAiming;
         magazine = PlayerManager.magazine;
 
         soundManager = SoundManager.instance;

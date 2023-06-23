@@ -45,7 +45,7 @@ public class PlayerManager : MonoBehaviour
     public static int projectiles { get; private set; }
     public static float spread { get; private set; }
     public static int pierce { get; private set; }
-    public static float speed_aimingDemultiplier { get; private set; }
+    public static float speedWhileAiming { get; private set; }
     public static int magazine { get; private set; }
 
     public static status statusEffect { get; private set; }
@@ -112,7 +112,7 @@ public class PlayerManager : MonoBehaviour
         projectiles = interactorData.projectiles;
         spread = interactorData.spread;
         pierce = interactorData.pierce;
-        speed_aimingDemultiplier = interactorData.speedWhileAiming;
+        speedWhileAiming = interactorData.speedWhileAiming;
         magazine = interactorData.magazine;
 
         weapon = interactor;
@@ -150,6 +150,9 @@ public class PlayerManager : MonoBehaviour
 
             minerBotPower = gameData.minerBotPower;
             mineerBotSpeed = gameData.minerBotSpeed;
+
+            attractorForce = 4;
+            attractorRange = 5;
 
             power1 = power.none;
             power2 = power.none;
@@ -265,7 +268,7 @@ public class PlayerManager : MonoBehaviour
                 break;
 
             case effectType.WEAPONSpeedWhileAimingDecrease:
-                speed_aimingDemultiplier = effect.ApplyOperation(speed_aimingDemultiplier);
+                speedWhileAiming = effect.ApplyOperation(speedWhileAiming);
                 break;
 
             case effectType.WEAPONMagazine:
