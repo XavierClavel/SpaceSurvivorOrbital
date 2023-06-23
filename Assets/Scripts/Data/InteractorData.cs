@@ -9,7 +9,7 @@ public class InteractorData
     public int attackSpeed = 10;
     public float range = 10;
 
-    public float bulletReloadTime = 0.2f;
+    public float cooldown = 0.2f;
     public float magazineReloadTime = 1;
 
     public float criticalChance = 0.03f;
@@ -51,14 +51,23 @@ public class InteractorData
 
     public InteractorData(List<string> s)
     {
-        if (s.Count != 13) throw new System.ArgumentOutOfRangeException();
-        name = s[mapper[0]];
-        //baseDamage;
-        attackSpeed = int.Parse(s[mapper[2]]);
-        range = float.Parse(s[mapper[3]]);
+        Helpers.SetMappedValue(s, mapper, 0, out name);
+        Helpers.SetMappedValue(s, mapper, 1, out baseDamage);
+        Helpers.SetMappedValue(s, mapper, 2, out attackSpeed);
+        Helpers.SetMappedValue(s, mapper, 3, out range);
+        Helpers.SetMappedValue(s, mapper, 4, out cooldown);
+        Helpers.SetMappedValue(s, mapper, 5, out pierce);
+        Helpers.SetMappedValue(s, mapper, 6, out projectiles);
+        Helpers.SetMappedValue(s, mapper, 7, out spread);
+        Helpers.SetMappedValue(s, mapper, 8, out speedWhileAiming);
+        Helpers.SetMappedValue(s, mapper, 9, out criticalMultiplier);
+        Helpers.SetMappedValue(s, mapper, 10, out magazine);
+        Helpers.SetMappedValue(s, mapper, 11, out magazineReloadTime);
+
 
         //CsvParser.dictUpgrades.Add(s[0], this);
     }
+
 
     public static void Initialize(List<string> values)
     {

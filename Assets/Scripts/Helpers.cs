@@ -335,6 +335,32 @@ public class Helpers : MonoBehaviour
     private static Dictionary<int, TextMeshProUGUI> dictDebugDisplays = new Dictionary<int, TextMeshProUGUI>();
     [SerializeField] GameObject debugDisplayPrefab;
 
+    public static void SetMappedValue<T>(List<string> s, Dictionary<int, int> mapper, int i, out T variable)
+    {
+        setValue(out variable, s[mapper[i]]);
+    }
+
+    public static void setValue<T>(out T variable, string s)
+    {
+        object value = null;
+        switch (System.Type.GetTypeCode(typeof(T)))
+        {
+            case System.TypeCode.Int32:
+                value = int.Parse(s);
+                break;
+
+            case System.TypeCode.Decimal:
+                value = float.Parse(s);
+                break;
+
+            case System.TypeCode.String:
+                value = s;
+                break;
+        }
+        variable = (T)value;
+    }
+
+
     public static float Sinh(float value)
     {
         return 0.5f * (Mathf.Exp(value) - Mathf.Exp(-value));
