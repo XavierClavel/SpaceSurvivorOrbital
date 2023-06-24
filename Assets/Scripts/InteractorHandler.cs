@@ -7,7 +7,7 @@ public class InteractorHandler : MonoBehaviour
     protected Interactor weapon;
     protected Interactor tool; //can be null;
     [HideInInspector] public bool action = false;
-    public static Interactor currentInteractor;
+    public Interactor currentInteractor;
     int resourcesInRange = 0;
     PlayerController player;
     public static InteractorHandler playerInteractorHandler;

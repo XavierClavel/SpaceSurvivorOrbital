@@ -36,7 +36,7 @@ public class MinerBot : MonoBehaviour
     [SerializeField] interactor toolInteractorType = interactor.None;
     Interactor weaponInteractor;
     Interactor toolInteractor;
-    Transform rotationPoint;
+    [SerializeField] Transform rotationPoint;
     float detectionRange = 6f;
 
 
@@ -80,6 +80,7 @@ public class MinerBot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //TODO : rotate to look at target or if null to look at direction
         if (interactorHandler.action)
         {
             if ((playerTransform.position - transform.position).sqrMagnitude > sqrMaxDistanceToPlayer)
@@ -137,6 +138,10 @@ public class MinerBot : MonoBehaviour
 
     void StartMining()
     {
+        rotationPoint.position = transform.position;
+        Vector2 direction = target.position - rotationPoint.position;
+        float angle = Vector2.SignedAngle(Vector2.right, direction);
+        rotationPoint.rotation = Quaternion.Euler(0f, 0f, angle);
         rb.velocity = Vector2.zero;
         isStatic = true;
         botState = state.mining;
@@ -155,6 +160,7 @@ public class MinerBot : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         targets.TryRemove(other.gameObject);
+        if (other.transform == target) EndMining();
     }
 
     void EndMining()

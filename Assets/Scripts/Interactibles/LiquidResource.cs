@@ -49,7 +49,7 @@ public class LiquidResource : MonoBehaviour, IInteractable
     private void OnTriggerEnter2D(Collider2D other)
     {
         image.gameObject.SetActive(true);
-        StartCoroutine(nameof(Interact), (float)InteractorHandler.currentInteractor.dps);
+        StartCoroutine(nameof(Interact), (float)InteractorHandler.playerInteractorHandler.currentInteractor.dps);
     }
 
     private void OnTriggerExit2D(Collider2D other)
