@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LiquidResource : MonoBehaviour, IResource
+public class LiquidResource : MonoBehaviour, IInteractable
 {
     bool interacting = false;
     [Header("References")]
@@ -12,6 +12,7 @@ public class LiquidResource : MonoBehaviour, IResource
     [SerializeField] new CircleCollider2D collider;
     [Header("Parameters")]
     [SerializeField] float timeToFill = 2f;
+    [SerializeField] float referenceDPS = 50f;
     [SerializeField] Vector2Int resourcesAmount = new Vector2Int(2, 5);
     int nbResources;
     float increment;
@@ -24,34 +25,40 @@ public class LiquidResource : MonoBehaviour, IResource
     // Start is called before the first frame update
     void Start()
     {
-        factor = 1f / timeToFill;
+        factor = 1f / (timeToFill * referenceDPS); //Calculated so that it takes timeToFill seconds to mine at referenceDPS dps
+
         nbResources = Random.Range(resourcesAmount.x, resourcesAmount.y);
         increment = 1f / (float)nbResources;
         currentIncrement = nbResources;
 
-        ObjectManager.dictObjectToResource.Add(gameObject, this);
+        ObjectManager.dictObjectToInteractable.Add(gameObject, this);
     }
 
-    public void StartMining()
+    public void StartInteracting() { }
+
+    public void StopInteracting() { }
+
+    public void Interacting() { }
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        StartCoroutine(nameof(Mine));
         image.gameObject.SetActive(true);
+        StartCoroutine(nameof(Interact), (float)InteractorHandler.currentInteractor.dps);
     }
 
-    public void StopMining()
+    private void OnTriggerExit2D(Collider2D other)
     {
-        StopCoroutine(nameof(Mine));
+        StopCoroutine(nameof(Interact));
+        image.gameObject.SetActive(false);
     }
 
-    public void Hit(int damage) { }
-
-    IEnumerator Mine()
+    IEnumerator Interact(float dps)
     {
         while (fillAmount > 0)
         {
             yield return Helpers.GetWaitFixed;
 
-            fillAmount -= Time.fixedDeltaTime * factor;
+            fillAmount -= Time.fixedDeltaTime * factor * dps;
 
             int value = (int)(fillAmount / increment);
             if (value != currentIncrement)
@@ -62,11 +69,6 @@ public class LiquidResource : MonoBehaviour, IResource
             image.fillAmount = fillAmount;
         }
         Break();
-    }
-
-    public void Mining()
-    {
-
     }
 
 

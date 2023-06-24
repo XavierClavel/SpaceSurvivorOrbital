@@ -30,7 +30,7 @@ public abstract class Interactor : MonoBehaviour
     protected int currentMagazine;
     protected bool reloadingMagazine = false;
 
-    protected int dps;
+    public int dps;
 
     static LayerMask weaponLayerMask;
     static LayerMask toolLayerMask;

@@ -20,8 +20,6 @@ public class ObjectReferencer : ScriptableObject
 
             default:
                 throw new System.ArgumentException($"interactor key \"name\" not found");
-                break;
         }
-        return null;
     }
 }
