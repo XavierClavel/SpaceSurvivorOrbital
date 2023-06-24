@@ -12,6 +12,8 @@ public class InteractorHandler : MonoBehaviour
     PlayerController player;
     public static InteractorHandler instance;
 
+    bool miningPurple = false;
+
     private void Awake()
     {
         instance = this;
@@ -49,17 +51,30 @@ public class InteractorHandler : MonoBehaviour
         currentInteractor = weapon;
     }
 
+    public void StartMiningPurple()
+    {
+        miningPurple = true;
+        StopAction(false);
+    }
+
+    public void StopMiningPurple()
+    {
+        miningPurple = false;
+        if (action) StartAction();
+    }
+
 
     public void StartAction()
     {
         action = true;
+        if (miningPurple) return;
         currentInteractor.StartUsing();
         player.setSpeed(currentInteractor.speedWhileAiming);
     }
 
-    public void StopAction()
+    public void StopAction(bool actionFalse = true)
     {
-        action = false;
+        if (actionFalse) action = false;
         currentInteractor.StopUsing();
         player.setSpeed(1f);
     }

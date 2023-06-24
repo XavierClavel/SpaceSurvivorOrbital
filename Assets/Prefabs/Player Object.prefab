@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 5794317925339272070}
   - component: {fileID: 5794317925339272068}
   - component: {fileID: 5794317925339272069}
-  m_Layer: 19
+  m_Layer: 23
   m_Name: Interaction Radius
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5180,7 +5180,7 @@ Transform:
   - {fileID: 5794317926099631159}
   - {fileID: 5794317925890086607}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &5794317926654119748
 Animator:
@@ -5214,21 +5214,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1975eba2083998438719c6a40084251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourceMask:
+    serializedVersion: 2
+    m_Bits: 0
+  arm: {fileID: 0}
   minerBot: {fileID: 1996796871797323369, guid: 606cd7fbc919c26408d72095cbd95eb3, type: 3}
   reloadSlider: {fileID: 0}
   attractorTransform: {fileID: 0}
   _playerState_value: 0
   healthBar: {fileID: 0}
-  spaceship: {fileID: 0}
   animator: {fileID: 5794317926654119748}
   hasWon: 0
-  arrowMouse: {fileID: 5794317925663071238}
   arrowTransform: {fileID: 5794317926099631159}
   layoutManagerViolet: {fileID: 0}
   layoutManagerOrange: {fileID: 0}
   layoutManagerGreen: {fileID: 0}
   bulletsLayoutManager: {fileID: 0}
-  youLooseScreen: {fileID: 0}
   button: {fileID: 0}
   smallSize: 5
   largeSize: 40

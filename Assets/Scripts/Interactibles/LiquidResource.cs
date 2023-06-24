@@ -24,7 +24,7 @@ public class LiquidResource : MonoBehaviour, IInteractable
 
     bool lookingAtRessource = false;
 
-    int resourceLayer;
+    int interactibleLayer;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +37,7 @@ public class LiquidResource : MonoBehaviour, IInteractable
 
         ObjectManager.dictObjectToInteractable.Add(gameObject, this);
 
-        resourceLayer = LayerMask.NameToLayer("Interactible");
+        interactibleLayer = LayerMask.GetMask("Interactible");
     }
 
     public void StartInteracting() { }
@@ -81,19 +81,17 @@ public class LiquidResource : MonoBehaviour, IInteractable
 
     bool UpdateLookStatus()
     {
-        RaycastHit2D hit = Physics2D.Raycast(PlayerController.instance.transform.position, ObjectManager.instance.armTransform.right, 99f, resourceLayer);
-        Debug.DrawLine(PlayerController.instance.transform.position,
-            PlayerController.instance.transform.position + ObjectManager.instance.armTransform.right * 99f);
-        Debug.Log(hit == true && hit.collider.gameObject == gameObject);
+        //TODO : interactibleOnly for interactionRadius to avoid RayCastAll and save performances
+        RaycastHit2D hit = Physics2D.Raycast(PlayerController.instance.transform.position, ObjectManager.instance.armTransform.right, 99f, interactibleLayer);
         if (hit && hit.collider.gameObject == gameObject)
         {
-            if (!lookingAtRessource) InteractorHandler.instance.StopAction();
+            if (!lookingAtRessource) InteractorHandler.instance.StartMiningPurple();
             lookingAtRessource = true;
             return true;
         }
         else
         {
-            if (lookingAtRessource) InteractorHandler.instance.StartAction();
+            if (lookingAtRessource) InteractorHandler.instance.StopMiningPurple();
             lookingAtRessource = false;
             return false;
         }
@@ -102,6 +100,7 @@ public class LiquidResource : MonoBehaviour, IInteractable
 
     void Break()
     {
+        InteractorHandler.instance.StopMiningPurple();
         SoundManager.instance.PlaySfx(transform, sfx.breakResource);
         Destroy(gameObject);
     }
