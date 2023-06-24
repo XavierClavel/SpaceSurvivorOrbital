@@ -63,7 +63,8 @@ public class InteractorData : TemplateData
         Helpers.SetMappedValue(s, mapper, 12, out magazineReloadTime);
         Helpers.SetMappedValue(s, mapper, 13, out dps);
 
-        CsvParser.dictInteractors.Add(name, this);
+        interactor currentInteractor = (interactor)System.Enum.Parse(typeof(interactor), name);
+        CsvParser.dictInteractors.Add(currentInteractor, this);
     }
 
 }

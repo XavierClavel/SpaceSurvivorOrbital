@@ -24,7 +24,7 @@ public abstract class Gun : Interactor
         currentMagazine = magazine;
 
         autoCooldown = false;
-        bulletPrefab.gameObject.layer = LayerMask.NameToLayer("RessourcesAndEnnemies");
+        bulletPrefab.gameObject.layer = LayerMask.NameToLayer("ResourcesAndEnnemies");
 
     }
 

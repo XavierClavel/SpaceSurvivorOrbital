@@ -8,18 +8,18 @@ public class ObjectReferencer : ScriptableObject
     public Interactor gun;
     public Interactor laser;
 
-    public Interactor getInteractor(string key)
+    public Interactor getInteractor(interactor key)
     {
         switch (key)
         {
-            case "Gun":
+            case interactor.Gun:
                 return gun;
 
-            case "Laser":
+            case interactor.Laser:
                 return laser;
 
             default:
-                Debug.Log(name);
+                throw new System.ArgumentException($"interactor key \"name\" not found");
                 break;
         }
         return null;

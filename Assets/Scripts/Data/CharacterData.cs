@@ -25,7 +25,8 @@ public class CharacterData : TemplateData
         Helpers.SetMappedValue(s, mapper, 2, out baseSpeed);
         Helpers.SetMappedValue(s, mapper, 3, out damageResistance);
 
-        CsvParser.dictCharacters.Add(name, this);
+        character currentCharacter = (character)System.Enum.Parse(typeof(character), name);
+        CsvParser.dictCharacters.Add(currentCharacter, this);
     }
 
     public static void Initialize(List<string> s)
