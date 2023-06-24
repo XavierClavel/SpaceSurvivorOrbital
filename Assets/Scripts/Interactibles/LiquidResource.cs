@@ -85,13 +85,13 @@ public class LiquidResource : MonoBehaviour, IInteractable
         RaycastHit2D hit = Physics2D.Raycast(PlayerController.instance.transform.position, ObjectManager.instance.armTransform.right, 99f, interactibleLayer);
         if (hit && hit.collider.gameObject == gameObject)
         {
-            if (!lookingAtRessource) InteractorHandler.instance.StartMiningPurple();
+            if (!lookingAtRessource) InteractorHandler.playerInteractorHandler.StartMiningPurple();
             lookingAtRessource = true;
             return true;
         }
         else
         {
-            if (lookingAtRessource) InteractorHandler.instance.StopMiningPurple();
+            if (lookingAtRessource) InteractorHandler.playerInteractorHandler.StopMiningPurple();
             lookingAtRessource = false;
             return false;
         }
@@ -100,7 +100,7 @@ public class LiquidResource : MonoBehaviour, IInteractable
 
     void Break()
     {
-        InteractorHandler.instance.StopMiningPurple();
+        InteractorHandler.playerInteractorHandler.StopMiningPurple();
         SoundManager.instance.PlaySfx(transform, sfx.breakResource);
         Destroy(gameObject);
     }

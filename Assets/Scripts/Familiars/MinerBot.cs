@@ -14,7 +14,7 @@ public class MinerBot : MonoBehaviour
     [SerializeField] Vector2 toolRange;
     int toolPower;
     float toolReloadTime;
-    List<GameObject> resources = new List<GameObject>();
+    List<GameObject> targets = new List<GameObject>();
     [SerializeField] float maxDistanceToPlayer = 9f;
     float sqrMaxDistanceToPlayer;
     Tween tween;
@@ -31,20 +31,35 @@ public class MinerBot : MonoBehaviour
     float sqrtStopRadius;
     float sqrtFullSpeedRadius;
     float cumulativeSpeed = 0f;
+    InteractorHandler interactorHandler;
+    [SerializeField] interactor weaponInteractorType = interactor.Laser;
+    [SerializeField] interactor toolInteractorType = interactor.None;
+    Interactor weaponInteractor;
+    Interactor toolInteractor;
+    Transform rotationPoint;
+    float detectionRange = 6f;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        GetComponent<CircleCollider2D>().radius = detectionRange;
+
+        interactorHandler = GetComponent<InteractorHandler>();
+        interactorHandler.Initialize(PlayerManager.weapon, null, rotationPoint);
+
+
         playerTransform = PlayerController.instance.transform;
         toolPower = PlayerManager.minerBotPower;
         toolReloadTime = 1f / PlayerManager.mineerBotSpeed;
 
-
+        /*
         tool = Instantiate(PlayerManager.tool, transform.position, Quaternion.identity);
         tool.transform.SetParent(transform);
         tool.Initialize(toolRange, toolPower, toolReloadTime);
         tool.onNoRessourcesLeft.AddListener(EndMining);
-        tool.onResourceExit.AddListener(gameObject => resources.TryRemove(gameObject));
+        tool.onResourceExit.AddListener(gameObject => targets.TryRemove(gameObject));
+        */
 
         sqrMaxDistanceToPlayer = Mathf.Pow(maxDistanceToPlayer, 2);
 
@@ -57,18 +72,19 @@ public class MinerBot : MonoBehaviour
 
         sqrtStopRadius = Mathf.Pow(stopRadius, 2);
         sqrtFullSpeedRadius = Mathf.Pow(fullSpeedRadius, 2);
+
+        gameObject.layer = LayerMask.NameToLayer("ResourcesOnly");
+        //TODO: change layer according to bot type : Miner/Attacker/Both
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
-        if (botState == state.mining)
+        if (interactorHandler.action)
         {
             if ((playerTransform.position - transform.position).sqrMagnitude > sqrMaxDistanceToPlayer)
             {
-                tool.StopMining();
+                interactorHandler.StopAction();
                 SetNewTarget(playerTransform, fullSpeedRadius, Follow, state.transitioning);
             }
         }
@@ -103,7 +119,6 @@ public class MinerBot : MonoBehaviour
         if (direction.sqrMagnitude > Mathf.Pow(radius, 2))
         {
             rb.velocity = direction.normalized * speed;
-            //Debug.Log(rb.velocity);
             return;
         }
 
@@ -112,7 +127,8 @@ public class MinerBot : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        resources.Add(other.gameObject);
+        //TODO : list for ennemies and list for resources. Give priority to ennemies
+        targets.Add(other.gameObject);
         if (botState != state.mining && botState != state.miningTransition)
         {
             SetNewTarget(other.transform, 1f, StartMining, state.miningTransition);
@@ -124,7 +140,7 @@ public class MinerBot : MonoBehaviour
         rb.velocity = Vector2.zero;
         isStatic = true;
         botState = state.mining;
-        tool.StartMining();
+        interactorHandler.StartAction();
     }
 
     void SetNewTarget(Transform target, float radius, onComplete action, state newState)
@@ -138,18 +154,18 @@ public class MinerBot : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        resources.TryRemove(other.gameObject);
+        targets.TryRemove(other.gameObject);
     }
 
     void EndMining()
     {
-        if (resources.Count == 0)    //current resource is counted
+        if (targets.Count == 0)    //current resource is counted
         {
-            tool.StopMining();
+            interactorHandler.StopAction();
             SetNewTarget(playerTransform, fullSpeedRadius, Follow, state.transitioning);
             return;
         }
-        SetNewTarget(resources[0].transform, 1f, StartMining, state.miningTransition);
+        SetNewTarget(targets[0].transform, 1f, StartMining, state.miningTransition);
 
     }
 

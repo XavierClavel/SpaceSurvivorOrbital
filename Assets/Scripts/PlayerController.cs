@@ -257,6 +257,8 @@ public class PlayerController : MonoBehaviour
         healthBar.maxValue = maxHealth;
         healthBar.value = health;
 
+        interactorHandler.Initialize(PlayerManager.weapon, null, ObjectManager.instance.armTransform, true);
+
         InitializeControls();
 
     }

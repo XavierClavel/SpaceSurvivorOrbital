@@ -63,7 +63,7 @@ public class Pistol : Gun
 
         bulletPrefab.damage = damage;
         bulletPrefab.critical = critical;
-        bulletPrefab.effect = player.effect;
+        if (playerInteractor) bulletPrefab.effect = player.effect;
 
 
         Bullet bullet = Instantiate(bulletPrefab, position, Quaternion.Euler(eulerRotation));

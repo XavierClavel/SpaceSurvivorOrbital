@@ -10,31 +10,28 @@ public class InteractorHandler : MonoBehaviour
     public static Interactor currentInteractor;
     int resourcesInRange = 0;
     PlayerController player;
-    public static InteractorHandler instance;
+    public static InteractorHandler playerInteractorHandler;
 
     bool miningPurple = false;
 
-    private void Awake()
+    public void Initialize(Interactor weaponInteractor, Interactor toolInteractor, Transform rotationAxis, bool playerInteractor = false)
     {
-        instance = this;
-    }
-
-    private void Start()
-    {
-
         player = PlayerController.instance;
+        if (playerInteractor) playerInteractorHandler = this;
 
-        weapon = Instantiate(PlayerManager.weapon, transform.position, Quaternion.identity);
-        weapon.reloadSlider = ObjectManager.instance.reloadSlider;
-        weapon.transform.SetParent(ObjectManager.instance.armTransform);
+        weapon = Instantiate(weaponInteractor, transform.position, Quaternion.identity);
+        weapon.playerInteractor = playerInteractor;
+        if (playerInteractor) weapon.reloadSlider = ObjectManager.instance.reloadSlider;
+        weapon.transform.SetParent(rotationAxis);
         weapon.transform.position = transform.position + 0.3f * Vector3.left;
 
-        if (tool == null)
+        if (toolInteractor == null)
         {
             weapon.currentLayerMask = LayerMask.GetMask("Resources", "Ennemies");
         }
         else
         {
+            /*
             tool = Instantiate(PlayerManager.weapon, transform.position, Quaternion.identity);
             tool.reloadSlider = ObjectManager.instance.reloadSlider;
             tool.transform.SetParent(ObjectManager.instance.armTransform);
@@ -46,6 +43,7 @@ public class InteractorHandler : MonoBehaviour
             //tool.transform.SetParent(transform);
             //tool.Initialize(new Vector2(PlayerManager.toolRange, PlayerManager.toolRange), PlayerManager.toolPower, PlayerManager.toolReloadTime);
             //TODO? Vector2 for toolRange in PlayerManager
+            */
         }
 
         currentInteractor = weapon;

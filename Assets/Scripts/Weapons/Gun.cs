@@ -18,8 +18,11 @@ public abstract class Gun : Interactor
     {
         base.Start();
         bulletLifetime = range / attackSpeed;
-        bulletsLayoutManager = player.bulletsLayoutManager;
-        bulletsLayoutManager.Setup(magazine);
+        if (playerInteractor)
+        {
+            bulletsLayoutManager = player.bulletsLayoutManager;
+            bulletsLayoutManager.Setup(magazine);
+        }
         magazineReloadWindow = Helpers.GetWait(magazineReloadTime);
         currentMagazine = magazine;
 
@@ -35,13 +38,13 @@ public abstract class Gun : Interactor
 
         StopCoroutine(nameof(ReloadMagazine));
         if (sliderTween != null) sliderTween.Kill();
-        reloadSlider.gameObject.SetActive(false);
+        if (playerInteractor) reloadSlider.gameObject.SetActive(false);
 
         StartCoroutine(nameof(Cooldown));
         Fire();
 
         currentMagazine--;
-        bulletsLayoutManager.DecreaseAmount();
+        if (playerInteractor) bulletsLayoutManager.DecreaseAmount();
 
         if (currentMagazine == 0) StartCoroutine(nameof(ReloadMagazine));
     }
@@ -61,12 +64,18 @@ public abstract class Gun : Interactor
 
     IEnumerator ReloadMagazine()
     {
-        reloadSlider.gameObject.SetActive(true);
-        reloadSlider.value = 0f;
-        sliderTween = reloadSlider.DOValue(1f, magazineReloadTime).SetEase(Ease.Linear);
+        if (playerInteractor)
+        {
+            reloadSlider.gameObject.SetActive(true);
+            reloadSlider.value = 0f;
+            sliderTween = reloadSlider.DOValue(1f, magazineReloadTime).SetEase(Ease.Linear);
+        }
         yield return magazineReloadWindow;
-        reloadSlider.gameObject.SetActive(false);
-        bulletsLayoutManager.SetAmount(magazine);
+        if (playerInteractor)
+        {
+            reloadSlider.gameObject.SetActive(false);
+            bulletsLayoutManager.SetAmount(magazine);
+        }
         currentMagazine = magazine;
         SoundManager.instance.PlaySfx(transform, sfx.reload);
 

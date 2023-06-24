@@ -12,6 +12,7 @@ public enum character
 
 public enum interactor
 {
+    None,
     Gun,
     Laser
 }
