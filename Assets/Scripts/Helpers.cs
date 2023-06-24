@@ -335,6 +335,12 @@ public class Helpers : MonoBehaviour
     private static Dictionary<int, TextMeshProUGUI> dictDebugDisplays = new Dictionary<int, TextMeshProUGUI>();
     [SerializeField] GameObject debugDisplayPrefab;
 
+    public static Quaternion LookRotation2D(Vector2 direction)
+    {
+        float angle = Vector2.SignedAngle(Vector2.right, direction);
+        return Quaternion.Euler(0f, 0f, angle);
+    }
+
     public static List<string> ParseList(string s)
     {
         string[] values = s.Split(',');

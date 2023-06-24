@@ -80,7 +80,10 @@ public class MinerBot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //TODO : rotate to look at target or if null to look at direction
+        Vector2 direction = target == playerTransform ? rb.velocity : target.position - rotationPoint.position;
+        rotationPoint.position = transform.position;
+        rotationPoint.rotation = Helpers.LookRotation2D(direction);
+
         if (interactorHandler.action)
         {
             if ((playerTransform.position - transform.position).sqrMagnitude > sqrMaxDistanceToPlayer)
@@ -138,10 +141,6 @@ public class MinerBot : MonoBehaviour
 
     void StartMining()
     {
-        rotationPoint.position = transform.position;
-        Vector2 direction = target.position - rotationPoint.position;
-        float angle = Vector2.SignedAngle(Vector2.right, direction);
-        rotationPoint.rotation = Quaternion.Euler(0f, 0f, angle);
         rb.velocity = Vector2.zero;
         isStatic = true;
         botState = state.mining;
