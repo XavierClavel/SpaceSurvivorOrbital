@@ -22,6 +22,10 @@ public class LiquidResource : MonoBehaviour, IInteractable
     float factor;
     float fillAmount = 1;
 
+    bool lookingAtRessource = false;
+
+    int resourceLayer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +36,8 @@ public class LiquidResource : MonoBehaviour, IInteractable
         currentIncrement = nbResources;
 
         ObjectManager.dictObjectToInteractable.Add(gameObject, this);
+
+        resourceLayer = LayerMask.NameToLayer("Interactible");
     }
 
     public void StartInteracting() { }
@@ -57,6 +63,8 @@ public class LiquidResource : MonoBehaviour, IInteractable
         while (fillAmount > 0)
         {
             yield return Helpers.GetWaitFixed;
+            if (!UpdateLookStatus()) continue;
+
 
             fillAmount -= Time.fixedDeltaTime * factor * dps;
 
@@ -69,6 +77,26 @@ public class LiquidResource : MonoBehaviour, IInteractable
             image.fillAmount = fillAmount;
         }
         Break();
+    }
+
+    bool UpdateLookStatus()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(PlayerController.instance.transform.position, ObjectManager.instance.armTransform.right, 99f, resourceLayer);
+        Debug.DrawLine(PlayerController.instance.transform.position,
+            PlayerController.instance.transform.position + ObjectManager.instance.armTransform.right * 99f);
+        Debug.Log(hit == true && hit.collider.gameObject == gameObject);
+        if (hit && hit.collider.gameObject == gameObject)
+        {
+            if (!lookingAtRessource) InteractorHandler.instance.StopAction();
+            lookingAtRessource = true;
+            return true;
+        }
+        else
+        {
+            if (lookingAtRessource) InteractorHandler.instance.StartAction();
+            lookingAtRessource = false;
+            return false;
+        }
     }
 
 

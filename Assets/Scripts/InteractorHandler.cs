@@ -10,6 +10,12 @@ public class InteractorHandler : MonoBehaviour
     public static Interactor currentInteractor;
     int resourcesInRange = 0;
     PlayerController player;
+    public static InteractorHandler instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
