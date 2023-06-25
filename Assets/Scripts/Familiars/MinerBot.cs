@@ -5,7 +5,9 @@ using DG.Tweening;
 
 public class MinerBot : MonoBehaviour
 {
-    enum state { following, mining, miningTransition, transitioning, none }
+    enum state { following, mining, miningTransition, attacking, attackingTransition, transitioning, none }
+    enum botFunction { mining, attacking, both };
+    enum TargetType { player, resource, ennemy }
 
     state botState = state.none;
     Transform playerTransform;
@@ -14,7 +16,9 @@ public class MinerBot : MonoBehaviour
     [SerializeField] Vector2 toolRange;
     int toolPower;
     float toolReloadTime;
-    List<GameObject> targets = new List<GameObject>();
+    List<GameObject> ennemies = new List<GameObject>();
+    List<GameObject> resources = new List<GameObject>();
+    TargetType targetType = TargetType.player;
     [SerializeField] float maxDistanceToPlayer = 9f;
     float sqrMaxDistanceToPlayer;
     Tween tween;
@@ -34,10 +38,19 @@ public class MinerBot : MonoBehaviour
     InteractorHandler interactorHandler;
     [SerializeField] interactor weaponInteractorType = interactor.Laser;
     [SerializeField] interactor toolInteractorType = interactor.None;
+    [SerializeField] botFunction function = botFunction.mining;
     Interactor weaponInteractor;
     Interactor toolInteractor;
     [SerializeField] Transform rotationPoint;
     float detectionRange = 6f;
+
+    public const string ennemyLayerName = "EnnemiesOnly";
+    public const string resourceLayerName = "ResourcesOnly";
+    public const string everythingLayerName = "ResourcesAndEnnemies";
+
+    const float ennemyAttackRange = 2f;
+    const float resourceAttackRange = 2f;
+    const float playerFollowRange = 2f;
 
 
     // Start is called before the first frame update
@@ -46,20 +59,11 @@ public class MinerBot : MonoBehaviour
         GetComponent<CircleCollider2D>().radius = detectionRange;
 
         interactorHandler = GetComponent<InteractorHandler>();
-        interactorHandler.Initialize(PlayerManager.weapon, null, rotationPoint);
-
+        Interactor weapon = CsvParser.instance.objectReferencer.getInteractor(weaponInteractorType);
+        Interactor tool = CsvParser.instance.objectReferencer.getInteractor(toolInteractorType);
+        interactorHandler.Initialize(weapon, tool, rotationPoint);
 
         playerTransform = PlayerController.instance.transform;
-        toolPower = PlayerManager.minerBotPower;
-        toolReloadTime = 1f / PlayerManager.mineerBotSpeed;
-
-        /*
-        tool = Instantiate(PlayerManager.tool, transform.position, Quaternion.identity);
-        tool.transform.SetParent(transform);
-        tool.Initialize(toolRange, toolPower, toolReloadTime);
-        tool.onNoRessourcesLeft.AddListener(EndMining);
-        tool.onResourceExit.AddListener(gameObject => targets.TryRemove(gameObject));
-        */
 
         sqrMaxDistanceToPlayer = Mathf.Pow(maxDistanceToPlayer, 2);
 
@@ -73,8 +77,25 @@ public class MinerBot : MonoBehaviour
         sqrtStopRadius = Mathf.Pow(stopRadius, 2);
         sqrtFullSpeedRadius = Mathf.Pow(fullSpeedRadius, 2);
 
-        gameObject.layer = LayerMask.NameToLayer("ResourcesOnly");
-        //TODO: change layer according to bot type : Miner/Attacker/Both
+        gameObject.layer = LayerMask.NameToLayer(getLayerName());
+    }
+
+    string getLayerName()
+    {
+        switch (function)
+        {
+            case botFunction.mining:
+                return resourceLayerName;
+
+            case botFunction.attacking:
+                return ennemyLayerName;
+
+            case botFunction.both:
+                return everythingLayerName;
+
+            default:
+                throw new System.ArgumentException($"{function} not defined");
+        }
     }
 
     // Update is called once per frame
@@ -101,7 +122,7 @@ public class MinerBot : MonoBehaviour
 
         Vector2 direction = target.position - transform.position;
 
-        if (botState == state.following)
+        if (botState == state.following || botState == state.attacking)
         {
             if (direction.sqrMagnitude < sqrtStopRadius)
             {
@@ -131,16 +152,28 @@ public class MinerBot : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //TODO : list for ennemies and list for resources. Give priority to ennemies
-        targets.Add(other.gameObject);
-        if (botState != state.mining && botState != state.miningTransition)
+        //Priority to ennemies, then to resources, then to player
+        if (other.gameObject.layer == LayerMask.NameToLayer(ennemyLayerName))
         {
-            SetNewTarget(other.transform, 1f, StartMining, state.miningTransition);
+            ennemies.Add(other.gameObject);
+            if (botState == state.attacking || botState == state.attackingTransition) return;
+            SetNewTarget(other.transform, ennemyAttackRange, AttackEnnemy, state.attackingTransition);
+            return;
         }
+        else
+        {
+            resources.Add(other.gameObject);
+            if (botState == state.following || botState == state.transitioning)
+            {
+                SetNewTarget(other.transform, resourceAttackRange, StartMining, state.miningTransition);
+            }
+        }
+
     }
 
     void StartMining()
     {
+        //TODO : switch interactor;
         rb.velocity = Vector2.zero;
         isStatic = true;
         botState = state.mining;
@@ -158,25 +191,37 @@ public class MinerBot : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        targets.TryRemove(other.gameObject);
-        if (other.transform == target) EndMining();
+        if (other.gameObject.layer == LayerMask.NameToLayer(resourceLayerName)) resources.TryRemove(other.gameObject);
+        else ennemies.TryRemove(other.gameObject);
+        if (other.transform == target) EndAction();
     }
 
-    void EndMining()
+    void EndAction()
     {
-        if (targets.Count == 0)    //current resource is counted
+        interactorHandler.StopAction();
+        if (ennemies.Count > 0)
         {
-            interactorHandler.StopAction();
-            SetNewTarget(playerTransform, fullSpeedRadius, Follow, state.transitioning);
+            SetNewTarget(ennemies[0].transform, 1f, AttackEnnemy, state.attackingTransition);
             return;
         }
-        SetNewTarget(targets[0].transform, 1f, StartMining, state.miningTransition);
+        else if (resources.Count > 0)    //current resource is counted
+        {
+            SetNewTarget(resources[0].transform, 1f, StartMining, state.miningTransition);
+            return;
+        }
+        SetNewTarget(playerTransform, fullSpeedRadius, Follow, state.transitioning);
 
     }
 
     void Follow()
     {
         botState = state.following;
+    }
+
+    void AttackEnnemy()
+    {
+        botState = state.attacking;
+        interactorHandler.StartAction();
     }
 
 

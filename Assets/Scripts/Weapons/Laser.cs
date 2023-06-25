@@ -43,7 +43,7 @@ public class Laser : Interactor
                 continue;
             }
 
-            int stopIndex = Mathf.Max(hits.Length, pierce + 1);
+            int stopIndex = Mathf.Min(hits.Length, pierce + 1);
             lineRenderer.SetPosition(1, hits[stopIndex - 1].point);
             for (int i = 0; i < stopIndex; i++)
             {

@@ -12,6 +12,9 @@ public class ObjectReferencer : ScriptableObject
     {
         switch (key)
         {
+            case interactor.None:
+                return null;
+
             case interactor.Gun:
                 return gun;
 

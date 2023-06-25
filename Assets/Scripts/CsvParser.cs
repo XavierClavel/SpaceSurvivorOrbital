@@ -19,7 +19,7 @@ public enum interactor
 
 public class CsvParser : MonoBehaviour
 {
-    [SerializeField] ObjectReferencer objectReferencer;
+    public ObjectReferencer objectReferencer;
     [SerializeField] TextAsset characterData;
     [SerializeField] TextAsset interactorData;
     [SerializeField] TextAsset localizationData;
@@ -31,9 +31,11 @@ public class CsvParser : MonoBehaviour
     public static Dictionary<string, UpgradeData> dictUpgrades = new Dictionary<string, UpgradeData>();
     [SerializeField] character selectedCharacter = character.Pistolero;
     [SerializeField] interactor selectedInteractor = interactor.Laser;
+    public static CsvParser instance;
 
     private void Awake()
     {
+        instance = this;
         if (dictCharacters.Count != 0) return;
         loadText(characterData, x => new CharacterData(x), x => CharacterData.Initialize(x));
         loadText(interactorData, x => new InteractorData(x), x => InteractorData.Initialize(x));
