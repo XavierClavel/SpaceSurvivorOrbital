@@ -17,7 +17,7 @@ public enum interactor
     Laser
 }
 
-public class CsvParser : MonoBehaviour
+public class DataManager : MonoBehaviour
 {
     public ObjectReferencer objectReferencer;
     [SerializeField] TextAsset characterData;
@@ -31,7 +31,7 @@ public class CsvParser : MonoBehaviour
     public static Dictionary<string, UpgradeData> dictUpgrades = new Dictionary<string, UpgradeData>();
     [SerializeField] character selectedCharacter = character.Pistolero;
     [SerializeField] interactor selectedInteractor = interactor.Laser;
-    public static CsvParser instance;
+    public static DataManager instance;
 
     private void Awake()
     {

@@ -23,7 +23,7 @@ public class SkillButton : TreeButton
     {
         base.Awake();
 
-        UpgradeData upgradeData = CsvParser.dictUpgrades[upgradeName];
+        UpgradeData upgradeData = DataManager.dictUpgrades[upgradeName];
         greenLifeCost = upgradeData.costGreen;
         yellowLifeCost = upgradeData.costOrange;
         effects = upgradeData.effects.Copy();

@@ -59,8 +59,8 @@ public class MinerBot : MonoBehaviour
         GetComponent<CircleCollider2D>().radius = detectionRange;
 
         interactorHandler = GetComponent<InteractorHandler>();
-        Interactor weapon = CsvParser.instance.objectReferencer.getInteractor(weaponInteractorType);
-        Interactor tool = CsvParser.instance.objectReferencer.getInteractor(toolInteractorType);
+        Interactor weapon = DataManager.instance.objectReferencer.getInteractor(weaponInteractorType);
+        Interactor tool = DataManager.instance.objectReferencer.getInteractor(toolInteractorType);
         interactorHandler.Initialize(weapon, tool, rotationPoint);
 
         playerTransform = PlayerController.instance.transform;

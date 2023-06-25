@@ -42,7 +42,7 @@ public class LocalizedString : TemplateData
         Helpers.SetMappedValue(s, mapper, 1, out string_EN);
         Helpers.SetMappedValue(s, mapper, 2, out string_FR);
 
-        CsvParser.dictLocalization.Add(s[0], this);
+        DataManager.dictLocalization.Add(s[0], this);
     }
 
     public static void Initialize(List<string> s)

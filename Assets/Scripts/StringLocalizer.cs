@@ -15,11 +15,11 @@ public class StringLocalizer : MonoBehaviour
 
     public void Initialize()
     {
-        if (!CsvParser.dictLocalization.ContainsKey(key))
+        if (!DataManager.dictLocalization.ContainsKey(key))
         {
             throw new System.ArgumentException($"{gameObject.name} is trying to call the \"{key}\" key which does not exist.");
         }
-        LocalizedString localizedString = CsvParser.dictLocalization[key];
+        LocalizedString localizedString = DataManager.dictLocalization[key];
         LocalizationManager.dictDisplayToLocalizedString.Add(GetComponent<TextMeshProUGUI>(), localizedString);
 
         Destroy(this);

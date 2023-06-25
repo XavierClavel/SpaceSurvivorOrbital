@@ -64,7 +64,7 @@ public class InteractorData : TemplateData
         Helpers.SetMappedValue(s, mapper, 13, out dps);
 
         interactor currentInteractor = (interactor)System.Enum.Parse(typeof(interactor), name);
-        CsvParser.dictInteractors.Add(currentInteractor, this);
+        DataManager.dictInteractors.Add(currentInteractor, this);
     }
 
 }

@@ -102,7 +102,7 @@ public class UpgradeData : TemplateData
         }
 
 
-        CsvParser.dictUpgrades.Add(name, this);
+        DataManager.dictUpgrades.Add(name, this);
     }
 
 
