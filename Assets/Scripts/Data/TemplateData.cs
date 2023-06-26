@@ -11,19 +11,13 @@ public class TemplateData
     {
         firstLine = firstLineValue;
         mapper = new Dictionary<int, int>();
-        for (int i = 0; i < values.Count; i++)
-        {
-            mapper[i] = columnToKey(values[i]);
-        }
+        for (int i = 0; i < values.Count; i++) mapper[i] = columnToKey(values[i]);
     }
 
     public static int columnToKey(string columnName)
     {
         columnName = columnName.Trim();
-        if (firstLine.IndexOf(columnName) == -1)
-        {
-            throw new System.ArgumentException($"{columnName} not found");
-        }
+        if (firstLine.IndexOf(columnName) == -1) throw new System.ArgumentException($"{columnName} not found");
         return firstLine.IndexOf(columnName);
     }
 

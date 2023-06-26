@@ -7,14 +7,14 @@ using UnityEngine.Events;
 
 enum type { violet, orange, green }
 
-public class Resource : Breakable, IResource
+public class Resource : Breakable
 {
     [SerializeField] GameObject itemPrefab;
     [SerializeField] Slider healthBar;
 
     [Header("Parameters")]
-    [SerializeField] int _health = 150;
     [SerializeField] Vector2Int dropInterval = new Vector2Int(2, 5);
+    int _health;
 
     public int health
     {
@@ -29,14 +29,10 @@ public class Resource : Breakable, IResource
         }
     }
 
-    private void Awake()
-    {
-        ObjectManager.dictObjectToResource.Add(gameObject, this);
-    }
-
     protected override void Start()
     {
         base.Start();
+        _health = maxHealth;
         healthBar.maxValue = _health;
         healthBar.value = _health;
     }

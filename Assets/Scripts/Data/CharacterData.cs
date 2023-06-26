@@ -19,7 +19,6 @@ public class CharacterData : TemplateData
 
     public CharacterData(List<string> s)
     {
-        if (s.Count != 4) throw new System.ArgumentOutOfRangeException();
         Helpers.SetMappedValue(s, mapper, 0, out name);
         Helpers.SetMappedValue(s, mapper, 1, out maxHealth);
         Helpers.SetMappedValue(s, mapper, 2, out baseSpeed);

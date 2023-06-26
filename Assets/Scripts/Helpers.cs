@@ -361,6 +361,7 @@ public class Helpers : MonoBehaviour
 
     public static void SetMappedValue<T>(List<string> s, Dictionary<int, int> mapper, int i, out T variable)
     {
+        if (i >= s.Count) throw new ArgumentOutOfRangeException($"{i} superior to max index {s.Count - 1}");
         setValue(out variable, s[mapper[i]].Trim());
     }
 
@@ -382,18 +383,13 @@ public class Helpers : MonoBehaviour
                 break;
 
             case System.TypeCode.Object:
-                if (s.Contains('-'))
-                {
-                    value = ParseVector2Int(s);
-                }
-                else
-                {
-                    value = ParseList(s);
-                }
+                if (typeof(T) == typeof(Vector2Int)) value = ParseVector2Int(s);
+                else if (typeof(T) == typeof(List<string>)) value = ParseList(s);
+                else throw new ArgumentException($"Failed to parse \"{s}\" for variable of type {typeof(T)})");
                 break;
 
             default:
-                throw new ArgumentException($"Failed to parse \"{s}\" for variable of type {System.Type.GetTypeCode(typeof(T))}");
+                throw new ArgumentException($"Failed to parse \"{s}\" for variable of type {typeof(T)})");
         }
         variable = (T)value;
     }

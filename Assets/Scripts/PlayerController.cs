@@ -89,7 +89,6 @@ public class PlayerController : MonoBehaviour
     EventSystem eventSystem;
     [SerializeField] GameObject button;
 
-    private bool mouseAiming = false;
     private bool playerControlled = true;
     private bool shootWhileAiming;
 
@@ -129,7 +128,6 @@ public class PlayerController : MonoBehaviour
     float bulletReloadTime;
     float speedWhileAiming;
     [HideInInspector] public status effect;
-    static bool inRangeOfResource = false;
 
     static Spaceship spaceship;
 
@@ -327,11 +325,10 @@ public class PlayerController : MonoBehaviour
 
         controls.Player.MouseAimActive.started += ctx =>
         {
-            mouseAiming = true;
             Aim();
             interactorHandler.StartAction();
         };
-        controls.Player.MouseAimActive.canceled += ctx => { interactorHandler.StopAction(); mouseAiming = false; };
+        controls.Player.MouseAimActive.canceled += ctx => interactorHandler.StopAction(); ;
 
         controls.Enable();
     }

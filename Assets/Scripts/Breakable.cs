@@ -5,6 +5,13 @@ using DG.Tweening;
 
 public class Breakable : MonoBehaviour
 {
+    [SerializeField] objects objectType;
+    protected int maxHealth = 150;
+    protected float baseSpeed;
+    protected float damageResistance;
+    protected int baseDamage;
+
+
     [SerializeField] protected SpriteRenderer spriteOverlay;
     float stackedDamage = 0f;
 
@@ -12,6 +19,11 @@ public class Breakable : MonoBehaviour
     protected virtual void Start()
     {
         ObjectManager.dictObjectToBreakable.Add(gameObject, this);
+        ObjectData objectData = DataManager.dictObjects[objectType];
+        maxHealth = objectData.maxHealth;
+        baseSpeed = objectData.baseSpeed;
+        damageResistance = objectData.damageResistance;
+        baseDamage = objectData.baseDamage;
     }
 
 

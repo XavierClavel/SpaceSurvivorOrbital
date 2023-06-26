@@ -37,8 +37,6 @@ public class LocalizedString : TemplateData
 
     public LocalizedString(List<string> s)
     {
-        if (s.Count != 3) throw new System.ArgumentOutOfRangeException();
-
         Helpers.SetMappedValue(s, mapper, 1, out string_EN);
         Helpers.SetMappedValue(s, mapper, 2, out string_FR);
 

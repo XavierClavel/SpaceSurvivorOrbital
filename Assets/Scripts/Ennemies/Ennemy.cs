@@ -35,11 +35,9 @@ public class Ennemy : Breakable
 
 
     [Header("Parameters")]
-    [SerializeField] protected int baseHealth = 150;
     [SerializeField] protected float speed = 1f;
     [SerializeField] protected float fleeSpeed = 2f;
     [SerializeField] protected float attackSpeed = 0.5f;
-    [SerializeField] protected int baseDamage = 5;
     [SerializeField] protected float range = 5f;
     [SerializeField] protected float stateStep = 0.5f;
     int _health;
@@ -48,8 +46,8 @@ public class Ennemy : Breakable
         get { return _health; }
         set
         {
-            value = Helpers.CeilInt(value, baseHealth);
-            if (value == baseHealth && healthBar.gameObject.activeInHierarchy) healthBar.gameObject.SetActive(false);
+            value = Helpers.CeilInt(value, maxHealth);
+            if (value == maxHealth && healthBar.gameObject.activeInHierarchy) healthBar.gameObject.SetActive(false);
             else if (!healthBar.gameObject.activeInHierarchy) healthBar.gameObject.SetActive(true);
             _health = value;
             healthBar.value = value;
@@ -70,7 +68,7 @@ public class Ennemy : Breakable
         soundManager = SoundManager.instance;
         player = PlayerController.instance;
         StressTest.nbEnnemies++;
-        _health = baseHealth;
+        _health = maxHealth;
         healthBar.maxValue = _health;
         healthBar.value = _health;
 
