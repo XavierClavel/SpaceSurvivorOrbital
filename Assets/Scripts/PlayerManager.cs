@@ -18,85 +18,85 @@ public class PlayerManager : MonoBehaviour
     //Static accessors
 
 
-    public static int maxViolet { get; private set; }
-    public static int maxOrange { get; private set; }
-    public static int maxGreen { get; private set; }
+    public static int maxViolet;
+    public static int maxOrange;
+    public static int maxGreen;
 
-    public static int fillAmountViolet { get; private set; }
-    public static int fillAmountOrange { get; private set; }
-    public static int fillAmountGreen { get; private set; }
+    public static int fillAmountViolet;
+    public static int fillAmountOrange;
+    public static int fillAmountGreen;
 
-    public static int maxHealth { get; set; }
-    public static float baseSpeed { get; private set; }
-    public static float damageResistanceMultiplier { get; private set; }
-    public static float invulnerabilityFrameDuration { get; private set; }
+    public static int maxHealth;
+    public static float baseSpeed;
+    public static float damageResistance;
+    public static float invulnerabilityFrameDuration;
 
     //Weapon
-    public static Vector2Int baseDamage { get; private set; }
-    public static int attackSpeed { get; private set; }
-    public static float range { get; private set; }
+    public static Vector2Int baseDamage;
+    public static int attackSpeed;
+    public static float range;
 
-    public static float cooldown { get; private set; }
-    public static float magazineReloadTime { get; private set; }
+    public static float cooldown;
+    public static float magazineReloadTime;
 
-    public static float criticalChance { get; private set; }
-    public static float criticalMultiplier { get; private set; }
+    public static float criticalChance;
+    public static float criticalMultiplier;
 
-    public static int projectiles { get; private set; }
-    public static float spread { get; private set; }
-    public static int pierce { get; private set; }
-    public static float speedWhileAiming { get; private set; }
-    public static int magazine { get; private set; }
+    public static int projectiles;
+    public static float spread;
+    public static int pierce;
+    public static float speedWhileAiming;
+    public static int magazine;
 
-    public static int dps { get; private set; }
+    public static int dps;
 
-    public static status statusEffect { get; private set; }
+    public static status statusEffect;
 
-    public static int poisonDamage { get; private set; }
-    public static float poisonDuration { get; private set; }
-    public static float poisonPeriod { get; private set; }
+    public static int poisonDamage;
+    public static float poisonDuration;
+    public static float poisonPeriod;
 
-    public static int fireDamage { get; private set; }
-    public static float fireDuration { get; private set; }
-    public static float firePeriod { get; private set; }
+    public static int fireDamage;
+    public static float fireDuration;
+    public static float firePeriod;
 
-    public static float iceSpeedMultiplier { get; private set; }
-    public static float iceDuration { get; private set; }
+    public static float iceSpeedMultiplier;
+    public static float iceDuration;
 
 
-    public static int toolPower { get; private set; }
+    public static int toolPower;
 
-    public static float toolReloadTime { get; private set; }
-    public static float toolRange { get; private set; }
-    public static float attractorRange { get; private set; }
-    public static float attractorForce { get; private set; }
+    public static float toolReloadTime;
+    public static float toolRange;
+    public static float attractorRange;
+    public static float attractorForce;
 
-    public static Interactor weapon { get; private set; }
-    public static Tool tool { get; private set; }
+    public static Interactor weapon;
+    public static Tool tool;
 
-    public static int minerBotPower { get; private set; }
-    public static float mineerBotSpeed { get; private set; }
+    public static int minerBotPower;
+    public static float mineerBotSpeed;
 
 
 
     public static PlayerManager instance;
 
-    public static int amountViolet { get; private set; }
-    public static int amountGreen { get; private set; }
-    public static int amountOrange { get; private set; }
+    public static int amountViolet;
+    public static int amountGreen;
+    public static int amountOrange;
 
-    public static bool isPlayingWithGamepad { get; private set; }
+    public static bool isPlayingWithGamepad;
     public static int currentTimer { get; set; }
 
-    public static power power1 { get; private set; }
-    public static power power2 { get; private set; }
-    public static int upgradePointsAmount { get; private set; }
+    public static power power1;
+    public static power power2;
+    public static int upgradePointsAmount;
 
     public static void setCharacter(CharacterData characterData)
     {
         maxHealth = characterData.maxHealth;
         baseSpeed = characterData.baseSpeed;
-        damageResistanceMultiplier = characterData.damageResistance;
+        damageResistance = characterData.damageResistance;
     }
 
     public static void setInteractor(InteractorData interactorData, Interactor interactor)
@@ -226,8 +226,8 @@ public class PlayerManager : MonoBehaviour
                 baseSpeed = effect.ApplyOperation(baseSpeed);
                 break;
 
-            case effectType.damageResistanceMultiplier:
-                damageResistanceMultiplier = effect.ApplyOperation(damageResistanceMultiplier);
+            case effectType.damageResistance:
+                damageResistance = effect.ApplyOperation(damageResistance);
                 break;
 
             case effectType.WEAPONBaseDamage:
@@ -242,7 +242,7 @@ public class PlayerManager : MonoBehaviour
                 range = effect.ApplyOperation(range);
                 break;
 
-            case effectType.WEAPONBulletReloadTime:
+            case effectType.WEAPONCooldown:
                 cooldown = effect.ApplyOperation(cooldown);
                 break;
 

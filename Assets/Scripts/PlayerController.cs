@@ -227,7 +227,7 @@ public class PlayerController : MonoBehaviour
         maxHealth = PlayerManager.maxHealth;
         baseSpeed = PlayerManager.baseSpeed;
         setSpeed(1f);
-        damageResistanceMultiplier = PlayerManager.damageResistanceMultiplier;
+        damageResistanceMultiplier = PlayerManager.damageResistance;
 
 
         bulletReloadTime = PlayerManager.cooldown;

@@ -74,7 +74,7 @@ public class StatDisplay : MonoBehaviour
 
         if (effect == effectShow.baseSpeed) { showText.text = PlayerManager.baseSpeed.ToString(); }
 
-        if (effect == effectShow.damageResistanceMultiplier) { showText.text = PlayerManager.damageResistanceMultiplier.ToString(); }
+        if (effect == effectShow.damageResistanceMultiplier) { showText.text = PlayerManager.damageResistance.ToString(); }
 
         if (effect == effectShow.baseDamage) { showText.text = PlayerManager.baseDamage.ToString(); }
 

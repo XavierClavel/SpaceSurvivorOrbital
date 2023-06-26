@@ -51,12 +51,12 @@ public class UpgradeData : TemplateData
 
         effectType.maxHealth,
         effectType.baseSpeed,
-        effectType.damageResistanceMultiplier,
+        effectType.damageResistance,
 
         effectType.WEAPONBaseDamage,
         effectType.WEAPONAttackSpeed,
         effectType.WEAPONRange,
-        effectType.WEAPONBulletReloadTime,
+        effectType.WEAPONCooldown,
         effectType.WEAPONPierce,
         effectType.WEAPONProjectiles,
         effectType.WEAPONSpread,
@@ -148,7 +148,7 @@ public class UpgradeData : TemplateData
                 return effectType.baseSpeed;
 
             case "damageResistance":
-                return effectType.damageResistanceMultiplier;
+                return effectType.damageResistance;
 
             case "maxViolet":
                 return effectType.CHARACTERMaxViolet;

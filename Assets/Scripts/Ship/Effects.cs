@@ -19,7 +19,7 @@ public enum effectType
     //Character
     maxHealth,
     baseSpeed,
-    damageResistanceMultiplier,
+    damageResistance,
 
     //Weapon
     WEAPONBaseDamage,
@@ -27,7 +27,7 @@ public enum effectType
     WEAPONRange,
     WEAPONMagazine,
 
-    WEAPONBulletReloadTime,
+    WEAPONCooldown,
     WEAPONMagazineReloadTime,
 
     WEAPONCriticalChance,
@@ -79,97 +79,156 @@ public class Effect
 {
     public effectType effect;
     public operationType operation;
-    public string value;
+    public string parameterString;
+    public delegate object getter<T>(T i);
+    public delegate void setter<T>(ref T variable, T value);
 
-    public Effect(effectType effect, operationType operation, string value)
+    public Effect(effectType effect, operationType operation, string parameter)
     {
         this.effect = effect;
         this.operation = operation;
-        this.value = value;
+        this.parameterString = parameter;
+    }
+
+    public static void setterGeneric<T>(ref T variable, T value)
+    {
+        variable = value;
     }
 
 
-    public virtual void Apply()
+    public void Apply()
     {
-        PlayerManager.ApplyModification(this);
+        switch (effect)
+        {
+            case effectType.none:
+                throw new System.ArgumentException("no effect");
+
+            case effectType.maxHealth:
+                ApplyOperation(ref PlayerManager.maxHealth);
+                break;
+
+            case effectType.baseSpeed:
+                ApplyOperation(ref PlayerManager.baseSpeed);
+                break;
+
+            case effectType.damageResistance:
+                ApplyOperation(ref PlayerManager.damageResistance);
+                break;
+
+            case effectType.WEAPONBaseDamage:
+                ApplyOperation(ref PlayerManager.baseDamage);
+                break;
+
+            case effectType.WEAPONAttackSpeed:
+                ApplyOperation(ref PlayerManager.attackSpeed);
+                break;
+
+            case effectType.WEAPONRange:
+                ApplyOperation(ref PlayerManager.range);
+                break;
+
+            case effectType.WEAPONCooldown:
+                ApplyOperation(ref PlayerManager.cooldown);
+                break;
+
+            case effectType.WEAPONPierce:
+                ApplyOperation(ref PlayerManager.pierce);
+                break;
+
+            case effectType.WEAPONProjectiles:
+                ApplyOperation(ref PlayerManager.projectiles);
+                break;
+
+            case effectType.WEAPONSpread:
+                ApplyOperation(ref )
+        }
+        ApplyOperationInt(ref PlayerManager.amountGreen);
+
+
+
     }
 
-    public int ApplyOperation(int parameter)
+    void ApplyOperation<T>(ref T variable)
     {
-        int value = int.Parse(this.value);
+        if ()
+    }
+
+
+    public void ApplyOperation(ref int variable)
+    {
+        int parameter = Helpers.parseString<int>(parameterString);
+        int value = (int)(object)variable;
         switch (operation)
         {
             case operationType.add:
-                parameter += value;
+                value += parameter;
                 break;
 
             case operationType.substract:
-                parameter -= value;
+                value -= parameter;
                 break;
 
             case operationType.multiply:
-                parameter *= value;
+                value *= parameter;
                 break;
 
             case operationType.divide:
-                parameter /= value;
+                value /= parameter;
                 break;
 
             case operationType.assignation:
-                parameter = value;
+                value = parameter;
                 break;
 
             default:
                 throw new System.InvalidOperationException();
         }
-        return parameter;
+        variable = value;
     }
 
-    public float ApplyOperation(float parameter)
+    public void ApplyOperation(ref float variable)
     {
-        float value = float.Parse(this.value);
+        float parameter = Helpers.parseString<float>(parameterString);
+        float variableFloat = (float)(object)variable;
         switch (operation)
         {
             case operationType.add:
-                parameter += value;
+                variableFloat += parameter;
                 break;
 
             case operationType.multiply:
-                parameter *= value;
+                variableFloat *= parameter;
                 break;
 
             case operationType.assignation:
-                parameter = value;
+                variableFloat = parameter;
                 break;
 
             default:
                 throw new System.InvalidOperationException();
         }
-        return parameter;
     }
 
-    public Vector2Int ApplyOperation(Vector2Int parameter)
+    public void ApplyOperation(ref Vector2Int variable)
     {
-        Vector2Int value = Helpers.ParseVector2Int(this.value);
+        Vector2Int parameter = Helpers.parseString<Vector2Int>(parameterString);
         switch (operation)
         {
             case operationType.add:
-                parameter += value;
+                variable += parameter;
                 break;
 
             case operationType.multiply:
-                parameter *= value;
+                variable *= parameter;
                 break;
 
             case operationType.assignation:
-                parameter = value;
+                variable = parameter;
                 break;
 
             default:
                 throw new System.InvalidOperationException();
         }
-
-        return parameter;
     }
 
     public status ApplyOperation(status parameter)
@@ -187,33 +246,18 @@ public class Effect
         return parameter;
     }
 
-    public Weapon ApplyOperation(Weapon parameter)
+    public void ApplyOperation(ref Interactor variable)
     {
-        Weapon value = null;
+        Interactor parameter = Helpers.parseString<Interactor>(parameterString);
         switch (operation)
         {
             case operationType.assignation:
-                parameter = value;
+                variable = parameter;
                 break;
 
             default:
                 throw new System.InvalidOperationException();
         }
-        return parameter;
     }
 
-    public Tool ApplyOperation(Tool parameter)
-    {
-        Tool value = null;
-        switch (operation)
-        {
-            case operationType.assignation:
-                parameter = value;
-                break;
-
-            default:
-                throw new System.InvalidOperationException();
-        }
-        return parameter;
-    }
 }

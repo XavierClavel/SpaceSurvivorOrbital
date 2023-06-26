@@ -31,6 +31,12 @@ public enum objects
     Blob
 }
 
+public enum unlockables
+{
+    Radar,
+    Creusetou
+}
+
 public class DataManager : MonoBehaviour
 {
     public ObjectReferencer objectReferencer;

@@ -365,33 +365,32 @@ public class Helpers : MonoBehaviour
         setValue(out variable, s[mapper[i]].Trim());
     }
 
-    public static void setValue<T>(out T variable, string s)
+    public static T parseString<T>(string s)
     {
-        object value = null;
         switch (System.Type.GetTypeCode(typeof(T)))
         {
             case System.TypeCode.Int32:
-                value = int.Parse(s);
-                break;
+                return (T)(object)int.Parse(s);
 
             case System.TypeCode.Single:
-                value = float.Parse(s);
-                break;
+                return (T)(object)float.Parse(s);
 
             case System.TypeCode.String:
-                value = s;
-                break;
+                return (T)(object)s;
 
             case System.TypeCode.Object:
-                if (typeof(T) == typeof(Vector2Int)) value = ParseVector2Int(s);
-                else if (typeof(T) == typeof(List<string>)) value = ParseList(s);
+                if (typeof(T) == typeof(Vector2Int)) return (T)(object)ParseVector2Int(s);
+                else if (typeof(T) == typeof(List<string>)) return (T)(object)ParseList(s);
                 else throw new ArgumentException($"Failed to parse \"{s}\" for variable of type {typeof(T)})");
-                break;
 
             default:
                 throw new ArgumentException($"Failed to parse \"{s}\" for variable of type {typeof(T)})");
         }
-        variable = (T)value;
+    }
+
+    public static void setValue<T>(out T variable, string s)
+    {
+        variable = parseString<T>(s);
     }
 
 
