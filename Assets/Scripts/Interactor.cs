@@ -40,7 +40,7 @@ public abstract class Interactor : MonoBehaviour
     [HideInInspector] public Slider reloadSlider;
 
     protected PlayerController player;
-    protected bool autoCooldown; //whether the interactor of the inheritor should handle cooldown
+    protected bool autoCooldown; //whether the interactor or the inheritor should handle cooldown
     [HideInInspector] public bool playerInteractor;
 
     protected virtual void Start()

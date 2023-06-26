@@ -226,6 +226,7 @@ public class PlayerController : MonoBehaviour
 
         maxHealth = PlayerManager.maxHealth;
         baseSpeed = PlayerManager.baseSpeed;
+        setSpeed(1f);
         damageResistanceMultiplier = PlayerManager.damageResistanceMultiplier;
 
 
@@ -409,8 +410,6 @@ public class PlayerController : MonoBehaviour
 
         Vector2 localMove = moveAmount * Time.fixedDeltaTime;
         _walkDirection = angleToDirection(Vector2.SignedAngle(localMove, Vector2.down) + 180f);
-
-
 
         rb.MovePosition(rb.position + localMove);
         arrowTransform.position = transform.position;
