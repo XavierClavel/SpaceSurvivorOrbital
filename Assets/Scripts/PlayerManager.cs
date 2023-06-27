@@ -72,7 +72,7 @@ public class PlayerManager : MonoBehaviour
     public static float attractorForce { get; private set; }
 
     public static Interactor weapon { get; private set; }
-    public static Tool tool { get; private set; }
+    public static Interactor tool { get; private set; }
 
     public static int minerBotPower { get; private set; }
     public static float mineerBotSpeed { get; private set; }

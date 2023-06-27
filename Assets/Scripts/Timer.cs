@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class Timer : MonoBehaviour
 {
@@ -48,9 +49,17 @@ public class Timer : MonoBehaviour
             timeText.text = "Temps restant : " + Mathf.RoundToInt(timeRemaining).ToString(); // affiche le temps restant dans l'UI
             yield return waitSecond;
             timeRemaining--;
+            if (timeRemaining == 30) TimeIsRunningOutDisplay();
         }
         //Destroy(spaceShip);
         Instantiate(boss, randomPos() + playerTransform.position, Quaternion.identity).onDeath.AddListener(OnBossDefeat);
+    }
+
+    void TimeIsRunningOutDisplay()
+    {
+        timeText.transform.DOScale(1.5f, 2f);
+        timeText.DOColor(Color.red, 2f);
+        timeText.fontStyle = FontStyles.Bold;
     }
 
     Vector3 randomPos()

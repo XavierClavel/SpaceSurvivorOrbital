@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class LiquidResource : MonoBehaviour, IInteractable
 {
-    bool interacting = false;
     [Header("References")]
     [SerializeField] Image image;
     [SerializeField] SpriteRenderer sprite;

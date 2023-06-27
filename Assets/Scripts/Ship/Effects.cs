@@ -96,7 +96,7 @@ public class Effect
 
     public int ApplyOperation(int parameter)
     {
-        int value = int.Parse(this.value);
+        int value = Helpers.parseString<int>(this.value);
         switch (operation)
         {
             case operationType.add:
@@ -127,7 +127,7 @@ public class Effect
 
     public float ApplyOperation(float parameter)
     {
-        float value = float.Parse(this.value);
+        float value = Helpers.parseString<float>(this.value);
         switch (operation)
         {
             case operationType.add:
@@ -150,7 +150,7 @@ public class Effect
 
     public Vector2Int ApplyOperation(Vector2Int parameter)
     {
-        Vector2Int value = Helpers.ParseVector2Int(this.value);
+        Vector2Int value = Helpers.parseString<Vector2Int>(this.value);
         switch (operation)
         {
             case operationType.add:
@@ -187,9 +187,9 @@ public class Effect
         return parameter;
     }
 
-    public Weapon ApplyOperation(Weapon parameter)
+    public Interactor ApplyOperation(Interactor parameter)
     {
-        Weapon value = null;
+        Interactor value = Helpers.parseString<Interactor>(this.value);
         switch (operation)
         {
             case operationType.assignation:
@@ -202,18 +202,4 @@ public class Effect
         return parameter;
     }
 
-    public Tool ApplyOperation(Tool parameter)
-    {
-        Tool value = null;
-        switch (operation)
-        {
-            case operationType.assignation:
-                parameter = value;
-                break;
-
-            default:
-                throw new System.InvalidOperationException();
-        }
-        return parameter;
-    }
 }

@@ -14,12 +14,9 @@ public enum playerDirection { front, left, back, right };
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] LayerMask resourceMask;
     [Header("References")]
     InteractorHandler interactorHandler;
-    [SerializeField] GameObject arm;
     [SerializeField] GameObject minerBot;
-    [SerializeField] Slider reloadSlider;
     [HideInInspector] public Transform attractorTransform;
     [HideInInspector] public static PlayerController instance;
     [HideInInspector] public InputMaster controls;
@@ -73,11 +70,9 @@ public class PlayerController : MonoBehaviour
     Vector3 targetMoveAmount;
     SoundManager soundManager;
     Vector2 prevMoveDir = Vector2.zero;
-    bool aiming = false;
     [SerializeField] Slider healthBar;
     float _health;
     [SerializeField] Animator animator;
-    [HideInInspector] public bool hasWon = false;
     public Transform arrowTransform;
     Vector2 moveDir;
 
@@ -90,16 +85,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject button;
 
     private bool playerControlled = true;
-    private bool shootWhileAiming;
 
     public float smallSize = 3.0f;
     public float largeSize = 5.0f;
 
     [Header("Bonus")]
     [SerializeField] public GameObject radar;
-    [SerializeField] public bool isRadarActive;
     [SerializeField] GameObject spaceshipIndicator;
-    [SerializeField] public bool isArrowShipActive;
 
     //ResourceParameters
     private int maxViolet;
