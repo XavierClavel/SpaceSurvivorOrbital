@@ -92,33 +92,19 @@ public class PlayerManager : MonoBehaviour
     public static power power2;
     public static int upgradePointsAmount;
 
-    public static void setCharacter(CharacterData characterData)
+    public static void CalculateDPS()
     {
+        //TODO : use mean between x and y
+        dps = attackSpeed == 0f ? baseDamage.x : baseDamage.x * attackSpeed;
         maxHealth = characterData.maxHealth;
         baseSpeed = characterData.baseSpeed;
         damageResistance = characterData.damageResistance;
     }
 
-    public static void setInteractor(InteractorData interactorData, Interactor interactor)
+    public static void setInteractors(Interactor selectedWeapon, Interactor selectedTool = null)
     {
-        baseDamage = interactorData.baseDamage;
-        attackSpeed = interactorData.attackSpeed;
-        range = interactorData.range;
-
-        cooldown = interactorData.cooldown;
-        magazineReloadTime = interactorData.magazineReloadTime;
-
-        criticalChance = interactorData.criticalChance;
-        criticalMultiplier = interactorData.criticalMultiplier;
-
-        projectiles = interactorData.projectiles;
-        spread = interactorData.spread;
-        pierce = interactorData.pierce;
-        speedWhileAiming = interactorData.speedWhileAiming;
-        magazine = interactorData.magazine;
-        dps = interactorData.dps;
-
-        weapon = interactor;
+        weapon = selectedWeapon;
+        tool = selectedTool;
     }
 
     void Awake()
@@ -194,7 +180,7 @@ public class PlayerManager : MonoBehaviour
     {
         switch (effect.effect)
         {
-            case effectType.CHARACTERMaxViolet:
+            case effectType.maxPurple:
                 maxViolet = effect.ApplyOperation(maxViolet);
                 break;
 
@@ -230,51 +216,51 @@ public class PlayerManager : MonoBehaviour
                 damageResistance = effect.ApplyOperation(damageResistance);
                 break;
 
-            case effectType.WEAPONBaseDamage:
+            case effectType.baseDamage:
                 baseDamage = effect.ApplyOperation(baseDamage);
                 break;
 
-            case effectType.WEAPONAttackSpeed:
+            case effectType.attackSpeed:
                 attackSpeed = effect.ApplyOperation(attackSpeed);
                 break;
 
-            case effectType.WEAPONRange:
+            case effectType.range:
                 range = effect.ApplyOperation(range);
                 break;
 
-            case effectType.WEAPONCooldown:
+            case effectType.bulletReloadTime:
                 cooldown = effect.ApplyOperation(cooldown);
                 break;
 
-            case effectType.WEAPONMagazineReloadTime:
+            case effectType.magazineReloadTime:
                 magazineReloadTime = effect.ApplyOperation(magazineReloadTime);
                 break;
 
-            case effectType.WEAPONCriticalChance:
+            case effectType.criticalChance:
                 criticalChance = effect.ApplyOperation(criticalChance);
                 break;
 
-            case effectType.WEAPONCriticalMultiplier:
+            case effectType.criticalMultiplier:
                 criticalMultiplier = effect.ApplyOperation(criticalMultiplier);
                 break;
 
-            case effectType.WEAPONProjectiles:
+            case effectType.projectiles:
                 projectiles = effect.ApplyOperation(projectiles);
                 break;
 
-            case effectType.WEAPONSpread:
+            case effectType.spread:
                 spread = effect.ApplyOperation(spread);
                 break;
 
-            case effectType.WEAPONPierce:
+            case effectType.pierce:
                 pierce = effect.ApplyOperation(pierce);
                 break;
 
-            case effectType.WEAPONSpeedWhileAimingDecrease:
+            case effectType.aimingSpeed:
                 speedWhileAiming = effect.ApplyOperation(speedWhileAiming);
                 break;
 
-            case effectType.WEAPONMagazine:
+            case effectType.magazine:
                 magazine = effect.ApplyOperation(magazine);
                 break;
 
@@ -306,15 +292,15 @@ public class PlayerManager : MonoBehaviour
                 firePeriod = effect.ApplyOperation(firePeriod);
                 break;
 
-            case effectType.TOOLPower:
+            case effectType.toolPower:
                 toolPower = effect.ApplyOperation(toolPower);
                 break;
 
-            case effectType.TOOLReloadTime:
+            case effectType.toolSpeed:
                 toolReloadTime = effect.ApplyOperation(toolReloadTime);
                 break;
 
-            case effectType.TOOLRange:
+            case effectType.toolRange:
                 toolRange = effect.ApplyOperation(toolRange);
                 break;
 
