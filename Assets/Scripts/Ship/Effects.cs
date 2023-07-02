@@ -8,7 +8,7 @@ public enum effectType
 {
     none,
     //Ressources
-    CHARACTERMaxViolet,
+    maxPurple,
     maxOrange,
     maxGreen,
 
@@ -22,21 +22,21 @@ public enum effectType
     damageResistanceMultiplier,
 
     //Weapon
-    WEAPONBaseDamage,
-    WEAPONAttackSpeed,
-    WEAPONRange,
-    WEAPONMagazine,
+    baseDamage,
+    attackSpeed,
+    range,
+    magazine,
 
-    WEAPONBulletReloadTime,
-    WEAPONMagazineReloadTime,
+    bulletReloadTime,
+    magazineReloadTime,
 
-    WEAPONCriticalChance,
-    WEAPONCriticalMultiplier,
+    criticalChance,
+    criticalMultiplier,
 
-    WEAPONProjectiles,
-    WEAPONSpread,
-    WEAPONPierce,
-    WEAPONSpeedWhileAimingDecrease,
+    projectiles,
+    spread,
+    pierce,
+    aimingSpeed,
 
 
     //Other
@@ -53,9 +53,9 @@ public enum effectType
     iceSpeedMultiplier,
     iceDuration,
 
-    TOOLPower,
-    TOOLReloadTime,
-    TOOLRange,
+    toolPower,
+    toolSpeed,
+    toolRange,
 
     TOOLAttractorRange,
     TOOLAttractorForce,

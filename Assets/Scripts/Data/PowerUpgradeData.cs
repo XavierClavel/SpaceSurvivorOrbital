@@ -34,20 +34,20 @@ public class PowerUpgradeData : TemplateData
         effectType.baseSpeed,
         effectType.damageResistanceMultiplier,
 
-        effectType.WEAPONBaseDamage,
-        effectType.WEAPONAttackSpeed,
-        effectType.WEAPONRange,
-        effectType.WEAPONBulletReloadTime,
-        effectType.WEAPONPierce,
-        effectType.WEAPONProjectiles,
-        effectType.WEAPONSpread,
-        effectType.WEAPONSpeedWhileAimingDecrease,
-        effectType.WEAPONCriticalChance,
-        effectType.WEAPONCriticalMultiplier,
-        effectType.WEAPONMagazine,
-        effectType.WEAPONMagazineReloadTime,
+        effectType.baseDamage,
+        effectType.attackSpeed,
+        effectType.range,
+        effectType.bulletReloadTime,
+        effectType.pierce,
+        effectType.projectiles,
+        effectType.spread,
+        effectType.aimingSpeed,
+        effectType.criticalChance,
+        effectType.criticalMultiplier,
+        effectType.magazine,
+        effectType.magazineReloadTime,
 
-        effectType.CHARACTERMaxViolet,
+        effectType.maxPurple,
         effectType.maxGreen,
         effectType.maxOrange
 
@@ -132,7 +132,7 @@ public class PowerUpgradeData : TemplateData
                 return effectType.damageResistanceMultiplier;
 
             case "maxViolet":
-                return effectType.CHARACTERMaxViolet;
+                return effectType.maxPurple;
 
             case "maxOrange":
                 return effectType.maxOrange;
@@ -141,10 +141,10 @@ public class PowerUpgradeData : TemplateData
                 return effectType.maxGreen;
 
             case "baseDamage":
-                return effectType.WEAPONBaseDamage;
+                return effectType.baseDamage;
 
             case "attackSpeed":
-                return effectType.WEAPONAttackSpeed;
+                return effectType.attackSpeed;
 
 
 

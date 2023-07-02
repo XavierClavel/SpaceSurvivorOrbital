@@ -418,6 +418,6 @@ public class PlayerController : MonoBehaviour
     public void OnClick()
     {
         PauseMenu.instance.ResumeGame();
-        SceneManager.LoadScene("Title Screen");
+        SceneManager.LoadScene(Vault.scene_TitleScreen);
     }
 }

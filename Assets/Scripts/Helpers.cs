@@ -10,6 +10,11 @@ using System.Linq;
 public static class Extensions
 {
 
+    public static int IndexOf(this List<string> list, string value, System.StringComparison comparison = System.StringComparison.OrdinalIgnoreCase)
+    {
+        return list.FindIndex(x => x.Equals(value, comparison));
+    }
+
     public static void RemoveFirst(this string str)
     {
         str.Remove(0);
@@ -217,6 +222,7 @@ public static class Extensions
     ///</summary>
     public static List<T> Union<T>(this List<T> list1, List<T> list2)
     {
+        if (list2 == null) return list1.Copy();
         List<T> result = list1.Copy();
         foreach (T item in list2)
         {
@@ -353,6 +359,8 @@ public class Helpers : MonoBehaviour
 
     public static Vector2Int ParseVector2Int(string s)
     {
+        if (s == "") return Vector2Int.zero;
+        if (!s.Contains('-')) return int.Parse(s.Trim()) * Vector2Int.one;
         string[] values = s.Split('-');
         int v1 = int.Parse(values[0].Trim());
         int v2 = int.Parse(values[1].Trim());
@@ -367,6 +375,7 @@ public class Helpers : MonoBehaviour
 
     public static T parseString<T>(string s)
     {
+        Debug.Log(s);
         switch (System.Type.GetTypeCode(typeof(T)))
         {
             case System.TypeCode.Int32:

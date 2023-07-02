@@ -10,7 +10,10 @@ public class DebugManager : MonoBehaviour
     [Header("Early Upgrades")]
     [SerializeField] bool startWithRadar;
     [SerializeField] bool startWithMinerBot;
+
+    public static bool testVersion = true;
     // Start is called before the first frame update
+
     void Start()
     {
         if (startWithResources) PlayerController.instance.debug_GiveResources(50);
