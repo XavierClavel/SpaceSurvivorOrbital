@@ -341,6 +341,15 @@ public class Helpers : MonoBehaviour
     private static Dictionary<int, TextMeshProUGUI> dictDebugDisplays = new Dictionary<int, TextMeshProUGUI>();
     [SerializeField] GameObject debugDisplayPrefab;
 
+    public static bool isPlatformAndroid()
+    {
+        //return false;
+#if UNITY_EDITOR
+        return EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android;
+#endif
+        return Application.platform == RuntimePlatform.Android;
+    }
+
     public static Quaternion LookRotation2D(Vector2 direction)
     {
         float angle = Vector2.SignedAngle(Vector2.right, direction);
@@ -375,7 +384,6 @@ public class Helpers : MonoBehaviour
 
     public static T parseString<T>(string s)
     {
-        Debug.Log(s);
         switch (System.Type.GetTypeCode(typeof(T)))
         {
             case System.TypeCode.Int32:

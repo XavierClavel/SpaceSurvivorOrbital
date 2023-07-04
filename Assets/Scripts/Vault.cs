@@ -4,6 +4,10 @@ public static class Vault
     public const string scene_Planet = "Planet";
     public const string scene_Ship = "Ship";
 
+    public const int base_maxHealth = 100;
+    public const float base_speed = 3.5f;
+    public const float base_damageResistance = 0;
+
     public const string character_Base = "Base";
 
     public const string playerParam_name = "Name";
