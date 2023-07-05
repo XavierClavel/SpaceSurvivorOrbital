@@ -114,7 +114,6 @@ public class UpgradeData : TemplateData
 
     void Process(string value, effectType effect)
     {
-        Debug.Log("processing value");
         operationType operation;
         if (value.Last() == '%')
         {

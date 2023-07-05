@@ -114,13 +114,8 @@ public class PlayerController : MonoBehaviour
     private static bool invulnerable = false;
 
     //Wait
-    WaitForSeconds bulletReloadWindow;
     WaitForSeconds invulnerabilityFrameDuration;
 
-
-
-    float bulletReloadTime;
-    float speedWhileAiming;
     [HideInInspector] public status effect;
 
     static Spaceship spaceship;
@@ -216,8 +211,6 @@ public class PlayerController : MonoBehaviour
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
 
-        Debug.Log("test");
-
         radar.SetActive(PlayerManager.activateRadar);
         spaceshipIndicator.SetActive(PlayerManager.activateShipArrow);
 
@@ -234,9 +227,6 @@ public class PlayerController : MonoBehaviour
         setSpeed(1f);
         damageResistanceMultiplier = PlayerManager.damageResistanceMultiplier;
 
-
-        bulletReloadTime = PlayerManager.cooldown;
-        speedWhileAiming = PlayerManager.speedWhileAiming;
         effect = PlayerManager.statusEffect;
 
         rb = GetComponent<Rigidbody2D>();
@@ -253,7 +243,6 @@ public class PlayerController : MonoBehaviour
 
         if (PlayerManager.amountViolet > 0) ActivateSpaceship();
 
-        bulletReloadWindow = Helpers.GetWait(bulletReloadTime);
         invulnerabilityFrameDuration = Helpers.GetWait(PlayerManager.invulnerabilityFrameDuration);
 
         _health = maxHealth;
@@ -261,9 +250,7 @@ public class PlayerController : MonoBehaviour
         healthBar.maxValue = maxHealth;
         healthBar.value = health;
 
-        Debug.Log(PlayerManager.weapon.speedWhileAiming);
-
-        interactorHandler.Initialize(PlayerManager.weapon, null, ObjectManager.instance.armTransform, true);
+        interactorHandler.Initialize(PlayerManager.weaponPrefab, PlayerManager.toolPrefab, ObjectManager.instance.armTransform, true);
 
         if (!Helpers.isPlatformAndroid()) InitializeControls();
 

@@ -7,7 +7,7 @@ public class InteractorHandler : MonoBehaviour
     protected Interactor weapon;
     protected Interactor tool; //can be null;
     [HideInInspector] public bool action = false;
-    public Interactor currentInteractor;
+    [HideInInspector] public Interactor currentInteractor;
     int resourcesInRange = 0;
     PlayerController player;
     public static InteractorHandler playerInteractorHandler;
@@ -20,6 +20,7 @@ public class InteractorHandler : MonoBehaviour
         if (playerInteractor) playerInteractorHandler = this;
 
         weapon = Instantiate(weaponInteractor, transform.position, Quaternion.identity);
+        weapon.Setup(PlayerManager.weaponStats);
         weapon.playerInteractor = playerInteractor;
         if (playerInteractor) weapon.reloadSlider = ObjectManager.instance.reloadSlider;
         weapon.transform.SetParent(rotationAxis);
@@ -36,6 +37,7 @@ public class InteractorHandler : MonoBehaviour
             tool.reloadSlider = ObjectManager.instance.reloadSlider;
             tool.transform.SetParent(ObjectManager.instance.armTransform);
             tool.transform.position = transform.position + 0.3f * Vector3.left;
+            tool.Setup(PlayerManager.toolStats);
 
             weapon.currentLayerMask = LayerMask.GetMask("EnnemiesOnly");
             tool.currentLayerMask = LayerMask.GetMask("ResourcesOnly");

@@ -1,6 +1,6 @@
 public static class Vault
 {
-    public const string scene_TitleScreen = "Title Screen";
+    public const string scene_TitleScreen = "TitleScreen";
     public const string scene_Planet = "Planet";
     public const string scene_Ship = "Ship";
 

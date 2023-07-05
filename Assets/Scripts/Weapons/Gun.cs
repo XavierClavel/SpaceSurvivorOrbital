@@ -17,6 +17,7 @@ public abstract class Gun : Interactor
     protected override void Start()
     {
         base.Start();
+
         bulletLifetime = range / attackSpeed;
         if (playerInteractor)
         {
@@ -24,10 +25,9 @@ public abstract class Gun : Interactor
             bulletsLayoutManager.Setup(magazine);
         }
         magazineReloadWindow = Helpers.GetWait(magazineReloadTime);
-        currentMagazine = magazine;
 
         autoCooldown = false;
-        bulletPrefab.gameObject.layer = LayerMask.NameToLayer("ResourcesAndEnnemies");
+        bulletPrefab.gameObject.layer = LayerMask.NameToLayer(Vault.layer_resourcesAndEnnemies);
 
     }
 

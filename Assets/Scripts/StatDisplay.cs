@@ -76,23 +76,23 @@ public class StatDisplay : MonoBehaviour
 
         if (effect == effectShow.damageResistanceMultiplier) { showText.text = PlayerManager.damageResistanceMultiplier.ToString(); }
 
-        if (effect == effectShow.baseDamage) { showText.text = PlayerManager.baseDamage.ToString(); }
+        if (effect == effectShow.baseDamage) { showText.text = PlayerManager.weaponStats.baseDamage.ToString(); }
 
-        if (effect == effectShow.attackSpeed) { showText.text = PlayerManager.attackSpeed.ToString(); }
+        if (effect == effectShow.attackSpeed) { showText.text = PlayerManager.weaponStats.attackSpeed.ToString(); }
 
-        if (effect == effectShow.range) { showText.text = PlayerManager.range.ToString(); }
+        if (effect == effectShow.range) { showText.text = PlayerManager.weaponStats.range.ToString(); }
 
-        if (effect == effectShow.bulletReloadTime) { showText.text = PlayerManager.cooldown.ToString(); }
+        if (effect == effectShow.bulletReloadTime) { showText.text = PlayerManager.weaponStats.cooldown.ToString(); }
 
-        if (effect == effectShow.magazineReloadTime) { showText.text = PlayerManager.magazineReloadTime.ToString(); }
+        if (effect == effectShow.magazineReloadTime) { showText.text = PlayerManager.weaponStats.magazineReloadTime.ToString(); }
 
-        if (effect == effectShow.criticalChance) { showText.text = PlayerManager.criticalChance.ToString(); }
+        if (effect == effectShow.criticalChance) { showText.text = PlayerManager.weaponStats.criticalChance.ToString(); }
 
-        if (effect == effectShow.criticalMultiplier) { showText.text = PlayerManager.criticalMultiplier.ToString(); }
+        if (effect == effectShow.criticalMultiplier) { showText.text = PlayerManager.weaponStats.criticalMultiplier.ToString(); }
 
-        if (effect == effectShow.pierce) { showText.text = PlayerManager.pierce.ToString(); }
+        if (effect == effectShow.pierce) { showText.text = PlayerManager.weaponStats.pierce.ToString(); }
 
-        if (effect == effectShow.speed_aimingDemultiplier) { showText.text = PlayerManager.speedWhileAiming.ToString(); }
+        if (effect == effectShow.speed_aimingDemultiplier) { showText.text = PlayerManager.weaponStats.speedWhileAiming.ToString(); }
 
         if (effect == effectShow.toolPower) { showText.text = PlayerManager.toolPower.ToString(); }
 

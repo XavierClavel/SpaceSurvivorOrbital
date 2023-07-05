@@ -2,27 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct InteractorStats
+{
+    public Vector2Int baseDamage;
+    public int attackSpeed;
+    public float range;
+
+    public float cooldown;
+    public float magazineReloadTime;
+
+    public float criticalChance;
+    public float criticalMultiplier;
+
+    public int magazine;
+    public int projectiles;
+    public float spread;
+
+    public int pierce;
+    public float speedWhileAiming;
+
+    public int dps;
+
+    public void CalculateDPS()
+    {
+        if (cooldown == 0f) dps = baseDamage.Mean();
+        else dps = baseDamage.Mean(); //(int)((float)baseDamage.Mean() / cooldown);
+    }
+
+}
+
 public class InteractorData : TemplateData
 {
     public string name;
-    public Vector2Int baseDamage = new Vector2Int(80, 120);
-    public int attackSpeed = 10;
-    public float range = 10;
-
-    public float cooldown = 0.2f;
-    public float magazineReloadTime = 1;
-
-    public float criticalChance = 0.03f;
-    public float criticalMultiplier = 1.5f;
-
-    public int magazine = 6;
-    public int projectiles = 1;
-    public float spread = 10f;
-
-    public int pierce = 0;
-    public float speedWhileAiming = 0.7f;
-
-    public int dps = 50;
+    public InteractorStats interactorStats = new InteractorStats();
 
     static List<string> firstLineValue = new List<string> {
         "Name",
@@ -49,19 +61,21 @@ public class InteractorData : TemplateData
     public InteractorData(List<string> s)
     {
         Helpers.SetMappedValue(s, mapper, 0, out name);
-        Helpers.SetMappedValue(s, mapper, 1, out baseDamage);
-        Helpers.SetMappedValue(s, mapper, 2, out attackSpeed);
-        Helpers.SetMappedValue(s, mapper, 3, out range);
-        Helpers.SetMappedValue(s, mapper, 4, out cooldown);
-        Helpers.SetMappedValue(s, mapper, 5, out pierce);
-        Helpers.SetMappedValue(s, mapper, 6, out projectiles);
-        Helpers.SetMappedValue(s, mapper, 7, out spread);
-        Helpers.SetMappedValue(s, mapper, 8, out speedWhileAiming);
-        Helpers.SetMappedValue(s, mapper, 9, out criticalChance);
-        Helpers.SetMappedValue(s, mapper, 10, out criticalMultiplier);
-        Helpers.SetMappedValue(s, mapper, 11, out magazine);
-        Helpers.SetMappedValue(s, mapper, 12, out magazineReloadTime);
-        Helpers.SetMappedValue(s, mapper, 13, out dps);
+        Helpers.SetMappedValue(s, mapper, 1, out interactorStats.baseDamage);
+        Helpers.SetMappedValue(s, mapper, 2, out interactorStats.attackSpeed);
+        Helpers.SetMappedValue(s, mapper, 3, out interactorStats.range);
+        Helpers.SetMappedValue(s, mapper, 4, out interactorStats.cooldown);
+        Helpers.SetMappedValue(s, mapper, 5, out interactorStats.pierce);
+        Helpers.SetMappedValue(s, mapper, 6, out interactorStats.projectiles);
+        Helpers.SetMappedValue(s, mapper, 7, out interactorStats.spread);
+        Helpers.SetMappedValue(s, mapper, 8, out interactorStats.speedWhileAiming);
+        Helpers.SetMappedValue(s, mapper, 9, out interactorStats.criticalChance);
+        Helpers.SetMappedValue(s, mapper, 10, out interactorStats.criticalMultiplier);
+        Helpers.SetMappedValue(s, mapper, 11, out interactorStats.magazine);
+        Helpers.SetMappedValue(s, mapper, 12, out interactorStats.magazineReloadTime);
+        Helpers.SetMappedValue(s, mapper, 13, out interactorStats.dps);
+
+        interactorStats.CalculateDPS();
 
         interactor currentInteractor = (interactor)System.Enum.Parse(typeof(interactor), name);
         DataManager.dictInteractors.Add(currentInteractor, this);

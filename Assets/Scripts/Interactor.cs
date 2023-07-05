@@ -16,13 +16,16 @@ public abstract class Interactor : MonoBehaviour
     protected float criticalMultiplier;  //superior to 1
 
     protected int pierce;
+    protected int projectiles;
+    protected float spread;
+
     protected SoundManager soundManager;
 
     [HideInInspector] public float speedWhileAiming;
 
     [HideInInspector] public bool isUsing = false;
     protected bool reloading = false;
-    float cooldown = 0.1f;
+    float cooldown;
     WaitForSeconds waitCooldown;
 
     //Guns
@@ -30,11 +33,11 @@ public abstract class Interactor : MonoBehaviour
     protected int currentMagazine;
     protected bool reloadingMagazine = false;
 
-    public int dps;
+    [HideInInspector] public int dps;
 
     static LayerMask weaponLayerMask;
     static LayerMask toolLayerMask;
-    public int currentLayerMask;
+    [HideInInspector] public int currentLayerMask;
     protected Transform aimTransform;
 
     [HideInInspector] public Slider reloadSlider;
@@ -45,24 +48,30 @@ public abstract class Interactor : MonoBehaviour
 
     protected virtual void Start()
     {
-        baseDamage = PlayerManager.baseDamage;
-        attackSpeed = PlayerManager.attackSpeed;
-        range = PlayerManager.range;
-        bulletReloadTime = PlayerManager.cooldown;
-        magazineReloadTime = PlayerManager.magazineReloadTime;
-        criticalChance = PlayerManager.criticalChance;
-        pierce = PlayerManager.pierce;
-        speedWhileAiming = PlayerManager.speedWhileAiming;
-        magazine = PlayerManager.magazine;
-        dps = PlayerManager.dps;
-
         soundManager = SoundManager.instance;
-        currentMagazine = magazine;
         player = PlayerController.instance;
 
         aimTransform = ObjectManager.instance.armTransform;
+    }
+
+    public void Setup(InteractorStats interactorStats)
+    {
+        baseDamage = interactorStats.baseDamage;
+        attackSpeed = interactorStats.attackSpeed;
+        range = interactorStats.range;
+        bulletReloadTime = interactorStats.cooldown;
+        magazineReloadTime = interactorStats.magazineReloadTime;
+        criticalChance = interactorStats.criticalChance;
+        pierce = interactorStats.pierce;
+        speedWhileAiming = interactorStats.speedWhileAiming;
+        magazine = interactorStats.magazine;
+        projectiles = interactorStats.projectiles;
+        spread = interactorStats.spread;
+        cooldown = interactorStats.cooldown;
+        dps = interactorStats.dps;
 
         waitCooldown = Helpers.GetWait(cooldown);
+        currentMagazine = magazine;
     }
 
     public void SwitchMode()

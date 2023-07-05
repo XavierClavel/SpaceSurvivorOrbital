@@ -31,25 +31,6 @@ public class PlayerManager : MonoBehaviour
     public static float damageResistanceMultiplier { get; private set; }
     public static float invulnerabilityFrameDuration { get; private set; }
 
-    //Weapon
-    public static Vector2Int baseDamage { get; private set; }
-    public static int attackSpeed { get; private set; }
-    public static float range { get; private set; }
-
-    public static float cooldown { get; private set; }
-    public static float magazineReloadTime { get; private set; }
-
-    public static float criticalChance { get; private set; }
-    public static float criticalMultiplier { get; private set; }
-
-    public static int projectiles { get; private set; }
-    public static float spread { get; private set; }
-    public static int pierce { get; private set; }
-    public static float speedWhileAiming { get; private set; }
-    public static int magazine { get; private set; }
-
-    public static int dps { get; private set; }
-
     public static status statusEffect { get; private set; }
 
     public static int poisonDamage { get; private set; }
@@ -71,13 +52,14 @@ public class PlayerManager : MonoBehaviour
     public static float attractorRange { get; private set; }
     public static float attractorForce { get; private set; }
 
-    public static Interactor weapon { get; private set; }
-    public static Interactor tool { get; private set; }
+    public static Interactor weaponPrefab = null;
+    public static Interactor toolPrefab = null;
 
     public static int minerBotPower { get; private set; }
     public static float mineerBotSpeed { get; private set; }
 
-
+    public static InteractorStats weaponStats;
+    public static InteractorStats toolStats;
 
     public static PlayerManager instance;
 
@@ -92,11 +74,6 @@ public class PlayerManager : MonoBehaviour
     public static power power2 { get; private set; }
     public static int upgradePointsAmount { get; private set; }
 
-    public static void setCharacter(character characterData)
-    {
-
-    }
-
     public static void setBase()
     {
         maxHealth = Vault.base_maxHealth;
@@ -105,31 +82,18 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-    public static void setWeapon(InteractorData interactorData, Interactor interactor)
+    public static void setWeapon(InteractorStats interactorStats, Interactor interactor)
     {
-        baseDamage = interactorData.baseDamage;
-        attackSpeed = interactorData.attackSpeed;
-        range = interactorData.range;
-
-        cooldown = interactorData.cooldown;
-        magazineReloadTime = interactorData.magazineReloadTime;
-
-        criticalChance = interactorData.criticalChance;
-        criticalMultiplier = interactorData.criticalMultiplier;
-
-        projectiles = interactorData.projectiles;
-        spread = interactorData.spread;
-        pierce = interactorData.pierce;
-        speedWhileAiming = interactorData.speedWhileAiming;
-        magazine = interactorData.magazine;
-        dps = interactorData.dps;
-
-        weapon = interactor;
+        weaponStats = interactorStats;
+        weaponPrefab = interactor;
     }
 
-    public static void setTool(InteractorData interactorData, Interactor tool)
-    {
 
+
+    public static void setTool(InteractorStats interactorData, Interactor interactor)
+    {
+        toolStats = interactorData;
+        toolPrefab = interactor;
     }
 
     void Awake()
@@ -240,114 +204,115 @@ public class PlayerManager : MonoBehaviour
             case effectType.damageResistanceMultiplier:
                 damageResistanceMultiplier = effect.ApplyOperation(damageResistanceMultiplier);
                 break;
+                /*
+                            case effectType.baseDamage:
+                                baseDamage = effect.ApplyOperation(baseDamage);
+                                break;
 
-            case effectType.baseDamage:
-                baseDamage = effect.ApplyOperation(baseDamage);
-                break;
+                            case effectType.attackSpeed:
+                                attackSpeed = effect.ApplyOperation(attackSpeed);
+                                break;
 
-            case effectType.attackSpeed:
-                attackSpeed = effect.ApplyOperation(attackSpeed);
-                break;
+                            case effectType.range:
+                                range = effect.ApplyOperation(range);
+                                break;
 
-            case effectType.range:
-                range = effect.ApplyOperation(range);
-                break;
+                            case effectType.bulletReloadTime:
+                                cooldown = effect.ApplyOperation(cooldown);
+                                break;
 
-            case effectType.bulletReloadTime:
-                cooldown = effect.ApplyOperation(cooldown);
-                break;
+                            case effectType.magazineReloadTime:
+                                magazineReloadTime = effect.ApplyOperation(magazineReloadTime);
+                                break;
 
-            case effectType.magazineReloadTime:
-                magazineReloadTime = effect.ApplyOperation(magazineReloadTime);
-                break;
+                            case effectType.criticalChance:
+                                criticalChance = effect.ApplyOperation(criticalChance);
+                                break;
 
-            case effectType.criticalChance:
-                criticalChance = effect.ApplyOperation(criticalChance);
-                break;
+                            case effectType.criticalMultiplier:
+                                criticalMultiplier = effect.ApplyOperation(criticalMultiplier);
+                                break;
 
-            case effectType.criticalMultiplier:
-                criticalMultiplier = effect.ApplyOperation(criticalMultiplier);
-                break;
+                            case effectType.projectiles:
+                                projectiles = effect.ApplyOperation(projectiles);
+                                break;
 
-            case effectType.projectiles:
-                projectiles = effect.ApplyOperation(projectiles);
-                break;
+                            case effectType.spread:
+                                spread = effect.ApplyOperation(spread);
+                                break;
 
-            case effectType.spread:
-                spread = effect.ApplyOperation(spread);
-                break;
+                            case effectType.pierce:
+                                pierce = effect.ApplyOperation(pierce);
+                                break;
 
-            case effectType.pierce:
-                pierce = effect.ApplyOperation(pierce);
-                break;
+                            case effectType.aimingSpeed:
+                                speedWhileAiming = effect.ApplyOperation(speedWhileAiming);
+                                break;
 
-            case effectType.aimingSpeed:
-                speedWhileAiming = effect.ApplyOperation(speedWhileAiming);
-                break;
+                            case effectType.magazine:
+                                magazine = effect.ApplyOperation(magazine);
+                                break;
 
-            case effectType.magazine:
-                magazine = effect.ApplyOperation(magazine);
-                break;
+                            case effectType.effect:
+                                statusEffect = effect.ApplyOperation(statusEffect);
+                                break;
 
-            case effectType.effect:
-                statusEffect = effect.ApplyOperation(statusEffect);
-                break;
+                            case effectType.poisonDamage:
+                                poisonDamage = effect.ApplyOperation(poisonDamage);
+                                break;
 
-            case effectType.poisonDamage:
-                poisonDamage = effect.ApplyOperation(poisonDamage);
-                break;
+                            case effectType.poisonDuration:
+                                poisonDuration = effect.ApplyOperation(poisonDuration);
+                                break;
 
-            case effectType.poisonDuration:
-                poisonDuration = effect.ApplyOperation(poisonDuration);
-                break;
+                            case effectType.poisonPeriod:
+                                poisonPeriod = effect.ApplyOperation(poisonPeriod);
+                                break;
 
-            case effectType.poisonPeriod:
-                poisonPeriod = effect.ApplyOperation(poisonPeriod);
-                break;
+                            case effectType.fireDamage:
+                                fireDamage = effect.ApplyOperation(fireDamage);
+                                break;
 
-            case effectType.fireDamage:
-                fireDamage = effect.ApplyOperation(fireDamage);
-                break;
+                            case effectType.fireDuration:
+                                fireDuration = effect.ApplyOperation(fireDuration);
+                                break;
 
-            case effectType.fireDuration:
-                fireDuration = effect.ApplyOperation(fireDuration);
-                break;
+                            case effectType.firePeriod:
+                                firePeriod = effect.ApplyOperation(firePeriod);
+                                break;
 
-            case effectType.firePeriod:
-                firePeriod = effect.ApplyOperation(firePeriod);
-                break;
+                            case effectType.toolPower:
+                                toolPower = effect.ApplyOperation(toolPower);
+                                break;
 
-            case effectType.toolPower:
-                toolPower = effect.ApplyOperation(toolPower);
-                break;
+                            case effectType.toolSpeed:
+                                toolReloadTime = effect.ApplyOperation(toolReloadTime);
+                                break;
 
-            case effectType.toolSpeed:
-                toolReloadTime = effect.ApplyOperation(toolReloadTime);
-                break;
+                            case effectType.toolRange:
+                                toolRange = effect.ApplyOperation(toolRange);
+                                break;
 
-            case effectType.toolRange:
-                toolRange = effect.ApplyOperation(toolRange);
-                break;
+                            case effectType.TOOLAttractorRange:
+                                attractorRange = effect.ApplyOperation(attractorRange);
+                                break;
 
-            case effectType.TOOLAttractorRange:
-                attractorRange = effect.ApplyOperation(attractorRange);
-                break;
+                            case effectType.TOOLAttractorForce:
+                                attractorForce = effect.ApplyOperation(attractorForce);
+                                break;
 
-            case effectType.TOOLAttractorForce:
-                attractorForce = effect.ApplyOperation(attractorForce);
-                break;
+                            case effectType.tool:
+                                tool = effect.ApplyOperation(tool);
+                                break;
 
-            case effectType.tool:
-                tool = effect.ApplyOperation(tool);
-                break;
+                            case effectType.POWERMinerBotPower:
+                                minerBotPower = effect.ApplyOperation(minerBotPower);
+                                break;
 
-            case effectType.POWERMinerBotPower:
-                minerBotPower = effect.ApplyOperation(minerBotPower);
-                break;
-
-            case effectType.POWERMinerBotSpeed:
-                mineerBotSpeed = effect.ApplyOperation(mineerBotSpeed);
-                break;
+                            case effectType.POWERMinerBotSpeed:
+                                mineerBotSpeed = effect.ApplyOperation(mineerBotSpeed);
+                                break;
+                                */
         }
     }
 

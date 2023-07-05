@@ -65,12 +65,8 @@ public class DataManager : MonoBehaviour
         PlayerManager.setBase();
 
         if (!DebugManager.testVersion) return;
-        PlayerManager.setCharacter(selectedCharacter);
-        PlayerManager.setWeapon(dictInteractors[selectedWeapon], objectReferencer.getInteractor(selectedWeapon));
-        if (selectedTool != interactor.None) PlayerManager.setTool(dictInteractors[selectedWeapon], objectReferencer.getInteractor(selectedWeapon));
-
-        //PlayerManager.setInteractors(objectReferencer.getInteractor(selectedWeapon), objectReferencer.getInteractor(selectedTool));
-
+        PlayerManager.setWeapon(dictInteractors[selectedWeapon].interactorStats, objectReferencer.getInteractor(selectedWeapon));
+        if (selectedTool != interactor.None) PlayerManager.setTool(dictInteractors[selectedTool].interactorStats, objectReferencer.getInteractor(selectedWeapon));
     }
 
     void loadText(TextAsset csv, Formatter formatter, Formatter initializer = null, int offset = 0)

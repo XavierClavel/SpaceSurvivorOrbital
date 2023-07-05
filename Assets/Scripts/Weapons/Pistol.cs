@@ -5,15 +5,11 @@ using UnityEngine;
 public class Pistol : Gun
 {
 
-    int projectiles;
-    float spread = 0f;
     [SerializeField] float distanceOffsetBetweenBullets = 0.1f;
 
     protected override void Start()
     {
         base.Start();
-        projectiles = PlayerManager.projectiles;
-        spread = PlayerManager.spread;
         bulletPrefab.pierce = pierce;
     }
 

@@ -11,6 +11,11 @@ using System.Globalization;
 public static class Extensions
 {
 
+    public static int Mean(this Vector2Int v2)
+    {
+        return (int)((v2.x + v2.y) * 0.5f);
+    }
+
     public static int IndexOf(this List<string> list, string value, System.StringComparison comparison = System.StringComparison.OrdinalIgnoreCase)
     {
         return list.FindIndex(x => x.Equals(value, comparison));
@@ -347,7 +352,7 @@ public class Helpers : MonoBehaviour
     {
         if (platformAndroidValue != null) return (bool)platformAndroidValue;
 #if UNITY_EDITOR
-        platformAndroidValue = EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android;
+        platformAndroidValue = false;
         return (bool)platformAndroidValue;
 #endif
         platformAndroidValue = Application.platform == RuntimePlatform.Android;
