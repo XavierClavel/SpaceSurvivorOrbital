@@ -32,8 +32,8 @@ public class PauseMenu : MonoBehaviour
         Time.fixedDeltaTime = 0f;
         SoundManager.instance.StopTime();
 
-        PlayerController.instance.controls.Disable();
-        if (!PlayerController.isPlayingWithGamepad) Cursor.visible = true;
+        if (!Helpers.isPlatformAndroid()) PlayerController.instance.controls.Disable();
+        if (!PlayerController.isPlayingWithGamepad && !Helpers.isPlatformAndroid()) Cursor.visible = true;
 
         if (pauseUI)
         {
@@ -54,7 +54,7 @@ public class PauseMenu : MonoBehaviour
 
 
         controls.PauseMenu.Disable();
-        PlayerController.instance.controls.Enable();
+        if (!Helpers.isPlatformAndroid()) PlayerController.instance.controls.Enable();
         InputManager.setSelectedObject(null);
 
         SoundManager.instance.ResumeTime();

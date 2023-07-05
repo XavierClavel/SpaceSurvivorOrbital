@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using System.Globalization;
 
 public static class Extensions
 {
@@ -340,14 +341,17 @@ public class Helpers : MonoBehaviour
     private static TextMeshProUGUI debugDisplay;
     private static Dictionary<int, TextMeshProUGUI> dictDebugDisplays = new Dictionary<int, TextMeshProUGUI>();
     [SerializeField] GameObject debugDisplayPrefab;
+    static bool? platformAndroidValue = null;
 
     public static bool isPlatformAndroid()
     {
-        //return false;
+        if (platformAndroidValue != null) return (bool)platformAndroidValue;
 #if UNITY_EDITOR
-        return EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android;
+        platformAndroidValue = EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android;
+        return (bool)platformAndroidValue;
 #endif
-        return Application.platform == RuntimePlatform.Android;
+        platformAndroidValue = Application.platform == RuntimePlatform.Android;
+        return (bool)platformAndroidValue;
     }
 
     public static Quaternion LookRotation2D(Vector2 direction)
@@ -390,7 +394,7 @@ public class Helpers : MonoBehaviour
                 return (T)(object)int.Parse(s);
 
             case System.TypeCode.Single:
-                return (T)(object)float.Parse(s);
+                return (T)(object)float.Parse(s, new CultureInfo("fr-FR").NumberFormat);
 
             case System.TypeCode.String:
                 return (T)(object)s;

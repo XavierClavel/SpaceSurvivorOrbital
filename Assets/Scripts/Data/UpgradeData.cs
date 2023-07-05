@@ -11,6 +11,11 @@ public class UpgradeData : TemplateData
     public List<string> upgradesDisabled;
     public List<Effect> effects = new List<Effect>();
 
+    public void Apply()
+    {
+        foreach (Effect effect in effects) effect.Apply();
+    }
+
     static Dictionary<int, effectType> dictColumnToEffect;
 
     static List<string> firstLineValue = new List<string> {
@@ -53,20 +58,20 @@ public class UpgradeData : TemplateData
         effectType.baseSpeed,
         effectType.damageResistanceMultiplier,
 
-        effectType.WEAPONBaseDamage,
-        effectType.WEAPONAttackSpeed,
-        effectType.WEAPONRange,
-        effectType.WEAPONBulletReloadTime,
-        effectType.WEAPONPierce,
-        effectType.WEAPONProjectiles,
-        effectType.WEAPONSpread,
-        effectType.WEAPONSpeedWhileAimingDecrease,
-        effectType.WEAPONCriticalChance,
-        effectType.WEAPONCriticalMultiplier,
-        effectType.WEAPONMagazine,
-        effectType.WEAPONMagazineReloadTime,
+        effectType.baseDamage,
+        effectType.attackSpeed,
+        effectType.range,
+        effectType.bulletReloadTime,
+        effectType.pierce,
+        effectType.projectiles,
+        effectType.spread,
+        effectType.aimingSpeed,
+        effectType.criticalChance,
+        effectType.criticalMultiplier,
+        effectType.magazine,
+        effectType.magazineReloadTime,
 
-        effectType.CHARACTERMaxViolet,
+        effectType.maxPurple,
         effectType.maxGreen,
         effectType.maxOrange
 
@@ -109,13 +114,21 @@ public class UpgradeData : TemplateData
 
     void Process(string value, effectType effect)
     {
+        Debug.Log("processing value");
         operationType operation;
         if (value.Last() == '%')
         {
             if (value.First() == '+') operation = operationType.multiply;
-            else operation = operationType.divide;
+            else if (value.First() == '-') operation = operationType.divide;
+            else throw new System.ArgumentException($"{value} operation failed to parse");
+
             value.RemoveFirst();
             value.RemoveLast();
+
+            float percentage = Helpers.parseString<float>(value);
+            if (operation == operationType.multiply) percentage = 1 + percentage * 0.01f;
+            else percentage = 1 - percentage * 0.01f;
+            value = percentage.ToString();
         }
         else
         {
@@ -139,37 +152,7 @@ public class UpgradeData : TemplateData
     static effectType columnNameToEffect(string columnName)
     {
         columnName = columnName.Trim();
-        switch (columnName)
-        {
-            case "maxHealth":
-                return effectType.maxHealth;
-
-            case "baseSpeed":
-                return effectType.baseSpeed;
-
-            case "damageResistance":
-                return effectType.damageResistanceMultiplier;
-
-            case "maxViolet":
-                return effectType.CHARACTERMaxViolet;
-
-            case "maxOrange":
-                return effectType.maxOrange;
-
-            case "maxGreen":
-                return effectType.maxGreen;
-
-            case "baseDamage":
-                return effectType.WEAPONBaseDamage;
-
-            case "attackSpeed":
-                return effectType.WEAPONAttackSpeed;
-
-
-
-            default:
-                throw new System.ArgumentException($"\"{columnName}\" column is not recognized");
-        }
+        return (effectType)System.Enum.Parse(typeof(effectType), columnName, true);
     }
 
 

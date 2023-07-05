@@ -15,6 +15,8 @@ public enum playerDirection { front, left, back, right };
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] FloatingJoystick joystickMove;
+    [SerializeField] FloatingJoystick joystickAim;
     InteractorHandler interactorHandler;
     [SerializeField] GameObject minerBot;
     [HideInInspector] public Transform attractorTransform;
@@ -192,7 +194,7 @@ public class PlayerController : MonoBehaviour
 
     void OnDisable()
     {
-        controls.Disable();
+        if (!Helpers.isPlatformAndroid()) controls.Disable();
     }
 
     private void Awake()
@@ -200,11 +202,22 @@ public class PlayerController : MonoBehaviour
 
         instance = this;
         interactorHandler = GetComponent<InteractorHandler>();
+
+        if (Helpers.isPlatformAndroid())
+        {
+            joystickMove.gameObject.SetActive(true);
+            joystickAim.gameObject.SetActive(true);
+        }
     }
 
 
     void Start()
     {
+        Application.targetFrameRate = 60;
+        QualitySettings.vSyncCount = 0;
+
+        Debug.Log("test");
+
         radar.SetActive(PlayerManager.activateRadar);
         spaceshipIndicator.SetActive(PlayerManager.activateShipArrow);
 
@@ -248,9 +261,11 @@ public class PlayerController : MonoBehaviour
         healthBar.maxValue = maxHealth;
         healthBar.value = health;
 
+        Debug.Log(PlayerManager.weapon.speedWhileAiming);
+
         interactorHandler.Initialize(PlayerManager.weapon, null, ObjectManager.instance.armTransform, true);
 
-        InitializeControls();
+        if (!Helpers.isPlatformAndroid()) InitializeControls();
 
     }
 
@@ -335,7 +350,9 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        moveDir = controls.Player.Move.ReadValue<Vector2>();
+        if (Helpers.isPlatformAndroid()) moveDir = joystickMove.Direction;
+        else moveDir = controls.Player.Move.ReadValue<Vector2>();
+
         if (moveDir.sqrMagnitude > 1) moveDir = moveDir.normalized;
         if (moveDir != Vector2.zero) prevMoveDir = moveDir;
         targetMoveAmount = moveDir * speed;
@@ -360,7 +377,9 @@ public class PlayerController : MonoBehaviour
 
     void Aim()
     {
-        Vector2 input = isPlayingWithGamepad ? getGamepadAimInput() : getMouseAimInput();
+        Vector2 input;
+        if (Helpers.isPlatformAndroid()) input = joystickAim.Direction;
+        else input = isPlayingWithGamepad ? getGamepadAimInput() : getMouseAimInput();
 
         if (input != Vector2.zero)
         {
@@ -370,7 +389,7 @@ public class PlayerController : MonoBehaviour
 
         _aimDirection = angleToDirection(Vector2.SignedAngle(input, Vector2.down) + 180f);
 
-        if (!isPlayingWithGamepad) return;
+        if (!isPlayingWithGamepad && !Helpers.isPlatformAndroid()) return;
 
         if (input == Vector2.zero && interactorHandler.action) interactorHandler.StopAction();
         if (input != Vector2.zero && !interactorHandler.action) interactorHandler.StartAction();

@@ -8,6 +8,12 @@ public static class Vault
     public const float base_speed = 3.5f;
     public const float base_damageResistance = 0;
 
+    public const string layer_ennemies = "Ennemies";
+    public const string layer_resources = "Resources";
+    public const string layer_ennemiesOnly = "EnnemiesOnly";
+    public const string layer_resourcesOnly = "ResourcesOnly";
+    public const string layer_resourcesAndEnnemies = "ResourcesAndEnnemies";
+
     public const string character_Base = "Base";
 
     public const string playerParam_name = "Name";

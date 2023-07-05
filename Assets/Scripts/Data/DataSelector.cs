@@ -7,10 +7,6 @@ public class DataSelector : MonoBehaviour
     CharacterData selectedCharacter;
     InteractorData selectedWeapon;
     InteractorData selectedTool;
-    private void Start()
-    {
-        DataManager.baseStats.Apply();
-    }
 
     public void OnSelectCharacter(CharacterData characterData)
     {
@@ -29,8 +25,8 @@ public class DataSelector : MonoBehaviour
 
     public void onValidate()
     {
-        selectedCharacter.Apply();
-        selectedWeapon.Apply();
-        if (selectedTool != null) selectedTool.Apply();
+        //selectedCharacter.Apply();
+        //selectedWeapon.Apply();
+        //if (selectedTool != null) selectedTool.Apply();
     }
 }

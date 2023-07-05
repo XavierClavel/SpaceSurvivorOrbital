@@ -62,13 +62,14 @@ public class DataManager : MonoBehaviour
         loadText(breakableData, x => new ObjectData(x), x => ObjectData.Initialize(x));
         loadText(localizationData, x => new LocalizedString(x), x => LocalizedString.Initialize(x));
 
-        if (!DebugManager.testVersion) return;
-        baseStats.Apply();
-        dictCharacters[selectedCharacter].Apply();
-        dictInteractors[selectedWeapon].Apply();
-        if (selectedTool != interactor.None) dictInteractors[selectedTool].Apply();
+        PlayerManager.setBase();
 
-        PlayerManager.setInteractors(objectReferencer.getInteractor(selectedWeapon), objectReferencer.getInteractor(selectedTool));
+        if (!DebugManager.testVersion) return;
+        PlayerManager.setCharacter(selectedCharacter);
+        PlayerManager.setWeapon(dictInteractors[selectedWeapon], objectReferencer.getInteractor(selectedWeapon));
+        if (selectedTool != interactor.None) PlayerManager.setTool(dictInteractors[selectedWeapon], objectReferencer.getInteractor(selectedWeapon));
+
+        //PlayerManager.setInteractors(objectReferencer.getInteractor(selectedWeapon), objectReferencer.getInteractor(selectedTool));
 
     }
 

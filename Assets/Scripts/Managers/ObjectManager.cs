@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ObjectManager : MonoBehaviour
 {
     [Header("UI")]
+    [SerializeField] GameObject pauseButton;
     [SerializeField] PauseMenu pauseMenu;
     [SerializeField] GameObject altarUI;
     [SerializeField] GameObject altarFirstSelected;
@@ -28,6 +29,7 @@ public class ObjectManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        if (Helpers.isPlatformAndroid()) pauseButton.SetActive(true);
     }
 
     public static void DisplayAltarUI()

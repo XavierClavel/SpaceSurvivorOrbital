@@ -44,10 +44,6 @@ public class MinerBot : MonoBehaviour
     [SerializeField] Transform rotationPoint;
     float detectionRange = 6f;
 
-    public const string ennemyLayerName = "EnnemiesOnly";
-    public const string resourceLayerName = "ResourcesOnly";
-    public const string everythingLayerName = "ResourcesAndEnnemies";
-
     const float ennemyAttackRange = 2f;
     const float resourceAttackRange = 2f;
     const float playerFollowRange = 2f;
@@ -85,13 +81,13 @@ public class MinerBot : MonoBehaviour
         switch (function)
         {
             case botFunction.mining:
-                return resourceLayerName;
+                return Vault.layer_resourcesOnly;
 
             case botFunction.attacking:
-                return ennemyLayerName;
+                return Vault.layer_ennemiesOnly;
 
             case botFunction.both:
-                return everythingLayerName;
+                return Vault.layer_resourcesAndEnnemies;
 
             default:
                 throw new System.ArgumentException($"{function} not defined");
@@ -153,7 +149,7 @@ public class MinerBot : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         //Priority to ennemies, then to resources, then to player
-        if (other.gameObject.layer == LayerMask.NameToLayer(ennemyLayerName))
+        if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer_ennemiesOnly))
         {
             ennemies.Add(other.gameObject);
             if (botState == state.attacking || botState == state.attackingTransition) return;
@@ -191,7 +187,7 @@ public class MinerBot : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer(resourceLayerName)) resources.TryRemove(other.gameObject);
+        if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer_resources)) resources.TryRemove(other.gameObject);
         else ennemies.TryRemove(other.gameObject);
         if (other.transform == target) EndAction();
     }
@@ -199,6 +195,11 @@ public class MinerBot : MonoBehaviour
     void EndAction()
     {
         interactorHandler.StopAction();
+        SwitchTarget();
+    }
+
+    void SwitchTarget()
+    {
         if (ennemies.Count > 0)
         {
             SetNewTarget(ennemies[0].transform, 1f, AttackEnnemy, state.attackingTransition);
@@ -210,7 +211,6 @@ public class MinerBot : MonoBehaviour
             return;
         }
         SetNewTarget(playerTransform, fullSpeedRadius, Follow, state.transitioning);
-
     }
 
     void Follow()
