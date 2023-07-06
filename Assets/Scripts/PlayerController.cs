@@ -208,8 +208,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        Application.targetFrameRate = 60;
-        QualitySettings.vSyncCount = 0;
+        if (Helpers.isPlatformAndroid()) Application.targetFrameRate = 60;
 
         radar.SetActive(PlayerManager.activateRadar);
         spaceshipIndicator.SetActive(PlayerManager.activateShipArrow);

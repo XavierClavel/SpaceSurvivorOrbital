@@ -77,7 +77,7 @@ public class InteractorData : TemplateData
 
         interactorStats.CalculateDPS();
 
-        interactor currentInteractor = (interactor)System.Enum.Parse(typeof(interactor), name);
+        weapon currentInteractor = (weapon)System.Enum.Parse(typeof(weapon), name);
         DataManager.dictInteractors.Add(currentInteractor, this);
     }
 

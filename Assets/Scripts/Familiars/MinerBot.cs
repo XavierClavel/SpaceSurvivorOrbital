@@ -36,8 +36,8 @@ public class MinerBot : MonoBehaviour
     float sqrtFullSpeedRadius;
     float cumulativeSpeed = 0f;
     InteractorHandler interactorHandler;
-    [SerializeField] interactor weaponInteractorType = interactor.Laser;
-    [SerializeField] interactor toolInteractorType = interactor.None;
+    [SerializeField] weapon weaponInteractorType = weapon.Laser;
+    [SerializeField] weapon toolInteractorType = weapon.None;
     [SerializeField] botFunction function = botFunction.mining;
     Interactor weaponInteractor;
     Interactor toolInteractor;

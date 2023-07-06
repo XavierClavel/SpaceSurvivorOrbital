@@ -7,10 +7,11 @@ using System.Collections.Generic;
 
 public enum character
 {
+    None,
     Pistolero
 }
 
-public enum interactor
+public enum weapon
 {
     None,
     Gun,
@@ -41,13 +42,13 @@ public class DataManager : MonoBehaviour
     [SerializeField] TextAsset upgradesData;
     delegate void Formatter(List<string> s);
     public static Dictionary<character, CharacterData> dictCharacters = new Dictionary<character, CharacterData>();
-    public static Dictionary<interactor, InteractorData> dictInteractors = new Dictionary<interactor, InteractorData>();
+    public static Dictionary<weapon, InteractorData> dictInteractors = new Dictionary<weapon, InteractorData>();
     public static Dictionary<objects, ObjectData> dictObjects = new Dictionary<objects, ObjectData>();
     public static Dictionary<string, LocalizedString> dictLocalization = new Dictionary<string, LocalizedString>();
     public static Dictionary<string, UpgradeData> dictUpgrades = new Dictionary<string, UpgradeData>();
     [SerializeField] character selectedCharacter = character.Pistolero;
-    [SerializeField] interactor selectedWeapon = interactor.Laser;
-    [SerializeField] interactor selectedTool = interactor.None;
+    [SerializeField] weapon selectedWeapon = weapon.Laser;
+    [SerializeField] weapon selectedTool = weapon.None;
     public static DataManager instance;
     public static CharacterData baseStats;
 
@@ -66,7 +67,7 @@ public class DataManager : MonoBehaviour
 
         if (!DebugManager.testVersion) return;
         PlayerManager.setWeapon(dictInteractors[selectedWeapon].interactorStats, objectReferencer.getInteractor(selectedWeapon));
-        if (selectedTool != interactor.None) PlayerManager.setTool(dictInteractors[selectedTool].interactorStats, objectReferencer.getInteractor(selectedWeapon));
+        if (selectedTool != weapon.None) PlayerManager.setTool(dictInteractors[selectedTool].interactorStats, objectReferencer.getInteractor(selectedWeapon));
     }
 
     void loadText(TextAsset csv, Formatter formatter, Formatter initializer = null, int offset = 0)

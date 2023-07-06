@@ -1,32 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DataSelector : MonoBehaviour
 {
-    CharacterData selectedCharacter;
-    InteractorData selectedWeapon;
-    InteractorData selectedTool;
+    [SerializeField] ObjectReferencer objectReferencer;
+    [SerializeField] Button startButton;
+    character selectedCharacter = character.None;
+    weapon selectedWeapon = weapon.None;
+    weapon selectedTool = weapon.None;
 
-    public void OnSelectCharacter(CharacterData characterData)
+    public void SelectCharacter(character value)
     {
-        this.selectedCharacter = characterData;
+        this.selectedCharacter = value;
+        if (selectedWeapon != weapon.None) startButton.interactable = true;
     }
 
-    public void OnSelectWeapon(InteractorData interactorData)
+    public void SelectWeapon(weapon value)
     {
-        this.selectedWeapon = interactorData;
+        this.selectedWeapon = value;
+        if (selectedCharacter != character.None) startButton.interactable = true;
     }
 
-    public void OnSelectTool(InteractorData interactorData)
+    public void SelectTool(weapon value)
     {
-        this.selectedTool = interactorData;
+        this.selectedTool = value;
     }
 
-    public void onValidate()
+    public void Validate()
     {
-        //selectedCharacter.Apply();
-        //selectedWeapon.Apply();
-        //if (selectedTool != null) selectedTool.Apply();
+        PlayerManager.setWeapon(DataManager.dictInteractors[selectedWeapon].interactorStats, objectReferencer.getInteractor(selectedWeapon));
+        if (selectedTool != weapon.None) PlayerManager.setTool(DataManager.dictInteractors[selectedTool].interactorStats, objectReferencer.getInteractor(selectedWeapon));
     }
 }
