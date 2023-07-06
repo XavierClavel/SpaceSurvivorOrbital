@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [CreateAssetMenu(fileName = "ObjectReferencer", menuName = "Space Survivor 2D/ObjectReferencer", order = 0)]
 public class ObjectReferencer : ScriptableObject
@@ -11,6 +12,13 @@ public class ObjectReferencer : ScriptableObject
     [Header("Weapons")]
     public Interactor gun;
     public Interactor laser;
+
+    public Sprite getSpriteGeneric<TEnum>(int value) where TEnum : struct, IConvertible, IComparable, IFormattable
+    {
+        if (typeof(TEnum) == typeof(character)) return getCharacterSprite((character)value);
+        else if (typeof(TEnum) == typeof(weapon)) return getWeaponSprite((weapon)value);
+        else throw new System.ArgumentException($"{value} key not found");
+    }
 
     public Sprite getCharacterSprite(character key)
     {

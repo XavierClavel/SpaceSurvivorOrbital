@@ -1,19 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
+using System;
 
-public class WeaponLayout : MonoBehaviour
+public enum selectorType { character, weapon }
+
+public class SelectorLayout : MonoBehaviour
 {
+    [SerializeField] selectorType type;
     [SerializeField] DataSelector dataSelector;
     [SerializeField] SelectButton button;
     [SerializeField] ObjectReferencer objectReferencer;
     SelectButton selectedButton;
-    // Start is called before the first frame update
+
     void Start()
     {
-        int maxIndex = System.Enum.GetNames(typeof(weapon)).Length;
+        switch (type)
+        {
+            case selectorType.character:
+                SetupLayout<character>();
+                break;
+
+            case selectorType.weapon:
+                SetupLayout<weapon>();
+                break;
+        }
+    }
+
+    void SetupLayout<TEnum>() where TEnum : struct, IConvertible, IComparable, IFormattable
+    {
+        int maxIndex = System.Enum.GetNames(typeof(TEnum)).Length;
         for (int i = 1; i < maxIndex; i++)
         {
             SelectButton newButton = Instantiate(button);
@@ -21,14 +38,14 @@ public class WeaponLayout : MonoBehaviour
             newButton.transform.localScale = Vector3.one;
             newButton.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero;
 
-            weapon selectedWeapon = (weapon)i;
+            int value = i;
             UnityAction action = delegate
             {
-                dataSelector.SelectWeapon(selectedWeapon);
+                dataSelector.SelectGeneric<TEnum>(value);
                 ChangeSelectedButton(newButton);
             };
             newButton.button.onClick.AddListener(action);
-            newButton.button.image.sprite = objectReferencer.getWeaponSprite(selectedWeapon);
+            newButton.button.image.sprite = objectReferencer.getSpriteGeneric<TEnum>(value);
         }
     }
 
@@ -38,5 +55,4 @@ public class WeaponLayout : MonoBehaviour
         selectedButton = newButton;
         selectedButton.background.color = Color.yellow;
     }
-
 }
