@@ -18,15 +18,31 @@ public class SkillButton : TreeButton
 
     [SerializeField] TextMeshProUGUI greenCostText;
     [SerializeField] TextMeshProUGUI yellowCostText;
+    panelTarget target;
 
     protected override void Awake()
     {
         base.Awake();
 
+        try
+        {
+            target = GetComponentInParent<SkillTreePanel>().target;
+        }
+        catch
+        {
+            target = panelTarget.none;
+        }
+
+
         UpgradeData upgradeData = DataManager.dictUpgrades[upgradeName];
         greenLifeCost = upgradeData.costGreen;
         yellowLifeCost = upgradeData.costOrange;
         effects = upgradeData.effects.Copy();
+
+        foreach (Effect effect in effects)
+        {
+            effect.target = target;
+        }
 
         greenCostText.text = greenLifeCost.ToString();
         yellowCostText.text = yellowLifeCost.ToString();

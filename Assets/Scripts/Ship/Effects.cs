@@ -80,6 +80,7 @@ public class Effect
     public effectType effect;
     public operationType operation;
     public string value;
+    public panelTarget target;
 
     public Effect(effectType effect, operationType operation, string value)
     {

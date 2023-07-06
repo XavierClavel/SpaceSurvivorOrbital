@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct InteractorStats
+public class InteractorStats
 {
     public Vector2Int baseDamage;
     public int attackSpeed;

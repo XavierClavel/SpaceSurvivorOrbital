@@ -167,6 +167,10 @@ public class PlayerManager : MonoBehaviour
 
     public static void ApplyModification(Effect effect)
     {
+        InteractorStats interactorStats = null;
+        if (effect.target == panelTarget.weapon) interactorStats = weaponStats;
+        else if (effect.target == panelTarget.tool) interactorStats = toolStats;
+
         switch (effect.effect)
         {
             case effectType.maxPurple:
@@ -204,115 +208,116 @@ public class PlayerManager : MonoBehaviour
             case effectType.damageResistanceMultiplier:
                 damageResistanceMultiplier = effect.ApplyOperation(damageResistanceMultiplier);
                 break;
-                /*
-                            case effectType.baseDamage:
-                                baseDamage = effect.ApplyOperation(baseDamage);
-                                break;
 
-                            case effectType.attackSpeed:
-                                attackSpeed = effect.ApplyOperation(attackSpeed);
-                                break;
+            case effectType.baseDamage:
+                interactorStats.baseDamage = effect.ApplyOperation(interactorStats.baseDamage);
+                break;
 
-                            case effectType.range:
-                                range = effect.ApplyOperation(range);
-                                break;
+            case effectType.attackSpeed:
+                interactorStats.attackSpeed = effect.ApplyOperation(interactorStats.attackSpeed);
+                break;
 
-                            case effectType.bulletReloadTime:
-                                cooldown = effect.ApplyOperation(cooldown);
-                                break;
+            case effectType.range:
+                interactorStats.range = effect.ApplyOperation(interactorStats.range);
+                break;
 
-                            case effectType.magazineReloadTime:
-                                magazineReloadTime = effect.ApplyOperation(magazineReloadTime);
-                                break;
+            case effectType.bulletReloadTime:
+                interactorStats.cooldown = effect.ApplyOperation(interactorStats.cooldown);
+                break;
 
-                            case effectType.criticalChance:
-                                criticalChance = effect.ApplyOperation(criticalChance);
-                                break;
+            case effectType.magazineReloadTime:
+                interactorStats.magazineReloadTime = effect.ApplyOperation(interactorStats.magazineReloadTime);
+                break;
 
-                            case effectType.criticalMultiplier:
-                                criticalMultiplier = effect.ApplyOperation(criticalMultiplier);
-                                break;
+            case effectType.criticalChance:
+                interactorStats.criticalChance = effect.ApplyOperation(interactorStats.criticalChance);
+                break;
 
-                            case effectType.projectiles:
-                                projectiles = effect.ApplyOperation(projectiles);
-                                break;
+            case effectType.criticalMultiplier:
+                interactorStats.criticalMultiplier = effect.ApplyOperation(interactorStats.criticalMultiplier);
+                break;
 
-                            case effectType.spread:
-                                spread = effect.ApplyOperation(spread);
-                                break;
+            case effectType.projectiles:
+                interactorStats.projectiles = effect.ApplyOperation(interactorStats.projectiles);
+                break;
 
-                            case effectType.pierce:
-                                pierce = effect.ApplyOperation(pierce);
-                                break;
+            case effectType.spread:
+                interactorStats.spread = effect.ApplyOperation(interactorStats.spread);
+                break;
 
-                            case effectType.aimingSpeed:
-                                speedWhileAiming = effect.ApplyOperation(speedWhileAiming);
-                                break;
+            case effectType.pierce:
+                interactorStats.pierce = effect.ApplyOperation(interactorStats.pierce);
+                break;
 
-                            case effectType.magazine:
-                                magazine = effect.ApplyOperation(magazine);
-                                break;
+            case effectType.aimingSpeed:
+                interactorStats.speedWhileAiming = effect.ApplyOperation(interactorStats.speedWhileAiming);
+                break;
 
-                            case effectType.effect:
-                                statusEffect = effect.ApplyOperation(statusEffect);
-                                break;
+            case effectType.magazine:
+                interactorStats.magazine = effect.ApplyOperation(interactorStats.magazine);
+                break;
 
-                            case effectType.poisonDamage:
-                                poisonDamage = effect.ApplyOperation(poisonDamage);
-                                break;
+            case effectType.effect:
+                statusEffect = effect.ApplyOperation(statusEffect);
+                break;
 
-                            case effectType.poisonDuration:
-                                poisonDuration = effect.ApplyOperation(poisonDuration);
-                                break;
+            case effectType.poisonDamage:
+                poisonDamage = effect.ApplyOperation(poisonDamage);
+                break;
 
-                            case effectType.poisonPeriod:
-                                poisonPeriod = effect.ApplyOperation(poisonPeriod);
-                                break;
+            case effectType.poisonDuration:
+                poisonDuration = effect.ApplyOperation(poisonDuration);
+                break;
 
-                            case effectType.fireDamage:
-                                fireDamage = effect.ApplyOperation(fireDamage);
-                                break;
+            case effectType.poisonPeriod:
+                poisonPeriod = effect.ApplyOperation(poisonPeriod);
+                break;
 
-                            case effectType.fireDuration:
-                                fireDuration = effect.ApplyOperation(fireDuration);
-                                break;
+            case effectType.fireDamage:
+                fireDamage = effect.ApplyOperation(fireDamage);
+                break;
 
-                            case effectType.firePeriod:
-                                firePeriod = effect.ApplyOperation(firePeriod);
-                                break;
+            case effectType.fireDuration:
+                fireDuration = effect.ApplyOperation(fireDuration);
+                break;
 
-                            case effectType.toolPower:
-                                toolPower = effect.ApplyOperation(toolPower);
-                                break;
+            case effectType.firePeriod:
+                firePeriod = effect.ApplyOperation(firePeriod);
+                break;
 
-                            case effectType.toolSpeed:
-                                toolReloadTime = effect.ApplyOperation(toolReloadTime);
-                                break;
+            case effectType.toolPower:
+                toolPower = effect.ApplyOperation(toolPower);
+                break;
 
-                            case effectType.toolRange:
-                                toolRange = effect.ApplyOperation(toolRange);
-                                break;
+            case effectType.toolSpeed:
+                toolReloadTime = effect.ApplyOperation(toolReloadTime);
+                break;
 
-                            case effectType.TOOLAttractorRange:
-                                attractorRange = effect.ApplyOperation(attractorRange);
-                                break;
+            case effectType.toolRange:
+                toolRange = effect.ApplyOperation(toolRange);
+                break;
 
-                            case effectType.TOOLAttractorForce:
-                                attractorForce = effect.ApplyOperation(attractorForce);
-                                break;
+            case effectType.TOOLAttractorRange:
+                attractorRange = effect.ApplyOperation(attractorRange);
+                break;
 
-                            case effectType.tool:
-                                tool = effect.ApplyOperation(tool);
-                                break;
+            case effectType.TOOLAttractorForce:
+                attractorForce = effect.ApplyOperation(attractorForce);
+                break;
 
-                            case effectType.POWERMinerBotPower:
-                                minerBotPower = effect.ApplyOperation(minerBotPower);
-                                break;
+            /*
+            case effectType.tool:
+                tool = effect.ApplyOperation(tool);
+                break;
+                */
 
-                            case effectType.POWERMinerBotSpeed:
-                                mineerBotSpeed = effect.ApplyOperation(mineerBotSpeed);
-                                break;
-                                */
+            case effectType.POWERMinerBotPower:
+                minerBotPower = effect.ApplyOperation(minerBotPower);
+                break;
+
+            case effectType.POWERMinerBotSpeed:
+                mineerBotSpeed = effect.ApplyOperation(mineerBotSpeed);
+                break;
         }
     }
 
