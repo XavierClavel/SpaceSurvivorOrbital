@@ -46,6 +46,9 @@ public class UpgradeData : TemplateData
         Vault.key.upgrade.MaxGreen,
         Vault.key.upgrade.MaxOrange,
 
+        Vault.key.upgrade.AttractorRange,
+        Vault.key.upgrade.AttractorForce,
+
         Vault.key.upgrade.Unlocks
 
 };
@@ -77,6 +80,9 @@ public class UpgradeData : TemplateData
         effectType.maxPurple,
         effectType.maxGreen,
         effectType.maxOrange,
+
+        effectType.attractorRange,
+        effectType.attractorForce,
 
         effectType.unlocks
 

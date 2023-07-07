@@ -297,11 +297,11 @@ public class PlayerManager : MonoBehaviour
                 toolRange = effect.ApplyOperation(toolRange);
                 break;
 
-            case effectType.TOOLAttractorRange:
+            case effectType.attractorRange:
                 attractorRange = effect.ApplyOperation(attractorRange);
                 break;
 
-            case effectType.TOOLAttractorForce:
+            case effectType.attractorForce:
                 attractorForce = effect.ApplyOperation(attractorForce);
                 break;
 

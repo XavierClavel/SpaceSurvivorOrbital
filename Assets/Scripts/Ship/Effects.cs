@@ -57,8 +57,8 @@ public enum effectType
     toolSpeed,
     toolRange,
 
-    TOOLAttractorRange,
-    TOOLAttractorForce,
+    attractorRange,
+    attractorForce,
 
     weapon,
     tool,

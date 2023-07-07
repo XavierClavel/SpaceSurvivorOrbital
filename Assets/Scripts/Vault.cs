@@ -88,6 +88,9 @@ public static class Vault
             public const string MaxGreen = "MaxGreen";
             public const string MaxOrange = "MaxOrange";
 
+            public const string AttractorRange = "AttractorRange";
+            public const string AttractorForce = "AttractorForce";
+
             public const string Unlocks = "Unlocks";
         }
     }
