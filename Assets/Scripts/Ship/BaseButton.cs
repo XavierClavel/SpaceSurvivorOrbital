@@ -25,6 +25,8 @@ public abstract class TreeButton : MonoBehaviour
     {
         button = GetComponent<Button>();
         image = GetComponent<Image>();
+
+        upgradeName = upgradeName.Trim();
     }
 
 
