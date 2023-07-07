@@ -44,7 +44,7 @@ public class DataManager : MonoBehaviour
     [SerializeField] TextAsset weaponData;
     [SerializeField] TextAsset toolData;
     [SerializeField] TextAsset breakableData;
-    [SerializeField] TextAsset localizationData;
+    [SerializeField] List<TextAsset> localizationData;
     [SerializeField] TextAsset upgradesData;
     delegate void Formatter(List<string> s);
     public static Dictionary<weapon, InteractorData> dictWeapons = new Dictionary<weapon, InteractorData>();
@@ -76,7 +76,11 @@ public class DataManager : MonoBehaviour
         loadText(upgradesData, x => new UpgradeData(x), x => UpgradeData.Initialize(x));
 
         loadText(breakableData, x => new ObjectData(x), x => ObjectData.Initialize(x));
-        loadText(localizationData, x => new LocalizedString(x), x => LocalizedString.Initialize(x));
+
+        foreach (TextAsset data in localizationData)
+        {
+            loadText(data, x => new LocalizedString(x), x => LocalizedString.Initialize(x));
+        }
 
         PlayerManager.setBase();
 
