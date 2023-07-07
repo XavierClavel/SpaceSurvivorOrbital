@@ -27,7 +27,7 @@ public abstract class Gun : Interactor
         magazineReloadWindow = Helpers.GetWait(magazineReloadTime);
 
         autoCooldown = false;
-        bulletPrefab.gameObject.layer = LayerMask.NameToLayer(Vault.layer_resourcesAndEnnemies);
+        bulletPrefab.gameObject.layer = LayerMask.NameToLayer(currentLayer);
 
     }
 

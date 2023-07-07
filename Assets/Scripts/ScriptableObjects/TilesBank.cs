@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/tilesBank", order = 1)]
+[CreateAssetMenu(fileName = "Data", menuName = Vault.other.scriptableObjectMenu + "tilesBank", order = 1)]
 public class TilesBank : ScriptableObject
 {
     public Color groundColor;
@@ -16,7 +16,7 @@ public class TilesBank : ScriptableObject
     [Header("Green")]
     public GameObject greenLow0;
     public GameObject greenLow1;
-    public GameObject greenMid0; 
+    public GameObject greenMid0;
     public GameObject greenMid1;
     public GameObject greenStrong0;
     public GameObject greenStrong1;

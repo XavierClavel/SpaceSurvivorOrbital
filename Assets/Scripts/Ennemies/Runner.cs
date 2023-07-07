@@ -16,7 +16,7 @@ public class Runner : Ennemy
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag(Vault.tag.Player))
         {
             PlayerController.Hurt(baseDamage);
             ApplyKnockback();

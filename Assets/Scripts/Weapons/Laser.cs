@@ -29,7 +29,6 @@ public class Laser : Interactor
 
     IEnumerator UpdateLaserBeam()
     {
-        currentLayerMask = LayerMask.GetMask(Vault.layer_resources, Vault.layer_ennemies);
         while (true)
         {
             yield return Helpers.GetWaitFixed;

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "GameData", menuName = "Space Survivor 2D/GameData", order = 0)]
+[CreateAssetMenu(fileName = "GameData", menuName = Vault.other.scriptableObjectMenu + "GameData", order = 0)]
 public class GameData : ScriptableObject
 {
     [Header("Ressources Parameters")]

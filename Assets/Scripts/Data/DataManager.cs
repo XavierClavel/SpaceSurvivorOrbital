@@ -18,6 +18,11 @@ public enum weapon
     Laser
 }
 
+public enum tool
+{
+    None
+}
+
 public enum objects
 {
     Purple1,
@@ -36,28 +41,31 @@ public class DataManager : MonoBehaviour
 {
     public ObjectReferencer objectReferencer;
     [SerializeField] TextAsset characterData;
-    [SerializeField] TextAsset interactorData;
+    [SerializeField] TextAsset weaponData;
+    [SerializeField] TextAsset toolData;
     [SerializeField] TextAsset breakableData;
     [SerializeField] TextAsset localizationData;
     [SerializeField] TextAsset upgradesData;
     delegate void Formatter(List<string> s);
-    public static Dictionary<character, CharacterData> dictCharacters = new Dictionary<character, CharacterData>();
-    public static Dictionary<weapon, InteractorData> dictInteractors = new Dictionary<weapon, InteractorData>();
+    public static Dictionary<weapon, InteractorData> dictWeapons = new Dictionary<weapon, InteractorData>();
+    public static Dictionary<tool, InteractorData> dictTools = new Dictionary<tool, InteractorData>();
     public static Dictionary<objects, ObjectData> dictObjects = new Dictionary<objects, ObjectData>();
     public static Dictionary<string, LocalizedString> dictLocalization = new Dictionary<string, LocalizedString>();
     public static Dictionary<string, UpgradeData> dictUpgrades = new Dictionary<string, UpgradeData>();
     [SerializeField] character selectedCharacter = character.Pistolero;
     [SerializeField] weapon selectedWeapon = weapon.Laser;
-    [SerializeField] weapon selectedTool = weapon.None;
+    [SerializeField] tool selectedTool = tool.None;
     public static DataManager instance;
     public static CharacterData baseStats;
 
     private void Awake()
     {
+        if (instance != null && instance != this) Destroy(gameObject);
         instance = this;
-        if (dictCharacters.Count != 0) return;
-        loadText(characterData, x => new CharacterData(x), x => CharacterData.Initialize(x));
-        loadText(interactorData, x => new InteractorData(x), x => InteractorData.Initialize(x));
+
+        loadText(weaponData, x => new InteractorData(x, selectorType.weapon), x => InteractorData.Initialize(x));
+        loadText(toolData, x => new InteractorData(x, selectorType.tool), x => InteractorData.Initialize(x));
+
         loadText(upgradesData, x => new UpgradeData(x), x => UpgradeData.Initialize(x));
 
         loadText(breakableData, x => new ObjectData(x), x => ObjectData.Initialize(x));
@@ -65,9 +73,8 @@ public class DataManager : MonoBehaviour
 
         PlayerManager.setBase();
 
-        if (!DebugManager.testVersion) return;
-        PlayerManager.setWeapon(dictInteractors[selectedWeapon].interactorStats, objectReferencer.getInteractor(selectedWeapon));
-        if (selectedTool != weapon.None) PlayerManager.setTool(dictInteractors[selectedTool].interactorStats, objectReferencer.getInteractor(selectedWeapon));
+        PlayerManager.setWeapon(dictWeapons[selectedWeapon].interactorStats, objectReferencer.getInteractor(selectedWeapon));
+        if (selectedTool != tool.None) PlayerManager.setTool(dictTools[selectedTool].interactorStats, objectReferencer.getInteractor(selectedTool));
     }
 
     void loadText(TextAsset csv, Formatter formatter, Formatter initializer = null, int offset = 0)

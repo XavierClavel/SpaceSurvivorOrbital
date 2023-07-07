@@ -43,21 +43,16 @@ public class Resource : Breakable
         health -= damage;
     }
 
-    public void Hit(int damage)
-    {
-
-    }
-
-
     void Break()
     {
         SoundManager.instance.PlaySfx(transform, sfx.breakResource);
-        int nbItemsToSpawn = Random.Range(dropInterval.x, dropInterval.y + 1);
+        int nbItemsToSpawn = dropInterval.getRandom();
         for (int i = 0; i < nbItemsToSpawn; i++)
         {
             Instantiate(itemPrefab, randomPos() + transform.position, Quaternion.identity);
         }
         Destroy(gameObject);
+
     }
 
 
@@ -65,9 +60,9 @@ public class Resource : Breakable
     Vector3 randomPos()
     {
         Transform playerTransform = PlayerController.instance.transform;
-        float signA = Random.Range(0, 2) * 2 - 1;
-        float signB = Random.Range(0, 2) * 2 - 1;
-        return signA * Random.Range(0f, 1.5f) * Vector2.up + signB * Random.Range(0f, 1.5f) * Vector2.right;
+        float signA = Helpers.getRandomSign();
+        float signB = Helpers.getRandomSign();
+        return signA * Helpers.getRandomFloat(1.5f) * Vector2.up + signB * Helpers.getRandomFloat(1.5f) * Vector2.right;
     }
 
     public void StartMining() { }

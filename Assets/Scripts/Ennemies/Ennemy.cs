@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.Events;
 
-//TODO: common interface for ennemies and ressources
 public class Ennemy : Breakable
 {
     public UnityEvent onDeath = new UnityEvent();

@@ -32,7 +32,7 @@ public class InputManager : MonoBehaviour
     public static void OnInputChange()
     {
         if (instance == null) return;
-        isPlayingWithGamepad = playerInput.currentControlScheme == "Gamepad";
+        isPlayingWithGamepad = playerInput.currentControlScheme == Vault.other.inputGamepad;
         OnSelectChange();
         PlayerController.SwitchInput(isPlayingWithGamepad);
     }

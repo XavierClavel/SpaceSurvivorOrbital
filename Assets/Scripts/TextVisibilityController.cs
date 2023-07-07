@@ -9,7 +9,7 @@ public class TextVisibilityController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(Vault.tag.Player))
         {
             textObject.SetActive(true);
             if (monster != null) monster.SetActive(true);
@@ -18,7 +18,7 @@ public class TextVisibilityController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(Vault.tag.Player))
         {
             textObject.SetActive(false);
         }

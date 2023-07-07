@@ -51,8 +51,8 @@ public class Pistol : Gun
 
     void FireBullet(Vector3 position, Vector3 eulerRotation)
     {
-        int damage = Random.Range(baseDamage.x, baseDamage.y + 1);
-        bool critical = Random.Range(0f, 1f) < criticalChance;
+        int damage = baseDamage.getRandom();
+        bool critical = Helpers.ProbabilisticBool(criticalChance);
         if (critical) damage = (int)((float)damage * criticalMultiplier);
 
         soundManager.PlaySfx(transform, sfx.shoot);

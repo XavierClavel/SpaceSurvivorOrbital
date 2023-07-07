@@ -10,12 +10,13 @@ public class DataSelector : MonoBehaviour
     [SerializeField] Button startButton;
     character selectedCharacter = character.None;
     weapon selectedWeapon = weapon.None;
-    weapon selectedTool = weapon.None;
+    tool selectedTool = tool.None;
 
     public void SelectGeneric<TEnum>(int value) where TEnum : struct, IConvertible, IComparable, IFormattable
     {
         if (typeof(TEnum) == typeof(character)) SelectCharacter(value);
         else if (typeof(TEnum) == typeof(weapon)) SelectWeapon(value);
+        else if (typeof(TEnum) == typeof(tool)) SelectTool(value);
     }
 
     public void SelectCharacter(character value)
@@ -26,8 +27,7 @@ public class DataSelector : MonoBehaviour
 
     public void SelectCharacter(int value)
     {
-        this.selectedCharacter = (character)value;
-        if (selectedWeapon != weapon.None) startButton.interactable = true;
+        SelectCharacter((character)value);
     }
 
     public void SelectWeapon(weapon value)
@@ -38,18 +38,23 @@ public class DataSelector : MonoBehaviour
 
     public void SelectWeapon(int value)
     {
-        this.selectedWeapon = (weapon)value;
-        if (selectedCharacter != character.None) startButton.interactable = true;
+        SelectWeapon((weapon)value);
     }
 
-    public void SelectTool(weapon value)
+    public void SelectTool(tool value)
     {
         this.selectedTool = value;
+        if (selectedCharacter != character.None && selectedWeapon != weapon.None) startButton.interactable = true;
+    }
+
+    public void SelectTool(int value)
+    {
+        SelectTool((tool)value);
     }
 
     public void Validate()
     {
-        PlayerManager.setWeapon(DataManager.dictInteractors[selectedWeapon].interactorStats, objectReferencer.getInteractor(selectedWeapon));
-        if (selectedTool != weapon.None) PlayerManager.setTool(DataManager.dictInteractors[selectedTool].interactorStats, objectReferencer.getInteractor(selectedWeapon));
+        PlayerManager.setWeapon(DataManager.dictWeapons[selectedWeapon].interactorStats, objectReferencer.getInteractor(selectedWeapon));
+        if (selectedTool != tool.None) PlayerManager.setTool(DataManager.dictTools[selectedTool].interactorStats, objectReferencer.getInteractor(selectedTool));
     }
 }

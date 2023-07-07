@@ -24,15 +24,15 @@ public class ResourcesAttractor : MonoBehaviour
     {
         switch (other.gameObject.tag)
         {
-            case "VioletCollectible":
+            case Vault.tag.PurpleCollectible:
                 PlayerController.instance.IncreaseViolet();
                 break;
 
-            case "GreenCollectible":
+            case Vault.tag.GreenCollectible:
                 PlayerController.instance.IncreaseGreen();
                 break;
 
-            case "OrangeCollectible":
+            case Vault.tag.OrangeCollectible:
                 PlayerController.instance.IncreaseOrange();
                 break;
         }

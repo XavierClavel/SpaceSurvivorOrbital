@@ -7,13 +7,22 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 using System.Globalization;
+using UnityEngine.Events;
 
 public static class Extensions
 {
 
+    public static T Switch<T>(this T switcher, T value1, T value2)
+    {
+        if (switcher.Equals(value1)) switcher = value2;
+        else if (switcher.Equals(value2)) switcher = value1;
+        else throw new ArgumentOutOfRangeException("switcher equals neither value1 or value2");
+        return switcher;
+    }
+
     public static int Mean(this Vector2Int v2)
     {
-        return (int)((v2.x + v2.y) * 0.5f);
+        return (int)Mathf.Round((float)(v2.x + v2.y) * 0.5f);
     }
 
     public static int IndexOf(this List<string> list, string value, System.StringComparison comparison = System.StringComparison.OrdinalIgnoreCase)
@@ -181,6 +190,18 @@ public static class Extensions
         );
     }
 
+    public static float getRandom(this Vector2 v)
+    {
+        return UnityEngine.Random.Range(v.x, v.y);
+    }
+
+    ///<summary>Returns random int contained between x inclusive and y inclusive components of input vector2int.</summary>
+    public static int getRandom(this Vector2Int v)
+    {
+        return UnityEngine.Random.Range(v.x, v.y + 1);
+    }
+
+    ///<summary>Returns random item of list.</summary>
     public static T getRandom<T>(this IList<T> list)
     {
         int randomIndex = UnityEngine.Random.Range(0, list.Count);
@@ -348,15 +369,27 @@ public class Helpers : MonoBehaviour
     [SerializeField] GameObject debugDisplayPrefab;
     static bool? platformAndroidValue = null;
 
+    public static float getRandomFloat(float maxValue)
+    {
+        return UnityEngine.Random.Range(0f, maxValue);
+    }
+
+    ///<summary>Returns -1f or 1f.</summary>
+    public static float getRandomSign()
+    {
+        return UnityEngine.Random.Range(0, 2) * 2 - 1;
+    }
+
     public static bool isPlatformAndroid()
     {
         if (platformAndroidValue != null) return (bool)platformAndroidValue;
 #if UNITY_EDITOR
         platformAndroidValue = false;
         return (bool)platformAndroidValue;
-#endif
+#else
         platformAndroidValue = Application.platform == RuntimePlatform.Android;
         return (bool)platformAndroidValue;
+#endif
     }
 
     public static Quaternion LookRotation2D(Vector2 direction)
@@ -399,7 +432,7 @@ public class Helpers : MonoBehaviour
                 return (T)(object)int.Parse(s);
 
             case System.TypeCode.Single:
-                return (T)(object)float.Parse(s, new CultureInfo("fr-FR").NumberFormat);
+                return (T)(object)float.Parse(s, new CultureInfo(Vault.other.cultureInfoFR).NumberFormat);
 
             case System.TypeCode.String:
                 return (T)(object)s;
