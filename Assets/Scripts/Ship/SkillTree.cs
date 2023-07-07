@@ -172,7 +172,6 @@ public class SkillTree : MonoBehaviour
 
 
         InputManager.setSelectedObject(skillButtons[0].gameObject);
-        Debug.Log(skillButtons[0].name);
         eventSystem.SetSelectedGameObject(skillButtons[0].gameObject);
         eventSystem.firstSelectedGameObject = skillButtons[0].gameObject;
 

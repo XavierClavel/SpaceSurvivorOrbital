@@ -436,7 +436,7 @@ public class Helpers : MonoBehaviour
                 return (T)(object)float.Parse(s, new CultureInfo(Vault.other.cultureInfoFR).NumberFormat);
 
             case System.TypeCode.String:
-                return (T)(object)s;
+                return (T)(object)s.Trim();
 
             case System.TypeCode.Object:
                 if (typeof(T) == typeof(Vector2Int)) return (T)(object)ParseVector2Int(s);
