@@ -24,6 +24,17 @@ public class LocalizationManager : MonoBehaviour
         }
     }
 
+    public static void LocalizeTextField(string key, TextMeshProUGUI field)
+    {
+        if (!DataManager.dictLocalization.ContainsKey(key))
+        {
+            Debug.Log($"\"{key}\" is not loaclized yet.");
+            return;
+        }
+        LocalizedString localizedString = DataManager.dictLocalization[key];
+        dictDisplayToLocalizedString.Add(field, localizedString);
+    }
+
     private void OnDestroy()
     {
         dictDisplayToLocalizedString = new Dictionary<TextMeshProUGUI, LocalizedString>();
