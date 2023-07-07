@@ -36,6 +36,7 @@ public class SkillButton : TreeButton
         LocalizationManager.LocalizeTextField(upgradeName, titleText);
         LocalizationManager.LocalizeTextField(upgradeName + " - Description", descriptionText);
 
+        if (upgradeName.IsNullOrEmpty()) return;
         UpgradeData upgradeData = DataManager.dictUpgrades[upgradeName];
         greenLifeCost = upgradeData.costGreen;
         yellowLifeCost = upgradeData.costOrange;
@@ -51,7 +52,7 @@ public class SkillButton : TreeButton
 
         activateButton = upgradeData.upgradesEnabled;
         desactivateButton = upgradeData.upgradesDisabled;
-        desactivateButton.Add(upgradeName);
+        desactivateButton.TryAdd(upgradeName);
     }
 
 

@@ -57,10 +57,17 @@ public class DataManager : MonoBehaviour
     [SerializeField] tool selectedTool = tool.None;
     public static DataManager instance;
     public static CharacterData baseStats;
+    static bool initialized = false;
 
     private void Awake()
     {
-        if (instance != null && instance != this) Destroy(gameObject);
+        if (initialized)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        initialized = true;
         instance = this;
 
         loadText(weaponData, x => new InteractorData(x, selectorType.weapon), x => InteractorData.Initialize(x));

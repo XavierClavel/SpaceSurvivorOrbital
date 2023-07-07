@@ -401,11 +401,12 @@ public class Helpers : MonoBehaviour
     public static List<string> ParseList(string s)
     {
         string[] values = s.Split(',');
+        List<string> newValues = new List<string>();
         foreach (string value in values)
         {
-            value.Trim();
+            newValues.Add(value.Trim());
         }
-        return values.ToList();
+        return newValues;
     }
 
     public static Vector2Int ParseVector2Int(string s)
