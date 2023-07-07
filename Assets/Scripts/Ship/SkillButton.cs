@@ -33,6 +33,8 @@ public class SkillButton : TreeButton
             target = panelTarget.none;
         }
 
+        LocalizationManager.LocalizeTextField(upgradeName, titleText);
+        LocalizationManager.LocalizeTextField(upgradeName + " - Description", descriptionText);
 
         UpgradeData upgradeData = DataManager.dictUpgrades[upgradeName];
         greenLifeCost = upgradeData.costGreen;

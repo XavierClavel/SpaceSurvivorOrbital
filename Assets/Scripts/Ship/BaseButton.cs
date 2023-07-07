@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public abstract class TreeButton : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public abstract class TreeButton : MonoBehaviour
     protected List<string> activateButton = new List<string>();
     protected List<string> desactivateButton = new List<string>();
     public string upgradeName;
+    [SerializeField] protected TextMeshProUGUI titleText;
+    [SerializeField] protected TextMeshProUGUI descriptionText;
     protected List<Effect> effects = new List<Effect>();
 
 
