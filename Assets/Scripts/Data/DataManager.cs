@@ -56,7 +56,6 @@ public class DataManager : MonoBehaviour
     [SerializeField] weapon selectedWeapon = weapon.Laser;
     [SerializeField] tool selectedTool = tool.None;
     public static DataManager instance;
-    public static CharacterData baseStats;
     static bool initialized = false;
 
     private void Awake()

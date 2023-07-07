@@ -42,6 +42,45 @@ public static class Vault
     {
         public const string ButtonTitle = "_title";
         public const string ButtonDescription = "_text";
+        public const string Name = "Name";
+        public const string Key = "Key";
+        //TODO : switch from name to key everywhere
+
+        public static class localization
+        {
+            public const string EN = "EN";
+            public const string FR = "FR";
+        }
+
+
+        public static class upgrade
+        {
+            public const string CostGreen = "CostGreen";
+            public const string CostOrange = "CostOrange";
+            public const string UpgradesEnabled = "UpgradesEnabled";
+            public const string UpgradesDisabled = "UpgradesDisabled";
+
+            public const string MaxHealth = "MaxHealth";
+            public const string BaseSpeed = "BaseSpeed";
+            public const string DamageResistance = "DamageResistance";
+
+            public const string BaseDamage = "BaseDamage";
+            public const string AttackSpeed = "AttackSpeed";
+            public const string Range = "Range";
+            public const string Cooldown = "Cooldown";
+            public const string Pierce = "Pierce";
+            public const string Projectiles = "Projectiles";
+            public const string Spread = "Spread";
+            public const string AimingSpeed = "SpeedWhileAiming";
+            public const string CriticalChance = "CriticalChance";
+            public const string CriticalMultiplier = "CriticalMultiplier";
+            public const string Magazine = "Magazine";
+            public const string MagazineCooldown = "MagazineReloadTime";
+
+            public const string MaxPurple = "MaxPurple";
+            public const string MaxGreen = "MaxGreen";
+            public const string MaxOrange = "MaxOrange";
+        }
     }
 
     public static class other
@@ -51,33 +90,4 @@ public static class Vault
         public const string cultureInfoFR = "fr-FR";
     }
 
-
-    /*
-    public const string character_Base = "Base";
-
-    public const string playerParam_name = "Name";
-    public const string playerParam_maxHealth = "maxHealth";
-    public const string playerParam_baseSpeed = "BaseSpeed";
-    public const string playerParam_damageResistance = "DamageResistance";
-    public const string playerParam_baseDamage = "BaseDamage";
-    public const string playerParam_attackSpeed = "AttackSpeed";
-    public const string playerParam_range = "Range";
-    public const string playerParam_cooldown = "Cooldown";
-    public const string playerParam_pierce = "Pierce";
-    public const string playerParam_projectiles = "Projectiles";
-    public const string playerParam_spread = "Spread";
-    public const string playerParam_aimingSpeed = "SpeedWhileAiming";
-    public const string playerParam_criticalChance = "CriticalChance";
-    public const string playerParam_criticalMultiplier = "CriticalMultiplier";
-    public const string playerParam_magazine = "Magazine";
-    public const string playerParam_magazineReloadTime = "MagazineReloadTime";
-
-    public const string playerParam_toolPower = "ToolPower";
-    public const string playerParam_toolRange = "ToolRange";
-    public const string playerParam_toolSpeed = "ToolSpeed";
-
-    public const string playerParam_maxPurple = "MaxPurple";
-    public const string playerParam_maxGreen = "MaxGreen";
-    public const string playerParam_maxOrange = "MaxOrange";
-    */
 }

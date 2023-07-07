@@ -11,10 +11,10 @@ public class CharacterData : TemplateData
     public float damageResistance = 0f;
 
     static List<string> firstLineValue = new List<string> {
-        "Name",
-        "MaxHealth",
-        "BaseSpeed",
-        "DamageResistance"
+        Vault.key.Name,
+        Vault.key.upgrade.MaxHealth,
+        Vault.key.upgrade.BaseSpeed,
+        Vault.key.upgrade.DamageResistance
     };
 
     public CharacterData(List<string> s)

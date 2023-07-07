@@ -19,32 +19,32 @@ public class UpgradeData : TemplateData
     static Dictionary<int, effectType> dictColumnToEffect;
 
     static List<string> firstLineValue = new List<string> {
-        "Name",
-        "CostGreen",
-        "CostOrange",
-        "UpgradesEnabled",
-        "UpgradesDisabled",
+        Vault.key.Name,
+        Vault.key.upgrade.CostGreen,
+        Vault.key.upgrade.CostOrange,
+        Vault.key.upgrade.UpgradesEnabled,
+        Vault.key.upgrade.UpgradesDisabled,
 
-        "MaxHealth",
-        "BaseSpeed",
-        "DamageResistance",
+        Vault.key.upgrade.MaxHealth,
+        Vault.key.upgrade.BaseSpeed,
+        Vault.key.upgrade.DamageResistance,
 
-        "BaseDamage",
-        "AttackSpeed",
-        "Range",
-        "Cooldown",
-        "Pierce",
-        "Projectiles",
-        "Spread",
-        "SpeedWhileAiming",
-        "CriticalChance",
-        "CriticalMultiplier",
-        "Magazine",
-        "MagazineReloadTime",
+        Vault.key.upgrade.BaseDamage,
+        Vault.key.upgrade.AttackSpeed,
+        Vault.key.upgrade.Range,
+        Vault.key.upgrade.Cooldown,
+        Vault.key.upgrade.Pierce,
+        Vault.key.upgrade.Projectiles,
+        Vault.key.upgrade.Spread,
+        Vault.key.upgrade.AimingSpeed,
+        Vault.key.upgrade.CriticalChance,
+        Vault.key.upgrade.CriticalMultiplier,
+        Vault.key.upgrade.Magazine,
+        Vault.key.upgrade.MagazineCooldown,
 
-        "MaxPurple",
-        "MaxGreen",
-        "MaxOrange"
+        Vault.key.upgrade.MaxPurple,
+        Vault.key.upgrade.MaxGreen,
+        Vault.key.upgrade.MaxOrange
     };
 
     static List<effectType> effectsList = new List<effectType> {

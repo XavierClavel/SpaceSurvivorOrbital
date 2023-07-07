@@ -16,9 +16,9 @@ public class LocalizedString : TemplateData
     public static lang selectedLang = lang.en;
 
     static List<string> firstLineValue = new List<string> {
-        "Key",
-        "EN",
-        "FR"
+        Vault.key.Key,
+        Vault.key.localization.EN,
+        Vault.key.localization.FR
     };
 
     public string getText()
@@ -30,9 +30,11 @@ public class LocalizedString : TemplateData
 
             case lang.en:
                 return string_EN;
+
+            default:
+                throw new System.ArgumentException($"failed to parse {selectedLang}");
         }
 
-        return "error";
     }
 
     public LocalizedString(List<string> s)

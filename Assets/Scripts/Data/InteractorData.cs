@@ -37,19 +37,19 @@ public class InteractorData : TemplateData
     public InteractorStats interactorStats = new InteractorStats();
 
     static List<string> firstLineValue = new List<string> {
-        "Name",
-        "BaseDamage",
-        "AttackSpeed",
-        "Range",
-        "Cooldown",
-        "Pierce",
-        "Projectiles",
-        "Spread",
-        "SpeedWhileAiming",
-        "CriticalChance",
-        "CriticalMultiplier",
-        "Magazine",
-        "MagazineReloadTime",
+        Vault.key.Name,
+        Vault.key.upgrade.BaseDamage,
+        Vault.key.upgrade.AttackSpeed,
+        Vault.key.upgrade.Range,
+        Vault.key.upgrade.Cooldown,
+        Vault.key.upgrade.Pierce,
+        Vault.key.upgrade.Projectiles,
+        Vault.key.upgrade.Spread,
+        Vault.key.upgrade.AimingSpeed,
+        Vault.key.upgrade.CriticalChance,
+        Vault.key.upgrade.CriticalMultiplier,
+        Vault.key.upgrade.Magazine,
+        Vault.key.upgrade.MagazineCooldown,
         "DPS"
     };
 
