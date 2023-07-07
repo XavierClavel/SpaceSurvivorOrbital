@@ -38,6 +38,12 @@ public static class Vault
         public const float DamageResistance = 0;
     }
 
+    public static class key
+    {
+        public const string ButtonTitle = "_title";
+        public const string ButtonDescription = "_text";
+    }
+
     public static class other
     {
         public const string scriptableObjectMenu = "Cosmic Deserter/";

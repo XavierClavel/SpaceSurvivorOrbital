@@ -33,8 +33,8 @@ public class SkillButton : TreeButton
             target = panelTarget.none;
         }
 
-        LocalizationManager.LocalizeTextField(upgradeName, titleText);
-        LocalizationManager.LocalizeTextField(upgradeName + " - Description", descriptionText);
+        LocalizationManager.LocalizeTextField(upgradeName + Vault.key.ButtonTitle, titleText);
+        LocalizationManager.LocalizeTextField(upgradeName + Vault.key.ButtonDescription, descriptionText);
 
         if (upgradeName.IsNullOrEmpty()) return;
         UpgradeData upgradeData = DataManager.dictUpgrades[upgradeName];
