@@ -20,8 +20,13 @@ public class LocalizationManager : MonoBehaviour
     {
         foreach (TextMeshProUGUI textDisplay in dictDisplayToLocalizedString.Keys)
         {
-            textDisplay.SetText(dictDisplayToLocalizedString[textDisplay].getText());
+            UpdateFieldDisplay(textDisplay);
         }
+    }
+
+    static void UpdateFieldDisplay(TextMeshProUGUI textDisplay)
+    {
+        textDisplay.SetText(dictDisplayToLocalizedString[textDisplay].getText());
     }
 
     public static void LocalizeTextField(string key, TextMeshProUGUI field)
@@ -31,8 +36,11 @@ public class LocalizationManager : MonoBehaviour
             Debug.Log($"\"{key}\" is not localized yet.");
             return;
         }
+        Debug.Log($"\"{key}\" is localized.");
         LocalizedString localizedString = DataManager.dictLocalization[key];
         dictDisplayToLocalizedString.Add(field, localizedString);
+        UpdateFieldDisplay(field);
+
     }
 
     private void OnDestroy()
