@@ -39,7 +39,6 @@ public class LocalizedString : TemplateData
     {
         if (s == null || s.Count != firstLineValue.Count) return;
 
-        Helpers.printList(s);
         Helpers.SetMappedValue(s, mapper, 1, out string_EN);
         Helpers.SetMappedValue(s, mapper, 2, out string_FR);
 
@@ -48,7 +47,6 @@ public class LocalizedString : TemplateData
 
     public static void Initialize(List<string> s)
     {
-        Helpers.printList(s);
         InitializeMapping(s, firstLineValue);
     }
 

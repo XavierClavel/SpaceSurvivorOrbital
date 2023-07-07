@@ -36,7 +36,7 @@ public class LocalizationManager : MonoBehaviour
             Debug.Log($"\"{key}\" is not localized yet.");
             return;
         }
-        Debug.Log($"\"{key}\" is localized.");
+        //Debug.Log($"\"{key}\" is localized.");
         LocalizedString localizedString = DataManager.dictLocalization[key];
         dictDisplayToLocalizedString.Add(field, localizedString);
         UpdateFieldDisplay(field);

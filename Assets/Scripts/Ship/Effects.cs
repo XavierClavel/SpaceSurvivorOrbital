@@ -121,7 +121,7 @@ public class Effect
                 break;
 
             default:
-                throw new System.InvalidOperationException();
+                throw new System.InvalidOperationException($"failed to execute operation {operation} with value {value}");
         }
         return parameter;
     }
@@ -144,7 +144,7 @@ public class Effect
                 break;
 
             default:
-                throw new System.InvalidOperationException();
+                throw new System.InvalidOperationException($"failed to execute operation {operation} with value {value}");
         }
         return parameter;
     }
@@ -158,8 +158,16 @@ public class Effect
                 parameter += value;
                 break;
 
+            case operationType.substract:
+                parameter -= value;
+                break;
+
             case operationType.multiply:
                 parameter *= value;
+                break;
+
+            case operationType.divide:
+                parameter = new Vector2Int(parameter.x / value.x, parameter.y / value.y);
                 break;
 
             case operationType.assignation:
@@ -167,7 +175,7 @@ public class Effect
                 break;
 
             default:
-                throw new System.InvalidOperationException();
+                throw new System.InvalidOperationException($"failed to execute operation {operation} with value {value}");
         }
 
         return parameter;

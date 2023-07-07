@@ -123,8 +123,6 @@ public class UpgradeData : TemplateData
             else if (value.First() == '-') operation = operationType.divide;
             else throw new System.ArgumentException($"{value} operation failed to parse");
 
-
-            Debug.Log(value);
             value = value.RemoveFirst();
             value = value.RemoveLast();
             float percentage = Helpers.parseString<float>(value);
