@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[CreateAssetMenu(fileName = "ObjectReferencer", menuName = "Space Survivor 2D/ObjectReferencer", order = 0)]
+[CreateAssetMenu(fileName = "ObjectReferencer", menuName = Vault.other.scriptableObjectMenu + "ObjectReferencer", order = 0)]
 public class ObjectReferencer : ScriptableObject
 {
     [Header("Characters")]
@@ -49,6 +49,18 @@ public class ObjectReferencer : ScriptableObject
 
             case weapon.Laser:
                 return laser;
+
+            default:
+                throw new System.ArgumentException($"interactor key \"name\" not found");
+        }
+    }
+
+    public Interactor getInteractor(tool key)
+    {
+        switch (key)
+        {
+            case tool.None:
+                return null;
 
             default:
                 throw new System.ArgumentException($"interactor key \"name\" not found");

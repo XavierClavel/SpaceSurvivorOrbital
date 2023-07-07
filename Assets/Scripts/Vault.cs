@@ -1,20 +1,52 @@
 public static class Vault
 {
-    public const string scene_TitleScreen = "TitleScreen";
-    public const string scene_Planet = "Planet";
-    public const string scene_Ship = "Ship";
-    public const string scene_Selector = "SelectorScreen";
+    public static class scene
+    {
+        public const string TitleScreen = "TitleScreen";
+        public const string Planet = "Planet";
+        public const string Ship = "Ship";
+        public const string SelectorScreen = "SelectorScreen";
+    }
 
-    public const int base_maxHealth = 100;
-    public const float base_speed = 3.5f;
-    public const float base_damageResistance = 0;
+    public static class layer
+    {
+        public const string Ennemies = "Ennemies";
+        public const string Resources = "Resources";
+        public const string EnnemiesOnly = "EnnemiesOnly";
+        public const string ResourcesOnly = "ResourcesOnly";
+        public const string ResourcesAndEnnemies = "ResourcesAndEnnemies";
+        public const string Player = "Player";
+        public const string Interactible = "Interactible";
+    }
 
-    public const string layer_ennemies = "Ennemies";
-    public const string layer_resources = "Resources";
-    public const string layer_ennemiesOnly = "EnnemiesOnly";
-    public const string layer_resourcesOnly = "ResourcesOnly";
-    public const string layer_resourcesAndEnnemies = "ResourcesAndEnnemies";
+    public static class tag
+    {
+        public const string Player = "Player";
+        public const string Ennemy = "Ennemy";
+        public const string Resource = "Resource";
+        public const string Obstacle = "Obstacle";
 
+        public const string PurpleCollectible = "VioletCollectible";
+        public const string GreenCollectible = "GreenCollectible";
+        public const string OrangeCollectible = "OrangeCollectible";
+    }
+
+    public static class baseStats
+    {
+        public const int MaxHealth = 100;
+        public const float Speed = 3.5f;
+        public const float DamageResistance = 0;
+    }
+
+    public static class other
+    {
+        public const string scriptableObjectMenu = "Cosmic Deserter/";
+        public const string inputGamepad = "Gamepad";
+        public const string cultureInfoFR = "fr-FR";
+    }
+
+
+    /*
     public const string character_Base = "Base";
 
     public const string playerParam_name = "Name";
@@ -41,4 +73,5 @@ public static class Vault
     public const string playerParam_maxPurple = "MaxPurple";
     public const string playerParam_maxGreen = "MaxGreen";
     public const string playerParam_maxOrange = "MaxOrange";
+    */
 }

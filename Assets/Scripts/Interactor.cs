@@ -35,9 +35,10 @@ public abstract class Interactor : MonoBehaviour
 
     [HideInInspector] public int dps;
 
-    static LayerMask weaponLayerMask;
+    static LayerMask weaponLayer;
     static LayerMask toolLayerMask;
-    [HideInInspector] public int currentLayerMask;
+    [HideInInspector] public string currentLayer;
+    protected int currentLayerMask;
     protected Transform aimTransform;
 
     [HideInInspector] public Slider reloadSlider;
@@ -45,6 +46,7 @@ public abstract class Interactor : MonoBehaviour
     protected PlayerController player;
     protected bool autoCooldown; //whether the interactor or the inheritor should handle cooldown
     [HideInInspector] public bool playerInteractor;
+    bool dualUse = false;
 
     protected virtual void Start()
     {
@@ -54,7 +56,7 @@ public abstract class Interactor : MonoBehaviour
         aimTransform = ObjectManager.instance.armTransform;
     }
 
-    public void Setup(InteractorStats interactorStats)
+    public void Setup(InteractorStats interactorStats, bool dualUse = false)
     {
         baseDamage = interactorStats.baseDamage;
         attackSpeed = interactorStats.attackSpeed;
@@ -72,11 +74,24 @@ public abstract class Interactor : MonoBehaviour
 
         waitCooldown = Helpers.GetWait(cooldown);
         currentMagazine = magazine;
+
+        this.dualUse = dualUse;
+        if (dualUse)
+        {
+            currentLayer = Vault.layer.ResourcesAndEnnemies;
+            currentLayerMask = LayerMask.GetMask(Vault.layer.Resources, Vault.layer.Ennemies);
+        }
+        else
+        {
+            currentLayer = Vault.layer.EnnemiesOnly;
+            currentLayerMask = LayerMask.GetMask(Vault.layer.Ennemies);
+        }
     }
 
     public void SwitchMode()
     {
-        currentLayerMask = currentLayerMask == weaponLayerMask ? toolLayerMask : weaponLayerMask;
+        currentLayer = currentLayer.Switch(Vault.layer.EnnemiesOnly, Vault.layer.ResourcesOnly);
+        currentLayerMask = currentLayerMask.Switch(LayerMask.GetMask(Vault.layer.Ennemies), LayerMask.GetMask(Vault.layer.Resources));
     }
 
     public virtual void StartUsing()
@@ -86,6 +101,7 @@ public abstract class Interactor : MonoBehaviour
         onStartUsing();
         if (cooldown == 0f) return;
         Use();
+
     }
 
     public void Use()

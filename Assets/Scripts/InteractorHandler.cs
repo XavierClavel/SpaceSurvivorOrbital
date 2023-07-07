@@ -20,35 +20,24 @@ public class InteractorHandler : MonoBehaviour
         if (playerInteractor) playerInteractorHandler = this;
 
         weapon = Instantiate(weaponInteractor, transform.position, Quaternion.identity);
-        weapon.Setup(PlayerManager.weaponStats);
+        weapon.Setup(PlayerManager.weaponStats, tool == null);
         weapon.playerInteractor = playerInteractor;
         if (playerInteractor) weapon.reloadSlider = ObjectManager.instance.reloadSlider;
         weapon.transform.SetParent(rotationAxis);
         weapon.transform.position = transform.position + 0.3f * Vector3.left;
 
-        if (toolInteractor == null)
-        {
-            weapon.currentLayerMask = LayerMask.GetMask("Resources", "Ennemies");
-        }
-        else
-        {
-            /*
-            tool = Instantiate(PlayerManager.weapon, transform.position, Quaternion.identity);
-            tool.reloadSlider = ObjectManager.instance.reloadSlider;
-            tool.transform.SetParent(ObjectManager.instance.armTransform);
-            tool.transform.position = transform.position + 0.3f * Vector3.left;
-            tool.Setup(PlayerManager.toolStats);
-
-            weapon.currentLayerMask = LayerMask.GetMask("EnnemiesOnly");
-            tool.currentLayerMask = LayerMask.GetMask("ResourcesOnly");
-            //Instantiate(PlayerManager.tool, transform.position, Quaternion.identity);
-            //tool.transform.SetParent(transform);
-            //tool.Initialize(new Vector2(PlayerManager.toolRange, PlayerManager.toolRange), PlayerManager.toolPower, PlayerManager.toolReloadTime);
-            //TODO? Vector2 for toolRange in PlayerManager
-            */
-        }
-
         currentInteractor = weapon;
+
+        if (toolInteractor == null) return;
+
+        tool = Instantiate(toolInteractor, transform.position, Quaternion.identity);
+        tool.Setup(PlayerManager.toolStats);
+        tool.playerInteractor = playerInteractor;
+
+        tool.transform.SetParent(rotationAxis);
+        tool.transform.position = transform.position + 0.3f * Vector3.left;
+
+
     }
 
     public void StartMiningPurple()
@@ -91,16 +80,11 @@ public class InteractorHandler : MonoBehaviour
 
     private void SwitchInteractor()
     {
-        if (tool == null)
-        {
-            currentInteractor.SwitchMode();
-        }
-        else
-        {
-            currentInteractor.StopUsing();
-            currentInteractor = currentInteractor == weapon ? tool : weapon;
-            currentInteractor.StartUsing();
-        }
+        if (tool == null) return;
+        currentInteractor.SwitchMode();
+        currentInteractor.StopUsing();
+        currentInteractor.Switch(weapon, tool);
+        currentInteractor.StartUsing();
     }
 
 }

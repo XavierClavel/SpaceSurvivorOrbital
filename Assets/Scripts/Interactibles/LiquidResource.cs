@@ -36,7 +36,7 @@ public class LiquidResource : MonoBehaviour, IInteractable
 
         ObjectManager.dictObjectToInteractable.Add(gameObject, this);
 
-        interactibleLayer = LayerMask.GetMask("Interactible");
+        interactibleLayer = LayerMask.GetMask(Vault.layer.Interactible);
     }
 
     public void StartInteracting() { }
@@ -80,7 +80,6 @@ public class LiquidResource : MonoBehaviour, IInteractable
 
     bool UpdateLookStatus()
     {
-        //TODO : interactibleOnly for interactionRadius to avoid RayCastAll and save performances
         RaycastHit2D hit = Physics2D.Raycast(PlayerController.instance.transform.position, ObjectManager.instance.armTransform.right, 99f, interactibleLayer);
         if (hit && hit.collider.gameObject == gameObject)
         {

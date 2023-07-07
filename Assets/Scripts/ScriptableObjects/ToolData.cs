@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ToolData", menuName = "Space Survivor 2D/ToolData", order = 0)]
+[CreateAssetMenu(fileName = "ToolData", menuName = Vault.other.scriptableObjectMenu + "ToolData", order = 0)]
 public class ToolData : ScriptableObject
 {
     [Header("Tool parameters")]

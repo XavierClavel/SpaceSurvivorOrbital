@@ -81,13 +81,13 @@ public class MinerBot : MonoBehaviour
         switch (function)
         {
             case botFunction.mining:
-                return Vault.layer_resourcesOnly;
+                return Vault.layer.ResourcesOnly;
 
             case botFunction.attacking:
-                return Vault.layer_ennemiesOnly;
+                return Vault.layer.EnnemiesOnly;
 
             case botFunction.both:
-                return Vault.layer_resourcesAndEnnemies;
+                return Vault.layer.ResourcesAndEnnemies;
 
             default:
                 throw new System.ArgumentException($"{function} not defined");
@@ -149,7 +149,7 @@ public class MinerBot : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         //Priority to ennemies, then to resources, then to player
-        if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer_ennemiesOnly))
+        if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer.EnnemiesOnly))
         {
             ennemies.Add(other.gameObject);
             if (botState == state.attacking || botState == state.attackingTransition) return;
@@ -187,7 +187,7 @@ public class MinerBot : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer_resources)) resources.TryRemove(other.gameObject);
+        if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer.Resources)) resources.TryRemove(other.gameObject);
         else ennemies.TryRemove(other.gameObject);
         if (other.transform == target) EndAction();
     }

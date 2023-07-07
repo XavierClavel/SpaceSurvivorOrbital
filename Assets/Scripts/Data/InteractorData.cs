@@ -58,7 +58,7 @@ public class InteractorData : TemplateData
         InitializeMapping(s, firstLineValue);
     }
 
-    public InteractorData(List<string> s)
+    public InteractorData(List<string> s, selectorType type)
     {
         Helpers.SetMappedValue(s, mapper, 0, out name);
         Helpers.SetMappedValue(s, mapper, 1, out interactorStats.baseDamage);
@@ -77,8 +77,17 @@ public class InteractorData : TemplateData
 
         interactorStats.CalculateDPS();
 
-        weapon currentInteractor = (weapon)System.Enum.Parse(typeof(weapon), name);
-        DataManager.dictInteractors.Add(currentInteractor, this);
+        if (type == selectorType.weapon)
+        {
+            weapon currentInteractor = (weapon)System.Enum.Parse(typeof(weapon), name);
+            DataManager.dictWeapons.Add(currentInteractor, this);
+        }
+        else if (type == selectorType.tool)
+        {
+            //tool currentInteractor = (tool)System.Enum.Parse(typeof(tool), name);
+            //DataManager.dictTools.Add(currentInteractor, this);
+        }
+
     }
 
 }

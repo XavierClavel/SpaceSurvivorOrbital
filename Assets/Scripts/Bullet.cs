@@ -35,11 +35,11 @@ public class Bullet : MonoBehaviour
         parSys.Play();
         Helpers.instance.WaitAndKill(0.5f, parSys.gameObject);
 
-        if (other.gameObject.CompareTag("Player")) PlayerController.Hurt(damage);
+        if (other.gameObject.CompareTag(Vault.tag.Player)) PlayerController.Hurt(damage);
 
-        if (other.gameObject.CompareTag("Ennemy")) ObjectManager.dictObjectToBreakable[other.gameObject].Hit(damage, effect, critical);
+        if (other.gameObject.CompareTag(Vault.tag.Ennemy)) ObjectManager.dictObjectToBreakable[other.gameObject].Hit(damage, effect, critical);
 
-        if (other.gameObject.CompareTag("Resource")) ObjectManager.dictObjectToBreakable[other.gameObject].Hit(damage, effect, critical);
+        if (other.gameObject.CompareTag(Vault.tag.Resource)) ObjectManager.dictObjectToBreakable[other.gameObject].Hit(damage, effect, critical);
 
 
         if (currentPierce == pierce)
@@ -47,7 +47,7 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (other.gameObject.CompareTag("Obstacle")) Destroy(gameObject);
+        if (other.gameObject.CompareTag(Vault.tag.Obstacle)) Destroy(gameObject);
         currentPierce++;
     }
 

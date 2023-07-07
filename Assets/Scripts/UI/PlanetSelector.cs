@@ -33,7 +33,7 @@ public class PlanetSelector : MonoBehaviour
     {
         PlayerManager.SpendPurple(1);
         PlanetManager.setData(planet.planetData);
-        SceneManager.LoadScene("Planet");
+        SceneManager.LoadScene(Vault.scene.Planet);
     }
 
     public static int getDifficulty(PlanetData planetData)

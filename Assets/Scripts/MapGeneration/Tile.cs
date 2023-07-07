@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using MyBox;
 
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/gameTile", order = 1)]
+[CreateAssetMenu(fileName = "Data", menuName = Vault.other.scriptableObjectMenu + "gameTile", order = 1)]
 public class Tile : ScriptableObject
 {
     public int weight = 1;

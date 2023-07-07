@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 
-public enum selectorType { character, weapon }
+public enum selectorType { character, weapon, tool }
 
 public class SelectorLayout : MonoBehaviour
 {
@@ -24,6 +24,10 @@ public class SelectorLayout : MonoBehaviour
 
             case selectorType.weapon:
                 SetupLayout<weapon>();
+                break;
+
+            case selectorType.tool:
+                SetupLayout<tool>();
                 break;
         }
     }

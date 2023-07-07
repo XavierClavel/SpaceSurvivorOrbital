@@ -76,9 +76,9 @@ public class PlayerManager : MonoBehaviour
 
     public static void setBase()
     {
-        maxHealth = Vault.base_maxHealth;
-        baseSpeed = Vault.base_speed;
-        damageResistanceMultiplier = Vault.base_damageResistance;
+        maxHealth = Vault.baseStats.MaxHealth;
+        baseSpeed = Vault.baseStats.Speed;
+        damageResistanceMultiplier = Vault.baseStats.DamageResistance;
     }
 
 

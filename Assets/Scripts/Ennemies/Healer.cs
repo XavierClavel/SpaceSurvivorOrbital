@@ -27,7 +27,7 @@ public class Healer : Ennemy
     {
         base.Start();
         healRangeDisplay.localScale = range * Vector3.one;
-        mask = LayerMask.GetMask("Ennemies");
+        mask = LayerMask.GetMask(Vault.layer.Ennemies);
 
         sqrFleeRange = Mathf.Pow(healRange.x, 2);
         sqrHealRange = Mathf.Pow(healRange.y, 2);

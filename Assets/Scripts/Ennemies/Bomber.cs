@@ -22,7 +22,7 @@ public class Bomber : Ennemy
 
         waitExplosion = Helpers.GetWait(timeBeforeExplosion);
         sqrExplosionStartDistance = Mathf.Pow(explosionStartDistance, 2);
-        playerLayer = LayerMask.GetMask("Player");
+        playerLayer = LayerMask.GetMask(Vault.layer.Player);
 
 
         StartCoroutine(nameof(SwitchState));
