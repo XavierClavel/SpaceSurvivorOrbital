@@ -64,7 +64,8 @@ public enum effectType
     tool,
 
     POWERMinerBotPower,
-    POWERMinerBotSpeed
+    POWERMinerBotSpeed,
+    unlocks
 
 }
 
@@ -179,6 +180,29 @@ public class Effect
         }
 
         return parameter;
+    }
+
+    public void Unlock()
+    {
+        List<string> value = Helpers.ParseList(this.value);
+        foreach (string s in value) UnlockItem(s);
+    }
+
+    void UnlockItem(string s)
+    {
+        switch (s)
+        {
+            case Vault.unlockable.Radar:
+                PlayerManager.ActivateRadar();
+                break;
+
+            case Vault.unlockable.ShipIndicator:
+                PlayerManager.ActivateShipArrow();
+                break;
+
+            default:
+                throw new System.ArgumentException($"Unlockable \"{s}\" was not found");
+        }
     }
 
     public status ApplyOperation(status parameter)

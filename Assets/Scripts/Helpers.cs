@@ -411,7 +411,8 @@ public class Helpers : MonoBehaviour
         List<string> newValues = new List<string>();
         foreach (string value in values)
         {
-            newValues.Add(value.Trim());
+            string v = value.Trim();
+            if (v != "") newValues.Add(value.Trim());
         }
         return newValues;
     }

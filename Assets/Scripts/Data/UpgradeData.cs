@@ -44,8 +44,11 @@ public class UpgradeData : TemplateData
 
         Vault.key.upgrade.MaxPurple,
         Vault.key.upgrade.MaxGreen,
-        Vault.key.upgrade.MaxOrange
-    };
+        Vault.key.upgrade.MaxOrange,
+
+        Vault.key.upgrade.Unlocks
+
+};
 
     static List<effectType> effectsList = new List<effectType> {
         effectType.none,
@@ -73,7 +76,9 @@ public class UpgradeData : TemplateData
 
         effectType.maxPurple,
         effectType.maxGreen,
-        effectType.maxOrange
+        effectType.maxOrange,
+
+        effectType.unlocks
 
     };
 

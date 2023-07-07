@@ -318,6 +318,10 @@ public class PlayerManager : MonoBehaviour
             case effectType.POWERMinerBotSpeed:
                 mineerBotSpeed = effect.ApplyOperation(mineerBotSpeed);
                 break;
+
+            case effectType.unlocks:
+                effect.Unlock();
+                break;
         }
     }
 

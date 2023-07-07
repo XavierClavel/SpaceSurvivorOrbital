@@ -38,6 +38,13 @@ public static class Vault
         public const float DamageResistance = 0;
     }
 
+    public static class unlockable
+    {
+        public const string Radar = "RADAR";
+        public const string ShipIndicator = "SHIP_INDICATOR";
+
+    }
+
     public static class key
     {
         public const string ButtonTitle = "_title";
@@ -80,6 +87,8 @@ public static class Vault
             public const string MaxPurple = "MaxPurple";
             public const string MaxGreen = "MaxGreen";
             public const string MaxOrange = "MaxOrange";
+
+            public const string Unlocks = "Unlocks";
         }
     }
 
