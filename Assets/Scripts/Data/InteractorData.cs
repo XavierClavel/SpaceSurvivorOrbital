@@ -60,6 +60,8 @@ public class InteractorData : TemplateData
 
     public InteractorData(List<string> s, selectorType type)
     {
+        if (s == null || s.Count != firstLineValue.Count) return;
+
         Helpers.SetMappedValue(s, mapper, 0, out name);
         Helpers.SetMappedValue(s, mapper, 1, out interactorStats.baseDamage);
         Helpers.SetMappedValue(s, mapper, 2, out interactorStats.attackSpeed);

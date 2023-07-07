@@ -93,6 +93,8 @@ public class UpgradeData : TemplateData
 
     public UpgradeData(List<string> s)
     {
+        if (s == null || s.Count != firstLineValue.Count) return;
+
         Helpers.SetMappedValue(s, mapper, 0, out name);
         Helpers.SetMappedValue(s, mapper, 1, out costGreen);
         Helpers.SetMappedValue(s, mapper, 2, out costOrange);
@@ -121,9 +123,10 @@ public class UpgradeData : TemplateData
             else if (value.First() == '-') operation = operationType.divide;
             else throw new System.ArgumentException($"{value} operation failed to parse");
 
-            value.RemoveFirst();
-            value.RemoveLast();
 
+            Debug.Log(value);
+            value = value.RemoveFirst();
+            value = value.RemoveLast();
             float percentage = Helpers.parseString<float>(value);
             if (operation == operationType.multiply) percentage = 1 + percentage * 0.01f;
             else percentage = 1 - percentage * 0.01f;
@@ -134,12 +137,12 @@ public class UpgradeData : TemplateData
             if (value.First() == '+')
             {
                 operation = operationType.add;
-                value.RemoveFirst();
+                value = value.RemoveFirst();
             }
             else if (value.First() == '-')
             {
                 operation = operationType.substract;
-                value.RemoveFirst();
+                value = value.RemoveFirst();
             }
             else operation = operationType.assignation;
         }

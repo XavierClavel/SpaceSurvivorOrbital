@@ -21,6 +21,8 @@ public class ObjectData : TemplateData
 
     public ObjectData(List<string> s)
     {
+        if (s == null || s.Count != firstLineValue.Count) return;
+
         Helpers.SetMappedValue(s, mapper, 0, out name);
         Helpers.SetMappedValue(s, mapper, 1, out maxHealth);
         Helpers.SetMappedValue(s, mapper, 2, out baseDamage);

@@ -30,14 +30,16 @@ public static class Extensions
         return list.FindIndex(x => x.Equals(value, comparison));
     }
 
-    public static void RemoveFirst(this string str)
+    public static string RemoveFirst(this string str)
     {
-        str.Remove(0);
+        str.Remove(0, 1);
+        return str.Substring(1);
     }
 
-    public static void RemoveLast(this string str)
+    public static string RemoveLast(this string str)
     {
-        str.Remove(str.Length - 1);
+        str.Remove(str.Length - 1, 1);
+        return str.Substring(0, str.Length - 1);
     }
 
     public static char First(this string str)
@@ -369,6 +371,11 @@ public class Helpers : MonoBehaviour
     [SerializeField] GameObject debugDisplayPrefab;
     static bool? platformAndroidValue = null;
 
+    public static void printList<T>(List<T> list)
+    {
+        foreach (T item in list) Debug.Log(item);
+    }
+
     public static float getRandomFloat(float maxValue)
     {
         return UnityEngine.Random.Range(0f, maxValue);
@@ -427,24 +434,31 @@ public class Helpers : MonoBehaviour
 
     public static T parseString<T>(string s)
     {
-        switch (System.Type.GetTypeCode(typeof(T)))
+        try
         {
-            case System.TypeCode.Int32:
-                return (T)(object)int.Parse(s);
+            switch (System.Type.GetTypeCode(typeof(T)))
+            {
+                case System.TypeCode.Int32:
+                    return (T)(object)int.Parse(s);
 
-            case System.TypeCode.Single:
-                return (T)(object)float.Parse(s, new CultureInfo(Vault.other.cultureInfoFR).NumberFormat);
+                case System.TypeCode.Single:
+                    return (T)(object)float.Parse(s, new CultureInfo(Vault.other.cultureInfoFR).NumberFormat);
 
-            case System.TypeCode.String:
-                return (T)(object)s.Trim();
+                case System.TypeCode.String:
+                    return (T)(object)s.Trim();
 
-            case System.TypeCode.Object:
-                if (typeof(T) == typeof(Vector2Int)) return (T)(object)ParseVector2Int(s);
-                else if (typeof(T) == typeof(List<string>)) return (T)(object)ParseList(s);
-                else throw new ArgumentException($"Failed to parse \"{s}\" for variable of type {typeof(T)})");
+                case System.TypeCode.Object:
+                    if (typeof(T) == typeof(Vector2Int)) return (T)(object)ParseVector2Int(s);
+                    else if (typeof(T) == typeof(List<string>)) return (T)(object)ParseList(s);
+                    else throw new ArgumentException($"Failed to parse \"{s}\" for variable of type {typeof(T)})");
 
-            default:
-                throw new ArgumentException($"Failed to parse \"{s}\" for variable of type {typeof(T)})");
+                default:
+                    throw new ArgumentException($"Failed to parse \"{s}\" for variable of type {typeof(T)})");
+            }
+        }
+        catch
+        {
+            throw new ArgumentException($"Failed to parse \"{s}\" for variable of type {typeof(T)})");
         }
     }
 
