@@ -84,8 +84,6 @@ public class DataManager : MonoBehaviour
 
         PlayerManager.setBase();
 
-        Debug.Log(selectedWeapon);
-
         PlayerManager.setWeapon(dictWeapons[selectedWeapon].interactorStats, objectReferencer.getInteractor(selectedWeapon));
         if (selectedTool != tool.None) PlayerManager.setTool(dictTools[selectedTool].interactorStats, objectReferencer.getInteractor(selectedTool));
     }
