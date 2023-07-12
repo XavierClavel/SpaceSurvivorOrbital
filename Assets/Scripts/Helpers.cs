@@ -637,3 +637,24 @@ public class Helpers : MonoBehaviour
     }
 
 }
+
+public class GenericDictionary<T1>
+{
+    private Dictionary<T1, object> _dict = new Dictionary<T1, object>();
+
+    public void Add<T2>(T1 key, T2 value) where T2 : class
+    {
+        _dict.Add(key, value);
+    }
+
+    public T2 GetValue<T2>(T1 key) where T2 : class
+    {
+        return _dict[key] as T2;
+    }
+}
+
+public class RefContainer<T>
+{
+    public T Ref { get; set; }
+    public string getType() { return nameof(T); }
+}
