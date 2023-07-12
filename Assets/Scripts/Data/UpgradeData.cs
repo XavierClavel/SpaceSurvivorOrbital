@@ -17,11 +17,7 @@ public class UpgradeData : EffectData
 
     public static void Initialize(List<string> s)
     {
-        columnTitles = new List<string>();
-        for (int i = 0; i < s.Count; i++)
-        {
-            columnTitles.Add(s[i]);
-        }
+        columnTitles = InitializeColumnTitles(s);
     }
 
     public UpgradeData(List<string> s)

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EffectData : TemplateData
+public class EffectData
 {
     static Dictionary<string, effectType> dictKeyToEffect = new Dictionary<string, effectType>
     {
@@ -37,6 +37,16 @@ public class EffectData : TemplateData
 
 
     protected Dictionary<string, string> dictColumnToValue;
+
+    protected static List<string> InitializeColumnTitles(List<string> s)
+    {
+        List<string> columnTitles = new List<string>();
+        for (int i = 0; i < s.Count; i++)
+        {
+            columnTitles.Add(s[i].Trim());
+        }
+        return columnTitles;
+    }
 
     protected void SetDictionary(List<string> columnTitles, List<string> s)
     {
