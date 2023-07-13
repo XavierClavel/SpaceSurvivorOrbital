@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [SerializeField] FloatingJoystick joystickMove;
     [SerializeField] FloatingJoystick joystickAim;
+    [SerializeField] SpriteRenderer playerSprite;
     InteractorHandler interactorHandler;
     [SerializeField] GameObject minerBot;
     [HideInInspector] public Transform attractorTransform;
@@ -59,6 +60,7 @@ public class PlayerController : MonoBehaviour
         set
         {
             if (_walkDirection_value == value) return;
+            playerSprite.flipX = value == playerDirection.left;
             _walkDirection_value = value;
             animator.SetInteger("walkDirection", (int)value);
         }
@@ -340,7 +342,12 @@ public class PlayerController : MonoBehaviour
         else moveDir = controls.Player.Move.ReadValue<Vector2>();
 
         if (moveDir.sqrMagnitude > 1) moveDir = moveDir.normalized;
-        if (moveDir != Vector2.zero) prevMoveDir = moveDir;
+        if (moveDir != Vector2.zero)
+        {
+            prevMoveDir = moveDir;
+            state = playerState.walking;
+        }
+        else state = playerState.idle;
         targetMoveAmount = moveDir * speed;
         moveAmount = Vector2.SmoothDamp(moveAmount, targetMoveAmount, ref smoothMoveVelocity, 0.10f);
     }
