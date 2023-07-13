@@ -8,18 +8,19 @@ public enum lang
     en
 }
 
-public class LocalizedString : TemplateData
+public class LocalizedString : EffectData
 {
     public string string_FR;
     public string string_EN;
 
     public static lang selectedLang = lang.en;
 
-    static List<string> firstLineValue = new List<string> {
-        Vault.key.Key,
-        Vault.key.localization.EN,
-        Vault.key.localization.FR
-    };
+    static List<string> columnTitles = new List<string>();
+
+    public static void Initialize(List<string> s)
+    {
+        columnTitles = InitializeColumnTitles(s);
+    }
 
     public string getText()
     {
@@ -39,17 +40,15 @@ public class LocalizedString : TemplateData
 
     public LocalizedString(List<string> s)
     {
-        if (s == null || s.Count != firstLineValue.Count) return;
+        if (s == null || s.Count != columnTitles.Count) return;
 
-        Helpers.SetMappedValue(s, mapper, 1, out string_EN);
-        Helpers.SetMappedValue(s, mapper, 2, out string_FR);
+        SetDictionary(columnTitles, s);
+
+        SetValue(ref string_EN, Vault.key.localization.EN);
+        SetValue(ref string_FR, Vault.key.localization.FR);
 
         DataManager.dictLocalization.Add(s[0], this);
     }
 
-    public static void Initialize(List<string> s)
-    {
-        InitializeMapping(s, firstLineValue);
-    }
 
 }
