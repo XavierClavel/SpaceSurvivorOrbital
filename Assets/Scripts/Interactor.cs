@@ -128,4 +128,10 @@ public abstract class Interactor : MonoBehaviour
     protected abstract void onStartUsing();
     protected abstract void onStopUsing();
     protected abstract void onUse();
+
+    private void Update()
+    {
+        Debug.Log(transform.eulerAngles.z);
+        spriteRenderer.flipY = transform.eulerAngles.z > 90 && transform.eulerAngles.z <= 270;
+    }
 }

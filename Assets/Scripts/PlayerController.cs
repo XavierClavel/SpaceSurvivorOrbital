@@ -419,8 +419,6 @@ public class PlayerController : MonoBehaviour
         arrowTransform.position = transform.position;
         cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
 
-        //state = localMove.sqrMagnitude < 1e-4f ? playerState.idle : playerState.walking;
-
     }
 
     void Death()
