@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         {
             if (_playerState_value == value) return;
             _playerState_value = value;
-            animator.SetInteger("state", (int)value);
+            animator.SetInteger(Vault.animatorParameter.State, (int)value);
         }
     }
     playerDirection _aimDirection_value = playerDirection.front;
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         {
             if (_aimDirection_value == value) return;
             _aimDirection_value = value;
-            animator.SetInteger("aimDirection", (int)value);
+            animator.SetInteger(Vault.animatorParameter.AimDirection, (int)value);
         }
     }
 
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
             if (_walkDirection_value == value) return;
             playerSprite.flipX = value == playerDirection.left;
             _walkDirection_value = value;
-            animator.SetInteger("walkDirection", (int)value);
+            animator.SetInteger(Vault.animatorParameter.WalkDirection, (int)value);
         }
     }
 

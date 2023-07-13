@@ -45,6 +45,13 @@ public static class Vault
 
     }
 
+    public static class animatorParameter
+    {
+        public const string WalkDirection = "walkDirection";
+        public const string AimDirection = "aimDirection";
+        public const string State = "state";
+    }
+
     public static class key
     {
         public const string ButtonTitle = "_title";
