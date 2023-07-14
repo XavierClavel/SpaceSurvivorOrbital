@@ -94,9 +94,10 @@ public class SkillTree : MonoBehaviour
 
     void AddPanelToDisplay(GameObject panel)
     {
+        Debug.Log(panel.name);
         GameObject newPanel = Instantiate(panel);
         newPanel.transform.SetParent(buttonsContainer.transform);
-        newPanel.transform.SetSiblingIndex(buttonsContainer.transform.childCount - 2);
+        newPanel.transform.SetSiblingIndex(buttonsContainer.transform.childCount - 1);
         RectTransform newPanelRectTransform = newPanel.GetComponent<RectTransform>();
         newPanelRectTransform.localScale = Vector3.one;
         newPanelRectTransform.anchoredPosition3D = new Vector3(newPanelRectTransform.anchoredPosition.x, newPanelRectTransform.anchoredPosition.y, 0f);

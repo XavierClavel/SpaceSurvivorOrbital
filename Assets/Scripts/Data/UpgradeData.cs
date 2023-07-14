@@ -7,8 +7,8 @@ public class UpgradeData : EffectData
     public string name;
     public int costGreen;
     public int costOrange;
-    public List<string> upgradesEnabled;
-    public List<string> upgradesDisabled;
+    public List<string> upgradesEnabled = new List<string>();
+    public List<string> upgradesDisabled = new List<string>();
 
 
 
