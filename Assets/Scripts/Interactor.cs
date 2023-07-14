@@ -131,7 +131,6 @@ public abstract class Interactor : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(transform.eulerAngles.z);
         spriteRenderer.flipY = transform.eulerAngles.z > 90 && transform.eulerAngles.z <= 270;
     }
 }
