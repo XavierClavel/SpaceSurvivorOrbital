@@ -9,7 +9,7 @@ public class UpgradeData : EffectData
     public int costOrange;
     public List<string> upgradesEnabled = new List<string>();
     public List<string> upgradesDisabled = new List<string>();
-
+    public panelTarget type = panelTarget.none;
 
 
 
@@ -30,8 +30,11 @@ public class UpgradeData : EffectData
         SetValue(ref costOrange, Vault.key.upgrade.CostOrange);
         SetValue(ref upgradesEnabled, Vault.key.upgrade.UpgradesEnabled);
         SetValue(ref upgradesDisabled, Vault.key.upgrade.UpgradesDisabled);
+        //SetValue(ref type, Vault.key.upgrade.Type);
 
         ProcessEffects(columnTitles, s);
+
+        //if (type == )
 
 
         DataManager.dictUpgrades.Add(name, this);

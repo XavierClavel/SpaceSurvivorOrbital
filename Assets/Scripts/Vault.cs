@@ -73,6 +73,8 @@ public static class Vault
             public const string CostOrange = "CostOrange";
             public const string UpgradesEnabled = "UpgradesEnabled";
             public const string UpgradesDisabled = "UpgradesDisabled";
+            public const string Type = "Type";
+            public const string AppliesTo = "AppliesTo";
 
             public const string MaxHealth = "MaxHealth";
             public const string BaseSpeed = "BaseSpeed";

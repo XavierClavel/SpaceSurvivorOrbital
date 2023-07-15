@@ -105,6 +105,11 @@ public static class Extensions
         if (!list.Contains(value)) list.Add(value);
     }
 
+    public static void TryAdd<T>(this List<T> list, List<T> values)
+    {
+        list = list.Union(values);
+    }
+
     ///<summary>
     ///Adds an object X times to a list
     ///</summary>
@@ -371,6 +376,14 @@ public class Helpers : MonoBehaviour
     [SerializeField] GameObject debugDisplayPrefab;
     static bool? platformAndroidValue = null;
 
+    public static void KillAllChildren(Transform t)
+    {
+        foreach (Transform child in t)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
     public static void printList<T>(List<T> list)
     {
         foreach (T item in list) Debug.Log(item);
@@ -405,6 +418,11 @@ public class Helpers : MonoBehaviour
         return Quaternion.Euler(0f, 0f, angle);
     }
 
+    public static TEnum ParseEnum<TEnum>(string s)
+    {
+        return (TEnum)Enum.Parse(typeof(TEnum), s, true);
+    }
+
     public static List<string> ParseList(string s)
     {
         string[] values = s.Split(',');
@@ -420,7 +438,7 @@ public class Helpers : MonoBehaviour
     public static Vector2Int ParseVector2Int(string s)
     {
         if (s == "") return Vector2Int.zero;
-        if (!s.Contains('-')) return int.Parse(s.Trim()) * Vector2Int.one;
+        if (!s.Contains('-')) return int.Parse(s) * Vector2Int.one;
         string[] values = s.Split('-');
         int v1 = int.Parse(values[0].Trim());
         int v2 = int.Parse(values[1].Trim());
@@ -435,6 +453,7 @@ public class Helpers : MonoBehaviour
 
     public static T parseString<T>(string s)
     {
+        s = s.Trim();
         try
         {
             switch (System.Type.GetTypeCode(typeof(T)))
@@ -446,11 +465,12 @@ public class Helpers : MonoBehaviour
                     return (T)(object)float.Parse(s, new CultureInfo(Vault.other.cultureInfoFR).NumberFormat);
 
                 case System.TypeCode.String:
-                    return (T)(object)s.Trim();
+                    return (T)(object)s;
 
                 case System.TypeCode.Object:
                     if (typeof(T) == typeof(Vector2Int)) return (T)(object)ParseVector2Int(s);
                     else if (typeof(T) == typeof(List<string>)) return (T)(object)ParseList(s);
+                    else if (typeof(T).IsEnum) return (T)(object)ParseEnum<T>(s);
                     else throw new ArgumentException($"Failed to parse \"{s}\" for variable of type {typeof(T)})");
 
                 default:

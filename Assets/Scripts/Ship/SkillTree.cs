@@ -62,22 +62,10 @@ public class SkillTree : MonoBehaviour
 
     }
 
-    void RemoveChildrenFromList()
-    {
-
-    }
-
-    void KillAllChildren()
-    {
-        foreach (Transform child in buttonsContainer.transform)
-        {
-            Destroy(child.gameObject);
-        }
-    }
 
     void SetupDisplay()
     {
-        KillAllChildren();
+        Helpers.KillAllChildren(buttonsContainer.transform);
         AddPanelToDisplay(treePanelsManager.getCharacterPanel());
         AddPanelToDisplay(treePanelsManager.getWeaponPanel());
         AddPanelToDisplay(treePanelsManager.getToolPanel());
