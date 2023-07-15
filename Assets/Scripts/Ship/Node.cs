@@ -21,27 +21,30 @@ public class Node
     public static List<Node> firstTierNodes = new List<Node>();
 
 
-    public Node(string key, List<string> parentKeys, List<string> childKeys)
+    public Node(string key, List<string> childKeys)
     {
         this.key = key;
-        this.parentKeys = parentKeys;
-        this.childKeys = childKeys;
+        this.childKeys = childKeys.Copy();
 
         dictKeyToNode[key] = this;
     }
 
     public void Initialize()
     {
-        foreach (string s in parentKeys)
-        {
-            parentNodes.Add(dictKeyToNode[s]);
-        }
-
         foreach (string s in childKeys)
         {
             childNodes.Add(dictKeyToNode[s]);
         }
 
+        foreach (Node childNode in childNodes)
+        {
+            childNode.parentNodes.Add(this);
+        }
+
+    }
+
+    public void CheckForParentNodes()
+    {
         if (parentNodes.Count == 0) firstTierNodes.Add(this);
     }
 

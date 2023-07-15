@@ -105,9 +105,10 @@ public static class Extensions
         if (!list.Contains(value)) list.Add(value);
     }
 
-    public static void TryAdd<T>(this List<T> list, List<T> values)
+    public static List<T> TryAdd<T>(this List<T> list, List<T> values)
     {
         list = list.Union(values);
+        return list;
     }
 
     ///<summary>
@@ -375,6 +376,29 @@ public class Helpers : MonoBehaviour
     private static Dictionary<int, TextMeshProUGUI> dictDebugDisplays = new Dictionary<int, TextMeshProUGUI>();
     [SerializeField] GameObject debugDisplayPrefab;
     static bool? platformAndroidValue = null;
+
+
+    public static void SetParent(Transform instance, Transform parent)
+    {
+        instance.transform.SetParent(parent);
+        instance.transform.localScale = Vector3.one;
+        instance.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero;
+    }
+
+    public static void SetParent(GameObject instance, Transform parent)
+    {
+        SetParent(instance.transform, parent);
+    }
+
+    public static void SetParent(GameObject instance, GameObject parent)
+    {
+        SetParent(instance.transform, parent.transform);
+    }
+
+    public static void SetParent(Transform instance, GameObject parent)
+    {
+        SetParent(instance, parent.transform);
+    }
 
     public static void KillAllChildren(Transform t)
     {

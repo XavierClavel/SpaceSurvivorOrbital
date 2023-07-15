@@ -55,6 +55,11 @@ public class SkillButton : TreeButton
         desactivateButton.TryAdd(upgradeName);
     }
 
+    public void setText(string key)
+    {
+        titleText.SetText(key);
+    }
+
 
     protected override bool SpendResources()
     {
