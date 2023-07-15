@@ -71,9 +71,10 @@ public class EffectData
     {
         for (int i = 0; i < s.Count; i++)
         {
-            if (s[i].Trim() != "" && dictKeyToEffect.ContainsKey(columnTitles[i]))
+            string str = s[i].Trim();
+            if (str != "" && dictKeyToEffect.ContainsKey(columnTitles[i]))
             {
-                Process(s[i], dictKeyToEffect[columnTitles[i]]);
+                Process(str, dictKeyToEffect[columnTitles[i]]);
             }
         }
     }
