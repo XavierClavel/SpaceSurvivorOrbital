@@ -33,11 +33,21 @@ public class SkillButton : TreeButton
             target = panelTarget.none;
         }
 
-        LocalizationManager.LocalizeTextField(upgradeName + Vault.key.ButtonTitle, titleText);
-        LocalizationManager.LocalizeTextField(upgradeName + Vault.key.ButtonDescription, descriptionText);
-
         if (upgradeName.IsNullOrEmpty()) return;
-        UpgradeData upgradeData = DataManager.dictUpgrades[upgradeName];
+
+        Initialize(upgradeName);
+    }
+
+    public void Initialize(string key)
+    {
+        button = GetComponent<Button>();
+        image = GetComponent<Image>();
+
+        titleText.SetText(key);
+        LocalizationManager.LocalizeTextField(key + Vault.key.ButtonTitle, titleText);
+        LocalizationManager.LocalizeTextField(key + Vault.key.ButtonDescription, descriptionText);
+
+        UpgradeData upgradeData = DataManager.dictUpgrades[key];
         greenLifeCost = upgradeData.costGreen;
         yellowLifeCost = upgradeData.costOrange;
         effects = upgradeData.effects.Copy();
@@ -52,7 +62,12 @@ public class SkillButton : TreeButton
 
         activateButton = upgradeData.upgradesEnabled;
         desactivateButton = upgradeData.upgradesDisabled;
-        desactivateButton.TryAdd(upgradeName);
+        desactivateButton.TryAdd(key);
+    }
+
+    public void setStatus(skillButtonStatus status)
+    {
+        if (status == skillButtonStatus.locked) button.interactable = false;
     }
 
     public void setText(string key)

@@ -52,6 +52,7 @@ public class DataManager : MonoBehaviour
     public static Dictionary<objects, ObjectData> dictObjects = new Dictionary<objects, ObjectData>();
     public static Dictionary<string, LocalizedString> dictLocalization = new Dictionary<string, LocalizedString>();
     public static Dictionary<string, UpgradeData> dictUpgrades = new Dictionary<string, UpgradeData>();
+    public static Dictionary<string, Dictionary<string, UpgradeData>> dictKeyToDictUpgrades = new Dictionary<string, Dictionary<string, UpgradeData>>();
     [SerializeField] character selectedCharacter = character.Pistolero;
     [SerializeField] weapon selectedWeapon = weapon.Laser;
     [SerializeField] tool selectedTool = tool.None;

@@ -9,7 +9,8 @@ public class UpgradeData : EffectData
     public int costOrange;
     public List<string> upgradesEnabled = new List<string>();
     public List<string> upgradesDisabled = new List<string>();
-    public panelTarget type = panelTarget.none;
+    public string target;
+    public int row;
 
 
 
@@ -30,13 +31,17 @@ public class UpgradeData : EffectData
         SetValue(ref costOrange, Vault.key.upgrade.CostOrange);
         SetValue(ref upgradesEnabled, Vault.key.upgrade.UpgradesEnabled);
         SetValue(ref upgradesDisabled, Vault.key.upgrade.UpgradesDisabled);
-        //SetValue(ref type, Vault.key.upgrade.Type);
+        SetValue(ref target, Vault.key.upgrade.Target);
+        SetValue(ref row, Vault.key.upgrade.Row);
+
+        Debug.Log(target);
 
         ProcessEffects(columnTitles, s);
 
         //if (type == )
 
-
+        if (!DataManager.dictKeyToDictUpgrades.ContainsKey(target)) DataManager.dictKeyToDictUpgrades[target] = new Dictionary<string, UpgradeData>();
+        DataManager.dictKeyToDictUpgrades[target][name] = this;
         DataManager.dictUpgrades.Add(name, this);
     }
 

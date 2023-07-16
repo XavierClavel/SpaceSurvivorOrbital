@@ -60,6 +60,13 @@ public static class Vault
         public const string Key = "Key";
         //TODO : switch from name to key everywhere
 
+        public static class target
+        {
+            public const string Gun = "GUN";
+            public const string Laser = "LASER";
+            public const string Pistolero = "PISTOLERO";
+        }
+
         public static class localization
         {
             public const string EN = "EN";
@@ -73,8 +80,8 @@ public static class Vault
             public const string CostOrange = "CostOrange";
             public const string UpgradesEnabled = "UpgradesEnabled";
             public const string UpgradesDisabled = "UpgradesDisabled";
-            public const string Type = "Type";
-            public const string AppliesTo = "AppliesTo";
+            public const string Target = "Target";
+            public const string Row = "Row";
 
             public const string MaxHealth = "MaxHealth";
             public const string BaseSpeed = "BaseSpeed";

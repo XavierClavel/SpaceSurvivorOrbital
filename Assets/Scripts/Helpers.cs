@@ -107,7 +107,15 @@ public static class Extensions
 
     public static List<T> TryAdd<T>(this List<T> list, List<T> values)
     {
-        list = list.Union(values);
+        if (values == null) return list;
+        foreach (T item in values)
+        {
+            if (!list.Contains(item))
+            {
+                list.Add(item);
+            }
+        }
+        //list = list.Union(values);
         return list;
     }
 
@@ -264,6 +272,21 @@ public static class Extensions
             if (!result.Contains(item))
             {
                 result.Add(item);
+            }
+        }
+        return result;
+    }
+
+    public static List<T> Difference<T>(this List<T> list1, List<T> list2)
+    {
+        List<T> intersection = list1.Intersection(list2);
+        List<T> union = list1.Union(list2);
+        List<T> result = new List<T>();
+        foreach (T item in union)
+        {
+            if (!intersection.Contains(item))
+            {
+                result.TryAdd(item);
             }
         }
         return result;
