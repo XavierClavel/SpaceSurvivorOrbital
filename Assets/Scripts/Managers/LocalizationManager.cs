@@ -9,6 +9,11 @@ public class LocalizationManager : MonoBehaviour
     public static Dictionary<TextMeshProUGUI, LocalizedString> dictDisplayToLocalizedString = new Dictionary<TextMeshProUGUI, LocalizedString>();
     [SerializeField] lang selectedLang;
 
+    public void getLocalizedString(string key)
+    {
+        DataManager.dictLocalization[key].getText();
+    }
+
     private void Start()
     {
         foreach (StringLocalizer stringLocalizer in stringLocalizers) stringLocalizer.Initialize();
@@ -36,7 +41,6 @@ public class LocalizationManager : MonoBehaviour
             Debug.Log($"\"{key}\" is not localized yet.");
             return;
         }
-        //Debug.Log($"\"{key}\" is localized.");
         LocalizedString localizedString = DataManager.dictLocalization[key];
         dictDisplayToLocalizedString.Add(field, localizedString);
         UpdateFieldDisplay(field);

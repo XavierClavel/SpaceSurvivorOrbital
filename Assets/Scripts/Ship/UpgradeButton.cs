@@ -6,15 +6,15 @@ using UnityEngine.UI;
 
 public class UpgradeButton : TreeButton
 {
-    [SerializeField] int upgradePointsCost;
-    [SerializeField] TextMeshProUGUI upgradePointsCostText;
+    int upgradePointsCost;
+    [SerializeField] TextMeshProUGUI upgradePointsCostDisplay;
 
-    protected override void Awake()
+    public override void Initialize(string key)
     {
-        button = GetComponent<Button>();
-        image = GetComponent<Image>();
+        base.Initialize(key);
 
-        upgradePointsCostText.text = upgradePointsCost.ToString();
+        upgradePointsCost = upgradeData.costUpgradePoint;
+        upgradePointsCostDisplay.text = upgradePointsCost.ToString();
     }
 
     protected override bool SpendResources()

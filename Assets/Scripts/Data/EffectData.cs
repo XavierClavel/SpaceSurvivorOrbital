@@ -65,6 +65,12 @@ public class EffectData
         variable = Helpers.parseString<T>(dictColumnToValue[key]);
     }
 
+    protected void TrySetValue<T>(ref T variable, string key)
+    {
+        if (!dictColumnToValue.ContainsKey(key)) return;
+        SetValue(ref variable, key);
+    }
+
 
 
     protected void ProcessEffects(List<string> columnTitles, List<string> s)

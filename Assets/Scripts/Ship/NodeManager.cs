@@ -8,7 +8,7 @@ public class NodeManager : MonoBehaviour
     [SerializeField] Transform gridLayout;
     [SerializeField] GameObject emptyGameObject;
     [SerializeField] SkillButton button;
-    static Dictionary<string, skillButtonStatus> dictKeyToStatus = new Dictionary<string, skillButtonStatus>();
+    public static Dictionary<string, skillButtonStatus> dictKeyToStatus = new Dictionary<string, skillButtonStatus>();
     Dictionary<int, List<Node>> dictTierToPlacedNodes = new Dictionary<int, List<Node>>();
     Dictionary<int, List<Node>> dictTierToNodes = new Dictionary<int, List<Node>>();
     public Dictionary<string, Node> dictKeyToNode = new Dictionary<string, Node>();
@@ -16,6 +16,7 @@ public class NodeManager : MonoBehaviour
     int maxTier = -1;
     Node[,] nodeMatrix;
     int maxRow = -1;
+    [HideInInspector] public GameObject firstSelectedButton;
 
     public static void Reset()
     {
@@ -33,7 +34,7 @@ public class NodeManager : MonoBehaviour
     {
         foreach (UpgradeData upgradeData in DataManager.dictKeyToDictUpgrades[target].Values)
         {
-            new Node(upgradeData.name, upgradeData.upgradesEnabled, upgradeData.row, this);
+            new Node(upgradeData.key, upgradeData.upgradesEnabled, upgradeData.row, this);
         }
     }
 
@@ -152,20 +153,21 @@ public class NodeManager : MonoBehaviour
                 }
                 else
                 {
-                    SetupButton(node);
+                    SkillButton button = SetupButton(node);
+                    if (x == 0 && firstSelectedButton == null) firstSelectedButton = button.gameObject;
                 }
             }
         }
     }
 
-    void SetupButton(Node node)
+    SkillButton SetupButton(Node node)
     {
         SkillButton newButton = Instantiate(button);
         Helpers.SetParent(newButton.transform, gridLayout);
         newButton.Initialize(node.key);
-        newButton.setStatus(getStatus(node));
+        newButton.UpdateStatus(getStatus(node));
 
-        //Initialize button
+        return newButton;
     }
 
     skillButtonStatus getStatus(Node node)

@@ -9,7 +9,7 @@ public abstract class TreeButton : MonoBehaviour
 
     protected List<string> activateButton = new List<string>();
     protected List<string> desactivateButton = new List<string>();
-    public string upgradeName;
+    [HideInInspector] public string key;
     [SerializeField] protected TextMeshProUGUI titleText;
     [SerializeField] protected TextMeshProUGUI descriptionText;
     protected List<Effect> effects = new List<Effect>();
@@ -19,14 +19,25 @@ public abstract class TreeButton : MonoBehaviour
     [HideInInspector] public Button button;
     protected Image image;
     protected delegate void buttonAction();
-    public bool isFirst;
+    protected UpgradeData upgradeData;
 
-    protected virtual void Awake()
+
+    public virtual void Initialize(string key)
     {
         button = GetComponent<Button>();
         image = GetComponent<Image>();
 
-        upgradeName = upgradeName.Trim();
+        titleText.SetText(key);
+        LocalizationManager.LocalizeTextField(key + Vault.key.ButtonTitle, titleText);
+        LocalizationManager.LocalizeTextField(key + Vault.key.ButtonDescription, descriptionText);
+
+        upgradeData = DataManager.dictUpgrades[key];
+
+        effects = upgradeData.effects.Copy();
+
+        activateButton = upgradeData.upgradesEnabled;
+        desactivateButton = upgradeData.upgradesDisabled;
+        desactivateButton.TryAdd(key);
     }
 
 
@@ -62,6 +73,7 @@ public abstract class TreeButton : MonoBehaviour
     public void UpdateStatus(skillButtonStatus status)
     {
         this.status = status;
+        button.interactable = status == skillButtonStatus.unlocked;
         switch (status)
         {
             case skillButtonStatus.bought:

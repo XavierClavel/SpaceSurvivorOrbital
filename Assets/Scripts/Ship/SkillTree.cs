@@ -52,9 +52,8 @@ public class SkillTree : MonoBehaviour
             skillButtonStatuses = new List<skillButtonStatus>();
             foreach (TreeButton skillButton in skillButtons)
             {
-                skillButtonStatus status = skillButton.isFirst ? skillButtonStatus.unlocked : skillButtonStatus.locked;
-                skillButtonStatuses.Add(status);
-                dictNameToButton[skillButton.upgradeName] = skillButton;
+                //skillButtonStatuses.Add(status);
+                dictNameToButton[skillButton.key] = skillButton;
             }
         }
 
@@ -141,6 +140,7 @@ public class SkillTree : MonoBehaviour
     {
         int index = skillButtons.IndexOf(skillButton);
         skillButtonStatuses[index] = newStatus;
+        NodeManager.dictKeyToStatus[skillButton.key] = newStatus;
         skillButton.UpdateStatus(newStatus);
     }
 

@@ -80,6 +80,7 @@ public static class Vault
         {
             public const string CostGreen = "CostGreen";
             public const string CostOrange = "CostOrange";
+            public const string CostUpgradePoint = "CostUpgradePoint";
             public const string UpgradesEnabled = "UpgradesEnabled";
             public const string UpgradesDisabled = "UpgradesDisabled";
             public const string Target = "Target";

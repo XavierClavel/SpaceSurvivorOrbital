@@ -13,89 +13,30 @@ public enum skillButtonStatus { undefined, locked, unlocked, bought }
 public class SkillButton : TreeButton
 {
 
-    int greenLifeCost;
-    int yellowLifeCost;
+    int greenCost;
+    int yellowCost;
 
-    [SerializeField] TextMeshProUGUI greenCostText;
-    [SerializeField] TextMeshProUGUI yellowCostText;
-    panelTarget target;
+    [SerializeField] TextMeshProUGUI greenCostDisplay;
+    [SerializeField] TextMeshProUGUI yellowCostDisplay;
 
-    protected override void Awake()
+    public override void Initialize(string key)
     {
-        base.Awake();
+        base.Initialize(key);
 
-        try
-        {
-            target = GetComponentInParent<SkillTreePanel>().target;
-        }
-        catch
-        {
-            target = panelTarget.none;
-        }
+        greenCost = upgradeData.costGreen;
+        yellowCost = upgradeData.costOrange;
 
-        if (upgradeName.IsNullOrEmpty()) return;
-
-        Initialize(upgradeName);
-    }
-
-    public void Initialize(string key)
-    {
-        button = GetComponent<Button>();
-        image = GetComponent<Image>();
-
-        titleText.SetText(key);
-        LocalizationManager.LocalizeTextField(key + Vault.key.ButtonTitle, titleText);
-        LocalizationManager.LocalizeTextField(key + Vault.key.ButtonDescription, descriptionText);
-
-        UpgradeData upgradeData = DataManager.dictUpgrades[key];
-        greenLifeCost = upgradeData.costGreen;
-        yellowLifeCost = upgradeData.costOrange;
-        effects = upgradeData.effects.Copy();
-
-        foreach (Effect effect in effects)
-        {
-            effect.target = target;
-        }
-
-        greenCostText.text = greenLifeCost.ToString();
-        yellowCostText.text = yellowLifeCost.ToString();
-
-        activateButton = upgradeData.upgradesEnabled;
-        desactivateButton = upgradeData.upgradesDisabled;
-        desactivateButton.TryAdd(key);
-    }
-
-    public void setStatus(skillButtonStatus status)
-    {
-        if (status == skillButtonStatus.locked) button.interactable = false;
-    }
-
-    public void setText(string key)
-    {
-        titleText.SetText(key);
+        greenCostDisplay.SetText(greenCost.ToString());
+        yellowCostDisplay.SetText(yellowCost.ToString());
     }
 
 
     protected override bool SpendResources()
     {
-        if (PlayerManager.amountGreen < greenLifeCost || PlayerManager.amountOrange < yellowLifeCost) return false;
+        if (PlayerManager.amountGreen < greenCost || PlayerManager.amountOrange < yellowCost) return false;
 
-        PlayerManager.SpendResources(greenLifeCost, yellowLifeCost);
+        PlayerManager.SpendResources(greenCost, yellowCost);
         return true;
     }
 
-    public void ActiveRadar()
-    {
-        Execute(PlayerManager.ActivateRadar);
-    }
-
-    public void ActiveShipArrow()
-    {
-        Execute(PlayerManager.ActivateShipArrow);
-    }
-
-    public void ActivateMinerBotAttractor()
-    {
-        Execute(PlayerManager.ActivateMinerBotAttractor);
-    }
 }
