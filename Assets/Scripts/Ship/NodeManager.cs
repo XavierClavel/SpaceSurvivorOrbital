@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NodeManager : MonoBehaviour
 {
-    public string target;
+    [HideInInspector] public string target;
     [SerializeField] Transform gridLayout;
     [SerializeField] GameObject emptyGameObject;
     [SerializeField] SkillButton button;
@@ -23,7 +23,7 @@ public class NodeManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    public void Initialize()
     {
         CreateNodes();
         InitializeNodes();

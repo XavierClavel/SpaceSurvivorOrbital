@@ -65,6 +65,8 @@ public static class Vault
             public const string Gun = "GUN";
             public const string Laser = "LASER";
             public const string Pistolero = "PISTOLERO";
+            public const string Pickaxe = "PICKAXE";
+            public const string Ship = "SHIP";
         }
 
         public static class localization
