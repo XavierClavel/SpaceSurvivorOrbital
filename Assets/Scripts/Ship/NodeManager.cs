@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class NodeManager : MonoBehaviour
 {
-    string target = Vault.key.target.Gun;
+    public string target;
     [SerializeField] Transform gridLayout;
     [SerializeField] GameObject emptyGameObject;
     [SerializeField] SkillButton button;
     static Dictionary<string, skillButtonStatus> dictKeyToStatus = new Dictionary<string, skillButtonStatus>();
     Dictionary<int, List<Node>> dictTierToPlacedNodes = new Dictionary<int, List<Node>>();
     Dictionary<int, List<Node>> dictTierToNodes = new Dictionary<int, List<Node>>();
+    public Dictionary<string, Node> dictKeyToNode = new Dictionary<string, Node>();
+    public List<Node> firstTierNodes = new List<Node>();
     int maxTier = -1;
     Node[,] nodeMatrix;
     int maxRow = -1;
+
+    void Reset()
+    {
+        dictKeyToStatus = new Dictionary<string, skillButtonStatus>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -26,19 +33,19 @@ public class NodeManager : MonoBehaviour
     {
         foreach (UpgradeData upgradeData in DataManager.dictKeyToDictUpgrades[target].Values)
         {
-            new Node(upgradeData.name, upgradeData.upgradesEnabled, upgradeData.row);
+            new Node(upgradeData.name, upgradeData.upgradesEnabled, upgradeData.row, this);
         }
     }
 
     void InitializeNodes()
     {
-        foreach (Node node in Node.dictKeyToNode.Values)
+        foreach (Node node in dictKeyToNode.Values)
         {
             node.Initialize();
             if (node.row > maxRow) maxRow = node.row;
         }
 
-        foreach (Node node in Node.dictKeyToNode.Values)
+        foreach (Node node in dictKeyToNode.Values)
         {
             node.CheckForParentNodes();
         }
@@ -55,7 +62,7 @@ public class NodeManager : MonoBehaviour
 
     void FillDictionary()
     {
-        dictTierToNodes[1] = Node.firstTierNodes;
+        dictTierToNodes[1] = firstTierNodes;
         maxTier = 1;
         while (true)
         {

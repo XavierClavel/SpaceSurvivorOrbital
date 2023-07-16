@@ -12,27 +12,25 @@ public class Node
 
     public List<Node> parentNodes = new List<Node>();
     public List<Node> childNodes = new List<Node>();
-
-    public static Dictionary<string, Node> dictKeyToNode = new Dictionary<string, Node>();
-
-    public static List<Node> firstTierNodes = new List<Node>();
     public Vector2Int position = new Vector2Int();
+    NodeManager nodeManager;
 
 
-    public Node(string key, List<string> childKeys, int row)
+    public Node(string key, List<string> childKeys, int row, NodeManager nodeManager)
     {
         this.key = key;
         this.childKeys = childKeys.Copy();
         this.row = row;
+        this.nodeManager = nodeManager;
 
-        dictKeyToNode[key] = this;
+        nodeManager.dictKeyToNode[key] = this;
     }
 
     public void Initialize()
     {
         foreach (string s in childKeys)
         {
-            childNodes.Add(dictKeyToNode[s]);
+            childNodes.Add(nodeManager.dictKeyToNode[s]);
         }
 
         foreach (Node childNode in childNodes)
@@ -45,7 +43,7 @@ public class Node
     public void CheckForParentNodes()
     {
         if (parentNodes.Count != 0) return;
-        firstTierNodes.Add(this);
+        nodeManager.firstTierNodes.Add(this);
         tier = 1;
     }
 
