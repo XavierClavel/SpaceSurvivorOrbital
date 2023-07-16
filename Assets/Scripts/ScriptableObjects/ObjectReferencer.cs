@@ -10,8 +10,19 @@ public class ObjectReferencer : ScriptableObject
     public Sprite pistolero;
 
     [Header("Weapons")]
-    public Interactor gun;
-    public Interactor laser;
+    public Sprite gun;
+    public Sprite laser;
+
+    [Header("Tools")]
+    public Sprite pickaxe;
+
+    [Header("Ships")]
+    public Sprite ship;
+
+    [Header("Interactors")]
+    public Interactor gunInteractor;
+    public Interactor laserInteractor;
+
 
     public Sprite getSpriteGeneric<TEnum>(int value) where TEnum : struct, IConvertible, IComparable, IFormattable
     {
@@ -28,13 +39,56 @@ public class ObjectReferencer : ScriptableObject
                 return pistolero;
 
             default:
-                throw new System.ArgumentException($"interactor key \"name\" not found");
+                throw new System.ArgumentException($"interactor key \"{key}\" not found");
         }
+    }
+
+    public Sprite getCharacterSprite()
+    {
+        Debug.Log(DataSelector.selectedCharacter);
+        return getCharacterSprite(DataSelector.selectedCharacter);
     }
 
     public Sprite getWeaponSprite(weapon key)
     {
-        return getInteractor(key).GetComponentInChildren<SpriteRenderer>().sprite;
+        switch (key)
+        {
+            case weapon.Gun:
+                return gun;
+
+            case weapon.Laser:
+                return laser;
+
+            default:
+                throw new System.ArgumentException($"interactor key \"{key}\" not found");
+        }
+    }
+
+    public Sprite getWeaponSprite()
+    {
+        return getWeaponSprite(DataSelector.selectedWeapon);
+    }
+
+    public Sprite getToolSprite(tool key)
+    {
+        switch (key)
+        {
+            case tool.Pickaxe:
+                return pickaxe;
+
+            default:
+                throw new System.ArgumentException($"key \"{key}\" not found");
+        }
+    }
+
+    public Sprite getToolSprite()
+    {
+        return getToolSprite(DataSelector.selectedTool);
+    }
+
+    public Sprite getShipSprite()
+    {
+        return ship;
     }
 
     public Interactor getInteractor(weapon key)
@@ -45,10 +99,10 @@ public class ObjectReferencer : ScriptableObject
                 return null;
 
             case weapon.Gun:
-                return gun;
+                return gunInteractor;
 
             case weapon.Laser:
-                return laser;
+                return laserInteractor;
 
             default:
                 throw new System.ArgumentException($"interactor key \"name\" not found");

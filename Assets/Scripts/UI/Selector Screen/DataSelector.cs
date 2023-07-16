@@ -8,9 +8,16 @@ public class DataSelector : MonoBehaviour
 {
     [SerializeField] ObjectReferencer objectReferencer;
     [SerializeField] Button startButton;
-    character selectedCharacter = character.None;
-    weapon selectedWeapon = weapon.None;
-    tool selectedTool = tool.None;
+    public static character selectedCharacter = character.None;
+    public static weapon selectedWeapon = weapon.None;
+    public static tool selectedTool = tool.None;
+
+    public static void Reset()
+    {
+        selectedCharacter = character.None;
+        selectedWeapon = weapon.None;
+        selectedTool = tool.None;
+    }
 
     public void SelectGeneric<TEnum>(int value) where TEnum : struct, IConvertible, IComparable, IFormattable
     {
@@ -21,7 +28,7 @@ public class DataSelector : MonoBehaviour
 
     public void SelectCharacter(character value)
     {
-        this.selectedCharacter = value;
+        selectedCharacter = value;
         if (selectedWeapon != weapon.None) startButton.interactable = true;
     }
 
@@ -32,7 +39,7 @@ public class DataSelector : MonoBehaviour
 
     public void SelectWeapon(weapon value)
     {
-        this.selectedWeapon = value;
+        selectedWeapon = value;
         if (selectedCharacter != character.None) startButton.interactable = true;
     }
 
@@ -43,7 +50,7 @@ public class DataSelector : MonoBehaviour
 
     public void SelectTool(tool value)
     {
-        this.selectedTool = value;
+        selectedTool = value;
         if (selectedCharacter != character.None && selectedWeapon != weapon.None) startButton.interactable = true;
     }
 

@@ -17,7 +17,7 @@ public class NodeManager : MonoBehaviour
     Node[,] nodeMatrix;
     int maxRow = -1;
 
-    void Reset()
+    public static void Reset()
     {
         dictKeyToStatus = new Dictionary<string, skillButtonStatus>();
     }

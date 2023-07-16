@@ -20,7 +20,8 @@ public enum weapon
 
 public enum tool
 {
-    None
+    None,
+    Pickaxe
 }
 
 public enum objects

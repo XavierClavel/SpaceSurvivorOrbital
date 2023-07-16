@@ -7,6 +7,8 @@ public class TitleScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        NodeManager.Reset();
+        DataSelector.Reset();
         PlayerManager.ResetTimer();
     }
 
