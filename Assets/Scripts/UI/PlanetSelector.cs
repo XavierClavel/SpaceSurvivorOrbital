@@ -9,9 +9,11 @@ public class PlanetSelector : MonoBehaviour
 {
     public bool generateRandomPlanets = true;
     public static PlanetSelector instance;
-    public Sprite planetBlue;
-    public Sprite planetBrown;
-    public Sprite planetRed;
+    public Sprite planetMushroom;
+    public Sprite planetIce;
+    public Sprite planetJungle;
+    public Sprite planetDesert;
+    public Sprite planetStorm;
     [SerializeField] GameObject firstSelected;
 
     [Header("Parameters")]

@@ -23,7 +23,7 @@ public class Planet : MonoBehaviour
             planetData.violetScarcity = Helpers.getRandomEnum(planetResourceScarcity.none);
             planetData.orangeScarcity = Helpers.getRandomEnum(planetResourceScarcity.none);
             planetData.greenScarcity = Helpers.getRandomEnum(planetResourceScarcity.none);
-            planetData.type = Helpers.getRandomEnum(planetType.blue);
+            planetData.type = Helpers.getRandomEnum(planetType.mushroom);
             planetData.hasAltar = Helpers.ProbabilisticBool(0.3f);
 
             planetData.difficulty = PlanetSelector.getDifficulty(planetData);
@@ -60,17 +60,23 @@ public class Planet : MonoBehaviour
     {
         switch (planetData.type)
         {
-            case planetType.blue:
-                return PlanetSelector.instance.planetBlue;
+            case planetType.mushroom:
+                return PlanetSelector.instance.planetMushroom;
 
-            case planetType.brown:
-                return PlanetSelector.instance.planetBrown;
+            case planetType.ice:
+                return PlanetSelector.instance.planetMushroom;
 
-            case planetType.red:
-                return PlanetSelector.instance.planetRed;
+            case planetType.jungle:
+                return PlanetSelector.instance.planetJungle;
+
+            case planetType.storm:
+                return PlanetSelector.instance.planetStorm;
+
+            case planetType.desert:
+                return PlanetSelector.instance.planetDesert;
 
             default:
-                return PlanetSelector.instance.planetBlue;
+                return PlanetSelector.instance.planetMushroom;
         }
     }
 
@@ -78,14 +84,20 @@ public class Planet : MonoBehaviour
     {
         switch (planetData.type)
         {
-            case planetType.blue:
-                return new Color32(86, 107, 210, 255);
+            case planetType.ice:
+                return new Color32(206, 223, 229, 255);
 
-            case planetType.red:
-                return new Color32(196, 62, 62, 255);
+            case planetType.mushroom:
+                return new Color32(193, 125, 153, 255);
 
-            case planetType.brown:
-                return new Color32(210, 148, 86, 255);
+            case planetType.desert:
+                return new Color32(193, 125, 153, 255);
+
+            case planetType.jungle:
+                return new Color32(193, 125, 153, 255);
+
+            case planetType.storm:
+                return new Color32(206, 223, 229, 255);
 
             default:
                 return new Color32(92, 106, 147, 255); ;
