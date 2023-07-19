@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public abstract class TreeButton : MonoBehaviour
+public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectHandler
 {
 
     protected List<string> activateButton = new List<string>();
@@ -90,5 +91,19 @@ public abstract class TreeButton : MonoBehaviour
                 image.color = Color.gray;
                 break;
         }
+    }
+
+    // When highlighted with mouse.
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        UpgradeDisplay.DisplayUpgrade(key);
+    }
+
+    // When selected.
+    public void OnSelect(BaseEventData eventData)
+    {
+        UpgradeDisplay.DisplayUpgrade(key);
+        // Do something.
+        // Debug.Log("<color=red>Event:</color> Completed selection.");
     }
 }

@@ -98,9 +98,30 @@ public class DataManager : MonoBehaviour
         if (initializer != null) initializer(stringArray[offset].Split(';').ToList());
         stringArray.RemoveAt(offset);
 
+        List<string> correctedArray = new List<string>();
+        string currentString = "";
+        bool insideComma = false;
+
         foreach (string s in stringArray)
         {
-            formatter(s.Split(';').ToList());
+            currentString += s;
+            if (insideComma) insideComma = s.Count(f => f == '"') % 2 == 0;
+            else insideComma = s.Count(f => f == '"') % 2 == 1;
+
+            if (!insideComma)
+            {
+                currentString = currentString.Trim();
+                correctedArray.Add(currentString);
+                currentString = "";
+            }
+            else currentString += "\n";
+        }
+
+        foreach (string s in correctedArray)
+        {
+            List<string> list = s.Split(';').ToList();
+            //if (s.Trim()[0] == ';') list.Insert(0, "");
+            formatter(list);
         }
     }
 

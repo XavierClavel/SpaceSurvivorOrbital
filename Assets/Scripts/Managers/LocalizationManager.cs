@@ -42,7 +42,7 @@ public class LocalizationManager : MonoBehaviour
             return;
         }
         LocalizedString localizedString = DataManager.dictLocalization[key];
-        dictDisplayToLocalizedString.Add(field, localizedString);
+        dictDisplayToLocalizedString[field] = localizedString;
         UpdateFieldDisplay(field);
 
     }

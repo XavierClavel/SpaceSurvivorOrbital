@@ -25,11 +25,6 @@ public class SkillTree : MonoBehaviour
     {
         eventSystem = EventSystem.current;
 
-        List<TreeButton> removedButtons = buttonsContainer.GetComponentsInChildren<TreeButton>().ToList();
-
-        SetupDisplay();
-
-
         inputActions = new InputMaster();
         inputActions.UI.Navigate.started += ctx => StartCoroutine(nameof(OnNavigate));
         inputActions.UI.Navigate.canceled += ctx => StopCoroutine(nameof(OnNavigate));
@@ -43,35 +38,6 @@ public class SkillTree : MonoBehaviour
 
         if (!PlayerManager.isPlayingWithGamepad) Cursor.visible = true;
 
-    }
-
-
-    void SetupDisplay()
-    {
-        Helpers.KillAllChildren(buttonsContainer.transform);
-        AddPanelToDisplay(treePanelsManager.getCharacterPanel());
-        AddPanelToDisplay(treePanelsManager.getWeaponPanel());
-        AddPanelToDisplay(treePanelsManager.getToolPanel());
-        AddPanelToDisplay(treePanelsManager.getShipPanel());
-
-        GameObject panelPower1 = treePanelsManager.getPower1();
-        GameObject panelPower2 = treePanelsManager.getPower2();
-
-        if (panelPower1 != null) AddPanelToDisplay(panelPower1);
-        if (panelPower2 != null) AddPanelToDisplay(panelPower2);
-
-        AddPanelToDisplay(treePanelsManager.getNext());
-    }
-
-    void AddPanelToDisplay(GameObject panel)
-    {
-        Debug.Log(panel.name);
-        GameObject newPanel = Instantiate(panel);
-        newPanel.transform.SetParent(buttonsContainer.transform);
-        newPanel.transform.SetSiblingIndex(buttonsContainer.transform.childCount - 1);
-        RectTransform newPanelRectTransform = newPanel.GetComponent<RectTransform>();
-        newPanelRectTransform.localScale = Vector3.one;
-        newPanelRectTransform.anchoredPosition3D = new Vector3(newPanelRectTransform.anchoredPosition.x, newPanelRectTransform.anchoredPosition.y, 0f);
     }
 
 
