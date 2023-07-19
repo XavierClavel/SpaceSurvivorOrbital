@@ -182,6 +182,21 @@ public class Effect
         return parameter;
     }
 
+    public void ApplyOperation(ref int parameter)
+    {
+        parameter = ApplyOperation(parameter);
+    }
+
+    public void ApplyOperation(ref float parameter)
+    {
+        parameter = ApplyOperation(parameter);
+    }
+
+    public void ApplyOperation(ref Vector2Int parameter)
+    {
+        parameter = ApplyOperation(parameter);
+    }
+
     public void Unlock()
     {
         List<string> value = Helpers.ParseList(this.value);

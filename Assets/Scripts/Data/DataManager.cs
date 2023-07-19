@@ -83,10 +83,10 @@ public class DataManager : MonoBehaviour
             loadText(data, x => new LocalizedString(x), x => LocalizedString.Initialize(x));
         }
 
-        PlayerManager.setBase();
+        PlayerManager.playerData.character.setBase();
 
-        PlayerManager.setWeapon(dictWeapons[selectedWeapon].interactorStats, objectReferencer.getInteractor(selectedWeapon));
-        if (selectedTool != tool.None) PlayerManager.setTool(dictTools[selectedTool].interactorStats, objectReferencer.getInteractor(selectedTool));
+        PlayerManager.setWeapon(dictWeapons[selectedWeapon].interactorData, objectReferencer.getInteractor(selectedWeapon));
+        if (selectedTool != tool.None) PlayerManager.setTool(dictTools[selectedTool].interactorData, objectReferencer.getInteractor(selectedTool));
     }
 
     void loadText(TextAsset csv, Formatter formatter, Formatter initializer = null, int offset = 0)

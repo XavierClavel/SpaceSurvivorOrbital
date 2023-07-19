@@ -9,8 +9,8 @@ public class ResourcesAttractor : MonoBehaviour
 
     private void Start()
     {
-        attractorZone.radius = PlayerManager.attractorRange;
-        attractorForce = PlayerManager.attractorForce;
+        attractorZone.radius = PlayerManager.playerData.attractor.range;
+        attractorForce = PlayerManager.playerData.attractor.force;
         PlayerController.instance.attractorTransform = transform;
     }
 

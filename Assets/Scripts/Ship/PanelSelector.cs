@@ -37,6 +37,8 @@ public class PanelSelector : MonoBehaviour
             panels.RemoveAt(2);
         }
 
+        NodeManager.dictKeyToButton = new Dictionary<string, TreeButton>();
+
         foreach (NodeManager nodeManager in panels)
         {
             nodeManager.Initialize();

@@ -27,6 +27,8 @@ public abstract class TreeButton : MonoBehaviour
         button = GetComponent<Button>();
         image = GetComponent<Image>();
 
+        this.key = key;
+
         titleText.SetText(key);
         LocalizationManager.LocalizeTextField(key + Vault.key.ButtonTitle, titleText);
         LocalizationManager.LocalizeTextField(key + Vault.key.ButtonDescription, descriptionText);
@@ -61,9 +63,9 @@ public abstract class TreeButton : MonoBehaviour
         if (!SpendResources()) return;
         ResourcesDisplay.UpdateDisplay();
 
-        SkillTree.UpdateList(activateButton, skillButtonStatus.unlocked);
-        SkillTree.UpdateList(desactivateButton, skillButtonStatus.locked);
-        SkillTree.UpdateButton(this, skillButtonStatus.bought);
+        NodeManager.UpdateList(activateButton, skillButtonStatus.unlocked);
+        NodeManager.UpdateList(desactivateButton, skillButtonStatus.locked);
+        NodeManager.UpdateButton(this, skillButtonStatus.bought);
 
         action();
     }

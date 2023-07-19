@@ -20,7 +20,7 @@ public class InteractorHandler : MonoBehaviour
         if (playerInteractor) playerInteractorHandler = this;
 
         weapon = Instantiate(weaponInteractor, transform.position, Quaternion.identity);
-        weapon.Setup(PlayerManager.weaponStats, tool == null);
+        weapon.Setup(PlayerManager.weaponData, tool == null);
         weapon.playerInteractor = playerInteractor;
         if (playerInteractor) weapon.reloadSlider = ObjectManager.instance.reloadSlider;
         weapon.transform.SetParent(rotationAxis);
@@ -31,7 +31,7 @@ public class InteractorHandler : MonoBehaviour
         if (toolInteractor == null) return;
 
         tool = Instantiate(toolInteractor, transform.position, Quaternion.identity);
-        tool.Setup(PlayerManager.toolStats);
+        tool.Setup(PlayerManager.toolData);
         tool.playerInteractor = playerInteractor;
 
         tool.transform.SetParent(rotationAxis);

@@ -13,6 +13,17 @@ public class UpgradeData : EffectData
     public string target;
     public int row;
 
+    static Dictionary<string, panelTarget> dictTargetToPanelTarget = new Dictionary<string, panelTarget> {
+        {Vault.key.target.Pistolero, panelTarget.character},
+
+        {Vault.key.target.Gun, panelTarget.weapon},
+        {Vault.key.target.Laser, panelTarget.weapon},
+
+        {Vault.key.target.Pickaxe, panelTarget.tool},
+
+        {Vault.key.target.Ship, panelTarget.ship}
+    };
+
 
 
     static List<string> columnTitles = new List<string>();
@@ -41,7 +52,7 @@ public class UpgradeData : EffectData
 
         ProcessEffects(columnTitles, s);
 
-        panelTarget pTarget = getTarget();
+        panelTarget pTarget = dictTargetToPanelTarget[target];
 
         foreach (Effect effect in effects)
         {
@@ -52,30 +63,6 @@ public class UpgradeData : EffectData
 
         DataManager.dictKeyToDictUpgrades[target][key] = this;
         DataManager.dictUpgrades.Add(key, this);
-    }
-
-    panelTarget getTarget()
-    {
-        switch (target)
-        {
-            case Vault.key.target.Gun:
-                return panelTarget.weapon;
-
-            case Vault.key.target.Laser:
-                return panelTarget.weapon;
-
-            case Vault.key.target.Pickaxe:
-                return panelTarget.tool;
-
-            case Vault.key.target.Pistolero:
-                return panelTarget.character;
-
-            case Vault.key.target.Ship:
-                return panelTarget.ship;
-
-            default:
-                throw new System.ArgumentException($"Unknown target : {target}");
-        }
     }
 
 

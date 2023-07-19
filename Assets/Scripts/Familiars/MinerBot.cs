@@ -66,7 +66,7 @@ public class MinerBot : MonoBehaviour
         GetComponent<CircleCollider2D>().radius = visionRadius;
         rb = GetComponent<Rigidbody2D>();
 
-        speed = PlayerManager.baseSpeed;
+        speed = PlayerManager.playerData.character.baseSpeed;
 
         SetNewTarget(playerTransform, fullSpeedRadius, Follow, state.transitioning);
 

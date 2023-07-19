@@ -2,39 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractorStats
-{
-    public Vector2Int baseDamage;
-    public int attackSpeed;
-    public float range;
-
-    public float cooldown;
-    public float magazineReloadTime;
-
-    public float criticalChance;
-    public float criticalMultiplier;
-
-    public int magazine;
-    public int projectiles;
-    public float spread;
-
-    public int pierce;
-    public float speedWhileAiming;
-
-    public int dps;
-
-    public void CalculateDPS()
-    {
-        if (cooldown == 0f) dps = baseDamage.Mean();
-        else dps = baseDamage.Mean(); //(int)((float)baseDamage.Mean() / cooldown);
-    }
-
-}
-
 public class InteractorData : EffectData
 {
     public string name;
-    public InteractorStats interactorStats = new InteractorStats();
+    public PlayerData interactorData = new PlayerData();
 
 
     static List<string> columnTitles = new List<string>();
@@ -51,21 +22,21 @@ public class InteractorData : EffectData
         SetDictionary(columnTitles, s);
 
         SetValue(ref name, Vault.key.Name);
-        SetValue(ref interactorStats.baseDamage, Vault.key.upgrade.BaseDamage);
-        SetValue(ref interactorStats.attackSpeed, Vault.key.upgrade.AttackSpeed);
-        SetValue(ref interactorStats.range, Vault.key.upgrade.Range);
-        SetValue(ref interactorStats.cooldown, Vault.key.upgrade.Cooldown);
-        SetValue(ref interactorStats.pierce, Vault.key.upgrade.Pierce);
-        SetValue(ref interactorStats.projectiles, Vault.key.upgrade.Projectiles);
-        SetValue(ref interactorStats.spread, Vault.key.upgrade.Spread);
-        SetValue(ref interactorStats.speedWhileAiming, Vault.key.upgrade.AimingSpeed);
-        SetValue(ref interactorStats.criticalChance, Vault.key.upgrade.CriticalChance);
-        SetValue(ref interactorStats.criticalMultiplier, Vault.key.upgrade.CriticalChance);
-        SetValue(ref interactorStats.magazine, Vault.key.upgrade.Magazine);
-        SetValue(ref interactorStats.magazineReloadTime, Vault.key.upgrade.MagazineCooldown);
-        SetValue(ref interactorStats.dps, "DPS");
+        SetValue(ref interactorData.interactor.baseDamage, Vault.key.upgrade.BaseDamage);
+        SetValue(ref interactorData.interactor.attackSpeed, Vault.key.upgrade.AttackSpeed);
+        SetValue(ref interactorData.interactor.range, Vault.key.upgrade.Range);
+        SetValue(ref interactorData.interactor.cooldown, Vault.key.upgrade.Cooldown);
+        SetValue(ref interactorData.interactor.pierce, Vault.key.upgrade.Pierce);
+        SetValue(ref interactorData.interactor.projectiles, Vault.key.upgrade.Projectiles);
+        SetValue(ref interactorData.interactor.spread, Vault.key.upgrade.Spread);
+        SetValue(ref interactorData.interactor.speedWhileAiming, Vault.key.upgrade.AimingSpeed);
+        SetValue(ref interactorData.interactor.criticalChance, Vault.key.upgrade.CriticalChance);
+        SetValue(ref interactorData.interactor.criticalMultiplier, Vault.key.upgrade.CriticalChance);
+        SetValue(ref interactorData.interactor.magazine, Vault.key.upgrade.Magazine);
+        SetValue(ref interactorData.interactor.magazineReloadTime, Vault.key.upgrade.MagazineCooldown);
+        SetValue(ref interactorData.interactor.dps, "DPS");
 
-        interactorStats.CalculateDPS();
+        interactorData.interactor.CalculateDPS();
 
         if (type == selectorType.weapon)
         {

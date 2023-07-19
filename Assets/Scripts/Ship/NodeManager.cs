@@ -17,13 +17,18 @@ public class NodeManager : MonoBehaviour
     Node[,] nodeMatrix;
     int maxRow = -1;
     [HideInInspector] public GameObject firstSelectedButton;
+    public static Dictionary<string, TreeButton> dictKeyToButton = new Dictionary<string, TreeButton>();
+
+    public void LoadPlanetSelector()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(Vault.scene.PlanetSelector);
+    }
 
     public static void Reset()
     {
         dictKeyToStatus = new Dictionary<string, skillButtonStatus>();
     }
 
-    // Start is called before the first frame update
     public void Initialize()
     {
         CreateNodes();
@@ -154,6 +159,8 @@ public class NodeManager : MonoBehaviour
                 else
                 {
                     SkillButton button = SetupButton(node);
+
+                    dictKeyToButton[node.key] = button;
                     if (x == 0 && firstSelectedButton == null) firstSelectedButton = button.gameObject;
                 }
             }
@@ -252,6 +259,20 @@ public class NodeManager : MonoBehaviour
                 break;
             }
 
+        }
+    }
+
+    public static void UpdateButton(TreeButton skillButton, skillButtonStatus newStatus)
+    {
+        dictKeyToStatus[skillButton.key] = newStatus;
+        skillButton.UpdateStatus(newStatus);
+    }
+
+    public static void UpdateList(List<string> keys, skillButtonStatus newStatus)
+    {
+        foreach (string key in keys)
+        {
+            UpdateButton(NodeManager.dictKeyToButton[key], newStatus);
         }
     }
 

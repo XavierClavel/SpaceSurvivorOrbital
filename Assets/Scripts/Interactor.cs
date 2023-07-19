@@ -56,21 +56,21 @@ public abstract class Interactor : MonoBehaviour
         aimTransform = ObjectManager.instance.armTransform;
     }
 
-    public void Setup(InteractorStats interactorStats, bool dualUse = false)
+    public void Setup(PlayerData interactorData, bool dualUse = false)
     {
-        baseDamage = interactorStats.baseDamage;
-        attackSpeed = interactorStats.attackSpeed;
-        range = interactorStats.range;
-        bulletReloadTime = interactorStats.cooldown;
-        magazineReloadTime = interactorStats.magazineReloadTime;
-        criticalChance = interactorStats.criticalChance;
-        pierce = interactorStats.pierce;
-        speedWhileAiming = interactorStats.speedWhileAiming;
-        magazine = interactorStats.magazine;
-        projectiles = interactorStats.projectiles;
-        spread = interactorStats.spread;
-        cooldown = interactorStats.cooldown;
-        dps = interactorStats.dps;
+        baseDamage = interactorData.interactor.baseDamage;
+        attackSpeed = interactorData.interactor.attackSpeed;
+        range = interactorData.interactor.range;
+        bulletReloadTime = interactorData.interactor.cooldown;
+        magazineReloadTime = interactorData.interactor.magazineReloadTime;
+        criticalChance = interactorData.interactor.criticalChance;
+        pierce = interactorData.interactor.pierce;
+        speedWhileAiming = interactorData.interactor.speedWhileAiming;
+        magazine = interactorData.interactor.magazine;
+        projectiles = interactorData.interactor.projectiles;
+        spread = interactorData.interactor.spread;
+        cooldown = interactorData.interactor.cooldown;
+        dps = interactorData.interactor.dps;
 
         waitCooldown = Helpers.GetWait(cooldown);
         currentMagazine = magazine;
