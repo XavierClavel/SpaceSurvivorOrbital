@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum resourceType { violet, orange, green }
+public enum resourceType { purple, orange, green }
 public class ResourceLayoutManager : MonoBehaviour
 {
     List<Slider> sliders = new List<Slider>();
     resourceType resource;
     [SerializeField] Slider sliderObject;
-    int amountToFill = 30;
+    int amountToFill;
     int sliderIndex = 0;
     bool full = false;
 
@@ -81,7 +81,7 @@ public class ResourceLayoutManager : MonoBehaviour
                 PlayerManager.GatherResourceGreen();
                 break;
 
-            case resourceType.violet:
+            case resourceType.purple:
                 PlayerManager.GatherResourceViolet();
                 PlayerController.ActivateSpaceship();
                 break;
