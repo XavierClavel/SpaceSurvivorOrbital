@@ -8,7 +8,6 @@ public enum power { none, minerBot };
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] GameData gameData;
 
     public static bool activateRadar = false;
     public static bool activateShipArrow = false;
@@ -16,11 +15,6 @@ public class PlayerManager : MonoBehaviour
 
 
     //Static accessors
-
-
-    public static int maxViolet { get; private set; }
-    public static int maxOrange { get; private set; }
-    public static int maxGreen { get; private set; }
 
     public static int fillAmountViolet { get; private set; }
     public static int fillAmountOrange { get; private set; }
@@ -50,9 +44,7 @@ public class PlayerManager : MonoBehaviour
     public static PlayerData weaponData;
     public static PlayerData toolData;
 
-    public static PlayerManager instance;
-
-    public static int amountViolet { get; private set; }
+    public static int amountPurple { get; private set; }
     public static int amountGreen { get; private set; }
     public static int amountOrange { get; private set; }
 
@@ -80,56 +72,53 @@ public class PlayerManager : MonoBehaviour
         toolPrefab = interactor;
     }
 
-    void Awake()
+    void Reset()
     {
-        if (instance == null)
-        {
-            instance = this;
-
-            maxViolet = gameData.maxViolet;
-            maxOrange = gameData.maxOrange;
-            maxGreen = gameData.maxGreen;
-
-            fillAmountViolet = gameData.fillAmountViolet;
-            fillAmountOrange = gameData.fillAmountOrange;
-            fillAmountGreen = gameData.fillAmountGreen;
-
-            invulnerabilityFrameDuration = gameData.invulnerabilityFrameDuration;
-
-            statusEffect = gameData.effect;
+        /*
+        playerData.resources.maxPurple = gameData.maxViolet;
+        playerData.resources.maxOrange = gameData.maxOrange;
+        playerData.resources.maxGreen = gameData.maxGreen;
 
 
-            poisonDamage = gameData.poisonDamage;
-            poisonDuration = gameData.poisonDuration;
-            poisonPeriod = gameData.poisonPeriod;
+        fillAmountViolet = gameData.fillAmountViolet;
+        fillAmountOrange = gameData.fillAmountOrange;
+        fillAmountGreen = gameData.fillAmountGreen;
 
-            fireDamage = gameData.fireDamage;
-            fireDuration = gameData.fireDuration;
-            firePeriod = gameData.firePeriod;
+        invulnerabilityFrameDuration = gameData.invulnerabilityFrameDuration;
 
-            iceSpeedMultiplier = gameData.iceSpeedMultiplier;
-            iceDuration = gameData.iceDuration;
+        statusEffect = gameData.effect;
 
-            minerBotPower = gameData.minerBotPower;
-            mineerBotSpeed = gameData.minerBotSpeed;
 
-            playerData.attractor.force = 4;
-            playerData.attractor.range = 5;
+        poisonDamage = gameData.poisonDamage;
+        poisonDuration = gameData.poisonDuration;
+        poisonPeriod = gameData.poisonPeriod;
 
-            power1 = power.none;
-            power2 = power.none;
+        fireDamage = gameData.fireDamage;
+        fireDuration = gameData.fireDuration;
+        firePeriod = gameData.firePeriod;
 
-            upgradePointsAmount = 0;
+        iceSpeedMultiplier = gameData.iceSpeedMultiplier;
+        iceDuration = gameData.iceDuration;
 
-        }
-        else if (instance != this) Destroy(gameObject);
-        DontDestroyOnLoad(gameObject);
+        minerBotPower = gameData.minerBotPower;
+        mineerBotSpeed = gameData.minerBotSpeed;
+
+        playerData.attractor.force = 4;
+        playerData.attractor.range = 5;
+
+        power1 = power.none;
+        power2 = power.none;
+
+        upgradePointsAmount = 0;
+
+        */
+
     }
 
     public static void GatherResourceGreen() => amountGreen++;
     public static void GatherResourceOrange() => amountOrange++;
 
-    public static void GatherResourceViolet() => amountViolet++;
+    public static void GatherResourceViolet() => amountPurple++;
 
     public static void SetControlMode(bool boolean) => isPlayingWithGamepad = boolean;
 
@@ -172,7 +161,7 @@ public class PlayerManager : MonoBehaviour
 
     public static void ApplyModification(Effect effect)
     {
-
+        Debug.Log(effect.target);
         if (effect.effect == effectType.unlocks) effect.Unlock();
         else getPlayerData(effect.target).ApplyEffect(effect);
     }
@@ -185,7 +174,7 @@ public class PlayerManager : MonoBehaviour
 
     public static void SpendPurple(int costPurple)
     {
-        amountViolet -= costPurple;
+        amountPurple -= costPurple;
     }
 
     public static void ActivateRadar()

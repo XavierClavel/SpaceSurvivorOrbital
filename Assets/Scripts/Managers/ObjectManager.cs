@@ -12,6 +12,7 @@ public class ObjectManager : MonoBehaviour
     [SerializeField] GameObject altarFirstSelected;
     [SerializeField] GameObject loseScreen;
     [SerializeField] GameObject loseScreenFirstSelected;
+    public GameData gameData;
     public Slider reloadSlider;
     public Transform armTransform;
 
@@ -47,7 +48,7 @@ public class ObjectManager : MonoBehaviour
 
     bool Transaction()
     {
-        if (PlayerManager.amountViolet == 0) return false;
+        if (PlayerManager.amountPurple == 0) return false;
         PlayerManager.SpendPurple(1);
         PlayerController.instance.SpendVioletCapsule();
         Destroy(altar.gameObject);

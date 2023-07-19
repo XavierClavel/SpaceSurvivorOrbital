@@ -13,10 +13,12 @@ public class PlayerData
 
     public void ApplyEffect(Effect effect)
     {
+        Debug.Log(effect.effect);
         switch (effect.effect)
         {
             case effectType.maxPurple:
                 effect.ApplyOperation(ref resources.maxPurple);
+                Debug.Log(resources.maxPurple);
                 break;
 
             case effectType.maxOrange:
@@ -102,9 +104,9 @@ public class PlayerData
 
 public class resourcesStats
 {
-    public int maxPurple;
-    public int maxOrange;
-    public int maxGreen;
+    public int maxPurple = 3;
+    public int maxOrange = 3;
+    public int maxGreen = 3;
 }
 
 public class characterStats

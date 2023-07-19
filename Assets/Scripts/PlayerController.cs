@@ -98,10 +98,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject spaceshipIndicator;
 
     //ResourceParameters
-    private int maxViolet;
-    private int maxOrange;
-    private int maxGreen;
-
     public static int fillAmountViolet;
     public static int fillAmountOrange;
     public static int fillAmountGreen;
@@ -215,13 +211,9 @@ public class PlayerController : MonoBehaviour
         radar.SetActive(PlayerManager.activateRadar);
         spaceshipIndicator.SetActive(PlayerManager.activateShipArrow);
 
-        maxViolet = PlayerManager.maxViolet;
-        maxOrange = PlayerManager.maxOrange;
-        maxGreen = PlayerManager.maxGreen;
-
-        fillAmountViolet = PlayerManager.fillAmountViolet;
-        fillAmountOrange = PlayerManager.fillAmountOrange;
-        fillAmountGreen = PlayerManager.fillAmountGreen;
+        fillAmountViolet = ObjectManager.instance.gameData.fillAmountViolet;
+        fillAmountOrange = ObjectManager.instance.gameData.fillAmountOrange;
+        fillAmountGreen = ObjectManager.instance.gameData.fillAmountGreen;
 
         maxHealth = PlayerManager.playerData.character.maxHealth;
         baseSpeed = PlayerManager.playerData.character.baseSpeed;
@@ -234,15 +226,17 @@ public class PlayerController : MonoBehaviour
         cameraTransform = Camera.main.transform;
         soundManager = SoundManager.instance;
 
-        layoutManagerViolet.Setup(maxViolet, fillAmountViolet, resourceType.violet);
-        layoutManagerOrange.Setup(maxOrange, fillAmountOrange, resourceType.orange);
-        layoutManagerGreen.Setup(maxGreen, fillAmountGreen, resourceType.green);
+        Debug.Log(PlayerManager.playerData.resources.maxPurple);
 
-        layoutManagerViolet.FillNSliders(PlayerManager.amountViolet);
+        layoutManagerViolet.Setup(PlayerManager.playerData.resources.maxPurple, fillAmountViolet, resourceType.purple);
+        layoutManagerOrange.Setup(PlayerManager.playerData.resources.maxOrange, fillAmountOrange, resourceType.orange);
+        layoutManagerGreen.Setup(PlayerManager.playerData.resources.maxGreen, fillAmountGreen, resourceType.green);
+
+        layoutManagerViolet.FillNSliders(PlayerManager.amountPurple);
         layoutManagerOrange.FillNSliders(PlayerManager.amountOrange);
         layoutManagerGreen.FillNSliders(PlayerManager.amountGreen);
 
-        if (PlayerManager.amountViolet > 0) ActivateSpaceship();
+        if (PlayerManager.amountPurple > 0) ActivateSpaceship();
 
         invulnerabilityFrameDuration = Helpers.GetWait(PlayerManager.invulnerabilityFrameDuration);
 
