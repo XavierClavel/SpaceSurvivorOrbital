@@ -5,8 +5,8 @@ using UnityEngine;
 public class TilesBankManager : MonoBehaviour
 {
     [Header("Tiles Banks")]
-    [SerializeField] TilesBank bluePlanetBank;
-    [SerializeField] TilesBank brownPlanetBank;
+    [SerializeField] TilesBank icePlanetBank;
+    [SerializeField] TilesBank mushroomPlanetBank;
     [SerializeField] TilesBank redPlanetBank;
 
     [Header("Spaceship")]
