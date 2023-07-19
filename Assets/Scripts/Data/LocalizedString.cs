@@ -16,6 +16,7 @@ public class LocalizedString : EffectData
     public static lang selectedLang = lang.en;
 
     static List<string> columnTitles = new List<string>();
+    static string prevKey = "";
 
     public static void Initialize(List<string> s)
     {
@@ -48,6 +49,23 @@ public class LocalizedString : EffectData
         SetValue(ref string_FR, Vault.key.localization.FR);
 
         DataManager.dictLocalization.Add(s[0], this);
+    }
+
+    public LocalizedString(List<string> s, bool buttonLocalization)
+    {
+        if (s == null || s.Count != columnTitles.Count) return;
+
+        SetDictionary(columnTitles, s);
+
+        SetValue(ref string_EN, Vault.key.localization.EN);
+        SetValue(ref string_FR, Vault.key.localization.FR);
+
+        string key = s[0].Trim();
+
+        string dictKey = key == "" ? prevKey + Vault.key.ButtonDescription : key + Vault.key.ButtonTitle;
+        DataManager.dictLocalization.Add(dictKey, this);
+
+        prevKey = key;
     }
 
 
