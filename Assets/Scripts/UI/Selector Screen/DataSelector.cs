@@ -61,7 +61,7 @@ public class DataSelector : MonoBehaviour
 
     public void Validate()
     {
-        PlayerManager.setWeapon(DataManager.dictWeapons[selectedWeapon].interactorStats, objectReferencer.getInteractor(selectedWeapon));
-        if (selectedTool != tool.None) PlayerManager.setTool(DataManager.dictTools[selectedTool].interactorStats, objectReferencer.getInteractor(selectedTool));
+        PlayerManager.setWeapon(DataManager.dictWeapons[selectedWeapon].interactorData, objectReferencer.getInteractor(selectedWeapon));
+        if (selectedTool != tool.None) PlayerManager.setTool(DataManager.dictTools[selectedTool].interactorData, objectReferencer.getInteractor(selectedTool));
     }
 }

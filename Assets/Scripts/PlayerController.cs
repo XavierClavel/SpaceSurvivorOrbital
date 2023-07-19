@@ -223,10 +223,10 @@ public class PlayerController : MonoBehaviour
         fillAmountOrange = PlayerManager.fillAmountOrange;
         fillAmountGreen = PlayerManager.fillAmountGreen;
 
-        maxHealth = PlayerManager.maxHealth;
-        baseSpeed = PlayerManager.baseSpeed;
+        maxHealth = PlayerManager.playerData.character.maxHealth;
+        baseSpeed = PlayerManager.playerData.character.baseSpeed;
         setSpeed(1f);
-        damageResistanceMultiplier = PlayerManager.damageResistanceMultiplier;
+        damageResistanceMultiplier = PlayerManager.playerData.character.damageResistanceMultiplier;
 
         effect = PlayerManager.statusEffect;
 

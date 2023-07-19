@@ -70,38 +70,32 @@ public class StatDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (effect == effectShow.maxHealth) { showText.text = PlayerManager.maxHealth.ToString(); }
+        if (effect == effectShow.maxHealth) { showText.text = PlayerManager.playerData.character.maxHealth.ToString(); }
 
-        if (effect == effectShow.baseSpeed) { showText.text = PlayerManager.baseSpeed.ToString(); }
+        if (effect == effectShow.baseSpeed) { showText.text = PlayerManager.playerData.character.baseSpeed.ToString(); }
 
-        if (effect == effectShow.damageResistanceMultiplier) { showText.text = PlayerManager.damageResistanceMultiplier.ToString(); }
+        if (effect == effectShow.damageResistanceMultiplier) { showText.text = PlayerManager.playerData.character.damageResistanceMultiplier.ToString(); }
 
-        if (effect == effectShow.baseDamage) { showText.text = PlayerManager.weaponStats.baseDamage.ToString(); }
+        if (effect == effectShow.baseDamage) { showText.text = PlayerManager.weaponData.interactor.baseDamage.ToString(); }
 
-        if (effect == effectShow.attackSpeed) { showText.text = PlayerManager.weaponStats.attackSpeed.ToString(); }
+        if (effect == effectShow.attackSpeed) { showText.text = PlayerManager.weaponData.interactor.attackSpeed.ToString(); }
 
-        if (effect == effectShow.range) { showText.text = PlayerManager.weaponStats.range.ToString(); }
+        if (effect == effectShow.range) { showText.text = PlayerManager.weaponData.interactor.range.ToString(); }
 
-        if (effect == effectShow.bulletReloadTime) { showText.text = PlayerManager.weaponStats.cooldown.ToString(); }
+        if (effect == effectShow.bulletReloadTime) { showText.text = PlayerManager.weaponData.interactor.cooldown.ToString(); }
 
-        if (effect == effectShow.magazineReloadTime) { showText.text = PlayerManager.weaponStats.magazineReloadTime.ToString(); }
+        if (effect == effectShow.magazineReloadTime) { showText.text = PlayerManager.weaponData.interactor.magazineReloadTime.ToString(); }
 
-        if (effect == effectShow.criticalChance) { showText.text = PlayerManager.weaponStats.criticalChance.ToString(); }
+        if (effect == effectShow.criticalChance) { showText.text = PlayerManager.weaponData.interactor.criticalChance.ToString(); }
 
-        if (effect == effectShow.criticalMultiplier) { showText.text = PlayerManager.weaponStats.criticalMultiplier.ToString(); }
+        if (effect == effectShow.criticalMultiplier) { showText.text = PlayerManager.weaponData.interactor.criticalMultiplier.ToString(); }
 
-        if (effect == effectShow.pierce) { showText.text = PlayerManager.weaponStats.pierce.ToString(); }
+        if (effect == effectShow.pierce) { showText.text = PlayerManager.weaponData.interactor.pierce.ToString(); }
 
-        if (effect == effectShow.speed_aimingDemultiplier) { showText.text = PlayerManager.weaponStats.speedWhileAiming.ToString(); }
+        if (effect == effectShow.speed_aimingDemultiplier) { showText.text = PlayerManager.weaponData.interactor.speedWhileAiming.ToString(); }
 
-        if (effect == effectShow.toolPower) { showText.text = PlayerManager.toolPower.ToString(); }
+        if (effect == effectShow.attractorRange) { showText.text = PlayerManager.playerData.attractor.range.ToString(); }
 
-        if (effect == effectShow.toolReloadTime) { showText.text = PlayerManager.toolReloadTime.ToString(); }
-
-        if (effect == effectShow.toolRange) { showText.text = PlayerManager.toolRange.ToString(); }
-
-        if (effect == effectShow.attractorRange) { showText.text = PlayerManager.attractorRange.ToString(); }
-
-        if (effect == effectShow.attractorForce) { showText.text = PlayerManager.attractorForce.ToString(); }
+        if (effect == effectShow.attractorForce) { showText.text = PlayerManager.playerData.attractor.force.ToString(); }
     }
 }

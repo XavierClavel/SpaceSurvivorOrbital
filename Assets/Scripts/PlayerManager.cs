@@ -26,9 +26,6 @@ public class PlayerManager : MonoBehaviour
     public static int fillAmountOrange { get; private set; }
     public static int fillAmountGreen { get; private set; }
 
-    public static int maxHealth { get; set; }
-    public static float baseSpeed { get; private set; }
-    public static float damageResistanceMultiplier { get; private set; }
     public static float invulnerabilityFrameDuration { get; private set; }
 
     public static status statusEffect { get; private set; }
@@ -44,22 +41,14 @@ public class PlayerManager : MonoBehaviour
     public static float iceSpeedMultiplier { get; private set; }
     public static float iceDuration { get; private set; }
 
-
-    public static int toolPower { get; private set; }
-
-    public static float toolReloadTime { get; private set; }
-    public static float toolRange { get; private set; }
-    public static float attractorRange { get; private set; }
-    public static float attractorForce { get; private set; }
-
     public static Interactor weaponPrefab = null;
     public static Interactor toolPrefab = null;
 
     public static int minerBotPower { get; private set; }
     public static float mineerBotSpeed { get; private set; }
 
-    public static InteractorStats weaponStats;
-    public static InteractorStats toolStats;
+    public static PlayerData weaponData;
+    public static PlayerData toolData;
 
     public static PlayerManager instance;
 
@@ -74,25 +63,20 @@ public class PlayerManager : MonoBehaviour
     public static power power2 { get; private set; }
     public static int upgradePointsAmount { get; private set; }
 
-    public static void setBase()
-    {
-        maxHealth = Vault.baseStats.MaxHealth;
-        baseSpeed = Vault.baseStats.Speed;
-        damageResistanceMultiplier = Vault.baseStats.DamageResistance;
-    }
+    public static PlayerData playerData = new PlayerData();
 
 
-    public static void setWeapon(InteractorStats interactorStats, Interactor interactor)
+    public static void setWeapon(PlayerData interactorData, Interactor interactor)
     {
-        weaponStats = interactorStats;
+        weaponData = interactorData;
         weaponPrefab = interactor;
     }
 
 
 
-    public static void setTool(InteractorStats interactorData, Interactor interactor)
+    public static void setTool(PlayerData interactorData, Interactor interactor)
     {
-        toolStats = interactorData;
+        toolData = interactorData;
         toolPrefab = interactor;
     }
 
@@ -129,8 +113,8 @@ public class PlayerManager : MonoBehaviour
             minerBotPower = gameData.minerBotPower;
             mineerBotSpeed = gameData.minerBotSpeed;
 
-            attractorForce = 4;
-            attractorRange = 5;
+            playerData.attractor.force = 4;
+            playerData.attractor.range = 5;
 
             power1 = power.none;
             power2 = power.none;
@@ -165,164 +149,32 @@ public class PlayerManager : MonoBehaviour
         upgradePointsAmount -= amount;
     }
 
+    public static PlayerData getPlayerData(panelTarget target)
+    {
+        switch (target)
+        {
+            case panelTarget.character:
+                return playerData;
+
+            case panelTarget.weapon:
+                return weaponData;
+
+            case panelTarget.tool:
+                return toolData;
+
+            case panelTarget.ship:
+                return playerData;
+
+            default:
+                throw new System.ArgumentException(target.ToString());
+        }
+    }
+
     public static void ApplyModification(Effect effect)
     {
-        InteractorStats interactorStats = null;
-        if (effect.target == panelTarget.weapon) interactorStats = weaponStats;
-        else if (effect.target == panelTarget.tool) interactorStats = toolStats;
 
-        switch (effect.effect)
-        {
-            case effectType.maxPurple:
-                maxViolet = effect.ApplyOperation(maxViolet);
-                break;
-
-            case effectType.maxOrange:
-                maxOrange = effect.ApplyOperation(maxOrange);
-                break;
-
-            case effectType.maxGreen:
-                maxGreen = effect.ApplyOperation(maxGreen);
-                break;
-
-            case effectType.fillAmountViolet:
-                fillAmountViolet = effect.ApplyOperation(fillAmountViolet);
-                break;
-
-            case effectType.fillAmountOrange:
-                fillAmountOrange = effect.ApplyOperation(fillAmountOrange);
-                break;
-
-            case effectType.fillAmountGreen:
-                fillAmountGreen = effect.ApplyOperation(fillAmountGreen);
-                break;
-
-            case effectType.maxHealth:
-                maxHealth = effect.ApplyOperation(maxHealth);
-                break;
-
-            case effectType.baseSpeed:
-                baseSpeed = effect.ApplyOperation(baseSpeed);
-                break;
-
-            case effectType.damageResistanceMultiplier:
-                damageResistanceMultiplier = effect.ApplyOperation(damageResistanceMultiplier);
-                break;
-
-            case effectType.baseDamage:
-                interactorStats.baseDamage = effect.ApplyOperation(interactorStats.baseDamage);
-                break;
-
-            case effectType.attackSpeed:
-                interactorStats.attackSpeed = effect.ApplyOperation(interactorStats.attackSpeed);
-                break;
-
-            case effectType.range:
-                interactorStats.range = effect.ApplyOperation(interactorStats.range);
-                break;
-
-            case effectType.bulletReloadTime:
-                interactorStats.cooldown = effect.ApplyOperation(interactorStats.cooldown);
-                break;
-
-            case effectType.magazineReloadTime:
-                interactorStats.magazineReloadTime = effect.ApplyOperation(interactorStats.magazineReloadTime);
-                break;
-
-            case effectType.criticalChance:
-                interactorStats.criticalChance = effect.ApplyOperation(interactorStats.criticalChance);
-                break;
-
-            case effectType.criticalMultiplier:
-                interactorStats.criticalMultiplier = effect.ApplyOperation(interactorStats.criticalMultiplier);
-                break;
-
-            case effectType.projectiles:
-                interactorStats.projectiles = effect.ApplyOperation(interactorStats.projectiles);
-                break;
-
-            case effectType.spread:
-                interactorStats.spread = effect.ApplyOperation(interactorStats.spread);
-                break;
-
-            case effectType.pierce:
-                interactorStats.pierce = effect.ApplyOperation(interactorStats.pierce);
-                break;
-
-            case effectType.aimingSpeed:
-                interactorStats.speedWhileAiming = effect.ApplyOperation(interactorStats.speedWhileAiming);
-                break;
-
-            case effectType.magazine:
-                interactorStats.magazine = effect.ApplyOperation(interactorStats.magazine);
-                break;
-
-            case effectType.effect:
-                statusEffect = effect.ApplyOperation(statusEffect);
-                break;
-
-            case effectType.poisonDamage:
-                poisonDamage = effect.ApplyOperation(poisonDamage);
-                break;
-
-            case effectType.poisonDuration:
-                poisonDuration = effect.ApplyOperation(poisonDuration);
-                break;
-
-            case effectType.poisonPeriod:
-                poisonPeriod = effect.ApplyOperation(poisonPeriod);
-                break;
-
-            case effectType.fireDamage:
-                fireDamage = effect.ApplyOperation(fireDamage);
-                break;
-
-            case effectType.fireDuration:
-                fireDuration = effect.ApplyOperation(fireDuration);
-                break;
-
-            case effectType.firePeriod:
-                firePeriod = effect.ApplyOperation(firePeriod);
-                break;
-
-            case effectType.toolPower:
-                toolPower = effect.ApplyOperation(toolPower);
-                break;
-
-            case effectType.toolSpeed:
-                toolReloadTime = effect.ApplyOperation(toolReloadTime);
-                break;
-
-            case effectType.toolRange:
-                toolRange = effect.ApplyOperation(toolRange);
-                break;
-
-            case effectType.attractorRange:
-                attractorRange = effect.ApplyOperation(attractorRange);
-                break;
-
-            case effectType.attractorForce:
-                attractorForce = effect.ApplyOperation(attractorForce);
-                break;
-
-            /*
-            case effectType.tool:
-                tool = effect.ApplyOperation(tool);
-                break;
-                */
-
-            case effectType.POWERMinerBotPower:
-                minerBotPower = effect.ApplyOperation(minerBotPower);
-                break;
-
-            case effectType.POWERMinerBotSpeed:
-                mineerBotSpeed = effect.ApplyOperation(mineerBotSpeed);
-                break;
-
-            case effectType.unlocks:
-                effect.Unlock();
-                break;
-        }
+        if (effect.effect == effectType.unlocks) effect.Unlock();
+        else getPlayerData(effect.target).ApplyEffect(effect);
     }
 
     public static void SpendResources(int costGreen, int costOrange)

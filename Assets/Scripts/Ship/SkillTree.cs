@@ -12,16 +12,12 @@ public class SkillTree : MonoBehaviour
     EventSystem eventSystem;
     [SerializeField] TreePanelsManager treePanelsManager;
     static SkillTree instance;
-    public static List<TreeButton> skillButtons = new List<TreeButton>();
-    public static List<skillButtonStatus> skillButtonStatuses;
     [SerializeField] GameObject buttonsContainer;
     [SerializeField] ScrollRect scrollRect;
     RectTransform scrollRectTransform;
     RectTransform contentPanel;
     GameObject previousSelected;
     InputMaster inputActions;
-
-    public static Dictionary<string, TreeButton> dictNameToButton = new Dictionary<string, TreeButton>();
 
 
 
@@ -44,18 +40,6 @@ public class SkillTree : MonoBehaviour
         contentPanel = scrollRect.content;
 
         instance = this;
-        skillButtons = buttonsContainer.GetComponentsInChildren<TreeButton>().ToList();
-        skillButtons.RemoveList(removedButtons);
-
-        if (skillButtonStatuses == null)
-        {
-            skillButtonStatuses = new List<skillButtonStatus>();
-            foreach (TreeButton skillButton in skillButtons)
-            {
-                //skillButtonStatuses.Add(status);
-                dictNameToButton[skillButton.key] = skillButton;
-            }
-        }
 
         if (!PlayerManager.isPlayingWithGamepad) Cursor.visible = true;
 
@@ -138,32 +122,16 @@ public class SkillTree : MonoBehaviour
 
     public static void UpdateButton(TreeButton skillButton, skillButtonStatus newStatus)
     {
-        int index = skillButtons.IndexOf(skillButton);
-        skillButtonStatuses[index] = newStatus;
         NodeManager.dictKeyToStatus[skillButton.key] = newStatus;
         skillButton.UpdateStatus(newStatus);
     }
 
-    public static void UpdateList(List<string> skillButtons, skillButtonStatus newStatus)
+    public static void UpdateList(List<string> keys, skillButtonStatus newStatus)
     {
-        foreach (string skillButton in skillButtons)
+        foreach (string key in keys)
         {
-            UpdateButton(dictNameToButton[skillButton], newStatus);
+            UpdateButton(NodeManager.dictKeyToButton[key], newStatus);
         }
-    }
-
-    private void Start()
-    {
-        for (int i = 0; i < skillButtonStatuses.Count; i++)
-        {
-            skillButtons[i].UpdateStatus(skillButtonStatuses[i]);
-        }
-
-
-        InputManager.setSelectedObject(skillButtons[0].gameObject);
-        eventSystem.SetSelectedGameObject(skillButtons[0].gameObject);
-        eventSystem.firstSelectedGameObject = skillButtons[0].gameObject;
-
     }
 
     private void OnDisable()
