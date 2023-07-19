@@ -5,9 +5,11 @@ using UnityEngine;
 public class TilesBankManager : MonoBehaviour
 {
     [Header("Tiles Banks")]
-    [SerializeField] TilesBank bluePlanetBank;
-    [SerializeField] TilesBank brownPlanetBank;
-    [SerializeField] TilesBank redPlanetBank;
+    [SerializeField] TilesBank icePlanetBank;
+    [SerializeField] TilesBank mushroomPlanetBank;
+    [SerializeField] TilesBank junglePlanetBank;
+    [SerializeField] TilesBank stormPlanetBank;
+    [SerializeField] TilesBank desertPlanetBank;
 
     [Header("Spaceship")]
     [SerializeField] Tile spaceship;
@@ -109,17 +111,23 @@ public class TilesBankManager : MonoBehaviour
     {
         switch (PlanetManager.getType())
         {
-            case planetType.blue:
-                return bluePlanetBank;
+            case planetType.ice:
+                return icePlanetBank;
 
-            case planetType.red:
-                return redPlanetBank;
+            case planetType.mushroom:
+                return mushroomPlanetBank;
 
-            case planetType.brown:
-                return brownPlanetBank;
+            case planetType.desert:
+                return desertPlanetBank;
+
+            case planetType.jungle:
+                return junglePlanetBank;
+
+            case planetType.storm:
+                return stormPlanetBank;
 
             default:
-                return bluePlanetBank;
+                return mushroomPlanetBank;
 
         }
 

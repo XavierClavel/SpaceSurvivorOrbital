@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum planetSize { small, medium, large }
 public enum planetResourceScarcity { none, rare, medium, common }
-public enum planetType { blue, red, brown }
+public enum planetType { ice, mushroom, desert, storm, jungle }
 
 [System.Serializable]
 public class PlanetData
