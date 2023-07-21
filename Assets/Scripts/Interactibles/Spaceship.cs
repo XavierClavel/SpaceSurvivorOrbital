@@ -48,6 +48,7 @@ public class Spaceship : MonoBehaviour, IInteractable
         ObjectManager.spaceshipIndicator.target = transform;
 
         UpdateSpaceship();
+        if (PlayerManager.amountGreen == 0) hasExitedRadius = true;
     }
 
     public void StartInteracting()
@@ -80,6 +81,7 @@ public class Spaceship : MonoBehaviour, IInteractable
         image.gameObject.SetActive(false);
 
         hasExitedRadius = true;
+        Debug.Log(hasExitedRadius);
     }
 
     IEnumerator PrepareLaunch()
