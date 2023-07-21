@@ -153,6 +153,6 @@ public class interactorStats
 
 public class attractorStats
 {
-    public float range;
-    public float force;
+    public float range = 5f;
+    public float force = 5f;
 }

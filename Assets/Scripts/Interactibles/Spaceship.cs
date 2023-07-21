@@ -11,22 +11,43 @@ public class Spaceship : MonoBehaviour, IInteractable
     float factor;
     float fillAmount = 1;
     bool hasExitedRadius = false;
+    [SerializeField] new Collider2D collider;
+    static Spaceship instance;
 
     public void Activate()
     {
-        GetComponent<Collider2D>().enabled = true;
+        ObjectManager.spaceshipIndicator.gameObject.SetActive(true);
+        collider.enabled = true;
+    }
+
+    public void Deactivate()
+    {
+        ObjectManager.spaceshipIndicator.gameObject.SetActive(false);
+        collider.enabled = false;
+    }
+
+    public static void UpdateSpaceship()
+    {
+        if (PlayerManager.amountPurple > 0) instance.Activate();
+        else instance.Deactivate();
     }
 
     private void Awake()
     {
-        GetComponent<Collider2D>().enabled = false;
-        PlayerController.SetupSpaceship(this);
+        instance = this;
+        collider = GetComponent<Collider2D>();
+        collider.enabled = false;
+
     }
 
     private void Start()
     {
         ObjectManager.dictObjectToInteractable.Add(gameObject, this);
         factor = 1f / timeToLaunch;
+
+        ObjectManager.spaceshipIndicator.target = transform;
+
+        UpdateSpaceship();
     }
 
     public void StartInteracting()

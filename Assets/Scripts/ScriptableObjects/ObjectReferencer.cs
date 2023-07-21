@@ -6,6 +6,7 @@ using System;
 [CreateAssetMenu(fileName = "ObjectReferencer", menuName = Vault.other.scriptableObjectMenu + "ObjectReferencer", order = 0)]
 public class ObjectReferencer : ScriptableObject
 {
+
     [Header("Characters")]
     public Sprite pistolero;
 

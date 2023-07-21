@@ -97,11 +97,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public GameObject radar;
     [SerializeField] GameObject spaceshipIndicator;
 
-    //ResourceParameters
-    public static int fillAmountViolet;
-    public static int fillAmountOrange;
-    public static int fillAmountGreen;
-
     public static bool isPlayingWithGamepad = false;
 
 
@@ -149,13 +144,6 @@ public class PlayerController : MonoBehaviour
     public static void SetupSpaceship(Spaceship spaceshipObject)
     {
         spaceship = spaceshipObject;
-    }
-
-    public static void ActivateSpaceship()
-    {
-        spaceship.Activate();
-        instance.spaceshipIndicator.SetActive(true);
-        instance.spaceshipIndicator.GetComponent<ObjectIndicator>().target = spaceship.transform;
     }
 
     public void IncreaseViolet()
@@ -211,10 +199,6 @@ public class PlayerController : MonoBehaviour
         radar.SetActive(PlayerManager.activateRadar);
         spaceshipIndicator.SetActive(PlayerManager.activateShipArrow);
 
-        fillAmountViolet = ObjectManager.instance.gameData.fillAmountViolet;
-        fillAmountOrange = ObjectManager.instance.gameData.fillAmountOrange;
-        fillAmountGreen = ObjectManager.instance.gameData.fillAmountGreen;
-
         maxHealth = PlayerManager.playerData.character.maxHealth;
         baseSpeed = PlayerManager.playerData.character.baseSpeed;
         setSpeed(1f);
@@ -226,17 +210,13 @@ public class PlayerController : MonoBehaviour
         cameraTransform = Camera.main.transform;
         soundManager = SoundManager.instance;
 
-        Debug.Log(PlayerManager.playerData.resources.maxPurple);
-
-        layoutManagerViolet.Setup(PlayerManager.playerData.resources.maxPurple, fillAmountViolet, resourceType.purple);
-        layoutManagerOrange.Setup(PlayerManager.playerData.resources.maxOrange, fillAmountOrange, resourceType.orange);
-        layoutManagerGreen.Setup(PlayerManager.playerData.resources.maxGreen, fillAmountGreen, resourceType.green);
+        layoutManagerViolet.Setup(PlayerManager.playerData.resources.maxPurple, ObjectManager.instance.gameData.fillAmountViolet, resourceType.purple);
+        layoutManagerOrange.Setup(PlayerManager.playerData.resources.maxOrange, ObjectManager.instance.gameData.fillAmountOrange, resourceType.orange);
+        layoutManagerGreen.Setup(PlayerManager.playerData.resources.maxGreen, ObjectManager.instance.gameData.fillAmountGreen, resourceType.green);
 
         layoutManagerViolet.FillNSliders(PlayerManager.amountPurple);
         layoutManagerOrange.FillNSliders(PlayerManager.amountOrange);
         layoutManagerGreen.FillNSliders(PlayerManager.amountGreen);
-
-        if (PlayerManager.amountPurple > 0) ActivateSpaceship();
 
         invulnerabilityFrameDuration = Helpers.GetWait(PlayerManager.invulnerabilityFrameDuration);
 

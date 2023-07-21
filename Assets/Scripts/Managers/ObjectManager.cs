@@ -21,6 +21,7 @@ public class ObjectManager : MonoBehaviour
 
     public static ObjectManager instance;
     public static Altar altar;
+    public static ObjectIndicator spaceshipIndicator;
 
     public static Dictionary<GameObject, Ennemy> dictObjectToEnnemy = new Dictionary<GameObject, Ennemy>();
     public static Dictionary<GameObject, IResource> dictObjectToResource = new Dictionary<GameObject, IResource>();
@@ -51,6 +52,7 @@ public class ObjectManager : MonoBehaviour
         if (PlayerManager.amountPurple == 0) return false;
         PlayerManager.SpendPurple(1);
         PlayerController.instance.SpendVioletCapsule();
+        Spaceship.UpdateSpaceship();
         Destroy(altar.gameObject);
 
         return true;

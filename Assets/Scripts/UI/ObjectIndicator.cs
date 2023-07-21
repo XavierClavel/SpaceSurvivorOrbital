@@ -20,7 +20,11 @@ public class ObjectIndicator : MonoBehaviour
     RectTransform rectTransform;
     new Camera camera;
 
-
+    private void Awake()
+    {
+        ObjectManager.spaceshipIndicator = this;
+        gameObject.SetActive(false);
+    }
 
     private void Start()
     {

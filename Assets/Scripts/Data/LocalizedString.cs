@@ -53,7 +53,6 @@ public class LocalizedString : EffectData
 
     public LocalizedString(List<string> s, bool buttonLocalization)
     {
-        Debug.Log(s.Count);
         if (s == null || s.Count != columnTitles.Count) return;
 
         SetDictionary(columnTitles, s);
@@ -61,19 +60,23 @@ public class LocalizedString : EffectData
         SetValue(ref string_EN, Vault.key.localization.EN);
         SetValue(ref string_FR, Vault.key.localization.FR);
 
-        if (string_EN.First() == '\"') string_EN = string_EN.RemoveFirst();
-        if (string_EN.Last() == '\"') string_EN = string_EN.RemoveLast();
-
-        if (string_FR.First() == '\"') string_FR = string_FR.RemoveFirst();
-        if (string_FR.Last() == '\"') string_FR = string_FR.RemoveLast();
+        RemoveQuotationMarks(ref string_EN);
+        RemoveQuotationMarks(ref string_FR);
 
         string key = s[0].Trim();
 
         string dictKey = key == "" ? prevKey + Vault.key.ButtonDescription : key + Vault.key.ButtonTitle;
-        Debug.Log(dictKey);
         DataManager.dictLocalization.Add(dictKey, this);
 
         prevKey = key;
+    }
+
+    void RemoveQuotationMarks(ref string input)
+    {
+        if (input == null || input.Length < 2) return;
+
+        if (input.First() == '\"') input = input.RemoveFirst();
+        if (input.Last() == '\"') input = input.RemoveLast();
     }
 
 
