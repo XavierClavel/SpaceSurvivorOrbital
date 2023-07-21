@@ -85,22 +85,22 @@ public class Planet : MonoBehaviour
         switch (planetData.type)
         {
             case planetType.ice:
-                return new Color32(206, 223, 229, 255);
+                return PlanetSelector.instance.colorIce;
 
             case planetType.mushroom:
-                return new Color32(193, 125, 153, 255);
+                return PlanetSelector.instance.colorMushroom;
 
             case planetType.desert:
-                return new Color32(193, 125, 153, 255);
+                return PlanetSelector.instance.colorDesert;
 
             case planetType.jungle:
-                return new Color32(193, 125, 153, 255);
+                return PlanetSelector.instance.colorJungle;
 
             case planetType.storm:
-                return new Color32(206, 223, 229, 255);
+                return PlanetSelector.instance.colorStorm;
 
             default:
-                return new Color32(92, 106, 147, 255); ;
+                return PlanetSelector.instance.colorMushroom;
         }
     }
 

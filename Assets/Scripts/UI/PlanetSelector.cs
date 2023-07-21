@@ -9,12 +9,21 @@ public class PlanetSelector : MonoBehaviour
 {
     public bool generateRandomPlanets = true;
     public static PlanetSelector instance;
+    [SerializeField] GameObject firstSelected;
+    [Header("Sprites")]
     public Sprite planetMushroom;
     public Sprite planetIce;
     public Sprite planetJungle;
     public Sprite planetDesert;
     public Sprite planetStorm;
-    [SerializeField] GameObject firstSelected;
+
+    [Header("Background Colors")]
+
+    public Color colorMushroom;
+    public Color colorIce;
+    public Color colorJungle;
+    public Color colorDesert;
+    public Color colorStorm;
 
     [Header("Parameters")]
     [SerializeField] float resourceMultiplier = 0.33f;
