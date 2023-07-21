@@ -35,6 +35,12 @@ public class Bullet : MonoBehaviour
         parSys.Play();
         Helpers.instance.WaitAndKill(0.5f, parSys.gameObject);
 
+        Debug.Log(other.gameObject.name);
+
+        if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer.Obstacles)) Destroy(gameObject);
+
+
+
         if (other.gameObject.CompareTag(Vault.tag.Player)) PlayerController.Hurt(damage);
 
         if (other.gameObject.CompareTag(Vault.tag.Ennemy)) ObjectManager.dictObjectToBreakable[other.gameObject].Hit(damage, effect, critical);
@@ -47,7 +53,7 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (other.gameObject.CompareTag(Vault.tag.Obstacle)) Destroy(gameObject);
+
         currentPierce++;
     }
 

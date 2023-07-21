@@ -18,6 +18,10 @@ public static class Vault
         public const string ResourcesAndEnnemies = "ResourcesAndEnnemies";
         public const string Player = "Player";
         public const string Interactible = "Interactible";
+        public const string Obstacles = "Obstacles";
+        public const string ObstaclesAndEnnemies = "ObstaclesAndEnnemies";
+        public const string ObstaclesAndResources = "ObstaclesAndResources";
+        public const string ObstaclesAndEnnemiesAndResources = "ObstaclesAndEnnemiesAndResources";
     }
 
     public static class tag

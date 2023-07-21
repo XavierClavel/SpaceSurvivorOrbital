@@ -42,13 +42,24 @@ public class Laser : Interactor
                 continue;
             }
 
-            int stopIndex = Mathf.Min(hits.Length, pierce + 1);
-            lineRenderer.SetPosition(1, hits[stopIndex - 1].point);
-            for (int i = 0; i < stopIndex; i++)
-            {
-                HurtEnnemy(hits[i].collider.gameObject);
-            }
+            ApplyRaycast(hits);
         }
+    }
+
+    void ApplyRaycast(RaycastHit2D[] hits)
+    {
+        int stopIndex = Mathf.Min(hits.Length, pierce + 1);
+
+        for (int i = 0; i < stopIndex; i++)
+        {
+            if (hits[i].collider.gameObject.layer == LayerMask.NameToLayer(Vault.layer.Obstacles))
+            {
+                lineRenderer.SetPosition(1, hits[i].point);
+                return;
+            }
+            HurtEnnemy(hits[i].collider.gameObject);
+        }
+        lineRenderer.SetPosition(1, hits[stopIndex - 1].point);
     }
 
     void HurtEnnemy(GameObject go)

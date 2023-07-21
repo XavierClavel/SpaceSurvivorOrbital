@@ -78,20 +78,20 @@ public abstract class Interactor : MonoBehaviour
         this.dualUse = dualUse;
         if (dualUse)
         {
-            currentLayer = Vault.layer.ResourcesAndEnnemies;
-            currentLayerMask = LayerMask.GetMask(Vault.layer.Resources, Vault.layer.Ennemies);
+            currentLayer = Vault.layer.ObstaclesAndEnnemiesAndResources;
+            currentLayerMask = LayerMask.GetMask(Vault.layer.Resources, Vault.layer.Ennemies, Vault.layer.Obstacles);
         }
         else
         {
-            currentLayer = Vault.layer.EnnemiesOnly;
-            currentLayerMask = LayerMask.GetMask(Vault.layer.Ennemies);
+            currentLayer = Vault.layer.ObstaclesAndEnnemies;
+            currentLayerMask = LayerMask.GetMask(Vault.layer.Ennemies, Vault.layer.Obstacles);
         }
     }
 
     public void SwitchMode()
     {
-        currentLayer = currentLayer.Switch(Vault.layer.EnnemiesOnly, Vault.layer.ResourcesOnly);
-        currentLayerMask = currentLayerMask.Switch(LayerMask.GetMask(Vault.layer.Ennemies), LayerMask.GetMask(Vault.layer.Resources));
+        currentLayer = currentLayer.Switch(Vault.layer.ObstaclesAndEnnemies, Vault.layer.ObstaclesAndResources);
+        currentLayerMask = currentLayerMask.Switch(LayerMask.GetMask(Vault.layer.Ennemies, Vault.layer.Obstacles), LayerMask.GetMask(Vault.layer.Resources, Vault.layer.Obstacles));
     }
 
     public virtual void StartUsing()
