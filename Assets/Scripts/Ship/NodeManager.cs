@@ -13,7 +13,7 @@ public class NodeManager : MonoBehaviour
     Dictionary<int, List<Node>> dictTierToNodes = new Dictionary<int, List<Node>>();
     public Dictionary<string, Node> dictKeyToNode = new Dictionary<string, Node>();
     public List<Node> firstTierNodes = new List<Node>();
-    int maxTier = -1;
+    const int maxTier = 4;
     Node[,] nodeMatrix;
     int maxRow = -1;
     [HideInInspector] public GameObject firstSelectedButton;
@@ -69,11 +69,11 @@ public class NodeManager : MonoBehaviour
     void FillDictionary()
     {
         dictTierToNodes[1] = firstTierNodes;
-        maxTier = 1;
+        int tier = 1;
         while (true)
         {
-            if (FillDictionaryTier(maxTier + 1) == 0) break;
-            maxTier++;
+            if (FillDictionaryTier(tier + 1) == 0) break;
+            tier++;
         }
     }
 
@@ -123,6 +123,7 @@ public class NodeManager : MonoBehaviour
 
     void PlaceNode(Node node)
     {
+        Debug.Log($"upgrade : {node.key}, tier : {node.tier}, row : {node.row}");
         nodeMatrix[node.row - 1, node.tier - 1] = node;
     }
 
