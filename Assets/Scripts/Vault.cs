@@ -63,7 +63,14 @@ public static class Vault
         public const string ButtonDescription = "_text";
         public const string Name = "Name";
         public const string Key = "Key";
+        public const string Sprite = "Sprite";
         //TODO : switch from name to key everywhere
+
+        public static class sprite
+        {
+            public const string Sniper = "SNIPER";
+            public const string Shotgun = "SHOTGUN";
+        }
 
         public static class target
         {

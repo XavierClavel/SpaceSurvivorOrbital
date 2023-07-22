@@ -12,6 +12,8 @@ public class ObjectReferencer : ScriptableObject
 
     [Header("Weapons")]
     public Sprite gun;
+    public Sprite sniper;
+    public Sprite shotgun;
     public Sprite laser;
 
     [Header("Tools")]
@@ -22,6 +24,8 @@ public class ObjectReferencer : ScriptableObject
 
     [Header("Interactors")]
     public Interactor gunInteractor;
+    public Interactor sniperInteractor;
+    public Interactor shotgunInteractor;
     public Interactor laserInteractor;
 
 
@@ -108,6 +112,32 @@ public class ObjectReferencer : ScriptableObject
             default:
                 throw new System.ArgumentException($"interactor key \"name\" not found");
         }
+    }
+
+    public Interactor getInteractor(string key)
+    {
+        switch (key)
+        {
+            case Vault.key.sprite.Sniper:
+                return sniperInteractor;
+
+            case Vault.key.sprite.Shotgun:
+                return shotgunInteractor;
+        }
+        throw new System.ArgumentException();
+    }
+
+    public Sprite getSprite(string key)
+    {
+        switch (key)
+        {
+            case Vault.key.sprite.Sniper:
+                return sniper;
+
+            case Vault.key.sprite.Shotgun:
+                return shotgun;
+        }
+        throw new System.ArgumentException();
     }
 
     public Interactor getInteractor(tool key)

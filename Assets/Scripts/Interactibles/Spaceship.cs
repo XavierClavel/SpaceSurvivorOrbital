@@ -81,7 +81,6 @@ public class Spaceship : MonoBehaviour, IInteractable
         image.gameObject.SetActive(false);
 
         hasExitedRadius = true;
-        Debug.Log(hasExitedRadius);
     }
 
     IEnumerator PrepareLaunch()

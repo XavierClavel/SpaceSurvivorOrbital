@@ -35,8 +35,6 @@ public class Bullet : MonoBehaviour
         parSys.Play();
         Helpers.instance.WaitAndKill(0.5f, parSys.gameObject);
 
-        Debug.Log(other.gameObject.name);
-
         if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer.Obstacles)) Destroy(gameObject);
 
 

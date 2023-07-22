@@ -30,6 +30,8 @@ public class EffectData
         {Vault.key.upgrade.AttractorRange, effectType.attractorRange},
         {Vault.key.upgrade.AttractorForce, effectType.attractorForce},
 
+        {Vault.key.Sprite, effectType.weapon},
+
         {Vault.key.upgrade.Unlocks, effectType.unlocks}
     };
 

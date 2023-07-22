@@ -235,9 +235,10 @@ public class Effect
         return parameter;
     }
 
-    public Interactor ApplyOperation(Interactor parameter)
+    public void ApplyOperation(ref Interactor parameter)
     {
-        Interactor value = Helpers.parseString<Interactor>(this.value);
+        Debug.Log("modifying interactor");
+        Interactor value = SkillTree.instance.objectReferencer.getInteractor(this.value.Trim());
         switch (operation)
         {
             case operationType.assignation:
@@ -247,7 +248,6 @@ public class Effect
             default:
                 throw new System.InvalidOperationException();
         }
-        return parameter;
     }
 
 }

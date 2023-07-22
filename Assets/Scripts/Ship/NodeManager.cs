@@ -123,7 +123,6 @@ public class NodeManager : MonoBehaviour
 
     void PlaceNode(Node node)
     {
-        Debug.Log($"upgrade : {node.key}, tier : {node.tier}, row : {node.row}");
         nodeMatrix[node.row - 1, node.tier - 1] = node;
     }
 

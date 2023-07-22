@@ -10,19 +10,19 @@ using DG.Tweening;
 public class SkillTree : MonoBehaviour
 {
     EventSystem eventSystem;
-    [SerializeField] TreePanelsManager treePanelsManager;
-    static SkillTree instance;
-    [SerializeField] GameObject buttonsContainer;
+    public static SkillTree instance;
     [SerializeField] ScrollRect scrollRect;
     RectTransform scrollRectTransform;
     RectTransform contentPanel;
     GameObject previousSelected;
     InputMaster inputActions;
+    public ObjectReferencer objectReferencer;
 
 
 
     private void Awake()
     {
+        /*
         eventSystem = EventSystem.current;
 
         inputActions = new InputMaster();
@@ -33,6 +33,7 @@ public class SkillTree : MonoBehaviour
 
         scrollRectTransform = scrollRect.GetComponent<RectTransform>();
         contentPanel = scrollRect.content;
+        */
 
         instance = this;
 
@@ -86,22 +87,9 @@ public class SkillTree : MonoBehaviour
         }
     }
 
-    public static void UpdateButton(TreeButton skillButton, skillButtonStatus newStatus)
-    {
-        NodeManager.dictKeyToStatus[skillButton.key] = newStatus;
-        skillButton.UpdateStatus(newStatus);
-    }
-
-    public static void UpdateList(List<string> keys, skillButtonStatus newStatus)
-    {
-        foreach (string key in keys)
-        {
-            UpdateButton(NodeManager.dictKeyToButton[key], newStatus);
-        }
-    }
 
     private void OnDisable()
     {
-        inputActions.Disable();
+        //inputActions.Disable();
     }
 }

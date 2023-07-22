@@ -163,6 +163,8 @@ public class PlayerManager : MonoBehaviour
     {
         Debug.Log(effect.target);
         if (effect.effect == effectType.unlocks) effect.Unlock();
+        else if (effect.effect == effectType.weapon) effect.ApplyOperation(ref weaponPrefab);
+        else if (effect.effect == effectType.tool) effect.ApplyOperation(ref toolPrefab);
         else getPlayerData(effect.target).ApplyEffect(effect);
     }
 
