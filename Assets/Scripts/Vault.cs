@@ -38,7 +38,7 @@ public static class Vault
 
     public static class baseStats
     {
-        public const int MaxHealth = 100;
+        public const int MaxHealth = 10;
         public const float Speed = 3.5f;
         public const float DamageResistance = 0;
     }

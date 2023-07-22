@@ -74,8 +74,8 @@ public class PlayerController : MonoBehaviour
     Vector3 targetMoveAmount;
     SoundManager soundManager;
     Vector2 prevMoveDir = Vector2.zero;
-    [SerializeField] Slider healthBar;
-    float _health;
+    LayoutManager healthBar;
+    int _health;
     [SerializeField] Animator animator;
     public Transform arrowTransform;
     Vector2 moveDir;
@@ -114,13 +114,13 @@ public class PlayerController : MonoBehaviour
     static Spaceship spaceship;
 
 
-    float health
+    int health
     {
         get { return _health; }
         set
         {
+            healthBar.SetAmount(value);
             _health = value;
-            healthBar.value = value;
             SoundManager.instance.PlaySfx(transform, sfx.playerHit);
             if (value <= 0) Death();
         }
@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
     public static void Hurt(float amount)
     {
         if (invulnerable) return;
-        instance.health -= amount * (1 - instance.damageResistanceMultiplier);
+        instance.health -= (int)(amount * (1 - instance.damageResistanceMultiplier));
         instance.StartCoroutine(nameof(InvulnerabilityFrame));
     }
 
@@ -209,6 +209,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         cameraTransform = Camera.main.transform;
         soundManager = SoundManager.instance;
+        healthBar = ObjectManager.instance.healthBar;
 
         layoutManagerViolet.Setup(PlayerManager.playerData.resources.maxPurple, ObjectManager.instance.gameData.fillAmountViolet, resourceType.purple);
         layoutManagerOrange.Setup(PlayerManager.playerData.resources.maxOrange, ObjectManager.instance.gameData.fillAmountOrange, resourceType.orange);
@@ -222,8 +223,7 @@ public class PlayerController : MonoBehaviour
 
         _health = maxHealth;
 
-        healthBar.maxValue = maxHealth;
-        healthBar.value = health;
+        healthBar.Setup(maxHealth);
 
         interactorHandler.Initialize(PlayerManager.weaponPrefab, PlayerManager.toolPrefab, ObjectManager.instance.armTransform, true);
 

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ObjectManager : MonoBehaviour
 {
     [Header("UI")]
+    public LayoutManager healthBar;
     [SerializeField] GameObject pauseButton;
     [SerializeField] PauseMenu pauseMenu;
     [SerializeField] GameObject altarUI;
