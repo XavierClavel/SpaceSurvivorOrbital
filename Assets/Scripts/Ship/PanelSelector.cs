@@ -17,11 +17,14 @@ public class PanelSelector : MonoBehaviour
     [SerializeField] tool defaultTool = tool.Pickaxe;
     EventSystem eventSystem;
     InputMaster inputActions;
+    public static PanelSelector instance;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
+
         currentActivePanel = panels[0];
 
         if (DataSelector.selectedCharacter == character.None)   //Default buttons sprites if game launched from ship scene
@@ -71,10 +74,10 @@ public class PanelSelector : MonoBehaviour
         panels[3].target = Vault.key.target.Ship;
     }
 
-    void SetPanelSelectionButtonsSprite()
+    public void SetPanelSelectionButtonsSprite()
     {
         buttons[0].image.sprite = objectReferencer.getCharacterSprite();
-        buttons[1].image.sprite = objectReferencer.getWeaponSprite();
+        buttons[1].image.sprite = PlayerManager.weaponPrefab.spriteRenderer.sprite;
         buttons[2].image.sprite = objectReferencer.getToolSprite();
         buttons[3].image.sprite = objectReferencer.getShipSprite();
     }
