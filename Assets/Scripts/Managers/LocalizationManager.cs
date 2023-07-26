@@ -38,7 +38,7 @@ public class LocalizationManager : MonoBehaviour
     {
         if (!DataManager.dictLocalization.ContainsKey(key))
         {
-            Debug.Log($"\"{key}\" is not localized yet.");
+            Debug.LogWarning($"\"{key}\" is not localized yet.");
             return;
         }
         LocalizedString localizedString = DataManager.dictLocalization[key];

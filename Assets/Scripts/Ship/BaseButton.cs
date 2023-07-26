@@ -21,6 +21,7 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
     protected Image image;
     protected delegate void buttonAction();
     protected UpgradeData upgradeData;
+    ButtonSprite buttonSprite;
 
 
     public virtual void Initialize(string key)
@@ -41,6 +42,12 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
         activateButton = upgradeData.upgradesEnabled;
         desactivateButton = upgradeData.upgradesDisabled;
         desactivateButton.TryAdd(key);
+
+        if (PanelSelector.dictKeyToButtonSprites.ContainsKey(upgradeData.spriteKey))
+        {
+            buttonSprite = PanelSelector.dictKeyToButtonSprites[upgradeData.spriteKey];
+        }
+        else Debug.LogWarning($"sprite key {upgradeData.spriteKey} is not associated with button sprites");
     }
 
 
@@ -77,18 +84,20 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
     {
         this.status = status;
         button.interactable = status == skillButtonStatus.unlocked;
+
+        if (buttonSprite == null) return;
         switch (status)
         {
             case skillButtonStatus.bought:
-                image.color = Color.green;
+                image.sprite = buttonSprite.purchased;
                 break;
 
             case skillButtonStatus.unlocked:
-                image.color = Color.white;
+                image.sprite = buttonSprite.available;
                 break;
 
             case skillButtonStatus.locked:
-                image.color = Color.gray;
+                image.sprite = buttonSprite.locked;
                 break;
         }
     }

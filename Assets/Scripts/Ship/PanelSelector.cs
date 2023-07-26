@@ -18,12 +18,20 @@ public class PanelSelector : MonoBehaviour
     EventSystem eventSystem;
     InputMaster inputActions;
     public static PanelSelector instance;
+    public static Dictionary<string, ButtonSprite> dictKeyToButtonSprites;
 
 
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
+        dictKeyToButtonSprites = new Dictionary<string, ButtonSprite>();
+        ButtonSprite[] buttonSprites = Resources.LoadAll<ButtonSprite>("ButtonSprites/");
+        Debug.Log(buttonSprites.Length);
+        foreach (ButtonSprite buttonSprite in buttonSprites)
+        {
+            dictKeyToButtonSprites[buttonSprite.key] = buttonSprite;
+        }
 
         currentActivePanel = panels[0];
 

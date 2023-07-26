@@ -28,6 +28,14 @@ public class SkillButton : TreeButton
 
         greenCostDisplay.SetText(greenCost.ToString());
         yellowCostDisplay.SetText(yellowCost.ToString());
+
+
+
+        //SpriteState spriteState = new SpriteState();
+        //spriteState.selectedSprite = buttonSprite.selected;
+
+        //button.spriteState;
+
     }
 
 

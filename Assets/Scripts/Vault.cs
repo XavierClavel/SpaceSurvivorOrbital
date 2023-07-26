@@ -97,6 +97,7 @@ public static class Vault
             public const string UpgradesDisabled = "UpgradesDisabled";
             public const string Target = "Target";
             public const string Row = "Row";
+            public const string SpriteKey = "SpriteKey";
 
             public const string MaxHealth = "MaxHealth";
             public const string BaseSpeed = "BaseSpeed";

@@ -12,6 +12,7 @@ public class UpgradeData : EffectData
     public List<string> upgradesDisabled = new List<string>();
     public string target;
     public int row;
+    public string spriteKey = "";
 
     static Dictionary<string, panelTarget> dictTargetToPanelTarget = new Dictionary<string, panelTarget> {
         {Vault.key.target.Pistolero, panelTarget.character},
@@ -43,6 +44,7 @@ public class UpgradeData : EffectData
         SetValue(ref upgradesDisabled, Vault.key.upgrade.UpgradesDisabled);
         SetValue(ref target, Vault.key.upgrade.Target);
         SetValue(ref row, Vault.key.upgrade.Row);
+        SetValue(ref spriteKey, Vault.key.upgrade.SpriteKey);
 
         TrySetValue(ref costGreen, Vault.key.upgrade.CostGreen);
         TrySetValue(ref costOrange, Vault.key.upgrade.CostOrange);
