@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public abstract class Interactor : MonoBehaviour
 {
-    [SerializeField] protected SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     protected Vector2Int baseDamage;
     protected int attackSpeed;
     protected float range;

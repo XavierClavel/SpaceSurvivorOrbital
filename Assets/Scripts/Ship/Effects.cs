@@ -237,7 +237,6 @@ public class Effect
 
     public void ApplyOperation(ref Interactor parameter)
     {
-        Debug.Log("modifying interactor");
         Interactor value = SkillTree.instance.objectReferencer.getInteractor(this.value.Trim());
         switch (operation)
         {
@@ -248,6 +247,7 @@ public class Effect
             default:
                 throw new System.InvalidOperationException();
         }
+        PanelSelector.instance.SetPanelSelectionButtonsSprite();
     }
 
 }

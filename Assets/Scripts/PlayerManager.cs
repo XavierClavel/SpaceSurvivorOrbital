@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public enum power { none, minerBot };
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager
 {
 
     public static bool activateRadar = false;
@@ -38,8 +38,6 @@ public class PlayerManager : MonoBehaviour
     public static Interactor weaponPrefab = null;
     public static Interactor toolPrefab = null;
 
-    public static int minerBotPower { get; private set; }
-    public static float mineerBotSpeed { get; private set; }
 
     public static PlayerData weaponData;
     public static PlayerData toolData;
@@ -74,44 +72,17 @@ public class PlayerManager : MonoBehaviour
 
     void Reset()
     {
-        /*
-        playerData.resources.maxPurple = gameData.maxViolet;
-        playerData.resources.maxOrange = gameData.maxOrange;
-        playerData.resources.maxGreen = gameData.maxGreen;
-
-
-        fillAmountViolet = gameData.fillAmountViolet;
-        fillAmountOrange = gameData.fillAmountOrange;
-        fillAmountGreen = gameData.fillAmountGreen;
-
-        invulnerabilityFrameDuration = gameData.invulnerabilityFrameDuration;
-
-        statusEffect = gameData.effect;
-
-
-        poisonDamage = gameData.poisonDamage;
-        poisonDuration = gameData.poisonDuration;
-        poisonPeriod = gameData.poisonPeriod;
-
-        fireDamage = gameData.fireDamage;
-        fireDuration = gameData.fireDuration;
-        firePeriod = gameData.firePeriod;
-
-        iceSpeedMultiplier = gameData.iceSpeedMultiplier;
-        iceDuration = gameData.iceDuration;
-
-        minerBotPower = gameData.minerBotPower;
-        mineerBotSpeed = gameData.minerBotSpeed;
-
-        playerData.attractor.force = 4;
-        playerData.attractor.range = 5;
-
         power1 = power.none;
         power2 = power.none;
 
         upgradePointsAmount = 0;
+        amountPurple = 0;
+        amountGreen = 0;
+        amountOrange = 0;
 
-        */
+        playerData = new PlayerData();
+        weaponData = new PlayerData();
+        toolData = new PlayerData();
 
     }
 
