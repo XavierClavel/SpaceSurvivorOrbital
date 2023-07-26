@@ -83,7 +83,7 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
     public void UpdateStatus(skillButtonStatus status)
     {
         this.status = status;
-        button.interactable = status == skillButtonStatus.unlocked;
+        //button.interactable = status == skillButtonStatus.unlocked;
 
         if (buttonSprite == null) return;
         switch (status)
@@ -105,7 +105,7 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
     // When highlighted with mouse.
     public void OnPointerEnter(PointerEventData eventData)
     {
-        UpgradeDisplay.DisplayUpgrade(key);
+        //UpgradeDisplay.DisplayUpgrade(key);
     }
 
     // When selected.
