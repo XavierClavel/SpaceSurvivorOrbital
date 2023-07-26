@@ -38,6 +38,12 @@ public class SkillButton : TreeButton
 
     }
 
+    protected override void HideCost()
+    {
+        greenCostDisplay.gameObject.SetActive(false);
+        yellowCostDisplay.gameObject.SetActive(false);
+    }
+
 
     protected override bool SpendResources()
     {

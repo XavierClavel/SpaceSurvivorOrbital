@@ -91,6 +91,7 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
         {
             case skillButtonStatus.bought:
                 image.sprite = buttonSprite.purchased;
+                HideCost();
                 break;
 
             case skillButtonStatus.unlocked:
@@ -102,6 +103,8 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
                 break;
         }
     }
+
+    protected abstract void HideCost();
 
     // When highlighted with mouse.
     public void OnPointerEnter(PointerEventData eventData)

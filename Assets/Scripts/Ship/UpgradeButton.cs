@@ -24,4 +24,9 @@ public class UpgradeButton : TreeButton
         PlayerManager.SpendUpgradePoints(upgradePointsCost);
         return true;
     }
+
+    protected override void HideCost()
+    {
+        upgradePointsCostDisplay.gameObject.SetActive(false);
+    }
 }
