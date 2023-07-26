@@ -53,8 +53,9 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
 
     public void OnClick()
     {
-        Execute(ApplyEffects);
+
     }
+
 
     protected void ApplyEffects()
     {
@@ -112,6 +113,7 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
     public void OnSelect(BaseEventData eventData)
     {
         UpgradeDisplay.DisplayUpgrade(key);
+        UpgradeDisplay.SetupBuyButton(delegate { Execute(ApplyEffects); }, gameObject);
         // Do something.
         // Debug.Log("<color=red>Event:</color> Completed selection.");
     }

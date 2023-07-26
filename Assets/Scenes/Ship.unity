@@ -2135,6 +2135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeTitleDisplay: {fileID: 1372533764}
   upgradeTextDisplay: {fileID: 902015632}
+  buyButton: {fileID: 2021990268}
 --- !u!224 &766071853 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1163319324250803270, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
@@ -5395,7 +5396,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2021990269}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 751286596}
+        m_TargetAssemblyTypeName: UpgradeDisplay, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2021990269
 MonoBehaviour:
   m_ObjectHideFlags: 0
