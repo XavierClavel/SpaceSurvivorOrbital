@@ -11,8 +11,6 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
     protected List<string> activateButton = new List<string>();
     protected List<string> desactivateButton = new List<string>();
     [HideInInspector] public string key;
-    [SerializeField] protected TextMeshProUGUI titleText;
-    [SerializeField] protected TextMeshProUGUI descriptionText;
     protected List<Effect> effects = new List<Effect>();
 
 
@@ -30,10 +28,6 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
         image = GetComponent<Image>();
 
         this.key = key;
-
-        titleText.SetText(key);
-        LocalizationManager.LocalizeTextField(key + Vault.key.ButtonTitle, titleText);
-        LocalizationManager.LocalizeTextField(key + Vault.key.ButtonDescription, descriptionText);
 
         upgradeData = DataManager.dictUpgrades[key];
 

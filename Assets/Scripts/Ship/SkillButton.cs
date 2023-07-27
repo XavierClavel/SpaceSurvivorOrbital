@@ -19,6 +19,10 @@ public class SkillButton : TreeButton
     [SerializeField] TextMeshProUGUI greenCostDisplay;
     [SerializeField] TextMeshProUGUI yellowCostDisplay;
 
+    [SerializeField] GameObject greenCostObject;
+    [SerializeField] GameObject yellowCostObject;
+
+
     public override void Initialize(string key)
     {
         base.Initialize(key);
@@ -28,6 +32,9 @@ public class SkillButton : TreeButton
 
         greenCostDisplay.SetText(greenCost.ToString());
         yellowCostDisplay.SetText(yellowCost.ToString());
+
+        if (greenCost == 0) greenCostObject.SetActive(false);
+        if (yellowCost == 0) yellowCostObject.SetActive(false);
 
 
 
@@ -40,8 +47,8 @@ public class SkillButton : TreeButton
 
     protected override void HideCost()
     {
-        greenCostDisplay.gameObject.SetActive(false);
-        yellowCostDisplay.gameObject.SetActive(false);
+        greenCostObject.SetActive(false);
+        yellowCostObject.SetActive(false);
     }
 
 

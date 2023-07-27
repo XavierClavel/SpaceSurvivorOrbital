@@ -8,6 +8,7 @@ public class UpgradeButton : TreeButton
 {
     int upgradePointsCost;
     [SerializeField] TextMeshProUGUI upgradePointsCostDisplay;
+    [SerializeField] GameObject upgradePointsCostObject;
 
     public override void Initialize(string key)
     {
@@ -27,6 +28,7 @@ public class UpgradeButton : TreeButton
 
     protected override void HideCost()
     {
-        upgradePointsCostDisplay.gameObject.SetActive(false);
+        upgradePointsCostObject.SetActive(false);
     }
+
 }
