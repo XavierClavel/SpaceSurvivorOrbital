@@ -12,6 +12,7 @@ public class ObjectReferencer : ScriptableObject
 
     [Header("Weapons")]
     public Sprite gun;
+    public Sprite doubleGun;
     public Sprite sniper;
     public Sprite shotgun;
     public Sprite laser;
@@ -24,6 +25,7 @@ public class ObjectReferencer : ScriptableObject
 
     [Header("Interactors")]
     public Interactor gunInteractor;
+    public Interactor doubleGunInteractor;
     public Interactor sniperInteractor;
     public Interactor shotgunInteractor;
     public Interactor laserInteractor;
@@ -123,6 +125,9 @@ public class ObjectReferencer : ScriptableObject
 
             case Vault.key.sprite.Shotgun:
                 return shotgunInteractor;
+
+            case Vault.key.sprite.DoubleGun:
+                return doubleGunInteractor;
         }
         throw new System.ArgumentException();
     }
@@ -136,6 +141,9 @@ public class ObjectReferencer : ScriptableObject
 
             case Vault.key.sprite.Shotgun:
                 return shotgun;
+
+            case Vault.key.sprite.DoubleGun:
+                return doubleGun;
         }
         throw new System.ArgumentException();
     }

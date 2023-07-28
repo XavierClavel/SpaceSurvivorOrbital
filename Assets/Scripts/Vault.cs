@@ -70,6 +70,7 @@ public static class Vault
         {
             public const string Sniper = "SNIPER";
             public const string Shotgun = "SHOTGUN";
+            public const string DoubleGun = "DOUBLEGUN";
         }
 
         public static class target
