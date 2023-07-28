@@ -97,6 +97,8 @@ public abstract class Interactor : MonoBehaviour
     public virtual void StartUsing()
     {
         isUsing = true;
+        Debug.Log(isUsing);
+        Debug.Log(reloading);
         if (reloading) return;
         onStartUsing();
         if (cooldown == 0f) return;

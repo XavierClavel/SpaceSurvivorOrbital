@@ -10,7 +10,7 @@ public class LiquidResource : MonoBehaviour, IInteractable
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] new CircleCollider2D collider;
     [Header("Parameters")]
-    [SerializeField] float timeToFill = 2f;
+    [SerializeField] float timeToFill = 10f;
     [SerializeField] float referenceDPS = 50f;
     [SerializeField] Vector2Int resourcesAmount = new Vector2Int(2, 5);
     int nbResources;
@@ -55,6 +55,7 @@ public class LiquidResource : MonoBehaviour, IInteractable
     {
         StopCoroutine(nameof(Interact));
         image.gameObject.SetActive(false);
+        InteractorHandler.playerInteractorHandler.miningPurple = false;
     }
 
     IEnumerator Interact(float dps)
@@ -83,16 +84,21 @@ public class LiquidResource : MonoBehaviour, IInteractable
         RaycastHit2D hit = Physics2D.Raycast(PlayerController.instance.transform.position, ObjectManager.instance.armTransform.right, 99f, interactibleLayer);
         if (hit && hit.collider.gameObject == gameObject)
         {
-            if (!lookingAtRessource) InteractorHandler.playerInteractorHandler.StartMiningPurple();
-            lookingAtRessource = true;
-            return true;
+            if (!lookingAtRessource)
+            {
+                InteractorHandler.playerInteractorHandler.StartMiningPurple();
+                lookingAtRessource = true;
+            }
         }
         else
         {
-            if (lookingAtRessource) InteractorHandler.playerInteractorHandler.StopMiningPurple();
-            lookingAtRessource = false;
-            return false;
+            if (lookingAtRessource)
+            {
+                InteractorHandler.playerInteractorHandler.StopMiningPurple();
+                lookingAtRessource = false;
+            }
         }
+        return lookingAtRessource;
     }
 
 

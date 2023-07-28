@@ -12,7 +12,7 @@ public class InteractorHandler : MonoBehaviour
     PlayerController player;
     public static InteractorHandler playerInteractorHandler;
 
-    bool miningPurple = false;
+    [HideInInspector] public bool miningPurple = false;
 
     public void Initialize(Interactor weaponInteractor, Interactor toolInteractor, Transform rotationAxis, bool playerInteractor = false)
     {
@@ -50,22 +50,25 @@ public class InteractorHandler : MonoBehaviour
     {
         miningPurple = false;
         if (action) StartAction();
+        Debug.Log($"stopped mining purple, action : {action}");
     }
 
 
     public void StartAction()
     {
+        Debug.Log($"Starting action, currently {action}, mining purple {miningPurple}");
         action = true;
         if (miningPurple) return;
         currentInteractor.StartUsing();
         player.setSpeed(currentInteractor.speedWhileAiming);
     }
 
-    public void StopAction(bool actionFalse = true)
+    public void StopAction(bool cancelAction = true)
     {
-        if (actionFalse) action = false;
+        if (cancelAction) action = false;
         currentInteractor.StopUsing();
         player.setSpeed(1f);
+        Debug.Log($"stopped action, action : {action}");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
