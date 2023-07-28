@@ -50,13 +50,11 @@ public class InteractorHandler : MonoBehaviour
     {
         miningPurple = false;
         if (action) StartAction();
-        Debug.Log($"stopped mining purple, action : {action}");
     }
 
 
     public void StartAction()
     {
-        Debug.Log($"Starting action, currently {action}, mining purple {miningPurple}");
         action = true;
         if (miningPurple) return;
         currentInteractor.StartUsing();
@@ -68,7 +66,6 @@ public class InteractorHandler : MonoBehaviour
         if (cancelAction) action = false;
         currentInteractor.StopUsing();
         player.setSpeed(1f);
-        Debug.Log($"stopped action, action : {action}");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
