@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class PanelSelector : MonoBehaviour
 {
     [SerializeField] ObjectReferencer objectReferencer;
+    [SerializeField] SpriteReferencer spriteReferencer;
     [SerializeField] List<NodeManager> panels;
     NodeManager currentActivePanel;
     [SerializeField] List<Button> buttons;
@@ -84,10 +85,10 @@ public class PanelSelector : MonoBehaviour
 
     public void SetPanelSelectionButtonsSprite()
     {
-        buttons[0].image.sprite = objectReferencer.getCharacterSprite();
+        buttons[0].image.sprite = spriteReferencer.getCharacterSprite();
         buttons[1].image.sprite = PlayerManager.weaponPrefab.spriteRenderer.sprite;
-        buttons[2].image.sprite = objectReferencer.getToolSprite();
-        buttons[3].image.sprite = objectReferencer.getShipSprite();
+        buttons[2].image.sprite = spriteReferencer.getToolSprite();
+        buttons[3].image.sprite = spriteReferencer.getShipSprite();
     }
 
     public void SetActivePanel(NodeManager nodeManager)

@@ -12,6 +12,7 @@ public class SelectorLayout : MonoBehaviour
     [SerializeField] DataSelector dataSelector;
     [SerializeField] SelectButton button;
     [SerializeField] ObjectReferencer objectReferencer;
+    [SerializeField] SpriteReferencer spriteReferencer;
     SelectButton selectedButton;
 
     void Start()
@@ -49,7 +50,7 @@ public class SelectorLayout : MonoBehaviour
                 ChangeSelectedButton(newButton);
             };
             newButton.button.onClick.AddListener(action);
-            newButton.button.image.sprite = objectReferencer.getSpriteGeneric<TEnum>(value);
+            newButton.button.image.sprite = spriteReferencer.getSpriteGeneric<TEnum>(value);
         }
     }
 

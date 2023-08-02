@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public enum power { none, minerBot };
+
 
 public class PlayerManager
 {
@@ -49,8 +49,7 @@ public class PlayerManager
     public static bool isPlayingWithGamepad { get; private set; }
     public static int currentTimer { get; set; }
 
-    public static power power1 { get; private set; }
-    public static power power2 { get; private set; }
+    public static List<Power> powers;
     public static int upgradePointsAmount { get; private set; }
 
     public static PlayerData playerData = new PlayerData();
@@ -72,9 +71,6 @@ public class PlayerManager
 
     void Reset()
     {
-        power1 = power.none;
-        power2 = power.none;
-
         upgradePointsAmount = 0;
         amountPurple = 0;
         amountGreen = 0;
@@ -83,7 +79,7 @@ public class PlayerManager
         playerData = new PlayerData();
         weaponData = new PlayerData();
         toolData = new PlayerData();
-
+        powers = new List<Power>();
     }
 
     public static void GatherResourceGreen() => amountGreen++;
@@ -93,10 +89,9 @@ public class PlayerManager
 
     public static void SetControlMode(bool boolean) => isPlayingWithGamepad = boolean;
 
-    public static void AcquirePower(power newPower)
+    public static void AcquirePower(powerType newPower)
     {
-        if (power1 == power.none) power1 = newPower;
-        else if (power2 == power.none) power2 = newPower;
+        powers.Add(new Power(newPower));
     }
 
     public static void AcquireUpgradePoint()
