@@ -28,7 +28,6 @@ public class PanelSelector : MonoBehaviour
         instance = this;
         dictKeyToButtonSprites = new Dictionary<string, ButtonSprite>();
         ButtonSprite[] buttonSprites = Resources.LoadAll<ButtonSprite>("ButtonSprites/");
-        Debug.Log(buttonSprites.Length);
         foreach (ButtonSprite buttonSprite in buttonSprites)
         {
             dictKeyToButtonSprites[buttonSprite.key] = buttonSprite;

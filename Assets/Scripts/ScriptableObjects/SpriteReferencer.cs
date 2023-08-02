@@ -48,7 +48,6 @@ public class SpriteReferencer : ScriptableObject
 
     public Sprite getCharacterSprite()
     {
-        Debug.Log(DataSelector.selectedCharacter);
         return getCharacterSprite(DataSelector.selectedCharacter);
     }
 
