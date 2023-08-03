@@ -7,7 +7,7 @@ public class NodeManager : MonoBehaviour
     [HideInInspector] public string target;
     [SerializeField] Transform gridLayout;
     [SerializeField] GameObject emptyGameObject;
-    [SerializeField] SkillButton button;
+    SkillButton button;
     public static Dictionary<string, skillButtonStatus> dictKeyToStatus = new Dictionary<string, skillButtonStatus>();
     Dictionary<int, List<Node>> dictTierToPlacedNodes = new Dictionary<int, List<Node>>();
     Dictionary<int, List<Node>> dictTierToNodes = new Dictionary<int, List<Node>>();
@@ -31,6 +31,7 @@ public class NodeManager : MonoBehaviour
 
     public void Initialize()
     {
+        button = PanelSelector.instance.button;
         CreateNodes();
         InitializeNodes();
     }

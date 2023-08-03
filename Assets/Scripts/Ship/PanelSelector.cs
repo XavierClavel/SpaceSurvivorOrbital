@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Shapes;
 
 public class PanelSelector : MonoBehaviour
 {
     [SerializeField] ObjectReferencer objectReferencer;
     [SerializeField] SpriteReferencer spriteReferencer;
+    [Header("UI Elements")]
+    public SkillButton button;
+    //public PolyLine line;
     [SerializeField] List<NodeManager> panels;
     NodeManager currentActivePanel;
     [SerializeField] List<Button> buttons;
