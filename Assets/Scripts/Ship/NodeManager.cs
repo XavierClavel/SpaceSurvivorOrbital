@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Shapes;
 
 public class NodeManager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class NodeManager : MonoBehaviour
     int maxRow = -1;
     [HideInInspector] public GameObject firstSelectedButton;
     public static Dictionary<string, TreeButton> dictKeyToButton = new Dictionary<string, TreeButton>();
+    RectTransform panelRect;
 
     public void LoadPlanetSelector()
     {
@@ -31,6 +33,7 @@ public class NodeManager : MonoBehaviour
 
     public void Initialize()
     {
+        panelRect = GetComponent<RectTransform>();
         button = PanelSelector.instance.button;
         CreateNodes();
         InitializeNodes();
@@ -64,7 +67,7 @@ public class NodeManager : MonoBehaviour
 
 
         CreateButtons();
-
+        CreateLinks();
     }
 
     void FillDictionary()
@@ -168,10 +171,52 @@ public class NodeManager : MonoBehaviour
         }
     }
 
+    void CreateLinks()
+    {
+        Debug.Log("creating links");
+        Debug.Log(gameObject.activeInHierarchy);
+        StartCoroutine(nameof(CreateLinksCoroutine));
+    }
+
+    IEnumerator CreateLinksCoroutine()
+    {
+        yield return null;
+        Debug.Log("start coroutine");
+        Debug.Log(dictKeyToNode.Count);
+        foreach (Node parentNode in dictKeyToNode.Values)
+        {
+            Debug.Log(parentNode.childNodes.Count);
+            foreach (Node childNode in parentNode.childNodes)
+            {
+                Polyline polyline = Instantiate(PanelSelector.instance.line);
+                polyline.transform.SetParent(transform);
+                polyline.transform.localScale = Vector3.one;
+                polyline.transform.position = Vector3.zero;
+
+
+
+                Vector3 startPoint = panelRect.InverseTransformPoint(dictKeyToButton[parentNode.key].GetComponent<RectTransform>().position);
+                startPoint.z = -1;
+                Vector3 endPoint = panelRect.InverseTransformPoint(dictKeyToButton[childNode.key].GetComponent<RectTransform>().position);
+                endPoint.z = -1;
+                Vector3 middlePoint = new Vector3((endPoint.x + startPoint.x) * 0.5f, endPoint.y, endPoint.z);
+
+                polyline.SetPointPosition(0, startPoint);
+                polyline.SetPointPosition(1, middlePoint);
+                polyline.SetPointPosition(2, endPoint);
+                polyline.meshOutOfDate = true;
+                Debug.Log(startPoint);
+
+                polyline.GetComponent<RectTransform>().anchoredPosition3D = 10 * Vector3.back;
+            }
+        }
+        PanelSelector.PanelInitialized();
+    }
+
     SkillButton SetupButton(Node node)
     {
         SkillButton newButton = Instantiate(button);
-        Helpers.SetParent(newButton.transform, gridLayout);
+        Helpers.SetParent(newButton.transform, gridLayout, -2);
         newButton.Initialize(node.key);
         newButton.UpdateStatus(getStatus(node));
 

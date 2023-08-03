@@ -401,11 +401,12 @@ public class Helpers : MonoBehaviour
     static bool? platformAndroidValue = null;
 
 
-    public static void SetParent(Transform instance, Transform parent)
+    public static void SetParent(Transform instance, Transform parent, int z = 0)
     {
         instance.transform.SetParent(parent);
         instance.transform.localScale = Vector3.one;
-        instance.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero;
+        instance.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero + z * Vector3.forward;
+
     }
 
     public static void SetParent(GameObject instance, Transform parent)

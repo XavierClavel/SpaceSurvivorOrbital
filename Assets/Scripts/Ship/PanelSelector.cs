@@ -11,7 +11,7 @@ public class PanelSelector : MonoBehaviour
     [SerializeField] SpriteReferencer spriteReferencer;
     [Header("UI Elements")]
     public SkillButton button;
-    //public PolyLine line;
+    public Polyline line;
     [SerializeField] List<NodeManager> panels;
     NodeManager currentActivePanel;
     [SerializeField] List<Button> buttons;
@@ -24,11 +24,13 @@ public class PanelSelector : MonoBehaviour
     InputMaster inputActions;
     public static PanelSelector instance;
     public static Dictionary<string, ButtonSprite> dictKeyToButtonSprites;
+    static int nbPanelsInitialized = 0;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        nbPanelsInitialized = 0;
         instance = this;
         dictKeyToButtonSprites = new Dictionary<string, ButtonSprite>();
         ButtonSprite[] buttonSprites = Resources.LoadAll<ButtonSprite>("ButtonSprites/");
@@ -57,7 +59,6 @@ public class PanelSelector : MonoBehaviour
         foreach (NodeManager nodeManager in panels)
         {
             nodeManager.Initialize();
-            nodeManager.gameObject.SetActive(nodeManager == currentActivePanel);
         }
 
         SetPanelsTarget();
@@ -76,6 +77,16 @@ public class PanelSelector : MonoBehaviour
         inputActions.UI.Navigate.performed += xtc => UpdateDisplay();
         inputActions.Enable();
         µ*/
+    }
+
+    public static void PanelInitialized()
+    {
+        nbPanelsInitialized++;
+        if (nbPanelsInitialized < instance.panels.Count) return;
+        foreach (NodeManager nodeManager in instance.panels)
+        {
+            nodeManager.gameObject.SetActive(nodeManager == instance.currentActivePanel);
+        }
     }
 
     void SetPanelsTarget()
