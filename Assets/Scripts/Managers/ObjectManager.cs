@@ -50,12 +50,7 @@ public class ObjectManager : MonoBehaviour
 
     bool Transaction()
     {
-        if (PlayerManager.amountPurple == 0) return false;
-        PlayerManager.SpendPurple(1);
-        PlayerController.instance.SpendVioletCapsule();
-        Spaceship.UpdateSpaceship();
         Destroy(altar.gameObject);
-
         return true;
     }
 

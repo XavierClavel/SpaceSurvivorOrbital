@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum resourceType { purple, orange, green }
+public enum resourceType { orange, green }
 public class ResourceLayoutManager : MonoBehaviour
 {
     List<Slider> sliders = new List<Slider>();
@@ -81,10 +81,6 @@ public class ResourceLayoutManager : MonoBehaviour
                 PlayerManager.GatherResourceGreen();
                 break;
 
-            case resourceType.purple:
-                PlayerManager.GatherResourceViolet();
-                Spaceship.UpdateSpaceship();
-                break;
         }
     }
 

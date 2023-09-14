@@ -72,7 +72,6 @@ public class LiquidResource : MonoBehaviour, IInteractable
             if (value != currentIncrement)
             {
                 currentIncrement = value;
-                PlayerController.instance.IncreaseViolet();
             }
             image.fillAmount = fillAmount;
         }

@@ -31,7 +31,6 @@ public static class Vault
         public const string Resource = "Resource";
         public const string Obstacle = "Obstacle";
 
-        public const string PurpleCollectible = "VioletCollectible";
         public const string GreenCollectible = "GreenCollectible";
         public const string OrangeCollectible = "OrangeCollectible";
     }

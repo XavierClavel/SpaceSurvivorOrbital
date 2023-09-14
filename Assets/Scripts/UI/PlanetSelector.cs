@@ -42,7 +42,6 @@ public class PlanetSelector : MonoBehaviour
 
     public void SelectPlanet(Planet planet)
     {
-        PlayerManager.SpendPurple(1);
         PlanetManager.setData(planet.planetData);
         SceneManager.LoadScene(Vault.scene.Planet);
     }

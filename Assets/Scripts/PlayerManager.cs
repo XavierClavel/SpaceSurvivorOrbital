@@ -16,10 +16,6 @@ public class PlayerManager
 
     //Static accessors
 
-    public static int fillAmountViolet { get; private set; }
-    public static int fillAmountOrange { get; private set; }
-    public static int fillAmountGreen { get; private set; }
-
     public static float invulnerabilityFrameDuration { get; private set; }
 
     public static status statusEffect { get; private set; }
@@ -42,7 +38,6 @@ public class PlayerManager
     public static PlayerData weaponData;
     public static PlayerData toolData;
 
-    public static int amountPurple { get; private set; }
     public static int amountGreen { get; private set; }
     public static int amountOrange { get; private set; }
 
@@ -72,7 +67,6 @@ public class PlayerManager
     void Reset()
     {
         upgradePointsAmount = 0;
-        amountPurple = 0;
         amountGreen = 0;
         amountOrange = 0;
 
@@ -85,7 +79,6 @@ public class PlayerManager
     public static void GatherResourceGreen() => amountGreen++;
     public static void GatherResourceOrange() => amountOrange++;
 
-    public static void GatherResourceViolet() => amountPurple++;
 
     public static void SetControlMode(bool boolean) => isPlayingWithGamepad = boolean;
 
@@ -152,11 +145,6 @@ public class PlayerManager
     {
         amountGreen -= costGreen;
         amountOrange -= costOrange;
-    }
-
-    public static void SpendPurple(int costPurple)
-    {
-        amountPurple -= costPurple;
     }
 
     public static void ActivateRadar()

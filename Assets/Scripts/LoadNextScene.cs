@@ -15,7 +15,6 @@ public class LoadNextScene : MonoBehaviour
 
     public void OnClickPlanet()
     {
-        PlayerManager.SpendPurple(1);
         SceneManager.LoadScene(text);
     }
 

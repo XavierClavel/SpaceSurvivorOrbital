@@ -81,7 +81,6 @@ public class PlayerController : MonoBehaviour
     Vector2 moveDir;
 
     [Header("UI")]
-    [SerializeField] ResourceLayoutManager layoutManagerViolet;
     [SerializeField] ResourceLayoutManager layoutManagerOrange;
     [SerializeField] ResourceLayoutManager layoutManagerGreen;
     public LayoutManager bulletsLayoutManager;
@@ -146,16 +145,6 @@ public class PlayerController : MonoBehaviour
         spaceship = spaceshipObject;
     }
 
-    public void IncreaseViolet()
-    {
-        layoutManagerViolet.AddResource();
-    }
-
-    public void SpendVioletCapsule()
-    {
-        layoutManagerViolet.EmptySlider();
-    }
-
     public void IncreaseOrange()
     {
         layoutManagerOrange.AddResource();
@@ -211,11 +200,9 @@ public class PlayerController : MonoBehaviour
         soundManager = SoundManager.instance;
         healthBar = ObjectManager.instance.healthBar;
 
-        layoutManagerViolet.Setup(PlayerManager.playerData.resources.maxPurple, ObjectManager.instance.gameData.fillAmountViolet, resourceType.purple);
         layoutManagerOrange.Setup(PlayerManager.playerData.resources.maxOrange, ObjectManager.instance.gameData.fillAmountOrange, resourceType.orange);
         layoutManagerGreen.Setup(PlayerManager.playerData.resources.maxGreen, ObjectManager.instance.gameData.fillAmountGreen, resourceType.green);
 
-        layoutManagerViolet.FillNSliders(PlayerManager.amountPurple);
         layoutManagerOrange.FillNSliders(PlayerManager.amountOrange);
         layoutManagerGreen.FillNSliders(PlayerManager.amountGreen);
 
@@ -261,10 +248,6 @@ public class PlayerController : MonoBehaviour
 
     public void debug_GiveResources(int amount)
     {
-        for (int i = 0; i < amount; i++)
-        {
-            layoutManagerViolet.AddResource();
-        }
         for (int i = 0; i < amount; i++)
         {
             layoutManagerGreen.AddResource();
