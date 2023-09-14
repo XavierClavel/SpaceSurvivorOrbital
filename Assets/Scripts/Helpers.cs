@@ -9,6 +9,36 @@ using System.Linq;
 using System.Globalization;
 using UnityEngine.Events;
 
+public static class SingletonManager
+{
+    private static Dictionary<Type, MonoBehaviour> dictClassToInstance = new Dictionary<Type, MonoBehaviour>();
+
+    public static bool OnInstanciation<T>(T instance) where T : MonoBehaviour
+    {
+        MonoBehaviour value;
+        bool isFirstInstance = !dictClassToInstance.TryGetValue(typeof(T), out value) || value == instance;
+        if (isFirstInstance)
+        {
+            dictClassToInstance[typeof(T)] = instance;
+            GameObject.DontDestroyOnLoad(instance.gameObject);
+        }
+        else
+        {
+            GameObject.Destroy(instance.gameObject);
+        }
+        return isFirstInstance;
+    }
+
+    public static T get<T>() where T : MonoBehaviour
+    {
+        if (!dictClassToInstance.ContainsKey(typeof(T)))
+        {
+            throw new System.ArgumentException($"No singleton of type {typeof(T)} has currently been initialized.");
+        }
+        return (T)dictClassToInstance[typeof(T)];
+    }
+}
+
 public static class Extensions
 {
 
@@ -564,7 +594,7 @@ public class Helpers : MonoBehaviour
         return UnityEngine.Random.Range(0, 2) == 0;
     }
 
-    public static TEnum getRandomEnum<TEnum>(TEnum enumType) where TEnum : System.Enum
+    public static TEnum getRandomEnum<TEnum>() where TEnum : System.Enum
     {
         if (!typeof(TEnum).IsEnum)
         {
@@ -672,19 +702,9 @@ public class Helpers : MonoBehaviour
     {
         ParticleSystem ps = Instantiate(prefabPS, t.position, Quaternion.identity);
         ps.Play();
-        instance.WaitAndKill(ps.main.duration + 1f, ps.gameObject);
+        GameObject.Destroy(ps.gameObject, ps.main.duration + 1f);
     }
 
-    public void WaitAndKill(float time, GameObject objectToDestroy)
-    {
-        StartCoroutine(WaitThenKill(time, objectToDestroy));
-    }
-
-    IEnumerator WaitThenKill(float time, GameObject objectToDestroy)
-    {
-        yield return GetWait(time);
-        Destroy(objectToDestroy);
-    }
 
     public void LerpQuaternion(Transform objectTransform, Quaternion initialPos, Quaternion finalPos, float duration)
     {

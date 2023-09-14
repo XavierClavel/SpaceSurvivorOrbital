@@ -11,12 +11,13 @@ public class InputManager : MonoBehaviour
     static bool isPlayingWithGamepad = false;
     static PlayerInput playerInput;
 
+
     private void Awake()
     {
-        if (instance != null && instance != this) Destroy(gameObject);
-        instance = this;
+        SingletonManager.OnInstanciation(this);
+        instance = SingletonManager.get<InputManager>();
+
         playerInput = GetComponent<PlayerInput>();
-        DontDestroyOnLoad(gameObject);
     }
 
     public static void setSelectedObject(GameObject newObject)

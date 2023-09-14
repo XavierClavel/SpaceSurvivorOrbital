@@ -173,27 +173,20 @@ public class NodeManager : MonoBehaviour
 
     void CreateLinks()
     {
-        Debug.Log("creating links");
-        Debug.Log(gameObject.activeInHierarchy);
         StartCoroutine(nameof(CreateLinksCoroutine));
     }
 
     IEnumerator CreateLinksCoroutine()
     {
         yield return null;
-        Debug.Log("start coroutine");
-        Debug.Log(dictKeyToNode.Count);
         foreach (Node parentNode in dictKeyToNode.Values)
         {
-            Debug.Log(parentNode.childNodes.Count);
             foreach (Node childNode in parentNode.childNodes)
             {
                 Polyline polyline = Instantiate(PanelSelector.instance.line);
                 polyline.transform.SetParent(transform);
                 polyline.transform.localScale = Vector3.one;
                 polyline.transform.position = Vector3.zero;
-
-
 
                 Vector3 startPoint = panelRect.InverseTransformPoint(dictKeyToButton[parentNode.key].GetComponent<RectTransform>().position);
                 startPoint.z = -1;
@@ -205,7 +198,6 @@ public class NodeManager : MonoBehaviour
                 polyline.SetPointPosition(1, middlePoint);
                 polyline.SetPointPosition(2, endPoint);
                 polyline.meshOutOfDate = true;
-                Debug.Log(startPoint);
 
                 polyline.GetComponent<RectTransform>().anchoredPosition3D = 10 * Vector3.back;
             }

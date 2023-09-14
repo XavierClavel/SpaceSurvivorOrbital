@@ -328,18 +328,15 @@ public class PlayerController : MonoBehaviour
 
     Vector2 getGamepadAimInput()
     {
-        Vector2 input = controls.Player.Aim.ReadValue<Vector2>();
-        return input;
+        return controls.Player.Aim.ReadValue<Vector2>();
     }
 
     Vector2 getMouseAimInput()
     {
-        Vector2 input = Vector2.zero;
         Vector2 mousePos = controls.Player.MousePosition.ReadValue<Vector2>();
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector2 direction = (worldPos - transform.position);
-        input = direction.normalized;
-        return input;
+        return direction.normalized;
     }
 
     void Aim()
@@ -359,7 +356,7 @@ public class PlayerController : MonoBehaviour
         if (!isPlayingWithGamepad && !Helpers.isPlatformAndroid()) return;
 
         if (input == Vector2.zero && interactorHandler.action) interactorHandler.StopAction();
-        if (input != Vector2.zero && !interactorHandler.action) interactorHandler.StartAction();
+        else if (input != Vector2.zero && !interactorHandler.action) interactorHandler.StartAction();
     }
 
 

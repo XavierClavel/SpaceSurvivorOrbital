@@ -53,6 +53,7 @@ public class ObjectIndicator : MonoBehaviour
         posx = Mathf.Clamp(direction.x, -900, 900);
         posy = Mathf.Clamp(direction.y, -480, 480);
 
+        //TODO : check behavior on larger resolutions
 
         rectTransform.anchoredPosition = new Vector2(posx, posy);
     }

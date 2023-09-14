@@ -19,11 +19,11 @@ public class Planet : MonoBehaviour
     {
         if (PlanetSelector.instance.generateRandomPlanets)
         {
-            planetData.size = Helpers.getRandomEnum(planetSize.large);
-            planetData.violetScarcity = Helpers.getRandomEnum(planetResourceScarcity.none);
-            planetData.orangeScarcity = Helpers.getRandomEnum(planetResourceScarcity.none);
-            planetData.greenScarcity = Helpers.getRandomEnum(planetResourceScarcity.none);
-            planetData.type = Helpers.getRandomEnum(planetType.mushroom);
+            planetData.size = Helpers.getRandomEnum<planetSize>();
+            planetData.violetScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
+            planetData.orangeScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
+            planetData.greenScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
+            planetData.type = Helpers.getRandomEnum<planetType>();
             planetData.hasAltar = true;
 
             planetData.difficulty = PlanetSelector.getDifficulty(planetData);

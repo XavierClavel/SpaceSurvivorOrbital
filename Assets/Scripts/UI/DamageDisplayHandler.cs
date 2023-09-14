@@ -78,7 +78,7 @@ public class DamageDisplayHandler : MonoBehaviour
         //sequence.Append(displayTransform.DOScaleY(scaleTarget.y, 0.25f));
 
         //sequence.Append(displayTransform.DOScale(exitScale, 1.5f)).SetEase(Ease.OutQuad);
-        Helpers.instance.WaitAndKill(1f, container);
+        Destroy(container, 1f);
     }
 
 }

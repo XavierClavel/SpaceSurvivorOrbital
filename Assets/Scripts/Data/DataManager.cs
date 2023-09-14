@@ -59,18 +59,11 @@ public class DataManager : MonoBehaviour
     [SerializeField] weapon selectedWeapon = weapon.Laser;
     [SerializeField] tool selectedTool = tool.None;
     public static DataManager instance;
-    static bool initialized = false;
 
     private void Awake()
     {
-        if (initialized)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        initialized = true;
-        instance = this;
+        if (!SingletonManager.OnInstanciation(this)) return;
+        instance = SingletonManager.get<DataManager>();
 
         loadText(weaponData, x => new InteractorData(x, selectorType.weapon), x => InteractorData.Initialize(x));
         loadText(toolData, x => new InteractorData(x, selectorType.tool), x => InteractorData.Initialize(x));

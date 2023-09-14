@@ -128,10 +128,24 @@ public class PlayerManager
     public static void ApplyModification(Effect effect)
     {
         Debug.Log(effect.target);
-        if (effect.effect == effectType.unlocks) effect.Unlock();
-        else if (effect.effect == effectType.weapon) effect.ApplyOperation(ref weaponPrefab);
-        else if (effect.effect == effectType.tool) effect.ApplyOperation(ref toolPrefab);
-        else getPlayerData(effect.target).ApplyEffect(effect);
+        switch (effect.effect)
+        {
+            case effectType.unlocks:
+                effect.Unlock();
+                break;
+
+            case effectType.weapon:
+                effect.ApplyOperation(ref weaponPrefab);
+                break;
+
+            case effectType.tool:
+                effect.ApplyOperation(ref toolPrefab);
+                break;
+
+            default:
+                getPlayerData(effect.target).ApplyEffect(effect);
+                break;
+        }
     }
 
     public static void SpendResources(int costGreen, int costOrange)

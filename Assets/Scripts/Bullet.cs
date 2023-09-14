@@ -31,12 +31,10 @@ public class Bullet : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         SoundManager.instance.PlaySfx(transform, sfx.bulletOnGround);
-        ParticleSystem parSys = Instantiate(bulletParticle, transform.position, Quaternion.identity);
-        parSys.Play();
-        Helpers.instance.WaitAndKill(0.5f, parSys.gameObject);
+        Helpers.SpawnPS(transform, bulletParticle);
+
 
         if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer.Obstacles)) Destroy(gameObject);
-
 
 
         if (other.gameObject.CompareTag(Vault.tag.Player)) PlayerController.Hurt(damage);
