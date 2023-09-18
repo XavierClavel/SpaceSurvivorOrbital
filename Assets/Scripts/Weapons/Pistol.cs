@@ -61,10 +61,15 @@ public class Pistol : Gun
         bulletPrefab.critical = critical;
         if (playerInteractor) bulletPrefab.effect = player.effect;
 
-
         Bullet bullet = Instantiate(bulletPrefab, position, Quaternion.Euler(eulerRotation));
         bullet.Fire(attackSpeed, bulletLifetime);
 
+        ResetBulletPrefab();
+    }
 
+    void ResetBulletPrefab()
+    {
+        bulletPrefab.damage = 0;
+        bulletPrefab.critical = false;
     }
 }

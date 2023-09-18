@@ -9,6 +9,12 @@ using System.Linq;
 using System.Globalization;
 using UnityEngine.Events;
 
+public enum shape
+{
+    circle,
+    square
+}
+
 public static class SingletonManager
 {
     private static Dictionary<Type, MonoBehaviour> dictClassToInstance = new Dictionary<Type, MonoBehaviour>();
@@ -467,6 +473,7 @@ public class Helpers : MonoBehaviour
         foreach (T item in list) Debug.Log(item);
     }
 
+
     public static float getRandomFloat(float maxValue)
     {
         return UnityEngine.Random.Range(0f, maxValue);
@@ -587,6 +594,60 @@ public class Helpers : MonoBehaviour
     public static int IntAbs(int value)
     {
         return value < 0 ? -value : value;
+    }
+
+    public static Vector3 getRandomPositionInRadius(float radius, shape shape)
+    {
+        switch (shape)
+        {
+            case shape.circle:
+                return radius * UnityEngine.Random.insideUnitCircle;
+
+            case shape.square:
+                float valueX = Helpers.getRandomSign() * UnityEngine.Random.Range(0f, radius);
+                float valueY = Helpers.getRandomSign() * UnityEngine.Random.Range(0f, radius);
+                return new Vector3(valueX, valueY, 0f);
+
+            default:
+                throw new ArgumentException("value not recognized");
+        }
+
+    }
+
+    public static Vector3 getRandomPositionInRing(float minRadius, float maxRadius, shape shape)
+    {
+        switch (shape)
+        {
+            case shape.circle:
+                throw new NotImplementedException();
+
+            case shape.square:
+                float valueX = Helpers.getRandomSign() * UnityEngine.Random.Range(minRadius, maxRadius);
+                float valueY = Helpers.getRandomSign() * UnityEngine.Random.Range(minRadius, maxRadius);
+                return new Vector3(valueX, valueY, 0f);
+
+            default:
+                throw new ArgumentException("value not recognized");
+        }
+
+    }
+
+    public static Vector3 getRandomPositionInRing(Vector2 minRadius, Vector2 maxRadius, shape shape)
+    {
+        switch (shape)
+        {
+            case shape.circle:
+                throw new NotImplementedException();
+
+            case shape.square:
+                float valueX = Helpers.getRandomSign() * UnityEngine.Random.Range(minRadius.x, maxRadius.x);
+                float valueY = Helpers.getRandomSign() * UnityEngine.Random.Range(minRadius.y, maxRadius.y);
+                return new Vector3(valueX, valueY, 0f);
+
+            default:
+                throw new ArgumentException("value not recognized");
+        }
+
     }
 
     public static bool getRandomBool()

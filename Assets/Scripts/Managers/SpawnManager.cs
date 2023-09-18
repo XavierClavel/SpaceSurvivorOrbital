@@ -9,16 +9,20 @@ public class SpawnManager : MonoBehaviour
     public static SpawnManager instance;
     [SerializeField] TilesBankManager tilesBankManager;
     List<Ennemy> ennemyPrefabs;
-   
+
     Transform playerTransform;
     bool doEnnemySpawn = true;
     [SerializeField] List<int> baseCost = new List<int>();
     [SerializeField] List<int> increaseByWave = new List<int>();
-    [SerializeField] List<int> waveLength = new List<int>();
+    [SerializeField] List<int> waveDurationList = new List<int>();
+    float waveDuration;
+    List<EntitySpawnInstance<Ennemy>> ennemiesToSpawnList = new List<EntitySpawnInstance<Ennemy>>();
 
     private int difficulty;
 
-    int cost;
+    int wallet;
+    EntitySpawnInstanceComparer<Ennemy> comparer = new EntitySpawnInstanceComparer<Ennemy>();
+
 
     public void debug_StopEnnemySpawn()
     {
@@ -30,10 +34,11 @@ public class SpawnManager : MonoBehaviour
     {
         instance = this;
         difficulty = PlanetManager.getDifficulty();
-        cost = baseCost[difficulty];
+        wallet = baseCost[difficulty];
         ennemyPrefabs = tilesBankManager.GetEnnemies();
         playerTransform = PlayerController.instance.transform;
-        
+        waveDuration = waveDurationList[difficulty];
+
         if (doEnnemySpawn)
         {
             StartCoroutine(nameof(SpawnController));
@@ -42,43 +47,80 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnController()
     {
+        float time = 0f;
         while (true)
         {
-            yield return Helpers.GetWait(waveLength[difficulty]);
-            StartCoroutine(nameof(SpawnWave), cost);
-            cost += increaseByWave[difficulty]; ;
+            if (ennemiesToSpawnList.Count != 0 && time >= ennemiesToSpawnList[0].spawnTime)
+            {
+                SpawnEnnemy(ennemiesToSpawnList[0].entity);
+                ennemiesToSpawnList.RemoveAt(0);
+            }
+
+            if (time > waveDuration)
+            {
+                time = 0f;
+                wallet += increaseByWave[difficulty];
+                PrepareWave(wallet);
+            }
+
+            time += Time.fixedDeltaTime;
+            yield return Helpers.GetWaitFixed;
         }
     }
 
-    IEnumerator SpawnWave(int maxCost)
+    void PrepareWave(int maxCost)
     {
         int currentCost = 0;
+        ennemiesToSpawnList = new List<EntitySpawnInstance<Ennemy>>();
+
         while (currentCost < maxCost)
         {
-            yield return null;
             Ennemy ennemy = ennemyPrefabs.getRandom();
             int newCost = currentCost + ennemy.cost;
             if (newCost > maxCost) break;
 
-            Instantiate(ennemy.gameObject, randomPos() + playerTransform.position, Quaternion.identity);
-            currentCost = newCost;
+            float spawnTime = Random.Range(0f, waveDuration);
 
-            if (newCost == maxCost) yield break;
+            ennemiesToSpawnList.Add(new EntitySpawnInstance<Ennemy>(spawnTime, ennemy));
+            currentCost = newCost;
         }
+        Debug.Log(ennemiesToSpawnList.Count);
+
+        ennemiesToSpawnList.Sort(comparer);
+    }
+
+    public void SpawnEnnemy(Ennemy ennemy)
+    {
+        Vector3 position = Helpers.getRandomPositionInRing(5f, 10f, shape.square) + playerTransform.position;
+        Instantiate(ennemy.gameObject, position, Quaternion.identity);
     }
 
     public void SpawnEnnemy()
     {
         GameObject ennemyPrefab = ennemyPrefabs[Random.Range(0, ennemyPrefabs.Count)].gameObject;
-        Instantiate(ennemyPrefab, randomPos() + playerTransform.position, Quaternion.identity);
+        Vector3 position = Helpers.getRandomPositionInRing(5f, 10f, shape.square) + playerTransform.position;
+        Instantiate(ennemyPrefab, position, Quaternion.identity);
     }
 
-    Vector3 randomPos()
+
+}
+
+public class EntitySpawnInstance<T>
+{
+    public float spawnTime;
+    public T entity;
+
+    public EntitySpawnInstance(float spawnTime, T entity)
     {
-        float signA = Random.Range(0, 2) * 2 - 1;
-        float signB = Random.Range(0, 2) * 2 - 1;
-        return signA * Random.Range(6f, 12f) * Vector2.up + signB * Random.Range(4f, 8f) * Vector2.right;
+        this.spawnTime = spawnTime;
+        this.entity = entity;
     }
+}
 
-
+public class EntitySpawnInstanceComparer<T> : IComparer<EntitySpawnInstance<T>>
+{
+    public int Compare(EntitySpawnInstance<T> entityA, EntitySpawnInstance<T> entityB)
+    {
+        return entityA.spawnTime.CompareTo(entityB.spawnTime);
+    }
 }
