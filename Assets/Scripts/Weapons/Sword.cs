@@ -21,9 +21,9 @@ public class Sword : Interactor
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        int damage = baseDamage.getRandom();
-        bool critical = Helpers.ProbabilisticBool(criticalChance);
-        if (critical) damage = (int)((float)damage * criticalMultiplier);
+        int damage = stats.baseDamage.getRandom();
+        bool critical = Helpers.ProbabilisticBool(stats.criticalChance);
+        if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
 
         ObjectManager.dictObjectToBreakable[other.gameObject].Hit(damage, status.none, critical);
     }

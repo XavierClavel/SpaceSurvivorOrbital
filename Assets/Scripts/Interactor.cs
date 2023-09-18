@@ -6,34 +6,18 @@ using UnityEngine.UI;
 public abstract class Interactor : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer;
-    protected Vector2Int baseDamage;
-    protected int attackSpeed;
-    protected float range;
 
-    protected float bulletReloadTime;
-    protected float magazineReloadTime;
-    protected float criticalChance;    //between 0 and 1
-    protected float criticalMultiplier;  //superior to 1
-
-    protected int pierce;
-    protected int projectiles;
-    protected float spread;
 
     protected SoundManager soundManager;
 
-    [HideInInspector] public float speedWhileAiming;
 
     [HideInInspector] public bool isUsing = false;
     protected bool reloading = false;
-    float cooldown;
     WaitForSeconds waitCooldown;
 
     //Guns
-    protected int magazine;
     protected int currentMagazine;
     protected bool reloadingMagazine = false;
-
-    [HideInInspector] public int dps;
 
     static LayerMask weaponLayer;
     static LayerMask toolLayerMask;
@@ -47,6 +31,7 @@ public abstract class Interactor : MonoBehaviour
     protected bool autoCooldown; //whether the interactor or the inheritor should handle cooldown
     [HideInInspector] public bool playerInteractor;
     bool dualUse = false;
+    public interactorStats stats;
 
     protected virtual void Start()
     {
@@ -56,24 +41,12 @@ public abstract class Interactor : MonoBehaviour
         aimTransform = ObjectManager.instance.armTransform;
     }
 
-    public void Setup(PlayerData interactorData, bool dualUse = false)
+    public void Setup(interactorStats stats, bool dualUse = false)
     {
-        baseDamage = interactorData.interactor.baseDamage;
-        attackSpeed = interactorData.interactor.attackSpeed;
-        range = interactorData.interactor.range;
-        bulletReloadTime = interactorData.interactor.cooldown;
-        magazineReloadTime = interactorData.interactor.magazineReloadTime;
-        criticalChance = interactorData.interactor.criticalChance;
-        pierce = interactorData.interactor.pierce;
-        speedWhileAiming = interactorData.interactor.speedWhileAiming;
-        magazine = interactorData.interactor.magazine;
-        projectiles = interactorData.interactor.projectiles;
-        spread = interactorData.interactor.spread;
-        cooldown = interactorData.interactor.cooldown;
-        dps = interactorData.interactor.dps;
+        this.stats = stats;
 
-        waitCooldown = Helpers.GetWait(cooldown);
-        currentMagazine = magazine;
+        waitCooldown = Helpers.GetWait(stats.cooldown);
+        currentMagazine = stats.magazine;
 
         this.dualUse = dualUse;
         if (dualUse)
@@ -99,7 +72,7 @@ public abstract class Interactor : MonoBehaviour
         isUsing = true;
         if (reloading) return;
         onStartUsing();
-        if (cooldown == 0f) return;
+        if (stats.cooldown == 0f) return;
         Use();
 
     }
@@ -107,7 +80,7 @@ public abstract class Interactor : MonoBehaviour
     public void Use()
     {
         onUse();
-        if (cooldown == 0f) return;
+        if (stats.cooldown == 0f) return;
         if (autoCooldown) StartCoroutine(nameof(Cooldown));
     }
 

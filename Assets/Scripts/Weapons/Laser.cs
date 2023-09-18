@@ -35,10 +35,10 @@ public class Laser : Interactor
 
             lineRenderer.SetPosition(0, firePoint.position);
 
-            RaycastHit2D[] hits = Physics2D.RaycastAll(firePoint.position, firePoint.right, range, currentLayerMask);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(firePoint.position, firePoint.right, stats.range, currentLayerMask);
             if (hits.Length == 0)
             {
-                lineRenderer.SetPosition(1, firePoint.position + firePoint.right * range);
+                lineRenderer.SetPosition(1, firePoint.position + firePoint.right * stats.range);
                 continue;
             }
 
@@ -48,7 +48,7 @@ public class Laser : Interactor
 
     void ApplyRaycast(RaycastHit2D[] hits)
     {
-        int stopIndex = Mathf.Min(hits.Length, pierce + 1);
+        int stopIndex = Mathf.Min(hits.Length, stats.pierce + 1);
 
         for (int i = 0; i < stopIndex; i++)
         {
@@ -64,7 +64,7 @@ public class Laser : Interactor
 
     void HurtEnnemy(GameObject go)
     {
-        ObjectManager.dictObjectToBreakable[go].StackDamage(dps);
+        ObjectManager.dictObjectToBreakable[go].StackDamage(stats.dps);
     }
 
     protected override void onUse()
