@@ -10,12 +10,12 @@ public class ObjectReferencer : ScriptableObject
 
 
     [Header("Interactors")]
-    public Interactor gunInteractor;
-    public Interactor doubleGunInteractor;
-    public Interactor sniperInteractor;
-    public Interactor shotgunInteractor;
-    public Interactor laserInteractor;
-
+    public Interactor gun;
+    public Interactor doubleGun;
+    public Interactor sniper;
+    public Interactor shotgun;
+    public Interactor laser;
+    public Interactor fist;
 
 
 
@@ -30,10 +30,13 @@ public class ObjectReferencer : ScriptableObject
                 return null;
 
             case weapon.Gun:
-                return gunInteractor;
+                return gun;
 
             case weapon.Laser:
-                return laserInteractor;
+                return laser;
+
+            case weapon.Fist:
+                return fist;
 
             default:
                 throw new System.ArgumentException($"interactor key \"name\" not found");
@@ -45,13 +48,13 @@ public class ObjectReferencer : ScriptableObject
         switch (key)
         {
             case Vault.key.sprite.Sniper:
-                return sniperInteractor;
+                return sniper;
 
             case Vault.key.sprite.Shotgun:
-                return shotgunInteractor;
+                return shotgun;
 
             case Vault.key.sprite.DoubleGun:
-                return doubleGunInteractor;
+                return doubleGun;
         }
         throw new System.ArgumentException();
     }

@@ -109,8 +109,7 @@ public class PlayerController : MonoBehaviour
     WaitForSeconds invulnerabilityFrameDuration;
 
     [HideInInspector] public status effect;
-
-    static Spaceship spaceship;
+    [HideInInspector] public Vector2 aimVector;
 
 
     int health
@@ -138,11 +137,6 @@ public class PlayerController : MonoBehaviour
         invulnerable = true;
         yield return invulnerabilityFrameDuration;
         invulnerable = false;
-    }
-
-    public static void SetupSpaceship(Spaceship spaceshipObject)
-    {
-        spaceship = spaceshipObject;
     }
 
     public void IncreaseOrange()
@@ -324,22 +318,21 @@ public class PlayerController : MonoBehaviour
 
     void Aim()
     {
-        Vector2 input;
-        if (Helpers.isPlatformAndroid()) input = joystickAim.Direction;
-        else input = isPlayingWithGamepad ? getGamepadAimInput() : getMouseAimInput();
+        if (Helpers.isPlatformAndroid()) aimVector = joystickAim.Direction;
+        else aimVector = isPlayingWithGamepad ? getGamepadAimInput() : getMouseAimInput();
 
-        if (input != Vector2.zero)
+        if (aimVector != Vector2.zero)
         {
-            float angle = Vector2.SignedAngle(Vector2.up, input) + 90f;
+            float angle = Vector2.SignedAngle(Vector2.up, aimVector) + 90f;
             arrowTransform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
 
-        _aimDirection = angleToDirection(Vector2.SignedAngle(input, Vector2.down) + 180f);
+        _aimDirection = angleToDirection(Vector2.SignedAngle(aimVector, Vector2.down) + 180f);
 
         if (!isPlayingWithGamepad && !Helpers.isPlatformAndroid()) return;
 
-        if (input == Vector2.zero && interactorHandler.action) interactorHandler.StopAction();
-        else if (input != Vector2.zero && !interactorHandler.action) interactorHandler.StartAction();
+        if (aimVector == Vector2.zero && interactorHandler.action) interactorHandler.StopAction();
+        else if (aimVector != Vector2.zero && !interactorHandler.action) interactorHandler.StartAction();
     }
 
 

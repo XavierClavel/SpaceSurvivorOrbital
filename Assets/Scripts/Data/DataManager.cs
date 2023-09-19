@@ -15,7 +15,8 @@ public enum weapon
 {
     None,
     Gun,
-    Laser
+    Laser,
+    Fist,
 }
 
 public enum tool

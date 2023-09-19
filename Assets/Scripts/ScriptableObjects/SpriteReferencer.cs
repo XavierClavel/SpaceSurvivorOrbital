@@ -15,6 +15,7 @@ public class SpriteReferencer : ScriptableObject
     public Sprite sniper;
     public Sprite shotgun;
     public Sprite laser;
+    public Sprite fist;
 
     [Header("Tools")]
     public Sprite pickaxe;
@@ -60,6 +61,9 @@ public class SpriteReferencer : ScriptableObject
 
             case weapon.Laser:
                 return laser;
+
+            case weapon.Fist:
+                return fist;
 
             default:
                 throw new System.ArgumentException($"interactor key \"{key}\" not found");

@@ -436,6 +436,35 @@ public class Helpers : MonoBehaviour
     [SerializeField] GameObject debugDisplayPrefab;
     static bool? platformAndroidValue = null;
 
+    public static List<Collider2D> OverlapCircularArcAll(Transform center, Vector2 direction, float radius, float span, int layerMask)
+    {
+        List<Collider2D> validColliders = new List<Collider2D>();
+        float halfSpan = span * 0.5f;
+
+        Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(center.position, radius, layerMask);
+        foreach (Collider2D collider in collidersInRadius)
+        {
+            if (Vector2.Angle(collider.bounds.center - center.position, direction) <= halfSpan)
+            {
+                validColliders.Add(collider);
+            }
+        }
+
+        RaycastHit2D[] collidersEdgeLeft = Physics2D.RaycastAll(center.position, direction, radius, layerMask);
+        foreach (RaycastHit2D raycastHit in collidersEdgeLeft)
+        {
+            validColliders.TryAdd(raycastHit.collider);
+        }
+
+        RaycastHit2D[] collidersEdgeRight = Physics2D.RaycastAll(center.position, direction, radius, layerMask);
+        foreach (RaycastHit2D raycastHit in collidersEdgeRight)
+        {
+            validColliders.TryAdd(raycastHit.collider);
+        }
+
+        return validColliders;
+    }
+
 
     public static void SetParent(Transform instance, Transform parent, int z = 0)
     {

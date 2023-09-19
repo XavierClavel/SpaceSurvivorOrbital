@@ -39,9 +39,9 @@ public class Bullet : MonoBehaviour
 
         if (other.gameObject.CompareTag(Vault.tag.Player)) PlayerController.Hurt(damage);
 
-        if (other.gameObject.CompareTag(Vault.tag.Ennemy)) ObjectManager.dictObjectToBreakable[other.gameObject].Hit(damage, effect, critical);
+        if (other.gameObject.CompareTag(Vault.tag.Ennemy)) ObjectManager.dictObjectToHitable[other.gameObject].Hit(damage, effect, critical);
 
-        if (other.gameObject.CompareTag(Vault.tag.Resource)) ObjectManager.dictObjectToBreakable[other.gameObject].Hit(damage, effect, critical);
+        if (other.gameObject.CompareTag(Vault.tag.Resource)) ObjectManager.dictObjectToHitable[other.gameObject].Hit(damage, effect, critical);
 
 
         if (currentPierce == pierce)

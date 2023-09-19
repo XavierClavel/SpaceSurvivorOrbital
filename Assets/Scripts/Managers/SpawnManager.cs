@@ -84,7 +84,6 @@ public class SpawnManager : MonoBehaviour
             ennemiesToSpawnList.Add(new EntitySpawnInstance<Ennemy>(spawnTime, ennemy));
             currentCost = newCost;
         }
-        Debug.Log(ennemiesToSpawnList.Count);
 
         ennemiesToSpawnList.Sort(comparer);
     }

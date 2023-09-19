@@ -18,7 +18,7 @@ public class Breakable : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        ObjectManager.dictObjectToBreakable.Add(gameObject, this);
+        ObjectManager.dictObjectToHitable.Add(gameObject, this);
         ObjectData objectData = DataManager.dictObjects[objectType];
         maxHealth = objectData.maxHealth;
         baseSpeed = objectData.baseSpeed;
@@ -46,7 +46,7 @@ public class Breakable : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
-        ObjectManager.dictObjectToBreakable.Remove(gameObject);
+        ObjectManager.dictObjectToHitable.Remove(gameObject);
     }
 
 

@@ -70,6 +70,7 @@ public abstract class Interactor : MonoBehaviour
     public virtual void StartUsing()
     {
         isUsing = true;
+        Debug.Log(reloading);
         if (reloading) return;
         onStartUsing();
         if (stats.cooldown == 0f) return;
