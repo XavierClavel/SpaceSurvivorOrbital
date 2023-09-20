@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using DG.Tweening;
+using UnityEngine.UI;
 
-public class SpawnManager : MonoBehaviour
+public class SpawnManager : Breakable
 {
-    public static SpawnManager instance;
     [SerializeField] TilesBankManager tilesBankManager;
     List<Ennemy> ennemyPrefabs;
 
@@ -22,6 +22,28 @@ public class SpawnManager : MonoBehaviour
 
     int wallet;
     EntitySpawnInstanceComparer<Ennemy> comparer = new EntitySpawnInstanceComparer<Ennemy>();
+    [SerializeField] Slider healthBar;
+    int _health;
+    int health
+    {
+        get { return _health; }
+        set
+        {
+            value = Helpers.CeilInt(value, maxHealth);
+            if (value == maxHealth && healthBar.gameObject.activeInHierarchy) healthBar.gameObject.SetActive(false);
+            else if (!healthBar.gameObject.activeInHierarchy) healthBar.gameObject.SetActive(true);
+            _health = value;
+            healthBar.value = value;
+            //SoundManager.instance.PlaySfx(transform, sfx.playerHit);
+            if (value <= 0) Death();
+        }
+    }
+
+    protected virtual void Death()
+    {
+        ObjectManager.dictObjectToEnnemy.Remove(gameObject);
+        Destroy(gameObject);
+    }
 
 
     public void debug_StopEnnemySpawn()
@@ -30,9 +52,14 @@ public class SpawnManager : MonoBehaviour
         StopCoroutine(nameof(SpawnController));
     }
 
-    void Start()
+    protected override void Start()
     {
-        instance = this;
+        base.Start();
+
+        _health = maxHealth;
+        healthBar.maxValue = _health;
+        healthBar.value = _health;
+
         difficulty = PlanetManager.getDifficulty();
         wallet = baseCost[difficulty];
         ennemyPrefabs = tilesBankManager.GetEnnemies();
@@ -43,6 +70,18 @@ public class SpawnManager : MonoBehaviour
         {
             StartCoroutine(nameof(SpawnController));
         }
+    }
+
+    public override void Hit(int damage, status effect, bool critical)
+    {
+        base.Hit(damage, effect, critical);
+        healthChange value = critical ? healthChange.critical : healthChange.hit;
+        if (damage != 0)
+        {
+            DamageDisplayHandler.DisplayDamage(damage, transform.position, value);
+            health -= damage;
+        }
+        Debug.Log(health);
     }
 
     IEnumerator SpawnController()
@@ -90,14 +129,14 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnEnnemy(Ennemy ennemy)
     {
-        Vector3 position = Helpers.getRandomPositionInRing(5f, 10f, shape.square) + playerTransform.position;
+        Vector3 position = Helpers.getRandomPositionInRing(1f, 3f, shape.square) + transform.position;
         Instantiate(ennemy.gameObject, position, Quaternion.identity);
     }
 
     public void SpawnEnnemy()
     {
         GameObject ennemyPrefab = ennemyPrefabs[Random.Range(0, ennemyPrefabs.Count)].gameObject;
-        Vector3 position = Helpers.getRandomPositionInRing(5f, 10f, shape.square) + playerTransform.position;
+        Vector3 position = Helpers.getRandomPositionInRing(1f, 4f, shape.square) + transform.position;
         Instantiate(ennemyPrefab, position, Quaternion.identity);
     }
 

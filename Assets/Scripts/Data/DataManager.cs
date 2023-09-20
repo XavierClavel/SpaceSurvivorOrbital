@@ -36,7 +36,8 @@ public enum objects
     Orange1,
     Orange2,
     Orange3,
-    Blob
+    Blob,
+    Spawner
 }
 
 public class DataManager : MonoBehaviour

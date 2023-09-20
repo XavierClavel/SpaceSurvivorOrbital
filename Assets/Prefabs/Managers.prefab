@@ -577,7 +577,7 @@ MonoBehaviour:
     type: 0
     hasAltar: 1
   groundSprite: {fileID: 0}
-  tilesBankManager: {fileID: 4324446820971874500}
+  tilesBankManager: {fileID: 11400000, guid: dde3abeea4d88e546a3066a1c045dada, type: 2}
   distanceConstraintsManager: {fileID: 11400000, guid: 2d707b2ee9386e44c815ae33e7a09322, type: 2}
   tileSize: {x: 20, y: 20}
   overrideMapSize: {x: 3, y: 3}
@@ -600,125 +600,6 @@ MonoBehaviour:
   violet3: {fileID: 11400000, guid: 951ffa83698614041963c6e09c88436e, type: 2}
   autel: {fileID: 0}
   generateMap: 1
---- !u!1 &4324446820877848714
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4324446820877848715}
-  - component: {fileID: 4324446820877848712}
-  m_Layer: 0
-  m_Name: SpawnManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4324446820877848715
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4324446820877848714}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4324446821559495507}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4324446820877848712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4324446820877848714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88c7c5325b29c2042b0d2f5b0ef4b46c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tilesBankManager: {fileID: 4324446820971874500}
-  baseCost: 0500000007000000090000000b0000000d0000000f00000011000000130000001500000017000000
-  increaseByWave: 02000000020000000200000002000000030000000300000003000000030000000400000004000000
-  waveLength: 1e0000001e000000190000001900000014000000140000000f0000000f0000000a0000000a000000
---- !u!1 &4324446820971874502
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4324446820971874503}
-  - component: {fileID: 4324446820971874500}
-  m_Layer: 0
-  m_Name: TilesBankManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4324446820971874503
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4324446820971874502}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4324446821559495507}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4324446820971874500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4324446820971874502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05ef3dcdce92cfd4680c58af0ef91468, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bluePlanetBank: {fileID: 11400000, guid: 7848f350dc2f2a24c9c291d364838591, type: 2}
-  brownPlanetBank: {fileID: 11400000, guid: 502ac5f421d804f4290b749b0b291ecb, type: 2}
-  redPlanetBank: {fileID: 11400000, guid: 317b53733a578c743a347061397ccfc4, type: 2}
-  spaceship: {fileID: 11400000, guid: 4215aec2f1b449c43a4023921e54204f, type: 2}
-  violet1: {fileID: 11400000, guid: a22640ce935762a4cbef5ae0ba69d061, type: 2}
-  violet2: {fileID: 11400000, guid: e956f2cff71d02d47be08decc5fa522b, type: 2}
-  violet3: {fileID: 11400000, guid: 951ffa83698614041963c6e09c88436e, type: 2}
-  greenLow0: {fileID: 11400000, guid: 36cd78e34a296df4899d9c817de17669, type: 2}
-  greenLow1: {fileID: 11400000, guid: 9448d40de484cab49aa173a6ad99c749, type: 2}
-  greenMid0: {fileID: 11400000, guid: f7bf1276eda37544dad0ccf8cc6f1e6b, type: 2}
-  greenMid1: {fileID: 11400000, guid: 652d7d0064e6eb24c9ec8946ad27940a, type: 2}
-  greenStrong0: {fileID: 11400000, guid: 418f173586daa8a4ea2a23ab890a4368, type: 2}
-  greenStrong1: {fileID: 11400000, guid: d9273ccc64155ec488e21048f72b584b, type: 2}
-  yellowLow0: {fileID: 11400000, guid: 931917c71ee72634eb4c0e39cf037ca3, type: 2}
-  yellowLow1: {fileID: 11400000, guid: 3f9b0b022edb3c549b802cca696a2aef, type: 2}
-  yellowMid0: {fileID: 11400000, guid: d87c1d6bab41c3a46b42c8049b566f35, type: 2}
-  yellowMid1: {fileID: 11400000, guid: b88f691b593d32d4da5f0688bf19e5c4, type: 2}
-  yellowStrong0: {fileID: 11400000, guid: 82635dd97b0423843aa03c9bf1439c62, type: 2}
-  yellowStrong1: {fileID: 11400000, guid: ac5415d9b4951c24887f936213b1fd46, type: 2}
-  autel: {fileID: 11400000, guid: a486aa8ed31542447b4689e422d6bda1, type: 2}
-  emptyTiles:
-  - {fileID: 11400000, guid: 9c3ac933118c50a48af9f29504b65cc9, type: 2}
-  - {fileID: 11400000, guid: 6ffb1010cec471e48954c899a288228c, type: 2}
-  - {fileID: 11400000, guid: ae205b1afdebd7440ad78f526153b214, type: 2}
-  - {fileID: 11400000, guid: 5a2097c19a4edf84a99b2bf162c0c539, type: 2}
-  - {fileID: 11400000, guid: 3bf4088cc3bcd584e8f984f855128f98, type: 2}
-  - {fileID: 11400000, guid: d6d5b0ef3f7385b48b14f098d58ea759, type: 2}
 --- !u!1 &4324446821230646566
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,6 +689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042945d1d91720f45b96ae85b807529f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
   pauseButton: {fileID: 0}
   pauseMenu: {fileID: 4324446819829407020}
   altarUI: {fileID: 0}
@@ -853,9 +735,7 @@ Transform:
   - {fileID: 4324446819829407021}
   - {fileID: 4324446820570287222}
   - {fileID: 4324446820854539276}
-  - {fileID: 4324446820971874503}
   - {fileID: 4324446821230646564}
-  - {fileID: 4324446820877848715}
   - {fileID: 4324446820325462175}
   - {fileID: 8201802802048221178}
   - {fileID: 2643329581778514488}
