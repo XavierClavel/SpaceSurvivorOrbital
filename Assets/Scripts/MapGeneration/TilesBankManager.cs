@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TilesBankManager : MonoBehaviour
+[CreateAssetMenu(fileName = "Data", menuName = Vault.other.scriptableObjectMenu + "tilesBankManager", order = 1)]
+public class TilesBankManager : ScriptableObject
 {
     [Header("Tiles Banks")]
     [SerializeField] TilesBank icePlanetBank;

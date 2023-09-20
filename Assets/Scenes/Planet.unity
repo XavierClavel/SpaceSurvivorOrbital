@@ -4283,7 +4283,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 280, y: -50}
+  m_AnchoredPosition: {x: 280, y: 0}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &850569516 stripped
@@ -5744,7 +5744,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -100, y: -200}
+  m_AnchoredPosition: {x: -100, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1232134763
@@ -9996,6 +9996,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4324446820854539277, guid: 030a56f1b7838fd4eb210eeb16d03bd3, type: 3}
+      propertyPath: tilesBankManager
+      value: 
+      objectReference: {fileID: 11400000, guid: dde3abeea4d88e546a3066a1c045dada, type: 2}
+    - target: {fileID: 4324446820854539277, guid: 030a56f1b7838fd4eb210eeb16d03bd3, type: 3}
       propertyPath: planetData.greenScarcity
       value: 3
       objectReference: {fileID: 0}
@@ -10007,6 +10011,10 @@ PrefabInstance:
       propertyPath: planetData.violetScarcity
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4324446820877848712, guid: 030a56f1b7838fd4eb210eeb16d03bd3, type: 3}
+      propertyPath: tilesBankManager
+      value: 
+      objectReference: {fileID: 11400000, guid: dde3abeea4d88e546a3066a1c045dada, type: 2}
     - target: {fileID: 4324446820877848712, guid: 030a56f1b7838fd4eb210eeb16d03bd3, type: 3}
       propertyPath: waveLength.Array.data[0]
       value: 30
@@ -10164,7 +10172,8 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4324446820971874502, guid: 030a56f1b7838fd4eb210eeb16d03bd3, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 030a56f1b7838fd4eb210eeb16d03bd3, type: 3}
