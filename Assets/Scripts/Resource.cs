@@ -35,6 +35,8 @@ public class Resource : Breakable
         _health = maxHealth;
         healthBar.maxValue = _health;
         healthBar.value = _health;
+
+        ObjectManager.registerTargetSpawned();
     }
 
     public override void Hit(int damage, status effect, bool critical)
@@ -51,6 +53,7 @@ public class Resource : Breakable
         {
             Instantiate(itemPrefab, randomPos() + transform.position, Quaternion.identity);
         }
+        ObjectManager.registerTargetDestroyed();
         Destroy(gameObject);
 
     }
