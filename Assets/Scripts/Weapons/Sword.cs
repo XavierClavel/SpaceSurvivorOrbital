@@ -21,14 +21,14 @@ public class Sword : Interactor
     protected override void onUse()
     {
         if (hitting) return;
-        StartCoroutine(nameof(Hit));
+        //StartCoroutine(nameof(Hit));
 
         //Physics2D.Cast
 
         //ObjectManager.dictObjectToBreakable[other.gameObject].Hit(damage, status.none, critical);
     }
 
-    IEnumerator Hit() {
+    /*IEnumerator Hit() {
         hitting = true;
 
         int damage = stats.baseDamage.getRandom();
@@ -58,9 +58,9 @@ public class Sword : Interactor
             yield return waitStep;
         }
 
-        yield return Helpers.getWait(stats.cooldown)
+        yield return Helpers.getWait(stats.cooldown);
         hitting = false;
-    }
+    }*/
 
     private void OnTriggerEnter2D(Collider2D other)
     {
