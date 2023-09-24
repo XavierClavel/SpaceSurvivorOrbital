@@ -31,9 +31,10 @@ public class Sword : Interactor
     /*IEnumerator Hit() {
         hitting = true;
 
-        int damage = stats.baseDamage.getRandom();
-        bool critical = Helpers.ProbabilisticBool(stats.criticalChance);
-        if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
+        int damage;
+        bool critical;
+        status effect = status.none;
+        getDamage(out damage, out critical, out effect)
 
         List<Collider2D> collidersAlreadyHit = new List<Collider2D>();
 
@@ -58,7 +59,7 @@ public class Sword : Interactor
             yield return waitStep;
         }
 
-        yield return Helpers.getWait(stats.cooldown);
+        yield return Helpers.GetWait(stats.cooldown);
         hitting = false;
     }*/
 

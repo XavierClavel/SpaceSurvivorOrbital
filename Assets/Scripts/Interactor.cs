@@ -77,6 +77,45 @@ public abstract class Interactor : MonoBehaviour
 
     }
 
+    public void Hit(List<Collider2D> targets, bool individualDamage = false) {
+        if (targets.Count == 0) return;
+
+        int damage;
+        bool critical;
+        status effect = status.none;
+        getDamage(out damage, out critical, out effect);
+
+        foreach (Collider2D target in targets)
+        {
+            if (individualDamage) {
+                Hit(target);
+            }
+            else {
+                ObjectManager.dictObjectToHitable[target.gameObject].Hit(damage, player.effect, critical);
+            }
+        }
+    }
+
+    public void Hit(Collider2D target) {
+        Hit(target.gameObject);
+    }
+
+    public void Hit(GameObject target) {
+        int damage;
+        bool critical;
+        status effect = status.none;
+        getDamage(out damage, out critical, out effect);
+
+        ObjectManager.dictObjectToHitable[target].Hit(damage, player.effect, critical);
+    }
+
+    private void getDamage(out int damage, out bool critical, out status effect) {
+        damage = stats.baseDamage.getRandom();
+        critical = Helpers.ProbabilisticBool(stats.criticalChance);
+        if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
+        effect = player.effect;
+    }
+
     public void Use()
     {
         onUse();
