@@ -24,6 +24,7 @@ public class PanelSelector : MonoBehaviour
     InputMaster inputActions;
     public static PanelSelector instance;
     public static Dictionary<string, ButtonSprite> dictKeyToButtonSprites;
+    public static Dictionary<string, PowerHandler> dictKeyToPowerHandler;
     static int nbPanelsInitialized = 0;
 
 
@@ -32,12 +33,8 @@ public class PanelSelector : MonoBehaviour
     {
         nbPanelsInitialized = 0;
         instance = this;
-        dictKeyToButtonSprites = new Dictionary<string, ButtonSprite>();
-        ButtonSprite[] buttonSprites = Resources.LoadAll<ButtonSprite>("ButtonSprites/");
-        foreach (ButtonSprite buttonSprite in buttonSprites)
-        {
-            dictKeyToButtonSprites[buttonSprite.key] = buttonSprite;
-        }
+
+        LoadScriptableObjects();
 
         currentActivePanel = panels[0];
 
@@ -77,6 +74,22 @@ public class PanelSelector : MonoBehaviour
         inputActions.UI.Navigate.performed += xtc => UpdateDisplay();
         inputActions.Enable();
         µ*/
+    }
+
+    void LoadScriptableObjects() {
+        dictKeyToButtonSprites = new Dictionary<string, ButtonSprite>();
+        ButtonSprite[] buttonSprites = Resources.LoadAll<ButtonSprite>("ButtonSprites/");
+        foreach (ButtonSprite buttonSprite in buttonSprites)
+        {
+            dictKeyToButtonSprites[buttonSprite.key] = buttonSprite;
+        }
+
+        dictKeyToPowerHandler = new Dictionary<string, PowerHandler>();
+        PowerHandler[] powerHandlers = Resources.LoadAll<PowerHandler>("PowerHandlers/");
+        foreach (PowerHandler powerHandler in powerHandlers)
+        {
+            dictKeyToPowerHandler[powerHandler.key] = powerHandler;
+        }
     }
 
     public static void PanelInitialized()
