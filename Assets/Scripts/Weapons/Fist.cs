@@ -13,17 +13,8 @@ public class Fist : Interactor
 
     protected override void onUse()
     {
-        int damage = stats.baseDamage.getRandom();
-        bool critical = Helpers.ProbabilisticBool(stats.criticalChance);
-        if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
-
         List<Collider2D> colliders = Helpers.OverlapCircularArcAll(player.transform, player.aimVector, stats.range, stats.spread, LayerMask.GetMask(Vault.layer.Resources, Vault.layer.Ennemies));
-
-        foreach (Collider2D collider in colliders)
-        {
-            ObjectManager.dictObjectToHitable[collider.gameObject].Hit(damage, player.effect, critical);
-        }
-
+        Hit(colliders);
     }
 
     protected override void onStartUsing()

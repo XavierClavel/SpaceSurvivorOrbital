@@ -2,11 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public class Power : Damager
+{
+    [SerializeField] private bool activateOnStart;
+    
+    protected override void Setup(interactorStats stats, bool dualUse = false) {
+        base.Setup(stats, dualUse);
+
+        if (activateOnStart) {
+            Use();
+        } else {
+            StartCoroutine(nameof(Cooldown));
+        }
+    }
+
+
+
+}
+
+
+/*
 public enum powerType { none, creusetout, divineLightning, toxicCloud };
 
-public class Power
-{
-    powerType type;
+powerType type;
     PlayerData data;
     GameObject powerPrefab;
 
@@ -20,4 +39,4 @@ public class Power
     {
 
     }
-}
+    */

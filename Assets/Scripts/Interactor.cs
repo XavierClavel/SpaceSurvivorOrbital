@@ -3,17 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Interactor : MonoBehaviour
+//Introduces onStartUsing and onStopUsing events
+public abstract class Interactor : Damager
 {
     public SpriteRenderer spriteRenderer;
 
-
-    protected SoundManager soundManager;
-
-
     [HideInInspector] public bool isUsing = false;
-    protected bool reloading = false;
-    WaitForSeconds waitCooldown;
 
     //Guns
     protected int currentMagazine;
@@ -27,26 +22,19 @@ public abstract class Interactor : MonoBehaviour
 
     [HideInInspector] public Slider reloadSlider;
 
-    protected PlayerController player;
-    protected bool autoCooldown; //whether the interactor or the inheritor should handle cooldown
     [HideInInspector] public bool playerInteractor;
     bool dualUse = false;
-    public interactorStats stats;
 
-    protected virtual void Start()
+    protected override void Start()
     {
-        soundManager = SoundManager.instance;
-        player = PlayerController.instance;
+        base.Start();
 
         aimTransform = ObjectManager.instance.armTransform;
     }
 
-    public void Setup(interactorStats stats, bool dualUse = false)
+    public override void Setup(interactorStats stats, bool dualUse = false)
     {
-        this.stats = stats;
-
-        waitCooldown = Helpers.GetWait(stats.cooldown);
-        currentMagazine = stats.magazine;
+        base.Setup(stats,dualUse);
 
         this.dualUse = dualUse;
         if (dualUse)
@@ -77,30 +65,14 @@ public abstract class Interactor : MonoBehaviour
 
     }
 
-    public void Use()
-    {
-        onUse();
-        if (stats.cooldown == 0f) return;
-        if (autoCooldown) StartCoroutine(nameof(Cooldown));
-    }
-
     public void StopUsing()
     {
         isUsing = false;
         onStopUsing();
     }
 
-    protected IEnumerator Cooldown()
-    {
-        reloading = true;
-        yield return waitCooldown;
-        reloading = false;
-        if (isUsing) Use();
-    }
-
     protected abstract void onStartUsing();
     protected abstract void onStopUsing();
-    protected abstract void onUse();
 
     private void Update()
     {

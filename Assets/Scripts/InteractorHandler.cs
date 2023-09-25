@@ -12,8 +12,6 @@ public class InteractorHandler : MonoBehaviour
     PlayerController player;
     public static InteractorHandler playerInteractorHandler;
 
-    [HideInInspector] public bool miningPurple = false;
-
     public void Initialize(Interactor weaponInteractor, Interactor toolInteractor, Transform rotationAxis, bool playerInteractor = false)
     {
         player = PlayerController.instance;
@@ -40,23 +38,10 @@ public class InteractorHandler : MonoBehaviour
 
     }
 
-    public void StartMiningPurple()
-    {
-        miningPurple = true;
-        StopAction(false);
-    }
-
-    public void StopMiningPurple()
-    {
-        miningPurple = false;
-        if (action) StartAction();
-    }
-
 
     public void StartAction()
     {
         action = true;
-        if (miningPurple) return;
         currentInteractor.StartUsing();
         player.setSpeed(currentInteractor.stats.speedWhileAiming);
     }

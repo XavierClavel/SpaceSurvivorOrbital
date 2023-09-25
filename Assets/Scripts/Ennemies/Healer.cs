@@ -103,7 +103,7 @@ public class Healer : Ennemy
 
     void Heal()
     {
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, range, Vector2.up, 0.00001f, mask);
+        RaycastHit2D[] hits = Physics2D.OverlapCircleAll(transform.position, range, mask);
         foreach (RaycastHit2D hit in hits)
         {
             if (hit.collider.gameObject == gameObject) continue; //Does not heal himself

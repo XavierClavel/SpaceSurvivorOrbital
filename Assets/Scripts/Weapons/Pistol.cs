@@ -51,25 +51,9 @@ public class Pistol : Gun
 
     void FireBullet(Vector3 position, Vector3 eulerRotation)
     {
-        int damage = stats.baseDamage.getRandom();
-        bool critical = Helpers.ProbabilisticBool(stats.criticalChance);
-        if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
-
         soundManager.PlaySfx(transform, sfx.shoot);
-
-        bulletPrefab.damage = damage;
-        bulletPrefab.critical = critical;
-        if (playerInteractor) bulletPrefab.effect = player.effect;
 
         Bullet bullet = Instantiate(bulletPrefab, position, Quaternion.Euler(eulerRotation));
         bullet.Fire(stats.attackSpeed, bulletLifetime);
-
-        ResetBulletPrefab();
-    }
-
-    void ResetBulletPrefab()
-    {
-        bulletPrefab.damage = 0;
-        bulletPrefab.critical = false;
     }
 }

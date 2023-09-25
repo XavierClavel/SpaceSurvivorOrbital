@@ -46,6 +46,7 @@ public class DataManager : MonoBehaviour
     [SerializeField] TextAsset characterData;
     [SerializeField] TextAsset weaponData;
     [SerializeField] TextAsset toolData;
+    [SerializeField] TextAsset powerData;
     [SerializeField] TextAsset breakableData;
     [SerializeField] List<TextAsset> localizationData;
     [SerializeField] TextAsset buttonLocalization;
@@ -53,6 +54,7 @@ public class DataManager : MonoBehaviour
     delegate void Formatter(List<string> s);
     public static Dictionary<weapon, InteractorData> dictWeapons = new Dictionary<weapon, InteractorData>();
     public static Dictionary<tool, InteractorData> dictTools = new Dictionary<tool, InteractorData>();
+    public static Dictionary<string, interactorStat> dictPowers = new Dictionary<string, interactorStat>();
     public static Dictionary<objects, ObjectData> dictObjects = new Dictionary<objects, ObjectData>();
     public static Dictionary<string, LocalizedString> dictLocalization = new Dictionary<string, LocalizedString>();
     public static Dictionary<string, UpgradeData> dictUpgrades = new Dictionary<string, UpgradeData>();
@@ -62,6 +64,8 @@ public class DataManager : MonoBehaviour
     [SerializeField] tool selectedTool = tool.None;
     public static DataManager instance;
 
+
+    //TODO: use generics instead of delegates
     private void Awake()
     {
         if (!SingletonManager.OnInstanciation(this)) return;
@@ -69,6 +73,7 @@ public class DataManager : MonoBehaviour
 
         loadText(weaponData, x => new InteractorData(x, selectorType.weapon), x => InteractorData.Initialize(x));
         loadText(toolData, x => new InteractorData(x, selectorType.tool), x => InteractorData.Initialize(x));
+        loadText(powerData, x => new PowerData(x), x => powerData.Initialize(x))
 
         loadText(upgradesData, x => new UpgradeData(x), x => UpgradeData.Initialize(x));
 

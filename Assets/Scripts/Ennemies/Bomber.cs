@@ -40,6 +40,7 @@ public class Bomber : Ennemy
                 ennemyState = state.exploding;
                 yield return waitExplosion;
                 Helpers.SpawnPS(transform, explosionPS);
+                //TODO : replace with overlapcircleall
                 RaycastHit2D hit = Physics2D.CircleCast(transform.position, explosionRadius, Vector2.zero, 1f, playerLayer);
                 if (hit) PlayerController.Hurt(baseDamage);
 

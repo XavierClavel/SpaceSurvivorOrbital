@@ -643,6 +643,24 @@ public class Helpers : MonoBehaviour
 
     }
 
+    public static Vector3 getRandomPositionInRadius(Vector2 size, shape shape)
+    {
+        switch (shape)
+        {
+            case shape.circle:
+                throw new NotImplementedException();
+
+            case shape.square:
+                float valueX = Helpers.getRandomSign() * UnityEngine.Random.Range(0f, size.x);
+                float valueY = Helpers.getRandomSign() * UnityEngine.Random.Range(0f, size.y);
+                return new Vector3(valueX, valueY, 0f);
+
+            default:
+                throw new ArgumentException("value not recognized");
+        }
+
+    }
+
     public static Vector3 getRandomPositionInRing(float minRadius, float maxRadius, shape shape)
     {
         switch (shape)
