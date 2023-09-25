@@ -16,7 +16,7 @@ public class DivineLightning : Power
     }
 
     protected override void onUse() {
-        Vector3 hitPoint = Helpers.getRandomPositionInRadius(range, shape.square)
+        Vector3 hitPoint = Helpers.getRandomPositionInRadius(range, shape.square);
         Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(hitPoint, stats.range, mask);
         Hit(collidersInRadius);
     }
