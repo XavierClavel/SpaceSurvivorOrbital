@@ -44,10 +44,11 @@ public class PlayerManager
     public static bool isPlayingWithGamepad { get; private set; }
     public static int currentTimer { get; set; }
 
-    public static List<Power> powers;
+    public static List<PowerHandler> powers;
     public static int upgradePointsAmount { get; private set; }
 
     public static PlayerData playerData = new PlayerData();
+    public static Dictionary<string, interactorStats> keyToStats = new Dictionary<string, interactorStats>();
 
 
     public static void setWeapon(PlayerData interactorData, Interactor interactor)
@@ -73,7 +74,7 @@ public class PlayerManager
         playerData = new PlayerData();
         weaponData = new PlayerData();
         toolData = new PlayerData();
-        powers = new List<Power>();
+        powers = new List<PowerHandler>();
     }
 
     public static void GatherResourceGreen() => amountGreen++;
@@ -82,9 +83,15 @@ public class PlayerManager
 
     public static void SetControlMode(bool boolean) => isPlayingWithGamepad = boolean;
 
-    public static void AcquirePower(powerType newPower)
+    public static void AcquirePower(PowerHandler powerHandler)
     {
-        powers.Add(new Power(newPower));
+        powers.Add(powerHandler);
+        dictKeyToStats[powerHandler.getKey()] = DataManager.dictPowers[powerHandler.getKey()];
+    }
+
+    public static void AcquirePower(string key)
+    {
+        AcquirePower(PanelSelector.dictKeyToPowerHandler[key]);
     }
 
     public static void AcquireUpgradePoint()

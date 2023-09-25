@@ -194,6 +194,10 @@ public class PlayerController : MonoBehaviour
         soundManager = SoundManager.instance;
         healthBar = ObjectManager.instance.healthBar;
 
+        foreach(PowerHandler powerHandler in PlayerManager.powers) {
+            powerHandler.Activate();
+        }
+
         layoutManagerOrange.Setup(PlayerManager.playerData.resources.maxOrange, ObjectManager.instance.gameData.fillAmountOrange, resourceType.orange);
         layoutManagerGreen.Setup(PlayerManager.playerData.resources.maxGreen, ObjectManager.instance.gameData.fillAmountGreen, resourceType.green);
 
