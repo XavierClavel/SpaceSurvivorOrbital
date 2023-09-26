@@ -17,26 +17,4 @@ public class Power : Damager
         }
     }
 
-
-
 }
-
-
-/*
-public enum powerType { none, creusetout, divineLightning, toxicCloud };
-
-powerType type;
-    PlayerData data;
-    GameObject powerPrefab;
-
-    public Power(powerType type)
-    {
-        this.type = type;
-        //get data from a csv
-    }
-
-    public void Instantiate()
-    {
-
-    }
-    */
