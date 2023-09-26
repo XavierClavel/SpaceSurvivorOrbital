@@ -44,7 +44,7 @@ public class PlayerManager
     public static bool isPlayingWithGamepad { get; private set; }
     public static int currentTimer { get; set; }
 
-    public static List<PowerHandler> powers;
+    public static List<PowerHandler> powers = new List<PowerHandler>();
     public static int upgradePointsAmount { get; private set; }
 
     public static PlayerData playerData = new PlayerData();

@@ -282,8 +282,6 @@ public class PlayerController : MonoBehaviour
         controls.Player.MouseAimActive.canceled += ctx => interactorHandler.StopAction(); ;
 
         controls.Enable();
-
-        Debug.Log("coucou :)")
     }
 
     void Update()
