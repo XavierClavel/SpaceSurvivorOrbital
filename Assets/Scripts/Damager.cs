@@ -21,7 +21,7 @@ public abstract class Damager : MonoBehaviour
     }
 
     public virtual void Setup(interactorStats stats, bool dualUse = false)
-    {k,
+    {
         this.stats = stats;
 
         waitCooldown = Helpers.GetWait(stats.cooldown);
