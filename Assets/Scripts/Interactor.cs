@@ -8,8 +8,6 @@ public abstract class Interactor : Damager
 {
     public SpriteRenderer spriteRenderer;
 
-    [HideInInspector] public bool isUsing = false;
-
     //Guns
     protected int currentMagazine;
     protected bool reloadingMagazine = false;
@@ -35,6 +33,7 @@ public abstract class Interactor : Damager
     public override void Setup(interactorStats stats, bool dualUse = false)
     {
         base.Setup(stats,dualUse);
+        currentMagazine = stats.magazine;
 
         this.dualUse = dualUse;
         if (dualUse)

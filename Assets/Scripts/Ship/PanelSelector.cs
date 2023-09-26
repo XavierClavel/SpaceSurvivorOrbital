@@ -88,7 +88,7 @@ public class PanelSelector : MonoBehaviour
         PowerHandler[] powerHandlers = Resources.LoadAll<PowerHandler>("PowerHandlers/");
         foreach (PowerHandler powerHandler in powerHandlers)
         {
-            dictKeyToPowerHandler[powerHandler.key] = powerHandler;
+            dictKeyToPowerHandler[powerHandler.getKey()] = powerHandler;
         }
     }
 

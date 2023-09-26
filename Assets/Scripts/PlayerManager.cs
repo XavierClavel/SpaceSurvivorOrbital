@@ -48,7 +48,7 @@ public class PlayerManager
     public static int upgradePointsAmount { get; private set; }
 
     public static PlayerData playerData = new PlayerData();
-    public static Dictionary<string, interactorStats> keyToStats = new Dictionary<string, interactorStats>();
+    public static Dictionary<string, interactorStats> dictKeyToStats = new Dictionary<string, interactorStats>();
 
 
     public static void setWeapon(PlayerData interactorData, Interactor interactor)

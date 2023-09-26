@@ -15,7 +15,7 @@ public class PowerData : EffectData
         columnTitles = InitializeColumnTitles(s);
     }
 
-    public PowerData(List<string> s, selectorType type)
+    public PowerData(List<string> s)
     {
         if (s == null || s.Count != columnTitles.Count) return;
 
@@ -39,18 +39,6 @@ public class PowerData : EffectData
         stats.CalculateDPS();
 
         DataManager.dictPowers.Add(name,stats);
-
-        if (type == selectorType.weapon)
-        {
-            weapon currentInteractor = (weapon)System.Enum.Parse(typeof(weapon), name);
-            DataManager.dictWeapons.Add(currentInteractor, this);
-        }
-        else if (type == selectorType.tool)
-        {
-            //tool currentInteractor = (tool)System.Enum.Parse(typeof(tool), name);
-            //DataManager.dictTools.Add(currentInteractor, this);
-        }
-
     }
 
 }

@@ -103,11 +103,11 @@ public class Healer : Ennemy
 
     void Heal()
     {
-        RaycastHit2D[] hits = Physics2D.OverlapCircleAll(transform.position, range, mask);
-        foreach (RaycastHit2D hit in hits)
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, range, mask);
+        foreach (Collider2D collider in colliders)
         {
-            if (hit.collider.gameObject == gameObject) continue; //Does not heal himself
-            Ennemy ennemy = ObjectManager.dictObjectToEnnemy[hit.collider.gameObject];
+            if (collider.gameObject == gameObject) continue; //Does not heal himself
+            Ennemy ennemy = ObjectManager.dictObjectToEnnemy[collider.gameObject];
             if (ennemy.GetType() != this.GetType()) ennemy.HealSelf(baseDamage);    //does not heal other healers
         }
         needsToRecharge = true;

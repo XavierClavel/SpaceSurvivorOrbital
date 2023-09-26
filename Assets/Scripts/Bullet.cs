@@ -40,7 +40,7 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag(Vault.tag.Player)) PlayerController.Hurt(damage);
 
         if (other.gameObject.CompareTag(Vault.tag.Ennemy) || other.gameObject.CompareTag(Vault.tag.Resource)) {
-            InteractorHandler.playerInteractorHandler.Hit(other.gameObject);
+            InteractorHandler.playerInteractorHandler.currentInteractor.Hit(other.gameObject);
         }
 
 

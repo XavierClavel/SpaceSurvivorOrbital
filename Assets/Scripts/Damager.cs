@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public abstract class Damager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public abstract class Damager : MonoBehaviour
     protected PlayerController player;
     protected bool autoCooldown; //whether the interactor or the inheritor should handle cooldown
     public interactorStats stats;
+    [HideInInspector] public bool isUsing = false;
 
     protected virtual void Start()
     {
@@ -19,11 +21,10 @@ public abstract class Damager : MonoBehaviour
     }
 
     public virtual void Setup(interactorStats stats, bool dualUse = false)
-    {
+    {k,
         this.stats = stats;
 
         waitCooldown = Helpers.GetWait(stats.cooldown);
-        currentMagazine = stats.magazine;
     }
 
     public void Use()
@@ -44,6 +45,18 @@ public abstract class Damager : MonoBehaviour
     }
 
 #region DealDamage
+
+    public void Hit(RaycastHit2D[] targets, bool individualDamage = false) {
+        Hit(targets.ToList(), individualDamage);
+    }
+
+    public void Hit(List<RaycastHit2D> targets, bool individualDamage = false) {
+        Hit(targets.Select(c => c.collider), individualDamage);
+    }
+
+    public void Hit(Collider2D[] targets, bool individualDamage = false) {
+        Hit(targets.ToList(), individualDamage);
+    }
 
     public void Hit(List<Collider2D> targets, bool individualDamage = false) {
         if (targets.Count == 0) return;

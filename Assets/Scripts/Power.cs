@@ -8,6 +8,7 @@ public class Power : Damager
     [SerializeField] private bool activateOnStart;
     
    public override void Setup(interactorStats stats, bool dualUse = false) {
+    isUsing = true;
         base.Setup(stats, dualUse);
 
         if (activateOnStart) {
@@ -18,7 +19,7 @@ public class Power : Damager
     }
 
     protected override void onUse() {
-        
+
     }
 
 }

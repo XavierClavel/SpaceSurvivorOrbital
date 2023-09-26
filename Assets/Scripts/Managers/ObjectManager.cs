@@ -73,7 +73,7 @@ public class ObjectManager : MonoBehaviour
 
         PlayerController.instance.SpawnMinerBot();
         HideAltarUI();
-        PlayerManager.AcquirePower(powerType.creusetout);
+        //PlayerManager.AcquirePower(powerType.creusetout);
     }
 
     public void SelectUpgradePoint()
