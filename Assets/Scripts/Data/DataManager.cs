@@ -73,7 +73,7 @@ public class DataManager : MonoBehaviour
 
         loadText(weaponData, x => new InteractorData(x, selectorType.weapon), x => InteractorData.Initialize(x));
         loadText(toolData, x => new InteractorData(x, selectorType.tool), x => InteractorData.Initialize(x));
-        loadText(powerData, x => new PowerData(x), x => powerData.Initialize(x))
+        loadText(powerData, x => new PowerData(x), x => powerData.Initialize(x));
 
         loadText(upgradesData, x => new UpgradeData(x), x => UpgradeData.Initialize(x));
 

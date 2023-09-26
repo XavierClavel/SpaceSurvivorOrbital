@@ -7,7 +7,7 @@ public class Power : Damager
 {
     [SerializeField] private bool activateOnStart;
     
-    protected override void Setup(interactorStats stats, bool dualUse = false) {
+   protected override void Setup(interactorStats stats, bool dualUse = false) {
         base.Setup(stats, dualUse);
 
         if (activateOnStart) {
