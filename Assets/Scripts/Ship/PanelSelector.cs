@@ -25,6 +25,8 @@ public class PanelSelector : MonoBehaviour
     public static PanelSelector instance;
     public static Dictionary<string, ButtonSprite> dictKeyToButtonSprites;
     public static Dictionary<string, PowerHandler> dictKeyToPowerHandler;
+    public static Dictionary<string, WeaponHandler> dictKeyToWeaponHandler;
+    public static Dictionary<string, CharacterHandler> dictKeyToCharacterHandler;
     static int nbPanelsInitialized = 0;
 
 
@@ -76,6 +78,7 @@ public class PanelSelector : MonoBehaviour
         µ*/
     }
 
+    //TODO: move to DataManager
     void LoadScriptableObjects() {
         dictKeyToButtonSprites = new Dictionary<string, ButtonSprite>();
         ButtonSprite[] buttonSprites = Resources.LoadAll<ButtonSprite>("ButtonSprites/");
@@ -85,10 +88,24 @@ public class PanelSelector : MonoBehaviour
         }
 
         dictKeyToPowerHandler = new Dictionary<string, PowerHandler>();
-        PowerHandler[] powerHandlers = Resources.LoadAll<PowerHandler>("PowerHandlers/");
+        PowerHandler[] powerHandlers = Resources.LoadAll<PowerHandler>(Vault.path.Powers);
         foreach (PowerHandler powerHandler in powerHandlers)
         {
             dictKeyToPowerHandler[powerHandler.getKey()] = powerHandler;
+        }
+
+        dictKeyToWeaponHandler = new Dictionary<string, WeaponHandler>();
+        WeaponHandler[] weaponHandlers = Resources.LoadAll<weaponHandler>(Vault.path.Weapons);
+        foreach (WeaponHandler weaponHandler in WeaponHandlers)
+        {
+            dictKeyToWeaponHandler[weaponHandler.getKey()] = weaponHandler;
+        }
+
+        dictKeyToCharacterHandler = new Dictionary<string, CharacterHandler>();
+        CharacterHandler[] characterHandlers = Resources.LoadAll<CharacterHandler>(Vault.path.Characters);
+        foreach (CharacterHandler characterHandler in CharacterHandlers)
+        {
+            dictKeyToCharacterHandler[characterHandler.getKey()] = characterHandler;
         }
     }
 

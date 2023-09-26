@@ -1,5 +1,11 @@
 public static class Vault
 {
+    public static class path
+    {
+        public const string Weapons = "WeaponHandlers/"
+        public const string Powers = "PowerHandlers/"
+        public const string Characters = "CharacterHandlers/"
+    }
     public static class scene
     {
         public const string TitleScreen = "TitleScreen";
