@@ -7,7 +7,7 @@ public class Power : Damager
 {
     [SerializeField] private bool activateOnStart;
     
-   protected override void Setup(interactorStats stats, bool dualUse = false) {
+   public override void Setup(interactorStats stats, bool dualUse = false) {
         base.Setup(stats, dualUse);
 
         if (activateOnStart) {
@@ -15,6 +15,10 @@ public class Power : Damager
         } else {
             StartCoroutine(nameof(Cooldown));
         }
+    }
+
+    protected override void onUse() {
+        
     }
 
 }

@@ -54,7 +54,7 @@ public class DataManager : MonoBehaviour
     delegate void Formatter(List<string> s);
     public static Dictionary<weapon, InteractorData> dictWeapons = new Dictionary<weapon, InteractorData>();
     public static Dictionary<tool, InteractorData> dictTools = new Dictionary<tool, InteractorData>();
-    public static Dictionary<string, interactorStat> dictPowers = new Dictionary<string, interactorStat>();
+    public static Dictionary<string, interactorStats> dictPowers = new Dictionary<string, interactorStats>();
     public static Dictionary<objects, ObjectData> dictObjects = new Dictionary<objects, ObjectData>();
     public static Dictionary<string, LocalizedString> dictLocalization = new Dictionary<string, LocalizedString>();
     public static Dictionary<string, UpgradeData> dictUpgrades = new Dictionary<string, UpgradeData>();

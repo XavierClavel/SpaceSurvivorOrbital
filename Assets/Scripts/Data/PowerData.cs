@@ -15,7 +15,7 @@ public class PowerData : EffectData
         columnTitles = InitializeColumnTitles(s);
     }
 
-    public InteractorData(List<string> s, selectorType type)
+    public PowerData(List<string> s, selectorType type)
     {
         if (s == null || s.Count != columnTitles.Count) return;
 
