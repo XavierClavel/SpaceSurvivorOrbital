@@ -51,7 +51,7 @@ public abstract class Damager : MonoBehaviour
     }
 
     public void Hit(List<RaycastHit2D> targets, bool individualDamage = false) {
-        Hit(targets.Select(c => c.collider), individualDamage);
+        Hit(targets.Select(c => c.collider).ToList(), individualDamage);
     }
 
     public void Hit(Collider2D[] targets, bool individualDamage = false) {
