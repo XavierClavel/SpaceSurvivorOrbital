@@ -31,7 +31,7 @@ public class WeaponHandler : ObjectHandler
 {
     [SerializeField] private Interactor weapon;
 
-    public Power getWeapon() {return weapon;}
+    public Interactor getWeapon() {return weapon;}
 
     public void Activate() {
         interactorStats stats = PlayerManager.dictKeyToStats[key];

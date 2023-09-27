@@ -95,15 +95,15 @@ public class PanelSelector : MonoBehaviour
         }
 
         dictKeyToWeaponHandler = new Dictionary<string, WeaponHandler>();
-        WeaponHandler[] weaponHandlers = Resources.LoadAll<weaponHandler>(Vault.path.Weapons);
-        foreach (WeaponHandler weaponHandler in WeaponHandlers)
+        WeaponHandler[] weaponHandlers = Resources.LoadAll<WeaponHandler>(Vault.path.Weapons);
+        foreach (WeaponHandler weaponHandler in weaponHandlers)
         {
             dictKeyToWeaponHandler[weaponHandler.getKey()] = weaponHandler;
         }
 
         dictKeyToCharacterHandler = new Dictionary<string, CharacterHandler>();
         CharacterHandler[] characterHandlers = Resources.LoadAll<CharacterHandler>(Vault.path.Characters);
-        foreach (CharacterHandler characterHandler in CharacterHandlers)
+        foreach (CharacterHandler characterHandler in characterHandlers)
         {
             dictKeyToCharacterHandler[characterHandler.getKey()] = characterHandler;
         }
