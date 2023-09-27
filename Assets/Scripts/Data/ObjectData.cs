@@ -5,13 +5,14 @@ using UnityEngine;
 public class ObjectData : TemplateData
 {
 
-    static Dictionary<int, string> columns = new Dictionary<int, string>() {
+    static Dictionary<int, string> columns = new Dictionary<int, string> 
+    {
         {0, "Name"},
         {1, "MaxHealth"},
         {2, "BaseDamage"},
         {3, "BaseSpeed"},
         {4, "DamageResistance"},
-    }
+    };   
 
     public string name;
     public int maxHealth = 100;

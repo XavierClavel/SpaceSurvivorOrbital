@@ -81,7 +81,7 @@ public class DataManager : MonoBehaviour
         try {
             loadText(csv, formatter, initializer);
         } catch (Exception e) {
-            Debug.LogError($"Failed to read value in table \"{tableName}\"")
+            Debug.LogError($"Failed to read value in table \"{tableName}\"");
         }
     }
 

@@ -28,7 +28,7 @@ public class TemplateData
         } catch (Exception e) {
             string columnName = firstLine[mapper[i]];
             string key = firstLine[mapper[0]];
-            Debug.LogError($"Failed to read value in column \"{columnName}\" for key \"{key}\".")
+            Debug.LogError($"Failed to read value in column \"{columnName}\" for key \"{key}\".");
             throw e;
         } 
     }
