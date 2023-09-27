@@ -9,7 +9,7 @@ public class Breakable : MonoBehaviour
     protected int maxHealth = 150;
     protected float baseSpeed;
     protected float damageResistance;
-    protected int baseDamage;
+    protected Vector2Int baseDamage;
 
 
     [SerializeField] protected SpriteRenderer spriteOverlay;

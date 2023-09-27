@@ -17,7 +17,7 @@ public class ObjectData : TemplateData
     public int maxHealth = 100;
     public float baseSpeed = 3.5f;
     public float damageResistance = 0f;
-    public int baseDamage = 7;
+    public Vector2Int baseDamage = new Vector2Int(5,5);
 
     public ObjectData(List<string> s)
     {

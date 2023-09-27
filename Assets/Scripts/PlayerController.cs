@@ -132,6 +132,11 @@ public class PlayerController : MonoBehaviour
         instance.StartCoroutine(nameof(InvulnerabilityFrame));
     }
 
+    public static void Hurt(Vector2Int amount)
+    {
+        Hurt((float)amount.getRandom());
+    }
+
     IEnumerator InvulnerabilityFrame()
     {
         invulnerable = true;

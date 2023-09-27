@@ -13,7 +13,7 @@ public class Resource : Breakable
     [SerializeField] Slider healthBar;
 
     [Header("Parameters")]
-    [SerializeField] Vector2Int dropInterval = new Vector2Int(2, 5);
+    Vector2Int dropInterval;
     int _health;
 
     public int health
@@ -35,6 +35,8 @@ public class Resource : Breakable
         _health = maxHealth;
         healthBar.maxValue = _health;
         healthBar.value = _health;
+
+        dropInterval = baseDamage;
 
         ObjectManager.registerTargetSpawned();
     }
