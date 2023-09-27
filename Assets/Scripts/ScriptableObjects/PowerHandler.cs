@@ -2,10 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class ObjectHandler : ScriptableObject
 {
     [SerializeField] protected string key;
@@ -45,7 +41,7 @@ public class WeaponHandler : ObjectHandler
 }
 
 [CreateAssetMenu(fileName = "CharacterHandler", menuName = Vault.other.scriptableObjectMenu + "CharacterHandler", order = 0)]
-public class WeaponHandler : ObjectHandler
+public class CharacterHandler : ObjectHandler
 {
     [SerializeField] private string power1;
     [SerializeField] private string power2;
