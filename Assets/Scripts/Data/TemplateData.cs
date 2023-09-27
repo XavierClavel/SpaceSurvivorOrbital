@@ -22,7 +22,7 @@ public class TemplateData
         return firstLine.IndexOf(columnName);
     }
 
-    protected void SetMappedValue(int i, out T variable) {
+    protected void SetMappedValue<T>(int i, out T variable) {
         try {
             Helpers.SetMappedValue(row, mapper, i, out variable);
         } catch (Exception e) {
