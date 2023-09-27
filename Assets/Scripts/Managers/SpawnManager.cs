@@ -10,6 +10,8 @@ public class SpawnManager : Breakable
     [SerializeField] TilesBankManager tilesBankManager;
     List<Ennemy> ennemyPrefabs;
 
+    public GameObject spawnPosition;
+
     Transform playerTransform;
     bool doEnnemySpawn = true;
     [SerializeField] List<int> baseCost = new List<int>();
@@ -129,14 +131,16 @@ public class SpawnManager : Breakable
 
     public void SpawnEnnemy(Ennemy ennemy)
     {
-        Vector3 position = Helpers.getRandomPositionInRing(1f, 3f, shape.square) + transform.position;
+        Vector3 position = spawnPosition.transform.position;
+            //Helpers.getRandomPositionInRing(4f, 4f, shape.square) + transform.position;
         Instantiate(ennemy.gameObject, position, Quaternion.identity);
     }
 
     public void SpawnEnnemy()
     {
         GameObject ennemyPrefab = ennemyPrefabs[Random.Range(0, ennemyPrefabs.Count)].gameObject;
-        Vector3 position = Helpers.getRandomPositionInRing(1f, 4f, shape.square) + transform.position;
+        Vector3 position = spawnPosition.transform.position;
+        //Helpers.getRandomPositionInRing(4f, 4f, shape.square) + transform.position;
         Instantiate(ennemyPrefab, position, Quaternion.identity);
     }
 

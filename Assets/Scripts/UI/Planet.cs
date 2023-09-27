@@ -7,8 +7,8 @@ public class Planet : MonoBehaviour
 {
     public PlanetData planetData;
     [SerializeField] Image planet;
-    [SerializeField] DiscreteBarHandler sizeBar;
-    [SerializeField] DiscreteBarHandler dangerosityBar;
+    //[SerializeField] DiscreteBarHandler sizeBar;
+    //[SerializeField] DiscreteBarHandler dangerosityBar;
     [SerializeField] DiscreteBarHandler violetBar;
     [SerializeField] DiscreteBarHandler orangeBar;
     [SerializeField] DiscreteBarHandler greenBar;
@@ -33,16 +33,16 @@ public class Planet : MonoBehaviour
         planet.sprite = getSprite();
         GetComponent<Image>().color = getColor();
 
-        sizeBar.maxAmount = 3;
+        /*sizeBar.maxAmount = 3;
         sizeBar.currentAmount = (int)planetData.size + 1;
         sizeBar.Initialize();
 
         dangerosityBar.maxAmount = 10;
         dangerosityBar.currentAmount = planetData.difficulty + 1;
         dangerosityBar.Initialize();
-
-        violetBar.maxAmount = 3;
-        violetBar.currentAmount = (int)planetData.violetScarcity;
+*/
+        violetBar.maxAmount = 5;
+        violetBar.currentAmount = (int)planetData.violetScarcity + 1;
         violetBar.Initialize();
 
         orangeBar.maxAmount = 3;
