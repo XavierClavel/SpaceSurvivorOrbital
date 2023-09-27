@@ -32,7 +32,7 @@ public class ObjectData : TemplateData
         SetMappedValue(4, out damageResistance);
 
         if (DataManager.dictObjects.ContainsKey(name)) {
-            throw new System.ArgumentException($"Key {name} already used.")
+            throw new System.ArgumentException($"Key {name} already used.");
         }
         
         DataManager.dictObjects.Add(name, this);
