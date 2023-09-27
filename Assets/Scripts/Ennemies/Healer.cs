@@ -108,7 +108,7 @@ public class Healer : Ennemy
         {
             if (collider.gameObject == gameObject) continue; //Does not heal himself
             Ennemy ennemy = ObjectManager.dictObjectToEnnemy[collider.gameObject];
-            if (ennemy.GetType() != this.GetType()) ennemy.HealSelf(baseDamage);    //does not heal other healers
+            if (ennemy.GetType() != this.GetType()) ennemy.HealSelf(baseDamage.getRandom());    //does not heal other healers
         }
         needsToRecharge = true;
         StartCoroutine(nameof(Recharge));
