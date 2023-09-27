@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class Breakable : MonoBehaviour
 {
-    [SerializeField] objects objectType;
+    [SerializeField] private string key;
     protected int maxHealth = 150;
     protected float baseSpeed;
     protected float damageResistance;
@@ -19,7 +19,10 @@ public class Breakable : MonoBehaviour
     protected virtual void Start()
     {
         ObjectManager.dictObjectToHitable.Add(gameObject, this);
-        ObjectData objectData = DataManager.dictObjects[objectType];
+        if (!DataManager.dictObjects.ContainsKey(key)) {
+            throw new ArgumentException($"Key \"{key}\" used for gameObject \"{gameObject.name}\" does not exist in file ObjectData.csv");
+        }
+        ObjectData objectData = DataManager.dictObjects[key];
         maxHealth = objectData.maxHealth;
         baseSpeed = objectData.baseSpeed;
         damageResistance = objectData.damageResistance;

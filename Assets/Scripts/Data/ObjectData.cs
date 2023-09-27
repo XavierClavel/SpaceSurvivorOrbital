@@ -29,15 +29,11 @@ public class ObjectData : TemplateData
         Helpers.SetMappedValue(s, mapper, 3, out baseSpeed);
         Helpers.SetMappedValue(s, mapper, 4, out damageResistance);
 
-        try
-        {
-            objects currentBreakable = (objects)System.Enum.Parse(typeof(objects), name);
-            DataManager.dictObjects.Add(currentBreakable, this);
+        if (DataManager.dictObjects.ContainsKey(name)) {
+            throw new ArgumentException($"Key {name} already used.")
         }
-        catch
-        {
-            throw new System.ArgumentException($"Failed to parse {name}");
-        }
+        
+        DataManager.dictObjects.Add(name, this);
     }
 
     public static void Initialize(List<string> s)

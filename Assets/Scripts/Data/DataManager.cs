@@ -25,20 +25,6 @@ public enum tool
     Pickaxe
 }
 
-public enum objects
-{
-    Purple1,
-    Purple2,
-    Purple3,
-    Green1,
-    Green2,
-    Green3,
-    Orange1,
-    Orange2,
-    Orange3,
-    Blob,
-    Spawner
-}
 
 public class DataManager : MonoBehaviour
 {
@@ -55,7 +41,7 @@ public class DataManager : MonoBehaviour
     public static Dictionary<weapon, InteractorData> dictWeapons = new Dictionary<weapon, InteractorData>();
     public static Dictionary<tool, InteractorData> dictTools = new Dictionary<tool, InteractorData>();
     public static Dictionary<string, interactorStats> dictPowers = new Dictionary<string, interactorStats>();
-    public static Dictionary<objects, ObjectData> dictObjects = new Dictionary<objects, ObjectData>();
+    public static Dictionary<string, ObjectData> dictObjects = new Dictionary<string, ObjectData>();
     public static Dictionary<string, LocalizedString> dictLocalization = new Dictionary<string, LocalizedString>();
     public static Dictionary<string, UpgradeData> dictUpgrades = new Dictionary<string, UpgradeData>();
     public static Dictionary<string, Dictionary<string, UpgradeData>> dictKeyToDictUpgrades = new Dictionary<string, Dictionary<string, UpgradeData>>();
