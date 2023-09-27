@@ -20,7 +20,7 @@ public class Breakable : MonoBehaviour
     {
         ObjectManager.dictObjectToHitable.Add(gameObject, this);
         if (!DataManager.dictObjects.ContainsKey(key)) {
-            throw new ArgumentException($"Key \"{key}\" used for gameObject \"{gameObject.name}\" does not exist in file ObjectData.csv");
+            throw new System.ArgumentException($"Key \"{key}\" used for gameObject \"{gameObject.name}\" does not exist in file ObjectData.csv");
         }
         ObjectData objectData = DataManager.dictObjects[key];
         maxHealth = objectData.maxHealth;
