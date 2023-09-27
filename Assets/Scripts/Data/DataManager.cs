@@ -66,7 +66,7 @@ public class DataManager : MonoBehaviour
 
         foreach (TextAsset data in localizationData)
         {
-            loadText("Loclization", data, x => new LocalizedString(x), x => LocalizedString.Initialize(x));
+            loadText("Localization", data, x => new LocalizedString(x), x => LocalizedString.Initialize(x));
         }
         loadText("Button Localization", buttonLocalization, x => new LocalizedString(x, true), x => LocalizedString.Initialize(x));
 
