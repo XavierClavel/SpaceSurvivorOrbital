@@ -18,6 +18,7 @@ public class Breakable : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        key = key.Trim();
         ObjectManager.dictObjectToHitable.Add(gameObject, this);
         if (!DataManager.dictObjects.ContainsKey(key)) {
             throw new System.ArgumentException($"Key \"{key}\" used for gameObject \"{gameObject.name}\" does not exist in file ObjectData.csv");

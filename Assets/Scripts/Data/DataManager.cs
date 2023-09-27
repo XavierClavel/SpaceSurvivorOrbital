@@ -57,23 +57,32 @@ public class DataManager : MonoBehaviour
         if (!SingletonManager.OnInstanciation(this)) return;
         instance = SingletonManager.get<DataManager>();
 
-        loadText(weaponData, x => new InteractorData(x), x => InteractorData.Initialize(x));
-        loadText(powerData, x => new PowerData(x), x => PowerData.Initialize(x));
+        loadText("Weapons", weaponData, x => new InteractorData(x), x => InteractorData.Initialize(x));
+        loadText("Powers", powerData, x => new PowerData(x), x => PowerData.Initialize(x));
 
-        loadText(upgradesData, x => new UpgradeData(x), x => UpgradeData.Initialize(x));
+        loadText("Upgrades", upgradesData, x => new UpgradeData(x), x => UpgradeData.Initialize(x));
 
-        loadText(breakableData, x => new ObjectData(x), x => ObjectData.Initialize(x));
+        loadText("Breakables", breakableData, x => new ObjectData(x), x => ObjectData.Initialize(x));
 
         foreach (TextAsset data in localizationData)
         {
-            loadText(data, x => new LocalizedString(x), x => LocalizedString.Initialize(x));
+            loadText("Loclization", data, x => new LocalizedString(x), x => LocalizedString.Initialize(x));
         }
-        loadText(buttonLocalization, x => new LocalizedString(x, true), x => LocalizedString.Initialize(x));
+        loadText("Button Localization", buttonLocalization, x => new LocalizedString(x, true), x => LocalizedString.Initialize(x));
 
         PlayerManager.playerData.character.setBase();
 
         PlayerManager.setWeapon(dictWeapons[selectedWeapon].interactorData, objectReferencer.getInteractor(selectedWeapon));
         if (selectedTool != tool.None) PlayerManager.setTool(dictTools[selectedTool].interactorData, objectReferencer.getInteractor(selectedTool));
+    }
+
+    void loadText(string tableName, TextAsset csv, Formatter formatter, Formatter initializer = null)
+    {
+        try {
+            loadText(csv, formatter, initializer);
+        } catch (Exception e) {
+            Debug.LogError($"Failed to read value in table \"{tableName}\"")
+        }
     }
 
     void loadText(TextAsset csv, Formatter formatter, Formatter initializer = null, int offset = 0)

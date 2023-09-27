@@ -6,6 +6,7 @@ public class TemplateData
 {
     protected static Dictionary<int, int> mapper = new Dictionary<int, int>();
     static List<string> firstLine = new List<string>();
+    protected List<string> row = new List<string>();
 
     public static void InitializeMapping(List<string> values, List<string> firstLineValue)
     {
@@ -19,6 +20,17 @@ public class TemplateData
         columnName = columnName.Trim();
         if (firstLine.IndexOf(columnName) == -1) throw new System.ArgumentException($"{columnName} not found");
         return firstLine.IndexOf(columnName);
+    }
+
+    protected void SetMappedValue(int i, out T variable) {
+        try {
+            Helpers.SetMappedValue(row, mapper, i, out variable);
+        } catch (Exception e) {
+            string columnName = firstLine[mapper[i]];
+            string key = firstLine[mapper[0]];
+            Debug.LogError($"Failed to read value in column \"{columnName}\" for key \"{key}\".")
+            throw e;
+        } 
     }
 
 }

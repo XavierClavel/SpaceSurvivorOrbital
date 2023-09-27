@@ -585,10 +585,10 @@ public class Helpers : MonoBehaviour
                     if (typeof(T) == typeof(Vector2Int)) return (T)(object)ParseVector2Int(s);
                     else if (typeof(T) == typeof(List<string>)) return (T)(object)ParseList(s);
                     else if (typeof(T).IsEnum) return (T)(object)ParseEnum<T>(s);
-                    else throw new ArgumentException($"Failed to parse \"{s}\" for variable of type {typeof(T)})");
+                    else throw new ArgumentException($"Type {typeof(T)}) not supported.");
 
                 default:
-                    throw new ArgumentException($"Failed to parse \"{s}\" for variable of type {typeof(T)})");
+                    throw new ArgumentException($"Type {typeof(T)}) not supported.");
             }
         }
         catch

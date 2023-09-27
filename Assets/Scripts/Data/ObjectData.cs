@@ -5,13 +5,13 @@ using UnityEngine;
 public class ObjectData : TemplateData
 {
 
-    static List<string> firstLineValue = new List<string> {
-        "Name",
-        "MaxHealth",
-        "BaseDamage",
-        "BaseSpeed",
-        "DamageResistance"
-    };
+    static Dictionary<int, string> columns = new Dictionary<int, string>() {
+        {0, "Name"},
+        {1, "MaxHealth"},
+        {2, "BaseDamage"},
+        {3, "BaseSpeed"},
+        {4, "DamageResistance"},
+    }
 
     public string name;
     public int maxHealth = 100;
@@ -23,11 +23,13 @@ public class ObjectData : TemplateData
     {
         if (s == null || s.Count != firstLineValue.Count) return;
 
-        Helpers.SetMappedValue(s, mapper, 0, out name);
-        Helpers.SetMappedValue(s, mapper, 1, out maxHealth);
-        Helpers.SetMappedValue(s, mapper, 2, out baseDamage);
-        Helpers.SetMappedValue(s, mapper, 3, out baseSpeed);
-        Helpers.SetMappedValue(s, mapper, 4, out damageResistance);
+        row = s.Copy();
+
+        SetMappedValue(0, out name);
+        SetMappedValue(1, out maxHealth);
+        SetMappedValue(2, out baseDamage);
+        SetMappedValue(3, out baseSpeed);
+        SetMappedValue(4, out damageResistance);
 
         if (DataManager.dictObjects.ContainsKey(name)) {
             throw new System.ArgumentException($"Key {name} already used.")
@@ -38,7 +40,7 @@ public class ObjectData : TemplateData
 
     public static void Initialize(List<string> s)
     {
-        InitializeMapping(s, firstLineValue);
+        InitializeMapping(s, columns.Values);
     }
 
 }
