@@ -33,6 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6543418808465370686}
+  - {fileID: 7061365691592388920}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -103,6 +104,7 @@ MonoBehaviour:
   objectType: 10
   spriteOverlay: {fileID: 0}
   tilesBankManager: {fileID: 11400000, guid: dde3abeea4d88e546a3066a1c045dada, type: 2}
+  spawnPosition: {fileID: 5866264136600081700}
   baseCost: 0500000007000000090000000b0000000d0000000f00000011000000130000001500000017000000
   increaseByWave: 02000000020000000200000002000000030000000300000003000000030000000400000004000000
   waveDurationList: 14000000140000001400000014000000140000001400000014000000140000001400000014000000
@@ -362,6 +364,37 @@ PolygonCollider2D:
       - {x: 0.17999999, y: -1.8499999}
       - {x: 0.26999998, y: -1.8}
   m_UseDelaunayMesh: 0
+--- !u!1 &5866264136600081700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7061365691592388920}
+  m_Layer: 11
+  m_Name: SpawnPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7061365691592388920
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5866264136600081700}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.21, y: -2.79, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9064790163293999164}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4760108417182831269
 PrefabInstance:
   m_ObjectHideFlags: 0
