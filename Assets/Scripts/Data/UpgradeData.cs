@@ -40,6 +40,7 @@ public class UpgradeData : EffectData
         SetDictionary(columnTitles, s);
 
         SetValue(ref key, Vault.key.Key);
+        if (key == "") return;
         SetValue(ref upgradesEnabled, Vault.key.upgrade.UpgradesEnabled);
         SetValue(ref upgradesDisabled, Vault.key.upgrade.UpgradesDisabled);
         SetValue(ref target, Vault.key.upgrade.Target);
@@ -62,8 +63,6 @@ public class UpgradeData : EffectData
         }
 
         if (!DataManager.dictKeyToDictUpgrades.ContainsKey(target)) DataManager.dictKeyToDictUpgrades[target] = new Dictionary<string, UpgradeData>();
-
-        if (key == "") return;
 
         DataManager.dictKeyToDictUpgrades[target][key] = this;
         DataManager.dictUpgrades.Add(key, this);

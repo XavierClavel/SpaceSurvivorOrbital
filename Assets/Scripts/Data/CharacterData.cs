@@ -20,11 +20,11 @@ public class CharacterData : TemplateData
     public CharacterData(List<string> s)
     {
         Helpers.SetMappedValue(s, mapper, 0, out name);
+        if (name == "") return;
+
         Helpers.SetMappedValue(s, mapper, 1, out maxHealth);
         Helpers.SetMappedValue(s, mapper, 2, out baseSpeed);
         Helpers.SetMappedValue(s, mapper, 3, out damageResistance);
-
-        if (name == "") return;
 
         character currentCharacter = (character)System.Enum.Parse(typeof(character), name);
     }

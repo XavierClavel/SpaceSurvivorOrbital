@@ -22,6 +22,8 @@ public class InteractorData : EffectData
         SetDictionary(columnTitles, s);
 
         SetValue(ref name, Vault.key.Name);
+        if (name == "") return;
+        
         SetValue(ref interactorData.interactor.baseDamage, Vault.key.upgrade.BaseDamage);
         SetValue(ref interactorData.interactor.attackSpeed, Vault.key.upgrade.AttackSpeed);
         SetValue(ref interactorData.interactor.range, Vault.key.upgrade.Range);
@@ -38,7 +40,6 @@ public class InteractorData : EffectData
 
         interactorData.interactor.CalculateDPS();
 
-        if (name == "") return;
         weapon currentInteractor = (weapon)System.Enum.Parse(typeof(weapon), name);
         DataManager.dictWeapons.Add(currentInteractor, this);
 

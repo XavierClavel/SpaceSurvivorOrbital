@@ -70,12 +70,12 @@ public class PowerUpgradeData : TemplateData
     public PowerUpgradeData(List<string> s)
     {
         Helpers.SetMappedValue(s, mapper, 0, out name);
+        if (name == "") return;
+
         Helpers.SetMappedValue(s, mapper, 1, out costGreen);
         Helpers.SetMappedValue(s, mapper, 2, out costOrange);
         Helpers.SetMappedValue(s, mapper, 3, out upgradesEnabled);
         Helpers.SetMappedValue(s, mapper, 4, out upgradesDisabled);
-
-        if (name == "") return;
 
         for (int i = 5; i < s.Count; i++)
         {

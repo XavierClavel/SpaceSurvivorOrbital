@@ -28,12 +28,12 @@ public class ObjectData : TemplateData
         row = s.Copy();
 
         SetMappedValue(0, out name);
+        if (name == "") return;
+
         SetMappedValue(1, out maxHealth);
         SetMappedValue(2, out baseDamage);
         SetMappedValue(3, out baseSpeed);
         SetMappedValue(4, out damageResistance);
-
-        if (name == "") return;
 
         if (DataManager.dictObjects.ContainsKey(name)) {
             throw new System.ArgumentException($"Key {name} already used.");
