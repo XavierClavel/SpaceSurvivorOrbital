@@ -75,6 +75,8 @@ public class PowerUpgradeData : TemplateData
         Helpers.SetMappedValue(s, mapper, 3, out upgradesEnabled);
         Helpers.SetMappedValue(s, mapper, 4, out upgradesDisabled);
 
+        if (name == "") return;
+
         for (int i = 5; i < s.Count; i++)
         {
 

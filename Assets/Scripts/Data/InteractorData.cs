@@ -38,6 +38,7 @@ public class InteractorData : EffectData
 
         interactorData.interactor.CalculateDPS();
 
+        if (name == "") return;
         weapon currentInteractor = (weapon)System.Enum.Parse(typeof(weapon), name);
         DataManager.dictWeapons.Add(currentInteractor, this);
 

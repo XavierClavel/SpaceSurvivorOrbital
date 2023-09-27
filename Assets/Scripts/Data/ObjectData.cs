@@ -33,6 +33,8 @@ public class ObjectData : TemplateData
         SetMappedValue(3, out baseSpeed);
         SetMappedValue(4, out damageResistance);
 
+        if (name == "") return;
+
         if (DataManager.dictObjects.ContainsKey(name)) {
             throw new System.ArgumentException($"Key {name} already used.");
         }

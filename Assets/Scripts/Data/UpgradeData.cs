@@ -63,6 +63,8 @@ public class UpgradeData : EffectData
 
         if (!DataManager.dictKeyToDictUpgrades.ContainsKey(target)) DataManager.dictKeyToDictUpgrades[target] = new Dictionary<string, UpgradeData>();
 
+        if (key == "") return;
+
         DataManager.dictKeyToDictUpgrades[target][key] = this;
         DataManager.dictUpgrades.Add(key, this);
     }
