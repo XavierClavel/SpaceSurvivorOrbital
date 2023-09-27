@@ -105,7 +105,7 @@ public class Gunner : Ennemy
         //soundManager.PlaySfx(transform, sfx.ennemyShoots);
         Bullet bullet = Instantiate(bulletPrefab, transform.position, Helpers.v2ToQuaternion(directionToPlayer));
         bullet.gameObject.SetActive(true);
-        bullet.Fire(bulletSpeed, lifetime, baseDamage);
+        bullet.Fire(bulletSpeed, lifetime, baseDamage.getRandom());
         needsToReload = true;
         StartCoroutine(nameof(Reload));
     }
