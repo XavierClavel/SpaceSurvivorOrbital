@@ -62,7 +62,7 @@ public class DataManager : MonoBehaviour
 
         loadText("Upgrades", upgradesData, x => new UpgradeData(x), x => UpgradeData.Initialize(x));
 
-        loadText("Breakables", breakableData, x => new ObjectData(x), x => ObjectData.Initialize(x));
+        loadText("Objects", breakableData, x => new ObjectData(x), x => ObjectData.Initialize(x));
 
         foreach (TextAsset data in localizationData)
         {
