@@ -15,7 +15,7 @@ public class InteractorData : EffectData
         columnTitles = InitializeColumnTitles(s);
     }
 
-    public InteractorData(List<string> s, selectorType type)
+    public InteractorData(List<string> s)
     {
         if (s == null || s.Count != columnTitles.Count) return;
 
@@ -38,16 +38,8 @@ public class InteractorData : EffectData
 
         interactorData.interactor.CalculateDPS();
 
-        if (type == selectorType.weapon)
-        {
-            weapon currentInteractor = (weapon)System.Enum.Parse(typeof(weapon), name);
-            DataManager.dictWeapons.Add(currentInteractor, this);
-        }
-        else if (type == selectorType.tool)
-        {
-            //tool currentInteractor = (tool)System.Enum.Parse(typeof(tool), name);
-            //DataManager.dictTools.Add(currentInteractor, this);
-        }
+        weapon currentInteractor = (weapon)System.Enum.Parse(typeof(weapon), name);
+        DataManager.dictWeapons.Add(currentInteractor, this);
 
     }
 

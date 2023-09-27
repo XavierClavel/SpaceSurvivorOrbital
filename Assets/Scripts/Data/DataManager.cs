@@ -71,8 +71,7 @@ public class DataManager : MonoBehaviour
         if (!SingletonManager.OnInstanciation(this)) return;
         instance = SingletonManager.get<DataManager>();
 
-        loadText(weaponData, x => new InteractorData(x, selectorType.weapon), x => InteractorData.Initialize(x));
-        loadText(toolData, x => new InteractorData(x, selectorType.tool), x => InteractorData.Initialize(x));
+        loadText(weaponData, x => new InteractorData(x), x => InteractorData.Initialize(x));
         loadText(powerData, x => new PowerData(x), x => PowerData.Initialize(x));
 
         loadText(upgradesData, x => new UpgradeData(x), x => UpgradeData.Initialize(x));
