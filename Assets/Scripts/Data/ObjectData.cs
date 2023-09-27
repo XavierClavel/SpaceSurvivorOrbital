@@ -22,7 +22,7 @@ public class ObjectData : TemplateData
 
     public ObjectData(List<string> s)
     {
-        if (s == null || s.Count != firstLineValue.Count) return;
+        if (s == null || s.Count != columns.Values.ToList().Count) return;
 
         row = s.Copy();
 
@@ -41,7 +41,7 @@ public class ObjectData : TemplateData
 
     public static void Initialize(List<string> s)
     {
-        InitializeMapping(s, columns.Values);
+        InitializeMapping(s, columns.Values.ToList());
     }
 
 }

@@ -66,7 +66,7 @@ public class EffectData
         if (value == null || value == "") return;
         try {
             variable = Helpers.parseString<T>(dictColumnToValue[key]);
-        } catch (Exception e) {
+        } catch (System.Exception e) {
             Debug.LogError($"Failed to parse value in column \"{key}\".")
         }
         

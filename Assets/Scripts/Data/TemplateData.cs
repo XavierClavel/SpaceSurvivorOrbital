@@ -25,7 +25,7 @@ public class TemplateData
     protected void SetMappedValue<T>(int i, out T variable) {
         try {
             Helpers.SetMappedValue(row, mapper, i, out variable);
-        } catch (Exception e) {
+        } catch (System.Exception e) {
             string columnName = firstLine[mapper[i]];
             string key = firstLine[mapper[0]];
             Debug.LogError($"Failed to read value in column \"{columnName}\" for key \"{key}\".");
