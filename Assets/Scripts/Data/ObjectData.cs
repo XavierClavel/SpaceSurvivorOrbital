@@ -13,12 +13,14 @@ public class ObjectData : TemplateData
         {2, "BaseDamage"},
         {3, "BaseSpeed"},
         {4, "DamageResistance"},
+        {5, "Cost"},
     };   
 
     public string name;
     public int maxHealth = 100;
     public float baseSpeed = 3.5f;
     public float damageResistance = 0f;
+    public int cost = 0;
     public Vector2Int baseDamage = new Vector2Int(5,5);
 
     public ObjectData(List<string> s)
@@ -34,6 +36,7 @@ public class ObjectData : TemplateData
         SetMappedValue(2, out baseDamage);
         SetMappedValue(3, out baseSpeed);
         SetMappedValue(4, out damageResistance);
+        SetMappedValue(5, out cost);
 
         if (DataManager.dictObjects.ContainsKey(name)) {
             throw new System.ArgumentException($"Key {name} already used.");

@@ -23,7 +23,6 @@ public class Ennemy : Breakable
     static WaitForSeconds waitFireDamage;
     static WaitForSeconds waitIce;
     float speedMultiplier = 1f;
-    public int cost;
 
     [Header("Knockback Parameters")]
     [SerializeField] float knockbackForce = 5f;
