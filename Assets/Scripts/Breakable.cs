@@ -10,7 +10,7 @@ public class Breakable : MonoBehaviour
     protected float baseSpeed;
     protected float damageResistance;
     protected Vector2Int baseDamage;
-    protected int cost;
+    [HideInInspector] public int cost;
 
 
     [SerializeField] protected SpriteRenderer spriteOverlay;
