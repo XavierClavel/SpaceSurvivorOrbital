@@ -48,12 +48,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 983637c26dafad94ea19eb66916a0ca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetPos: {x: 0, y: 0, z: 0}
   bulletParticle: {fileID: 6208466077672376528, guid: 356c00c6aa146c94ebcf64c3e25365c5, type: 3}
   rb: {fileID: 4409050820070042233}
-  axis: {x: 0, y: 0, z: 0}
-  radius: 0
   pierce: 0
+  damage: 1
+  effect: 0
+  critical: 0
 --- !u!96 &6150280985901383639
 TrailRenderer:
   serializedVersion: 3
@@ -199,9 +199,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.017538771, y: -0.021436244}
   serializedVersion: 2
-  m_Radius: 0.18845621
+  m_Radius: 0.11440365
 --- !u!50 &4409050820070042233
 Rigidbody2D:
   serializedVersion: 4
@@ -253,14 +253,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4534390401890963083}
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1112036552614526958}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1886897577630713875
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -302,7 +302,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 32fc46fa3f0e8b349b777fc008066ece, type: 3}
+  m_Sprite: {fileID: 24686738, guid: 7955eeeaec040594a9416a387aa1d925, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

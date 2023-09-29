@@ -227,23 +227,20 @@ public class Ennemy : Breakable
     {
         if (player == null)
         {
-            return; // Si le joueur n'est pas trouvé, ne faites rien.
+            return; 
         }
 
         Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
-        Vector3 facingDirection = transform.right; // Direction vers la droite (par défaut)
+        Vector3 facingDirection = transform.right;
 
-        // Utilisez le produit scalaire pour vérifier s'ils se font face
         float dotProduct = Vector3.Dot(directionToPlayer, facingDirection);
 
         if (dotProduct > 0)
         {
-            // Le joueur est à droite du monstre, mettez à jour l'animation vers la droite.
             animator.SetBool("IsMovingRight", true);
         }
         else
         {
-            // Le joueur est à gauche du monstre, mettez à jour l'animation vers la gauche.
             animator.SetBool("IsMovingRight", false);
         }
     }
