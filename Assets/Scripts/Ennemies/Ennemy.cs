@@ -84,6 +84,7 @@ public class Ennemy : Breakable
 
         animator = GetComponent<Animator>();
         playerDir = GameObject.FindGameObjectWithTag("Player");
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
 
@@ -221,6 +222,7 @@ public class Ennemy : Breakable
 
     private GameObject playerDir;
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
     private bool isMovingRight = true;
 
     private void Update()
@@ -230,18 +232,26 @@ public class Ennemy : Breakable
             return; 
         }
 
-        Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
+        Vector3 directionToPlayer = (player.transform.position - transform.position);
         Vector3 facingDirection = transform.right;
 
         float dotProduct = Vector3.Dot(directionToPlayer, facingDirection);
 
-        if (dotProduct > 0)
-        {
-            animator.SetBool("IsMovingRight", true);
-        }
-        else
+        if (dotProduct > 0 && isMovingRight)
         {
             animator.SetBool("IsMovingRight", false);
+            FlipSprite();
+        }
+        else if (dotProduct < 0 && !isMovingRight)
+        {
+            animator.SetBool("IsMovingRight", true);
+            FlipSprite();
         }
     }
+    private void FlipSprite()
+    {
+        isMovingRight = !isMovingRight;
+        spriteRenderer.flipX = !isMovingRight;
+    }
+
 }
