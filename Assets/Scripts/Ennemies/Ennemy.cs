@@ -85,6 +85,15 @@ public class Ennemy : Breakable
         animator = GetComponent<Animator>();
         playerDir = GameObject.FindGameObjectWithTag("Player");
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        Transform childTransform = transform.Find("Sprite Overlay");
+
+        if (childTransform != null)
+        {
+            SpriteRenderer childSpriteRenderer = childTransform.GetComponent<SpriteRenderer>();
+            overlaydSpriteRenderer = childSpriteRenderer.GetComponent<SpriteRenderer>();
+            
+        }
     }
 
 
@@ -223,6 +232,7 @@ public class Ennemy : Breakable
     private GameObject playerDir;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private SpriteRenderer overlaydSpriteRenderer;
     private bool isMovingRight = true;
 
     private void Update()
@@ -252,6 +262,8 @@ public class Ennemy : Breakable
     {
         isMovingRight = !isMovingRight;
         spriteRenderer.flipX = !isMovingRight;
+        overlaydSpriteRenderer.flipX = !isMovingRight;
+        
     }
 
 }
