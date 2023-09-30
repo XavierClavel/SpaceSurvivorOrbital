@@ -60,17 +60,18 @@ public class Planet : MonoBehaviour
     {
         switch (planetData.type)
         {
-            case planetType.mushroom:
+           case planetType.mushroom:
                 return PlanetSelector.instance.planetMushroom;
 
+            case planetType.storm:
+                return PlanetSelector.instance.planetStorm;
             case planetType.ice:
                 return PlanetSelector.instance.planetMushroom;
 
             case planetType.jungle:
                 return PlanetSelector.instance.planetJungle;
 
-            case planetType.storm:
-                return PlanetSelector.instance.planetStorm;
+
 
             case planetType.desert:
                 return PlanetSelector.instance.planetDesert;

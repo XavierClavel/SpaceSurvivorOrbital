@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.Events;
+using System.Net;
 
 public class Ennemy : Breakable
 {
@@ -80,6 +81,9 @@ public class Ennemy : Breakable
         //TODO : static initalizer
 
         ObjectManager.dictObjectToEnnemy.Add(gameObject, this);
+
+        animator = GetComponent<Animator>();
+        playerDir = GameObject.FindGameObjectWithTag("Player");
     }
 
 
@@ -215,4 +219,29 @@ public class Ennemy : Breakable
 
     #endregion
 
+    private GameObject playerDir;
+    private Animator animator;
+    private bool isMovingRight = true;
+
+    private void Update()
+    {
+        if (player == null)
+        {
+            return; 
+        }
+
+        Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
+        Vector3 facingDirection = transform.right;
+
+        float dotProduct = Vector3.Dot(directionToPlayer, facingDirection);
+
+        if (dotProduct > 0)
+        {
+            animator.SetBool("IsMovingRight", true);
+        }
+        else
+        {
+            animator.SetBool("IsMovingRight", false);
+        }
+    }
 }
