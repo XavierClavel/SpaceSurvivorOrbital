@@ -12,6 +12,15 @@ public class Resource : Breakable
     [SerializeField] GameObject itemPrefab;
     [SerializeField] Slider healthBar;
 
+    [Header("Animation")]
+    public Sprite damagedSprite;
+    private SpriteRenderer spriteRenderer;
+    private Animator animator;
+    private bool isDestroy = false;
+    private new GameObject spriteOverlay;
+    public Collider2D myCollider;
+
+
     [Header("Parameters")]
     Vector2Int dropInterval;
     int _health;
@@ -23,9 +32,10 @@ public class Resource : Breakable
         {
             _health = value;
             healthBar.value = value;
-            if (!healthBar.gameObject.activeInHierarchy) healthBar.gameObject.SetActive(true);
+            if (!healthBar.gameObject.activeInHierarchy && !isDestroy) healthBar.gameObject.SetActive(true);
             //SoundManager.instance.PlaySfx(transform, sfx.playerHit);
-            if (value <= 0) Break();
+            if (value >= 0 && value < maxHealth) spriteRenderer.sprite = damagedSprite;
+            if (value <= 0 && !isDestroy) Break();
         }
     }
 
@@ -39,6 +49,13 @@ public class Resource : Breakable
         dropInterval = baseDamage;
 
         ObjectManager.registerTargetSpawned();
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+        Transform childTransform = transform.Find("Sprite Overlay");
+        spriteOverlay = childTransform.gameObject;
+        myCollider = GetComponent<Collider2D>();
+
     }
 
     public override void Hit(int damage, status effect, bool critical)
@@ -56,7 +73,12 @@ public class Resource : Breakable
             Instantiate(itemPrefab, randomPos() + transform.position, Quaternion.identity);
         }
         ObjectManager.registerTargetDestroyed();
-        Destroy(gameObject);
+        animator.enabled = true;
+        isDestroy = true;
+        healthBar.gameObject.SetActive(false);
+        myCollider.enabled = false;
+        Destroy(spriteOverlay);
+
 
     }
 
