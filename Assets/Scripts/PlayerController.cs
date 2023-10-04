@@ -111,6 +111,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public status effect;
     [HideInInspector] public Vector2 aimVector;
 
+    [SerializeField] protected SpriteRenderer spriteOverlay;
+
 
     int health
     {
@@ -125,12 +127,20 @@ public class PlayerController : MonoBehaviour
     }
 
     #region interface
+
     public static void Hurt(float amount)
     {
         if (invulnerable) return;
         instance.health -= (int)(amount * (1 - instance.damageResistanceMultiplier));
+        instance.OnHitOverlay();
         instance.StartCoroutine(nameof(ShakeCoroutine));
         instance.StartCoroutine(nameof(InvulnerabilityFrame));
+    }
+    public void OnHitOverlay()
+    {
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(spriteOverlay.DOColor(Color.white, 0.1f));
+        sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
     }
 
     public static void Hurt(Vector2Int amount)
@@ -148,11 +158,17 @@ public class PlayerController : MonoBehaviour
     public void IncreaseOrange()
     {
         layoutManagerOrange.AddResource();
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(spriteOverlay.DOColor(Color.yellow, 0.05f));
+        sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
     }
 
     public void IncreaseGreen()
     {
         layoutManagerGreen.AddResource();
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(spriteOverlay.DOColor(Color.green, 0.05f));
+        sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
     }
 
     #endregion
@@ -389,7 +405,7 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene(Vault.scene.TitleScreen);
     }
 
-    [SerializeField] public  Vector3 originalCameraPosition;
+    private Vector3 originalCameraPosition;
 
     [Header("CameraShake")]
     public float shakeDuration = 0.1f;

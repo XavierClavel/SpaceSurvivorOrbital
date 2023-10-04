@@ -12,7 +12,7 @@ public class SpawnManager : Breakable
 
     public GameObject spawnPosition;
 
-    Transform playerTransform;
+    //Transform playerTransform;
     bool doEnnemySpawn = true;
     [SerializeField] List<int> baseCost = new List<int>();
     [SerializeField] List<int> increaseByWave = new List<int>();
@@ -65,7 +65,7 @@ public class SpawnManager : Breakable
         difficulty = PlanetManager.getDifficulty();
         wallet = baseCost[difficulty];
         ennemyPrefabs = tilesBankManager.GetEnnemies();
-        playerTransform = PlayerController.instance.transform;
+        //playerTransform = PlayerController.instance.transform;
         waveDuration = waveDurationList[difficulty];
 
         if (doEnnemySpawn)

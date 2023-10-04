@@ -285,19 +285,14 @@ public class Ennemy : Breakable
 
         while (elapsedTime < shakeDuration)
         {
-            // Générez des valeurs aléatoires pour le déplacement en 2D
             float randomX = Random.Range(negativeRange, positiveRange) * shakeIntensity;
             float randomY = Random.Range(negativeRange, positiveRange) * shakeIntensity;
-
-            // Appliquez le déplacement à la caméra en 2D
             Vector3 randomPoint = originalCameraPosition + new Vector3(randomX, randomY, 0f);
             cameraTransform.localPosition = randomPoint;
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
-        // Remettez la caméra à sa position d'origine après le screenshake
         cameraTransform.localPosition = originalCameraPosition;
         Destroy(gameObject);
 
