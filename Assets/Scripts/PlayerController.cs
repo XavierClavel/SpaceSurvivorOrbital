@@ -129,6 +129,7 @@ public class PlayerController : MonoBehaviour
     {
         if (invulnerable) return;
         instance.health -= (int)(amount * (1 - instance.damageResistanceMultiplier));
+        instance.StartCoroutine(nameof(ShakeCoroutine));
         instance.StartCoroutine(nameof(InvulnerabilityFrame));
     }
 
@@ -294,6 +295,7 @@ public class PlayerController : MonoBehaviour
         Move();
         Aim();
         attractorTransform.position = transform.position;
+        originalCameraPosition = cameraTransform.localPosition;
     }
 
     void Move()
@@ -386,4 +388,34 @@ public class PlayerController : MonoBehaviour
         PauseMenu.instance.ResumeGame();
         SceneManager.LoadScene(Vault.scene.TitleScreen);
     }
+
+    [SerializeField] public  Vector3 originalCameraPosition;
+
+    [Header("CameraShake")]
+    public float shakeDuration = 0.1f;
+    public float shakeIntensity = 0.05f;
+    public float negativeRange = -0.1f;
+    public float positiveRange = 0.1f;
+
+    private IEnumerator ShakeCoroutine()
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < shakeDuration)
+        {
+            // Générez des valeurs aléatoires pour le déplacement en 2D
+            float randomX = Random.Range(negativeRange, positiveRange) * shakeIntensity;
+            float randomY = Random.Range(negativeRange, positiveRange) * shakeIntensity;
+
+            // Appliquez le déplacement à la caméra en 2D
+            Vector3 randomPoint = originalCameraPosition + new Vector3(randomX, randomY, 0f);
+            cameraTransform.localPosition = randomPoint;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Remettez la caméra à sa position d'origine après le screenshake
+        cameraTransform.localPosition = originalCameraPosition;
+    }   
 }

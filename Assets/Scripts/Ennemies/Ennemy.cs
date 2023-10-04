@@ -87,6 +87,7 @@ public class Ennemy : Breakable
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         Transform childTransform = transform.Find("Sprite Overlay");
+        cameraTransform = Camera.main.transform;
 
         if (childTransform != null)
         {
@@ -179,7 +180,7 @@ public class Ennemy : Breakable
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
 
         onDeath.Invoke();
-        Destroy(gameObject);
+        StartCoroutine("ShakeCoroutine");
     }
 
 
@@ -237,6 +238,8 @@ public class Ennemy : Breakable
 
     private void Update()
     {
+        originalCameraPosition = cameraTransform.localPosition;
+
         if (player == null)
         {
             return; 
@@ -257,6 +260,7 @@ public class Ennemy : Breakable
             animator.SetBool("IsMovingRight", true);
             FlipSprite();
         }
+        
     }
     private void FlipSprite()
     {
@@ -264,6 +268,39 @@ public class Ennemy : Breakable
         spriteRenderer.flipX = !isMovingRight;
         overlaydSpriteRenderer.flipX = !isMovingRight;
         
+    }
+
+    Transform cameraTransform;
+    private Vector3 originalCameraPosition;
+
+    [Header("CameraShake")]
+    public float shakeDuration = 0.1f;
+    public float shakeIntensity = 1f;
+    public float negativeRange = -0.1f;
+    public float positiveRange = 0.1f;
+
+    private IEnumerator ShakeCoroutine()
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < shakeDuration)
+        {
+            // Générez des valeurs aléatoires pour le déplacement en 2D
+            float randomX = Random.Range(negativeRange, positiveRange) * shakeIntensity;
+            float randomY = Random.Range(negativeRange, positiveRange) * shakeIntensity;
+
+            // Appliquez le déplacement à la caméra en 2D
+            Vector3 randomPoint = originalCameraPosition + new Vector3(randomX, randomY, 0f);
+            cameraTransform.localPosition = randomPoint;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Remettez la caméra à sa position d'origine après le screenshake
+        cameraTransform.localPosition = originalCameraPosition;
+        Destroy(gameObject);
+
     }
 
 }

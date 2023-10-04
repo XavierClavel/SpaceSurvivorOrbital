@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: Sht-hul
   cost: 0
-  spriteOverlay: {fileID: 0}
+  spriteOverlay: {fileID: 3929814262209255274}
   onDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -69,6 +69,10 @@ MonoBehaviour:
   attackSpeed: 1
   range: 5
   stateStep: 0.5
+  shakeDuration: 0.1
+  shakeIntensity: 1
+  negativeRange: -0.1
+  positiveRange: 0.1
   bulletSpeed: 5
   shootRange: {x: 3, y: 5}
   bulletPrefab: {fileID: 4478075856262805781, guid: 58044c464630bc442ac7f869cff47fa2, type: 3}
@@ -351,7 +355,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -372,7 +376,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: -1168322800, guid: 7955eeeaec040594a9416a387aa1d925, type: 3}
+  m_Sprite: {fileID: 698876588, guid: da762d095f581354092b394eb8b70ef5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
