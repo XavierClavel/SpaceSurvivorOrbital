@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6579387962452892448}
   - component: {fileID: 2542664220774791659}
   - component: {fileID: 7137654350761373270}
+  - component: {fileID: 1545884971922604358}
   m_Layer: 12
   m_Name: Mushroom_Green_Egg_S
   m_TagString: Resource
@@ -49,9 +50,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: Green1
+  cost: 0
   spriteOverlay: {fileID: 4568216681030502473}
   itemPrefab: {fileID: 2621605970513044805, guid: 163155c0c5315a04fa1934f6b6f413d9, type: 3}
   healthBar: {fileID: 2188462651109305790}
+  damagedSprite: {fileID: 503091598, guid: 8665dd53c1f0f8b4993d1cdec5e42269, type: 3}
+  myCollider: {fileID: 0}
 --- !u!212 &2542664220774791659
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -92,8 +96,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 2068253311, guid: 842dc588d983ca64e94c508e7f6186d6, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 608814756, guid: 8665dd53c1f0f8b4993d1cdec5e42269, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -140,7 +144,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.96, y: 1.38}
+    oldSize: {x: 8.2, y: 8.2}
     newSize: {x: 0.96, y: 1.38}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -158,6 +162,27 @@ PolygonCollider2D:
       - {x: 0.285, y: -0.25}
       - {x: 0.285, y: 0.19999999}
   m_UseDelaunayMesh: 0
+--- !u!95 &1545884971922604358
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986293603286855303}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 30f9eb9fc2a4668479bb9107c9910a16, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1481371682771675673
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,16 +255,16 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: -1269875471, guid: 842dc588d983ca64e94c508e7f6186d6, type: 3}
+  m_SortingOrder: 6
+  m_Sprite: {fileID: 503091598, guid: 8665dd53c1f0f8b4993d1cdec5e42269, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 6.3, y: 4.69}
+  m_Size: {x: 8.2, y: 8.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1001 &6317864664777764860
