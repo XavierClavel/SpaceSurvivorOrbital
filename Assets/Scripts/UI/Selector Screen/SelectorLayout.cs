@@ -4,15 +4,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 
-public enum selectorType { character, weapon, tool }
+public enum selectorType { character, weapon }
 
 public class SelectorLayout : MonoBehaviour
 {
     [SerializeField] selectorType type;
     [SerializeField] DataSelector dataSelector;
     [SerializeField] SelectButton button;
-    [SerializeField] ObjectReferencer objectReferencer;
-    [SerializeField] SpriteReferencer spriteReferencer;
     SelectButton selectedButton;
 
     void Start()
@@ -20,23 +18,18 @@ public class SelectorLayout : MonoBehaviour
         switch (type)
         {
             case selectorType.character:
-                SetupLayout<character>();
+                SetupLayout(ScriptableObjectManager.getCharacters());
                 break;
 
             case selectorType.weapon:
-                SetupLayout<weapon>();
-                break;
-
-            case selectorType.tool:
-                SetupLayout<tool>();
+                SetupLayout(ScriptableObjectManager.getWeapons());
                 break;
         }
     }
 
-    void SetupLayout<TEnum>() where TEnum : struct, IConvertible, IComparable, IFormattable
+    void SetupLayout<T>(List<T> list) where T : ObjectHandler
     {
-        int maxIndex = System.Enum.GetNames(typeof(TEnum)).Length;
-        for (int i = 1; i < maxIndex; i++)
+        for (int i = 0; i < list.Count; i++)
         {
             SelectButton newButton = Instantiate(button);
             newButton.transform.SetParent(transform);
@@ -44,13 +37,14 @@ public class SelectorLayout : MonoBehaviour
             newButton.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero;
 
             int value = i;
+            T entity = list[value];
             UnityAction action = delegate
             {
-                dataSelector.SelectGeneric<TEnum>(value);
+                dataSelector.SelectGeneric(entity);
                 ChangeSelectedButton(newButton);
             };
             newButton.button.onClick.AddListener(action);
-            newButton.button.image.sprite = spriteReferencer.getSpriteGeneric<TEnum>(value);
+            newButton.button.image.sprite = entity.getIcon();
         }
     }
 

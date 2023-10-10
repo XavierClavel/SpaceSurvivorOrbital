@@ -2,28 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerData : EffectData
+public class DamagerDataBuilder : DataBuilder<interactorStats>
 {
-    public string name;
-    public interactorStats stats = new interactorStats();
 
-
-    static List<string> columnTitles = new List<string>();
-
-    public static void Initialize(List<string> s)
+    public override interactorStats BuildData(List<string> s)
     {
-        columnTitles = InitializeColumnTitles(s);
-    }
 
-    public PowerData(List<string> s)
-    {
-        if (s == null || s.Count != columnTitles.Count) return;
+        interactorStats stats = new interactorStats();
 
-        SetDictionary(columnTitles, s);
-
-        SetValue(ref name, Vault.key.Name);
-        if (name == "") return;
-        
         SetValue(ref stats.baseDamage, Vault.key.upgrade.BaseDamage);
         SetValue(ref stats.attackSpeed, Vault.key.upgrade.AttackSpeed);
         SetValue(ref stats.range, Vault.key.upgrade.Range);
@@ -39,7 +25,7 @@ public class PowerData : EffectData
         SetValue(ref stats.dps, "DPS");
         stats.CalculateDPS();
 
-        DataManager.dictPowers.Add(name,stats);
+        return stats;
     }
 
 }

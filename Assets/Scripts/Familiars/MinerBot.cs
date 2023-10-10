@@ -36,8 +36,7 @@ public class MinerBot : MonoBehaviour
     float sqrtFullSpeedRadius;
     float cumulativeSpeed = 0f;
     InteractorHandler interactorHandler;
-    [SerializeField] weapon weaponInteractorType = weapon.Laser;
-    [SerializeField] weapon toolInteractorType = weapon.None;
+    [SerializeField] string weaponInteractorType = "Laser";
     [SerializeField] botFunction function = botFunction.mining;
     Interactor weaponInteractor;
     Interactor toolInteractor;
@@ -55,9 +54,8 @@ public class MinerBot : MonoBehaviour
         GetComponent<CircleCollider2D>().radius = detectionRange;
 
         interactorHandler = GetComponent<InteractorHandler>();
-        Interactor weapon = DataManager.instance.objectReferencer.getInteractor(weaponInteractorType);
-        Interactor tool = DataManager.instance.objectReferencer.getInteractor(toolInteractorType);
-        interactorHandler.Initialize(weapon, tool, rotationPoint);
+        Interactor weapon = ScriptableObjectManager.dictKeyToWeaponHandler[weaponInteractorType.ToString()].getWeapon();
+        interactorHandler.Initialize(weapon, null, rotationPoint);
 
         playerTransform = PlayerController.instance.transform;
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum status { none, poison, fire, ice, magic }
+public enum status { none, poison, fire, ice, lightning }
 
 public class Bullet : MonoBehaviour
 {
@@ -39,7 +39,8 @@ public class Bullet : MonoBehaviour
 
         if (other.gameObject.CompareTag(Vault.tag.Player)) PlayerController.Hurt(damage);
 
-        if (other.gameObject.CompareTag(Vault.tag.Ennemy) || other.gameObject.CompareTag(Vault.tag.Resource)) {
+        if (other.gameObject.CompareTag(Vault.tag.Ennemy) || other.gameObject.CompareTag(Vault.tag.Resource))
+        {
             InteractorHandler.playerInteractorHandler.currentInteractor.Hit(other.gameObject);
         }
 

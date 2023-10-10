@@ -237,7 +237,7 @@ public class Effect
 
     public void ApplyOperation(ref Interactor parameter)
     {
-        Interactor value = SkillTree.instance.objectReferencer.getInteractor(this.value.Trim());
+        Interactor value = ScriptableObjectManager.dictKeyToWeaponHandler[this.value.Trim()].getWeapon();
         switch (operation)
         {
             case operationType.assignation:

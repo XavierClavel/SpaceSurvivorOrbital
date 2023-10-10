@@ -7,8 +7,6 @@ using Shapes;
 
 public class PanelSelector : MonoBehaviour
 {
-    [SerializeField] ObjectReferencer objectReferencer;
-    [SerializeField] SpriteReferencer spriteReferencer;
     [Header("UI Elements")]
     public SkillButton button;
     public Polyline line;
@@ -17,16 +15,11 @@ public class PanelSelector : MonoBehaviour
     [SerializeField] List<Button> buttons;
 
     [Header("Default display")]
-    [SerializeField] character defaultCharacter = character.Pistolero;
-    [SerializeField] weapon defaultWeapon = weapon.Gun;
-    [SerializeField] tool defaultTool = tool.Pickaxe;
+    [SerializeField] string defaultCharacter = "Knil";
+    [SerializeField] string defaultWeapon = "Gun";
     EventSystem eventSystem;
     InputMaster inputActions;
     public static PanelSelector instance;
-    public static Dictionary<string, ButtonSprite> dictKeyToButtonSprites;
-    public static Dictionary<string, PowerHandler> dictKeyToPowerHandler;
-    public static Dictionary<string, WeaponHandler> dictKeyToWeaponHandler;
-    public static Dictionary<string, CharacterHandler> dictKeyToCharacterHandler;
     static int nbPanelsInitialized = 0;
 
 
@@ -36,22 +29,16 @@ public class PanelSelector : MonoBehaviour
         nbPanelsInitialized = 0;
         instance = this;
 
-        LoadScriptableObjects();
-
         currentActivePanel = panels[0];
 
-        if (DataSelector.selectedCharacter == character.None)   //Default buttons sprites if game launched from ship scene
+        if (DataSelector.selectedCharacter == string.Empty)   //Default buttons sprites if game launched from ship scene
         {
             DataSelector.selectedCharacter = defaultCharacter;
             DataSelector.selectedWeapon = defaultWeapon;
-            DataSelector.selectedTool = defaultTool;
         }
 
-        if (DataSelector.selectedTool == tool.None)
-        {
-            panels[2].gameObject.SetActive(false);
-            panels.RemoveAt(2);
-        }
+        panels[2].gameObject.SetActive(false);
+        panels.RemoveAt(2);
 
         NodeManager.dictKeyToButton = new Dictionary<string, TreeButton>();
 
@@ -79,35 +66,7 @@ public class PanelSelector : MonoBehaviour
     }
 
     //TODO: move to DataManager
-    void LoadScriptableObjects() {
-        dictKeyToButtonSprites = new Dictionary<string, ButtonSprite>();
-        ButtonSprite[] buttonSprites = Resources.LoadAll<ButtonSprite>("ButtonSprites/");
-        foreach (ButtonSprite buttonSprite in buttonSprites)
-        {
-            dictKeyToButtonSprites[buttonSprite.key] = buttonSprite;
-        }
 
-        dictKeyToPowerHandler = new Dictionary<string, PowerHandler>();
-        PowerHandler[] powerHandlers = Resources.LoadAll<PowerHandler>(Vault.path.Powers);
-        foreach (PowerHandler powerHandler in powerHandlers)
-        {
-            dictKeyToPowerHandler[powerHandler.getKey()] = powerHandler;
-        }
-
-        dictKeyToWeaponHandler = new Dictionary<string, WeaponHandler>();
-        WeaponHandler[] weaponHandlers = Resources.LoadAll<WeaponHandler>(Vault.path.Weapons);
-        foreach (WeaponHandler weaponHandler in weaponHandlers)
-        {
-            dictKeyToWeaponHandler[weaponHandler.getKey()] = weaponHandler;
-        }
-
-        dictKeyToCharacterHandler = new Dictionary<string, CharacterHandler>();
-        CharacterHandler[] characterHandlers = Resources.LoadAll<CharacterHandler>(Vault.path.Characters);
-        foreach (CharacterHandler characterHandler in characterHandlers)
-        {
-            dictKeyToCharacterHandler[characterHandler.getKey()] = characterHandler;
-        }
-    }
 
     public static void PanelInitialized()
     {
@@ -129,10 +88,9 @@ public class PanelSelector : MonoBehaviour
 
     public void SetPanelSelectionButtonsSprite()
     {
-        buttons[0].image.sprite = spriteReferencer.getCharacterSprite();
+        buttons[0].image.sprite = DataSelector.getSelectedCharacter().getIcon();
         buttons[1].image.sprite = PlayerManager.weaponPrefab.spriteRenderer.sprite;
-        buttons[2].image.sprite = spriteReferencer.getToolSprite();
-        buttons[3].image.sprite = spriteReferencer.getShipSprite();
+        //buttons[3].image.sprite = spriteReferencer.getShipSprite();
     }
 
     public void SetActivePanel(NodeManager nodeManager)

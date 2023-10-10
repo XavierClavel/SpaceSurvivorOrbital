@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+/*
 public class LiquidResource : MonoBehaviour, IInteractable
 {
     [Header("References")]
@@ -47,3 +47,5 @@ public class LiquidResource : MonoBehaviour, IInteractable
 
 
 }
+
+*/
