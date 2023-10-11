@@ -39,19 +39,22 @@ public class DataManager : ScriptableObject
 
         DamagerDataBuilder damagerDataBuilder = new DamagerDataBuilder();
         ObjectDataBuilder objectDataBuilder = new ObjectDataBuilder();
+        UpgradeDataBuilder upgradeDataBuilder = new UpgradeDataBuilder();
+        LocalizedStringBuilder localizedStringBuilder = new LocalizedStringBuilder();
+        DualLocalizedStringBuilder dualLocalizedStringBuilder = new DualLocalizedStringBuilder();
 
         damagerDataBuilder.loadText(weaponData, ref dictWeapons, "Weapons");
         damagerDataBuilder.loadText(powerData, ref dictPowers, "Powers");
 
         objectDataBuilder.loadText(breakableData, ref dictObjects, "Entities");
 
-        loadText("Upgrades", upgradesData, x => new UpgradeData(x), x => UpgradeData.Initialize(x));
+        upgradeDataBuilder.loadText(upgradesData, ref dictUpgrades, "Upgrades");
 
         foreach (TextAsset data in localizationData)
         {
-            loadText("Localization", data, x => new LocalizedString(x), x => LocalizedString.Initialize(x));
+            localizedStringBuilder.loadText(data, ref dictLocalization, "Localization");
         }
-        loadText("Button Localization", buttonLocalization, x => new LocalizedString(x, true), x => LocalizedString.Initialize(x));
+        dualLocalizedStringBuilder.loadText(buttonLocalization, ref dictLocalization, "Button Localization");
 
         PlayerManager.playerData.character.setBase();
 

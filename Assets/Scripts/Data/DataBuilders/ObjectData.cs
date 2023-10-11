@@ -14,7 +14,7 @@ public class ObjectData
 
 public class ObjectDataBuilder : DataBuilder<ObjectData>
 {
-    public override ObjectData BuildData(List<string> s)
+    protected override ObjectData BuildData(List<string> s)
     {
 
         ObjectData value = new ObjectData();

@@ -21,6 +21,7 @@ public class PanelSelector : MonoBehaviour
     InputMaster inputActions;
     public static PanelSelector instance;
     static int nbPanelsInitialized = 0;
+    [SerializeField] Sprite shipSprite;
 
 
     // Start is called before the first frame update
@@ -36,9 +37,6 @@ public class PanelSelector : MonoBehaviour
             DataSelector.selectedCharacter = defaultCharacter;
             DataSelector.selectedWeapon = defaultWeapon;
         }
-
-        panels[2].gameObject.SetActive(false);
-        panels.RemoveAt(2);
 
         NodeManager.dictKeyToButton = new Dictionary<string, TreeButton>();
 
@@ -82,15 +80,14 @@ public class PanelSelector : MonoBehaviour
     {
         panels[0].target = Vault.key.target.Pistolero;
         panels[1].target = Vault.key.target.Gun;
-        panels[2].target = Vault.key.target.Pickaxe;
-        panels[3].target = Vault.key.target.Ship;
+        panels[2].target = Vault.key.target.Ship;
     }
 
     public void SetPanelSelectionButtonsSprite()
     {
         buttons[0].image.sprite = DataSelector.getSelectedCharacter().getIcon();
         buttons[1].image.sprite = PlayerManager.weaponPrefab.spriteRenderer.sprite;
-        //buttons[3].image.sprite = spriteReferencer.getShipSprite();
+        buttons[2].image.sprite = shipSprite;
     }
 
     public void SetActivePanel(NodeManager nodeManager)

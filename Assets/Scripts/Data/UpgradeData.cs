@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeData : EffectData
+public class UpgradeData
 {
     public string key;
     public int costGreen;
@@ -13,6 +13,17 @@ public class UpgradeData : EffectData
     public string target;
     public int row;
     public string spriteKey = "";
+    public List<Effect> effects = new List<Effect>();
+
+    public void Apply()
+    {
+        foreach (Effect effect in effects) effect.Apply();
+    }
+
+}
+
+public class UpgradeDataBuilder : DataBuilder<UpgradeData>
+{
 
     static Dictionary<string, panelTarget> dictTargetToPanelTarget = new Dictionary<string, panelTarget> {
         {Vault.key.target.Pistolero, panelTarget.character},
@@ -25,52 +36,38 @@ public class UpgradeData : EffectData
         {Vault.key.target.Ship, panelTarget.ship}
     };
 
-
-
-    static List<string> columnTitles = new List<string>();
-
-    public static void Initialize(List<string> s)
+    protected override UpgradeData BuildData(List<string> s)
     {
-        columnTitles = InitializeColumnTitles(s);
-    }
+        UpgradeData value = new UpgradeData();
 
-    public UpgradeData(List<string> s)
-    {
-        if (s == null || s.Count != columnTitles.Count) return;
-        SetDictionary(columnTitles, s);
+        SetValue(ref value.key, Vault.key.Key);
 
-        SetValue(ref key, Vault.key.Key);
-        if (key == "") return;
-        SetValue(ref upgradesEnabled, Vault.key.upgrade.UpgradesEnabled);
-        SetValue(ref upgradesDisabled, Vault.key.upgrade.UpgradesDisabled);
-        SetValue(ref target, Vault.key.upgrade.Target);
-        SetValue(ref row, Vault.key.upgrade.Row);
-        SetValue(ref spriteKey, Vault.key.upgrade.SpriteKey);
+        SetValue(ref value.upgradesEnabled, Vault.key.upgrade.UpgradesEnabled);
+        SetValue(ref value.upgradesDisabled, Vault.key.upgrade.UpgradesDisabled);
+        SetValue(ref value.target, Vault.key.upgrade.Target);
+        SetValue(ref value.row, Vault.key.upgrade.Row);
+        SetValue(ref value.spriteKey, Vault.key.upgrade.SpriteKey);
 
-        TrySetValue(ref costGreen, Vault.key.upgrade.CostGreen);
-        TrySetValue(ref costOrange, Vault.key.upgrade.CostOrange);
-        TrySetValue(ref costUpgradePoint, Vault.key.upgrade.CostUpgradePoint);
+        TrySetValue(ref value.costGreen, Vault.key.upgrade.CostGreen);
+        TrySetValue(ref value.costOrange, Vault.key.upgrade.CostOrange);
+        TrySetValue(ref value.costUpgradePoint, Vault.key.upgrade.CostUpgradePoint);
 
 
 
-        ProcessEffects(columnTitles, s);
+        ProcessEffects(columnTitles, s, ref value.effects);
 
-        panelTarget pTarget = dictTargetToPanelTarget[target];
+        panelTarget pTarget = dictTargetToPanelTarget[value.target];
 
-        foreach (Effect effect in effects)
+        foreach (Effect effect in value.effects)
         {
             effect.target = pTarget;
         }
 
-        if (!DataManager.dictKeyToDictUpgrades.ContainsKey(target)) DataManager.dictKeyToDictUpgrades[target] = new Dictionary<string, UpgradeData>();
+        if (!DataManager.dictKeyToDictUpgrades.ContainsKey(value.target)) DataManager.dictKeyToDictUpgrades[value.target] = new Dictionary<string, UpgradeData>();
 
-        DataManager.dictKeyToDictUpgrades[target][key] = this;
-        DataManager.dictUpgrades.Add(key, this);
+        DataManager.dictKeyToDictUpgrades[value.target][value.key] = value;
+
+        return value;
     }
-
-
-
-
-
 
 }

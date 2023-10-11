@@ -5,7 +5,7 @@ using UnityEngine;
 public class DamagerDataBuilder : DataBuilder<interactorStats>
 {
 
-    public override interactorStats BuildData(List<string> s)
+    protected override interactorStats BuildData(List<string> s)
     {
 
         interactorStats stats = new interactorStats();

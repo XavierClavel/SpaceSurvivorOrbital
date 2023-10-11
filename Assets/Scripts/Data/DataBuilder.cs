@@ -8,12 +8,12 @@ public abstract class DataBuilder<T> : EffectData where T : class
 {
     protected List<string> columnTitles = new List<string>();
 
-    public void Initialize(List<string> s)
+    private void Initialize(List<string> s)
     {
         columnTitles = InitializeColumnTitles(s);
     }
 
-    public string getKey(List<string> s)
+    protected virtual string getKey(List<string> s)
     {
         if (s == null || s.Count != columnTitles.Count) return null;
 
@@ -25,7 +25,7 @@ public abstract class DataBuilder<T> : EffectData where T : class
         else return key;
     }
 
-    public abstract T BuildData(List<string> s);
+    protected abstract T BuildData(List<string> s);
 
     public void loadText(TextAsset csv, ref Dictionary<string, T> dict, string tableName)
     {
