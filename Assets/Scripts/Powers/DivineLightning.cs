@@ -10,6 +10,8 @@ public class DivineLightning : Power
     LayerMask mask;
     [SerializeField] ParticleSystem lightningStrikePs;
 
+    ParticleSystemTimedPool pool;
+
     protected override void Start()
     {
         base.Start();
@@ -19,20 +21,19 @@ public class DivineLightning : Power
         autoCooldown = true;
         mask = LayerMask.GetMask(Vault.layer.Ennemies, Vault.layer.Resources);
         effect = status.lightning;
+
+        pool = new ParticleSystemTimedPool(lightningStrikePs, 0.5f);
     }
     //TODO : particle system pool
     protected override void onUse()
     {
-        Debug.Log("hit");
         Vector3 hitPoint = playerTransform.position + Helpers.getRandomPositionInRadius(range, shape.square);
-        Debug.Log(playerTransform.position);
         Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(hitPoint, stats.range, mask);
         Hit(collidersInRadius);
-        ParticleSystem ps = Instantiate(lightningStrikePs);
-        ps.transform.position = hitPoint;
+
+        ParticleSystem ps = pool.get(hitPoint);
         ps.startSize = stats.range * 0.5f;
         ps.Play();
-        Destroy(ps.gameObject, 1f);
 
     }
 }
