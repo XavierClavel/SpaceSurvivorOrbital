@@ -11,5 +11,6 @@ public class AltarPanel : MonoBehaviour
         PowerHandler power = powersRemaining.getRandom();
         PlayerManager.AcquirePower(power);
         power.Activate();
+        ObjectManager.HideAltarUI();
     }
 }
