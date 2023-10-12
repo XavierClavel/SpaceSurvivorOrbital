@@ -65,13 +65,12 @@ public class Planet : MonoBehaviour
 
             case planetType.storm:
                 return PlanetSelector.instance.planetStorm;
+            
             case planetType.ice:
-                return PlanetSelector.instance.planetMushroom;
+                return PlanetSelector.instance.planetIce;
 
             case planetType.jungle:
                 return PlanetSelector.instance.planetJungle;
-
-
 
             case planetType.desert:
                 return PlanetSelector.instance.planetDesert;

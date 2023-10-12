@@ -3340,7 +3340,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Payer 1 Violet
+  m_text: Choisir
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4324,7 +4324,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 280, y: 0}
+  m_AnchoredPosition: {x: 280, y: -48}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &850569516 stripped
@@ -4424,8 +4424,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba26815f2e1449b4fa1ec156c71bef65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noEnnemySpawn: 0
-  noTimer: 0
+  noEnnemySpawn: 1
+  noTimer: 1
   startWithResources: 0
   startWithRadar: 0
   startWithMinerBot: 0
@@ -5423,7 +5423,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Payer 1 Violet
+  m_text: Choisir
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5784,7 +5784,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -100, y: 0}
+  m_AnchoredPosition: {x: -100, y: -152}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1232134763
@@ -7939,7 +7939,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Des \xE9clairs apparaissent al\xE9atoires autour de vous"
+  m_text: "Des \xE9clairs apparaissent al\xE9atoirement autour de vous"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8400,7 +8400,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Payer 1 Violet
+  m_text: Choisir
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10100,12 +10100,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4324446820854539277, guid: 030a56f1b7838fd4eb210eeb16d03bd3, type: 3}
       propertyPath: planetData.type
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4324446820854539277, guid: 030a56f1b7838fd4eb210eeb16d03bd3, type: 3}
       propertyPath: tilesBankManager
       value: 
       objectReference: {fileID: 11400000, guid: dde3abeea4d88e546a3066a1c045dada, type: 2}
+    - target: {fileID: 4324446820854539277, guid: 030a56f1b7838fd4eb210eeb16d03bd3, type: 3}
+      propertyPath: planetData.hasAltar
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4324446820854539277, guid: 030a56f1b7838fd4eb210eeb16d03bd3, type: 3}
       propertyPath: planetData.difficulty
       value: 5
