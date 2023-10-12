@@ -4,7 +4,21 @@ using UnityEngine;
 
 public static class PoolManager
 {
+    static Dictionary<GameObject, ComponentPool> dict = new Dictionary<GameObject, ComponentPool>();
+    public static void register(Component target, ComponentPool pool)
+    {
+        dict[target.gameObject] = pool;
+    }
+    public static void recall(Component target)
+    {
+        dict[target.gameObject].recall(target);
+        dict.Remove(target.gameObject);
+    }
 
+    public static void reset()
+    {
+        dict = new Dictionary<GameObject, ComponentPool>();
+    }
 }
 
 
@@ -57,11 +71,17 @@ public class ComponentPool : Pool<Component>
         }
         else
         {
-            ParticleSystem instance = (ParticleSystem)stack.Pop();
+            Component instance = (Component)stack.Pop();
             instance.transform.position = position;
             instance.gameObject.SetActive(true);
             return instance;
         }
+    }
+
+    public void recall(Component target)
+    {
+        target.gameObject.SetActive(false);
+        push(target);
     }
 }
 
@@ -93,27 +113,33 @@ public class GameObjectTimedPool
 
 }
 
-public class ParticleSystemTimedPool
+public class ComponentPool<T> where T : Component
 {
     protected ComponentPool pool;
-    WaitForSeconds wait;
+    WaitForSeconds wait = null;
 
-    public ParticleSystemTimedPool(ParticleSystem prefab, float lifetime)
+    public ComponentPool<T> setTimer(float lifetime)
+    {
+        wait = Helpers.GetWait(lifetime);
+        return this;
+    }
+
+    public ComponentPool(T prefab)
     {
         pool = new ComponentPool();
         pool.prefab = prefab;
-        wait = Helpers.GetWait(lifetime);
     }
 
-    public ParticleSystem get(Vector3 position)
+    public T get(Vector3 position)
     {
-        ParticleSystem instance = (ParticleSystem)pool.get(position);
+        T instance = (T)pool.get(position);
         instance.gameObject.SetActive(true);
-        Orchestrator.context.StartCoroutine(WaitAndRetrieve(instance));
+        if (wait != null) Orchestrator.context.StartCoroutine(WaitAndRetrieve(instance));
+        else PoolManager.register(instance, pool);
         return instance;
     }
 
-    IEnumerator WaitAndRetrieve(ParticleSystem target)
+    IEnumerator WaitAndRetrieve(T target)
     {
         yield return wait;
         target.gameObject.SetActive(false);

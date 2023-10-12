@@ -13,6 +13,16 @@ public class Orchestrator : MonoBehaviour
         context = this;
     }
 
+    private void OnDestroy()
+    {
+        Reset();
+    }
+
+    void Reset()
+    {
+        PoolManager.reset();
+    }
+
     // Update is called once per frame
     void Update()
     {

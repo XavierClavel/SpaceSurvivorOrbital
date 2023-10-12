@@ -132,7 +132,7 @@ public class SpawnManager : Breakable
     public void SpawnEnnemy(Ennemy ennemy)
     {
         Vector3 position = spawnPosition.transform.position;
-            //Helpers.getRandomPositionInRing(4f, 4f, shape.square) + transform.position;
+        //Helpers.getRandomPositionInRing(4f, 4f, shape.square) + transform.position;
         Instantiate(ennemy.gameObject, position, Quaternion.identity);
     }
 
