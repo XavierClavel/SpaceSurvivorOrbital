@@ -16,7 +16,6 @@ public class SkillTree : MonoBehaviour
     RectTransform contentPanel;
     GameObject previousSelected;
     InputMaster inputActions;
-    public ObjectReferencer objectReferencer;
 
 
 

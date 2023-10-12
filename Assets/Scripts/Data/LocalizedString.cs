@@ -8,21 +8,11 @@ public enum lang
     en
 }
 
-public class LocalizedString : EffectData
+public class LocalizedString
 {
     public string string_FR;
     public string string_EN;
-
     public static lang selectedLang = lang.en;
-
-    static List<string> columnTitles = new List<string>();
-    static string prevKey = "";
-
-    public static void Initialize(List<string> s)
-    {
-        columnTitles = InitializeColumnTitles(s);
-    }
-
     public string getText()
     {
         switch (selectedLang)
@@ -38,37 +28,69 @@ public class LocalizedString : EffectData
         }
 
     }
+}
 
-    public LocalizedString(List<string> s)
+public class LocalizedStringBuilder : DataBuilder<LocalizedString>
+{
+
+    protected override LocalizedString BuildData(List<string> s)
     {
-        if (s == null || s.Count != columnTitles.Count) return;
 
-        SetDictionary(columnTitles, s);
+        LocalizedString value = new LocalizedString();
 
-        SetValue(ref string_EN, Vault.key.localization.EN);
-        SetValue(ref string_FR, Vault.key.localization.FR);
+        SetValue(ref value.string_EN, Vault.key.localization.EN);
+        SetValue(ref value.string_FR, Vault.key.localization.FR);
 
-        DataManager.dictLocalization.Add(s[0], this);
+        RemoveQuotationMarks(ref value.string_EN);
+        RemoveQuotationMarks(ref value.string_FR);
+
+        return value;
     }
 
-    public LocalizedString(List<string> s, bool buttonLocalization)
+    void RemoveQuotationMarks(ref string input)
     {
-        if (s == null || s.Count != columnTitles.Count) return;
+        if (input == null || input.Length < 2) return;
+
+        if (input.First() == '\"') input = input.RemoveFirst();
+        if (input.Last() == '\"') input = input.RemoveLast();
+    }
+
+
+}
+
+public class DualLocalizedStringBuilder : DataBuilder<LocalizedString>
+{
+
+    private string prevKey = "A";
+
+    protected override LocalizedString BuildData(List<string> s)
+    {
+
+        LocalizedString value = new LocalizedString();
+
+        SetValue(ref value.string_EN, Vault.key.localization.EN);
+        SetValue(ref value.string_FR, Vault.key.localization.FR);
+
+        RemoveQuotationMarks(ref value.string_EN);
+        RemoveQuotationMarks(ref value.string_FR);
+
+        return value;
+    }
+
+    protected override string getKey(List<string> s)
+    {
+        if (s == null || s.Count != columnTitles.Count) return null;
 
         SetDictionary(columnTitles, s);
 
-        SetValue(ref string_EN, Vault.key.localization.EN);
-        SetValue(ref string_FR, Vault.key.localization.FR);
+        string key = "";
+        SetValue(ref key, Vault.key.Key);
 
-        RemoveQuotationMarks(ref string_EN);
-        RemoveQuotationMarks(ref string_FR);
-
-        string key = s[0].Trim();
-
+        if (key == "" && prevKey == "") return null;
         string dictKey = key == "" ? prevKey + Vault.key.ButtonDescription : key + Vault.key.ButtonTitle;
-        DataManager.dictLocalization.Add(dictKey, this);
-
         prevKey = key;
+
+        return dictKey;
     }
 
     void RemoveQuotationMarks(ref string input)

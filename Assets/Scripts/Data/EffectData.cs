@@ -35,8 +35,6 @@ public class EffectData
         {Vault.key.upgrade.Unlocks, effectType.unlocks}
     };
 
-    public List<Effect> effects = new List<Effect>();
-
 
     protected Dictionary<string, string> dictColumnToValue;
 
@@ -63,13 +61,16 @@ public class EffectData
     protected void SetValue<T>(ref T variable, string key)
     {
         string value = dictColumnToValue[key];
-        if (value == null || value == "") return;
-        try {
+        if (value == null || value == "" || value == string.Empty) return;
+        try
+        {
             variable = Helpers.parseString<T>(dictColumnToValue[key]);
-        } catch (System.Exception e) {
+        }
+        catch (System.Exception e)
+        {
             Debug.LogError($"Failed to parse value in column \"{key}\".");
         }
-        
+
     }
 
     protected void TrySetValue<T>(ref T variable, string key)
@@ -80,20 +81,20 @@ public class EffectData
 
 
 
-    protected void ProcessEffects(List<string> columnTitles, List<string> s)
+    protected void ProcessEffects(List<string> columnTitles, List<string> s, ref List<Effect> effects)
     {
         for (int i = 0; i < s.Count; i++)
         {
             string str = s[i].Trim();
             if (str != "" && dictKeyToEffect.ContainsKey(columnTitles[i]))
             {
-                Process(str, dictKeyToEffect[columnTitles[i]]);
+                effects.Add(Process(str, dictKeyToEffect[columnTitles[i]]));
             }
         }
     }
 
 
-    void Process(string value, effectType effect)
+    Effect Process(string value, effectType effect)
     {
         operationType operation;
         if (value.Last() == '%')
@@ -124,12 +125,7 @@ public class EffectData
             else operation = operationType.assignation;
         }
 
-        effects.Add(new Effect(effect, operation, value));
-    }
-
-    public void Apply()
-    {
-        foreach (Effect effect in effects) effect.Apply();
+        return new Effect(effect, operation, value);
     }
 
 }

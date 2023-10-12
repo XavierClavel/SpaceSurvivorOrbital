@@ -13,6 +13,7 @@ public abstract class Damager : MonoBehaviour
     protected bool autoCooldown; //whether the interactor or the inheritor should handle cooldown
     public interactorStats stats;
     [HideInInspector] public bool isUsing = false;
+    protected status effect;
 
     protected virtual void Start()
     {
@@ -44,44 +45,51 @@ public abstract class Damager : MonoBehaviour
         if (isUsing) Use();
     }
 
-#region DealDamage
+    #region DealDamage
 
-    public void Hit(RaycastHit2D[] targets, bool individualDamage = false) {
+    public void Hit(RaycastHit2D[] targets, bool individualDamage = false)
+    {
         Hit(targets.ToList(), individualDamage);
     }
 
-    public void Hit(List<RaycastHit2D> targets, bool individualDamage = false) {
+    public void Hit(List<RaycastHit2D> targets, bool individualDamage = false)
+    {
         Hit(targets.Select(c => c.collider).ToList(), individualDamage);
     }
 
-    public void Hit(Collider2D[] targets, bool individualDamage = false) {
+    public void Hit(Collider2D[] targets, bool individualDamage = false)
+    {
         Hit(targets.ToList(), individualDamage);
     }
 
-    public void Hit(List<Collider2D> targets, bool individualDamage = false) {
+    public void Hit(List<Collider2D> targets, bool individualDamage = false)
+    {
         if (targets.Count == 0) return;
 
         int damage;
         bool critical;
-        status effect = status.none;
         getDamage(out damage, out critical, out effect);
 
         foreach (Collider2D target in targets)
         {
-            if (individualDamage) {
+            if (individualDamage)
+            {
                 Hit(target);
             }
-            else {
+            else
+            {
                 ObjectManager.dictObjectToHitable[target.gameObject].Hit(damage, player.effect, critical);
             }
         }
     }
 
-    public void Hit(Collider2D target) {
+    public void Hit(Collider2D target)
+    {
         Hit(target.gameObject);
     }
 
-    public void Hit(GameObject target) {
+    public void Hit(GameObject target)
+    {
         int damage;
         bool critical;
         status effect = status.none;
@@ -90,14 +98,15 @@ public abstract class Damager : MonoBehaviour
         ObjectManager.dictObjectToHitable[target].Hit(damage, player.effect, critical);
     }
 
-    private void getDamage(out int damage, out bool critical, out status effect) {
+    private void getDamage(out int damage, out bool critical, out status effect)
+    {
         damage = stats.baseDamage.getRandom();
         critical = Helpers.ProbabilisticBool(stats.criticalChance);
         if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
         effect = player.effect;
     }
 
-#endregion
+    #endregion
 
 
 }

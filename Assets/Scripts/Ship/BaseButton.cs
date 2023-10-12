@@ -37,9 +37,9 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
         desactivateButton = upgradeData.upgradesDisabled;
         desactivateButton.TryAdd(key);
 
-        if (PanelSelector.dictKeyToButtonSprites.ContainsKey(upgradeData.spriteKey))
+        if (ScriptableObjectManager.dictKeyToButtonSprites.ContainsKey(upgradeData.spriteKey))
         {
-            buttonSprite = PanelSelector.dictKeyToButtonSprites[upgradeData.spriteKey];
+            buttonSprite = ScriptableObjectManager.dictKeyToButtonSprites[upgradeData.spriteKey];
         }
         else Debug.LogWarning($"sprite key {upgradeData.spriteKey} is not associated with button sprites");
     }

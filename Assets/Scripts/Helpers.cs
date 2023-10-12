@@ -256,6 +256,7 @@ public static class Extensions
     ///<summary>Returns random item of list.</summary>
     public static T getRandom<T>(this IList<T> list)
     {
+        if (list.Count == 0) throw new ArgumentException("List is empty");
         int randomIndex = UnityEngine.Random.Range(0, list.Count);
         return list[randomIndex];
     }

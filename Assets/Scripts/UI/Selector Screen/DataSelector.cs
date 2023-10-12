@@ -6,62 +6,48 @@ using System;
 
 public class DataSelector : MonoBehaviour
 {
-    [SerializeField] ObjectReferencer objectReferencer;
     [SerializeField] Button startButton;
-    public static character selectedCharacter = character.None;
-    public static weapon selectedWeapon = weapon.None;
-    public static tool selectedTool = tool.None;
+    public static string selectedCharacter = string.Empty;
+    public static string selectedWeapon = string.Empty;
 
     public static void Reset()
     {
-        selectedCharacter = character.None;
-        selectedWeapon = weapon.None;
-        selectedTool = tool.None;
+        selectedCharacter = string.Empty;
+        selectedWeapon = string.Empty;
     }
 
-    public void SelectGeneric<TEnum>(int value) where TEnum : struct, IConvertible, IComparable, IFormattable
+    public void SelectGeneric<T>(T value) where T : ObjectHandler
     {
-        if (typeof(TEnum) == typeof(character)) SelectCharacter(value);
-        else if (typeof(TEnum) == typeof(weapon)) SelectWeapon(value);
-        else if (typeof(TEnum) == typeof(tool)) SelectTool(value);
+        if (typeof(T) == typeof(CharacterHandler)) SelectCharacter(value.getKey());
+        else if (typeof(T) == typeof(WeaponHandler)) SelectWeapon(value.getKey());
     }
 
-    public void SelectCharacter(character value)
+    public void SelectCharacter(string value)
     {
         selectedCharacter = value;
-        if (selectedWeapon != weapon.None) startButton.interactable = true;
+        if (selectedWeapon != string.Empty) startButton.interactable = true;
     }
 
-    public void SelectCharacter(int value)
-    {
-        SelectCharacter((character)value);
-    }
-
-    public void SelectWeapon(weapon value)
+    public void SelectWeapon(string value)
     {
         selectedWeapon = value;
-        if (selectedCharacter != character.None) startButton.interactable = true;
-    }
-
-    public void SelectWeapon(int value)
-    {
-        SelectWeapon((weapon)value);
-    }
-
-    public void SelectTool(tool value)
-    {
-        selectedTool = value;
-        if (selectedCharacter != character.None && selectedWeapon != weapon.None) startButton.interactable = true;
-    }
-
-    public void SelectTool(int value)
-    {
-        SelectTool((tool)value);
+        if (selectedCharacter != string.Empty) startButton.interactable = true;
     }
 
     public void Validate()
     {
-        PlayerManager.setWeapon(DataManager.dictWeapons[selectedWeapon].interactorData, objectReferencer.getInteractor(selectedWeapon));
-        if (selectedTool != tool.None) PlayerManager.setTool(DataManager.dictTools[selectedTool].interactorData, objectReferencer.getInteractor(selectedTool));
+        PlayerData data = new PlayerData();
+        data.interactor = DataManager.dictWeapons[selectedWeapon];
+        PlayerManager.setWeapon(data, ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon].getWeapon());
+    }
+
+    public static WeaponHandler getSelectedWeapon()
+    {
+        return ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon];
+    }
+
+    public static CharacterHandler getSelectedCharacter()
+    {
+        return ScriptableObjectManager.dictKeyToCharacterHandler[selectedCharacter];
     }
 }

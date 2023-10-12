@@ -6,19 +6,26 @@ using UnityEngine;
 public class Power : Damager
 {
     [SerializeField] private bool activateOnStart;
-    
-   public override void Setup(interactorStats stats, bool dualUse = false) {
-    isUsing = true;
+    protected Transform playerTransform;
+
+    public override void Setup(interactorStats stats, bool dualUse = false)
+    {
+        playerTransform = PlayerController.instance.transform;
+        isUsing = true;
         base.Setup(stats, dualUse);
 
-        if (activateOnStart) {
+        if (activateOnStart)
+        {
             Use();
-        } else {
+        }
+        else
+        {
             StartCoroutine(nameof(Cooldown));
         }
     }
 
-    protected override void onUse() {
+    protected override void onUse()
+    {
 
     }
 

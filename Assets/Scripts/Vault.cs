@@ -2,9 +2,10 @@ public static class Vault
 {
     public static class path
     {
-        public const string Weapons = "WeaponHandlers/";
+        public const string BaseWeapons = "BaseWeapons/";
+        public const string AllWeapons = "AllWeapons/";
         public const string Powers = "PowerHandlers/";
-        public const string Characters = "CharacterHandlers/";
+        public const string Characters = "Characters/";
     }
     public static class scene
     {
@@ -99,6 +100,7 @@ public static class Vault
             public const string CostGreen = "CostGreen";
             public const string CostOrange = "CostOrange";
             public const string CostUpgradePoint = "CostUpgradePoint";
+            public const string Cost = "Cost";
             public const string UpgradesEnabled = "UpgradesEnabled";
             public const string UpgradesDisabled = "UpgradesDisabled";
             public const string Target = "Target";

@@ -91,7 +91,7 @@ public class PlayerManager
 
     public static void AcquirePower(string key)
     {
-        AcquirePower(PanelSelector.dictKeyToPowerHandler[key]);
+        AcquirePower(ScriptableObjectManager.dictKeyToPowerHandler[key]);
     }
 
     public static void AcquireUpgradePoint()
