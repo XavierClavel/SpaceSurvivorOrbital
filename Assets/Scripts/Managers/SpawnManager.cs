@@ -124,7 +124,6 @@ public class SpawnManager : Breakable
                 if (ennemies.Count == 0) break;
                 else continue;
             }
-            Debug.Log($"ennemy {ennemy.name} spawned, cost = {ennemy.cost}");
 
             float spawnTime = Random.Range(0f, waveDuration);
 
