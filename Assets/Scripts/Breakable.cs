@@ -10,8 +10,6 @@ public class Breakable : MonoBehaviour
     protected float baseSpeed;
     protected float damageResistance;
     protected Vector2Int baseDamage;
-    [HideInInspector] public int cost;
-
 
     [SerializeField] protected SpriteRenderer spriteOverlay;
     float stackedDamage = 0f;
@@ -30,7 +28,6 @@ public class Breakable : MonoBehaviour
         baseSpeed = objectData.baseSpeed;
         damageResistance = objectData.damageResistance;
         baseDamage = objectData.baseDamage;
-        cost = objectData.cost;
     }
 
 
