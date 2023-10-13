@@ -10,19 +10,17 @@ public class DivineLightning : Power
     LayerMask mask;
     [SerializeField] ParticleSystem lightningStrikePs;
 
-    ParticleSystemTimedPool pool;
+    ComponentPool<ParticleSystem> pool;
 
     protected override void Start()
     {
         base.Start();
 
-        Debug.Log("lightning active");
-
         autoCooldown = true;
         mask = LayerMask.GetMask(Vault.layer.Ennemies, Vault.layer.Resources);
         effect = status.lightning;
 
-        pool = new ParticleSystemTimedPool(lightningStrikePs, 0.5f);
+        pool = new ComponentPool<ParticleSystem>(lightningStrikePs).setTimer(0.5f);
     }
     //TODO : particle system pool
     protected override void onUse()

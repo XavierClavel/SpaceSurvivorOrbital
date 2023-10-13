@@ -10,8 +10,6 @@ public class Breakable : MonoBehaviour
     protected float baseSpeed;
     protected float damageResistance;
     protected Vector2Int baseDamage;
-    [HideInInspector] public int cost;
-
 
     [SerializeField] protected SpriteRenderer spriteOverlay;
     float stackedDamage = 0f;
@@ -21,7 +19,8 @@ public class Breakable : MonoBehaviour
     {
         key = key.Trim();
         ObjectManager.dictObjectToHitable.Add(gameObject, this);
-        if (!DataManager.dictObjects.ContainsKey(key)) {
+        if (!DataManager.dictObjects.ContainsKey(key))
+        {
             throw new System.ArgumentException($"Key \"{key}\" used for gameObject \"{gameObject.name}\" does not exist in file ObjectData.csv");
         }
         ObjectData objectData = DataManager.dictObjects[key];
@@ -29,7 +28,6 @@ public class Breakable : MonoBehaviour
         baseSpeed = objectData.baseSpeed;
         damageResistance = objectData.damageResistance;
         baseDamage = objectData.baseDamage;
-        cost = objectData.cost;
     }
 
 

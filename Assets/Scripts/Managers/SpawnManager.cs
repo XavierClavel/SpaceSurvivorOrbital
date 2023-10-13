@@ -83,7 +83,6 @@ public class SpawnManager : Breakable
             DamageDisplayHandler.DisplayDamage(damage, transform.position, value);
             health -= damage;
         }
-        Debug.Log(health);
     }
 
     IEnumerator SpawnController()
@@ -113,12 +112,18 @@ public class SpawnManager : Breakable
     {
         int currentCost = 0;
         ennemiesToSpawnList = new List<EntitySpawnInstance<Ennemy>>();
+        List<Ennemy> ennemies = ennemyPrefabs.Copy();
 
         while (currentCost < maxCost)
         {
-            Ennemy ennemy = ennemyPrefabs.getRandom();
-            int newCost = currentCost + ennemy.cost;
-            if (newCost > maxCost) break;
+            Ennemy ennemy = ennemies.getRandom();
+            int newCost = currentCost + DataManager.dictObjects[ennemy.name].cost;
+            if (newCost > maxCost)
+            {
+                ennemies.Remove(ennemy);
+                if (ennemies.Count == 0) break;
+                else continue;
+            }
 
             float spawnTime = Random.Range(0f, waveDuration);
 
@@ -132,7 +137,7 @@ public class SpawnManager : Breakable
     public void SpawnEnnemy(Ennemy ennemy)
     {
         Vector3 position = spawnPosition.transform.position;
-            //Helpers.getRandomPositionInRing(4f, 4f, shape.square) + transform.position;
+        //Helpers.getRandomPositionInRing(4f, 4f, shape.square) + transform.position;
         Instantiate(ennemy.gameObject, position, Quaternion.identity);
     }
 
