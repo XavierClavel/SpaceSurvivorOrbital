@@ -32,8 +32,6 @@ public class DivineLightning : Power
 
         ParticleSystem ps = pool.get(hitPoint);
         
-
-        
         ps.startSize = stats.range * 0.5f;
         ps.Play();
 

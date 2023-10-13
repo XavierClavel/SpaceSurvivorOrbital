@@ -47,11 +47,14 @@ public class MinerBot : MonoBehaviour
     const float resourceAttackRange = 2f;
     const float playerFollowRange = 2f;
 
+    Animator animator;
+
 
     // Start is called before the first frame update
     void Start()
     {
         GetComponent<CircleCollider2D>().radius = detectionRange;
+        animator = GetComponent<Animator>();
 
         interactorHandler = GetComponent<InteractorHandler>();
         Interactor weapon = ScriptableObjectManager.dictKeyToWeaponHandler[weaponInteractorType.ToString()].getWeapon();
@@ -118,6 +121,8 @@ public class MinerBot : MonoBehaviour
 
         if (botState == state.following || botState == state.attacking)
         {
+            animator.SetBool("IsMoving", true);
+
             if (direction.sqrMagnitude < sqrtStopRadius)
             {
                 rb.velocity = direction.normalized * (1 - (sqrtStopRadius / direction.sqrMagnitude));
@@ -170,6 +175,7 @@ public class MinerBot : MonoBehaviour
         //TODO : switch interactor;
         rb.velocity = Vector2.zero;
         isStatic = true;
+        animator.SetBool("IsAttacking", true);
         botState = state.mining;
         interactorHandler.StartAction();
     }
@@ -177,6 +183,7 @@ public class MinerBot : MonoBehaviour
     void SetNewTarget(Transform target, float radius, onComplete action, state newState)
     {
         isStatic = false;
+        animator.SetBool("IsAttacking", false);
         botState = newState;
         this.target = target;
         this.radius = radius;
