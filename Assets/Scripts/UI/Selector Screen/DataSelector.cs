@@ -38,7 +38,7 @@ public class DataSelector : MonoBehaviour
     {
         PlayerData data = new PlayerData();
         data.interactor = DataManager.dictWeapons[selectedWeapon];
-        PlayerManager.setWeapon(data, ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon].getWeapon());
+        PlayerManager.setWeapon(data, ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
     }
 
     public static WeaponHandler getSelectedWeapon()

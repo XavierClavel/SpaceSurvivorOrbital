@@ -37,6 +37,8 @@ public class PlayerManager
 
     public static PlayerData weaponData;
     public static PlayerData toolData;
+    public static WeaponHandler weapon;
+    public static CharacterHandler character;
 
     public static int amountGreen { get; private set; }
     public static int amountOrange { get; private set; }
@@ -48,22 +50,21 @@ public class PlayerManager
     public static int upgradePointsAmount { get; private set; }
 
     public static PlayerData playerData = new PlayerData();
-    public static Dictionary<string, interactorStats> dictKeyToStats = new Dictionary<string, interactorStats>();
+    public static Dictionary<string, PlayerData> dictKeyToStats = new Dictionary<string, PlayerData>();
 
 
-    public static void setWeapon(PlayerData interactorData, Interactor interactor)
+    public static void setWeapon(PlayerData interactorData, WeaponHandler weaponHandler)
     {
         weaponData = interactorData;
-        weaponPrefab = interactor;
+        weaponPrefab = weaponHandler.getWeapon();
+        weapon = weaponHandler;
     }
 
-
-
-    public static void setTool(PlayerData interactorData, Interactor interactor)
+    public static void setCharacter(CharacterHandler characterHandler)
     {
-        toolData = interactorData;
-        toolPrefab = interactor;
+        character = characterHandler;
     }
+    
 
     void Reset()
     {
@@ -86,7 +87,9 @@ public class PlayerManager
     public static void AcquirePower(PowerHandler powerHandler)
     {
         powers.Add(powerHandler);
-        dictKeyToStats[powerHandler.getKey()] = DataManager.dictPowers[powerHandler.getKey()];
+        PlayerData playerData = new PlayerData();
+        playerData.interactor = DataManager.dictPowers[powerHandler.getKey()]; //TODO copy
+        dictKeyToStats[powerHandler.getKey()] = playerData;
     }
 
     public static void AcquirePower(string key)
@@ -104,25 +107,11 @@ public class PlayerManager
         upgradePointsAmount -= amount;
     }
 
-    public static PlayerData getPlayerData(panelTarget target)
+    public static PlayerData getPlayerData(string key)
     {
-        switch (target)
-        {
-            case panelTarget.character:
-                return playerData;
-
-            case panelTarget.weapon:
-                return weaponData;
-
-            case panelTarget.tool:
-                return toolData;
-
-            case panelTarget.ship:
-                return playerData;
-
-            default:
-                throw new System.ArgumentException(target.ToString());
-        }
+        if (key == weapon.getKey()) return weaponData;
+        if (key == character.getKey()) return weaponData;
+        return dictKeyToStats[key];
     }
 
     public static void ApplyModification(Effect effect)

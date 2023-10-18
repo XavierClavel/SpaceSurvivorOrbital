@@ -48,6 +48,11 @@ public static class SingletonManager
 public static class Extensions
 {
 
+    public static T[] append<T>(this T[] array, T element)
+    {
+        return array.Append(element).ToArray();
+    }
+
     public static T Switch<T>(this T switcher, T value1, T value2)
     {
         if (switcher.Equals(value1)) switcher = value2;

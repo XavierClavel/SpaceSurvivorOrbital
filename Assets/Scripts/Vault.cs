@@ -4,7 +4,7 @@ public static class Vault
     {
         public const string BaseWeapons = "BaseWeapons/";
         public const string AllWeapons = "AllWeapons/";
-        public const string Powers = "PowerHandlers/";
+        public const string Powers = "Powers/";
         public const string Characters = "Characters/";
     }
     public static class scene

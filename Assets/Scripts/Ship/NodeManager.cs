@@ -21,6 +21,15 @@ public class NodeManager : MonoBehaviour
     public static Dictionary<string, TreeButton> dictKeyToButton = new Dictionary<string, TreeButton>();
     RectTransform panelRect;
 
+    public void setup(string target)
+    {
+        this.target = target;
+        panelRect = GetComponent<RectTransform>();
+        button = PanelSelector.instance.button;
+        CreateNodes();
+        InitializeNodes();
+    }
+
     public void LoadPlanetSelector()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(Vault.scene.PlanetSelector);
@@ -31,16 +40,9 @@ public class NodeManager : MonoBehaviour
         dictKeyToStatus = new Dictionary<string, skillButtonStatus>();
     }
 
-    public void Initialize()
-    {
-        panelRect = GetComponent<RectTransform>();
-        button = PanelSelector.instance.button;
-        CreateNodes();
-        InitializeNodes();
-    }
-
     void CreateNodes()
     {
+        Debug.Log(target);
         foreach (UpgradeData upgradeData in DataManager.dictKeyToDictUpgrades[target].Values)
         {
             new Node(upgradeData.key, upgradeData.upgradesEnabled, upgradeData.row, this);

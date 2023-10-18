@@ -60,7 +60,8 @@ public class DataManager : ScriptableObject
 
         PlayerData weaponPlayerData = new PlayerData();
         weaponPlayerData.interactor = dictWeapons[selectedWeapon];
-        PlayerManager.setWeapon(weaponPlayerData, ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon].getWeapon());
+        PlayerManager.setWeapon(weaponPlayerData, ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
+        PlayerManager.setCharacter(ScriptableObjectManager.dictKeyToCharacterHandler[selectedCharacter]);
     }
 
 }

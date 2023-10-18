@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -32,7 +33,7 @@ public class PanelSelector : MonoBehaviour
 
         currentActivePanel = panels[0];
 
-        if (DataSelector.selectedCharacter == string.Empty)   //Default buttons sprites if game launched from ship scene
+        if (DataSelector.selectedCharacter == string.Empty) //Default buttons sprites if game launched from ship scene
         {
             DataSelector.selectedCharacter = defaultCharacter;
             DataSelector.selectedWeapon = defaultWeapon;
@@ -40,13 +41,7 @@ public class PanelSelector : MonoBehaviour
 
         NodeManager.dictKeyToButton = new Dictionary<string, TreeButton>();
 
-        foreach (NodeManager nodeManager in panels)
-        {
-            nodeManager.Initialize();
-        }
-
-        SetPanelsTarget();
-        SetPanelSelectionButtonsSprite();
+        SetupNodeManagers();
 
 
         eventSystem = EventSystem.current;
@@ -63,31 +58,53 @@ public class PanelSelector : MonoBehaviour
         µ*/
     }
 
-    //TODO: move to DataManager
-
-
     public static void PanelInitialized()
     {
         nbPanelsInitialized++;
-        if (nbPanelsInitialized < instance.panels.Count) return;
+        if (nbPanelsInitialized < PlayerManager.powers.Count + 3) return;
         foreach (NodeManager nodeManager in instance.panels)
         {
             nodeManager.gameObject.SetActive(nodeManager == instance.currentActivePanel);
         }
     }
 
-    void SetPanelsTarget()
+    void SetupNodeManagers()
     {
-        panels[0].target = Vault.key.target.Pistolero;
-        panels[1].target = Vault.key.target.Gun;
-        panels[2].target = Vault.key.target.Ship;
+        List<string> keys = new List<string>
+        {
+            PlayerManager.character.getKey(),
+            PlayerManager.weapon.getKey(),
+            Vault.key.target.Ship,
+        };
+        keys.AddList(PlayerManager.powers.Select(it => it.getKey()).ToList());
+
+        List<Sprite> icons = new List<Sprite>
+        {
+            DataSelector.getSelectedCharacter().getIcon(),
+            PlayerManager.weaponPrefab.spriteRenderer.sprite,
+            shipSprite,
+        };
+        icons.AddList(PlayerManager.powers.Select(it => it.getIcon()).ToList());
+        
+        for (int i = 0; i < panels.Count; i++)
+        {
+            if (i >= keys.Count)
+            {
+                buttons[i].gameObject.SetActive(false);
+                panels[i].gameObject.SetActive(false);
+            }
+            else
+            {
+                buttons[i].image.sprite = icons[i];
+                panels[i].setup(keys[i]);
+            }
+                
+        }
     }
 
-    public void SetPanelSelectionButtonsSprite()
+    public void UpdateButtonSprites()
     {
-        buttons[0].image.sprite = DataSelector.getSelectedCharacter().getIcon();
-        buttons[1].image.sprite = PlayerManager.weaponPrefab.spriteRenderer.sprite;
-        buttons[2].image.sprite = shipSprite;
+        buttons[2].image.sprite = PlayerManager.weaponPrefab.spriteRenderer.sprite;
     }
 
     public void SetActivePanel(NodeManager nodeManager)

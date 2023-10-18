@@ -56,11 +56,9 @@ public class UpgradeDataBuilder : DataBuilder<UpgradeData>
 
         ProcessEffects(columnTitles, s, ref value.effects);
 
-        panelTarget pTarget = dictTargetToPanelTarget[value.target];
-
         foreach (Effect effect in value.effects)
         {
-            effect.target = pTarget;
+            effect.target = value.target;
         }
 
         if (!DataManager.dictKeyToDictUpgrades.ContainsKey(value.target)) DataManager.dictKeyToDictUpgrades[value.target] = new Dictionary<string, UpgradeData>();

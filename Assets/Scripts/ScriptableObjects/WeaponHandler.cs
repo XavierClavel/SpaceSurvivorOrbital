@@ -9,7 +9,7 @@ public class WeaponHandler : ObjectHandler
 
     public void Activate()
     {
-        interactorStats stats = PlayerManager.dictKeyToStats[key];
+        interactorStats stats = PlayerManager.dictKeyToStats[key].interactor;
         Interactor instance = GameObject.Instantiate(weapon);
         instance.Setup(stats);
     }
