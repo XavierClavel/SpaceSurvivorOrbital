@@ -52,7 +52,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: Blob-hul
-  cost: 1
   spriteOverlay: {fileID: 3929814262209255274}
   onDeath:
     m_PersistentCalls:
@@ -64,6 +63,8 @@ MonoBehaviour:
   knockbackPlateauDuration: 0.1
   knockbackFallDuration: 0.1
   knockbackStunDuration: 0.1
+  startDeformationScale: {x: -0.5, y: 0.1, z: 1}
+  deformationDuration: 0.1
   speed: 1.5
   fleeSpeed: 2
   attackSpeed: 0.5

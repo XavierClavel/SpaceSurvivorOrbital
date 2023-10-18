@@ -31,7 +31,11 @@ public class Ennemy : Breakable
     [SerializeField] float knockbackPlateauDuration = 0.10f;
     [SerializeField] float knockbackFallDuration = 0.10f;
     [SerializeField] float knockbackStunDuration = 0.10f;
+    [SerializeField] Vector3 startDeformationScale = new Vector3(-0.5f, 0.1f, 1f);
+    [SerializeField] float deformationDuration = 0.1f;
 
+    private Vector3 originalScale;
+    private Vector3 deformationScale;
 
     [Header("Parameters")]
     [SerializeField] protected float speed = 1f;
@@ -80,6 +84,9 @@ public class Ennemy : Breakable
 
         //TODO : static initalizer
 
+        originalScale = transform.localScale;
+        deformationScale = startDeformationScale;
+
         ObjectManager.dictObjectToEnnemy.Add(gameObject, this);
 
         animator = GetComponent<Animator>();
@@ -121,6 +128,7 @@ public class Ennemy : Breakable
         if (damage != 0)
         {
             DamageDisplayHandler.DisplayDamage(damage, transform.position, value);
+            StartCoroutine(ApplyDeformationOverTime(deformationScale,deformationDuration));
             health -= damage;
         }
 
@@ -296,6 +304,23 @@ public class Ennemy : Breakable
         cameraTransform.localPosition = originalCameraPosition;
         Destroy(gameObject);
 
+    }
+    public IEnumerator ApplyDeformationOverTime(Vector3 deformation, float duration)
+    {
+        float elapsedTime = 0f;
+        Vector3 startScale = deformationScale;
+        Vector3 endScale = deformationScale + deformation;
+
+        while (elapsedTime < duration)
+        {
+            deformationScale = Vector3.Lerp(startScale, endScale, elapsedTime / duration);
+            transform.localScale = originalScale + deformationScale;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        transform.localScale = originalScale;
+        deformationScale = startDeformationScale;
     }
 
 }
