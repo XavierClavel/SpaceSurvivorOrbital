@@ -29,7 +29,7 @@ public class Timer : MonoBehaviour
 
     void Start()
     {
-        timeRemaining = PlayerManager.currentTimer += setTime;
+        timeRemaining = PlayerManager.currentTimer = setTime;
         playerTransform = PlayerController.instance.transform;
         spaceShip = GameObject.FindGameObjectWithTag("Ship");
         waitSecond = Helpers.GetWait(1f);
