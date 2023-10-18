@@ -2,33 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UpgradeButton : TreeButton
 {
-    int upgradePointsCost;
-    [SerializeField] TextMeshProUGUI upgradePointsCostDisplay;
-    [SerializeField] GameObject upgradePointsCostObject;
+    int blueCost;
+    [SerializeField] TextMeshProUGUI blueCostDisplay;
+    [SerializeField] GameObject blueCostObject;
 
     public override void Initialize(string key)
     {
         base.Initialize(key);
 
-        upgradePointsCost = upgradeData.costUpgradePoint;
-        upgradePointsCostDisplay.text = upgradePointsCost.ToString();
+        blueCost = upgradeData.costBlue;
+        blueCostDisplay.text = blueCost.ToString();
     }
 
     protected override bool SpendResources()
     {
-        if (PlayerManager.upgradePointsAmount < upgradePointsCost) return false;
+        if (PlayerManager.amountBlue < blueCost) return false;
 
-        PlayerManager.SpendUpgradePoints(upgradePointsCost);
+        PlayerManager.SpendUpgradePoints(blueCost);
         return true;
     }
 
     protected override void HideCost()
     {
-        upgradePointsCostObject.SetActive(false);
+        blueCostObject.SetActive(false);
     }
 
 }

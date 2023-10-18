@@ -47,7 +47,7 @@ public class PlayerManager
     public static int currentTimer { get; set; }
 
     public static List<PowerHandler> powers = new List<PowerHandler>();
-    public static int upgradePointsAmount { get; private set; }
+    public static int amountBlue { get; private set; }
 
     public static PlayerData playerData = new PlayerData();
     public static Dictionary<string, PlayerData> dictKeyToStats = new Dictionary<string, PlayerData>();
@@ -68,7 +68,7 @@ public class PlayerManager
 
     void Reset()
     {
-        upgradePointsAmount = 0;
+        amountBlue = 0;
         amountGreen = 0;
         amountOrange = 0;
 
@@ -99,12 +99,12 @@ public class PlayerManager
 
     public static void AcquireUpgradePoint()
     {
-        upgradePointsAmount++;
+        amountBlue++;
     }
 
     public static void SpendUpgradePoints(int amount)
     {
-        upgradePointsAmount -= amount;
+        amountBlue -= amount;
     }
 
     public static PlayerData getPlayerData(string key)

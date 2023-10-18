@@ -19,7 +19,7 @@ public class ResourcesDisplay : MonoBehaviour
 
     public static void UpdateDisplay()
     {
-        instance.upgradePointsAmountText.text = PlayerManager.upgradePointsAmount.ToString();
+        instance.upgradePointsAmountText.text = PlayerManager.amountBlue.ToString();
         instance.greenText.text = PlayerManager.amountGreen.ToString();
         instance.yellowText.text = PlayerManager.amountOrange.ToString();
     }

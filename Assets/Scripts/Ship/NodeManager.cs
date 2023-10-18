@@ -8,7 +8,7 @@ public class NodeManager : MonoBehaviour
     [HideInInspector] public string target;
     [SerializeField] Transform gridLayout;
     [SerializeField] GameObject emptyGameObject;
-    SkillButton button;
+    [SerializeField] private TreeButton button;
     public static Dictionary<string, skillButtonStatus> dictKeyToStatus = new Dictionary<string, skillButtonStatus>();
     Dictionary<int, List<Node>> dictTierToPlacedNodes = new Dictionary<int, List<Node>>();
     Dictionary<int, List<Node>> dictTierToNodes = new Dictionary<int, List<Node>>();
@@ -25,7 +25,6 @@ public class NodeManager : MonoBehaviour
     {
         this.target = target;
         panelRect = GetComponent<RectTransform>();
-        button = PanelSelector.instance.button;
         CreateNodes();
         InitializeNodes();
     }
@@ -164,7 +163,7 @@ public class NodeManager : MonoBehaviour
                 }
                 else
                 {
-                    SkillButton button = SetupButton(node);
+                    TreeButton button = SetupButton(node);
 
                     dictKeyToButton[node.key] = button;
                     if (x == 0 && firstSelectedButton == null) firstSelectedButton = button.gameObject;
@@ -207,9 +206,9 @@ public class NodeManager : MonoBehaviour
         PanelSelector.PanelInitialized();
     }
 
-    SkillButton SetupButton(Node node)
+    TreeButton SetupButton(Node node)
     {
-        SkillButton newButton = Instantiate(button);
+        TreeButton newButton = Instantiate(button);
         Helpers.SetParent(newButton.transform, gridLayout, -2);
         newButton.Initialize(node.key);
         newButton.UpdateStatus(getStatus(node));

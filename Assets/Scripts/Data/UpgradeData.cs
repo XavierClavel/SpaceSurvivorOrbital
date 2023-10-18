@@ -7,7 +7,7 @@ public class UpgradeData
     public string key;
     public int costGreen;
     public int costOrange;
-    public int costUpgradePoint;
+    public int costBlue;
     public List<string> upgradesEnabled = new List<string>();
     public List<string> upgradesDisabled = new List<string>();
     public string target;
@@ -50,7 +50,7 @@ public class UpgradeDataBuilder : DataBuilder<UpgradeData>
 
         TrySetValue(ref value.costGreen, Vault.key.upgrade.CostGreen);
         TrySetValue(ref value.costOrange, Vault.key.upgrade.CostOrange);
-        TrySetValue(ref value.costUpgradePoint, Vault.key.upgrade.CostUpgradePoint);
+        TrySetValue(ref value.costBlue, Vault.key.upgrade.CostBlue);
 
 
 

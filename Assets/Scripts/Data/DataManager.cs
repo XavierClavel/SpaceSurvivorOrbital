@@ -8,14 +8,12 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "DataManager", menuName = Vault.other.scriptableObjectMenu + "DataManager", order = 0)]
 public class DataManager : ScriptableObject
 {
-    [SerializeField] TextAsset characterData;
     [SerializeField] TextAsset weaponData;
-    [SerializeField] TextAsset toolData;
     [SerializeField] TextAsset powerData;
     [SerializeField] TextAsset breakableData;
     [SerializeField] List<TextAsset> localizationData;
     [SerializeField] TextAsset buttonLocalization;
-    [SerializeField] TextAsset upgradesData;
+    [SerializeField] List<TextAsset> upgradesData;
     delegate void Formatter(List<string> s);
 
     public static Dictionary<string, interactorStats> dictWeapons = new Dictionary<string, interactorStats>();
@@ -47,12 +45,15 @@ public class DataManager : ScriptableObject
         damagerDataBuilder.loadText(powerData, ref dictPowers, "Powers");
 
         objectDataBuilder.loadText(breakableData, ref dictObjects, "Entities");
-
-        upgradeDataBuilder.loadText(upgradesData, ref dictUpgrades, "Upgrades");
+        
+        foreach (TextAsset data in upgradesData)
+        {
+            upgradeDataBuilder.loadText(data, ref dictUpgrades, $"Upgrades/{data.name}");
+        }
 
         foreach (TextAsset data in localizationData)
         {
-            localizedStringBuilder.loadText(data, ref dictLocalization, "Localization");
+            localizedStringBuilder.loadText(data, ref dictLocalization, $"Localization/{data.name}");
         }
         dualLocalizedStringBuilder.loadText(buttonLocalization, ref dictLocalization, "Button Localization");
 
