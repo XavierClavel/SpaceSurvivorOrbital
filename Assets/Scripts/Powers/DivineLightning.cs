@@ -35,9 +35,5 @@ public class DivineLightning : Power
         ps.startSize = stats.range * 0.5f;
         ps.Play();
 
-        Vector3 particlePosition = ps.transform.position;
-        animator.transform.position = particlePosition;
-        animator.enabled = true;
-
     }
 }
