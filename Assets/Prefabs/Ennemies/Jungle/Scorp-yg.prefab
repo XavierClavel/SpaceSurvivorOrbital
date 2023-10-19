@@ -9,13 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 386023908209535338}
-  - component: {fileID: -9161221971145362554}
+  - component: {fileID: 516386350}
   - component: {fileID: 5132843330540273407}
   - component: {fileID: 320162684498431986}
   - component: {fileID: 2225165316715215867}
-  - component: {fileID: 314869790368286896}
+  - component: {fileID: 68599754987144102}
   m_Layer: 11
-  m_Name: Sht-hul Boss
+  m_Name: Scorp-yg
   m_TagString: Ennemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1013518959079814096}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8624037171420051036}
@@ -39,7 +39,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-9161221971145362554
+--- !u!114 &516386350
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48,35 +48,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 1013518959079814096}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbdd109072035f74d82451e440c37c88, type: 3}
+  m_Script: {fileID: 11500000, guid: 2683960f5fbd17448858efb0b4fbef82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: Sht-hul_Boss
+  key: Scorp-yg
   spriteOverlay: {fileID: 3929814262209255274}
   onDeath:
     m_PersistentCalls:
       m_Calls: []
   healthBar: {fileID: 2853218550413945330}
   rb: {fileID: 5132843330540273407}
-  knockbackForce: 0
+  knockbackForce: 5
   knockbackRiseDuration: 0.1
   knockbackPlateauDuration: 0.1
   knockbackFallDuration: 0.1
   knockbackStunDuration: 0.1
-  startDeformationScale: {x: -0.2, y: 0.1, z: 1}
+  startDeformationScale: {x: -0.5, y: 0.1, z: 1}
   deformationDuration: 0.1
-  speed: 1
+  speed: 1.5
   fleeSpeed: 2
-  attackSpeed: 1
+  attackSpeed: 0.5
   range: 5
   stateStep: 0.5
   shakeDuration: 0.1
   shakeIntensity: 1
   negativeRange: -0.1
   positiveRange: 0.1
-  bulletSpeed: 5
-  shootRange: {x: 3, y: 5}
-  bulletPrefab: {fileID: 4478075856262805781, guid: 58044c464630bc442ac7f869cff47fa2, type: 3}
 --- !u!50 &5132843330540273407
 Rigidbody2D:
   serializedVersion: 4
@@ -145,7 +142,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -419356633, guid: 7955eeeaec040594a9416a387aa1d925, type: 3}
+  m_Sprite: {fileID: -1273727530, guid: 7955eeeaec040594a9416a387aa1d925, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -166,7 +163,7 @@ Animator:
   m_GameObject: {fileID: 1013518959079814096}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 18ad44256ffe26544b8392396e0af4c2, type: 2}
+  m_Controller: {fileID: 9100000, guid: e0f56b76098b1ba4ebfb40dade2db112, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -177,7 +174,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!60 &314869790368286896
+--- !u!60 &68599754987144102
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,81 +218,75 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.5, y: -0.29999998}
-      - {x: 0.44, y: -0.37}
-      - {x: 0.47, y: -0.44}
-      - {x: 0.56, y: -0.42}
-      - {x: 0.64, y: -0.29}
-      - {x: 0.63, y: -0.17999999}
-      - {x: 0.61, y: -0.13}
-      - {x: 0.5, y: -0.03}
-      - {x: 0.25, y: 0.08}
-      - {x: 0.22999999, y: 0.13}
-      - {x: 0.42999998, y: 0.01}
-      - {x: 0.65999997, y: 0.02}
-      - {x: 0.72999996, y: 0.12}
-      - {x: 0.74, y: 0.25}
-      - {x: 0.74, y: 0.35999998}
-      - {x: 0.65, y: 0.48}
-      - {x: 0.57, y: 0.52}
-      - {x: 0.42, y: 0.48999998}
-      - {x: 0.32999998, y: 0.42}
-      - {x: 0.37, y: 0.26}
-      - {x: 0.39999998, y: 0.22999999}
-      - {x: 0.19, y: 0.31}
-      - {x: 0.13, y: 0.48}
-      - {x: 0.26999998, y: 0.47}
-      - {x: 0.42, y: 0.5}
-      - {x: 0.53999996, y: 0.59}
-      - {x: 0.58, y: 0.71}
-      - {x: 0.58, y: 0.93}
-      - {x: 0.44, y: 1.0699999}
-      - {x: 0.17, y: 1.0699999}
-      - {x: -0.19, y: 0.94}
-      - {x: -0.31, y: 0.81}
-      - {x: -0.42, y: 0.52}
-      - {x: -0.37, y: 0.26999998}
-      - {x: -0.42, y: 0.19999999}
-      - {x: -0.64, y: 0.25}
-      - {x: -0.56, y: 0.48}
-      - {x: -0.58, y: 0.61}
-      - {x: -0.72999996, y: 0.69}
-      - {x: -0.87, y: 0.68}
-      - {x: -0.95, y: 0.62}
-      - {x: -0.95, y: 0.47}
-      - {x: -0.85999995, y: 0.42}
-      - {x: -0.78, y: 0.34}
-      - {x: -0.79999995, y: 0.13}
-      - {x: -0.69, y: 0}
-      - {x: -0.7, y: -0.22}
-      - {x: -0.65999997, y: -0.29}
-      - {x: -0.59999996, y: -0.35999998}
-      - {x: -0.53, y: -0.32999998}
-      - {x: -0.29999998, y: -0.22}
-      - {x: -0.17999999, y: -0.19}
-      - {x: -0.089999996, y: -0.07}
-      - {x: -0.08, y: 0.02}
-      - {x: 0.11, y: -0.32999998}
-      - {x: -0.01, y: -0.39999998}
-      - {x: -0.02, y: -0.24}
-      - {x: -0.11, y: -0.21}
-      - {x: -0.19999999, y: -0.32}
-      - {x: -0.17, y: -0.48999998}
-      - {x: -0.06, y: -0.57}
-      - {x: 0.14, y: -0.57}
-      - {x: 0.17, y: -0.56}
-      - {x: 0.29, y: -0.37}
-      - {x: 0.29, y: -0.17}
-      - {x: 0.42999998, y: -0.17999999}
-    - - {x: -0.38, y: 0.04}
-      - {x: -0.37, y: 0.04}
-      - {x: -0.28, y: 0.13}
-      - {x: -0.26999998, y: 0.17}
-      - {x: -0.28, y: 0.14999999}
-      - {x: -0.26999998, y: 0.14}
-      - {x: -0.29, y: 0.03}
-      - {x: -0.42, y: 0.02}
-      - {x: -0.41, y: 0.01}
+    - - {x: 0.37, y: -0.35999998}
+      - {x: 0.42999998, y: -0.35999998}
+      - {x: 0.44, y: -0.17999999}
+      - {x: 0.55, y: -0.16}
+      - {x: 0.59999996, y: -0.26}
+      - {x: 0.64, y: -0.25}
+      - {x: 0.62, y: -0.08}
+      - {x: 0.74, y: -0.02}
+      - {x: 0.95, y: -0.13}
+      - {x: 0.95, y: -0.07}
+      - {x: 0.83, y: 0.089999996}
+      - {x: 0.72999996, y: 0.14}
+      - {x: 0.82, y: 0.35}
+      - {x: 0.78999996, y: 0.7}
+      - {x: 0.66999996, y: 0.85999995}
+      - {x: 0.53999996, y: 0.9}
+      - {x: 0.22, y: 0.9}
+      - {x: 0.02, y: 0.78999996}
+      - {x: -0.02, y: 0.61}
+      - {x: 0.13, y: 0.45999998}
+      - {x: 0.26, y: 0.48999998}
+      - {x: 0.31, y: 0.59}
+      - {x: 0.14999999, y: 0.69}
+      - {x: 0.5, y: 0.71}
+      - {x: 0.63, y: 0.5}
+      - {x: 0.52, y: 0.22}
+      - {x: 0.42, y: 0.32999998}
+      - {x: 0.24, y: 0.31}
+      - {x: 0.22999999, y: 0.25}
+      - {x: 0.03, y: 0.22}
+      - {x: 0.02, y: 0.19}
+      - {x: 0.04, y: 0.13}
+      - {x: -0.11, y: 0.089999996}
+      - {x: -0.42999998, y: 0.17999999}
+      - {x: -0.53, y: 0.17999999}
+      - {x: -0.65, y: 0.089999996}
+      - {x: -0.65999997, y: 0.03}
+      - {x: -0.65999997, y: -0.02}
+      - {x: -0.63, y: -0.04}
+      - {x: -0.51, y: 0.07}
+      - {x: -0.53999996, y: 0.03}
+      - {x: -0.57, y: -0.089999996}
+      - {x: -0.38, y: -0.14999999}
+      - {x: -0.32999998, y: -0.11}
+      - {x: -0.24, y: 0}
+      - {x: -0.22, y: -0.12}
+      - {x: -0.19, y: -0.13}
+      - {x: -0.11, y: -0.07}
+      - {x: -0.17999999, y: -0.13}
+      - {x: -0.19999999, y: -0.14999999}
+      - {x: -0.19999999, y: -0.17999999}
+      - {x: -0.16, y: -0.22999999}
+      - {x: -0.11, y: -0.25}
+      - {x: -0.02, y: -0.25}
+      - {x: -0.29999998, y: -0.26999998}
+      - {x: -0.35, y: -0.45}
+      - {x: -0.28, y: -0.48}
+      - {x: -0.25, y: -0.47}
+      - {x: -0.24, y: -0.48999998}
+      - {x: -0.41, y: -0.44}
+      - {x: -0.44, y: -0.42999998}
+      - {x: -0.45999998, y: -0.45}
+      - {x: -0.48, y: -0.48999998}
+      - {x: -0.35999998, y: -0.61}
+      - {x: -0.14, y: -0.61}
+      - {x: -0.08, y: -0.58}
+      - {x: 0.13, y: -0.35}
+      - {x: 0.26, y: -0.19999999}
+      - {x: 0.35, y: -0.34}
   m_UseDelaunayMesh: 0
 --- !u!1 &3542452932831592109
 GameObject:
@@ -370,7 +361,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: -419356633, guid: 7955eeeaec040594a9416a387aa1d925, type: 3}
+  m_Sprite: {fileID: 410269240, guid: da762d095f581354092b394eb8b70ef5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
