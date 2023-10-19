@@ -419,11 +419,11 @@ public class PlayerController : MonoBehaviour
 
         while (elapsedTime < shakeDuration)
         {
-            // Générez des valeurs aléatoires pour le déplacement en 2D
+            // GÃ©nÃ©rez des valeurs alÃ©atoires pour le dÃ©placement en 2D
             float randomX = Random.Range(negativeRange, positiveRange) * shakeIntensity;
             float randomY = Random.Range(negativeRange, positiveRange) * shakeIntensity;
 
-            // Appliquez le déplacement à la caméra en 2D
+            // Appliquez le dÃ©placement Ã  la camÃ©ra en 2D
             Vector3 randomPoint = originalCameraPosition + new Vector3(randomX, randomY, 0f);
             cameraTransform.localPosition = randomPoint;
 
@@ -431,7 +431,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
 
-        // Remettez la caméra à sa position d'origine après le screenshake
+        // Remettez la camÃ©ra Ã  sa position d'origine aprÃ¨s le screenshake
         cameraTransform.localPosition = originalCameraPosition;
     }   
 }
