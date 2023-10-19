@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 516386350}
   - component: {fileID: 5132843330540273407}
   - component: {fileID: 320162684498431986}
-  - component: {fileID: -2765918789957504826}
   - component: {fileID: 2225165316715215867}
+  - component: {fileID: 3690613736367420305}
   m_Layer: 11
   m_Name: Serp-yg
   m_TagString: Ennemy
@@ -142,19 +142,40 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -1273727530, guid: 7955eeeaec040594a9416a387aa1d925, type: 3}
+  m_Sprite: {fileID: -1711059614, guid: 7955eeeaec040594a9416a387aa1d925, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 6.3, y: 4.69}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &-2765918789957504826
-CircleCollider2D:
+--- !u!95 &2225165316715215867
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013518959079814096}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 22fea01b8ab7afd4386323880416be68, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!60 &3690613736367420305
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -185,30 +206,48 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.06304121, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.4557948
---- !u!95 &2225165316715215867
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1013518959079814096}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 22fea01b8ab7afd4386323880416be68, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.56, y: 2.56}
+    newSize: {x: 2.56, y: 2.56}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.44, y: -0.04}
+      - {x: 0.5, y: 0.04}
+      - {x: 0.55, y: 0.13}
+      - {x: 0.55, y: 0.25}
+      - {x: 0.42999998, y: 0.53}
+      - {x: 0.41, y: 0.66999996}
+      - {x: 0.76, y: 0.77}
+      - {x: 0.77, y: 0.79999995}
+      - {x: 0.74, y: 0.83}
+      - {x: 0.7, y: 0.84999996}
+      - {x: 0.45999998, y: 0.84999996}
+      - {x: 0.35999998, y: 0.76}
+      - {x: 0.29, y: 0.63}
+      - {x: 0.31, y: 0.28}
+      - {x: 0.16, y: 0.42}
+      - {x: 0.07, y: 0.45999998}
+      - {x: -0.17, y: 0.48}
+      - {x: -0.45, y: 0.39999998}
+      - {x: -0.48999998, y: 0.35}
+      - {x: -0.52, y: 0.22}
+      - {x: -0.52, y: 0.02}
+      - {x: -0.5, y: -0.11}
+      - {x: -0.47, y: -0.38}
+      - {x: -0.39999998, y: -0.51}
+      - {x: -0.29999998, y: -0.58}
+      - {x: -0.19999999, y: -0.59}
+      - {x: 0.06, y: -0.59}
+      - {x: 0.35, y: -0.39999998}
+      - {x: 0.41, y: -0.26}
+  m_UseDelaunayMesh: 0
 --- !u!1 &3542452932831592109
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +321,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: -2067910336, guid: da762d095f581354092b394eb8b70ef5, type: 3}
+  m_Sprite: {fileID: -1496182651, guid: da762d095f581354092b394eb8b70ef5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0

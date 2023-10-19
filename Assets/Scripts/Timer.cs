@@ -14,6 +14,9 @@ public class Timer : MonoBehaviour
     [SerializeField] TextMeshProUGUI timeText; // r�f�rence au composant Text de l'UI
     int time;
 
+    public Image timerBar; // Référence à l'image de la jauge de temps
+    public Slider timerSlider;
+
     [SerializeField] Ennemy boss;
     Transform playerTransform;
     GameObject spaceShip;
@@ -46,6 +49,8 @@ public class Timer : MonoBehaviour
     {
         while (timeRemaining > 0)
         {
+            float fillAmount = timeRemaining;
+            timerSlider.value = fillAmount - 1;
             timeText.text = "Temps restant : " + Mathf.RoundToInt(timeRemaining).ToString(); // affiche le temps restant dans l'UI
             yield return waitSecond;
             timeRemaining--;

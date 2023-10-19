@@ -50,8 +50,8 @@ public class Ennemy : Breakable
         set
         {
             value = Helpers.CeilInt(value, maxHealth);
-            if (value == maxHealth && healthBar.gameObject.activeInHierarchy) healthBar.gameObject.SetActive(false);
-            else if (!healthBar.gameObject.activeInHierarchy) healthBar.gameObject.SetActive(true);
+            //if (value == maxHealth && healthBar.gameObject.activeInHierarchy) healthBar.gameObject.SetActive(false);
+            //else if (!healthBar.gameObject.activeInHierarchy) healthBar.gameObject.SetActive(true);
             _health = value;
             healthBar.value = value;
             //SoundManager.instance.PlaySfx(transform, sfx.playerHit);

@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 516386350}
   - component: {fileID: 5132843330540273407}
   - component: {fileID: 320162684498431986}
-  - component: {fileID: -2765918789957504826}
   - component: {fileID: 2225165316715215867}
+  - component: {fileID: 6695981670712630960}
   m_Layer: 11
   m_Name: Borgn-ar
   m_TagString: Ennemy
@@ -153,8 +153,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &-2765918789957504826
-CircleCollider2D:
+--- !u!95 &2225165316715215867
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013518959079814096}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b70fdfed23ad26c4592eee963b270abe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!60 &6695981670712630960
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -185,30 +206,52 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.036210775, y: 0.32960582}
-  serializedVersion: 2
-  m_Radius: 0.33107722
---- !u!95 &2225165316715215867
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1013518959079814096}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b70fdfed23ad26c4592eee963b270abe, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.56, y: 2.56}
+    newSize: {x: 6.3, y: 4.69}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.39999998, y: -0.07}
+      - {x: 0.45, y: -0.07}
+      - {x: 0.52, y: -0.02}
+      - {x: 0.52, y: 0.03}
+      - {x: 0.39999998, y: 0.14}
+      - {x: 0.48999998, y: 0.32}
+      - {x: 0.57, y: 0.26999998}
+      - {x: 0.58, y: 0.14}
+      - {x: 0.59999996, y: 0.12}
+      - {x: 0.78, y: 0.14999999}
+      - {x: 0.85999995, y: 0.089999996}
+      - {x: 0.88, y: 0.12}
+      - {x: 0.88, y: 0.17999999}
+      - {x: 0.82, y: 0.28}
+      - {x: 0.57, y: 0.53}
+      - {x: 0.24, y: 0.7}
+      - {x: -0.04, y: 0.7}
+      - {x: -0.31, y: 0.65999997}
+      - {x: -0.48999998, y: 0.61}
+      - {x: -0.65999997, y: 0.53}
+      - {x: -0.71999997, y: 0.45999998}
+      - {x: -0.71999997, y: 0.39}
+      - {x: -0.47, y: 0.31}
+      - {x: -0.39999998, y: 0.45999998}
+      - {x: -0.35999998, y: 0.39}
+      - {x: -0.32, y: 0.17}
+      - {x: -0.25, y: 0.099999994}
+      - {x: -0.29999998, y: -0.03}
+      - {x: -0.29, y: -0.11}
+      - {x: -0.17, y: -0.11}
+      - {x: -0.14999999, y: -0.01}
+      - {x: 0.19, y: 0.01}
+      - {x: 0.32999998, y: 0.03}
+  m_UseDelaunayMesh: 0
 --- !u!1 &3542452932831592109
 GameObject:
   m_ObjectHideFlags: 0
