@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Pool;
 
 public abstract class Gun : Interactor
 {
@@ -12,6 +13,7 @@ public abstract class Gun : Interactor
     LayoutManager bulletsLayoutManager;
     WaitForSeconds magazineReloadWindow;
     Tween sliderTween;
+    protected ComponentPool<Bullet> pool;
 
 
     protected override void Start()
@@ -28,6 +30,8 @@ public abstract class Gun : Interactor
 
         autoCooldown = false;
         bulletPrefab.gameObject.layer = LayerMask.NameToLayer(currentLayer);
+        
+        pool = new ComponentPool<Bullet>(bulletPrefab).setTimer(3f);
 
     }
 

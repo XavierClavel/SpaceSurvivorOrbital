@@ -17,13 +17,13 @@ public class Bullet : MonoBehaviour
 
     public void Fire(int speed, float lifetime)
     {
-        StartCoroutine(DestroyTimer(lifetime));
+        Destroy(gameObject, lifetime);
         rb.velocity = transform.up * 10f;
     }
 
     public void Fire(int speed, float lifetime, int damage)
     {
-        StartCoroutine(DestroyTimer(lifetime));
+        Destroy(gameObject, lifetime);
         rb.velocity = transform.up * 10f;
         this.damage = damage;
     }
@@ -56,17 +56,12 @@ public class Bullet : MonoBehaviour
         currentPierce++;
     }
 
-    IEnumerator DestroyTimer(float lifetime)  //Destroys bullet after lifetime
+    public void FireFairy(int speed, float lifetime, Transform newTarget, int damage)
     {
-        yield return Helpers.GetWait(lifetime);
-        Destroy(gameObject);
-    }
-
-    public void FireFairy(int speed, float lifetime, Transform newTarget)
-    {
-        StartCoroutine(DestroyTimer(lifetime));
+        Destroy(gameObject, lifetime);
         Vector3 direction = (newTarget.position - transform.position).normalized;
-        rb.velocity = direction * 10f;
+        rb.velocity = direction * speed;
+        this.damage = damage;
     }
 
 }
