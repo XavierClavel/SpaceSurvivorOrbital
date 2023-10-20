@@ -2323,7 +2323,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 459822650}
-  m_LocalRotation: {x: -1.60048e-17, y: 0.0498137, z: 7.982492e-19, w: 0.99875855}
+  m_LocalRotation: {x: 1.6004797e-17, y: 0.0498137, z: -7.98249e-19, w: 0.99875855}
   m_LocalPosition: {x: 0, y: 0, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4552,7 +4552,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 0}
+  m_AnchoredPosition: {x: 5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &819867603
@@ -5313,11 +5313,11 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2134559221}
   m_FillRect: {fileID: 533134105}
   m_HandleRect: {fileID: 2134559220}
-  m_Direction: 0
+  m_Direction: 1
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
@@ -7952,10 +7952,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0083788f26f02394f8930fad8ecd6b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setTime: 120
-  timeText: {fileID: 1700240053}
-  timerBar: {fileID: 0}
   timerSlider: {fileID: 1087121949}
+  totalTime: 120
   boss: {fileID: -9161221971145362554, guid: 0255db1fe2cced14ba96b9714800f0bb, type: 3}
   winText: {fileID: 6080544551730886748, guid: 59da4376dd2ed2c4d84c795f064dc8d5, type: 3}
 --- !u!1 &1750582266
@@ -9936,7 +9934,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4324446820854539277, guid: 030a56f1b7838fd4eb210eeb16d03bd3, type: 3}
       propertyPath: planetData.type
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4324446820854539277, guid: 030a56f1b7838fd4eb210eeb16d03bd3, type: 3}
       propertyPath: tilesBankManager

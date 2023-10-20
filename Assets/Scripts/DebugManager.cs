@@ -20,7 +20,7 @@ public class DebugManager : MonoBehaviour
         if (startWithMinerBot) PlayerController.instance.SpawnMinerBot();
         if (startWithRadar) PlayerController.instance.debug_ActivateRadar();
         //if (noEnnemySpawn) SpawnManager.instance.debug_StopEnnemySpawn();
-        if (noTimer) Timer.instance.debug_StopTimer();
+        //if (noTimer) Timer.instance.debug_StopTimer();
     }
 
 }

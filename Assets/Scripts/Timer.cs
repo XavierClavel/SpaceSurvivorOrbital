@@ -10,19 +10,20 @@ using DG.Tweening;
 public class Timer : MonoBehaviour
 {
     public static int timeRemaining;
-    public int setTime;
-    [SerializeField] TextMeshProUGUI timeText; // r�f�rence au composant Text de l'UI
-    int time;
 
-    public Image timerBar; // Référence à l'image de la jauge de temps
     public Slider timerSlider;
+    
+    public float totalTime = 60.0f; // Temps total en secondes
+    private float elapsedTime = 0.0f; // Temps écoulé en secondes
+   
+    private bool bossHere = false;
 
     [SerializeField] Ennemy boss;
+    
     Transform playerTransform;
-    GameObject spaceShip;
-    WaitForSeconds waitSecond;
+    
     public static Timer instance;
-    bool doTimerRun = true;
+    
     public GameObject winText;
 
     private void Awake()
@@ -32,39 +33,20 @@ public class Timer : MonoBehaviour
 
     void Start()
     {
-        timeRemaining = PlayerManager.currentTimer = setTime;
         playerTransform = PlayerController.instance.transform;
-        spaceShip = GameObject.FindGameObjectWithTag("Ship");
-        waitSecond = Helpers.GetWait(1f);
-        if (doTimerRun) StartCoroutine(nameof(RunTimer));
     }
 
-    public void debug_StopTimer()
+    private void Update()
     {
-        doTimerRun = false;
-        StopCoroutine(nameof(RunTimer));
-    }
+        elapsedTime += Time.deltaTime;
 
-    IEnumerator RunTimer()
-    {
-        while (timeRemaining > 0)
+        timerSlider.value = 1 - (elapsedTime / totalTime);
+
+        if (elapsedTime >= totalTime  && bossHere == false)
         {
-            float fillAmount = timeRemaining;
-            timerSlider.value = fillAmount - 1;
-            timeText.text = "Temps restant : " + Mathf.RoundToInt(timeRemaining).ToString(); // affiche le temps restant dans l'UI
-            yield return waitSecond;
-            timeRemaining--;
-            if (timeRemaining == 30) TimeIsRunningOutDisplay();
+            Instantiate(boss, randomPos() + playerTransform.position, Quaternion.identity).onDeath.AddListener(OnBossDefeat);
+            bossHere = true;
         }
-        //Destroy(spaceShip);
-        Instantiate(boss, randomPos() + playerTransform.position, Quaternion.identity).onDeath.AddListener(OnBossDefeat);
-    }
-
-    void TimeIsRunningOutDisplay()
-    {
-        timeText.transform.DOScale(1.5f, 2f);
-        timeText.DOColor(Color.red, 2f);
-        timeText.fontStyle = FontStyles.Bold;
     }
 
     Vector3 randomPos()

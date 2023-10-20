@@ -28,6 +28,8 @@ public class Bullet : MonoBehaviour
         this.damage = damage;
     }
 
+
+
     void OnTriggerEnter2D(Collider2D other)
     {
         SoundManager.instance.PlaySfx(transform, sfx.bulletOnGround);
@@ -59,4 +61,12 @@ public class Bullet : MonoBehaviour
         yield return Helpers.GetWait(lifetime);
         Destroy(gameObject);
     }
+
+    public void FireFairy(int speed, float lifetime, Transform newTarget)
+    {
+        StartCoroutine(DestroyTimer(lifetime));
+        Vector3 direction = (newTarget.position - transform.position).normalized;
+        rb.velocity = direction * 10f;
+    }
+
 }
