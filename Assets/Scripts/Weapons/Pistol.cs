@@ -52,8 +52,7 @@ public class Pistol : Gun
     void FireBullet(Vector3 position, Vector3 eulerRotation)
     {
         soundManager.PlaySfx(transform, sfx.shoot);
-
-        Bullet bullet = Instantiate(bulletPrefab, position, Quaternion.Euler(eulerRotation));
+        Bullet bullet = pool.get(position, eulerRotation);
         bullet.Fire(stats.attackSpeed, bulletLifetime);
     }
 }

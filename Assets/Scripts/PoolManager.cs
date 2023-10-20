@@ -35,7 +35,7 @@ public abstract class Pool<T> where T : Object
         else return stack.Pop();
     }
 
-    public abstract T get(Vector3 position);
+    public abstract T get(Vector3 position, Quaternion rotation);
 
     public void push(T newObject)
     {
@@ -45,11 +45,11 @@ public abstract class Pool<T> where T : Object
 
 public class GameObjectPool : Pool<GameObject>
 {
-    public override GameObject get(Vector3 position)
+    public override GameObject get(Vector3 position, Quaternion rotation)
     {
         if (stack.Count == 0)
         {
-            return GameObject.Instantiate(prefab, position, Quaternion.identity);
+            return GameObject.Instantiate(prefab, position, rotation);
         }
         else
         {
@@ -63,16 +63,17 @@ public class GameObjectPool : Pool<GameObject>
 
 public class ComponentPool : Pool<Component>
 {
-    public override Component get(Vector3 position)
+    public override Component get(Vector3 position, Quaternion rotation)
     {
         if (stack.Count == 0)
         {
-            return GameObject.Instantiate(prefab, position, Quaternion.identity);
+            return GameObject.Instantiate(prefab, position, rotation);
         }
         else
         {
-            Component instance = (Component)stack.Pop();
+            Component instance = stack.Pop();
             instance.transform.position = position;
+            instance.transform.rotation = rotation;
             instance.gameObject.SetActive(true);
             return instance;
         }
@@ -99,7 +100,12 @@ public class GameObjectTimedPool
 
     public GameObject get(Vector3 position)
     {
-        GameObject instance = pool.get(position);
+        return get(position, Quaternion.identity);
+    }
+    
+    public GameObject get(Vector3 position, Quaternion rotation)
+    {
+        GameObject instance = pool.get(position, rotation);
         instance.SetActive(true);
         return instance;
     }
@@ -132,7 +138,17 @@ public class ComponentPool<T> where T : Component
 
     public T get(Vector3 position)
     {
-        T instance = (T)pool.get(position);
+        return get(position, Quaternion.identity);
+    }
+    
+    public T get(Vector3 position, Vector3 rotation)
+    {
+        return get(position, Quaternion.Euler(rotation));
+    }
+    
+    public T get(Vector3 position, Quaternion rotation)
+    {
+        T instance = (T)pool.get(position, rotation);
         instance.gameObject.SetActive(true);
         if (wait != null) Orchestrator.context.StartCoroutine(WaitAndRetrieve(instance));
         else PoolManager.register(instance, pool);
