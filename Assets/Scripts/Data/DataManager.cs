@@ -14,7 +14,6 @@ public class DataManager : ScriptableObject
     [SerializeField] List<TextAsset> localizationData;
     [SerializeField] TextAsset buttonLocalization;
     [SerializeField] List<TextAsset> upgradesData;
-    delegate void Formatter(List<string> s);
 
     public static Dictionary<string, interactorStats> dictWeapons = new Dictionary<string, interactorStats>();
     public static Dictionary<string, interactorStats> dictPowers = new Dictionary<string, interactorStats>();
@@ -26,8 +25,7 @@ public class DataManager : ScriptableObject
     [SerializeField] string selectedWeapon = "Laser";
     private static DataManager instance;
 
-
-    //TODO: use generics instead of delegates
+    
     public void LoadData()
     {
         if (instance != null) return;
