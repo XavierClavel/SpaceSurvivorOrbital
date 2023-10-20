@@ -73,7 +73,7 @@ public class Fairy : Power
         Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         bullet.gameObject.SetActive(true);
 
-        bullet.FireFairy(stats.attackSpeed, stats.range, detectedEnemy, stats.baseDamage.getRandom());
+        bullet.FireFairy(stats.attackSpeed, stats.range, detectedEnemy, new HitInfo(stats));
     }
 
     IEnumerator Reload()

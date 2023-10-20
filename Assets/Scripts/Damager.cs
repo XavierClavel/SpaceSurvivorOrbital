@@ -4,6 +4,38 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
+public struct HitInfo
+{
+    public readonly int damage;
+    public readonly bool critical;
+    public readonly status effect;
+
+    public HitInfo(int damage, bool critical, status effect)
+    {
+        this.damage = damage;
+        this.critical = critical;
+        this.effect = effect;
+    }
+
+    public HitInfo(int damage)
+    {
+        this.damage = damage;
+        this.critical = false;
+        this.effect = status.none;
+    }
+    
+    public HitInfo(interactorStats stats)
+    {
+        damage = stats.baseDamage.getRandom();
+        critical = Helpers.ProbabilisticBool(stats.criticalChance);
+        if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
+        effect = status.none;
+    }
+    
+    
+    
+}
+
 public abstract class Damager : MonoBehaviour
 {
     protected SoundManager soundManager;
@@ -65,10 +97,7 @@ public abstract class Damager : MonoBehaviour
     public void Hit(List<Collider2D> targets, bool individualDamage = false)
     {
         if (targets.Count == 0) return;
-
-        int damage;
-        bool critical;
-        getDamage(out damage, out critical, out effect);
+        
 
         foreach (Collider2D target in targets)
         {
@@ -78,7 +107,7 @@ public abstract class Damager : MonoBehaviour
             }
             else
             {
-                ObjectManager.dictObjectToHitable[target.gameObject].Hit(damage, player.effect, critical);
+                ObjectManager.dictObjectToHitable[target.gameObject].Hit(new HitInfo(stats));
             }
         }
     }
@@ -90,21 +119,9 @@ public abstract class Damager : MonoBehaviour
 
     public void Hit(GameObject target)
     {
-        int damage;
-        bool critical;
-        status effect = status.none;
-        getDamage(out damage, out critical, out effect);
-
-        ObjectManager.dictObjectToHitable[target].Hit(damage, player.effect, critical);
+        ObjectManager.dictObjectToHitable[target].Hit(new HitInfo(stats));
     }
-
-    private void getDamage(out int damage, out bool critical, out status effect)
-    {
-        damage = stats.baseDamage.getRandom();
-        critical = Helpers.ProbabilisticBool(stats.criticalChance);
-        if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
-        effect = player.effect;
-    }
+    
 
     #endregion
 

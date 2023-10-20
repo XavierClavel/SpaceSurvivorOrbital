@@ -30,8 +30,8 @@ public abstract class Gun : Interactor
 
         autoCooldown = false;
         bulletPrefab.gameObject.layer = LayerMask.NameToLayer(currentLayer);
-        
-        pool = new ComponentPool<Bullet>(bulletPrefab).setTimer(3f);
+
+        pool = new ComponentPool<Bullet>(bulletPrefab);
 
     }
 

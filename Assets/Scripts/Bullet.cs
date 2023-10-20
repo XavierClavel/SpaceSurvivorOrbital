@@ -10,22 +10,21 @@ public class Bullet : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
     [HideInInspector] public int pierce = 0;
     int currentPierce = 0;
-    public int damage = 5;
-    public status effect = status.none;
-    public bool critical = false;
+    private HitInfo hitInfo;
 
 
-    public void Fire(int speed, float lifetime)
+    public void Fire(int speed, float lifetime, HitInfo hitInfo)
     {
         Destroy(gameObject, lifetime);
         rb.velocity = transform.up * 10f;
+        this.hitInfo = hitInfo;
     }
 
     public void Fire(int speed, float lifetime, int damage)
     {
         Destroy(gameObject, lifetime);
         rb.velocity = transform.up * 10f;
-        this.damage = damage;
+        hitInfo = new HitInfo(damage, false, status.none);
     }
 
 
@@ -39,11 +38,11 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer.Obstacles)) Destroy(gameObject);
 
 
-        if (other.gameObject.CompareTag(Vault.tag.Player)) PlayerController.Hurt(damage);
+        if (other.gameObject.CompareTag(Vault.tag.Player)) PlayerController.Hurt(hitInfo.damage);
 
         if (other.gameObject.CompareTag(Vault.tag.Ennemy) || other.gameObject.CompareTag(Vault.tag.Resource))
         {
-            InteractorHandler.playerInteractorHandler.currentInteractor.Hit(other.gameObject);
+            ObjectManager.dictObjectToHitable[other.gameObject].Hit(hitInfo);
         }
 
 
@@ -56,12 +55,12 @@ public class Bullet : MonoBehaviour
         currentPierce++;
     }
 
-    public void FireFairy(int speed, float lifetime, Transform newTarget, int damage)
+    public void FireFairy(int speed, float lifetime, Transform newTarget, HitInfo hitInfo)
     {
         Destroy(gameObject, lifetime);
         Vector3 direction = (newTarget.position - transform.position).normalized;
         rb.velocity = direction * speed;
-        this.damage = damage;
+        this.hitInfo = hitInfo;
     }
 
 }
