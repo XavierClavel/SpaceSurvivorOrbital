@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8613898351488606343}
-  - component: {fileID: -109150117922504470}
+  - component: {fileID: 4885552216820537744}
   - component: {fileID: 2019997042510712887}
   - component: {fileID: 5712829293429624668}
   - component: {fileID: 1474093259101802752}
   m_Layer: 0
-  m_Name: Fairy
+  m_Name: FairyChild2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-109150117922504470
+--- !u!114 &4885552216820537744
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 126008717524696660}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03d2e219e1f884e4da9278c6d358272a, type: 3}
+  m_Script: {fileID: 11500000, guid: c25e988b27444c04f97d774f522c4f83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isUsing: 0
@@ -52,13 +52,13 @@ MonoBehaviour:
   player: {fileID: 0}
   moveSpeed: 4
   circleRadius: 5
+  xRange: 2
+  yRange: 2
   bulletPrefab: {fileID: 4478075856262805781, guid: ce11f514e3d28f644af614bae78d064c, type: 3}
   firePoint: {fileID: 0}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 2048
-  fairy: {fileID: 126008717524696660, guid: 361b24caab3301248b3295bf2034375f, type: 3}
-  fairy2: {fileID: 126008717524696660, guid: 9853b248c14e97d4380c545587913bab, type: 3}
 --- !u!212 &2019997042510712887
 SpriteRenderer:
   m_ObjectHideFlags: 0

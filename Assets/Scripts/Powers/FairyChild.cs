@@ -4,12 +4,14 @@ using UnityEngine;
 using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 using static Vault;
 
-public class Fairy : Power
+public class FairyChild : Power
 {
     public Transform player; 
     public float moveSpeed = 4.0f; 
     public float circleRadius = 5.0f; 
     private float angle = 0.0f;
+    public float xRange;
+    public float yRange;
 
     public Bullet bulletPrefab;
 
@@ -22,24 +24,19 @@ public class Fairy : Power
 
     static protected WaitForSeconds wait;
 
-    public GameObject fairy;
-    public GameObject fairy2;
-    private bool second = true;
-    private bool third = true;
-
     protected override void Start()
     {
         stats = DataManager.dictPowers["Fairy"];
         player = PlayerController.instance.transform;
         StartCoroutine(nameof(Reload));
-
-        if (stats.magazine >= 1 && second) { Instantiate(fairy, transform.position, Quaternion.identity); second = false; }
-        if (stats.magazine == 2 && third) { Instantiate(fairy2, transform.position, Quaternion.identity); third = false; }
     }
 
     private void Update()
     {
-        Vector3 offset = new Vector3(Mathf.Cos(angle) * circleRadius, Mathf.Sin(angle) * circleRadius, 0);
+        Vector3 circleOffset = new Vector3(Mathf.Cos(angle) * circleRadius, Mathf.Sin(angle) * circleRadius, 0);
+        Vector3 rangeOffset = new Vector3(xRange,yRange, 0);
+        Vector3 offset = circleOffset + rangeOffset;
+
         Vector3 targetPosition = player.position + offset;
 
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
