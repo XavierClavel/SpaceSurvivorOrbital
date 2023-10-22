@@ -51,21 +51,14 @@ public static class PlanetManager
 
     static float getScarcity(planetResourceScarcity scarcity)
     {
-        switch (scarcity)
+        return scarcity switch
         {
-            case planetResourceScarcity.none:
-                return 0f;
-
-            case planetResourceScarcity.rare:
-                return 0.1f;
-
-            case planetResourceScarcity.medium:
-                return 0.2f;
-
-            case planetResourceScarcity.common:
-                return 0.3f;
-        }
-        return 0.2f;
+            planetResourceScarcity.none => 0f,
+            planetResourceScarcity.rare => 0.1f,
+            planetResourceScarcity.medium => 0.2f,
+            planetResourceScarcity.common => 0.3f,
+            _ => 0.2f
+        };
     }
 
     static int getResourceAmount(planetResourceScarcity scarcity)
