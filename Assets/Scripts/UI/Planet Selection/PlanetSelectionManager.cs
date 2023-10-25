@@ -102,13 +102,14 @@ public class PlanetSelectionManager : MonoBehaviour
 
     void GeneratePaths()
     {
-        for (int tier = 0; tier < maxY - 1; tier++)
+        for (int tier = 0; tier < maxX - 1; tier++)
         {
             for (int y = 0; y < maxY; y++)
             {
+                Debug.Log($"Loop index {tier}-{y}");
                 if (nodeMatrix[tier, y] == null) continue;
 
-                List<Node> options = getPathOptions(y, tier);
+                List<Node> options = getPathOptions(tier, y);
                 foreach (Node neighborNode in options)
                 {
                     nodeMatrix[tier, y].childNodes.Add(neighborNode);
@@ -117,13 +118,16 @@ public class PlanetSelectionManager : MonoBehaviour
         }
     }
 
-    List<Node> getPathOptions(int y, int x)
+    List<Node> getPathOptions(int x, int y)
     {
+        Debug.Log($"=======================================");
+        Debug.Log($"Node : {x}-{y}");
         List<Node> pathOptions = new List<Node>();
         for (int potentialRow = y - 1; potentialRow <= y + 1; potentialRow++)
         {
             if (potentialRow < 0 || potentialRow >= maxY) continue;
-            Node neighborNode = nodeMatrix[x, potentialRow];
+            Node neighborNode = nodeMatrix[x+1, potentialRow];
+            Debug.Log($"Neighbor node : {x+1}-{potentialRow}");
             if (neighborNode != null) pathOptions.Add(neighborNode);
         }
 
@@ -162,14 +166,18 @@ public class PlanetSelectionManager : MonoBehaviour
         
         Helpers.SetParent(newPlanet.transform, gridLayout, -2, 0.3f);
         dictKeyToPlanet[node.key] = newPlanet;
-        //newButton.Initialize(node.key);
-        //newButton.UpdateStatus(getStatus(node));
 
         return newPlanet;
     }
-    
+
     void CreateLinks()
     {
+        StartCoroutine(nameof(CreateLinksCoroutine));
+    }
+
+    private IEnumerator CreateLinksCoroutine()
+    {
+        yield return null;
         foreach (Node parentNode in nodeList)
         {
             foreach (Node childNode in parentNode.childNodes)
@@ -186,8 +194,8 @@ public class PlanetSelectionManager : MonoBehaviour
                 Vector3 middlePoint = new Vector3((endPoint.x + startPoint.x) * 0.5f, endPoint.y, endPoint.z);
 
                 polyline.SetPointPosition(0, startPoint);
-                polyline.SetPointPosition(1, middlePoint);
-                polyline.SetPointPosition(2, endPoint);
+                //polyline.SetPointPosition(1, middlePoint);
+                polyline.SetPointPosition(1, endPoint);
                 polyline.meshOutOfDate = true;
 
                 polyline.GetComponent<RectTransform>().anchoredPosition3D = 10 * Vector3.back;
