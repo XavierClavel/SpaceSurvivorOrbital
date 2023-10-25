@@ -163,6 +163,7 @@ public class PlanetSelectionManager : MonoBehaviour
         nodeList.Add(node);
         Planet newPlanet = Instantiate(planetObject);
         newPlanet.setup(node);
+        newPlanet.name = node.key;
         
         Helpers.SetParent(newPlanet.transform, gridLayout, -2, 0.3f);
         dictKeyToPlanet[node.key] = newPlanet;
@@ -186,17 +187,18 @@ public class PlanetSelectionManager : MonoBehaviour
                 polyline.transform.SetParent(transform);
                 polyline.transform.localScale = Vector3.one;
                 polyline.transform.position = Vector3.zero;
+                polyline.name = $"Line_{parentNode.key}_to_{childNode.key}";
+                
+                Vector2 startPoint = panelRect.InverseTransformPoint(dictKeyToPlanet[parentNode.key].GetComponent<RectTransform>().position);
+                Vector2 endPoint = panelRect.InverseTransformPoint(dictKeyToPlanet[childNode.key].GetComponent<RectTransform>().position);
 
-                Vector3 startPoint = panelRect.InverseTransformPoint(dictKeyToPlanet[parentNode.key].GetComponent<RectTransform>().position);
-                startPoint.z = -1;
-                Vector3 endPoint = panelRect.InverseTransformPoint(dictKeyToPlanet[childNode.key].GetComponent<RectTransform>().position);
-                endPoint.z = -1;
-                Vector3 middlePoint = new Vector3((endPoint.x + startPoint.x) * 0.5f, endPoint.y, endPoint.z);
-
-                polyline.SetPointPosition(0, startPoint);
-                //polyline.SetPointPosition(1, middlePoint);
-                polyline.SetPointPosition(1, endPoint);
-                polyline.meshOutOfDate = true;
+                List<Vector2> points = new List<Vector2>()
+                {
+                    startPoint,
+                    endPoint,
+                };
+                
+                polyline.SetPoints(points);
 
                 polyline.GetComponent<RectTransform>().anchoredPosition3D = 10 * Vector3.back;
             }
