@@ -27,12 +27,15 @@ public class Fairy : Power
     private bool second = true;
     private bool third = true;
 
+    public Animator animator;
+
     protected override void Start()
     {
         stats = DataManager.dictPowers["Fairy"];
         player = PlayerController.instance.transform;
         StartCoroutine(nameof(Reload));
 
+        if (stats.pierce == 4) { animator.SetBool("BigFairy", true); }
         if (stats.magazine >= 1 && second) { Instantiate(fairy, transform.position, Quaternion.identity); second = false; }
         if (stats.magazine == 2 && third) { Instantiate(fairy2, transform.position, Quaternion.identity); third = false; }
     }

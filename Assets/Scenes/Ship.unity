@@ -133,19 +133,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_Spacing.x
-      value: 100
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_Spacing.y
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_CellSize.x
-      value: 200
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_CellSize.y
-      value: 200
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_ChildAlignment
@@ -437,6 +437,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 274468520}
     m_Modifications:
+    - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
+      propertyPath: m_CellSize.x
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 3433024273476767805, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: button
       value: 
@@ -838,19 +842,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_Spacing.x
-      value: 100
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_Spacing.y
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_CellSize.x
-      value: 200
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_CellSize.y
-      value: 200
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_ChildAlignment
@@ -1003,19 +1007,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_Spacing.x
-      value: 100
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_Spacing.y
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_CellSize.x
-      value: 200
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_CellSize.y
-      value: 200
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_ChildAlignment
@@ -2246,6 +2250,7 @@ GameObject:
   m_Component:
   - component: {fileID: 393510410}
   - component: {fileID: 393510414}
+  - component: {fileID: 393510415}
   - component: {fileID: 393510413}
   - component: {fileID: 393510412}
   m_Layer: 5
@@ -2320,9 +2325,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: NodeManager, Assembly-CSharp
-        m_MethodName: LoadPlanetSelector
+      - m_Target: {fileID: 393510415}
+        m_TargetAssemblyTypeName: LoadNextScene, Assembly-CSharp
+        m_MethodName: OnClickShip
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2370,6 +2375,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 393510409}
   m_CullTransparentMesh: 1
+--- !u!114 &393510415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393510409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dfffcbdde82089429cf0b36951a5d96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: Planet Selection
 --- !u!1001 &450026960
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2380,19 +2398,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_Spacing.x
-      value: 100
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_Spacing.y
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_CellSize.x
-      value: 200
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_CellSize.y
-      value: 200
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_ChildAlignment
@@ -2545,19 +2563,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_Spacing.x
-      value: 100
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_Spacing.y
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_CellSize.x
-      value: 200
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_CellSize.y
-      value: 200
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_ChildAlignment
@@ -3034,19 +3052,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_Spacing.x
-      value: 100
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_Spacing.y
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_CellSize.x
-      value: 200
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_CellSize.y
-      value: 200
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_ChildAlignment
@@ -4726,6 +4744,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 274468520}
     m_Modifications:
+    - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
+      propertyPath: m_CellSize.x
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 3433024273476767805, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: button
       value: 
@@ -4857,19 +4879,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_Spacing.x
-      value: 100
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_Spacing.y
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_CellSize.x
-      value: 200
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_CellSize.y
-      value: 200
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 179782222887789943, guid: d232fcbf576925d488254bf93bfbe805, type: 3}
       propertyPath: m_ChildAlignment
