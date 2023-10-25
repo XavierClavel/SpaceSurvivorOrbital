@@ -16,6 +16,7 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
 
     public skillButtonStatus status { get; private set; }
     [HideInInspector] public Button button;
+    public RectTransform rectTransform;
     protected Image image;
     protected delegate void buttonAction();
     protected UpgradeData upgradeData;

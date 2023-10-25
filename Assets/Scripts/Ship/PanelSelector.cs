@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Shapes;
+using DG.Tweening;
 
 public class PanelSelector : MonoBehaviour
 {
@@ -21,13 +22,15 @@ public class PanelSelector : MonoBehaviour
     EventSystem eventSystem;
     InputMaster inputActions;
     public static PanelSelector instance;
-    static int nbPanelsInitialized = 0;
+static int nbPanelsInitialized = 0;
     [SerializeField] Sprite shipSprite;
+    [SerializeField] RectTransform uiPanel;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        uiPanel.anchoredPosition -= Camera.main.scaledPixelHeight * Vector2.down;
         nbPanelsInitialized = 0;
         instance = this;
 
@@ -42,7 +45,7 @@ public class PanelSelector : MonoBehaviour
         NodeManager.dictKeyToButton = new Dictionary<string, TreeButton>();
 
         SetupNodeManagers();
-
+        
 
         eventSystem = EventSystem.current;
         InputManager.setSelectedObject(currentActivePanel.firstSelectedButton);
@@ -61,11 +64,14 @@ public class PanelSelector : MonoBehaviour
     public static void PanelInitialized()
     {
         nbPanelsInitialized++;
-        if (nbPanelsInitialized < PlayerManager.powers.Count + 3) return;
+        if (nbPanelsInitialized < PlayerManager.powers.Count + 2) return;
+
+        Debug.Log("here");
         foreach (NodeManager nodeManager in instance.panels)
         {
             nodeManager.gameObject.SetActive(nodeManager == instance.currentActivePanel);
         }
+        instance.uiPanel.DOAnchorPosY(0f, 1f).SetEase(Ease.InOutBack);
     }
 
     void SetupNodeManagers()
@@ -74,7 +80,6 @@ public class PanelSelector : MonoBehaviour
         {
             PlayerManager.character.getKey(),
             PlayerManager.weapon.getKey(),
-            Vault.key.target.Ship,
         };
         keys.AddList(PlayerManager.powers.Select(it => it.getKey()).ToList());
 
@@ -82,7 +87,6 @@ public class PanelSelector : MonoBehaviour
         {
             DataSelector.getSelectedCharacter().getIcon(),
             PlayerManager.weaponPrefab.spriteRenderer.sprite,
-            shipSprite,
         };
         icons.AddList(PlayerManager.powers.Select(it => it.getIcon()).ToList());
         

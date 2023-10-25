@@ -170,12 +170,6 @@ public class PlanetSelectionManager : MonoBehaviour
     
     void CreateLinks()
     {
-        StartCoroutine(nameof(CreateLinksCoroutine));
-    }
-
-    IEnumerator CreateLinksCoroutine()
-    {
-        yield return null;
         foreach (Node parentNode in nodeList)
         {
             foreach (Node childNode in parentNode.childNodes)
@@ -199,7 +193,6 @@ public class PlanetSelectionManager : MonoBehaviour
                 polyline.GetComponent<RectTransform>().anchoredPosition3D = 10 * Vector3.back;
             }
         }
-        PanelSelector.PanelInitialized();
     }
     
 }

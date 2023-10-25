@@ -67,7 +67,7 @@ public class NodeManager : MonoBehaviour
 
 
         CreateButtons();
-        CreateLinks();
+CreateLinks();
     }
 
     void FillDictionary()
@@ -171,9 +171,9 @@ public class NodeManager : MonoBehaviour
         }
     }
 
-    void CreateLinks()
+    public void CreateLinks()
     {
-        StartCoroutine(nameof(CreateLinksCoroutine));
+StartCoroutine(nameof(CreateLinksCoroutine));
     }
 
     IEnumerator CreateLinksCoroutine()
@@ -188,9 +188,9 @@ public class NodeManager : MonoBehaviour
                 polyline.transform.localScale = Vector3.one;
                 polyline.transform.position = Vector3.zero;
 
-                Vector3 startPoint = panelRect.InverseTransformPoint(dictKeyToButton[parentNode.key].GetComponent<RectTransform>().position);
+                Vector3 startPoint = panelRect.InverseTransformPoint(dictKeyToButton[parentNode.key].rectTransform.position);
                 startPoint.z = -1;
-                Vector3 endPoint = panelRect.InverseTransformPoint(dictKeyToButton[childNode.key].GetComponent<RectTransform>().position);
+                Vector3 endPoint = panelRect.InverseTransformPoint(dictKeyToButton[childNode.key].rectTransform.position);
                 endPoint.z = -1;
                 Vector3 middlePoint = new Vector3((endPoint.x + startPoint.x) * 0.5f, endPoint.y, endPoint.z);
 
@@ -202,7 +202,7 @@ public class NodeManager : MonoBehaviour
                 polyline.GetComponent<RectTransform>().anchoredPosition3D = 10 * Vector3.back;
             }
         }
-        PanelSelector.PanelInitialized();
+PanelSelector.PanelInitialized();
     }
 
     TreeButton SetupButton(Node node)
@@ -211,6 +211,7 @@ public class NodeManager : MonoBehaviour
         Helpers.SetParent(newButton.transform, gridLayout, -2);
         newButton.Initialize(node.key);
         newButton.UpdateStatus(getStatus(node));
+        newButton.gameObject.name = node.key;
 
         return newButton;
     }
