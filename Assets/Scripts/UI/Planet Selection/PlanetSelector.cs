@@ -40,7 +40,7 @@ public class PlanetSelector : MonoBehaviour
         InputManager.setSelectedObject(firstSelected);
     }
 
-    public void SelectPlanet(Planet planet)
+    public static void SelectPlanet(Planet planet)
     {
         PlanetManager.setData(planet.planetData);
         SceneManager.LoadScene(Vault.scene.Planet);

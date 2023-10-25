@@ -53,6 +53,6 @@ public class Pistol : Gun
     {
         soundManager.PlaySfx(transform, sfx.shoot);
         Bullet bullet = pool.get(position, eulerRotation);
-        bullet.Fire(stats.attackSpeed, bulletLifetime);
+        bullet.Fire(stats.attackSpeed, bulletLifetime, new HitInfo(stats));
     }
 }

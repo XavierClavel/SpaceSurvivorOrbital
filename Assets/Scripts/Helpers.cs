@@ -265,6 +265,16 @@ public static class Extensions
         int randomIndex = UnityEngine.Random.Range(0, list.Count);
         return list[randomIndex];
     }
+    
+    ///<summary>Returns random item of list.</summary>
+    public static T popRandom<T>(this IList<T> list)
+    {
+        if (list.Count == 0) throw new ArgumentException("List is empty");
+        int randomIndex = UnityEngine.Random.Range(0, list.Count);
+        T value = list[randomIndex];
+        list.RemoveAt(randomIndex);
+        return value;
+    }
 
     ///<summary>
     ///Returns a copy of the list.
@@ -472,10 +482,10 @@ public class Helpers : MonoBehaviour
     }
 
 
-    public static void SetParent(Transform instance, Transform parent, int z = 0)
+    public static void SetParent(Transform instance, Transform parent, int z = 0, float scale = 1f)
     {
-        instance.transform.SetParent(parent);
-        instance.transform.localScale = Vector3.one;
+        instance.SetParent(parent);
+        instance.localScale = Vector3.one * scale;
         instance.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero + z * Vector3.forward;
 
     }

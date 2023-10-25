@@ -23,8 +23,16 @@ public class DivineLightning : Power
 
         pool = new ComponentPool<ParticleSystem>(lightningStrikePs).setTimer(0.5f);
     }
-    //TODO : particle system pool
+
     protected override void onUse()
+    {
+        for (int i = 0; i < stats.projectiles; i++)
+        {
+            Strike();
+        }
+    }
+
+    private void Strike()
     {
         Vector3 hitPoint = playerTransform.position + Helpers.getRandomPositionInRadius(range, shape.square);
         Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(hitPoint, stats.range, mask);
@@ -34,6 +42,5 @@ public class DivineLightning : Power
         
         ps.startSize = stats.range * 0.5f;
         ps.Play();
-
     }
 }

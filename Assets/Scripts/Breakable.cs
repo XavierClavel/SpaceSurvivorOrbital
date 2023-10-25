@@ -30,6 +30,11 @@ public class Breakable : MonoBehaviour
         baseDamage = objectData.baseDamage;
     }
 
+    public void Hit(HitInfo hitInfo)
+    {
+        Hit(hitInfo.damage, hitInfo.effect, hitInfo.critical);
+    }
+
 
     public virtual void Hit(int damage, status effect, bool critical)
     {

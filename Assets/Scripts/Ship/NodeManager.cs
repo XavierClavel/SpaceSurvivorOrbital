@@ -41,7 +41,6 @@ public class NodeManager : MonoBehaviour
 
     void CreateNodes()
     {
-        Debug.Log(target);
         foreach (UpgradeData upgradeData in DataManager.dictKeyToDictUpgrades[target].Values)
         {
             new Node(upgradeData.key, upgradeData.upgradesEnabled, upgradeData.row, this);

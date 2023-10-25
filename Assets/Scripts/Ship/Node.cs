@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,14 @@ public class Node
         this.nodeManager = nodeManager;
 
         nodeManager.dictKeyToNode[key] = this;
+    }
+
+    public Node(int x, int y)
+    {
+        key = String.Empty;
+        childKeys = new List<string>();
+        this.row = y;
+        this.tier = x;
     }
 
     public void Initialize()
