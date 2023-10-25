@@ -8,20 +8,18 @@ public class DivineLightning : Power
 {
     Vector2 range = new Vector2(14f, 8f);
     LayerMask mask;
-    [SerializeField] ParticleSystem lightningStrikePs;
-    [SerializeField] Animator animator;
+    [SerializeField] GameObject lightningStrike;
 
-    ComponentPool<ParticleSystem> pool;
+    GameObjectPool pool;
 
     protected override void Start()
     {
         base.Start();
-        animator = GetComponent<Animator>();
         autoCooldown = true;
         mask = LayerMask.GetMask(Vault.layer.Ennemies, Vault.layer.Resources);
         effect = status.lightning;
 
-        pool = new ComponentPool<ParticleSystem>(lightningStrikePs).setTimer(0.5f);
+        pool = new GameObjectPool(lightningStrike).setTimer(1f);
     }
 
     protected override void onUse()
@@ -38,9 +36,6 @@ public class DivineLightning : Power
         Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(hitPoint, stats.range, mask);
         Hit(collidersInRadius);
 
-        ParticleSystem ps = pool.get(hitPoint);
-        
-        ps.startSize = stats.range * 0.5f;
-        ps.Play();
+        GameObject go = pool.get(hitPoint);
     }
 }

@@ -55,12 +55,13 @@ public class Bullet : MonoBehaviour
         currentPierce++;
     }
 
-    public void FireFairy(int speed, float lifetime, Transform newTarget, HitInfo hitInfo)
+    public void FireFairy(int speed, float lifetime, int pierce, Transform newTarget, HitInfo hitInfo)
     {
         Destroy(gameObject, lifetime);
         Vector3 direction = (newTarget.position - transform.position).normalized;
         rb.velocity = direction * speed;
         this.hitInfo = hitInfo;
+        this.pierce = pierce;
     }
 
 }

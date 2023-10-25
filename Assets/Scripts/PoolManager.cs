@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public static class PoolManager
 {
@@ -45,7 +46,20 @@ public abstract class Pool<T> where T : Object
 
 public class GameObjectPool : Pool<GameObject>
 {
-    public override GameObject get(Vector3 position, Quaternion rotation)
+    WaitForSeconds wait = null;
+
+    public GameObjectPool setTimer(float lifetime)
+    {
+        wait = Helpers.GetWait(lifetime);
+        return this;
+    }
+
+    public GameObjectPool(GameObject prefab)
+    {
+        this.prefab = prefab;
+    }
+
+    private GameObject getInstance(Vector3 position, Quaternion rotation)
     {
         if (stack.Count == 0)
         {
@@ -55,9 +69,36 @@ public class GameObjectPool : Pool<GameObject>
         {
             GameObject instance = stack.Pop();
             instance.transform.position = position;
-            instance.SetActive(true);
+            instance.transform.rotation = rotation;
+            instance.gameObject.SetActive(true);
             return instance;
         }
+    }
+
+    public override GameObject get(Vector3 position, Quaternion rotation)
+    {
+        
+        GameObject instance = getInstance(position, rotation);
+        instance.gameObject.SetActive(true);
+        if (wait != null) Orchestrator.context.StartCoroutine(WaitAndRetrieve(instance));
+        return instance;
+    }
+
+    
+
+    public GameObject get(Vector3 position)
+    {
+        GameObject instance = get(position, Quaternion.identity);
+        instance.gameObject.SetActive(true);
+        if (wait != null) Orchestrator.context.StartCoroutine(WaitAndRetrieve(instance));
+        return instance;
+    }
+
+    IEnumerator WaitAndRetrieve(GameObject target)
+    {
+        yield return wait;
+        target.gameObject.SetActive(false);
+        push(target);
     }
 }
 
@@ -93,7 +134,7 @@ public class GameObjectTimedPool
 
     public GameObjectTimedPool(GameObject prefab, float lifetime)
     {
-        pool = new GameObjectPool();
+        pool = new GameObjectPool(prefab);
         pool.prefab = prefab;
         this.lifetime = lifetime;
     }
