@@ -38,7 +38,7 @@ public static class ScriptableObjectManager
         {
             dictKeyToPowerHandler[powerHandler.getKey()] = powerHandler;
         }
-
+        
         dictKeyToWeaponHandler = new Dictionary<string, WeaponHandler>();
         baseWeapons = new List<WeaponHandler>();
         WeaponHandler[] weaponHandlers = Resources.LoadAll<WeaponHandler>(Vault.path.BaseWeapons);

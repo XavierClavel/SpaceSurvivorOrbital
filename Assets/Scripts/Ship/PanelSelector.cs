@@ -24,13 +24,11 @@ public class PanelSelector : MonoBehaviour
     public static PanelSelector instance;
 static int nbPanelsInitialized = 0;
     [SerializeField] Sprite shipSprite;
-    [SerializeField] RectTransform uiPanel;
 
 
-    // Start is called before the first frame update
-    void Start()
+    public void Setup()
     {
-        uiPanel.anchoredPosition -= Camera.main.scaledPixelHeight * Vector2.down;
+        
         nbPanelsInitialized = 0;
         instance = this;
 
@@ -71,7 +69,7 @@ static int nbPanelsInitialized = 0;
         {
             nodeManager.gameObject.SetActive(nodeManager == instance.currentActivePanel);
         }
-        instance.uiPanel.DOAnchorPosY(0f, 1f).SetEase(Ease.InOutBack);
+        UIManager.DisplayUpgradesUI();
     }
 
     void SetupNodeManagers()

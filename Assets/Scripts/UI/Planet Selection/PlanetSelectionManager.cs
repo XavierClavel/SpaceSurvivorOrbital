@@ -54,9 +54,9 @@ public class PlanetSelectionManager : MonoBehaviour
 
 #endregion
 
-#region MonoBehavioursEvents
+#region API
 
-    void Start()
+    public void Setup()
     {
         panelRect = GetComponent<RectTransform>();
         

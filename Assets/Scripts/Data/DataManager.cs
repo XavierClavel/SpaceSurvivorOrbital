@@ -30,9 +30,9 @@ public class DataManager : ScriptableObject
     {
         if (instance != null) return;
         instance = this;
-
+        
         ScriptableObjectManager.LoadScriptableObjects();
-
+        
         DamagerDataBuilder damagerDataBuilder = new DamagerDataBuilder();
         ObjectDataBuilder objectDataBuilder = new ObjectDataBuilder();
         UpgradeDataBuilder upgradeDataBuilder = new UpgradeDataBuilder();
