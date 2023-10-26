@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using Shapes;
 using UnityEngine;
 
@@ -25,6 +26,7 @@ public class PlanetSelectionManager : MonoBehaviour
     //Static
     private static Node[,] nodeMatrix;
     private static Dictionary<string, Planet> dictKeyToPlanet = new Dictionary<string, Planet>();
+    private static Node currentNode = null;
     
     //Static API
     public static Dictionary<string, PlanetData> dictKeyToPlanetData = new Dictionary<string, PlanetData>();
@@ -50,6 +52,29 @@ public class PlanetSelectionManager : MonoBehaviour
         dictKeyToPlanet = new Dictionary<string, Planet>();
         dictKeyToPlanetData = new Dictionary<string, PlanetData>();
         nodeMatrix = new Node[maxX, maxY];
+        currentNode = null;
+    }
+
+    public static void SelectNode(Node node)
+    {
+        currentNode = node;
+    }
+
+    public static Node GetSelectedNode()
+    {
+        return currentNode;
+    }
+
+    public static List<Node> getPossiblePathNodes()
+    {
+        if (currentNode == null)
+            return new List<Node>()
+            {
+                nodeMatrix[0, 0],
+                nodeMatrix[0, 1],
+                nodeMatrix[0, 2],
+            };
+        else return currentNode.childNodes;
     }
 
 #endregion

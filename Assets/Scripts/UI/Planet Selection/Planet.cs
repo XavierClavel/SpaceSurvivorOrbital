@@ -44,10 +44,14 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
     {
         this.tier = node.tier;
         this.row = node.row;
-        if (tier != currentTier)
+        if (tier != currentTier ||  !PlanetSelectionManager.getPossiblePathNodes().Contains(node))
         {
             button.interactable = false;
-            planet.color = Color.grey;
+            if (node == PlanetSelectionManager.GetSelectedNode())
+            {
+                planet.color = new Color(38, 29, 4);
+            }
+            else planet.color = Color.grey;
         }
 
         if (PlanetSelectionManager.dictKeyToPlanetData.TryGetValue(node.key, out var value))
@@ -65,6 +69,7 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
         {
             currentTier++;
             PlanetSelector.SelectPlanet(this);
+            PlanetSelectionManager.SelectNode(node);
         });
 
         planet.sprite = getSprite();
