@@ -19,7 +19,7 @@ public class DivineLightning : Power
         mask = LayerMask.GetMask(Vault.layer.Ennemies, Vault.layer.Resources);
         effect = status.lightning;
 
-        pool = new GameObjectPool(lightningStrike).setTimer(1f);
+        pool = new GameObjectPool(lightningStrike).setTimer(stats.projectiles);
     }
 
     protected override void onUse()
