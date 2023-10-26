@@ -98,6 +98,8 @@ static int nbPanelsInitialized = 0;
             else
             {
                 buttons[i].image.sprite = icons[i];
+                int value = i;
+                buttons[i].onClick.AddListener(delegate { SetActivePanel(value); });
                 panels[i].setup(keys[i]);
             }
                 

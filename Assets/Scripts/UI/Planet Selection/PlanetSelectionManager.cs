@@ -150,8 +150,6 @@ public class PlanetSelectionManager : MonoBehaviour
                 {
                     node.key = $"{x}-{y}";
                     Planet planet = SetupPlanet(node);
-
-                    //dictKeyToButton[node.key] = button;
                     if (y == 0 && firstSelectedButton == null) firstSelectedButton = planet.gameObject;
                 }
             }
