@@ -19,7 +19,7 @@ public class NodeManager : MonoBehaviour
     int maxRow = -1;
     [HideInInspector] public GameObject firstSelectedButton;
     public static Dictionary<string, TreeButton> dictKeyToButton = new Dictionary<string, TreeButton>();
-    RectTransform panelRect;
+    [HideInInspector] public RectTransform panelRect;
 
     public void setup(string target)
     {
@@ -183,7 +183,7 @@ StartCoroutine(nameof(CreateLinksCoroutine));
         {
             foreach (Node childNode in parentNode.childNodes)
             {
-                Polyline polyline = Instantiate(PanelSelector.instance.line);
+                Polyline polyline = Instantiate(UpgradesDisplayManager.instance.line);
                 polyline.transform.SetParent(transform);
                 polyline.transform.localScale = Vector3.one;
                 polyline.transform.position = Vector3.zero;
@@ -202,7 +202,7 @@ StartCoroutine(nameof(CreateLinksCoroutine));
                 polyline.GetComponent<RectTransform>().anchoredPosition3D = 10 * Vector3.back;
             }
         }
-PanelSelector.PanelInitialized();
+UpgradesDisplayManager.PanelInitialized();
     }
 
     TreeButton SetupButton(Node node)

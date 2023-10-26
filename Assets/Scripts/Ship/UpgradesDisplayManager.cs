@@ -7,8 +7,11 @@ using UnityEngine.EventSystems;
 using Shapes;
 using DG.Tweening;
 
-public class PanelSelector : MonoBehaviour
+public class UpgradesDisplayManager : MonoBehaviour
 {
+    
+#region variables
+
     [Header("UI Elements")]
     public SkillButton button;
     public Polyline line;
@@ -21,14 +24,15 @@ public class PanelSelector : MonoBehaviour
     [SerializeField] string defaultWeapon = "Gun";
     EventSystem eventSystem;
     InputMaster inputActions;
-    public static PanelSelector instance;
-static int nbPanelsInitialized = 0;
+    public static UpgradesDisplayManager instance;
+    private static int nbPanelsInitialized = 0;
     [SerializeField] Sprite shipSprite;
-
-
+    
+#endregion
+    
+#region API
     public void Setup()
     {
-        
         nbPanelsInitialized = 0;
         instance = this;
 
@@ -58,19 +62,26 @@ static int nbPanelsInitialized = 0;
         inputActions.Enable();
         µ*/
     }
+    
+#endregion
+
+#region staticAPI
 
     public static void PanelInitialized()
     {
         nbPanelsInitialized++;
         if (nbPanelsInitialized < PlayerManager.powers.Count + 2) return;
 
-        Debug.Log("here");
         foreach (NodeManager nodeManager in instance.panels)
         {
             nodeManager.gameObject.SetActive(nodeManager == instance.currentActivePanel);
         }
         UIManager.DisplayUpgradesUI();
     }
+
+#endregion
+
+    
 
     void SetupNodeManagers()
     {
@@ -105,7 +116,7 @@ static int nbPanelsInitialized = 0;
                 
         }
     }
-
+    
     public void UpdateButtonSprites()
     {
         buttons[2].image.sprite = PlayerManager.weaponPrefab.spriteRenderer.sprite;
@@ -114,15 +125,27 @@ static int nbPanelsInitialized = 0;
     public void SetActivePanel(NodeManager nodeManager)
     {
         if (nodeManager == currentActivePanel) return;
-        currentActivePanel.gameObject.SetActive(false);
+        float sign = panels.IndexOf(nodeManager) > panels.IndexOf(currentActivePanel) ? 1f : -1f;
+        nodeManager.panelRect.anchoredPosition = sign * UIManager.posAboveCamera * Vector2.up;
+        
+        nodeManager.panelRect.DOAnchorPosY(0, 1f).SetEase(Ease.InOutQuint);
+        currentActivePanel.panelRect.DOAnchorPosY(sign * UIManager.posBelowCamera, 1f).SetEase(Ease.InOutQuint);
+        
+        //currentActivePanel.gameObject.SetActive(false);
         currentActivePanel = nodeManager;
         currentActivePanel.gameObject.SetActive(true);
 
         eventSystem.SetSelectedGameObject(currentActivePanel.firstSelectedButton);
     }
 
+    public void DeactivatePanelsNotDisplayed()
+    {
+        panels.ForEach(it => it.gameObject.SetActive(it == currentActivePanel));
+    }
+
     public void SetActivePanel(int index)
     {
+        
         SetActivePanel(panels[index]);
     }
 }

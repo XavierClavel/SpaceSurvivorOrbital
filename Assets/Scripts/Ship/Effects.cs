@@ -247,7 +247,7 @@ public class Effect
             default:
                 throw new System.InvalidOperationException();
         }
-        PanelSelector.instance.UpdateButtonSprites();
+        UpgradesDisplayManager.instance.UpdateButtonSprites();
     }
 
 }
