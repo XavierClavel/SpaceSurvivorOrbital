@@ -15,6 +15,10 @@ public class UpgradeData
     public string spriteKey = "";
     public List<Effect> effects = new List<Effect>();
 
+    public bool valueA = false;
+    public bool valueB = false;
+    public bool valueC = false;
+
     public void Apply()
     {
         foreach (Effect effect in effects) effect.Apply();
@@ -24,17 +28,6 @@ public class UpgradeData
 
 public class UpgradeDataBuilder : DataBuilder<UpgradeData>
 {
-
-    static Dictionary<string, panelTarget> dictTargetToPanelTarget = new Dictionary<string, panelTarget> {
-        {Vault.key.target.Pistolero, panelTarget.character},
-
-        {Vault.key.target.Gun, panelTarget.weapon},
-        {Vault.key.target.Laser, panelTarget.weapon},
-
-        {Vault.key.target.Pickaxe, panelTarget.tool},
-
-        {Vault.key.target.Ship, panelTarget.ship}
-    };
 
     protected override UpgradeData BuildData(List<string> s)
     {
@@ -51,7 +44,10 @@ public class UpgradeDataBuilder : DataBuilder<UpgradeData>
         TrySetValue(ref value.costGreen, Vault.key.upgrade.CostGreen);
         TrySetValue(ref value.costOrange, Vault.key.upgrade.CostOrange);
         TrySetValue(ref value.costBlue, Vault.key.upgrade.CostBlue);
-
+        
+        TrySetValue(ref value.valueA, "ValueA");
+        TrySetValue(ref value.valueB, "ValueB");
+        TrySetValue(ref value.valueC, "ValueC");
 
 
         ProcessEffects(columnTitles, s, ref value.effects);

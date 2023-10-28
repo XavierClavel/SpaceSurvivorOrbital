@@ -596,6 +596,9 @@ public class Helpers : MonoBehaviour
 
                 case System.TypeCode.String:
                     return (T)(object)s;
+                
+                case TypeCode.Boolean:
+                    return (T)(object)Boolean.Parse(s);
 
                 case System.TypeCode.Object:
                     if (typeof(T) == typeof(Vector2Int)) return (T)(object)ParseVector2Int(s);

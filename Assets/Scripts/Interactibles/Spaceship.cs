@@ -78,7 +78,7 @@ public class Spaceship : MonoBehaviour, IInteractable
     {
         PlayerManager.SetControlMode(PlayerController.isPlayingWithGamepad);
         PlayerManager.currentTimer = Timer.timeRemaining;
-        SceneManager.LoadScene(Vault.scene.Ship);
+        SceneTransitionManager.TransitionToScene(Vault.scene.Ship);
     }
 
 

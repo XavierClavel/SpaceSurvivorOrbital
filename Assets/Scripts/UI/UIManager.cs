@@ -39,7 +39,6 @@ public class UIManager : MonoBehaviour
 
     public static void DisplayUpgradesUI()
     {
-        Debug.Log(">:)");
         instance.upgradesUI.DOAnchorPosY(0f, 1f).SetEase(Ease.InOutQuint);
     }
 
