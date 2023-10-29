@@ -26,6 +26,11 @@ public class PauseMenu : MonoBehaviour
         controls.Disable();
     }
 
+    public static void Pause()
+    {
+        instance.PauseGame();
+    }
+
     public void PauseGame(bool pauseUI = true)
     {
         Time.timeScale = 0f;

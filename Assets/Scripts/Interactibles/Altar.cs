@@ -51,6 +51,7 @@ public class Altar : MonoBehaviour, IInteractable
 
     void ActivateAltar()
     {
+        AltarPanel.UpdateAltarDisplay();
         ObjectManager.DisplayAltarUI();
     }
 }
