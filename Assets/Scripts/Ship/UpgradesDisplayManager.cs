@@ -125,7 +125,7 @@ public class UpgradesDisplayManager : MonoBehaviour
     public void SetActivePanel(NodeManager nodeManager)
     {
         if (nodeManager == currentActivePanel) return;
-        float sign = panels.IndexOf(nodeManager) > panels.IndexOf(currentActivePanel) ? 1f : -1f;
+        float sign = panels.IndexOf(nodeManager) > panels.IndexOf(currentActivePanel) ? -1f : 1f;
         nodeManager.panelRect.anchoredPosition = sign * UIManager.posAboveCamera * Vector2.up;
         
         nodeManager.panelRect.DOAnchorPosY(0, 1f).SetEase(Ease.InOutQuint);

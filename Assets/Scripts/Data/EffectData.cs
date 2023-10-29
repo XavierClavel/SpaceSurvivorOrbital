@@ -32,7 +32,13 @@ public class EffectData
 
         {Vault.key.Sprite, effectType.weapon},
 
-        {Vault.key.upgrade.Unlocks, effectType.unlocks}
+        {Vault.key.upgrade.Unlocks, effectType.unlocks},
+        
+        {"BoolA", effectType.boolA},
+        {"BoolB", effectType.boolB},
+        {"BoolC", effectType.boolC},
+        {"IntA", effectType.intA},
+        {"FloatA",effectType.floatA},
     };
 
 

@@ -24,12 +24,12 @@ public struct HitInfo
         this.effect = status.none;
     }
     
-    public HitInfo(interactorStats stats)
+    public HitInfo(interactorStats stats, status effect = status.none)
     {
         damage = stats.baseDamage.getRandom();
         critical = Helpers.ProbabilisticBool(stats.criticalChance);
         if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
-        effect = status.none;
+        this.effect = effect;
     }
     
     
@@ -44,8 +44,8 @@ public abstract class Damager : MonoBehaviour
     protected PlayerController player;
     protected bool autoCooldown; //whether the interactor or the inheritor should handle cooldown
     public interactorStats stats;
+    public PlayerData fullStats;
     [HideInInspector] public bool isUsing = false;
-    protected status effect;
 
     protected virtual void Start()
     {
@@ -53,10 +53,10 @@ public abstract class Damager : MonoBehaviour
         player = PlayerController.instance;
     }
 
-    public virtual void Setup(interactorStats stats, bool dualUse = false)
+    public virtual void Setup(PlayerData fullStats)
     {
-        this.stats = stats;
-
+        this.stats = fullStats.interactor;
+        this.fullStats = fullStats;
         waitCooldown = Helpers.GetWait(stats.cooldown);
     }
 
@@ -89,12 +89,12 @@ public abstract class Damager : MonoBehaviour
         Hit(targets.Select(c => c.collider).ToList(), individualDamage);
     }
 
-    public void Hit(Collider2D[] targets, bool individualDamage = false)
+    public void Hit(Collider2D[] targets, bool individualDamage = false, status effect = status.none)
     {
-        Hit(targets.ToList(), individualDamage);
+        Hit(targets.ToList(), individualDamage, effect);
     }
 
-    public void Hit(List<Collider2D> targets, bool individualDamage = false)
+    public void Hit(List<Collider2D> targets, bool individualDamage = false, status effect = status.none)
     {
         if (targets.Count == 0) return;
         
@@ -103,7 +103,7 @@ public abstract class Damager : MonoBehaviour
         {
             if (individualDamage)
             {
-                Hit(target);
+                Hit(target, effect);
             }
             else
             {
@@ -112,14 +112,14 @@ public abstract class Damager : MonoBehaviour
         }
     }
 
-    public void Hit(Collider2D target)
+    public void Hit(Collider2D target, status effect = status.none)
     {
-        Hit(target.gameObject);
+        Hit(target.gameObject, effect);
     }
 
-    public void Hit(GameObject target)
+    public void Hit(GameObject target, status effect = status.none)
     {
-        ObjectManager.dictObjectToHitable[target].Hit(new HitInfo(stats));
+        ObjectManager.dictObjectToHitable[target].Hit(new HitInfo(stats, effect));
     }
     
 

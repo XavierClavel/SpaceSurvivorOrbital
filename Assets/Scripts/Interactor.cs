@@ -30,9 +30,9 @@ public abstract class Interactor : Damager
         aimTransform = ObjectManager.instance.armTransform;
     }
 
-    public override void Setup(interactorStats stats, bool dualUse = false)
+    public override void Setup(PlayerData fullStats)
     {
-        base.Setup(stats,dualUse);
+        base.Setup(fullStats);
         currentMagazine = stats.magazine;
 
         this.dualUse = dualUse;

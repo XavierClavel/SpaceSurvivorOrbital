@@ -8,6 +8,7 @@ public class PlayerData
     public characterStats character = new characterStats();
     public interactorStats interactor = new interactorStats();
     public attractorStats attractor = new attractorStats();
+    public genericStats generic = new genericStats();
 
 
 
@@ -96,6 +97,26 @@ public class PlayerData
             case effectType.attractorForce:
                 effect.ApplyOperation(ref attractor.force);
                 break;
+            
+            case effectType.boolA:
+                effect.ApplyOperation(ref generic.boolA);
+                break;
+                
+            case effectType.boolB:
+                effect.ApplyOperation(ref generic.boolB);
+                break;
+                
+            case effectType.boolC:
+                effect.ApplyOperation(ref generic.boolC);
+                break;
+            
+            case effectType.intA:
+                effect.ApplyOperation(ref generic.intA);
+                break;
+            
+            case effectType.floatA:
+                effect.ApplyOperation(ref generic.floatA);
+                break;
         }
     }
 
@@ -149,6 +170,17 @@ public class interactorStats
         if (cooldown == 0f) dps = baseDamage.Mean();
         else dps = baseDamage.Mean(); //(int)((float)baseDamage.Mean() / cooldown);
     }
+}
+
+public class genericStats
+{
+    public bool boolA = false;
+    public bool boolB = false;
+    public bool boolC = false;
+
+    public int intA = 0;
+    
+    public float floatA = 0;
 }
 
 public class attractorStats

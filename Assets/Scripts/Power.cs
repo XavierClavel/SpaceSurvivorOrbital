@@ -8,11 +8,11 @@ public class Power : Damager
     [SerializeField] private bool activateOnStart;
     protected Transform playerTransform;
 
-    public override void Setup(interactorStats stats, bool dualUse = false)
+    public override void Setup(PlayerData stats)
     {
         playerTransform = PlayerController.instance.transform;
         isUsing = true;
-        base.Setup(stats, dualUse);
+        base.Setup(stats);
 
         if (activateOnStart)
         {

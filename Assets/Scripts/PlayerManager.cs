@@ -36,7 +36,6 @@ public class PlayerManager
 
 
     public static PlayerData weaponData;
-    public static PlayerData toolData;
     public static WeaponHandler weapon;
     public static CharacterHandler character;
 
@@ -51,6 +50,12 @@ public class PlayerManager
 
     public static PlayerData playerData = new PlayerData();
     public static Dictionary<string, PlayerData> dictKeyToStats = new Dictionary<string, PlayerData>();
+    static int ennemyScoring = 0;
+
+    public static void AddEnnemyScore(int value)
+    {
+        ennemyScoring += value;
+    }
 
 
     public static void setWeapon(PlayerData interactorData, WeaponHandler weaponHandler)
@@ -66,15 +71,15 @@ public class PlayerManager
     }
     
 
-    void Reset()
+    public static void Reset()
     {
         amountBlue = 0;
         amountGreen = 0;
         amountOrange = 0;
+        ennemyScoring = 0;
 
         playerData = new PlayerData();
         weaponData = new PlayerData();
-        toolData = new PlayerData();
         powers = new List<PowerHandler>();
     }
 

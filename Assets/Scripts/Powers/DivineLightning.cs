@@ -17,7 +17,7 @@ public class DivineLightning : Power
         base.Start();
         autoCooldown = true;
         mask = LayerMask.GetMask(Vault.layer.Ennemies, Vault.layer.Resources);
-        effect = status.lightning;
+        //effect = status.lightning;
 
         pool = new GameObjectPool(lightningStrike).setTimer(stats.projectiles);
     }
@@ -34,7 +34,12 @@ public class DivineLightning : Power
     {
         Vector3 hitPoint = playerTransform.position + Helpers.getRandomPositionInRadius(range, shape.square);
         Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(hitPoint, stats.range, mask);
-        Hit(collidersInRadius);
+        status effect = status.none;
+        if (fullStats.generic.boolA)
+        {
+            if (Helpers.ProbabilisticBool(0.5f)) effect = status.lightning;
+        }
+        Hit(collidersInRadius, effect: effect);
 
         GameObject go = pool.get(hitPoint);
     }

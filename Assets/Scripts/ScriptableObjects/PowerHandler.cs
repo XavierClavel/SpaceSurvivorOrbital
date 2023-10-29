@@ -21,8 +21,7 @@ public class PowerHandler : ObjectHandler
 
     public void Activate()
     {
-        interactorStats stats = PlayerManager.dictKeyToStats[key].interactor;
         Power instance = GameObject.Instantiate(power);
-        instance.Setup(stats);
+        instance.Setup(PlayerManager.dictKeyToStats[key]);
     }
 }

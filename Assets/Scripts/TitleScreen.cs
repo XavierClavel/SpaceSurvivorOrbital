@@ -20,6 +20,7 @@ public static class ResetManager
         NodeManager.Reset();
         DataSelector.Reset();
         PlayerManager.ResetTimer();
+        PlayerManager.Reset();
         PlanetSelectionManager.Reset();
         Planet.Reset();
     }

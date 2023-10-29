@@ -65,7 +65,13 @@ public enum effectType
 
     POWERMinerBotPower,
     POWERMinerBotSpeed,
-    unlocks
+    unlocks,
+    
+    boolA,
+    boolB,
+    boolC,
+    intA,
+    floatA,
 
 }
 
@@ -149,6 +155,21 @@ public class Effect
         }
         return parameter;
     }
+    
+    public bool ApplyOperation(bool parameter)
+    {
+        bool value = Helpers.parseString<bool>(this.value);
+        switch (operation)
+        {
+            case operationType.assignation:
+                parameter = value;
+                break;
+
+            default:
+                throw new System.InvalidOperationException($"failed to execute operation {operation} with value {value}");
+        }
+        return parameter;
+    }
 
     public Vector2Int ApplyOperation(Vector2Int parameter)
     {
@@ -193,6 +214,11 @@ public class Effect
     }
 
     public void ApplyOperation(ref Vector2Int parameter)
+    {
+        parameter = ApplyOperation(parameter);
+    }
+    
+    public void ApplyOperation(ref bool parameter)
     {
         parameter = ApplyOperation(parameter);
     }
