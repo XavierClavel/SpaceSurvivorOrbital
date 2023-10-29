@@ -48,7 +48,7 @@ public class Resource : Breakable
 
         dropInterval = baseDamage;
 
-        ObjectManager.registerTargetSpawned();
+        ObjectManager.registerEggSpawned();
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -72,7 +72,7 @@ public class Resource : Breakable
         {
             Instantiate(itemPrefab, randomPos() + transform.position, Quaternion.identity);
         }
-        ObjectManager.registerTargetDestroyed();
+        ObjectManager.registerEggDestroyed();
         animator.enabled = true;
         isDestroy = true;
         healthBar.gameObject.SetActive(false);

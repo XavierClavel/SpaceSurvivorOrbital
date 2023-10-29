@@ -28,23 +28,38 @@ public class ObjectManager : MonoBehaviour
     public static Dictionary<GameObject, IResource> dictObjectToResource = new Dictionary<GameObject, IResource>();
     public static Dictionary<GameObject, IInteractable> dictObjectToInteractable = new Dictionary<GameObject, IInteractable>();
     public static Dictionary<GameObject, Breakable> dictObjectToHitable = new Dictionary<GameObject, Breakable>();
-    static int amountTargets = 0;
+    static int amountEggs = 0;
+    private static int amountDens = 0;
 
-    public static void registerTargetSpawned() {
-        amountTargets++;
+    public static void registerEggSpawned() {
+        amountEggs++;
     }
 
-    public static void registerTargetDestroyed() {
-        amountTargets--;
-        if (amountTargets == 0) {
-            Debug.Log("Planet cleared");
+    public static void registerEggDestroyed() {
+        amountEggs--;
+        if (amountEggs == 0)
+        {
+            PlayerManager.AcquireUpgradePoint();
+        }
+    }
+    
+    public static void registerDenSpawned() {
+        amountDens++;
+    }
+
+    public static void registerDenDestroyed() {
+        amountDens--;
+        if (amountDens == 0)
+        {
+            PlayerManager.AcquireUpgradePoint();
         }
     }
 
     private void Awake()
     {
         instance = this;
-        amountTargets = 0;
+        amountEggs = 0;
+        amountDens = 0;
         if (Helpers.isPlatformAndroid()) pauseButton.SetActive(true);
     }
 

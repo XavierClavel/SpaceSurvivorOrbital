@@ -43,6 +43,7 @@ public class SpawnManager : Breakable
 
     protected virtual void Death()
     {
+        ObjectManager.registerDenDestroyed();
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
         Destroy(gameObject);
     }
@@ -67,6 +68,8 @@ public class SpawnManager : Breakable
         ennemyPrefabs = tilesBankManager.GetEnnemies();
         //playerTransform = PlayerController.instance.transform;
         waveDuration = waveDurationList[difficulty];
+        
+        ObjectManager.registerDenSpawned();
 
         if (doEnnemySpawn)
         {
