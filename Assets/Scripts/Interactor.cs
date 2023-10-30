@@ -35,17 +35,8 @@ public abstract class Interactor : Damager
         base.Setup(fullStats);
         currentMagazine = stats.magazine;
 
-        this.dualUse = dualUse;
-        if (dualUse)
-        {
-            currentLayer = Vault.layer.ObstaclesAndEnnemiesAndResources;
-            currentLayerMask = LayerMask.GetMask(Vault.layer.Resources, Vault.layer.Ennemies, Vault.layer.Obstacles);
-        }
-        else
-        {
-            currentLayer = Vault.layer.ObstaclesAndEnnemies;
-            currentLayerMask = LayerMask.GetMask(Vault.layer.Ennemies, Vault.layer.Obstacles);
-        }
+        currentLayer = Vault.layer.ObstaclesAndEnnemiesAndResources;
+        currentLayerMask = LayerMask.GetMask(Vault.layer.Resources, Vault.layer.Ennemies, Vault.layer.Obstacles);
     }
 
     public void SwitchMode()
