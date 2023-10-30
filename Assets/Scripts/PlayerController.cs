@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public static PlayerController instance;
     [HideInInspector] public InputMaster controls;
     [HideInInspector] public playerState _playerState_value = playerState.idle;
+    [HideInInspector] public bool reflectsProjectiles = false;
     [HideInInspector]
     public playerState state
     {

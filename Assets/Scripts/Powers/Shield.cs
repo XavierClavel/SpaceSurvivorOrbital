@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Shield : Power
 {
+    
     protected override void onUse()
     {
         int shieldsAmount = stats.projectiles;
+        if (fullStats.generic.boolA) PlayerController.instance.reflectsProjectiles = true;
         PlayerController.instance.SetupShields(shieldsAmount);
     }
 }

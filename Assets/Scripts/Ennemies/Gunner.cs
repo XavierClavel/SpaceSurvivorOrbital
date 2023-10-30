@@ -103,7 +103,8 @@ public class Gunner : Ennemy
     void Shoot()
     {
         //soundManager.PlaySfx(transform, sfx.ennemyShoots);
-        Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        Quaternion rotation = Helpers.LookAt2D(transform.position, player.transform.position);
+        Bullet bullet = Instantiate(bulletPrefab, transform.position, rotation);
         bullet.gameObject.SetActive(true);
         bullet.Fire(bulletSpeed, lifetime, baseDamage.getRandom());
         needsToReload = true;

@@ -547,6 +547,13 @@ public class Helpers : MonoBehaviour
         float angle = Vector2.SignedAngle(Vector2.right, direction);
         return Quaternion.Euler(0f, 0f, angle);
     }
+    
+    public static Quaternion LookAt2D(Vector2 position, Vector2 target)
+    {
+        Vector2 direction = target - position;
+        float angle = Vector2.SignedAngle(Vector2.up, direction);
+        return Quaternion.Euler(0f, 0f, angle);
+    }
 
     public static TEnum ParseEnum<TEnum>(string s)
     {

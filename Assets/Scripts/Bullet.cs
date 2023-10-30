@@ -6,6 +6,7 @@ public enum status { none, poison, fire, ice, lightning }
 
 public class Bullet : MonoBehaviour
 {
+    private const int damageScalePlayerToEnnemy = 20;
     [SerializeField] ParticleSystem bulletParticle;
     [SerializeField] Rigidbody2D rb;
     [HideInInspector] public int pierce = 0;
@@ -38,7 +39,17 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer.Obstacles)) Destroy(gameObject);
 
 
-        if (other.gameObject.CompareTag(Vault.tag.Player)) PlayerController.Hurt(hitInfo.damage);
+        if (other.gameObject.CompareTag(Vault.tag.Player))
+        {
+            PlayerController.Hurt(hitInfo.damage);
+            if (PlayerController.instance.reflectsProjectiles)
+            {
+                gameObject.layer = LayerMask.NameToLayer(Vault.layer.ObstaclesAndEnnemiesAndResources);
+                rb.velocity *= -1f;
+                hitInfo = new HitInfo(hitInfo.damage * damageScalePlayerToEnnemy, hitInfo.critical, hitInfo.effect);
+                return;
+            }
+        }
 
         if (other.gameObject.CompareTag(Vault.tag.Ennemy) || other.gameObject.CompareTag(Vault.tag.Resource))
         {
