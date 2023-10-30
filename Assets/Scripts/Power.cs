@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Power : Damager
 {
-    [SerializeField] private bool activateOnStart;
+    [SerializeField] protected bool activateOnStart;
     protected Transform playerTransform;
 
     public override void Setup(PlayerData stats)

@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class Shield : Power
 {
-    // Start is called before the first frame update
-    void Start()
+    protected override void onUse()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        int shieldsAmount = stats.projectiles;
+        PlayerController.instance.SetupShields(shieldsAmount);
     }
 }
