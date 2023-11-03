@@ -181,8 +181,8 @@ public class Ennemy : Breakable
         DamageDisplayHandler.DisplayDamage(amount, transform.position, healthChange.heal);
     }
 
-    public bool ghostPower = false;
-    public GameObject ghost;
+
+
 
     protected virtual void Death()
     {
@@ -196,10 +196,20 @@ public class Ennemy : Breakable
         StartCoroutine("ShakeCoroutine");
         
     }
+    [Header("Ghost")] 
+    public float spawnChance;
+    public bool ghostPower = false;
+    public GameObject ghost;
 
-    public void GhostAppear(bool value)
+    public void GhostAppear(float ennemySpawnChance)
     {
-        ghostPower = value;
+        if (Random.Range(0f, 1f) <= ennemySpawnChance)
+        {
+            Debug.Log(ennemySpawnChance);
+            Debug.Log(Random.Range(0f, 1f));
+            ghostPower = true;
+        }
+               
     }
 
 
