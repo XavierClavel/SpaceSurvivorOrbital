@@ -651,7 +651,7 @@ public class Helpers : MonoBehaviour
         return value < 0 ? -value : value;
     }
 
-    public static Vector3 getRandomPositionInRadius(float radius, shape shape)
+    public static Vector3 getRandomPositionInRadius(float radius, shape shape = shape.circle)
     {
         switch (shape)
         {

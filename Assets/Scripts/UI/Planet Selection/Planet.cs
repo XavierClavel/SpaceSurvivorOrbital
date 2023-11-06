@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
 {
+    //Consts
+    private const float randomizePositionFactor = 25f;
+    
     //Static
     private static int currentTier = 0;
     private static GameObject currentlyDisplayedPanel = null;
@@ -15,7 +18,7 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
     public PlanetData planetData;
     
     //Exposed
-    [SerializeField] Image planet;
+    public Image planet;
     //[SerializeField] DiscreteBarHandler sizeBar;
     //[SerializeField] DiscreteBarHandler dangerosityBar;
     [SerializeField] private Button button;
@@ -73,6 +76,7 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
         });
 
         planet.sprite = getSprite();
+        planet.transform.position += Helpers.getRandomPositionInRadius(randomizePositionFactor);
         //GetComponent<Image>().color = getColor();
 
         /*

@@ -188,10 +188,21 @@ public class PlanetSelectionManager : MonoBehaviour
         newPlanet.setup(node);
         newPlanet.name = node.key;
         
-        Helpers.SetParent(newPlanet.transform, gridLayout, -2, 0.3f);
+        Helpers.SetParent(newPlanet.transform, gridLayout, -2, getScale(newPlanet));
         dictKeyToPlanet[node.key] = newPlanet;
 
         return newPlanet;
+    }
+
+    float getScale(Planet planet)
+    {
+        return planet.planetData.size switch
+        {
+            planetSize.small => 0.22f,
+            planetSize.medium => 0.3f,
+            planetSize.large => 0.38f,
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 
     void CreateLinks()
@@ -212,8 +223,8 @@ public class PlanetSelectionManager : MonoBehaviour
                 polyline.transform.position = Vector3.zero;
                 polyline.name = $"Line_{parentNode.key}_to_{childNode.key}";
                 
-                Vector2 startPoint = panelRect.InverseTransformPoint(dictKeyToPlanet[parentNode.key].GetComponent<RectTransform>().position);
-                Vector2 endPoint = panelRect.InverseTransformPoint(dictKeyToPlanet[childNode.key].GetComponent<RectTransform>().position);
+                Vector2 startPoint = panelRect.InverseTransformPoint(dictKeyToPlanet[parentNode.key].planet.GetComponent<RectTransform>().position);
+                Vector2 endPoint = panelRect.InverseTransformPoint(dictKeyToPlanet[childNode.key].planet.GetComponent<RectTransform>().position);
 
                 List<Vector2> points = new List<Vector2>()
                 {
