@@ -115,7 +115,7 @@ public class PlayerManager
     public static PlayerData getPlayerData(string key)
     {
         if (key == weapon.getKey()) return weaponData;
-        if (key == character.getKey()) return weaponData;
+        if (key == character.getKey()) return playerData;
         return dictKeyToStats[key];
     }
 

@@ -67,7 +67,7 @@ public class NodeManager : MonoBehaviour
 
 
         CreateButtons();
-CreateLinks();
+        CreateLinks();
     }
 
     void FillDictionary()
