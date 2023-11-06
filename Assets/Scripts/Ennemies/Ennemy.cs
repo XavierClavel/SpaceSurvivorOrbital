@@ -181,15 +181,35 @@ public class Ennemy : Breakable
         DamageDisplayHandler.DisplayDamage(amount, transform.position, healthChange.heal);
     }
 
+
+
+
     protected virtual void Death()
     {
+        if (ghostPower == true) {Instantiate(ghost, transform.position, Quaternion.identity);}
+        
         PlayerManager.AddEnnemyScore(cost);
         StressTest.nbEnnemies--;
         soundManager.PlaySfx(transform, sfx.ennemyExplosion);
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
-
         onDeath.Invoke();
         StartCoroutine("ShakeCoroutine");
+        
+    }
+    [Header("Ghost")] 
+    public float spawnChance;
+    public bool ghostPower = false;
+    public GameObject ghost;
+
+    public void GhostAppear(float ennemySpawnChance)
+    {
+        if (Random.Range(0f, 1f) <= ennemySpawnChance)
+        {
+            Debug.Log(ennemySpawnChance);
+            Debug.Log(Random.Range(0f, 1f));
+            ghostPower = true;
+        }
+               
     }
 
 

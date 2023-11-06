@@ -31,9 +31,13 @@ public class Fairy : Power
 
     protected override void Start()
     {
+        
+        
         stats = DataManager.dictPowers["Fairy"];
         player = PlayerController.instance.transform;
         StartCoroutine(nameof(Reload));
+
+        this.transform.position = player.position;
 
         if (stats.pierce == 4) { animator.SetBool("BigFairy", true); }
         if (stats.magazine >= 1 && second) { Instantiate(fairy, transform.position, Quaternion.identity); second = false; }
