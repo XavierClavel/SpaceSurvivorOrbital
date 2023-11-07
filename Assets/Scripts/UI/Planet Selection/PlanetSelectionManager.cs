@@ -70,9 +70,7 @@ public class PlanetSelectionManager : MonoBehaviour
         if (currentNode == null)
             return new List<Node>()
             {
-                nodeMatrix[0, 0],
                 nodeMatrix[0, 1],
-                nodeMatrix[0, 2],
             };
         else return currentNode.childNodes;
     }
@@ -102,15 +100,17 @@ public class PlanetSelectionManager : MonoBehaviour
     void GenerateNodeMatrix()
     {
         nodeMatrix = new Node[maxX, maxY];
-        for (int i = 0; i < maxY; i++)
-        {
-            nodeMatrix[0, i] = new Node(0,i);
-        }
+        int middleYIndex = (int)(0.5 * maxY);
+        nodeMatrix[0, middleYIndex] = new Node(0, middleYIndex);
+        //currentNode = nodeMatrix[0, middleYIndex];
 
-        for (int i = 1; i < maxX; i++)
+        for (int i = 1; i < maxX - 1; i++)
         {
             GenerateNodeColumn(i);
         }
+
+
+        nodeMatrix[maxX - 1, middleYIndex] = new Node(maxX - 1, middleYIndex);
     }
 
     void GenerateNodeColumn(int x)
@@ -135,6 +135,7 @@ public class PlanetSelectionManager : MonoBehaviour
                 if (nodeMatrix[tier, y] == null) continue;
 
                 List<Node> options = getPathOptions(tier, y);
+                options = selectPaths(options);
                 foreach (Node neighborNode in options)
                 {
                     nodeMatrix[tier, y].childNodes.Add(neighborNode);
@@ -157,6 +158,24 @@ public class PlanetSelectionManager : MonoBehaviour
         }
 
         return pathOptions;
+    }
+
+    List<Node> selectPaths(List<Node> options)
+    {
+        if (options[0].tier == 1 || options[0].tier == maxX) return options; 
+        switch (options.Count)
+        {
+            case 1 : return options;
+            case 2 :
+                //if (Helpers.ProbabilisticBool(0.5f)) options.popRandom();
+                return options;
+            case 3 :
+                //options.popRandom();
+                return options;
+            default :
+                return options;
+        }
+        
     }
     
     void PopulateGrid()
