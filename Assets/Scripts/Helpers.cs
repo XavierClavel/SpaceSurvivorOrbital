@@ -669,7 +669,7 @@ public class Helpers : MonoBehaviour
 
     }
 
-    public static Vector3 getRandomPositionInRadius(Vector2 size, shape shape)
+    public static Vector3 getRandomPositionInRadius(Vector2 size, shape shape = shape.square)
     {
         switch (shape)
         {
