@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Sockets;
 using Shapes;
 using UnityEngine;
+using UnityEngine.UI;
 
 //all rows filled for first column
 // then at least two
@@ -21,7 +22,7 @@ public class PlanetSelectionManager : MonoBehaviour
 {
     //Consts
     const int maxX = 10;
-    const int maxY = 3;
+    const int maxY = 7;
     
     //Static
     private static Node[,] nodeMatrix;
@@ -34,7 +35,8 @@ public class PlanetSelectionManager : MonoBehaviour
     //Exposed
     [SerializeField] private GameObject emptyGameObject;
     [SerializeField] private Planet planetObject;
-    [SerializeField] private Transform gridLayout;
+    [SerializeField] private Transform gridLayoutTransform;
+    [SerializeField] private GridLayoutGroup gridLayout;
     [SerializeField] private Polyline line;
     
     //Public
@@ -70,7 +72,7 @@ public class PlanetSelectionManager : MonoBehaviour
         if (currentNode == null)
             return new List<Node>()
             {
-                nodeMatrix[0, 1],
+                nodeMatrix[0, 3],
             };
         else return currentNode.childNodes;
     }
@@ -88,10 +90,13 @@ public class PlanetSelectionManager : MonoBehaviour
             GenerateNodeMatrix();
         }
         
-        GeneratePaths();   
-        
+        GeneratePaths();
+
+        //CullGrid();
+
         PopulateGrid();
-        
+
+
         CreateLinks();
     }
 
@@ -162,6 +167,7 @@ public class PlanetSelectionManager : MonoBehaviour
 
     List<Node> selectPaths(List<Node> options)
     {
+        if (options.Count == 0) return options;
         if (options[0].tier == 1 || options[0].tier == maxX) return options; 
         switch (options.Count)
         {
@@ -188,7 +194,7 @@ public class PlanetSelectionManager : MonoBehaviour
                 if (node == null)
                 {
                     GameObject go = Instantiate(emptyGameObject);
-                    Helpers.SetParent(go.transform, gridLayout, scale: 0.3f);
+                    Helpers.SetParent(go.transform, gridLayoutTransform, scale: 0.3f);
                 }
                 else
                 {
@@ -199,7 +205,35 @@ public class PlanetSelectionManager : MonoBehaviour
             }
         }
     }
-    
+
+    void CullGrid()
+    {
+        int culled = 0;
+        for (int y = 0; y < maxY; y++)
+        {
+            for (int x = 0; x < maxX; x++)
+            {
+                Node node = nodeMatrix[x, y];
+                if (node == null)
+                {
+                    continue;
+                }   
+                else
+                {
+                    Debug.Log(node.childNodes.Count);
+                    Debug.Log(node.parentNodes.Count);
+                    if (node.childNodes.Count == 0)// || node.parentNodes.Count == 0)
+                    {
+                        Debug.Log("culled");
+                        nodeMatrix[x, y] = null;
+                        culled++;
+                    }
+                }
+            }
+        }
+        if (culled != 0) { CullGrid(); }
+    }
+
     Planet SetupPlanet(Node node)
     {
         nodeList.Add(node);
@@ -207,7 +241,7 @@ public class PlanetSelectionManager : MonoBehaviour
         newPlanet.setup(node);
         newPlanet.name = node.key;
         
-        Helpers.SetParent(newPlanet.transform, gridLayout, -2, getScale(newPlanet));
+        Helpers.SetParent(newPlanet.transform, gridLayoutTransform, -2, getScale(newPlanet));
         dictKeyToPlanet[node.key] = newPlanet;
 
         return newPlanet;
@@ -215,11 +249,11 @@ public class PlanetSelectionManager : MonoBehaviour
 
     float getScale(Planet planet)
     {
-        return planet.planetData.size switch
+        return gridLayout.cellSize.y * planet.planetData.size switch
         {
-            planetSize.small => 0.22f,
-            planetSize.medium => 0.3f,
-            planetSize.large => 0.38f,
+            planetSize.small => 0.8f,
+            planetSize.medium => 1f,
+            planetSize.large => 1.2f,
             _ => throw new ArgumentOutOfRangeException()
         };
     }

@@ -9,11 +9,13 @@ public class Altar : MonoBehaviour, IInteractable
     [SerializeField] float timeToLaunch = 5f;
     float factor;
     float fillAmount = 1;
+    private Animator animator;
 
     private void Start()
     {
         ObjectManager.dictObjectToInteractable.Add(gameObject, this);
         ObjectManager.altar = this;
+        animator = GetComponent<Animator>();
 
         factor = 1f / timeToLaunch;
     }

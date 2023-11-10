@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
 {
     //Consts
-    private const float randomizePositionFactor = 25f;
+    private Vector2 randomizePositionFactor = new Vector2(100f,25f);
     
     //Static
     private static int currentTier = 0;
