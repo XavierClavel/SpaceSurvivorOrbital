@@ -14,6 +14,7 @@ public class DataManager : ScriptableObject
     [SerializeField] List<TextAsset> localizationData;
     [SerializeField] TextAsset buttonLocalization;
     [SerializeField] List<TextAsset> upgradesData;
+    [SerializeField] private TextAsset spawnData;
 
     public static Dictionary<string, interactorStats> dictWeapons = new Dictionary<string, interactorStats>();
     public static Dictionary<string, interactorStats> dictPowers = new Dictionary<string, interactorStats>();
@@ -21,6 +22,7 @@ public class DataManager : ScriptableObject
     public static Dictionary<string, LocalizedString> dictLocalization = new Dictionary<string, LocalizedString>();
     public static Dictionary<string, UpgradeData> dictUpgrades = new Dictionary<string, UpgradeData>();
     public static Dictionary<string, Dictionary<string, UpgradeData>> dictKeyToDictUpgrades = new Dictionary<string, Dictionary<string, UpgradeData>>();
+    public static Dictionary<string, SpawnData> dictDifficulty = new Dictionary<string, SpawnData>();
     [SerializeField] string selectedCharacter = "Knil";
     [SerializeField] string selectedWeapon = "Laser";
     private static DataManager instance;
@@ -38,6 +40,7 @@ public class DataManager : ScriptableObject
         UpgradeDataBuilder upgradeDataBuilder = new UpgradeDataBuilder();
         LocalizedStringBuilder localizedStringBuilder = new LocalizedStringBuilder();
         DualLocalizedStringBuilder dualLocalizedStringBuilder = new DualLocalizedStringBuilder();
+        SpawnDataBuilder spawnDataBuilder = new SpawnDataBuilder();
 
         damagerDataBuilder.loadText(weaponData, ref dictWeapons, "Weapons");
         damagerDataBuilder.loadText(powerData, ref dictPowers, "Powers");
@@ -54,6 +57,8 @@ public class DataManager : ScriptableObject
             localizedStringBuilder.loadText(data, ref dictLocalization, $"Localization/{data.name}");
         }
         dualLocalizedStringBuilder.loadText(buttonLocalization, ref dictLocalization, "Button Localization");
+        
+        spawnDataBuilder.loadText(spawnData, ref dictDifficulty, "Spawn");
 
         PlayerManager.playerData.character.setBase();
 

@@ -11,13 +11,11 @@ public class SpawnManager : Breakable
     List<Ennemy> ennemyPrefabs;
 
     public GameObject spawnPosition;
+    private SpawnData spawnData;
 
     //Transform playerTransform;
     bool doEnnemySpawn = true;
-    [SerializeField] List<int> baseCost = new List<int>();
-    [SerializeField] List<int> increaseByWave = new List<int>();
-    [SerializeField] List<int> waveDurationList = new List<int>();
-    float waveDuration;
+    float waveDuration = 20f;
     List<EntitySpawnInstance<Ennemy>> ennemiesToSpawnList = new List<EntitySpawnInstance<Ennemy>>();
 
     private int difficulty;
@@ -64,10 +62,10 @@ public class SpawnManager : Breakable
         healthBar.value = _health;
 
         difficulty = PlanetManager.getDifficulty();
-        wallet = baseCost[difficulty];
+        spawnData = DataManager.dictDifficulty[difficulty.ToString()];
+        wallet = spawnData.baseCost;
         ennemyPrefabs = tilesBankManager.GetEnnemies();
         //playerTransform = PlayerController.instance.transform;
-        waveDuration = waveDurationList[difficulty];
         
         ObjectManager.registerDenSpawned();
 
@@ -102,7 +100,7 @@ public class SpawnManager : Breakable
             if (time > waveDuration)
             {
                 time = 0f;
-                wallet += increaseByWave[difficulty];
+                wallet += spawnData.increment;
                 PrepareWave(wallet);
             }
 
@@ -116,6 +114,10 @@ public class SpawnManager : Breakable
         int currentCost = 0;
         ennemiesToSpawnList = new List<EntitySpawnInstance<Ennemy>>();
         List<Ennemy> ennemies = ennemyPrefabs.Copy();
+        ennemies = ennemies.FindAll(it => 
+            DataManager.dictObjects[it.name].cost < spawnData.maxSpending &&
+            DataManager.dictObjects[it.name].cost > spawnData.minSpending
+            ).ToList();
 
         while (currentCost < maxCost)
         {
