@@ -115,10 +115,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] protected SpriteRenderer spriteOverlay;
 
 
-    int health
+    public int health
     {
         get { return _health; }
-        set
+        private set
         {
             healthBar.SetAmount(value);
             _health = value;
@@ -206,6 +206,7 @@ public class PlayerController : MonoBehaviour
         spaceshipIndicator.SetActive(PlayerManager.activateShipArrow);
 
         maxHealth = PlayerManager.playerData.character.maxHealth;
+        int currentHealth = PlayerManager.currentHealth ?? maxHealth;
         baseSpeed = PlayerManager.playerData.character.baseSpeed;
         setSpeed(1f);
         damageResistanceMultiplier = PlayerManager.playerData.character.damageResistanceMultiplier;
@@ -227,7 +228,7 @@ public class PlayerController : MonoBehaviour
 
         _health = maxHealth;
 
-        healthBar.Setup(maxHealth);
+        healthBar.Setup(maxHealth, currentHealth);
 
         interactorHandler.Initialize(PlayerManager.weaponPrefab, PlayerManager.toolPrefab, ObjectManager.instance.armTransform, true);
         

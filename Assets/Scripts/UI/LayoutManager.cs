@@ -27,6 +27,12 @@ public class LayoutManager : MonoBehaviour
         if (!_isEmptyNull) InstantiateItems(prefabEmpty, emptyObjectsList, this.maxAmount, false);
 
     }
+    
+    public void Setup(int maxAmount, int currentAmount)
+    {
+        Setup(maxAmount);
+        SetAmount(currentAmount);
+    }
 
     public void SetupShields(int shieldAmount)
     {

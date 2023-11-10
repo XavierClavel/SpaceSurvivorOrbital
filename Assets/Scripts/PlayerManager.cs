@@ -44,6 +44,7 @@ public class PlayerManager
 
     public static bool isPlayingWithGamepad { get; private set; }
     public static int currentTimer { get; set; }
+    public static int? currentHealth = null;
 
     public static List<PowerHandler> powers = new List<PowerHandler>();
     public static int amountBlue { get; private set; }
@@ -55,6 +56,11 @@ public class PlayerManager
     public static void AddEnnemyScore(int value)
     {
         ennemyScoring += value;
+    }
+
+    public static void setCurrentHealth(int health)
+    {
+        currentHealth = health;
     }
 
 
@@ -77,6 +83,7 @@ public class PlayerManager
         amountGreen = 0;
         amountOrange = 0;
         ennemyScoring = 0;
+        currentHealth = null;
 
         playerData = new PlayerData();
         weaponData = new PlayerData();
