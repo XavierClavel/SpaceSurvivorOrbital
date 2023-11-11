@@ -35,6 +35,7 @@ public class AltarItem : MonoBehaviour
         PlayerManager.AcquirePower(powerHandler);
         powerHandler.Activate();
         ObjectManager.HideAltarUI();
+        ObjectManager.altar.DepleteAltar();
     }
 
 }

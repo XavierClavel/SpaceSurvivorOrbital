@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
         upgradesUI = upgradesManager.getUITransform();
+        planetsUI = planetManager.getUITransform();
         HideUpgradesUI();
         HidePlanetsUI();
         upgradesManager.Setup();

@@ -113,12 +113,12 @@ public class Ennemy : Breakable
 
     protected void Move(Vector2 direction, float speed)
     {
-        rb.MovePosition(rb.position + direction * Time.fixedDeltaTime * speed * speedMultiplier);
+        rb.MovePosition(rb.position + (direction +0.05f*direction.perpendicular()) * (Time.fixedDeltaTime * speed * speedMultiplier));
     }
 
     protected void Move(Vector2 direction)
     {
-        rb.MovePosition(rb.position + direction * Time.fixedDeltaTime * speed * speedMultiplier);
+        Move(direction, speed);
     }
 
     public override void Hit(int damage, status effect, bool critical)

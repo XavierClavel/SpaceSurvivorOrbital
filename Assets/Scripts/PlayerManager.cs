@@ -41,13 +41,13 @@ public class PlayerManager
 
     public static int amountGreen { get; private set; }
     public static int amountOrange { get; private set; }
+    public static int amountBlue { get; private set; }
 
     public static bool isPlayingWithGamepad { get; private set; }
     public static int currentTimer { get; set; }
     public static int? currentHealth = null;
 
     public static List<PowerHandler> powers = new List<PowerHandler>();
-    public static int amountBlue { get; private set; }
 
     public static PlayerData playerData = new PlayerData();
     public static Dictionary<string, PlayerData> dictKeyToStats = new Dictionary<string, PlayerData>();

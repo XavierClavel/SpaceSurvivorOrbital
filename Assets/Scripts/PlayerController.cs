@@ -237,6 +237,8 @@ public class PlayerController : MonoBehaviour
         }
         
         if (!Helpers.isPlatformAndroid()) InitializeControls();
+        
+        DebugManager.DisplayValue("MaxHealth", maxHealth.ToString());
 
     }
 

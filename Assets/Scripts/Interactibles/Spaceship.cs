@@ -10,7 +10,7 @@ public class Spaceship : MonoBehaviour, IInteractable
     [SerializeField] float timeToLaunch = 10f;
     float factor;
     float fillAmount = 1;
-    bool hasExitedRadius = false;
+    bool hasExitedRadius = true;
     static Spaceship instance;
 
 
@@ -26,8 +26,7 @@ public class Spaceship : MonoBehaviour, IInteractable
         factor = 1f / timeToLaunch;
 
         ObjectManager.spaceshipIndicator.target = transform;
-
-        if (PlayerManager.amountGreen == 0) hasExitedRadius = true;
+        
     }
 
     public void StartInteracting()

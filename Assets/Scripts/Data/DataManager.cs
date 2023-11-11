@@ -61,7 +61,8 @@ public class DataManager : ScriptableObject
         spawnDataBuilder.loadText(spawnData, ref dictDifficulty, "Spawn");
 
         PlayerManager.playerData.character.setBase();
-
+        
+        Debug.Log("reset data");
         PlayerData weaponPlayerData = new PlayerData();
         weaponPlayerData.interactor = dictWeapons[selectedWeapon];
         PlayerManager.setWeapon(weaponPlayerData, ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);

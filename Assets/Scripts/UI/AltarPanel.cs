@@ -31,13 +31,5 @@ public class AltarPanel : MonoBehaviour
     {
         instance.upgradesPointsDisplay.SetText(PlayerManager.amountBlue.ToString());
     }
-
-    public void AcquirePower()
-    {
-        List<PowerHandler> powersRemaining = ScriptableObjectManager.dictKeyToPowerHandler.Values.ToList().Difference(PlayerManager.powers);
-        PowerHandler power = powersRemaining.getRandom();
-        PlayerManager.AcquirePower(power);
-        power.Activate();
-        ObjectManager.HideAltarUI();
-    }
+    
 }

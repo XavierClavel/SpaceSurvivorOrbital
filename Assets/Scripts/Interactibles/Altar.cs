@@ -10,6 +10,7 @@ public class Altar : MonoBehaviour, IInteractable
     float factor;
     float fillAmount = 1;
     private Animator animator;
+    private static readonly int Deplete = Animator.StringToHash("Deplete");
 
     private void Start()
     {
@@ -51,9 +52,14 @@ public class Altar : MonoBehaviour, IInteractable
         ActivateAltar();
     }
 
+    public void DepleteAltar()
+    {
+        animator.SetTrigger(Deplete);
+    }
+
     void ActivateAltar()
     {
-        AltarPanel.UpdateAltarDisplay();
         ObjectManager.DisplayAltarUI();
+        AltarPanel.UpdateAltarDisplay();
     }
 }

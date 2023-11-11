@@ -48,6 +48,11 @@ public static class SingletonManager
 public static class Extensions
 {
 
+    public static Vector2 perpendicular(this Vector2 v)
+    {
+        return new Vector2(v.y, -v.x);
+    }
+
     public static T[] append<T>(this T[] array, T element)
     {
         return array.Append(element).ToArray();
