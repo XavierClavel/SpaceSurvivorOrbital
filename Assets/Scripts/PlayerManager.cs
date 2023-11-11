@@ -85,7 +85,7 @@ public class PlayerManager
         ennemyScoring = 0;
         currentHealth = null;
 
-        playerData = new PlayerData();
+        playerData.character.setBase();
         weaponData = new PlayerData();
         powers = new List<PowerHandler>();
     }
