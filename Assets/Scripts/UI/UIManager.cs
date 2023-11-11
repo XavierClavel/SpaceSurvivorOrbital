@@ -6,8 +6,8 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     //Exposed
-    [SerializeField] RectTransform upgradesUI;
-    [SerializeField] RectTransform planetsUI;
+    private RectTransform upgradesUI;
+    private RectTransform planetsUI;
     [SerializeField] UpgradesDisplayManager upgradesManager;
     [SerializeField] PlanetSelectionManager planetManager;
     
@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         instance = this;
+        upgradesUI = upgradesManager.getUITransform();
         HideUpgradesUI();
         HidePlanetsUI();
         upgradesManager.Setup();
@@ -44,7 +45,7 @@ public class UIManager : MonoBehaviour
 
     public void SwitchToPlanetSelection()
     {
-        instance.upgradesManager.DeactivatePanelsNotDisplayed();
+        instance.upgradesManager.onPanelUnfocus();
         instance.upgradesUI.DOAnchorPosY(posAboveCamera, 1f).SetEase(Ease.InOutQuint);
         instance.planetsUI.DOAnchorPosY(0f, 1f).SetEase(Ease.InOutQuint);
     }

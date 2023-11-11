@@ -4,11 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class DataSelector : MonoBehaviour
+public class DataSelector : MonoBehaviour, UIPanel
 {
     [SerializeField] Button startButton;
     public static string selectedCharacter = string.Empty;
     public static string selectedWeapon = string.Empty;
+
+    public RectTransform getUITransform()
+    {
+        return GetComponent<RectTransform>();
+    }
 
     public static void Reset()
     {
