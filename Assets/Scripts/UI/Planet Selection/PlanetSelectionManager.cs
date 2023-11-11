@@ -18,7 +18,7 @@ using UnityEngine.UI;
 //Algorithm :
 //generates all nodes, at least two by columns
 //for each row, generates path starting with a randomly selected node
-public class PlanetSelectionManager : MonoBehaviour
+public class PlanetSelectionManager : MonoBehaviour, UIPanel
 {
     //Consts
     const int maxX = 10;
@@ -45,6 +45,7 @@ public class PlanetSelectionManager : MonoBehaviour
     //Private
     private RectTransform panelRect;
     private List<Node> nodeList = new List<Node>();
+    private RectTransform panelTransform;
 
     
 #region staticAPI
@@ -80,6 +81,12 @@ public class PlanetSelectionManager : MonoBehaviour
 #endregion
 
 #region API
+
+    public RectTransform getUITransform()
+    {
+        return GetComponent<RectTransform>();
+    }
+
 
     public void Setup()
     {

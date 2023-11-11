@@ -7,30 +7,56 @@ using UnityEngine.EventSystems;
 using Shapes;
 using DG.Tweening;
 
-public class UpgradesDisplayManager : MonoBehaviour
+public interface UIPanel
+{
+    public RectTransform getUITransform();
+    public void Setup() {}
+    public void onPanelFocus() {}
+    public void onPanelUnfocus() {}
+    
+}
+
+public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
 {
     
 #region variables
 
+    //Input
     [Header("UI Elements")]
     public SkillButton button;
     public Polyline line;
     [SerializeField] List<NodeManager> panels;
-    NodeManager currentActivePanel;
     [SerializeField] List<Button> buttons;
 
     [Header("Default display")]
     [SerializeField] string defaultCharacter = "Knil";
     [SerializeField] string defaultWeapon = "Gun";
+    [SerializeField] Sprite shipSprite;
+    
+    //static API
+    public static UpgradesDisplayManager instance;
+    
+    //private
     EventSystem eventSystem;
     InputMaster inputActions;
-    public static UpgradesDisplayManager instance;
     private static int nbPanelsInitialized = 0;
-    [SerializeField] Sprite shipSprite;
+    NodeManager currentActivePanel;
+    
     
 #endregion
     
 #region API
+
+    public void onPanelUnfocus()
+    {
+        DeactivatePanelsNotDisplayed();
+    }
+
+    public RectTransform getUITransform()
+    {
+        return GetComponent<RectTransform>();
+    }
+
     public void Setup()
     {
         nbPanelsInitialized = 0;
