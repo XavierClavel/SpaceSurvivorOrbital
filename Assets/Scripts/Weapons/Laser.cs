@@ -62,8 +62,6 @@ public class Laser : Interactor
 
     private void FixedUpdate()
     {
-        Debug.Log(isUsing);
-        //Debug.Log(getHeatValueChangeFactor());
         heatValue = Mathf.Clamp(heatValue + Time.fixedDeltaTime * getHeatValueChangeFactor(), 0f, overheatThreshold);
         
         if (heatValue >= overheatThreshold)
