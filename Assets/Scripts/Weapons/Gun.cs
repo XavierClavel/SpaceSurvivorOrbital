@@ -39,7 +39,6 @@ public abstract class Gun : Interactor
 
     protected override void onUse()
     {
-        Debug.Log("used");
         if (currentMagazine == 0 || reloading) return;
 
         StopReloadingMagazine();
@@ -70,7 +69,6 @@ public abstract class Gun : Interactor
 
     protected override void onStopUsing()
     {
-        Debug.Log("stopped using");
         if (currentMagazine != stats.magazine && !isReloadingMagazine)
         {
             StartCoroutine(nameof(ReloadMagazine));
@@ -80,13 +78,11 @@ public abstract class Gun : Interactor
     IEnumerator ReloadMagazine()
     {
         isReloadingMagazine = true;
-        Debug.Log("reload magazine coroutine started");
         if (playerInteractor)
         {
             reloadSlider.gameObject.SetActive(true);
             reloadSlider.value = 0f;
             sliderTween = reloadSlider.DOValue(1f, stats.magazineReloadTime).SetEase(Ease.Linear);
-            Debug.Log(reloadSlider.value);
         }
         yield return magazineReloadWindow;
         isReloadingMagazine = false;
