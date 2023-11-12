@@ -21,7 +21,6 @@ public abstract class Interactor : Damager
     [HideInInspector] public Slider reloadSlider;
 
     [HideInInspector] public bool playerInteractor;
-    bool dualUse = false;
 
     protected override void Start()
     {
@@ -47,7 +46,7 @@ public abstract class Interactor : Damager
         currentLayerMask = currentLayerMask.Switch(LayerMask.GetMask(Vault.layer.Ennemies, Vault.layer.Obstacles), LayerMask.GetMask(Vault.layer.Resources, Vault.layer.Obstacles));
     }
 
-    public virtual void StartUsing()
+    public void StartUsing()
     {
         isUsing = true;
         if (reloading) return;
