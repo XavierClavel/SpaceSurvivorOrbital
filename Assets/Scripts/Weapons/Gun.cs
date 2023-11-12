@@ -14,6 +14,7 @@ public abstract class Gun : Interactor
     WaitForSeconds magazineReloadWindow;
     Tween sliderTween;
     protected ComponentPool<Bullet> pool;
+    private bool isReloadingMagazine = false;
 
 
     protected override void Start()
@@ -38,19 +39,25 @@ public abstract class Gun : Interactor
 
     protected override void onUse()
     {
-        if (currentMagazine == 0) return;
+        Debug.Log("used");
+        if (currentMagazine == 0 || reloading) return;
 
-        StopCoroutine(nameof(ReloadMagazine));
-        if (sliderTween != null) sliderTween.Kill();
-        if (playerInteractor) reloadSlider.gameObject.SetActive(false);
-
-        StartCoroutine(nameof(Cooldown));
+        StopReloadingMagazine();
+        
         Fire();
 
         currentMagazine--;
         if (playerInteractor) bulletsLayoutManager.DecreaseAmount();
 
-        if (currentMagazine == 0) StartCoroutine(nameof(ReloadMagazine));
+        StartCoroutine(currentMagazine == 0 ? nameof(ReloadMagazine) : nameof(Cooldown));
+    }
+
+    void StopReloadingMagazine()
+    {
+        StopCoroutine(nameof(ReloadMagazine));
+        isReloadingMagazine = false;
+        sliderTween?.Kill();
+        if (playerInteractor) reloadSlider.gameObject.SetActive(false);
     }
 
 
@@ -63,18 +70,26 @@ public abstract class Gun : Interactor
 
     protected override void onStopUsing()
     {
-        if (currentMagazine != stats.magazine) StartCoroutine(nameof(ReloadMagazine));
+        Debug.Log("stopped using");
+        if (currentMagazine != stats.magazine && !isReloadingMagazine)
+        {
+            StartCoroutine(nameof(ReloadMagazine));
+        }
     }
 
     IEnumerator ReloadMagazine()
     {
+        isReloadingMagazine = true;
+        Debug.Log("reload magazine coroutine started");
         if (playerInteractor)
         {
             reloadSlider.gameObject.SetActive(true);
             reloadSlider.value = 0f;
             sliderTween = reloadSlider.DOValue(1f, stats.magazineReloadTime).SetEase(Ease.Linear);
+            Debug.Log(reloadSlider.value);
         }
         yield return magazineReloadWindow;
+        isReloadingMagazine = false;
         if (playerInteractor)
         {
             reloadSlider.gameObject.SetActive(false);

@@ -71,6 +71,7 @@ public abstract class Damager : MonoBehaviour
 
     protected IEnumerator Cooldown()
     {
+        Debug.Log("cooldown coroutine started");
         reloading = true;
         yield return waitCooldown;
         reloading = false;
