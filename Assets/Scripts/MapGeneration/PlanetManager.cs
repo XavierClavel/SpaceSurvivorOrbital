@@ -26,16 +26,16 @@ public static class PlanetManager
         switch (planetData.size)
         {
             case planetSize.small:
-                return 5;
+                return 3;
 
             case planetSize.medium:
-                return 9;
+                return 5;
 
             case planetSize.large:
-                return 17;
+                return 7;
 
             default:
-                return 9;
+                return 5;
         }
     }
 

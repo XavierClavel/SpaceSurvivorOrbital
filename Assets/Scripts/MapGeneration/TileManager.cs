@@ -9,7 +9,6 @@ public class TileManager : MonoBehaviour
     TileWaveFunction[,] map;
     [SerializeField] DistanceConstraintsManager distanceConstraintsManager;
     public Vector2Int tileSize = new Vector2Int(10, 10);
-    [SerializeField] Vector2Int overrideMapSize;
     [HideInInspector] public List<Tile> tiles;
     [HideInInspector] public Tile spaceship;
     List<TileWaveFunction> uncollapsedTiles = new List<TileWaveFunction>();
@@ -82,6 +81,13 @@ public class TileManager : MonoBehaviour
             //Debug.Log(tile.name + " " + tile.minAmount);
         }
 
+        if (tilesToPlace.Count > mapSize.x * mapSize.y)
+        {
+            Debug.LogError("Too many to place to place, constraints cannot be respected");
+            Debug.Log($"tiles to place : {tilesToPlace.Count}");
+            Debug.Log($"total tiles : {mapSize.x * mapSize.y}" );
+        }
+
         foreach (DistanceConstraint distanceConstraint in distanceConstraintsManager.distanceConstraints)
         {
             distanceConstraint.Apply();
@@ -117,7 +123,6 @@ public class TileManager : MonoBehaviour
             tiles.Add(autel);
         }
 
-        if (overrideMapSize != Vector2Int.zero) planetSize = overrideMapSize.x;
 
 
         mapSize = new Vector2Int(planetSize, planetSize);
