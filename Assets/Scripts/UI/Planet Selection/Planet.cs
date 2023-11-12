@@ -109,7 +109,6 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
             planetData.orangeScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
             planetData.greenScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
             planetData.type = Helpers.getRandomEnum<planetType>();
-            planetData.hasAltar = true;
 
             planetData.difficulty = PlanetSelector.getDifficulty(planetData);
     }

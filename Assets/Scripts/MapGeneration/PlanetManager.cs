@@ -16,27 +16,15 @@ public static class PlanetManager
         return planetData != null;
     }
 
-    public static bool hasAltar()
-    {
-        return planetData.hasAltar;
-    }
-
     public static int getSize()
     {
-        switch (planetData.size)
+        return planetData.size switch
         {
-            case planetSize.small:
-                return 3;
-
-            case planetSize.medium:
-                return 5;
-
-            case planetSize.large:
-                return 7;
-
-            default:
-                return 5;
-        }
+            planetSize.small => 3,
+            planetSize.medium => 5,
+            planetSize.large => 7,
+            _ => 5
+        };
     }
 
     public static planetType getType()

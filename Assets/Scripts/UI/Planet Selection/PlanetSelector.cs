@@ -50,11 +50,10 @@ public class PlanetSelector : MonoBehaviour
     {
         int resourceAmount = (int)planetData.violetScarcity + (int)planetData.orangeScarcity + (int)planetData.greenScarcity;
         float resourceFactor = instance.resourceMultiplier * (float)resourceAmount;
-        float altarFactor = instance.altarMultiplier * (planetData.hasAltar ? 1 : 0);
         float sizeFactor = instance.sizeMultiplier * ((float)planetData.size - 1f);
         float randomFactor = instance.randomMultiplier * Random.Range(-1f, 1f);
         float globalFactor = instance.globalDifficultyMultiplier * globalDifficulty;
-        float difficultyValue = resourceFactor + altarFactor + randomFactor + globalFactor - sizeFactor;
+        float difficultyValue = resourceFactor + randomFactor + globalFactor - sizeFactor;
         return (int)difficultyValue;
     }
 

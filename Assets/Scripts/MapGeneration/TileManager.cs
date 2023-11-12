@@ -116,15 +116,10 @@ public class TileManager : MonoBehaviour
         AllocateResource(PlanetManager.getVioletAmount(), violet1, violet2, violet3);
         AllocateResource(PlanetManager.getGreenAmount(), greenLow0, greenMid0, greenStrong0);
         AllocateResource(PlanetManager.getOrangeAmount(), yellowLow0, yellowMid0, yellowStrong0);
-
-        if (PlanetManager.hasAltar())
-        {
-            autel.setSpecificAmount(1);
-            tiles.Add(autel);
-        }
-
-
-
+        
+        autel.setSpecificAmount(1);
+        tiles.Add(autel);
+        
         mapSize = new Vector2Int(planetSize, planetSize);
 
         if (mapSize.x % 2 == 0 || mapSize.y % 2 == 0) throw new System.ArgumentOutOfRangeException("map size must be odd");
