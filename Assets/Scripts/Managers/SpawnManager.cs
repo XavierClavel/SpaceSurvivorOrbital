@@ -56,13 +56,15 @@ public class SpawnManager : Breakable
     protected override void Start()
     {
         base.Start();
+        
+        difficulty = PlanetManager.getDifficulty();
+        spawnData = DataManager.dictDifficulty[difficulty.ToString()];
 
-        _health = maxHealth;
+        _health = spawnData.denHealth;
         healthBar.maxValue = _health;
         healthBar.value = _health;
 
-        difficulty = PlanetManager.getDifficulty();
-        spawnData = DataManager.dictDifficulty[difficulty.ToString()];
+        
         wallet = spawnData.baseCost;
         ennemyPrefabs = tilesBankManager.GetEnnemies();
         //playerTransform = PlayerController.instance.transform;
