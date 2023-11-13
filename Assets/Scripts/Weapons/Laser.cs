@@ -34,10 +34,7 @@ public class Laser : Interactor
             }
         }
     }
-    private float overheatThreshold = 1f;
-    private float heatingFactor = 0.45f;
-    private float coolingFactor = 1f;
-    private float overheatCoolingFactor = 0.5f;
+    
     private bool overheating = false;
     private bool laserBeamActive;
 
@@ -46,6 +43,7 @@ public class Laser : Interactor
         base.Start();
         lineRenderer.enabled = true;
         reloadSlider.gameObject.SetActive(true);
+        reloadSlider.maxValue = ConstantsData.laserOverheatThreshold;
     }
 
 
@@ -62,9 +60,9 @@ public class Laser : Interactor
 
     private void FixedUpdate()
     {
-        heatValue = Mathf.Clamp(heatValue + Time.fixedDeltaTime * getHeatValueChangeFactor(), 0f, overheatThreshold);
+        heatValue = Mathf.Clamp(heatValue + Time.fixedDeltaTime * getHeatValueChangeFactor(), 0f, ConstantsData.laserOverheatThreshold);
         
-        if (heatValue >= overheatThreshold)
+        if (heatValue >= ConstantsData.laserOverheatThreshold)
         {
             overheating = true;
         } else if (heatValue <= 0f)
@@ -89,8 +87,8 @@ public class Laser : Interactor
 
     float getHeatValueChangeFactor()
     {
-        if (overheating) return -overheatCoolingFactor;
-        return isUsing ? heatingFactor : -coolingFactor;
+        if (overheating) return -ConstantsData.laserOverheatCoolingFactor;
+        return isUsing ? ConstantsData.laserHeatingFactor : -ConstantsData.laserCoolingFactor;
     }
 
     void UpdateBeamVisibility(bool value)

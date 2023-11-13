@@ -133,5 +133,9 @@ public class EffectData
 
         return new Effect(effect, operation, value);
     }
+    
+    
+    
+    
 
 }

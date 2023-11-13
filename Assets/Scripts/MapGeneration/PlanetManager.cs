@@ -42,9 +42,9 @@ public static class PlanetManager
         return scarcity switch
         {
             planetResourceScarcity.none => 0f,
-            planetResourceScarcity.rare => 0.1f,
-            planetResourceScarcity.medium => 0.2f,
-            planetResourceScarcity.common => 0.3f,
+            planetResourceScarcity.rare => ConstantsData.resourceSpawnRateLow,
+            planetResourceScarcity.medium => ConstantsData.resourceSpawnRateMid,
+            planetResourceScarcity.common => ConstantsData.resourceSpawnRateStrong,
             _ => 0.2f
         };
     }
@@ -54,9 +54,9 @@ public static class PlanetManager
         return scarcity switch
         {
             planetResourceScarcity.none => 0f,
-            planetResourceScarcity.rare => 0.1f,
-            planetResourceScarcity.medium => 0.2f,
-            planetResourceScarcity.common => 0.3f,
+            planetResourceScarcity.rare => ConstantsData.denSpawnRateLow,
+            planetResourceScarcity.medium => ConstantsData.denSpawnRateMid,
+            planetResourceScarcity.common => ConstantsData.denSpawnRateStrong,
             _ => 0.2f
         };
     }

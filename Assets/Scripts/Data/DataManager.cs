@@ -15,6 +15,7 @@ public class DataManager : ScriptableObject
     [SerializeField] TextAsset buttonLocalization;
     [SerializeField] List<TextAsset> upgradesData;
     [SerializeField] private TextAsset spawnData;
+    [SerializeField] private TextAsset constantsData;
 
     public static Dictionary<string, interactorStats> dictWeapons = new Dictionary<string, interactorStats>();
     public static Dictionary<string, interactorStats> dictPowers = new Dictionary<string, interactorStats>();
@@ -41,6 +42,7 @@ public class DataManager : ScriptableObject
         LocalizedStringBuilder localizedStringBuilder = new LocalizedStringBuilder();
         DualLocalizedStringBuilder dualLocalizedStringBuilder = new DualLocalizedStringBuilder();
         SpawnDataBuilder spawnDataBuilder = new SpawnDataBuilder();
+        ConstantsDataBuilder constantsDataBuilder = new ConstantsDataBuilder();
 
         damagerDataBuilder.loadText(weaponData, ref dictWeapons, "Weapons");
         damagerDataBuilder.loadText(powerData, ref dictPowers, "Powers");
@@ -59,6 +61,8 @@ public class DataManager : ScriptableObject
         dualLocalizedStringBuilder.loadText(buttonLocalization, ref dictLocalization, "Button Localization");
         
         spawnDataBuilder.loadText(spawnData, ref dictDifficulty, "Spawn");
+        
+        constantsDataBuilder.loadText(constantsData);
 
         PlayerManager.playerData.character.setBase();
         
