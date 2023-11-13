@@ -48,15 +48,32 @@ public static class PlanetManager
             _ => 0.2f
         };
     }
+    
+    static float getDenScarcity(planetResourceScarcity scarcity)
+    {
+        return scarcity switch
+        {
+            planetResourceScarcity.none => 0f,
+            planetResourceScarcity.rare => 0.1f,
+            planetResourceScarcity.medium => 0.2f,
+            planetResourceScarcity.common => 0.3f,
+            _ => 0.2f
+        };
+    }
 
     static int getResourceAmount(planetResourceScarcity scarcity)
     {
         return (int)Mathf.Ceil((getArea() - 2) * getScarcity(scarcity));
     }
+    
+    static int getDensAmount(planetResourceScarcity scarcity)
+    {
+        return (int)Mathf.Ceil((getArea() - 2) * getDenScarcity(scarcity));
+    }
 
     public static int getDensAmount()
     {
-        return getResourceAmount(planetData.violetScarcity);
+        return getDensAmount(planetData.denScarcity);
     }
 
     public static int getOrangeAmount()
@@ -66,12 +83,12 @@ public static class PlanetManager
 
     public static int getGreenAmount()
     {
-        return getResourceAmount(planetData.denScarcity);
+        return getResourceAmount(planetData.greenScarcity);
     }
 
     public static planetResourceScarcity getVioletScarcity()
     {
-        return planetData.violetScarcity;
+        return planetData.denScarcity;
     }
 
     public static planetResourceScarcity getOrangeScarcity()
@@ -81,7 +98,7 @@ public static class PlanetManager
 
     public static planetResourceScarcity getGreenScarcity()
     {
-        return planetData.denScarcity;
+        return planetData.greenScarcity;
     }
 
     public static int getDifficulty()

@@ -13,8 +13,8 @@ public class PlanetData
 {
     public planetSize size;
     public int difficulty;
-    public planetResourceScarcity violetScarcity;
+    public planetResourceScarcity denScarcity;
     public planetResourceScarcity orangeScarcity;
-    [FormerlySerializedAs("greenScarcity")] public planetResourceScarcity denScarcity;
+    public planetResourceScarcity greenScarcity;
     public planetType type;
 }
