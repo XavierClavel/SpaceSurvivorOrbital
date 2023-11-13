@@ -8,7 +8,7 @@ using MyBox;
 public class Tile : ScriptableObject
 {
     public int weight = 1;
-    [HideInInspector] public GameObject tileObject;
+    [HideInInspector] private List<GameObject> tileObjects;
     public bool hasLimitedAmount;
 
     [ConditionalField(nameof(hasLimitedAmount))]
@@ -38,6 +38,21 @@ public class Tile : ScriptableObject
     {
         minAmount = amount;
         maxAmount = amount;
+    }
+
+    public void setTileObjects(List<GameObject> values)
+    {
+        tileObjects = values;
+    }
+    
+    public void setTileObjects(GameObject value)
+    {
+        tileObjects = new List<GameObject> {value};
+    }
+
+    public GameObject getTileObject()
+    {
+        return tileObjects.getRandom();
     }
 
 

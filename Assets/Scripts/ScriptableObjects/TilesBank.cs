@@ -6,31 +6,23 @@ using UnityEngine;
 public class TilesBank : ScriptableObject
 {
     public Color groundColor;
-    public GameObject spaceship;
+    
     public List<GameObject> emptyTiles;
-    [Header("Violet")]
-    public GameObject violet1;
-    public GameObject violet2;
-    public GameObject violet3;
-
+    
     [Header("Green")]
-    public GameObject greenLow0;
-    public GameObject greenLow1;
-    public GameObject greenMid0;
-    public GameObject greenMid1;
-    public GameObject greenStrong0;
-    public GameObject greenStrong1;
-
+    public List<GameObject> greenLow;
+    public List<GameObject> greenMid;
+    public List<GameObject> greenStrong;
+    
     [Header("Yellow")]
-    public GameObject yellowLow0;
-    public GameObject yellowLow1;
-    public GameObject yellowMid0;
-    public GameObject yellowMid1;
-    public GameObject yellowStrong0;
-    public GameObject yellowStrong1;
+    public List<GameObject> yellowLow;
+    public List<GameObject> yellowMid;
+    public List<GameObject> yellowStrong;
 
-    [Header("Bonus")]
+    [Header("Extra")]
+    public GameObject spaceship;
     public GameObject autel;
+    public GameObject den;
 
     public List<Ennemy> ennemies;
 }

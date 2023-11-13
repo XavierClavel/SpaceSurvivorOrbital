@@ -38,6 +38,7 @@ public class DistanceConstraintGroup
 
     public void Apply()
     {
+        /*
         foreach (Tile tile in tiles)
         {
             List<Tile> otherTiles = tiles.Copy();
@@ -47,6 +48,7 @@ public class DistanceConstraintGroup
                 tile.constraints.Add(new TileConstraint(otherTile, distance));
             }
         }
+        */
     }
 }
 
@@ -58,6 +60,6 @@ public class SelfDistanceConstraint
 
     public void Apply()
     {
-        tile.constraints.Add(new TileConstraint(tile, distance));
+        //tile.constraints.Add(new TileConstraint(tile, distance));
     }
 }

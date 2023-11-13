@@ -48,7 +48,7 @@ public class PlanetSelector : MonoBehaviour
 
     public static int getDifficulty(PlanetData planetData)
     {
-        int resourceAmount = (int)planetData.violetScarcity + (int)planetData.orangeScarcity + (int)planetData.greenScarcity;
+        int resourceAmount = (int)planetData.violetScarcity + (int)planetData.orangeScarcity + (int)planetData.denScarcity;
         float resourceFactor = instance.resourceMultiplier * (float)resourceAmount;
         float sizeFactor = instance.sizeMultiplier * ((float)planetData.size - 1f);
         float randomFactor = instance.randomMultiplier * Random.Range(-1f, 1f);

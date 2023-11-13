@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 public enum planetSize { small, medium, large }
@@ -14,6 +15,6 @@ public class PlanetData
     public int difficulty;
     public planetResourceScarcity violetScarcity;
     public planetResourceScarcity orangeScarcity;
-    public planetResourceScarcity greenScarcity;
+    [FormerlySerializedAs("greenScarcity")] public planetResourceScarcity denScarcity;
     public planetType type;
 }

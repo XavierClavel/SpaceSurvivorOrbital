@@ -31,18 +31,15 @@ public class TileWaveFunction
     {
         Tile tileToPlace = TileManager.getTileToPlace(possibleStates);
 
-        if (tileToPlace == null) return getWeightedRandomTile();
-
-        /*
+        return tileToPlace == null ? getWeightedRandomTile() : tileToPlace;
+            /*
         if (TileManager.tilesInAdvance > 5) return getWeightedRandomTile();
         if (!Helpers.ProbabilisticBool(1f / (float)TileManager.tilesInAdvance))
         {
             return getWeightedRandomTile();
         }
         */
-
-        return tileToPlace;
-
+            
     }
 
     Tile getWeightedRandomTile()

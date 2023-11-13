@@ -98,7 +98,7 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
         orangeBar.Initialize();
 
         greenBar.maxAmount = 3;
-        greenBar.currentAmount = (int)planetData.greenScarcity;
+        greenBar.currentAmount = (int)planetData.denScarcity;
         greenBar.Initialize();
     }
 
@@ -107,7 +107,7 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
             planetData.size = Helpers.getRandomEnum<planetSize>();
             planetData.violetScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
             planetData.orangeScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
-            planetData.greenScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
+            planetData.denScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
             planetData.type = Helpers.getRandomEnum<planetType>();
 
             planetData.difficulty = PlanetSelector.getDifficulty(planetData);

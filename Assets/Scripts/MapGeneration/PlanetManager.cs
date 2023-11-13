@@ -51,10 +51,10 @@ public static class PlanetManager
 
     static int getResourceAmount(planetResourceScarcity scarcity)
     {
-        return (int)Mathf.Ceil(getArea() * getScarcity(scarcity));
+        return (int)Mathf.Ceil((getArea() - 2) * getScarcity(scarcity));
     }
 
-    public static int getVioletAmount()
+    public static int getDensAmount()
     {
         return getResourceAmount(planetData.violetScarcity);
     }
@@ -66,7 +66,7 @@ public static class PlanetManager
 
     public static int getGreenAmount()
     {
-        return getResourceAmount(planetData.greenScarcity);
+        return getResourceAmount(planetData.denScarcity);
     }
 
     public static planetResourceScarcity getVioletScarcity()
@@ -81,7 +81,7 @@ public static class PlanetManager
 
     public static planetResourceScarcity getGreenScarcity()
     {
-        return planetData.greenScarcity;
+        return planetData.denScarcity;
     }
 
     public static int getDifficulty()

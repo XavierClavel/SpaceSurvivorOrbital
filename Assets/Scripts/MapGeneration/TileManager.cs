@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+
 public class TileManager : MonoBehaviour
 {
     public PlanetData planetData;
     public SpriteRenderer groundSprite;
-    [SerializeField] TilesBankManager tilesBankManager;
+    [SerializeField] TilesBankManager bank;
     TileWaveFunction[,] map;
     [SerializeField] DistanceConstraintsManager distanceConstraintsManager;
     public Vector2Int tileSize = new Vector2Int(10, 10);
     [HideInInspector] public List<Tile> tiles;
-    [HideInInspector] public Tile spaceship;
     List<TileWaveFunction> uncollapsedTiles = new List<TileWaveFunction>();
     Dictionary<Vector2Int, GameObject> dictPositionToTile = new Dictionary<Vector2Int, GameObject>();
     PlayerController player;
@@ -20,26 +21,6 @@ public class TileManager : MonoBehaviour
     Vector2Int lastPos = Vector2Int.zero;
     Vector2Int mapRadius;
     List<Tile> tilesToPlace = new List<Tile>();
-
-    [HideInInspector] public Tile greenLow0;
-    [HideInInspector] public Tile greenLow1;
-    [HideInInspector] public Tile greenMid0;
-    [HideInInspector] public Tile greenMid1;
-    [HideInInspector] public Tile greenStrong0;
-    [HideInInspector] public Tile greenStrong1;
-
-    [HideInInspector] public Tile yellowLow0;
-    [HideInInspector] public Tile yellowLow1;
-    [HideInInspector] public Tile yellowMid0;
-    [HideInInspector] public Tile yellowMid1;
-    [HideInInspector] public Tile yellowStrong0;
-    [HideInInspector] public Tile yellowStrong1;
-
-    [HideInInspector] public Tile violet1;
-    [HideInInspector] public Tile violet2;
-    [HideInInspector] public Tile violet3;
-
-    [HideInInspector] public Tile autel;
 
     [HideInInspector] public static int tilesInAdvance => instance.uncollapsedTiles.Count - instance.tilesToPlace.Count;
     [HideInInspector] public static int tilesToPlaceAmount => instance.tilesToPlace.Count;
@@ -65,8 +46,13 @@ public class TileManager : MonoBehaviour
         instance = this;
         if (!PlanetManager.hasData()) PlanetManager.setData(planetData);
         if (!generateMap) return;
-        tilesBankManager.getTiles();
-        tiles.Add(spaceship);
+        
+        bank.setTiles();
+        tiles.Add(bank.spaceship);
+        bank.autel.setSpecificAmount(1);
+        tiles.Add(bank.autel);
+        tiles.Add(bank.empty);
+        
         SetupPlanet();
 
         mapRadius = (mapSize - Vector2Int.one) / 2;
@@ -112,13 +98,9 @@ public class TileManager : MonoBehaviour
     void SetupPlanet()
     {
         planetSize = PlanetManager.getSize();
-
-        AllocateResource(PlanetManager.getVioletAmount(), violet1, violet2, violet3);
-        AllocateResource(PlanetManager.getGreenAmount(), greenLow0, greenMid0, greenStrong0);
-        AllocateResource(PlanetManager.getOrangeAmount(), yellowLow0, yellowMid0, yellowStrong0);
-        
-        autel.setSpecificAmount(1);
-        tiles.Add(autel);
+        AllocateResource(PlanetManager.getDensAmount(), bank.den);
+        AllocateResource(PlanetManager.getGreenAmount(), bank.greenLow, bank.greenMid, bank.greenStrong);
+        AllocateResource(PlanetManager.getOrangeAmount(), bank.yellowLow, bank.yellowMid, bank.yellowStrong);
         
         mapSize = new Vector2Int(planetSize, planetSize);
 
@@ -146,6 +128,12 @@ public class TileManager : MonoBehaviour
         if (size2.maxAmount != 0) tiles.TryAdd(size2);
         if (size3.maxAmount != 0) tiles.TryAdd(size3);
     }
+    
+    void AllocateResource(int resourceAmount, Tile tile)
+    {
+        tile.setSpecificAmount(resourceAmount);
+        if (tile.maxAmount != 0) tiles.TryAdd(tile);
+    }
 
     void InitalizeMap()
     {
@@ -158,8 +146,7 @@ public class TileManager : MonoBehaviour
                 uncollapsedTiles.Add(map[x, y]);
             }
         }
-        map[mapRadius.x, mapRadius.y].possibleStates = new List<Tile>();
-        map[mapRadius.x, mapRadius.y].possibleStates.Add(spaceship);
+        map[mapRadius.x, mapRadius.y].possibleStates = new List<Tile> {bank.spaceship};
         map[mapRadius.x, mapRadius.y].entropy = int.MinValue;
 
         CollapseWaveFunction(map[mapRadius.x, mapRadius.y]);
@@ -262,7 +249,7 @@ public class TileManager : MonoBehaviour
 
         Vector2Int position = IndexToPosition(index);
         Vector3 worldPosition = PositionToWorld(position);
-        GameObject tile = Instantiate(newTile.tileObject, worldPosition, Quaternion.identity);
+        GameObject tile = Instantiate(newTile.getTileObject(), worldPosition, Quaternion.identity);
         dictPositionToTile.Add(position, tile);
         map[index.x, index.y] = null;
         return tile;
