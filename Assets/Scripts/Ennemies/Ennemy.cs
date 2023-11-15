@@ -186,8 +186,7 @@ public class Ennemy : Breakable
 
     protected virtual void Death()
     {
-        if (ghostPower == true) {Instantiate(ghost, transform.position, Quaternion.identity);}
-        
+        GhostAppear();
         PlayerManager.AddEnnemyScore(cost);
         StressTest.nbEnnemies--;
         soundManager.PlaySfx(transform, sfx.ennemyExplosion);
@@ -201,15 +200,13 @@ public class Ennemy : Breakable
     public bool ghostPower = false;
     public GameObject ghost;
 
-    public void GhostAppear(float ennemySpawnChance)
+    public void GhostAppear()
     {
-        if (Random.Range(0f, 1f) <= ennemySpawnChance)
+        if (Random.Range(0f, 1f) <= spawnChance)
         {
-            Debug.Log(ennemySpawnChance);
-            Debug.Log(Random.Range(0f, 1f));
-            ghostPower = true;
-        }
-               
+            Instantiate(ghost, transform.position, Quaternion.identity);
+
+        }              
     }
 
 
