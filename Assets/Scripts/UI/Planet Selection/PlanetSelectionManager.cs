@@ -46,6 +46,12 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     private RectTransform panelRect;
     private List<Node> nodeList = new List<Node>();
     private RectTransform panelTransform;
+    private List<Vector3> planetsPos = new List<Vector3>();
+    
+    //Consts
+    private const float minDistanceBetweenPlanetsSqr = 100;
+    private const int maxAttempts = 50;
+    private Vector2 randomizePositionFactor = new Vector2(100f,25f);
 
     
 #region staticAPI
@@ -205,7 +211,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
                 }
                 else
                 {
-                    node.key = $"{x}-{y}";
+                    node.key = $"x{x}-y{y}";
                     Planet planet = SetupPlanet(node);
                     if (y == 0 && firstSelectedButton == null) firstSelectedButton = planet.gameObject;
                 }
@@ -241,15 +247,76 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         if (culled != 0) { CullGrid(); }
     }
 
+    Vector3 getPlanetPosition(Vector3 position, string me)
+    {
+        Vector3? newPos = null;
+        int currentAttempt = 0;
+
+        while (newPos == null && currentAttempt < maxAttempts)
+        {
+            newPos = tryPosition(position);
+            currentAttempt++;
+        }
+        
+        if (newPos == null)
+        {
+            planetsPos.Add(position);
+            return position;
+        }
+        
+        Debug.Log($"Current Attempt : {currentAttempt}, closestNeighbor : {closestNeighbor((Vector3)newPos, me)}");
+        Debug.Log($"===============================================");
+        
+        planetsPos.Add((Vector3)newPos);
+        return (Vector3)newPos;
+
+    }
+    
+    float closestNeighbor(Vector3 newPos, string me)
+    {
+        float closestNeighbor = float.MaxValue;
+        int neighborIndex = 0;
+        for (var index = 0; index < planetsPos.Count; index++)
+        {
+            var planetPos = planetsPos[index];
+            if (Vector3.SqrMagnitude((newPos - planetPos) * 1920f) < closestNeighbor)
+            {
+                closestNeighbor = Vector3.SqrMagnitude((newPos - planetPos) * 1920f);
+                neighborIndex = index;
+            }
+        }
+        
+        Debug.Log($"Closest neighborship : {nodeList[neighborIndex].key}, {me}");
+
+        return closestNeighbor;
+    }
+
+    Vector3? tryPosition(Vector3 position)
+    {
+        Vector3 newPos = position + Helpers.getRandomPositionInRadius(randomizePositionFactor);
+        foreach (var planetPos in planetsPos)
+        {
+            
+            if (Vector3.SqrMagnitude((newPos - planetPos) * 1920f) < minDistanceBetweenPlanetsSqr)
+            {
+                return null;
+            }
+            
+        }
+
+        return  newPos * 1f/1920f;
+    }
+
     Planet SetupPlanet(Node node)
     {
         nodeList.Add(node);
         Planet newPlanet = Instantiate(planetObject);
-        newPlanet.setup(node);
-        newPlanet.name = node.key;
         
-        Helpers.SetParent(newPlanet.transform, gridLayoutTransform, -2, getScale(newPlanet));
+        
         dictKeyToPlanet[node.key] = newPlanet;
+        newPlanet.setup(node, getPlanetPosition(newPlanet.planet.transform.position, node.key));
+        Helpers.SetParent(newPlanet.transform, gridLayoutTransform, -2, getScale(newPlanet));
+        newPlanet.name = node.key;
 
         return newPlanet;
     }
@@ -277,8 +344,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         {
             foreach (Node childNode in parentNode.childNodes)
             {
-                Polyline polyline = Instantiate(line);
-                polyline.transform.SetParent(transform);
+                Polyline polyline = Instantiate(line, transform, true);
                 polyline.transform.localScale = Vector3.one;
                 polyline.transform.position = Vector3.zero;
                 polyline.name = $"Line_{parentNode.key}_to_{childNode.key}";

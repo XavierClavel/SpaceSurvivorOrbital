@@ -43,7 +43,7 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
 #endregion
     
 
-    public void setup(Node node)
+    public void setup(Node node, Vector3 position)
     {
         this.tier = node.tier;
         this.row = node.row;
