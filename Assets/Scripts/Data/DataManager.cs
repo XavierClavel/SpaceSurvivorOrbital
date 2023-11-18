@@ -34,6 +34,8 @@ public class DataManager : ScriptableObject
         if (instance != null) return;
         instance = this;
         
+        getSaveData();
+        
         ScriptableObjectManager.LoadScriptableObjects();
         
         DamagerDataBuilder damagerDataBuilder = new DamagerDataBuilder();
@@ -71,6 +73,14 @@ public class DataManager : ScriptableObject
         weaponPlayerData.interactor = dictWeapons[selectedWeapon];
         PlayerManager.setWeapon(weaponPlayerData, ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
         PlayerManager.setCharacter(ScriptableObjectManager.dictKeyToCharacterHandler[selectedCharacter]);
+    }
+
+    private void getSaveData()
+    {
+        SaveManager.Load();
+        int souls = SaveManager.retrieveSouls();
+        PlayerManager.setSouls(souls);
+        Debug.Log(souls);
     }
 
 }

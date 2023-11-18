@@ -187,7 +187,7 @@ public class Ennemy : Breakable
     protected virtual void Death()
     {
         GhostAppear();
-        PlayerManager.AddEnnemyScore(cost);
+        player.AddEnnemyScore(cost);
         StressTest.nbEnnemies--;
         soundManager.PlaySfx(transform, sfx.ennemyExplosion);
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);

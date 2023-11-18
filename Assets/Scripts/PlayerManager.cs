@@ -51,11 +51,16 @@ public class PlayerManager
 
     public static PlayerData playerData = new PlayerData();
     public static Dictionary<string, PlayerData> dictKeyToStats = new Dictionary<string, PlayerData>();
-    static int ennemyScoring = 0;
+    private static int souls = 0;
 
-    public static void AddEnnemyScore(int value)
+    public static int getSouls()
     {
-        ennemyScoring += value;
+        return souls;
+    }
+
+    public static void setSouls(int value)
+    {
+        souls = value;
     }
 
     public static void setCurrentHealth(int health)
@@ -82,7 +87,6 @@ public class PlayerManager
         amountBlue = 0;
         amountGreen = 0;
         amountOrange = 0;
-        ennemyScoring = 0;
         currentHealth = null;
 
         playerData.character.setBase();

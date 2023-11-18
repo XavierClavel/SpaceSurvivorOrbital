@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
 public enum playerState { idle, walking, shooting, mining };
 public enum playerDirection { front, left, back, right };
@@ -81,7 +83,8 @@ public class PlayerController : MonoBehaviour
     public Transform arrowTransform;
     Vector2 moveDir;
 
-    [Header("UI")]
+    [Header("UI")] 
+    [SerializeField] private TextMeshProUGUI soulsDisplay;
     [SerializeField] ResourceLayoutManager layoutManagerOrange;
     [SerializeField] ResourceLayoutManager layoutManagerGreen;
     public LayoutManager bulletsLayoutManager;
@@ -124,6 +127,18 @@ public class PlayerController : MonoBehaviour
             _health = value;
             SoundManager.instance.PlaySfx(transform, sfx.playerHit);
             if (value <= 0) Death();
+        }
+    }
+
+    private int _souls;
+
+    public int souls
+    {
+        get { return _souls; }
+        private set
+        {
+            soulsDisplay.SetText(value.ToString());
+            _souls = value;
         }
     }
 
@@ -172,6 +187,11 @@ public class PlayerController : MonoBehaviour
         sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
     }
 
+    public void AddEnnemyScore(int value)
+    {
+        souls += value;
+    }
+
     #endregion
 
     void OnEnable()
@@ -217,6 +237,8 @@ public class PlayerController : MonoBehaviour
         cameraTransform = Camera.main.transform;
         soundManager = SoundManager.instance;
         healthBar = ObjectManager.instance.healthBar;
+
+        souls = PlayerManager.getSouls();
 
         layoutManagerOrange.Setup(PlayerManager.playerData.resources.maxOrange, ObjectManager.instance.gameData.fillAmountOrange, resourceType.orange);
         layoutManagerGreen.Setup(PlayerManager.playerData.resources.maxGreen, ObjectManager.instance.gameData.fillAmountGreen, resourceType.green);

@@ -78,6 +78,11 @@ public class Spaceship : MonoBehaviour, IInteractable
         PlayerManager.SetControlMode(PlayerController.isPlayingWithGamepad);
         PlayerManager.currentTimer = Timer.timeRemaining;
         PlayerManager.setCurrentHealth(PlayerController.instance.health);
+        PlayerManager.setSouls(PlayerController.instance.souls);
+        
+        SaveManager.updateSouls(PlayerManager.getSouls());
+        SaveManager.Save();
+        
         SceneTransitionManager.TransitionToScene(Vault.scene.Ship);
     }
 
