@@ -25,6 +25,10 @@ public class Laser : Interactor
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] private Shockwave shockwave;
     playerDirection _aimDirection_value = playerDirection.front;
+
+    private bool isShockwaveEnabled;
+    private float shockwaveMaxRange;
+    private int shockwaveDamage;
     
 
     private float _heatValue = 0f;
@@ -57,6 +61,11 @@ public class Laser : Interactor
     protected override void Start()
     {
         base.Start();
+        isShockwaveEnabled = fullStats.generic.boolA;
+        shockwaveMaxRange = fullStats.generic.floatA;
+        shockwaveDamage = fullStats.generic.intA;
+    
+    
         width = 0.1f * stats.spread;
         lineRenderer.enabled = true;
         lineRenderer.startWidth = width;
@@ -69,7 +78,7 @@ public class Laser : Interactor
         shockwave = Instantiate(shockwave, player.transform, true);
         shockwave.transform.localScale = Vector3.zero;
         shockwave.transform.localPosition = Vector3.zero;
-        shockwave.Setup(3f, 50, status.none);
+        shockwave.Setup(shockwaveMaxRange, shockwaveDamage, status.none);
 
     }
 
@@ -118,6 +127,7 @@ public class Laser : Interactor
 
     void onOverheat()
     {
+        if (!isShockwaveEnabled) return;
         shockwave.doShockwave();
     }
 
