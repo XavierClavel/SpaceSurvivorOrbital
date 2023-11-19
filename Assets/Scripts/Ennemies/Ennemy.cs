@@ -13,7 +13,6 @@ public class Ennemy : Breakable
     protected PlayerController player;
     [SerializeField] Slider healthBar;
     [SerializeField] protected Rigidbody2D rb;
-    SoundManager soundManager;
     protected Vector2 distanceToPlayer;
     protected Vector2 directionToPlayer;
     static protected WaitForSeconds wait;
@@ -68,7 +67,6 @@ public class Ennemy : Breakable
     {
         base.Start();
 
-        soundManager = SoundManager.instance;
         player = PlayerController.instance;
         StressTest.nbEnnemies++;
         _health = maxHealth;
@@ -190,7 +188,7 @@ public class Ennemy : Breakable
         GhostAppear();
         player.AddEnnemyScore(cost);
         StressTest.nbEnnemies--;
-        soundManager.PlaySfx(transform, Vault.sfx.EnnemyExplosion);
+        SoundManager.PlaySfx(transform, Vault.sfx.EnnemyExplosion);
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
         onDeath.Invoke();
         StartCoroutine("ShakeCoroutine");

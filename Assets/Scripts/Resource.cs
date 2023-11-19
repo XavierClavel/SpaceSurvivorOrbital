@@ -66,7 +66,7 @@ public class Resource : Breakable
 
     void Break()
     {
-        SoundManager.instance.PlaySfx(transform,Vault.sfx.BreakResource);
+        SoundManager.PlaySfx(transform,Vault.sfx.BreakResource);
         int nbItemsToSpawn = dropInterval.getRandom();
         for (int i = 0; i < nbItemsToSpawn; i++)
         {

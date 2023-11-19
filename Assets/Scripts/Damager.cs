@@ -38,7 +38,6 @@ public struct HitInfo
 
 public abstract class Damager : MonoBehaviour
 {
-    protected SoundManager soundManager;
     protected bool reloading = false;
     WaitForSeconds waitCooldown;
     protected PlayerController player;
@@ -49,7 +48,6 @@ public abstract class Damager : MonoBehaviour
 
     protected virtual void Start()
     {
-        soundManager = SoundManager.instance;
         player = PlayerController.instance;
     }
 

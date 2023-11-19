@@ -34,11 +34,11 @@ public class SoundManager : MonoBehaviour
 {
     private static Dictionary<gameScene, AudioSource> dictSceneToMusic;
     
-    float LowPitchRange = 0.9f;
-    float HighPitchRange = 1.1f;
+    static float LowPitchRange = 0.9f;
+    static float HighPitchRange = 1.1f;
     List<clip> audioIds;
 
-    private float sfxVolume = 1f;
+    private static float sfxVolume = 1f;
 
 
 
@@ -141,12 +141,12 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlaySfx(Transform pos, string key)
+    public static void PlaySfx(Transform pos, string key)
     {
         PlaySfx(pos.position, key);
     }
     
-    public void PlaySfx(Vector3 pos, string key)
+    public static void PlaySfx(Vector3 pos, string key)
     {
         float randomPitch = UnityEngine.Random.Range(LowPitchRange, HighPitchRange);
         if (!ScriptableObjectManager.dictKeyToSfx.ContainsKey(key))
@@ -156,7 +156,7 @@ public class SoundManager : MonoBehaviour
         }
         Sfx sfx = ScriptableObjectManager.dictKeyToSfx[key];
 
-        PlayClipAt(sfx.getClip(), pos, randomPitch, key, sfxVolume * sfx.getVolume());
+        instance.PlayClipAt(sfx.getClip(), pos, randomPitch, key, sfxVolume * sfx.getVolume());
 
     }
 

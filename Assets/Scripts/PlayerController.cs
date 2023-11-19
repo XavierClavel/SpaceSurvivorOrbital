@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
         {
             healthBar.SetAmount(value);
             _health = value;
-            SoundManager.instance.PlaySfx(transform, Vault.sfx.PlayerHit);
+            SoundManager.PlaySfx(transform, Vault.sfx.PlayerHit);
             if (value <= 0) Death();
         }
     }
