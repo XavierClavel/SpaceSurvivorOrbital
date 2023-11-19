@@ -1,15 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using Shapes;
 /**
  * <pre>
  * <p> BaseDamage -> DPS </p> 
  * <p> Range -> Max distance for reraching targets </p>
  * <p> Spread -> Width of the laser </p>
  * <p> Cooldown -> Time before overheat </p>
+ * <p> FloatA -> Overheat wave max range </p>
  * </pre>
  */
 public class Laser : Interactor
@@ -18,7 +21,10 @@ public class Laser : Interactor
     private float width;
     [SerializeField] protected Transform firePoint;
     [SerializeField] LineRenderer lineRenderer;
+    [SerializeField] private Disc shockwave;
     playerDirection _aimDirection_value = playerDirection.front;
+    private Color baseShockwaveColor;
+    private Color clearColor;
 
     private float _heatValue = 0f;
 
@@ -58,6 +64,14 @@ public class Laser : Interactor
         reloadSlider.gameObject.SetActive(true);
         reloadSlider.maxValue = ConstantsData.laserOverheatThreshold;
         dps = stats.baseDamage.x;
+
+        shockwave = Instantiate(shockwave, player.transform, true);
+        shockwave.transform.localScale = Vector3.zero;
+        shockwave.transform.localPosition = Vector3.zero;
+        baseShockwaveColor = shockwave.Color;
+        clearColor = baseShockwaveColor;
+        clearColor.a = 0;
+
     }
 
 
@@ -78,6 +92,10 @@ public class Laser : Interactor
         
         if (heatValue >= ConstantsData.laserOverheatThreshold)
         {
+            if (!overheating)
+            {
+                onOverheat();
+            }
             overheating = true;
         } else if (heatValue <= 0f)
         {
@@ -97,6 +115,15 @@ public class Laser : Interactor
         }
 
         
+    }
+
+    void onOverheat()
+    {
+        shockwave.Color = baseShockwaveColor;
+        shockwave.transform.localScale = Vector3.zero;
+        
+        shockwave.transform.DOScale(3f, 1f);
+        DOTween.To(() => shockwave.Color, x => shockwave.Color = x, clearColor, 1f).SetEase(Ease.OutQuad);
     }
 
     float getHeatValueChangeFactor()
