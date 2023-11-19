@@ -1,5 +1,15 @@
 public static class Vault
 {
+    public static class sfx
+    {
+        public const string BreakResource = "BreakResource";
+        public const string PlayerHit = "PlayerHit";
+        public const string Shoot = "Shoot";
+        public const string BulletHit = "BulletHit";
+        public const string EnnemyExplosion = "EnnemyExplosion";
+        public const string Reload = "Reload";
+    }
+    
     public static class path
     {
         public const string BaseWeapons = "BaseWeapons/";

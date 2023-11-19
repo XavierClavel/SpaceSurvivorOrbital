@@ -92,7 +92,7 @@ public abstract class Gun : Interactor
             bulletsLayoutManager.SetAmount(stats.magazine);
         }
         currentMagazine = stats.magazine;
-        SoundManager.instance.PlaySfx(transform, sfx.reload);
+        SoundManager.instance.PlaySfx(transform, Vault.sfx.Reload);
 
         if (isUsing) onUse();
     }

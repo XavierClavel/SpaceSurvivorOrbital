@@ -190,7 +190,7 @@ public class Ennemy : Breakable
         GhostAppear();
         player.AddEnnemyScore(cost);
         StressTest.nbEnnemies--;
-        soundManager.PlaySfx(transform, sfx.ennemyExplosion);
+        soundManager.PlaySfx(transform, Vault.sfx.EnnemyExplosion);
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
         onDeath.Invoke();
         StartCoroutine("ShakeCoroutine");

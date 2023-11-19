@@ -16,7 +16,7 @@ public abstract class Interactor : Damager
     static LayerMask toolLayerMask;
     [HideInInspector] public string currentLayer;
     protected int currentLayerMask;
-    protected Transform aimTransform;
+    [HideInInspector] public Transform aimTransform;
 
     [HideInInspector] public Slider reloadSlider;
 
@@ -25,8 +25,6 @@ public abstract class Interactor : Damager
     protected override void Start()
     {
         base.Start();
-
-        aimTransform = ObjectManager.instance.armTransform;
     }
 
     public override void Setup(PlayerData fullStats)

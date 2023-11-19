@@ -12,19 +12,25 @@ public class InteractorHandler : MonoBehaviour
     PlayerController player;
     public static InteractorHandler playerInteractorHandler;
 
-    public void Initialize(Interactor weaponInteractor, Interactor toolInteractor, Transform rotationAxis, bool playerInteractor = false)
+    public void Initialize(Interactor weaponInteractor, Transform rotationAxis, bool playerInteractor = false)
     {
         player = PlayerController.instance;
         if (playerInteractor) playerInteractorHandler = this;
 
+        SetupWeapon(weaponInteractor, rotationAxis, playerInteractor);
+
+        currentInteractor = weapon;
+    }
+
+    private void SetupWeapon(Interactor weaponInteractor, Transform aimTransform, bool playerInteractor = false)
+    {
         weapon = Instantiate(weaponInteractor, transform.position, Quaternion.identity);
         weapon.Setup(PlayerManager.weaponData);
         weapon.playerInteractor = playerInteractor;
         if (playerInteractor) weapon.reloadSlider = ObjectManager.instance.reloadSlider;
-        weapon.transform.SetParent(rotationAxis);
+        weapon.transform.SetParent(aimTransform);
         weapon.transform.position = transform.position + 0.3f * Vector3.left;
-
-        currentInteractor = weapon;
+        weapon.aimTransform = aimTransform;
     }
 
 

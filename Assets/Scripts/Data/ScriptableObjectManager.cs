@@ -9,6 +9,7 @@ public static class ScriptableObjectManager
     public static Dictionary<string, PowerHandler> dictKeyToPowerHandler;
     public static Dictionary<string, WeaponHandler> dictKeyToWeaponHandler;
     public static Dictionary<string, CharacterHandler> dictKeyToCharacterHandler;
+    public static Dictionary<string, Sfx> dictKeyToSfx;
     static List<WeaponHandler> baseWeapons;
     static List<CharacterHandler> characters;
 
@@ -60,6 +61,13 @@ public static class ScriptableObjectManager
         {
             dictKeyToCharacterHandler[characterHandler.getKey()] = characterHandler;
             characters.Add(characterHandler);
+        }
+
+        dictKeyToSfx = new Dictionary<string, Sfx>();
+        Sfx[] sfxs = Resources.LoadAll<Sfx>("Sfx");
+        foreach (Sfx sfx in sfxs)
+        {
+            dictKeyToSfx[sfx.getKey()] = sfx;
         }
     }
 }

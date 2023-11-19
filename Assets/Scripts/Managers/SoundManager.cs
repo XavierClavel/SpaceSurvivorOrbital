@@ -36,8 +36,9 @@ public class SoundManager : MonoBehaviour
     
     float LowPitchRange = 0.9f;
     float HighPitchRange = 1.1f;
-    AudioClip sfxClip;
     List<clip> audioIds;
+
+    private float sfxVolume = 1f;
 
 
 
@@ -50,9 +51,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource planetStormMusic;
     [SerializeField] private AudioSource planetMushroomMusic;
     
-    
-    
-    float volume;
     static int SIZE = Enum.GetValues(typeof(sfx)).Length;
     //[NamedArray(typeof(sfx))] public AudioClip[] audioClips = new AudioClip[SIZE];
 
@@ -70,80 +68,16 @@ public class SoundManager : MonoBehaviour
         return new sfxContainer(container.audioClip, container.volume);
     }
 
-    void OnValidate()
-    {
 
-        int j = 0;
-        foreach (sfxContainer audioClip in audioClips)
-        {
-            if (audioClip.audioClip == null)
-            {
-                var tag = Enum.GetValues(typeof(sfx)).Cast<sfx>().ToList()[j];
-                Debug.LogWarning("Field " + tag + " is empty");
-            }
-            j++;
-        }
-
-        if (controlGroup.Count != SIZE)
-        {      //case where the control group is not initialized or enum was modified
-            j = 0;
-            controlGroup.Clear();
-            foreach (sfxContainer container in audioClips)
-            {
-                controlGroup.Add(CloneContainer(container));
-                j++;
-            }
-        }
-
-        if (audioClips.Length > SIZE)   //case where the user tries to increment the list or enum was modified
-        {
-            Array.Resize(ref audioClips, SIZE);
-        }
-
-        else if (audioClips.Length < SIZE)
-        {    //case where the user tries to decrement the list or enum was modified
-            Array.Resize(ref audioClips, SIZE);
-            for (int i = 0; i < controlGroup.Count; i++)
-            {     //we don't know which item was deleted, so we have to clone them all back
-                audioClips[i] = CloneContainer(controlGroup[i]);
-            }
-        }
-
-        else
-        {
-            int nbDiff = 0;
-            List<int> diffIndex = new List<int>();  //list of index where the control groups differs from the actual data
-
-            for (int i = 0; i < audioClips.Length; i++)
-            {     //we check every value to see which sfxElements where modified
-                if (!controlGroup[i].Equals(audioClips[i]))
-                {
-                    nbDiff++;
-                    diffIndex.Add(i);
-                }
-            }
-
-            if (nbDiff > 1)
-            {   //it is only possible to have more than 1 difference if the player swapped two values
-
-                foreach (int index in diffIndex)
-                {      //in which case we change back both values
-                    audioClips[index] = CloneContainer(controlGroup[index]);
-                }
-            }
-            else if (nbDiff == 1) controlGroup[diffIndex[0]] = CloneContainer(audioClips[diffIndex[0]]);
-            //if the player modified only one value, we update the control goup
-        }
-    }
 
     public static SoundManager instance = null;
 
     struct clip
     {
-        public sfx type;
+        public string type;
         public GameObject audio;
 
-        public clip(sfx type, GameObject audio)
+        public clip(string type, GameObject audio)
         {    //Constructor
             this.type = type;
             this.audio = audio;
@@ -159,7 +93,7 @@ public class SoundManager : MonoBehaviour
             dictSceneToMusic = new Dictionary<gameScene, AudioSource>
             {
                 { gameScene.titleScreen, titleScreenMusic},
-                { gameScene.ship, titleScreenMusic},
+                { gameScene.ship, shipMusic},
                 { gameScene.planetDesert, planetDesertMusic},
                 { gameScene.planetIce, planetIceMusic},
                 { gameScene.planetMushroom, planetMushroomMusic},
@@ -235,17 +169,21 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlaySfx(Transform pos, sfx type)
+    public void PlaySfx(Transform pos, string key)
     {
         float randomPitch = UnityEngine.Random.Range(LowPitchRange, HighPitchRange);
-        sfxClip = sfxDictionary[type];
-        volume = volumeDictionary[type];
+        if (!ScriptableObjectManager.dictKeyToSfx.ContainsKey(key))
+        {
+            Debug.LogWarning($"Sfx key '{key}' not found");
+            return;
+        }
+        Sfx sfx = ScriptableObjectManager.dictKeyToSfx[key];
 
-        PlayClipAt(sfxClip, pos.position, randomPitch, type, volume);
+        PlayClipAt(sfx.getClip(), pos.position, randomPitch, key, sfxVolume * sfx.getVolume());
 
     }
 
-    void PlayClipAt(AudioClip clip, Vector3 pos, float pitch, sfx type, float volume)       //create temporary audio sources for each sfx in order to be able to modify pitch
+    void PlayClipAt(AudioClip clip, Vector3 pos, float pitch, string type, float volume)       //create temporary audio sources for each sfx in order to be able to modify pitch
     {
         GameObject audioContainer = new GameObject("TempAudio"); // create the temporary object
         audioContainer.transform.position = pos; // set its position to localize sound

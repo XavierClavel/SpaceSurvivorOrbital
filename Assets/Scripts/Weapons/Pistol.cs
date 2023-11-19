@@ -76,7 +76,7 @@ public class Pistol : Gun
 
     void FireBullet(Vector3 position, Vector3 eulerRotation)
     {
-        soundManager.PlaySfx(transform, sfx.shoot);
+        soundManager.PlaySfx(transform, Vault.sfx.Shoot);
         Bullet bullet = pool.get(position, eulerRotation);
         bullet.Fire(stats.attackSpeed, bulletLifetime, new HitInfo(stats));
     }

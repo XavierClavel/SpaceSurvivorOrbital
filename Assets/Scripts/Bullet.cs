@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        SoundManager.instance.PlaySfx(transform, sfx.bulletOnGround);
+        SoundManager.instance.PlaySfx(transform, Vault.sfx.BulletHit);
         Helpers.SpawnPS(transform, bulletParticle);
 
 

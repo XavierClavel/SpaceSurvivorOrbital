@@ -15,7 +15,6 @@ public class ObjectManager : MonoBehaviour
     [SerializeField] GameObject loseScreenFirstSelected;
     public GameData gameData;
     public Slider reloadSlider;
-    public Transform armTransform;
 
     [Header("Interactors")]
     public Interactor gun;

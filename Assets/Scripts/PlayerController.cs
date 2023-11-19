@@ -8,6 +8,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public enum playerState { idle, walking, shooting, mining };
@@ -80,7 +81,10 @@ public class PlayerController : MonoBehaviour
     LayoutManager healthBar;
     int _health;
     [SerializeField] Animator animator;
-    public Transform arrowTransform;
+    public Transform pointerFront;
+    public Transform pointerBack;
+    public Transform pointerRight;
+    public Transform pointerLeft;
     Vector2 moveDir;
 
     [Header("UI")] 
@@ -125,7 +129,7 @@ public class PlayerController : MonoBehaviour
         {
             healthBar.SetAmount(value);
             _health = value;
-            SoundManager.instance.PlaySfx(transform, sfx.playerHit);
+            SoundManager.instance.PlaySfx(transform, Vault.sfx.PlayerHit);
             if (value <= 0) Death();
         }
     }
@@ -252,7 +256,7 @@ public class PlayerController : MonoBehaviour
 
         healthBar.Setup(maxHealth, currentHealth);
 
-        interactorHandler.Initialize(PlayerManager.weaponPrefab, PlayerManager.toolPrefab, ObjectManager.instance.armTransform, true);
+        interactorHandler.Initialize(PlayerManager.weaponPrefab, pointerFront, true);
         
         foreach(PowerHandler powerHandler in PlayerManager.powers) {
             powerHandler.Activate();
@@ -320,12 +324,12 @@ public class PlayerController : MonoBehaviour
     {
         controls = new InputMaster();
 
-        controls.Player.Reload.performed += context =>
+        controls.Player.Reload.performed += _ =>
         {
             Camera.main.orthographicSize = (Camera.main.orthographicSize == smallSize) ? largeSize : smallSize;
         };
 
-        controls.Player.Pause.performed += context => PauseMenu.instance.PauseGame();
+        controls.Player.Pause.performed += _ => PauseMenu.instance.PauseGame();
 
         controls.Player.MouseAimActive.started += ctx =>
         {
@@ -382,7 +386,10 @@ public class PlayerController : MonoBehaviour
         if (aimVector != Vector2.zero)
         {
             float angle = Vector2.SignedAngle(Vector2.up, aimVector) + 90f;
-            arrowTransform.rotation = Quaternion.Euler(0f, 0f, angle);
+            pointerFront.rotation = Quaternion.Euler(0f, 0f, angle);
+            pointerRight.rotation = Quaternion.Euler(0f, 0f, angle + 90f);
+            pointerBack.rotation = Quaternion.Euler(0f, 0f, angle + 180f);
+            pointerLeft.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
         }
 
         _aimDirection = angleToDirection(Vector2.SignedAngle(aimVector, Vector2.down) + 180f);
@@ -421,7 +428,7 @@ public class PlayerController : MonoBehaviour
         _walkDirection = angleToDirection(Vector2.SignedAngle(localMove, Vector2.down) + 180f);
 
         rb.MovePosition(rb.position + localMove);
-        arrowTransform.position = transform.position;
+        pointerFront.position = transform.position;
         cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
 
     }
