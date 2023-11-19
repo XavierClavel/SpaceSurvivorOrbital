@@ -44,6 +44,7 @@ public class DataSelector : MonoBehaviour, UIPanel
         PlayerData data = new PlayerData();
         data.interactor = DataManager.dictWeapons[selectedWeapon];
         PlayerManager.setWeapon(data, ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
+        SceneTransitionManager.TransitionToScene(gameScene.planetJungle);
     }
 
     public static WeaponHandler getSelectedWeapon()

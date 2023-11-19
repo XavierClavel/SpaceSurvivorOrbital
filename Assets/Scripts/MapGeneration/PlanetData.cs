@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,4 +18,17 @@ public class PlanetData
     public planetResourceScarcity orangeScarcity;
     public planetResourceScarcity greenScarcity;
     public planetType type;
+
+    public gameScene getScene()
+    {
+        return type switch
+        {
+            planetType.ice => gameScene.planetIce,
+            planetType.jungle => gameScene.planetJungle,
+            planetType.desert => gameScene.planetDesert,
+            planetType.mushroom => gameScene.planetMushroom,
+            planetType.storm => gameScene.planetStorm,
+            _ => gameScene.titleScreen
+        };
+    }
 }

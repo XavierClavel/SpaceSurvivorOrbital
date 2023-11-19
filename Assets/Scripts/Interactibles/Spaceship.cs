@@ -83,7 +83,7 @@ public class Spaceship : MonoBehaviour, IInteractable
         SaveManager.updateSouls(PlayerManager.getSouls());
         SaveManager.Save();
         
-        SceneTransitionManager.TransitionToScene(Vault.scene.Ship);
+        SceneTransitionManager.TransitionToScene(gameScene.ship);
     }
 
 

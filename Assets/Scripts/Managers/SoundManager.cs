@@ -4,6 +4,8 @@ using System;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using DG.Tweening;
+using UnityEngine.Serialization;
 
 public enum sfx
 {
@@ -16,10 +18,21 @@ public enum sfx
     reload
 };
 
+public enum gameScene
+{
+    titleScreen,
+    ship,
+    planetIce,
+    planetDesert,
+    planetMushroom,
+    planetStorm,
+    planetJungle,
+}
+
 public class SoundManager : MonoBehaviour
 {
-    AudioSource MusicSource;
-    [SerializeField] List<AudioClip> musics;
+    private static Dictionary<gameScene, AudioSource> dictSceneToMusic;
+    
     float LowPitchRange = 0.9f;
     float HighPitchRange = 1.1f;
     AudioClip sfxClip;
@@ -28,9 +41,18 @@ public class SoundManager : MonoBehaviour
 
 
     [Header("Audio Sources")]
-    [SerializeField] AudioSource musicSource;
+    [SerializeField] private AudioSource titleScreenMusic;
+    [SerializeField] private AudioSource shipMusic;
+    [SerializeField] private AudioSource planetJungleMusic;
+    [SerializeField] private AudioSource planetIceMusic;
+    [SerializeField] private AudioSource planetDesertMusic;
+    [SerializeField] private AudioSource planetStormMusic;
+    [SerializeField] private AudioSource planetMushroomMusic;
+    
+    
+    
     float volume;
-    static int SIZE = System.Enum.GetValues(typeof(sfx)).Length;
+    static int SIZE = Enum.GetValues(typeof(sfx)).Length;
     //[NamedArray(typeof(sfx))] public AudioClip[] audioClips = new AudioClip[SIZE];
 
     [HideInInspector] List<sfxContainer> controlGroup = new List<sfxContainer>();
@@ -39,6 +61,8 @@ public class SoundManager : MonoBehaviour
     [Header(" ")]
     [NamedArray(typeof(sfx))] public sfxContainer[] audioClips;// = new sfxContainer[SIZE];
     //public sfxContainer[] test;
+    private static AudioSource currentMusicSource;
+    [SerializeField] private gameScene currentScene;
 
     sfxContainer CloneContainer(sfxContainer container)
     {
@@ -111,7 +135,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public static SoundManager instance;
+    public static SoundManager instance = null;
 
     struct clip
     {
@@ -127,9 +151,30 @@ public class SoundManager : MonoBehaviour
 
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            dictSceneToMusic = new Dictionary<gameScene, AudioSource>
+            {
+                { gameScene.titleScreen, titleScreenMusic},
+                { gameScene.ship, titleScreenMusic},
+                { gameScene.planetDesert, planetDesertMusic},
+                { gameScene.planetIce, planetIceMusic},
+                { gameScene.planetMushroom, planetMushroomMusic},
+                { gameScene.planetStorm, planetStormMusic},
+                { gameScene.planetJungle, planetJungleMusic},
+            };
+            onSceneChange(currentScene);
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+        
+        
         audioIds = new List<clip>();
-        //PlayMusic(musics[0]);
-        instance = this;
+        
         List<sfx> sfxList = Enum.GetValues(typeof(sfx)).Cast<sfx>().ToList();
 
         int i = 0;
@@ -149,16 +194,17 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-
-    void PlayMusic(AudioClip music)
+    public static void onSceneChange(gameScene newScene)
     {
-        musicSource.clip = music;
-        musicSource.Play();
+        currentMusicSource?.DOFade(0f, 1f).SetEase(Ease.Linear);
+        currentMusicSource = dictSceneToMusic[newScene];
+        currentMusicSource.DOFade(1f, 1f).SetEase(Ease.Linear);
     }
+
 
     public void StopTime()
     {
-        musicSource.Pause();
+        titleScreenMusic.Pause();
         if (audioIds.Count > 0)
         {
             foreach (clip audioId in audioIds)

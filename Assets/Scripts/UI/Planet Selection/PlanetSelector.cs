@@ -43,7 +43,7 @@ public class PlanetSelector : MonoBehaviour
     public static void SelectPlanet(Planet planet)
     {
         PlanetManager.setData(planet.planetData);
-        SceneTransitionManager.TransitionToScene(Vault.scene.Planet);
+        SceneTransitionManager.TransitionToScene(planet.planetData);
     }
 
     public static int getDifficulty(PlanetData planetData)

@@ -80,7 +80,6 @@ public class DataManager : ScriptableObject
         SaveManager.Load();
         int souls = SaveManager.retrieveSouls();
         PlayerManager.setSouls(souls);
-        Debug.Log(souls);
     }
 
 }

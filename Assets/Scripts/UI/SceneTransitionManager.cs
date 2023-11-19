@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransitionManager : MonoBehaviour
 {
+    
     [SerializeField] private GameObject overlay;
 
     [SerializeField] private RectTransform maskTransform;
@@ -25,15 +26,43 @@ public class SceneTransitionManager : MonoBehaviour
         overlay.SetActive(true);
         StartCoroutine(nameof(AnimationEnterScene));
     }
-
-    public static void TransitionToScene(string newScene)
+    
+    public void LocalTransitionToScene(gameScene newScene)
     {
-        instance.overlay.SetActive(true);
-        instance.imageTransform.sizeDelta = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight);
-        instance.maskTransform.sizeDelta = Vector2.zero;
-        instance.maskTransform.DOSizeDelta(2 * Camera.main.pixelWidth * Vector2.one, 1f).SetEase(Ease.InOutQuint)
-            .OnComplete(delegate { SceneManager.LoadScene(newScene); });
+        SoundManager.onSceneChange(newScene);
+        overlay.SetActive(true);
+        imageTransform.sizeDelta = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight);
+        maskTransform.sizeDelta = Vector2.zero;
+        maskTransform.DOSizeDelta(2 * Camera.main.pixelWidth * Vector2.one, 1f).SetEase(Ease.InOutQuint)
+            .OnComplete(delegate { SceneManager.LoadScene(SceneToName(newScene)); });
     }
+
+    public static void TransitionToScene(gameScene newScene)
+    {
+        instance.LocalTransitionToScene(newScene);
+    }
+    
+    public static void TransitionToScene(PlanetData planetData)
+    {
+        TransitionToScene(planetData.getScene());
+    }
+
+    public static string SceneToName(gameScene scene)
+    {
+        return scene switch
+        {
+            gameScene.titleScreen => Vault.scene.TitleScreen,
+            gameScene.ship => Vault.scene.Ship,
+            gameScene.planetIce => Vault.scene.Planet,
+            gameScene.planetDesert => Vault.scene.Planet,
+            gameScene.planetMushroom => Vault.scene.Planet,
+            gameScene.planetStorm => Vault.scene.Planet,
+            gameScene.planetJungle => Vault.scene.Planet,
+            _ => Vault.scene.TitleScreen
+        };
+    }
+    
+    
 
     IEnumerator AnimationEnterScene()
     {
