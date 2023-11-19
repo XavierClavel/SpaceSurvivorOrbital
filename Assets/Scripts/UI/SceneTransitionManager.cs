@@ -27,14 +27,26 @@ public class SceneTransitionManager : MonoBehaviour
         StartCoroutine(nameof(AnimationEnterScene));
     }
     
+    public void Test(gameScene newScene) {}
+
+    public void ToTitleScreen()
+    {
+        Debug.Log("method called");
+        LocalTransitionToScene(gameScene.titleScreen);
+    }
+    
     public void LocalTransitionToScene(gameScene newScene)
     {
         SoundManager.onSceneChange(newScene);
         overlay.SetActive(true);
         imageTransform.sizeDelta = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight);
         maskTransform.sizeDelta = Vector2.zero;
-        maskTransform.DOSizeDelta(2 * Camera.main.pixelWidth * Vector2.one, 1f).SetEase(Ease.InOutQuint)
-            .OnComplete(delegate { SceneManager.LoadScene(SceneToName(newScene)); });
+        maskTransform.DOSizeDelta(2 * Camera.main.pixelWidth * Vector2.one, 1f).SetEase(Ease.InOutQuint).SetUpdate(true)
+            .OnComplete(delegate
+            {
+                PauseMenu.ResumeTime();
+                SceneManager.LoadScene(SceneToName(newScene));
+            });
     }
 
     public static void TransitionToScene(gameScene newScene)

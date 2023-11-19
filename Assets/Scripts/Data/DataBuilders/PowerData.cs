@@ -22,7 +22,6 @@ public class DamagerDataBuilder : DataBuilder<interactorStats>
         SetValue(ref stats.criticalMultiplier, Vault.key.upgrade.CriticalChance);
         SetValue(ref stats.magazine, Vault.key.upgrade.Magazine);
         SetValue(ref stats.magazineReloadTime, Vault.key.upgrade.MagazineCooldown);
-        SetValue(ref stats.dps, "DPS");
         stats.CalculateDPS();
 
         return stats;

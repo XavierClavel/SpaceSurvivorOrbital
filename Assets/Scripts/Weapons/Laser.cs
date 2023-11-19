@@ -4,9 +4,18 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
-
+/**
+ * <pre>
+ * <p> BaseDamage -> DPS </p> 
+ * <p> Range -> Max distance for reraching targets </p>
+ * <p> Spread -> Width of the laser </p>
+ * <p> Cooldown -> Time before overheat </p>
+ * </pre>
+ */
 public class Laser : Interactor
 {
+    private int dps;
+    private float width;
     [SerializeField] protected Transform firePoint;
     [SerializeField] LineRenderer lineRenderer;
     playerDirection _aimDirection_value = playerDirection.front;
@@ -41,9 +50,14 @@ public class Laser : Interactor
     protected override void Start()
     {
         base.Start();
+        width = 0.1f * stats.spread;
         lineRenderer.enabled = true;
+        lineRenderer.startWidth = width;
+        lineRenderer.endWidth = width;
+        
         reloadSlider.gameObject.SetActive(true);
         reloadSlider.maxValue = ConstantsData.laserOverheatThreshold;
+        dps = stats.baseDamage.x;
     }
 
 
@@ -99,8 +113,8 @@ public class Laser : Interactor
     void UpdateLaserBeam()
     {
         lineRenderer.SetPosition(0, firePoint.position);
-
-        RaycastHit2D[] hits = Physics2D.RaycastAll(firePoint.position, firePoint.right, stats.range, currentLayerMask);
+        
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(firePoint.position, width, firePoint.right, stats.range, currentLayerMask);
         if (hits.Length == 0)
         {
             lineRenderer.SetPosition(1, firePoint.position + firePoint.right * stats.range);
@@ -118,17 +132,22 @@ public class Laser : Interactor
         {
             if (hits[i].collider.gameObject.layer == LayerMask.NameToLayer(Vault.layer.Obstacles))
             {
-                lineRenderer.SetPosition(1, hits[i].point);
+                lineRenderer.SetPosition(1, firePoint.position + firePoint.right * hits[i].distance);
                 return;
             }
             HurtEnnemy(hits[i].collider.gameObject);
         }
-        lineRenderer.SetPosition(1, hits[stopIndex - 1].point);
+
+        float range = hits.Length < stats.pierce
+            ? stats.range
+            : hits[stopIndex - 1].distance;
+        lineRenderer.SetPosition(1, firePoint.position + firePoint.right * range);
     }
+    
 
     void HurtEnnemy(GameObject go)
     {
-        ObjectManager.dictObjectToHitable[go].StackDamage(stats.dps);
+        ObjectManager.dictObjectToHitable[go].StackDamage(dps);
     }
 
     protected override void onUse()

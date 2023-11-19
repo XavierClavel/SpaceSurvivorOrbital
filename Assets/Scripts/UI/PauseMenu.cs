@@ -49,13 +49,17 @@ public class PauseMenu : MonoBehaviour
 
     }
 
-    public void ResumeGame()
+    public static void ResumeTime()
     {
-
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f;
+    }
 
-        pauseMenu.SetActive(false);
+    public void ResumeGame()
+    {
+        ResumeTime();
+
+        pauseMenu?.SetActive(false);
 
 
         controls.PauseMenu.Disable();

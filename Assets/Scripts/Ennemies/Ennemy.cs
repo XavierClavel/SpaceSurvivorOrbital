@@ -128,7 +128,8 @@ public class Ennemy : Breakable
         if (damage != 0)
         {
             DamageDisplayHandler.DisplayDamage(damage, transform.position, value);
-            StartCoroutine(ApplyDeformationOverTime(deformationScale,deformationDuration));
+            StopCoroutine(nameof(ApplyDeformationOverTime));
+            StartCoroutine(nameof(ApplyDeformationOverTime));
             health -= damage;
         }
 
@@ -323,11 +324,16 @@ public class Ennemy : Breakable
         Destroy(gameObject);
 
     }
-    public IEnumerator ApplyDeformationOverTime(Vector3 deformation, float duration)
+    private IEnumerator ApplyDeformationOverTime()
     {
         float elapsedTime = 0f;
+        float duration = deformationDuration;
+        Vector3 deformationScale = this.deformationScale;
+        Vector3 deformation = deformationScale;
         Vector3 startScale = deformationScale;
         Vector3 endScale = deformationScale + deformation;
+
+        transform.localScale = originalScale;
 
         while (elapsedTime < duration)
         {

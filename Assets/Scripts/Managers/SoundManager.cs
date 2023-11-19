@@ -18,6 +18,7 @@ public enum sfx
     reload
 };
 
+[Serializable]
 public enum gameScene
 {
     titleScreen,
@@ -196,8 +197,10 @@ public class SoundManager : MonoBehaviour
 
     public static void onSceneChange(gameScene newScene)
     {
-        currentMusicSource?.DOFade(0f, 1f).SetEase(Ease.Linear);
+        AudioSource previousMusicSource = currentMusicSource;
+        previousMusicSource?.DOFade(0f, 1f).SetEase(Ease.Linear).OnComplete(previousMusicSource.Stop);
         currentMusicSource = dictSceneToMusic[newScene];
+        currentMusicSource.Play();
         currentMusicSource.DOFade(1f, 1f).SetEase(Ease.Linear);
     }
 
