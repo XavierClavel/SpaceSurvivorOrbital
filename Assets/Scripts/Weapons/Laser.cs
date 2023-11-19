@@ -12,7 +12,9 @@ using Shapes;
  * <p> Range -> Max distance for reraching targets </p>
  * <p> Spread -> Width of the laser </p>
  * <p> Cooldown -> Time before overheat </p>
- * <p> FloatA -> Overheat wave max range </p>
+ * <p> BoolA -> Whether shockwave is generated </p>
+ * <p> FloatA -> Shockwave max range </p>
+ * <p> IntA -> Shockwave damage </p>
  * </pre>
  */
 public class Laser : Interactor
@@ -21,10 +23,9 @@ public class Laser : Interactor
     private float width;
     [SerializeField] protected Transform firePoint;
     [SerializeField] LineRenderer lineRenderer;
-    [SerializeField] private Disc shockwave;
+    [SerializeField] private Shockwave shockwave;
     playerDirection _aimDirection_value = playerDirection.front;
-    private Color baseShockwaveColor;
-    private Color clearColor;
+    
 
     private float _heatValue = 0f;
 
@@ -68,9 +69,7 @@ public class Laser : Interactor
         shockwave = Instantiate(shockwave, player.transform, true);
         shockwave.transform.localScale = Vector3.zero;
         shockwave.transform.localPosition = Vector3.zero;
-        baseShockwaveColor = shockwave.Color;
-        clearColor = baseShockwaveColor;
-        clearColor.a = 0;
+        shockwave.Setup(3f, 50, status.none);
 
     }
 
@@ -119,11 +118,7 @@ public class Laser : Interactor
 
     void onOverheat()
     {
-        shockwave.Color = baseShockwaveColor;
-        shockwave.transform.localScale = Vector3.zero;
-        
-        shockwave.transform.DOScale(3f, 1f);
-        DOTween.To(() => shockwave.Color, x => shockwave.Color = x, clearColor, 1f).SetEase(Ease.OutQuad);
+        shockwave.doShockwave();
     }
 
     float getHeatValueChangeFactor()
