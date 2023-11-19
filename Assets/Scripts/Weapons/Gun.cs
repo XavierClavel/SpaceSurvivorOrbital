@@ -15,6 +15,7 @@ public abstract class Gun : Interactor
     Tween sliderTween;
     protected ComponentPool<Bullet> pool;
     private bool isReloadingMagazine = false;
+    
 
 
     protected override void Start()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,37 +12,57 @@ public class Pistol : Gun
 {
 
     [SerializeField] float distanceOffsetBetweenBullets = 0.1f;
+    private static bool main = true;
+    private Pistol newPistol;
+    private List<Pistol> childPistols = new List<Pistol>();
+
+    private void OnDestroy()
+    {
+        main = true;
+    }
 
     protected override void Start()
     {
         base.Start();
         bulletPrefab.pierce = stats.pierce;
+        if (!main) return;
+        
+        if (fullStats.generic.intA > 0)
+        {
+            SetupChildGun(player.pointerBack);
+        }
+
+        if (fullStats.generic.intA > 1)
+        {
+            SetupChildGun(player.pointerRight);
+            SetupChildGun(player.pointerLeft);
+        }
+        
+        main = false;
+
+    }
+
+    private void SetupChildGun(Transform rotationAxis)
+    {
+        Pistol newPistol = (Pistol)Instantiate(PlayerManager.weaponPrefab);
+        newPistol.Setup(fullStats);
+        newPistol.transform.SetParent(rotationAxis);
+        newPistol.transform.localPosition = 0.7f * Vector2.right;
+        newPistol.aimTransform = rotationAxis;
+        
+        childPistols.Add(newPistol);
     }
 
     protected override void Fire()
     {
+        childPistols.ForEach( it => it.Fire());
+
         if (stats.projectiles == 1)
         {
             Vector3 position = firePoint.position;
             Vector3 eulerRotation = firePoint.eulerAngles;
-            switch (fullStats.generic.intA)
-            {
-                case 0 : 
-                    FireBullet(position, eulerRotation);
-                    return;
-            
-                case 1 :
-                    FireBullet(position, eulerRotation);
-                    FireBullet(position, eulerRotation + 180f * Vector3.forward);
-                    return;
-                case 2 :
-                    FireBullet(position, eulerRotation);
-                    FireBullet(position, eulerRotation + 90f * Vector3.forward);
-                    FireBullet(position, eulerRotation + 180f * Vector3.forward);
-                    FireBullet(position, eulerRotation + 270f * Vector3.forward);
-                    return;
-            
-            }
+
+            FireBullet(position, eulerRotation);
             return;
         }
 
