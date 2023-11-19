@@ -50,24 +50,11 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource planetDesertMusic;
     [SerializeField] private AudioSource planetStormMusic;
     [SerializeField] private AudioSource planetMushroomMusic;
-    
-    static int SIZE = Enum.GetValues(typeof(sfx)).Length;
-    //[NamedArray(typeof(sfx))] public AudioClip[] audioClips = new AudioClip[SIZE];
 
-    [HideInInspector] List<sfxContainer> controlGroup = new List<sfxContainer>();
-    Dictionary<sfx, AudioClip> sfxDictionary;
-    Dictionary<sfx, float> volumeDictionary;
     [Header(" ")]
-    [NamedArray(typeof(sfx))] public sfxContainer[] audioClips;// = new sfxContainer[SIZE];
     //public sfxContainer[] test;
     private static AudioSource currentMusicSource;
     [SerializeField] private gameScene currentScene;
-
-    sfxContainer CloneContainer(sfxContainer container)
-    {
-        return new sfxContainer(container.audioClip, container.volume);
-    }
-
 
 
     public static SoundManager instance = null;
@@ -112,21 +99,6 @@ public class SoundManager : MonoBehaviour
         
         List<sfx> sfxList = Enum.GetValues(typeof(sfx)).Cast<sfx>().ToList();
 
-        int i = 0;
-        sfxDictionary = new Dictionary<sfx, AudioClip>();
-        foreach (sfx sfxElement in sfxList)
-        {
-            sfxDictionary[sfxElement] = audioClips[i].audioClip;
-            i++;
-        }
-
-        i = 0;
-        volumeDictionary = new Dictionary<sfx, float>();
-        foreach (sfx sfxElement in sfxList)
-        {
-            volumeDictionary[sfxElement] = audioClips[i].volume;
-            i++;
-        }
     }
 
     public static void onSceneChange(gameScene newScene)
@@ -171,6 +143,11 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySfx(Transform pos, string key)
     {
+        PlaySfx(pos.position, key);
+    }
+    
+    public void PlaySfx(Vector3 pos, string key)
+    {
         float randomPitch = UnityEngine.Random.Range(LowPitchRange, HighPitchRange);
         if (!ScriptableObjectManager.dictKeyToSfx.ContainsKey(key))
         {
@@ -179,7 +156,7 @@ public class SoundManager : MonoBehaviour
         }
         Sfx sfx = ScriptableObjectManager.dictKeyToSfx[key];
 
-        PlayClipAt(sfx.getClip(), pos.position, randomPitch, key, sfxVolume * sfx.getVolume());
+        PlayClipAt(sfx.getClip(), pos, randomPitch, key, sfxVolume * sfx.getVolume());
 
     }
 
