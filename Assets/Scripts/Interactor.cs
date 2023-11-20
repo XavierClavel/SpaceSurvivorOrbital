@@ -27,6 +27,11 @@ public abstract class Interactor : Damager
         base.Start();
     }
 
+    public virtual bool isDamageAbsorbed()
+    {
+        return false;
+    }
+
     public override void Setup(PlayerData fullStats)
     {
         base.Setup(fullStats);

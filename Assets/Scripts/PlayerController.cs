@@ -121,7 +121,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] protected SpriteRenderer spriteOverlay;
 
-
     public int health
     {
         get { return _health; }
@@ -151,6 +150,7 @@ public class PlayerController : MonoBehaviour
     public static void Hurt(float amount)
     {
         if (invulnerable) return;
+        if (instance.interactorHandler.currentInteractor.isDamageAbsorbed()) return;
         instance.health -= (int)(amount * (1 - instance.damageResistanceMultiplier));
         instance.OnHitOverlay();
         instance.StartCoroutine(nameof(ShakeCoroutine));

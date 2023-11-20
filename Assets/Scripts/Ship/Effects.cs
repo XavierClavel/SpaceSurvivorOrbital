@@ -71,7 +71,9 @@ public enum effectType
     boolB,
     boolC,
     intA,
+    intB,
     floatA,
+    floatB,
 
 }
 

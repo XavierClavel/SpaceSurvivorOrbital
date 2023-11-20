@@ -114,8 +114,16 @@ public class PlayerData
                 effect.ApplyOperation(ref generic.intA);
                 break;
             
+            case effectType.intB:
+                effect.ApplyOperation(ref generic.intB);
+                break;
+            
             case effectType.floatA:
                 effect.ApplyOperation(ref generic.floatA);
+                break;
+            
+            case effectType.floatB:
+                effect.ApplyOperation(ref generic.floatB);
                 break;
         }
     }
@@ -179,8 +187,10 @@ public class genericStats
     public bool boolC = false;
 
     public int intA = 0;
+    public int intB = 0;
     
     public float floatA = 0;
+    public float floatB = 0f;
 }
 
 public class attractorStats

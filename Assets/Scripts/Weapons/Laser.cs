@@ -15,6 +15,8 @@ using Shapes;
  * <p> BoolA -> Whether shockwave is generated </p>
  * <p> FloatA -> Shockwave max range </p>
  * <p> IntA -> Shockwave damage </p>
+ * <p> BoolB -> Energy shield </p>
+ * <p> FloatB -> Overheat jauge increase from damage absorbtion </p>
  * </pre>
  */
 public class Laser : Interactor
@@ -27,8 +29,11 @@ public class Laser : Interactor
     playerDirection _aimDirection_value = playerDirection.front;
 
     private bool isShockwaveEnabled;
-    private float shockwaveMaxRange;
     private int shockwaveDamage;
+    private float shockwaveMaxRange;
+    
+    private bool isEnergyShieldEnabled;
+    private float energyShieldOverheatCost;
     
 
     private float _heatValue = 0f;
@@ -52,6 +57,18 @@ public class Laser : Interactor
             {
                 if (!reloadSlider.gameObject.activeSelf) reloadSlider.gameObject.SetActive(true);
             }
+            
+            if (value >= ConstantsData.laserOverheatThreshold)
+            {
+                if (!overheating)
+                {
+                    onOverheat();
+                }
+                overheating = true;
+            } else if (value <= 0f)
+            {
+                overheating = false;
+            }
         }
     }
     
@@ -64,6 +81,9 @@ public class Laser : Interactor
         isShockwaveEnabled = fullStats.generic.boolA;
         shockwaveMaxRange = fullStats.generic.floatA;
         shockwaveDamage = fullStats.generic.intA;
+        
+        isEnergyShieldEnabled = fullStats.generic.boolB;
+        energyShieldOverheatCost = fullStats.generic.floatB;
     
     
         width = 0.1f * stats.spread;
@@ -98,17 +118,7 @@ public class Laser : Interactor
     {
         heatValue = Mathf.Clamp(heatValue + Time.fixedDeltaTime * getHeatValueChangeFactor(), 0f, ConstantsData.laserOverheatThreshold);
         
-        if (heatValue >= ConstantsData.laserOverheatThreshold)
-        {
-            if (!overheating)
-            {
-                onOverheat();
-            }
-            overheating = true;
-        } else if (heatValue <= 0f)
-        {
-            overheating = false;
-        }
+        
         
         if (overheating || !isUsing)
         {
@@ -123,6 +133,15 @@ public class Laser : Interactor
         }
 
         
+    }
+
+    public override bool isDamageAbsorbed()
+    {
+        if (!isEnergyShieldEnabled) return false;
+        if (!isUsing) return false;
+        if (heatValue + energyShieldOverheatCost >= ConstantsData.laserOverheatThreshold) return false;
+        heatValue += energyShieldOverheatCost;
+        return true;
     }
 
     void onOverheat()
