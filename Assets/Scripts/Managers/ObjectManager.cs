@@ -16,6 +16,9 @@ public class ObjectManager : MonoBehaviour
     public GameData gameData;
     public Slider reloadSlider;
 
+    public ParticleSystem firePS;
+    public ParticleSystem lightningPS;
+
     [Header("Interactors")]
     public Interactor gun;
 

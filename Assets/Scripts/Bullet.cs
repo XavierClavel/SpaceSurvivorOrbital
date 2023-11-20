@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum status { none, poison, fire, ice, lightning }
+public enum status { none, fire, ice, lightning }
 
 public class Bullet : MonoBehaviour
 {

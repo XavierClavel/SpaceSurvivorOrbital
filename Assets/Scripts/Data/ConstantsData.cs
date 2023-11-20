@@ -18,6 +18,15 @@ public static class ConstantsData
     public static float laserCoolingFactor;
     public static float laserOverheatCoolingFactor;
 
+    public static int fireDamage;
+    public static int fireDuration;
+    public static float fireStep;
+
+    public static float iceSlowdown;
+    public static float iceDuration;
+
+    public static float lightningDuration;
+
 }
 
 public class ConstantsDataBuilder
@@ -44,6 +53,15 @@ public class ConstantsDataBuilder
         SetValue(ref ConstantsData.laserHeatingFactor, "LaserHeatingFactor");
         SetValue(ref ConstantsData.laserOverheatThreshold, "LaseOverheatThreshold");
         SetValue(ref ConstantsData.laserOverheatCoolingFactor, "LaserOverheatCoolingFactor");
+        
+        SetValue(ref ConstantsData.fireDamage, "Fire_Damage");
+        SetValue(ref ConstantsData.fireDuration, "Fire_Duration");
+        SetValue(ref ConstantsData.fireStep, "Fire_Step");
+        
+        SetValue(ref ConstantsData.iceDuration, "Ice_Duration");
+        SetValue(ref ConstantsData.iceSlowdown, "Ice_Slowdown");
+        
+        SetValue(ref ConstantsData.lightningDuration, "Lightning_Duration");
     }
     
     private void SetValue<T>(ref T variable, string key)

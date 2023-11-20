@@ -24,10 +24,6 @@ public class PlayerManager
     public static float poisonDuration { get; private set; }
     public static float poisonPeriod { get; private set; }
 
-    public static int fireDamage { get; private set; }
-    public static float fireDuration { get; private set; }
-    public static float firePeriod { get; private set; }
-
     public static float iceSpeedMultiplier { get; private set; }
     public static float iceDuration { get; private set; }
 
