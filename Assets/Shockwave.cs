@@ -13,19 +13,20 @@ public class Shockwave : MonoBehaviour
     private float shockwaveDuration = 1f;
     private int shockwaveDamage;
     private float shockwaveRange;
-    private status effect = status.none;
+    private status effect;
     private List<GameObject> objectsHit;
     
     public void Setup(float shockwaveRange, int shockwaveDamage, status effect)
     {
         this.shockwaveRange = shockwaveRange;
         this.shockwaveDamage = shockwaveDamage;
-        this.effect = effect;
         
         disc = GetComponent<Disc>();
         baseShockwaveColor = disc.Color;
         clearColor = baseShockwaveColor;
         clearColor.a = 0;
+
+        this.effect = effect;
     }
 
     public void doShockwave()

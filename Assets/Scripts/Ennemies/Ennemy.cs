@@ -17,12 +17,12 @@ public class Ennemy : Breakable
     protected Vector2 directionToPlayer;
     static protected WaitForSeconds wait;
     static protected WaitForSeconds waitStateStep;
-    static WaitForSeconds waitPoison;
-    static WaitForSeconds waitPoisonDamage;
-    static WaitForSeconds waitFire;
-    static WaitForSeconds waitFireDamage;
     static WaitForSeconds waitIce;
+    private static WaitForSeconds waitLightning;
+    private static WaitForSeconds waitFire;
     float speedMultiplier = 1f;
+
+    private int fireDamageRemaining = 0;
 
     [Header("Knockback Parameters")]
     [SerializeField] float knockbackForce = 5f;
@@ -35,6 +35,9 @@ public class Ennemy : Breakable
 
     private Vector3 originalScale;
     private Vector3 deformationScale;
+
+    private ParticleSystem firePs;
+    private ParticleSystem lightningPs;
 
     [Header("Parameters")]
     [SerializeField] protected float speed = 1f;
@@ -75,10 +78,12 @@ public class Ennemy : Breakable
 
         wait = Helpers.GetWait(attackSpeed);
         waitStateStep = Helpers.GetWait(stateStep);
-        waitPoison = Helpers.GetWait(PlayerManager.poisonDuration);
-        waitPoisonDamage = Helpers.GetWait(PlayerManager.poisonPeriod);
-        waitIce = Helpers.GetWait(PlayerManager.iceDuration);
+        waitLightning = Helpers.GetWait(ConstantsData.lightningDuration);
+        waitIce = Helpers.GetWait(ConstantsData.iceDuration);
+        waitFire = Helpers.GetWait(ConstantsData.fireStep);
         knockbackWindow = Helpers.GetWait(knockbackRiseDuration);
+        
+        Debug.Log(ConstantsData.fireStep);
 
         //TODO : static initalizer
 
@@ -100,6 +105,14 @@ public class Ennemy : Breakable
             overlaydSpriteRenderer = childSpriteRenderer.GetComponent<SpriteRenderer>();
             
         }
+
+        firePs =  Instantiate(ObjectManager.instance.firePS);
+        firePs.transform.SetParent(transform);
+        firePs.transform.localPosition = Vector3.zero;
+        
+        lightningPs =  Instantiate(ObjectManager.instance.lightningPS);
+        lightningPs.transform.SetParent(transform);
+        lightningPs.transform.localPosition = Vector3.zero;
     }
 
 
@@ -137,16 +150,16 @@ public class Ennemy : Breakable
             case status.none:
                 break;
 
-            case status.poison:
-                StartCoroutine(nameof(PoisonEffect));
+            case status.lightning:
+                ApplyLightning();
                 break;
 
             case status.ice:
-                StartCoroutine(nameof(IceEffect));
+                ApplyIce();
                 break;
 
             case status.fire:
-                StartCoroutine(nameof(FireEffect));
+                ApplyFire();
                 break;
         }
         ApplyKnockback();
@@ -192,7 +205,7 @@ public class Ennemy : Breakable
         SoundManager.PlaySfx(transform, Vault.sfx.EnnemyExplosion);
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
         onDeath.Invoke();
-        StartCoroutine("ShakeCoroutine");
+        StartCoroutine(nameof(ShakeCoroutine));
         
     }
     [Header("Ghost")] 
@@ -213,46 +226,60 @@ public class Ennemy : Breakable
 
     #region elementalEffects
 
-    IEnumerator PoisonEffect()
+    void ApplyFire()
     {
-        StartCoroutine(nameof(PoisonDamage));
-        yield return waitPoison;
-        StopCoroutine(nameof(PoisonDamage));
-    }
-
-    IEnumerator PoisonDamage()
-    {
-        while (true)
+        bool isOnFire = fireDamageRemaining > 0;
+        fireDamageRemaining = ConstantsData.fireDuration;
+        if (!isOnFire)
         {
-            yield return waitPoisonDamage;
-            DamageDisplayHandler.DisplayDamage(PlayerManager.poisonDamage, transform.position, healthChange.poison);
-            health -= PlayerManager.poisonDamage;
+            StartCoroutine(nameof(FireDamage));
         }
     }
 
-    IEnumerator FireEffect()
+    void ApplyIce()
     {
-        StartCoroutine(nameof(FireDamage));
-        yield return waitFire;
-        StopCoroutine(nameof(FireDamage));
+        StopCoroutine(nameof(IceEffect));
+        StartCoroutine(nameof(IceEffect));
+    }
+    
+    void ApplyLightning()
+    {
+        StopCoroutine(nameof(LightningEffect));
+        StartCoroutine(nameof(LightningEffect));
     }
 
     IEnumerator FireDamage()
     {
-        while (true)
+        firePs.Play();
+        while (fireDamageRemaining > 0)
         {
-            yield return waitFireDamage;
-            DamageDisplayHandler.DisplayDamage(PlayerManager.fireDamage, transform.position, healthChange.fire);
-            health -= PlayerManager.fireDamage;
+            yield return waitFire;
+            DamageDisplayHandler.DisplayDamage(ConstantsData.fireDamage, transform.position, healthChange.fire);
+            health -= ConstantsData.fireDamage;
+            fireDamageRemaining--;
         }
+        firePs.Stop();
     }
 
     IEnumerator IceEffect()
     {
-        speedMultiplier = PlayerManager.iceSpeedMultiplier;
+        spriteRenderer.color = new Color32(126,171,242,255);
+        speedMultiplier = ConstantsData.iceSlowdown;
         yield return waitIce;
         speedMultiplier = 1f;
+        spriteRenderer.color = Color.white;
     }
+    
+    IEnumerator LightningEffect()
+    {
+        lightningPs.Play();
+        speedMultiplier = 0f;
+        yield return waitLightning;
+        speedMultiplier = 1f;
+        lightningPs.Stop();
+    }
+    
+    
 
     #endregion
 

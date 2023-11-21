@@ -98,6 +98,10 @@ public class PlayerData
                 effect.ApplyOperation(ref attractor.force);
                 break;
             
+            case effectType.effect:
+                effect.ApplyOperation(ref interactor.element);
+                break;
+            
             case effectType.boolA:
                 effect.ApplyOperation(ref generic.boolA);
                 break;
@@ -124,6 +128,10 @@ public class PlayerData
             
             case effectType.floatB:
                 effect.ApplyOperation(ref generic.floatB);
+                break;
+            
+            case effectType.elementA:
+                effect.ApplyOperation(ref generic.elementA);
                 break;
         }
     }
@@ -171,13 +179,8 @@ public class interactorStats
     public int pierce;
     public float speedWhileAiming;
 
-    public int dps;
+    public status element = status.none;
 
-    public void CalculateDPS()
-    {
-        if (cooldown == 0f) dps = baseDamage.Mean();
-        else dps = baseDamage.Mean(); //(int)((float)baseDamage.Mean() / cooldown);
-    }
 }
 
 public class genericStats
@@ -191,6 +194,8 @@ public class genericStats
     
     public float floatA = 0;
     public float floatB = 0f;
+
+    public status elementA = status.none;
 }
 
 public class attractorStats

@@ -74,6 +74,7 @@ public enum effectType
     intB,
     floatA,
     floatB,
+    elementA,
 
 }
 
@@ -172,6 +173,21 @@ public class Effect
         }
         return parameter;
     }
+    
+    public status ApplyOperation(ref status parameter)
+    {
+        status value = Helpers.parseString<status>(this.value);
+        switch (operation)
+        {
+            case operationType.assignation:
+                parameter = value;
+                break;
+
+            default:
+                throw new System.InvalidOperationException($"failed to execute operation {operation} with value {value}");
+        }
+        return parameter;
+    }
 
     public Vector2Int ApplyOperation(Vector2Int parameter)
     {
@@ -224,6 +240,7 @@ public class Effect
     {
         parameter = ApplyOperation(parameter);
     }
+    
 
     public void Unlock()
     {
@@ -248,20 +265,6 @@ public class Effect
         }
     }
 
-    public status ApplyOperation(status parameter)
-    {
-        status value = status.none;
-        switch (operation)
-        {
-            case operationType.assignation:
-                parameter = value;
-                break;
-
-            default:
-                throw new System.InvalidOperationException();
-        }
-        return parameter;
-    }
 
     public void ApplyOperation(ref Interactor parameter)
     {

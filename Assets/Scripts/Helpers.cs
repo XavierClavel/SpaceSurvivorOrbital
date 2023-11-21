@@ -610,6 +610,7 @@ public class Helpers : MonoBehaviour
             switch (System.Type.GetTypeCode(typeof(T)))
             {
                 case System.TypeCode.Int32:
+                    if (typeof(T).IsEnum) return (T)(object)ParseEnum<T>(s);
                     return (T)(object)int.Parse(s);
 
                 case System.TypeCode.Single:
@@ -623,9 +624,8 @@ public class Helpers : MonoBehaviour
 
                 case System.TypeCode.Object:
                     if (typeof(T) == typeof(Vector2Int)) return (T)(object)ParseVector2Int(s);
-                    else if (typeof(T) == typeof(List<string>)) return (T)(object)ParseList(s);
-                    else if (typeof(T).IsEnum) return (T)(object)ParseEnum<T>(s);
-                    else throw new ArgumentException($"Type {typeof(T)}) not supported.");
+                    if (typeof(T) == typeof(List<string>)) return (T)(object)ParseList(s);
+                    throw new ArgumentException($"Type {typeof(T)}) not supported.");
 
                 default:
                     throw new ArgumentException($"Type {typeof(T)}) not supported.");

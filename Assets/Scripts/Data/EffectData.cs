@@ -34,6 +34,8 @@ public class EffectData
 
         {Vault.key.upgrade.Unlocks, effectType.unlocks},
         
+        {"Element", effectType.effect},
+        
         {"BoolA", effectType.boolA},
         {"BoolB", effectType.boolB},
         {"BoolC", effectType.boolC},
@@ -41,6 +43,7 @@ public class EffectData
         {"IntB", effectType.intB},
         {"FloatA",effectType.floatA},
         {"FloatB",effectType.floatB},
+        {"ElementA", effectType.elementA},
     };
 
 
