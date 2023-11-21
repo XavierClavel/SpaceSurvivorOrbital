@@ -46,14 +46,14 @@ public class Breakable : MonoBehaviour
         sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
     }
 
-    public void StackDamage(float dps)
+    public void StackDamage(float dps, status element)
     {
         stackedDamage += dps * Time.fixedDeltaTime;
         if (stackedDamage < 1f) return;
 
         int damage = (int)stackedDamage;
         stackedDamage -= damage;
-        Hit(damage, status.none, false);
+        Hit(damage, element, false);
     }
 
     protected virtual void OnDestroy()

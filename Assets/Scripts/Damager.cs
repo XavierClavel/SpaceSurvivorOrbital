@@ -32,6 +32,14 @@ public struct HitInfo
         this.effect = effect;
     }
     
+    public HitInfo(interactorStats stats)
+    {
+        damage = stats.baseDamage.getRandom();
+        critical = Helpers.ProbabilisticBool(stats.criticalChance);
+        if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
+        this.effect = stats.element;
+    }
+    
     
     
 }
