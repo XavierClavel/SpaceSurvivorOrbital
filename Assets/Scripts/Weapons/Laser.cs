@@ -106,7 +106,7 @@ public class Laser : Interactor
 
     protected override void onStartUsing()
     {
-    
+        
     }
 
     protected override void onStopUsing()

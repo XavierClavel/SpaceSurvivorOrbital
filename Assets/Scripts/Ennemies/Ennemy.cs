@@ -121,6 +121,7 @@ public class Ennemy : Breakable
 
     public override void Hit(int damage, status effect, bool critical)
     {
+        SoundManager.PlaySfx(transform, key:"Hit");
         base.Hit(damage, effect, critical);
         healthChange value = critical ? healthChange.critical : healthChange.hit;
         if (damage != 0)
