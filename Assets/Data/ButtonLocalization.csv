@@ -23,8 +23,46 @@ GUN_SNIPER1;;Sniper
 ;;Percée +1 et chance de critique augmentée
 GUN_SNIPER2;;Super Sniper
 ;;Percée +1 et chance de critique augmentée
-LASER_MICROWAVE;;Micro-ondes
-;;mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+LASER_MICROWAVE;;Micro-onde
+;;Laser qui ondule
+LASER_ULTRAVIOLET;;Ultraviolet
+;;Laser qui ondule plus rapidement
+LASER_XRAY;;Rayon X
+;;Laser qui ondule ultra rapidement
+LASER_X1000;;Laser X1000
+;;Votre laser titre plus loin
+LASER_X2000;;Laser X2000
+;;"Laser plus épais
+Dégât en plus, zone de collision plus grande"
+LASER_X3000;;Laser X3000
+;;"Laser plus long
+Dégât en plus"
+LASER_X9000;;Canon laser X9000
+;;"Laser plus épais et plus long
+Dégât en plus, zone de collision plus grande"
+LASER_ELEMENT_1;;Capsule élémentaire 1
+;;"Amélioration Elémentaire, l’arme fait au choix :
+- Dégât Electrique 
+- Feu
+- Glace"
+LASER_ELEMENT_2;;Capsule élémentaire 2
+;;"Amélioration Elémentaire, l’arme fait au choix :
+- Dégât Electrique 
+- Feu
+- Glace"
+LASER_ELEMENT_3;;Capsule élémentaire 3
+;;"Amélioration Elémentaire, l’arme fait au choix :
+- Dégât Electrique 
+- Feu
+- Glace"
+LASER_SHOCKWAVE_1;;Attention ça chauffe
+;;Quand la surchauffe est atteinte, le pistolet émet un onde de choc autour du joueur
+LASER_SHOCKWAVE_2;;Vous avez été prévenu
+;;Onde de choc plus grande et stun les ennemis
+LASER_ENERGY_SHIELD_1;;Bouclier énergétique
+;;Pendant que le joueur tire, un boucle d’énergie se crée autour de lui, quand il prend un coup, au lieu de perdre de la vie, la jauge de surchauffe absorbe le coup (et augmente de 50%)
+LASER_ENERGY_SHIELD_2;;Réduction énergétique
+;;La jauge de surchauffe n’augmente que de 25% à chaque coût
 Shield;;Bouclier
 ;;Un bouclier vous offre une protection supplémentaire qui revient entre chaque planète !
 SHIELD_1;;Petit bouclier
@@ -51,16 +89,14 @@ FAIRY_1;;Fée
 Tire automatiquement
 Dégât : 20-30
 Vitesse entre 2 attaques : 1 secondes"
-FAIRY_2a;;Féeforte
-;;"Votre fée devient plus forte ! Elle tire des plus grosses boules d'énergies.
+FAIRY_2a;;Fée Feu
+;;"Votre fée fait des dégâts de feu ! 
 
-Dégât : 30-40
-Vitesse entre 2 attaques : 1 secondes"
-FAIRY_2b;;Fée au carré
-;;"Une deuxième fée vient vous prêter main forte ! Elle tire des boules d'énergies.
+Brûle les ennemis en continue"
+FAIRY_2ab;;Fée de Glace
+;;"Votre fée fait des dégâts de glace! 
 
-Dégât : 10-20 par fée
-Vitesse entre 2 attaques : 1 secondes"
+Ralenti les ennemis en les gelant"
 FAIRY_3a;;Grande Fée
 ;;"Votre fée a atteint son apogée ! Elle tire des plus rayon d'énergies transperçant les ennemis.
 
@@ -68,6 +104,11 @@ Dégât : 460
 Durée attaque : 3s
 Temps de recharge : 1s
 Percée : 4"
+FAIRY_2b;;Fée au carré
+;;"Une deuxième fée vient vous prêter main forte ! Elle tire des boules d'énergies.
+
+Dégât : 10-20 par fée
+Vitesse entre 2 attaques : 1 secondes"
 FAIRY_3b;;C'est la Fée-te
 ;;"Une troisième fée vient vous prêter main forte ! Des boules d'énergie volent de partout !
 
