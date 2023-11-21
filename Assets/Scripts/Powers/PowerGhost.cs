@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Internal;
@@ -13,6 +14,11 @@ public class PowerGhost : Power, IEnnemyListener
     {
         base.Setup(stats);
         Ennemy.registerListener(this);
+    }
+
+    private void OnDestroy()
+    {
+        Ennemy.unregisterListener(this);
     }
 
     public void onEnnemyDeath(Vector2 position)
