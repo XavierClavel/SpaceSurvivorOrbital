@@ -12,7 +12,7 @@ public class DivineLightning : Power
     [SerializeField] GameObject lightningStrike;
 
     GameObjectPool pool;
-    [SerializeField] private GameObject electricZone;
+    [SerializeField] private ElectricZone electricZone;
 
     protected override void Start()
     {
@@ -30,7 +30,7 @@ public class DivineLightning : Power
         electricZone.transform.position = spawnPoint;
         electricZone.transform.localScale = Vector3.zero;
         //TODO Fade Out and get smaller or just dispawn
-        electricZone.transform.DOScale(2f, 1f).OnComplete(delegate {});
+        electricZone.Setup(2f);
     }
 
     protected override void onUse()
@@ -52,7 +52,7 @@ public class DivineLightning : Power
         }
         Hit(collidersInRadius, effect: effect);
         
-        SpawnEletricZone(hitPoint);
+        //SpawnEletricZone(hitPoint);
 
         GameObject go = pool.get(hitPoint);
     }

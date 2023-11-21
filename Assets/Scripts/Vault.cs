@@ -1,5 +1,14 @@
 public static class Vault
 {
+
+    public static class power
+    {
+        public const string DivineLightning = "Power_Lightning";
+        public const string Shield = "Shield";
+        public const string Ghost = "Ghost";
+        public const string Fairy = "Fairy";
+    }
+    
     public static class sfx
     {
         public const string BreakResource = "BreakResource";

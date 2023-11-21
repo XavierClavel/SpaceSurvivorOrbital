@@ -9,6 +9,13 @@ public class DebugManager : MonoBehaviour
     [SerializeField] bool noEnnemySpawn;
     [SerializeField] bool noTimer;
     [SerializeField] bool startWithResources;
+
+    [Header("Start with powers")] 
+    [SerializeField] private bool divineLightning;
+    [SerializeField] private bool fairy;
+    [SerializeField] private bool shield;
+    [SerializeField] private bool ghost;
+    
     [Header("Early Upgrades")]
     [SerializeField] bool startWithRadar;
     [SerializeField] bool startWithMinerBot;
@@ -31,6 +38,11 @@ public class DebugManager : MonoBehaviour
         if (startWithRadar) PlayerController.instance.debug_ActivateRadar();
         //if (noEnnemySpawn) SpawnManager.instance.debug_StopEnnemySpawn();
         //if (noTimer) Timer.instance.debug_StopTimer();
+        
+        if (divineLightning) AcquirePower(Vault.power.DivineLightning);
+        if (fairy) AcquirePower(Vault.power.Fairy);
+        if (shield) AcquirePower(Vault.power.Shield);
+        if (ghost) AcquirePower(Vault.power.Ghost);
     }
 
     public static void DisplayValue(string name, string value)
@@ -39,6 +51,15 @@ public class DebugManager : MonoBehaviour
         var obj = GameObject.Instantiate(instance.debugLine);
         obj.transform.SetParent(instance.debugLayout);
         obj.SetText($"{name}: {value}");
+    }
+    
+    static void AcquirePower(string key)
+    {
+        PowerHandler powerHandler = ScriptableObjectManager.dictKeyToPowerHandler[key];
+        PlayerManager.AcquirePower(powerHandler);
+        powerHandler.Activate();
+        ObjectManager.HideAltarUI();
+        ObjectManager.altar.DepleteAltar();
     }
 
 }
