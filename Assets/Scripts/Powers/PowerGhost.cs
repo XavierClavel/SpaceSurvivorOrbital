@@ -5,9 +5,4 @@ using UnityEngine;
 
 public class PowerGhost : Power
 {
-    public void Awake()
-    {
-        Ennemy ghost = FindAnyObjectByType<Ennemy>();
-        ghost.spawnChance = 1f;
-    }
 }

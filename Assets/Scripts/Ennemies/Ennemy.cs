@@ -199,7 +199,6 @@ public class Ennemy : Breakable
 
     protected virtual void Death()
     {
-        GhostAppear();
         player.AddEnnemyScore(cost);
         StressTest.nbEnnemies--;
         SoundManager.PlaySfx(transform, Vault.sfx.EnnemyExplosion);
@@ -208,20 +207,6 @@ public class Ennemy : Breakable
         StartCoroutine(nameof(ShakeCoroutine));
         
     }
-    [Header("Ghost")] 
-    public float spawnChance;
-    public bool ghostPower = false;
-    public GameObject ghost;
-
-    public void GhostAppear()
-    {
-        if (Random.Range(0f, 1f) <= spawnChance)
-        {
-            Instantiate(ghost, transform.position, Quaternion.identity);
-
-        }              
-    }
-
 
 
     #region elementalEffects
