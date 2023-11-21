@@ -3,11 +3,31 @@ using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
-public class PowerGhost : Power
+public class PowerGhost : Power, IEnnemyListener
 {
-    public void Awake()
+    [SerializeField] private GameObject ghost;
+    [SerializeField] private int spawnsEvery = 1;
+    private int spawnCounter = 0;
+
+    public override void Setup(PlayerData stats)
     {
-        Ennemy ghost = FindAnyObjectByType<Ennemy>();
-        ghost.spawnChance = 1f;
+        base.Setup(stats);
+        Ennemy.registerListener(this);
+    }
+
+    public void onEnnemyDeath(Vector2 position)
+    {
+        spawnCounter++;
+        if (spawnCounter >= spawnsEvery)
+        {
+            spawnCounter = 0;
+            SpawnGhost(position);
+        }
+    }
+
+    public void SpawnGhost(Vector2 position)
+    {
+        Instantiate(this.ghost);
+        ghost.transform.position = position;
     }
 }

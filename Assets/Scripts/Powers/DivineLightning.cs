@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using DG.Tweening;
 
 
 public class DivineLightning : Power
@@ -11,6 +12,7 @@ public class DivineLightning : Power
     [SerializeField] GameObject lightningStrike;
 
     GameObjectPool pool;
+    [SerializeField] private GameObject electricZone;
 
     protected override void Start()
     {
@@ -20,6 +22,15 @@ public class DivineLightning : Power
         //effect = status.lightning;
 
         pool = new GameObjectPool(lightningStrike).setTimer(stats.projectiles);
+    }
+
+    void SpawnEletricZone(Vector3 spawnPoint)
+    {
+        electricZone = Instantiate(electricZone, playerTransform);
+        electricZone.transform.position = spawnPoint;
+        electricZone.transform.localScale = Vector3.zero;
+        //TODO Fade Out and get smaller or just dispawn
+        electricZone.transform.DOScale(2f, 1f).OnComplete(delegate {});
     }
 
     protected override void onUse()
@@ -34,12 +45,14 @@ public class DivineLightning : Power
     {
         Vector3 hitPoint = playerTransform.position + Helpers.getRandomPositionInRadius(range, shape.square);
         Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(hitPoint, stats.range, mask);
-        status effect = status.none;
+        status effect = stats.element;
         if (fullStats.generic.boolA)
         {
             if (Helpers.ProbabilisticBool(0.5f)) effect = status.lightning;
         }
         Hit(collidersInRadius, effect: effect);
+        
+        SpawnEletricZone(hitPoint);
 
         GameObject go = pool.get(hitPoint);
     }

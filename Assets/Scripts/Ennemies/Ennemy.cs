@@ -8,6 +8,7 @@ using System.Net;
 
 public class Ennemy : Breakable
 {
+    
     public UnityEvent onDeath = new UnityEvent();
 
     protected PlayerController player;
@@ -65,6 +66,22 @@ public class Ennemy : Breakable
 
     WaitForSeconds knockbackWindow;
 
+    
+#region API
+
+    public static List<IEnnemyListener> listeners = new List<IEnnemyListener>();
+
+    public static void registerListener(IEnnemyListener listener)
+    {
+        listeners.Add(listener);
+    }
+
+    public static void unregisterListener(IEnnemyListener listener)
+    {
+        listeners.Remove(listener);
+    }
+
+#endregion
 
     protected override void Start()
     {
@@ -114,6 +131,8 @@ public class Ennemy : Breakable
         lightningPs.transform.SetParent(transform);
         lightningPs.transform.localPosition = Vector3.zero;
     }
+    
+    
 
 
     protected virtual void FixedUpdate()
@@ -163,6 +182,8 @@ public class Ennemy : Breakable
         }
         ApplyKnockback();
     }
+    
+    
 
     public void ApplyKnockback()
     {
@@ -198,28 +219,18 @@ public class Ennemy : Breakable
 
     protected virtual void Death()
     {
-        GhostAppear();
         player.AddEnnemyScore(cost);
         StressTest.nbEnnemies--;
         SoundManager.PlaySfx(transform, Vault.sfx.EnnemyExplosion);
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
+        
         onDeath.Invoke();
         StartCoroutine(nameof(ShakeCoroutine));
         
+        listeners.ForEach(it => it.onEnnemyDeath(transform.position));
+        
     }
-    [Header("Ghost")] 
-    public float spawnChance;
-    public bool ghostPower = false;
-    public GameObject ghost;
 
-    public void GhostAppear()
-    {
-        if (Random.Range(0f, 1f) <= spawnChance)
-        {
-            Instantiate(ghost, transform.position, Quaternion.identity);
-
-        }              
-    }
 
 
 
