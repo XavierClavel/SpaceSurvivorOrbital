@@ -571,7 +571,6 @@ public class Helpers : MonoBehaviour
 
     public static TEnum ParseEnum<TEnum>(string s)
     {
-        Debug.Log("this is an enum !");
         return (TEnum)Enum.Parse(typeof(TEnum), s, true);
     }
 

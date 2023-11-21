@@ -43,6 +43,7 @@ public class EffectData
         {"IntB", effectType.intB},
         {"FloatA",effectType.floatA},
         {"FloatB",effectType.floatB},
+        {"ElementA", effectType.elementA},
     };
 
 

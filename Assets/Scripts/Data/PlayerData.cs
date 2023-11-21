@@ -129,6 +129,10 @@ public class PlayerData
             case effectType.floatB:
                 effect.ApplyOperation(ref generic.floatB);
                 break;
+            
+            case effectType.elementA:
+                effect.ApplyOperation(ref generic.elementA);
+                break;
         }
     }
 
@@ -190,6 +194,8 @@ public class genericStats
     
     public float floatA = 0;
     public float floatB = 0f;
+
+    public status elementA = status.none;
 }
 
 public class attractorStats

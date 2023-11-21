@@ -74,6 +74,7 @@ public enum effectType
     intB,
     floatA,
     floatB,
+    elementA,
 
 }
 

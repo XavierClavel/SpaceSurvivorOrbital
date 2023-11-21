@@ -17,6 +17,7 @@ using Shapes;
  * <p> IntA -> Shockwave damage </p>
  * <p> BoolB -> Energy shield </p>
  * <p> FloatB -> Overheat jauge increase from damage absorbtion </p>
+ * <p> ElementA -> Element of the shockwave </p>
  * </pre>
  */
 public class Laser : Interactor
@@ -34,6 +35,8 @@ public class Laser : Interactor
     
     private bool isEnergyShieldEnabled;
     private float energyShieldOverheatCost;
+
+    private status shockwaveElement;
     
 
     private float _heatValue = 0f;
@@ -84,7 +87,8 @@ public class Laser : Interactor
         
         isEnergyShieldEnabled = fullStats.generic.boolB;
         energyShieldOverheatCost = fullStats.generic.floatB;
-    
+
+        shockwaveElement = fullStats.generic.elementA;
     
         width = 0.1f * stats.spread;
         lineRenderer.enabled = true;
@@ -98,7 +102,7 @@ public class Laser : Interactor
         shockwave = Instantiate(shockwave, player.transform, true);
         shockwave.transform.localScale = Vector3.zero;
         shockwave.transform.localPosition = Vector3.zero;
-        shockwave.Setup(shockwaveMaxRange, shockwaveDamage, status.none);
+        shockwave.Setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement);
 
     }
 
