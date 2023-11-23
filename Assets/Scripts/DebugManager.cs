@@ -56,6 +56,7 @@ public class DebugManager : MonoBehaviour
     static void AcquirePower(string key)
     {
         PowerHandler powerHandler = ScriptableObjectManager.dictKeyToPowerHandler[key];
+        if (PlayerManager.powers.Contains(powerHandler)) return;
         PlayerManager.AcquirePower(powerHandler);
         powerHandler.Activate();
         ObjectManager.HideAltarUI();

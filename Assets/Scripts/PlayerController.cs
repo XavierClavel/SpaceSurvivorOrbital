@@ -116,7 +116,6 @@ public class PlayerController : MonoBehaviour
     //Wait
     WaitForSeconds invulnerabilityFrameDuration;
 
-    [HideInInspector] public status effect;
     [HideInInspector] public Vector2 aimVector;
 
     [SerializeField] protected SpriteRenderer spriteOverlay;
@@ -235,8 +234,6 @@ public class PlayerController : MonoBehaviour
         setSpeed(1f);
         damageResistanceMultiplier = PlayerManager.playerData.character.damageResistanceMultiplier;
 
-        effect = PlayerManager.statusEffect;
-
         rb = GetComponent<Rigidbody2D>();
         cameraTransform = Camera.main.transform;
         soundManager = SoundManager.instance;
@@ -244,13 +241,13 @@ public class PlayerController : MonoBehaviour
 
         souls = PlayerManager.getSouls();
 
-        layoutManagerOrange.Setup(PlayerManager.playerData.resources.maxOrange, ObjectManager.instance.gameData.fillAmountOrange, resourceType.orange);
-        layoutManagerGreen.Setup(PlayerManager.playerData.resources.maxGreen, ObjectManager.instance.gameData.fillAmountGreen, resourceType.green);
+        layoutManagerOrange.Setup(PlayerManager.playerData.resources.maxOrange, ConstantsData.resourcesFillAmount, resourceType.orange);
+        layoutManagerGreen.Setup(PlayerManager.playerData.resources.maxGreen, ConstantsData.resourcesFillAmount, resourceType.green);
 
         layoutManagerOrange.FillNSliders(PlayerManager.amountOrange);
         layoutManagerGreen.FillNSliders(PlayerManager.amountGreen);
 
-        invulnerabilityFrameDuration = Helpers.GetWait(PlayerManager.invulnerabilityFrameDuration);
+        invulnerabilityFrameDuration = Helpers.GetWait(ConstantsData.invulenerabilityFrame);
 
         _health = maxHealth;
 

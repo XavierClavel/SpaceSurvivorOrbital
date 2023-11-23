@@ -12,8 +12,7 @@ public class DivineLightning : Power
     [SerializeField] GameObject lightningStrike;
 
     GameObjectPool pool;
-    [SerializeField] private ElectricZone electricZone;
-
+    [SerializeField] private ElectricZone electricZonePrefab;
     protected override void Start()
     {
         base.Start();
@@ -26,7 +25,7 @@ public class DivineLightning : Power
 
     void SpawnEletricZone(Vector3 spawnPoint)
     {
-        electricZone = Instantiate(electricZone, playerTransform);
+        ElectricZone electricZone = Instantiate(electricZonePrefab);
         electricZone.transform.position = spawnPoint;
         electricZone.transform.localScale = Vector3.zero;
         //TODO Fade Out and get smaller or just dispawn

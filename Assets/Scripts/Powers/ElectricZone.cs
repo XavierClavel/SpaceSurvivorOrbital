@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using DG.Tweening;
 using Shapes;
 using UnityEngine;
@@ -14,15 +15,21 @@ public class ElectricZone : MonoBehaviour
 
     public void Setup(float range)
     {
-        innerColor = innerDisc.Color;
-        outerColor = innerDisc.Color;
+        Destroy(gameObject,2f);
+        
+        innerColor = innerDisc.ColorInner;
+        outerColor = innerDisc.ColorOuter;
 
         innerColor.a = 0;
         outerColor.a = 0;
-        transform.DOScale(range, 1f).OnComplete(delegate
-        {
-            DOTween.To(() => innerDisc.Color, x => innerDisc.Color = x, innerColor, 1f).SetEase(Ease.OutQuad);
-            DOTween.To(() => outerDisc.Color, x => outerDisc.Color = x, outerColor, 1f).SetEase(Ease.OutQuad);
-        });
+        transform.DOScale(range, 0.5f)
+            .SetDelay(0.2f)
+            .SetEase(Ease.OutCubic)
+            .OnComplete(delegate
+            {
+                DOTween.To(() => innerDisc.ColorInner, x => innerDisc.ColorInner = x, innerColor, 1f).SetEase(Ease.OutQuad);
+                DOTween.To(() => innerDisc.ColorOuter, x => innerDisc.ColorOuter = x, outerColor, 1f).SetEase(Ease.OutQuad);
+                transform.DOScale(range * 0.8f, 1f);
+            });
     }
 }

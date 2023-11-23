@@ -27,6 +27,10 @@ public static class ConstantsData
 
     public static float lightningDuration;
 
+    public static int resourcesFillAmount;
+
+    public static float invulenerabilityFrame;
+
 }
 
 public class ConstantsDataBuilder
@@ -62,6 +66,9 @@ public class ConstantsDataBuilder
         SetValue(ref ConstantsData.iceSlowdown, "Ice_Slowdown");
         
         SetValue(ref ConstantsData.lightningDuration, "Lightning_Duration");
+        
+        SetValue(ref ConstantsData.invulenerabilityFrame, "InvulnerabilityFrame");
+        SetValue(ref ConstantsData.resourcesFillAmount, "Resources_FillAmount");
     }
     
     private void SetValue<T>(ref T variable, string key)

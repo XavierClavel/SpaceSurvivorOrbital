@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5132843330540273407}
   - component: {fileID: 320162684498431986}
   - component: {fileID: 2225165316715215867}
-  - component: {fileID: 3690613736367420305}
+  - component: {fileID: 7801419330954300625}
   m_Layer: 11
   m_Name: Serp-yg
   m_TagString: Ennemy
@@ -174,8 +174,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!60 &3690613736367420305
-PolygonCollider2D:
+--- !u!58 &7801419330954300625
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -206,48 +206,9 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
-    newSize: {x: 2.56, y: 2.56}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.44, y: -0.04}
-      - {x: 0.5, y: 0.04}
-      - {x: 0.55, y: 0.13}
-      - {x: 0.55, y: 0.25}
-      - {x: 0.42999998, y: 0.53}
-      - {x: 0.41, y: 0.66999996}
-      - {x: 0.76, y: 0.77}
-      - {x: 0.77, y: 0.79999995}
-      - {x: 0.74, y: 0.83}
-      - {x: 0.7, y: 0.84999996}
-      - {x: 0.45999998, y: 0.84999996}
-      - {x: 0.35999998, y: 0.76}
-      - {x: 0.29, y: 0.63}
-      - {x: 0.31, y: 0.28}
-      - {x: 0.16, y: 0.42}
-      - {x: 0.07, y: 0.45999998}
-      - {x: -0.17, y: 0.48}
-      - {x: -0.45, y: 0.39999998}
-      - {x: -0.48999998, y: 0.35}
-      - {x: -0.52, y: 0.22}
-      - {x: -0.52, y: 0.02}
-      - {x: -0.5, y: -0.11}
-      - {x: -0.47, y: -0.38}
-      - {x: -0.39999998, y: -0.51}
-      - {x: -0.29999998, y: -0.58}
-      - {x: -0.19999999, y: -0.59}
-      - {x: 0.06, y: -0.59}
-      - {x: 0.35, y: -0.39999998}
-      - {x: 0.41, y: -0.26}
-  m_UseDelaunayMesh: 0
+  m_Offset: {x: -0.03, y: -0.05}
+  serializedVersion: 2
+  m_Radius: 0.55
 --- !u!1 &3542452932831592109
 GameObject:
   m_ObjectHideFlags: 0

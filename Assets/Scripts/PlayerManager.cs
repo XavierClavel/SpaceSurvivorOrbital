@@ -16,19 +16,7 @@ public class PlayerManager
 
     //Static accessors
 
-    public static float invulnerabilityFrameDuration { get; private set; }
-
-    public static status statusEffect { get; private set; }
-
-    public static int poisonDamage { get; private set; }
-    public static float poisonDuration { get; private set; }
-    public static float poisonPeriod { get; private set; }
-
-    public static float iceSpeedMultiplier { get; private set; }
-    public static float iceDuration { get; private set; }
-
     public static Interactor weaponPrefab = null;
-    public static Interactor toolPrefab = null;
 
 
     public static PlayerData weaponData;
@@ -137,10 +125,6 @@ public class PlayerManager
 
             case effectType.weapon:
                 effect.ApplyOperation(ref weaponPrefab);
-                break;
-
-            case effectType.tool:
-                effect.ApplyOperation(ref toolPrefab);
                 break;
 
             default:

@@ -5,19 +5,32 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-[Serializable]
-public class SaveData
-{
-    public int souls = 0;
-}
 
 public static class SaveManager
 {
+    [Serializable]
+    private class SaveData
+    {
+        public int souls = 0;
+        public List<String> optionsUnlocked = new List<string>();
+    }
+    
     static SaveData saveData = null;
 
     public static int retrieveSouls()
     {
         return saveData.souls;
+    }
+
+    public static List<String> retrieveUnlockedOptions(string key)
+    {
+        return saveData.optionsUnlocked;
+    }
+
+    public static void unlockOption(string key)
+    {
+        saveData.optionsUnlocked.Add(key);
+        Save();
     }
 
     public static void updateSouls(int value)

@@ -15,6 +15,11 @@ public class TitleScreen : MonoBehaviour, UIPanel
         return GetComponent<RectTransform>();
     }
 
+    public void ResetSave()
+    {
+        SaveManager.Reset();
+    }
+
 
 }
 

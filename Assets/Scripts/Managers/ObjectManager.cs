@@ -13,7 +13,6 @@ public class ObjectManager : MonoBehaviour
     [SerializeField] GameObject altarFirstSelected;
     [SerializeField] GameObject loseScreen;
     [SerializeField] GameObject loseScreenFirstSelected;
-    public GameData gameData;
     public Slider reloadSlider;
 
     public ParticleSystem firePS;
