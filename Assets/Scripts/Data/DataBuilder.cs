@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 
-public abstract class DataBuilder<T> : EffectData where T : class
+public abstract class DataBuilder<T> : EffectData
 {
     protected List<string> columnTitles = new List<string>();
 

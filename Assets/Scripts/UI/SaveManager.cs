@@ -12,7 +12,10 @@ public static class SaveManager
     private class SaveData
     {
         public int souls = 0;
-        public List<String> optionsUnlocked = new List<string>();
+        public List<String> optionsUnlocked = new List<string>
+        {
+            "Gun"
+        };
     }
     
     static SaveData saveData = null;
@@ -20,6 +23,11 @@ public static class SaveManager
     public static int retrieveSouls()
     {
         return saveData.souls;
+    }
+
+    public static bool isOptionUnlocked(string key)
+    {
+        return saveData.optionsUnlocked.Contains(key);
     }
 
     public static List<String> retrieveUnlockedOptions(string key)
@@ -36,6 +44,8 @@ public static class SaveManager
     public static void updateSouls(int value)
     {
         saveData.souls = value;
+        Save();
+        Debug.Log(saveData.souls);
     }
 
     private static string getDataPath()
@@ -46,11 +56,8 @@ public static class SaveManager
 
     public static void Reset()
     {
-        BinaryFormatter formatter = new BinaryFormatter();
-        FileStream stream = new FileStream(getDataPath(), FileMode.Create);
-        
-        formatter.Serialize(stream, new SaveData());
-        stream.Close();
+        saveData = new SaveData();
+        Save();
     }
 
     public static void Save()
@@ -72,6 +79,7 @@ public static class SaveManager
             {
                 saveData = formatter.Deserialize(stream) as SaveData;
                 stream.Close();
+                Debug.Log("Save loaded");
             }
             catch
             {

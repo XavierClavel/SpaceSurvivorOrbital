@@ -37,14 +37,12 @@ public class SceneTransitionManager : MonoBehaviour
     
     public void LocalTransitionToScene(gameScene newScene)
     {
-        Time.timeScale = 1f;
-        Time.fixedDeltaTime = 0.02f;
         
         SoundManager.onSceneChange(newScene);
         overlay.SetActive(true);
         imageTransform.sizeDelta = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight);
         maskTransform.sizeDelta = Vector2.zero;
-        maskTransform.DOSizeDelta(2 * Camera.main.pixelWidth * Vector2.one, 1f).SetEase(Ease.InOutQuint).SetUpdate(true)
+        maskTransform.DOSizeDelta(2 * Camera.main.pixelWidth * Vector2.one, 1f).SetEase(Ease.InOutQuint).SetUpdate(true).SetDelay(0.2f)
             .OnComplete(delegate
             {
                 PauseMenu.ResumeTime();

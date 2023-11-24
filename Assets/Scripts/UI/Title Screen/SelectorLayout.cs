@@ -29,26 +29,19 @@ public class SelectorLayout : MonoBehaviour
 
     void SetupLayout<T>(List<T> list) where T : ObjectHandler
     {
-        for (int i = 0; i < list.Count; i++)
+        foreach (ObjectHandler handler in list)
         {
             SelectButton newButton = Instantiate(button);
             newButton.transform.SetParent(transform);
             newButton.transform.localScale = Vector3.one;
             newButton.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero;
-
-            int value = i;
-            T entity = list[value];
-            UnityAction action = delegate
-            {
-                dataSelector.SelectGeneric(entity);
-                ChangeSelectedButton(newButton);
-            };
-            newButton.button.onClick.AddListener(action);
-            newButton.button.image.sprite = entity.getIcon();
+            newButton.Setup(handler.getKey(), this);
         }
+
+
     }
 
-    void ChangeSelectedButton(SelectButton newButton)
+    public void UpdateSelectedButton(SelectButton newButton)
     {
         if (selectedButton != null) selectedButton.background.color = Color.white;
         selectedButton = newButton;

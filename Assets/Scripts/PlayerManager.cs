@@ -45,6 +45,12 @@ public class PlayerManager
     public static void setSouls(int value)
     {
         souls = value;
+        SaveManager.updateSouls(souls);
+    }
+    public static void spendSouls(int value)
+    {
+        souls -= value;
+        SaveManager.updateSouls(souls);
     }
 
     public static void setCurrentHealth(int health)

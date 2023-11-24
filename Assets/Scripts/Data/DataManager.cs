@@ -16,6 +16,7 @@ public class DataManager : ScriptableObject
     [SerializeField] List<TextAsset> upgradesData;
     [SerializeField] private TextAsset spawnData;
     [SerializeField] private TextAsset constantsData;
+    [SerializeField] private TextAsset costData;
 
     public static Dictionary<string, interactorStats> dictWeapons = new Dictionary<string, interactorStats>();
     public static Dictionary<string, interactorStats> dictPowers = new Dictionary<string, interactorStats>();
@@ -24,6 +25,7 @@ public class DataManager : ScriptableObject
     public static Dictionary<string, UpgradeData> dictUpgrades = new Dictionary<string, UpgradeData>();
     public static Dictionary<string, Dictionary<string, UpgradeData>> dictKeyToDictUpgrades = new Dictionary<string, Dictionary<string, UpgradeData>>();
     public static Dictionary<string, SpawnData> dictDifficulty = new Dictionary<string, SpawnData>();
+    public static Dictionary<string, int> dictCost = new Dictionary<string, int>();
     [SerializeField] string selectedCharacter = "Knil";
     [SerializeField] string selectedWeapon = "Laser";
     private static DataManager instance;
@@ -45,6 +47,7 @@ public class DataManager : ScriptableObject
         DualLocalizedStringBuilder dualLocalizedStringBuilder = new DualLocalizedStringBuilder();
         SpawnDataBuilder spawnDataBuilder = new SpawnDataBuilder();
         ConstantsDataBuilder constantsDataBuilder = new ConstantsDataBuilder();
+        CostDataBuilder costDataBuilder = new CostDataBuilder();
 
         damagerDataBuilder.loadText(weaponData, ref dictWeapons, "Weapons");
         damagerDataBuilder.loadText(powerData, ref dictPowers, "Powers");
@@ -65,6 +68,7 @@ public class DataManager : ScriptableObject
         spawnDataBuilder.loadText(spawnData, ref dictDifficulty, "Spawn");
         
         constantsDataBuilder.loadText(constantsData);
+        costDataBuilder.loadText(costData, ref dictCost, "Cost");
 
         PlayerManager.playerData.character.setBase();
         
