@@ -76,7 +76,7 @@ public class SelectButton : MonoBehaviour
         int souls = SaveManager.retrieveSouls();
         Debug.Log(souls < cost);
         if (souls < cost) return false;
-        SaveManager.updateSouls(souls - cost);
+        PlayerManager.setSouls(souls - cost);
         TitleScreen.UpdateSoulsDisplay();
         return true;
     }
