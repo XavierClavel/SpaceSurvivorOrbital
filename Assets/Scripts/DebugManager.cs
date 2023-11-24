@@ -6,9 +6,13 @@ using UnityEngine;
 
 public class DebugManager : MonoBehaviour
 {
+    public static bool areUpgradesFree { get; private set; }
+    
+    
     [SerializeField] bool noEnnemySpawn;
     [SerializeField] bool noTimer;
     [SerializeField] bool startWithResources;
+    [SerializeField] private bool freeUpgrades;
 
     [Header("Start with powers")] 
     [SerializeField] private bool divineLightning;
@@ -43,6 +47,8 @@ public class DebugManager : MonoBehaviour
         if (fairy) AcquirePower(Vault.power.Fairy);
         if (shield) AcquirePower(Vault.power.Shield);
         if (ghost) AcquirePower(Vault.power.Ghost);
+
+        areUpgradesFree = freeUpgrades;
     }
 
     public static void DisplayValue(string name, string value)
