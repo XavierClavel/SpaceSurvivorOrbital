@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
     private int maxHealth;
     private float baseSpeed;
     private float damageResistanceMultiplier;
-    private static bool invulnerable = false;
+    private bool invulnerable = false;
 
     //Wait
     WaitForSeconds invulnerabilityFrameDuration;
@@ -148,7 +148,11 @@ public class PlayerController : MonoBehaviour
 
     public static void Hurt(float amount)
     {
-        if (invulnerable) return;
+        Debug.Log(amount);
+        Debug.Log(instance.invulnerable);
+        Debug.Log(instance.interactorHandler.currentInteractor.isDamageAbsorbed());
+        Debug.Log(instance.damageResistanceMultiplier);
+        if (instance.invulnerable) return;
         if (instance.interactorHandler.currentInteractor.isDamageAbsorbed()) return;
         instance.health -= (int)(amount * (1 - instance.damageResistanceMultiplier));
         instance.OnHitOverlay();
@@ -230,6 +234,7 @@ public class PlayerController : MonoBehaviour
 
         maxHealth = PlayerManager.playerData.character.maxHealth;
         int currentHealth = PlayerManager.currentHealth ?? maxHealth;
+        Debug.Log(currentHealth);
         baseSpeed = PlayerManager.playerData.character.baseSpeed;
         setSpeed(1f);
         damageResistanceMultiplier = PlayerManager.playerData.character.damageResistanceMultiplier;

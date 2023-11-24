@@ -99,8 +99,6 @@ public class Ennemy : Breakable
         waitIce = Helpers.GetWait(ConstantsData.iceDuration);
         waitFire = Helpers.GetWait(ConstantsData.fireStep);
         knockbackWindow = Helpers.GetWait(knockbackRiseDuration);
-        
-        Debug.Log(ConstantsData.fireStep);
 
         //TODO : static initalizer
 

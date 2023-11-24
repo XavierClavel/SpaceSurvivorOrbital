@@ -37,6 +37,9 @@ public class SceneTransitionManager : MonoBehaviour
     
     public void LocalTransitionToScene(gameScene newScene)
     {
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
+        
         SoundManager.onSceneChange(newScene);
         overlay.SetActive(true);
         imageTransform.sizeDelta = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight);
