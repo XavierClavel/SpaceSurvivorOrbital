@@ -76,7 +76,11 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
         });
 
         planet.sprite = getSprite();
-        planet.transform.position += Helpers.getRandomPositionInRadius(randomizePositionFactor);
+        if (tier != 0 && row != 3)
+        {
+            planet.transform.position += Helpers.getRandomPositionInRadius(randomizePositionFactor);
+        }
+        
         //GetComponent<Image>().color = getColor();
 
         /*

@@ -42,7 +42,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     public void Validate()
     {
         PlayerData data = new PlayerData();
-        data.interactor = DataManager.dictWeapons[selectedWeapon];
+        data.interactor.DuckCopyShallow(DataManager.dictWeapons[selectedWeapon]);
         PlayerManager.setWeapon(data, ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
         SceneTransitionManager.TransitionToScene(gameScene.planetJungle);
     }

@@ -27,6 +27,7 @@ public static class ResetManager
 {
     public static void Reset()
     {
+        Debug.Log("game state reset");
         NodeManager.Reset();
         DataSelector.Reset();
         PlayerManager.ResetTimer();

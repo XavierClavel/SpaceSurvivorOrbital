@@ -54,7 +54,7 @@ public class PlanetSelector : MonoBehaviour
         float randomFactor = instance.randomMultiplier * Random.Range(-1f, 1f);
         float globalFactor = instance.globalDifficultyMultiplier * globalDifficulty;
         float difficultyValue = resourceFactor + randomFactor + globalFactor - sizeFactor;
-        return (int)difficultyValue;
+        return (int)difficultyValue + 1;
     }
 
 }

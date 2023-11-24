@@ -88,7 +88,7 @@ public class PlayerManager
     {
         powers.Add(powerHandler);
         PlayerData playerData = new PlayerData();
-        playerData.interactor = DataManager.dictPowers[powerHandler.getKey()]; //TODO copy
+        playerData.interactor.DuckCopyShallow(DataManager.dictPowers[powerHandler.getKey()]);
         dictKeyToStats[powerHandler.getKey()] = playerData;
     }
 

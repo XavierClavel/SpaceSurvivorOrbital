@@ -148,10 +148,6 @@ public class PlayerController : MonoBehaviour
 
     public static void Hurt(float amount)
     {
-        Debug.Log(amount);
-        Debug.Log(instance.invulnerable);
-        Debug.Log(instance.interactorHandler.currentInteractor.isDamageAbsorbed());
-        Debug.Log(instance.damageResistanceMultiplier);
         if (instance.invulnerable) return;
         if (instance.interactorHandler.currentInteractor.isDamageAbsorbed()) return;
         instance.health -= (int)(amount * (1 - instance.damageResistanceMultiplier));

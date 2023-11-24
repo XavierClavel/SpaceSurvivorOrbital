@@ -47,6 +47,28 @@ public static class SingletonManager
 
 public static class Extensions
 {
+    
+    public static void DuckCopyShallow(this System.Object dst, object src)
+    {
+        var srcT = src.GetType();
+        var dstT= dst.GetType();
+        foreach(var f in srcT.GetFields())
+        {
+            var dstF = dstT.GetField(f.Name);
+            if (dstF == null || dstF.IsLiteral)
+                continue;
+            dstF.SetValue(dst, f.GetValue(src));
+        }
+
+        foreach (var f in srcT.GetProperties())
+        {
+            var dstF = dstT.GetProperty(f.Name);
+            if (dstF == null)
+                continue;
+            
+            dstF.SetValue(dst, f.GetValue(src, null), null);
+        }
+    }
 
     public static Vector2 perpendicular(this Vector2 v)
     {
