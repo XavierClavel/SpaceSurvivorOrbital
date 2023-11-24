@@ -68,7 +68,6 @@ public class DataManager : ScriptableObject
 
         PlayerManager.playerData.character.setBase();
         
-        Debug.Log("reset data");
         PlayerData weaponPlayerData = new PlayerData();
         weaponPlayerData.interactor = dictWeapons[selectedWeapon];
         PlayerManager.setWeapon(weaponPlayerData, ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);

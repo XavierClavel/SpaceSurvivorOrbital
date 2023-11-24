@@ -53,7 +53,7 @@ public static class PlanetManager
     {
         return scarcity switch
         {
-            planetResourceScarcity.none => 0f,
+            planetResourceScarcity.none => getDenScarcity(planetResourceScarcity.medium),
             planetResourceScarcity.rare => ConstantsData.denSpawnRateLow,
             planetResourceScarcity.medium => ConstantsData.denSpawnRateMid,
             planetResourceScarcity.common => ConstantsData.denSpawnRateStrong,

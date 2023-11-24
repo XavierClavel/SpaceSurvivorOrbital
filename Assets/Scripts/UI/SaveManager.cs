@@ -68,8 +68,20 @@ public static class SaveManager
         {
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(getDataPath(), FileMode.Open);
-            saveData = formatter.Deserialize(stream) as SaveData;
-            stream.Close();
+            try
+            {
+                saveData = formatter.Deserialize(stream) as SaveData;
+                stream.Close();
+            }
+            catch
+            {
+                Debug.LogWarning("Incompatible save format, save was reset");
+                stream.Close();
+                Reset();
+                saveData = new SaveData();
+            }
+            
+            
         }
         else
         {
