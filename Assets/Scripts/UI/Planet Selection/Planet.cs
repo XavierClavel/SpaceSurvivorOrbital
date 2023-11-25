@@ -11,7 +11,7 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
     private Vector2 randomizePositionFactor = new Vector2(100f,25f);
     
     //Static
-    private static int currentTier = 0;
+    public static int currentTier = 0;
     private static GameObject currentlyDisplayedPanel = null;
     
     //API
@@ -70,8 +70,8 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
         button.onClick.AddListener(delegate
         {
             currentTier++;
-            PlanetSelector.SelectPlanet(this);
             PlanetSelectionManager.SelectNode(node);
+            PlanetSelector.SelectPlanet(this);
         });
 
         planet.sprite = getSprite();

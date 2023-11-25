@@ -27,7 +27,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     //Static
     private static Node[,] nodeMatrix;
     private static Dictionary<string, Planet> dictKeyToPlanet = new Dictionary<string, Planet>();
-    private static Node currentNode = null;
+    public static Node currentNode = null;
     
     //Static API
     public static Dictionary<string, PlanetData> dictKeyToPlanetData = new Dictionary<string, PlanetData>();
@@ -61,6 +61,13 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         dictKeyToPlanet = new Dictionary<string, Planet>();
         dictKeyToPlanetData = new Dictionary<string, PlanetData>();
         currentNode = null;
+    }
+
+    public static PlanetData getStartPlanetData()
+    {
+        currentNode = nodeMatrix[0, 3];
+        Planet.currentTier = 1;
+        return dictKeyToPlanetData["x0-y3"];
     }
 
     public static void SelectNode(Node node)

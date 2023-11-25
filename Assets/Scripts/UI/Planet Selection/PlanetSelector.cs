@@ -45,6 +45,13 @@ public class PlanetSelector : MonoBehaviour
         PlanetManager.setData(planet.planetData);
         SceneTransitionManager.TransitionToScene(planet.planetData);
     }
+    
+    public static void SelectFirstPlanet()
+    {
+        PlanetData planetData = PlanetSelectionManager.getStartPlanetData();
+        PlanetManager.setData(planetData);
+        SceneTransitionManager.TransitionToScene(planetData);
+    }
 
     public static int getDifficulty(PlanetData planetData)
     {
