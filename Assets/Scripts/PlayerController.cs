@@ -230,7 +230,6 @@ public class PlayerController : MonoBehaviour
 
         maxHealth = PlayerManager.playerData.character.maxHealth;
         int currentHealth = PlayerManager.currentHealth ?? maxHealth;
-        Debug.Log(currentHealth);
         baseSpeed = PlayerManager.playerData.character.baseSpeed;
         setSpeed(1f);
         damageResistanceMultiplier = PlayerManager.playerData.character.damageResistanceMultiplier;

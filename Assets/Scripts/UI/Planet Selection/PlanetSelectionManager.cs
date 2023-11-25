@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
+using MyBox;
 using Shapes;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,6 +29,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     private static Node[,] nodeMatrix;
     private static Dictionary<string, Planet> dictKeyToPlanet = new Dictionary<string, Planet>();
     public static Node currentNode = null;
+    private static List<Node> accessibleNodes;
     
     //Static API
     public static Dictionary<string, PlanetData> dictKeyToPlanetData = new Dictionary<string, PlanetData>();
@@ -37,7 +39,8 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     [SerializeField] private Planet planetObject;
     [SerializeField] private Transform gridLayoutTransform;
     [SerializeField] private GridLayoutGroup gridLayout;
-    [SerializeField] private Polyline line;
+    [SerializeField] private Line lineAccessible;
+    [SerializeField] private Line lineInaccessible;
     
     //Public
     [HideInInspector] public GameObject firstSelectedButton;
@@ -83,10 +86,13 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     public static List<Node> getPossiblePathNodes()
     {
         if (currentNode == null)
+        {
             return new List<Node>()
             {
                 nodeMatrix[0, 3],
             };
+        }
+            
         else return currentNode.childNodes;
     }
 
@@ -112,7 +118,26 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     public void DisplayData()
     {
         PopulateGrid();
+        getAccessibleNodes();
         CreateLinks();
+    }
+
+    private void getAccessibleNodes()
+    {
+        currentNode ??= nodeMatrix[0, 3];
+        accessibleNodes = new List<Node>();
+        accessibleNodes.Add(currentNode);
+        getAccessibleNodes(currentNode);
+    }
+
+    private void getAccessibleNodes(Node node)
+    {
+        if (node.childNodes.IsNullOrEmpty()) return;
+        foreach (var childNode in node.childNodes)
+        {
+            accessibleNodes.TryAdd(childNode);
+            getAccessibleNodes(childNode);
+        }
     }
 
 
@@ -159,7 +184,6 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         {
             for (int y = 0; y < maxY; y++)
             {
-                Debug.Log($"Loop index {tier}-{y}");
                 if (nodeMatrix[tier, y] == null) continue;
 
                 List<Node> options = getPathOptions(tier, y);
@@ -174,14 +198,14 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
 
     private static List<Node> getPathOptions(int x, int y)
     {
-        Debug.Log($"=======================================");
-        Debug.Log($"Node : {x}-{y}");
+        //Debug.Log($"=======================================");
+        //Debug.Log($"Node : {x}-{y}");
         List<Node> pathOptions = new List<Node>();
         for (int potentialRow = y - 1; potentialRow <= y + 1; potentialRow++)
         {
             if (potentialRow < 0 || potentialRow >= maxY) continue;
             Node neighborNode = nodeMatrix[x+1, potentialRow];
-            Debug.Log($"Neighbor node : {x+1}-{potentialRow}");
+            //Debug.Log($"Neighbor node : {x+1}-{potentialRow}");
             if (neighborNode != null) pathOptions.Add(neighborNode);
         }
 
@@ -289,8 +313,8 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
             return position;
         }
         
-        Debug.Log($"Current Attempt : {currentAttempt}, closestNeighbor : {closestNeighbor((Vector3)newPos, me)}");
-        Debug.Log($"===============================================");
+        //Debug.Log($"Current Attempt : {currentAttempt}, closestNeighbor : {closestNeighbor((Vector3)newPos, me)}");
+        //Debug.Log($"===============================================");
         
         planetsPos.Add((Vector3)newPos);
         return (Vector3)newPos;
@@ -311,7 +335,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
             }
         }
         
-        Debug.Log($"Closest neighborship : {nodeList[neighborIndex].key}, {me}");
+        //Debug.Log($"Closest neighborship : {nodeList[neighborIndex].key}, {me}");
 
         return closestNeighbor;
     }
@@ -367,25 +391,18 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         yield return null;
         foreach (Node parentNode in nodeList)
         {
+            Line line = accessibleNodes.Contains(parentNode) ? lineAccessible : lineInaccessible;
             foreach (Node childNode in parentNode.childNodes)
             {
-                Polyline polyline = Instantiate(line, transform, true);
+                Line polyline = Instantiate(line, transform, true);
                 polyline.transform.localScale = Vector3.one;
-                polyline.transform.position = Vector3.zero;
+                polyline.transform.localPosition = Vector3.zero;
                 polyline.name = $"Line_{parentNode.key}_to_{childNode.key}";
                 
-                Vector2 startPoint = panelRect.InverseTransformPoint(dictKeyToPlanet[parentNode.key].planet.GetComponent<RectTransform>().position);
-                Vector2 endPoint = panelRect.InverseTransformPoint(dictKeyToPlanet[childNode.key].planet.GetComponent<RectTransform>().position);
+                line.Start = panelRect.InverseTransformPoint(dictKeyToPlanet[parentNode.key].planet.GetComponent<RectTransform>().position);
+                line.End = panelRect.InverseTransformPoint(dictKeyToPlanet[childNode.key].planet.GetComponent<RectTransform>().position);
 
-                List<Vector2> points = new List<Vector2>()
-                {
-                    startPoint,
-                    endPoint,
-                };
-                
-                polyline.SetPoints(points);
-
-                polyline.GetComponent<RectTransform>().anchoredPosition3D = 10 * Vector3.back;
+                //polyline.GetComponent<RectTransform>().anchoredPosition3D = 10 * Vector3.back;
             }
         }
     }

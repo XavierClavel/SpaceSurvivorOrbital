@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -26,6 +27,8 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
     [SerializeField] private DiscreteBarHandler orangeBar;
     [SerializeField] private DiscreteBarHandler greenBar;
     [SerializeField] private GameObject displayPanel;
+
+    private static Dictionary<String, Vector3> dictPlanetToPos = new Dictionary<string, Vector3>();
     
     //Private
     private int planetTier;
@@ -38,6 +41,7 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
     {
         currentTier = 0;
         currentlyDisplayedPanel = null;
+        dictPlanetToPos = new Dictionary<string, Vector3>();
     }
 
 #endregion
@@ -77,7 +81,17 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
         planet.sprite = getSprite();
         if (tier != 0 && row != 3)
         {
-            planet.transform.position += Helpers.getRandomPositionInRadius(randomizePositionFactor);
+            if (dictPlanetToPos.TryGetValue(node.key, out var pos))
+            {
+                planet.transform.position += pos;
+            }
+            else
+            {
+                Vector3 pos2 = Helpers.getRandomPositionInRadius(randomizePositionFactor);
+                planet.transform.position += pos2;
+                dictPlanetToPos[node.key] = pos2;
+            }
+            
         }
         
         //GetComponent<Image>().color = getColor();

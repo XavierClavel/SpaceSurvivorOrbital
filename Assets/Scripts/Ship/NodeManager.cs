@@ -173,7 +173,7 @@ public class NodeManager : MonoBehaviour
 
     public void CreateLinks()
     {
-StartCoroutine(nameof(CreateLinksCoroutine));
+        StartCoroutine(nameof(CreateLinksCoroutine));
     }
 
     IEnumerator CreateLinksCoroutine()

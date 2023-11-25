@@ -45,7 +45,6 @@ public static class SaveManager
     {
         saveData.souls = value;
         Save();
-        Debug.Log(saveData.souls);
     }
 
     private static string getDataPath()
