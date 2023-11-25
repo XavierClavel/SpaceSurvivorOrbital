@@ -31,4 +31,24 @@ public class PlanetData
             _ => gameScene.titleScreen
         };
     }
+
+    public static PlanetData getRandom()
+    {
+        PlanetData planetData = new PlanetData();
+        planetData.setData();
+        return planetData;
+    }
+
+    private PlanetData setData()
+    {
+        this.size = Helpers.getRandomEnum<planetSize>();
+        this.greenScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
+        this.orangeScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
+        this.greenScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
+        this.type = Helpers.getRandomEnum<planetType>();
+
+        this.difficulty = PlanetSelector.getDifficulty(this);
+
+        return this;
+    }
 }

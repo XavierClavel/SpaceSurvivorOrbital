@@ -61,7 +61,7 @@ public static class ResetManager
         DataSelector.Reset();
         PlayerManager.ResetTimer();
         PlayerManager.Reset();
-        PlanetSelectionManager.Reset();
+        PlanetSelectionManager.GenerateData();
         Planet.Reset();
     }
 }

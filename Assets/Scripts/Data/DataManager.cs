@@ -76,6 +76,8 @@ public class DataManager : ScriptableObject
         weaponPlayerData.interactor = dictWeapons[selectedWeapon];
         PlayerManager.setWeapon(weaponPlayerData, ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
         PlayerManager.setCharacter(ScriptableObjectManager.dictKeyToCharacterHandler[selectedCharacter]);
+        
+        PlanetSelectionManager.GenerateData();
     }
 
     private void getSaveData()

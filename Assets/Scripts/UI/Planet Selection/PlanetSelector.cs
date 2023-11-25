@@ -26,11 +26,11 @@ public class PlanetSelector : MonoBehaviour
     public Color colorStorm;
 
     [Header("Parameters")]
-    [SerializeField] float resourceMultiplier = 0.33f;
-    [SerializeField] float altarMultiplier = 0.5f;
-    [SerializeField] float sizeMultiplier = 0.1f;
-    [SerializeField] float randomMultiplier = 0.5f;
-    [SerializeField] float globalDifficultyMultiplier = 0.8f;
+    private static float resourceMultiplier = 0.33f;
+    private static float altarMultiplier = 0.5f;
+    private static float sizeMultiplier = 0.1f;
+    private static float randomMultiplier = 0.5f;
+    private static float globalDifficultyMultiplier = 0.8f;
     static int globalDifficulty = -1;
 
     private void Awake()
@@ -49,10 +49,10 @@ public class PlanetSelector : MonoBehaviour
     public static int getDifficulty(PlanetData planetData)
     {
         int resourceAmount = (int)planetData.greenScarcity + (int)planetData.orangeScarcity + (int)planetData.greenScarcity;
-        float resourceFactor = instance.resourceMultiplier * (float)resourceAmount;
-        float sizeFactor = instance.sizeMultiplier * ((float)planetData.size - 1f);
-        float randomFactor = instance.randomMultiplier * Random.Range(-1f, 1f);
-        float globalFactor = instance.globalDifficultyMultiplier * globalDifficulty;
+        float resourceFactor = resourceMultiplier * (float)resourceAmount;
+        float sizeFactor = sizeMultiplier * ((float)planetData.size - 1f);
+        float randomFactor = randomMultiplier * Random.Range(-1f, 1f);
+        float globalFactor = globalDifficultyMultiplier * globalDifficulty;
         float difficultyValue = resourceFactor + randomFactor + globalFactor - sizeFactor;
         return (int)difficultyValue + 1;
     }

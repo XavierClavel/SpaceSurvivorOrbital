@@ -63,8 +63,7 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
         }
         else
         {
-            GenerateData();
-            PlanetSelectionManager.dictKeyToPlanetData[node.key] = planetData;
+            Debug.LogError($"Key {node.key} is missing from {nameof(PlanetSelectionManager.dictKeyToPlanetData)}");
         }
 
 
@@ -104,17 +103,6 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
         greenBar.maxAmount = 3;
         greenBar.currentAmount = (int)planetData.greenScarcity;
         greenBar.Initialize();
-    }
-
-    private void GenerateData()
-    {
-            planetData.size = Helpers.getRandomEnum<planetSize>();
-            planetData.greenScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
-            planetData.orangeScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
-            planetData.greenScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
-            planetData.type = Helpers.getRandomEnum<planetType>();
-
-            planetData.difficulty = PlanetSelector.getDifficulty(planetData);
     }
 
 

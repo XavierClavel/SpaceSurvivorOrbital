@@ -60,7 +60,6 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     {
         dictKeyToPlanet = new Dictionary<string, Planet>();
         dictKeyToPlanetData = new Dictionary<string, PlanetData>();
-        nodeMatrix = new Node[maxX, maxY];
         currentNode = null;
     }
 
@@ -93,29 +92,33 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         return GetComponent<RectTransform>();
     }
 
+    public static void GenerateData()
+    {
+        Reset();
+        
+        
+        GenerateNodeMatrix();
+        GeneratePaths();
+        GeneratePlanetData();
+    }
+
+    public void DisplayData()
+    {
+        PopulateGrid();
+        CreateLinks();
+    }
+
 
     public void Setup()
     {
         panelRect = GetComponent<RectTransform>();
-        
-        if (dictKeyToPlanet.Count == 0) 
-        {
-            GenerateNodeMatrix();
-        }
-        
-        GeneratePaths();
 
-        //CullGrid();
-
-        PopulateGrid();
-
-
-        CreateLinks();
+        DisplayData();
     }
 
 #endregion
 
-    void GenerateNodeMatrix()
+    private static void GenerateNodeMatrix()
     {
         nodeMatrix = new Node[maxX, maxY];
         int middleYIndex = (int)(0.5 * maxY);
@@ -131,7 +134,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         nodeMatrix[maxX - 1, middleYIndex] = new Node(maxX - 1, middleYIndex);
     }
 
-    void GenerateNodeColumn(int x)
+    private static void GenerateNodeColumn(int x)
     {
         List<int> columnIndexes = Enumerable.Range(0, maxY).ToList();
         columnIndexes.Add(-1);
@@ -143,7 +146,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         }
     }
 
-    void GeneratePaths()
+    private static void GeneratePaths()
     {
         for (int tier = 0; tier < maxX - 1; tier++)
         {
@@ -162,7 +165,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         }
     }
 
-    List<Node> getPathOptions(int x, int y)
+    private static List<Node> getPathOptions(int x, int y)
     {
         Debug.Log($"=======================================");
         Debug.Log($"Node : {x}-{y}");
@@ -178,7 +181,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         return pathOptions;
     }
 
-    List<Node> selectPaths(List<Node> options)
+    private static List<Node> selectPaths(List<Node> options)
     {
         if (options.Count == 0) return options;
         if (options[0].tier == 1 || options[0].tier == maxX) return options; 
@@ -195,6 +198,21 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
                 return options;
         }
         
+    }
+
+    private static void GeneratePlanetData()
+    {
+        for (int y = 0; y < maxY; y++)
+        {
+            for (int x = 0; x < maxX; x++)
+            {
+                Node node = nodeMatrix[x, y];
+                if (node == null) continue;
+                
+                node.key = $"x{x}-y{y}";
+                dictKeyToPlanetData[node.key] = PlanetData.getRandom();
+            }
+        }
     }
     
     void PopulateGrid()
