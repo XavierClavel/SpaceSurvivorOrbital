@@ -35,10 +35,7 @@ public class TitleScreenManager : MonoBehaviour
 
     public static void HideDataSelector()
     {
-        Debug.Log(instance.dataSelectorUI.gameObject.name);
-        Debug.Log(instance.dataSelectorUI.anchoredPosition);
         instance.dataSelectorUI.anchoredPosition += Camera.main.scaledPixelHeight * Vector2.down;
-        Debug.Log(instance.dataSelectorUI.anchoredPosition);
     }
 
     public static void DisplayUpgradesUI()

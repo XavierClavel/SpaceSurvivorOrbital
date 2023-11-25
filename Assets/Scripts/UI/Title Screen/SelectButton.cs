@@ -65,19 +65,15 @@ public class SelectButton : MonoBehaviour
         costPanel.SetActive(false);
         isUnlocked = true;
         
-        Debug.Log("unlocked");
-        
         Select();
 
     }
 
     bool Transaction()
     {
-        int souls = SaveManager.retrieveSouls();
-        Debug.Log(souls < cost);
-        if (souls < cost) return false;
-        PlayerManager.setSouls(souls - cost);
-        TitleScreen.UpdateSoulsDisplay();
+        PlayerManager.setSouls();
+        if (PlayerManager.getSouls() < cost) return false;
+        PlayerManager.spendSouls(cost);
         return true;
     }
 

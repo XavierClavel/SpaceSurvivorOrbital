@@ -42,6 +42,11 @@ public class PlayerManager
         return souls;
     }
 
+    public static void setSouls()
+    {
+        setSouls((SaveManager.retrieveSouls()));
+    }
+
     public static void setSouls(int value)
     {
         souls = value;

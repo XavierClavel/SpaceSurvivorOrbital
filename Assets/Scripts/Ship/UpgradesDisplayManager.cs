@@ -145,7 +145,7 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     
     public void UpdateButtonSprites()
     {
-        buttons[2].image.sprite = PlayerManager.weaponPrefab.spriteRenderer.sprite;
+        buttons[1].image.sprite = PlayerManager.weaponPrefab.spriteRenderer.sprite;
     }
 
     public void SetActivePanel(NodeManager nodeManager)
