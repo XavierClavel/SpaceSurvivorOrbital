@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,11 +8,16 @@ public class Sword : Interactor
 {
     bool hitting = false;
     const float precision = 5f;
+    [SerializeField] private Collider2D swordCollider;
+    [SerializeField] private Blade blade;
+    private float attackLength;
 
     protected override void Start()
     {
         base.Start();
         autoCooldown = true;
+        swordCollider.enabled = false;
+        attackLength = 1f / stats.attackSpeed;
     }
 
     protected override void onStartUsing() { }
@@ -20,12 +26,30 @@ public class Sword : Interactor
 
     protected override void onUse()
     {
+        player.OverrideWeaponRotation();
+        swordCollider.enabled = true;
+        Vector3 eulerDelta = stats.spread * 0.5f * Vector3.forward;
+        Vector3 eulerBase = aimTransform.eulerAngles;
+        aimTransform.eulerAngles = eulerBase - eulerDelta;
+        aimTransform.DORotate(2 * eulerDelta, attackLength, RotateMode.WorldAxisAdd).SetEase(Ease.InOutQuad).OnComplete(onAttackEnd);
         if (hitting) return;
         //StartCoroutine(nameof(Hit));
 
         //Physics2D.Cast
 
         //ObjectManager.dictObjectToBreakable[other.gameObject].Hit(damage, status.none, critical);
+    }
+
+    public void onHit(Collider2D other)
+    {
+        HitInfo hitInfo = new HitInfo(stats);
+        ObjectManager.dictObjectToHitable[other.gameObject].Hit(hitInfo);
+    }
+
+    private void onAttackEnd()
+    {
+        swordCollider.enabled = false;
+        player.ReleaseWeaponRotation();
     }
 
     /*IEnumerator Hit() {
@@ -62,11 +86,5 @@ public class Sword : Interactor
         yield return Helpers.GetWait(stats.cooldown);
         hitting = false;
     }*/
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-
-
-
-    }
+    
 }
