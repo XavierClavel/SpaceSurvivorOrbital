@@ -26,7 +26,7 @@ public class FairyChild : Power
 
     protected override void Start()
     {
-        stats = DataManager.dictPowers["Fairy"];
+        stats = DataManager.dictPowers["Fairy"].interactor;
         player = PlayerController.instance.transform;
         StartCoroutine(nameof(Reload));
     }

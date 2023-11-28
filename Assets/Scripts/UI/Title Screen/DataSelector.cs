@@ -80,9 +80,7 @@ public class DataSelector : MonoBehaviour, UIPanel
 
     public void Validate()
     {
-        PlayerData data = new PlayerData();
-        data.interactor.DuckCopyShallow(DataManager.dictWeapons[selectedWeapon]);
-        PlayerManager.setWeapon(data, ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
+        PlayerManager.setWeapon(DataManager.dictWeapons[selectedWeapon], ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
         
         PlanetSelector.SelectFirstPlanet();
     }

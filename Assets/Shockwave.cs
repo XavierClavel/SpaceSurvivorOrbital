@@ -29,14 +29,18 @@ public class Shockwave : MonoBehaviour
         this.effect = effect;
     }
 
-    public void doShockwave()
+    public void doShockwave(bool destroyOnComplete = false)
     {
         objectsHit = new List<GameObject>();
         disc.Color = baseShockwaveColor;
         transform.localScale = Vector3.zero;
         
         transform.DOScale(shockwaveRange, shockwaveDuration).OnComplete(
-            delegate { transform.localScale = Vector3.zero; });
+            delegate
+            {
+                transform.localScale = Vector3.zero;
+                if (destroyOnComplete) GameObject.Destroy(gameObject, 1f);
+            });
         DOTween.To(() => disc.Color, x => disc.Color = x, clearColor, shockwaveDuration).SetEase(Ease.OutQuad);
     }
 

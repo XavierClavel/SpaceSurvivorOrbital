@@ -2,26 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamagerDataBuilder : DataBuilder<interactorStats>
+public class DamagerDataBuilder : DataBuilder<PlayerData>
 {
 
-    protected override interactorStats BuildData(List<string> s)
+    protected override PlayerData BuildData(List<string> s)
     {
 
-        interactorStats stats = new interactorStats();
+        PlayerData stats = new PlayerData();
 
-        SetValue(ref stats.baseDamage, Vault.key.upgrade.BaseDamage);
-        SetValue(ref stats.attackSpeed, Vault.key.upgrade.AttackSpeed);
-        SetValue(ref stats.range, Vault.key.upgrade.Range);
-        SetValue(ref stats.cooldown, Vault.key.upgrade.Cooldown);
-        SetValue(ref stats.pierce, Vault.key.upgrade.Pierce);
-        SetValue(ref stats.projectiles, Vault.key.upgrade.Projectiles);
-        SetValue(ref stats.spread, Vault.key.upgrade.Spread);
-        SetValue(ref stats.speedWhileAiming, Vault.key.upgrade.AimingSpeed);
-        SetValue(ref stats.criticalChance, Vault.key.upgrade.CriticalChance);
-        SetValue(ref stats.criticalMultiplier, Vault.key.upgrade.CriticalChance);
-        SetValue(ref stats.magazine, Vault.key.upgrade.Magazine);
-        SetValue(ref stats.magazineReloadTime, Vault.key.upgrade.MagazineCooldown);
+        SetValue(ref stats.interactor.baseDamage, Vault.key.upgrade.BaseDamage);
+        SetValue(ref stats.interactor.attackSpeed, Vault.key.upgrade.AttackSpeed);
+        SetValue(ref stats.interactor.range, Vault.key.upgrade.Range);
+        SetValue(ref stats.interactor.cooldown, Vault.key.upgrade.Cooldown);
+        SetValue(ref stats.interactor.pierce, Vault.key.upgrade.Pierce);
+        SetValue(ref stats.interactor.projectiles, Vault.key.upgrade.Projectiles);
+        SetValue(ref stats.interactor.spread, Vault.key.upgrade.Spread);
+        SetValue(ref stats.interactor.speedWhileAiming, Vault.key.upgrade.AimingSpeed);
+        SetValue(ref stats.interactor.criticalChance, Vault.key.upgrade.CriticalChance);
+        SetValue(ref stats.interactor.criticalMultiplier, Vault.key.upgrade.CriticalChance);
+        SetValue(ref stats.interactor.magazine, Vault.key.upgrade.Magazine);
+        SetValue(ref stats.interactor.magazineReloadTime, Vault.key.upgrade.MagazineCooldown);
+        
+        TrySetValue(ref stats.generic.boolA, "BoolA");
+        TrySetValue(ref stats.generic.boolB, "BoolB");
+        TrySetValue(ref stats.generic.boolC, "BoolC");
+        TrySetValue(ref stats.generic.intA, "IntA");
+        TrySetValue(ref stats.generic.intB, "IntB");
+        TrySetValue(ref stats.generic.floatA, "FloatA");
+        TrySetValue(ref stats.generic.floatB, "FloatB");
+        TrySetValue(ref stats.generic.elementA, "ElementA");
+        
+        Debug.Log(stats.generic.floatA);
+        
+        
 
         return stats;
     }

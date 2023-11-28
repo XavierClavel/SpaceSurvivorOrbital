@@ -19,7 +19,7 @@ public class PlayerManager
     public static Interactor weaponPrefab = null;
 
 
-    public static PlayerData weaponData;
+    public static PlayerData weaponData = new PlayerData();
     public static WeaponHandler weapon;
     public static CharacterHandler character;
 
@@ -66,7 +66,7 @@ public class PlayerManager
 
     public static void setWeapon(PlayerData interactorData, WeaponHandler weaponHandler)
     {
-        weaponData = interactorData;
+        weaponData.DuckCopyShallow(interactorData);
         weaponPrefab = weaponHandler.getWeapon();
         weapon = weaponHandler;
     }
@@ -99,7 +99,7 @@ public class PlayerManager
     {
         powers.Add(powerHandler);
         PlayerData playerData = new PlayerData();
-        playerData.interactor.DuckCopyShallow(DataManager.dictPowers[powerHandler.getKey()]);
+        playerData.DuckCopyShallow(DataManager.dictPowers[powerHandler.getKey()]);
         dictKeyToStats[powerHandler.getKey()] = playerData;
     }
 

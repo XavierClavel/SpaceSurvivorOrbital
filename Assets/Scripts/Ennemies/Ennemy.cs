@@ -221,6 +221,7 @@ public class Ennemy : Breakable
         StressTest.nbEnnemies--;
         SoundManager.PlaySfx(transform, Vault.sfx.EnnemyExplosion);
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
+        ObjectManager.dictObjectToHitable.Remove(gameObject);
         
         onDeath.Invoke();
         StartCoroutine(nameof(ShakeCoroutine));
