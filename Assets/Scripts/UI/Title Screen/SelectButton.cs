@@ -8,10 +8,10 @@ public class SelectButton : MonoBehaviour
     [HideInInspector] public RectTransform rectTransform;
     public Image background;
     [SerializeField] private GameObject cross;
-    private string key;
+    [HideInInspector] public string key;
     private SelectorLayout selectorLayout;
-    private bool isUnlocked;
-    private int cost = 0;
+    [HideInInspector] public bool isUnlocked;
+    [HideInInspector] public int cost = 0;
     [SerializeField] private GameObject costPanel;
     [SerializeField] private TextMeshProUGUI costDiplay;
 
@@ -51,6 +51,7 @@ public class SelectButton : MonoBehaviour
 
     private void Select()
     {
+        DataSelector.DisplayGeneric(key, this);
         if (isUnlocked || TitleScreen.isSelectionFree)
         {
             DataSelector.SelectGeneric(key);

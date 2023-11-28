@@ -33,7 +33,10 @@ public class LocalizationManager : MonoBehaviour
     {
         textDisplay.SetText(dictDisplayToLocalizedString[textDisplay].getText());
     }
-
+    
+    /**
+     * Adds localized text to a text field using the given key
+     */
     public static void LocalizeTextField(string key, TextMeshProUGUI field)
     {
         if (!DataManager.dictLocalization.ContainsKey(key))
