@@ -106,6 +106,8 @@ public class PlayerController : MonoBehaviour
 
     public static bool isPlayingWithGamepad = false;
 
+    private bool isWeaponOverridingRotation = false;
+
 
     //Player parameters
     private int maxHealth;
@@ -338,6 +340,16 @@ public class PlayerController : MonoBehaviour
         controls.Enable();
     }
 
+    public void OverrideWeaponRotation()
+    {
+        isWeaponOverridingRotation = true;
+    }
+
+    public void ReleaseWeaponRotation()
+    {
+        isWeaponOverridingRotation = false;
+    }
+
     void Update()
     {
         Move();
@@ -380,7 +392,7 @@ public class PlayerController : MonoBehaviour
         if (Helpers.isPlatformAndroid()) aimVector = joystickAim.Direction;
         else aimVector = isPlayingWithGamepad ? getGamepadAimInput() : getMouseAimInput();
 
-        if (aimVector != Vector2.zero)
+        if (aimVector != Vector2.zero && !isWeaponOverridingRotation)
         {
             float angle = Vector2.SignedAngle(Vector2.up, aimVector) + 90f;
             pointerFront.rotation = Quaternion.Euler(0f, 0f, angle);
