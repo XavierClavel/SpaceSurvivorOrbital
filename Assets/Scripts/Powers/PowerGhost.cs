@@ -10,6 +10,7 @@ public class PowerGhost : Power, IEnnemyListener
     [SerializeField] private Animation anim;
 
     [SerializeField] private Shockwave shockwave;
+
     private bool isShockwaveEnabled;
     private int shockwaveDamage;
     private float shockwaveMaxRange;
@@ -23,8 +24,8 @@ public class PowerGhost : Power, IEnnemyListener
         isShockwaveEnabled = fullStats.generic.boolA;
         shockwaveMaxRange = fullStats.generic.floatA;
         shockwaveDamage = fullStats.generic.intA;
+        shockwaveElement = fullStats.generic.elementA;
 
-        shockwave = Instantiate(shockwave, player.transform, true);
         shockwave.transform.localScale = Vector3.zero;
         shockwave.transform.localPosition = Vector3.zero;
         shockwave.Setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement);
@@ -55,7 +56,8 @@ public class PowerGhost : Power, IEnnemyListener
     {
         Instantiate(this.ghost);
         ghost.transform.position = position;
-        StartCoroutine(Explosion());
+        Shockwave shockwaveGhost = Instantiate(shockwave, this.transform, true);
+        shockwaveGhost.doShockwave();
     }
 
     IEnumerator Explosion()
