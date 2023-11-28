@@ -31,6 +31,9 @@ public static class ConstantsData
 
     public static float invulenerabilityFrame;
 
+    public static float audioMinPitch;
+    public static float audioMaxPitch;
+
 }
 
 public class ConstantsDataBuilder
@@ -69,6 +72,9 @@ public class ConstantsDataBuilder
         
         SetValue(ref ConstantsData.invulenerabilityFrame, "InvulnerabilityFrame");
         SetValue(ref ConstantsData.resourcesFillAmount, "Resources_FillAmount");
+        
+        SetValue(ref ConstantsData.audioMinPitch, "Audio_MinPitch");
+        SetValue(ref ConstantsData.audioMaxPitch, "Audio_MaxPitch");
     }
     
     private void SetValue<T>(ref T variable, string key)

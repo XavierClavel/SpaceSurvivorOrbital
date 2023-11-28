@@ -25,7 +25,7 @@ public class Shockwave : MonoBehaviour
         baseShockwaveColor = disc.Color;
         clearColor = baseShockwaveColor;
         clearColor.a = 0;
-
+    
         this.effect = effect;
     }
 
