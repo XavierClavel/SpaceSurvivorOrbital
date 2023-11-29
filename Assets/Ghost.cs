@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class Ghost : MonoBehaviour
@@ -12,6 +13,8 @@ public class Ghost : MonoBehaviour
     private int shockwaveDamage;
     private float shockwaveMaxRange;
     private status shockwaveElement;
+    private bool playerBullet = false;
+    private bool contactEnnemy = false;
 
     public void Setup(PlayerData _)
     {
@@ -19,6 +22,9 @@ public class Ghost : MonoBehaviour
         shockwaveMaxRange = _.generic.floatA;
         shockwaveDamage = _.generic.intA;
         shockwaveElement = _.generic.elementA;
+        playerBullet = _.generic.boolC;
+        contactEnnemy = _.generic.boolB;
+        
 
         animator = GetComponent<Animator>();
         StartCoroutine(WaitBeforeDestroy());
@@ -47,13 +53,20 @@ public class Ghost : MonoBehaviour
         shockwaveGhost.Setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement);
         shockwaveGhost.doShockwave();
     }
-    private IEnumerator DestroyByPlayer()
+    private IEnumerator DestroyByOther()
     {
+        StopCoroutine(WaitBeforeDestroy());
+
         animator.enabled = true;
         DoShockwave();
 
         yield return new WaitForSeconds(0.5f);
 
         Destroy(this.gameObject);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer.Ennemies) && contactEnnemy) StartCoroutine(DestroyByOther());
     }
 }
