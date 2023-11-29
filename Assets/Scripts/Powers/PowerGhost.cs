@@ -7,17 +7,9 @@ using UnityEngine.UIElements;
 
 public class PowerGhost : Power, IEnnemyListener
 {
-    [SerializeField] private GameObject ghost;
-    [SerializeField] private Animation anim;
+    [SerializeField] private Ghost ghost;
 
-    [SerializeField] private Shockwave shockwave;
-
-    private bool isShockwaveEnabled;
-    private int shockwaveDamage;
-    private float shockwaveMaxRange;
-    private status shockwaveElement;
-
-    [SerializeField] private int spawnsEvery = 1;
+    [SerializeField] private int spawnsEvery = 2;
     private int spawnCounter = 0;
 
     
@@ -25,13 +17,6 @@ public class PowerGhost : Power, IEnnemyListener
     {
         base.Setup(_);
         Ennemy.registerListener(this);
-        
-        isShockwaveEnabled = fullStats.generic.boolA;
-        shockwaveMaxRange = fullStats.generic.floatA;
-        shockwaveDamage = fullStats.generic.intA;
-        shockwaveElement = fullStats.generic.elementA;
-        
-        Debug.Log($"shockwave range : {shockwaveMaxRange}");
     }
 
     private void OnDestroy()
@@ -47,23 +32,12 @@ public class PowerGhost : Power, IEnnemyListener
         spawnCounter = 0;
         SpawnGhost(position);
     }
-
     public void SpawnGhost(Vector2 position)
     {
         Debug.Log("spawn ghost");
-        GameObject newGhost = Instantiate(ghost);
+        Ghost newGhost = Instantiate(ghost);
         newGhost.transform.position = position;
-
-        StartCoroutine(WaitBeforeShock(position));
+        newGhost.Setup(fullStats);
     }
-    private IEnumerator WaitBeforeShock(Vector2 position)
-    {
-        yield return Helpers.GetWait(2f);
 
-        Shockwave shockwaveGhost = Instantiate(shockwave);
-        shockwaveGhost.transform.position = position;
-        shockwaveGhost.transform.localScale = Vector3.zero;
-        shockwaveGhost.Setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement);
-        shockwaveGhost.doShockwave();
-    }
 }
