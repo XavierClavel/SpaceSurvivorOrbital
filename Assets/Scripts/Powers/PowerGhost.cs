@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PowerGhost : Power, IEnnemyListener
 {
@@ -52,20 +53,18 @@ public class PowerGhost : Power, IEnnemyListener
         Debug.Log("spawn ghost");
         Instantiate(ghost);
         ghost.transform.position = position;
-        
+
+        StartCoroutine(WaitBeforeShock(2));
+
         Shockwave shockwaveGhost = Instantiate(shockwave);
-        shockwaveGhost.transform.localScale = Vector3.zero;
         shockwaveGhost.transform.position = position;
+        shockwaveGhost.transform.localScale = Vector3.zero;
         shockwaveGhost.Setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement);
         shockwaveGhost.doShockwave();
+
     }
-
-    IEnumerator Explosion()
+    private IEnumerator WaitBeforeShock(float waitTime)
     {
-        yield return new WaitForSeconds(1f);
-
-        shockwave.doShockwave();
-
-        Destroy(gameObject);
+        yield return new WaitForSeconds(waitTime);
     }
 }
