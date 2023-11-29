@@ -51,14 +51,14 @@ public class PowerGhost : Power, IEnnemyListener
     public void SpawnGhost(Vector2 position)
     {
         Debug.Log("spawn ghost");
-        Instantiate(ghost);
-        ghost.transform.position = position;
+        GameObject newGhost = Instantiate(ghost);
+        newGhost.transform.position = position;
 
         StartCoroutine(WaitBeforeShock(position));
     }
     private IEnumerator WaitBeforeShock(Vector2 position)
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return Helpers.GetWait(2f);
 
         Shockwave shockwaveGhost = Instantiate(shockwave);
         shockwaveGhost.transform.position = position;
