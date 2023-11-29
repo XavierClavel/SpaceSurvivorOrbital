@@ -120,7 +120,6 @@ public class Laser : Interactor
         Sfx sfx = ScriptableObjectManager.dictKeyToSfx["Laser"];
         laserSfxSource.clip = sfx.getClip();
         laserSfxSource.Play();
-        Debug.Log(laserSfxSource.isPlaying);
 
     }
 
