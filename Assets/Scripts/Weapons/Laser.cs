@@ -110,7 +110,7 @@ public class Laser : Interactor
 
     protected override void onStartUsing()
     {
-        
+
     }
 
     protected override void onStopUsing()
@@ -169,9 +169,12 @@ public class Laser : Interactor
     {
         lineRenderer.SetPosition(0, firePoint.position);
         
+
         RaycastHit2D[] hits = Physics2D.CircleCastAll(firePoint.position, width, firePoint.right, stats.range, currentLayerMask);
         if (hits.Length == 0)
         {
+            SoundManager.PlaySfx(transform, key: "Laser");
+
             lineRenderer.SetPosition(1, firePoint.position + firePoint.right * stats.range);
             return;
         }
