@@ -41,6 +41,8 @@ public class Laser : Interactor
 
     private float _heatValue = 0f;
 
+    private AudioSource laserSfxSource;
+
     private float heatValue
     {
         get
@@ -65,18 +67,21 @@ public class Laser : Interactor
             {
                 if (!overheating)
                 {
+                    onLaserStop();
                     onOverheat();
                 }
                 overheating = true;
             } else if (value <= 0f)
             {
                 overheating = false;
+                if (isUsing) onLaserStart();
             }
         }
     }
     
     private bool overheating = false;
     private bool laserBeamActive;
+    private const float laserSfxTransitionTime = 0.3f;
 
     protected override void Start()
     {
@@ -104,18 +109,29 @@ public class Laser : Interactor
         shockwave.transform.localPosition = Vector3.zero;
         shockwave.Setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement);
 
+        laserSfxSource = GetComponent<AudioSource>();
+        laserSfxSource.volume = 0f;
+        
+        if (!ScriptableObjectManager.dictKeyToSfx.ContainsKey("Laser"))
+        {
+            Debug.LogWarning($"Sfx key Laser not found");
+            return;
+        }
+        Sfx sfx = ScriptableObjectManager.dictKeyToSfx["Laser"];
+        laserSfxSource.clip = sfx.getClip();
+
     }
 
 
 
     protected override void onStartUsing()
     {
-
+        if (!overheating) onLaserStart();
     }
 
     protected override void onStopUsing()
     {
-
+        if (!overheating) onLaserStop();
     }
 
     private void FixedUpdate()
@@ -154,6 +170,16 @@ public class Laser : Interactor
         shockwave.doShockwave();
     }
 
+    void onLaserStart()
+    {
+        DOTween.To(() => laserSfxSource.volume, x => laserSfxSource.volume = x, 1f, laserSfxTransitionTime);
+    }
+
+    void onLaserStop()
+    {
+        DOTween.To(() => laserSfxSource.volume, x => laserSfxSource.volume = x, 0f, laserSfxTransitionTime);
+    }
+
     float getHeatValueChangeFactor()
     {
         if (overheating) return -ConstantsData.laserOverheatCoolingFactor;
@@ -173,8 +199,6 @@ public class Laser : Interactor
         RaycastHit2D[] hits = Physics2D.CircleCastAll(firePoint.position, width, firePoint.right, stats.range, currentLayerMask);
         if (hits.Length == 0)
         {
-            SoundManager.PlaySfx(transform, key: "Laser");
-
             lineRenderer.SetPosition(1, firePoint.position + firePoint.right * stats.range);
             return;
         }
