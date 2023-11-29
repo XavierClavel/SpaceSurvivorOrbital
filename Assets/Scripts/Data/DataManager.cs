@@ -18,8 +18,8 @@ public class DataManager : ScriptableObject
     [SerializeField] private TextAsset constantsData;
     [SerializeField] private TextAsset costData;
 
-    public static Dictionary<string, interactorStats> dictWeapons = new Dictionary<string, interactorStats>();
-    public static Dictionary<string, interactorStats> dictPowers = new Dictionary<string, interactorStats>();
+    public static Dictionary<string, PlayerData> dictWeapons = new Dictionary<string, PlayerData>();
+    public static Dictionary<string, PlayerData> dictPowers = new Dictionary<string, PlayerData>();
     public static Dictionary<string, ObjectData> dictObjects = new Dictionary<string, ObjectData>();
     public static Dictionary<string, LocalizedString> dictLocalization = new Dictionary<string, LocalizedString>();
     public static Dictionary<string, UpgradeData> dictUpgrades = new Dictionary<string, UpgradeData>();
@@ -72,9 +72,7 @@ public class DataManager : ScriptableObject
 
         PlayerManager.playerData.character.setBase();
         
-        PlayerData weaponPlayerData = new PlayerData();
-        weaponPlayerData.interactor = dictWeapons[selectedWeapon];
-        PlayerManager.setWeapon(weaponPlayerData, ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
+        PlayerManager.setWeapon(dictWeapons[selectedWeapon], ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
         PlayerManager.setCharacter(ScriptableObjectManager.dictKeyToCharacterHandler[selectedCharacter]);
         
         PlanetSelectionManager.GenerateData();

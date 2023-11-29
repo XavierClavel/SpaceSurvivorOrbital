@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
+using UnityEngine.Serialization;
 
 public class DataSelector : MonoBehaviour, UIPanel
 {
@@ -10,10 +12,63 @@ public class DataSelector : MonoBehaviour, UIPanel
     [SerializeField] Button startButton;
     public static string selectedCharacter = string.Empty;
     public static string selectedWeapon = string.Empty;
+    
+    [SerializeField] private TextMeshProUGUI characterTitleDisplay;
+    [SerializeField] private GameObject characterCostDisplay;
+    [SerializeField] private TextMeshProUGUI characterCostText;
+    [SerializeField] private Image characterImage;
+    [SerializeField] private Button characterBuyButton;
+    
+    [SerializeField] private TextMeshProUGUI weaponTitleDisplay;
+    [SerializeField] private GameObject weaponCostDisplay;
+    [SerializeField] private TextMeshProUGUI weaponCostText;
+    [SerializeField] private Image weaponImage;
+    [SerializeField] private Button weaponBuyButton;
+
+    private void DisplayCharacter(SelectButton selectButton)
+    {
+        if (!characterImage.gameObject.activeInHierarchy) characterImage.gameObject.SetActive(true);
+        LocalizationManager.LocalizeTextField(selectButton.key, characterTitleDisplay);
+        
+        characterCostDisplay.SetActive(!selectButton.isUnlocked);
+        characterBuyButton.gameObject.SetActive(!selectButton.isUnlocked);
+        
+        characterCostText.SetText(selectButton.cost.ToString());
+        characterImage.sprite = getIcon(selectButton.key);
+    }
+    
+    private void DisplayWeapon(SelectButton selectButton)
+    {
+        if (!weaponImage.gameObject.activeInHierarchy) weaponImage.gameObject.SetActive(true);
+        LocalizationManager.LocalizeTextField(selectButton.key, weaponTitleDisplay);
+        
+        weaponCostDisplay.SetActive(!selectButton.isUnlocked);
+        weaponBuyButton.gameObject.SetActive(!selectButton.isUnlocked);
+        
+        weaponCostText.SetText(selectButton.cost.ToString());
+        weaponImage.sprite = getIcon(selectButton.key);
+    }
+
+    public static void DisplayGeneric(string key, SelectButton selectButton)
+    {
+        if (ScriptableObjectManager.dictKeyToCharacterHandler.ContainsKey(key))
+        {
+            instance.DisplayCharacter(selectButton);
+            return;
+        }
+
+        if (ScriptableObjectManager.dictKeyToWeaponHandler.ContainsKey(key))
+        {
+            instance.DisplayWeapon(selectButton);
+            return;
+        }
+    }
 
     private void Awake()
     {
         instance = this;
+        characterImage.gameObject.SetActive(false);
+        weaponImage.gameObject.SetActive(false);
     }
 
     public RectTransform getUITransform()
@@ -80,9 +135,7 @@ public class DataSelector : MonoBehaviour, UIPanel
 
     public void Validate()
     {
-        PlayerData data = new PlayerData();
-        data.interactor.DuckCopyShallow(DataManager.dictWeapons[selectedWeapon]);
-        PlayerManager.setWeapon(data, ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
+        PlayerManager.setWeapon(DataManager.dictWeapons[selectedWeapon], ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
         
         PlanetSelector.SelectFirstPlanet();
     }

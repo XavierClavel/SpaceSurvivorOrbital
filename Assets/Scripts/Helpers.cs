@@ -52,6 +52,10 @@ public static class Extensions
     {
         var srcT = src.GetType();
         var dstT= dst.GetType();
+        if (srcT != dstT)
+        {
+            Debug.LogWarning($"Incompatible types for shallow copy : {srcT.Name} & {dstT.Name}");
+        }
         foreach(var f in srcT.GetFields())
         {
             var dstF = dstT.GetField(f.Name);

@@ -101,6 +101,12 @@ public class SoundManager : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        LowPitchRange = ConstantsData.audioMinPitch;
+        HighPitchRange = ConstantsData.audioMaxPitch;
+    }
+
     public static void onSceneChange(gameScene newScene)
     {
         AudioSource previousMusicSource = currentMusicSource;

@@ -33,7 +33,7 @@ public class Fairy : Power
     {
         
         
-        stats = DataManager.dictPowers["Fairy"];
+        stats = DataManager.dictPowers["Fairy"].interactor;
         player = PlayerController.instance.transform;
         StartCoroutine(nameof(Reload));
 
