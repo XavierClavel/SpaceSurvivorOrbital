@@ -54,17 +54,16 @@ public class PowerGhost : Power, IEnnemyListener
         Instantiate(ghost);
         ghost.transform.position = position;
 
-        StartCoroutine(WaitBeforeShock(2));
+        StartCoroutine(WaitBeforeShock(position));
+    }
+    private IEnumerator WaitBeforeShock(Vector2 position)
+    {
+        yield return new WaitForSeconds(2.0f);
 
         Shockwave shockwaveGhost = Instantiate(shockwave);
         shockwaveGhost.transform.position = position;
         shockwaveGhost.transform.localScale = Vector3.zero;
         shockwaveGhost.Setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement);
         shockwaveGhost.doShockwave();
-
-    }
-    private IEnumerator WaitBeforeShock(float waitTime)
-    {
-        yield return new WaitForSeconds(waitTime);
     }
 }
