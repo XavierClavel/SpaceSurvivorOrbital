@@ -22,7 +22,7 @@ public class SynthWave : Power
         doubleShockwave = _.generic.boolB;
 
         InvokeRepeating("DoShockwave", 0f, stats.attackSpeed);
-        if (doubleShockwave) { InvokeRepeating("DoShockwave", 0.5f, stats.attackSpeed); }
+        if (doubleShockwave) {InvokeRepeating("DoShockwave", 0.5f, stats.attackSpeed); }
     }
 
     protected override void Start()
@@ -32,9 +32,6 @@ public class SynthWave : Power
 
     private void DoShockwave()
     {
-        Debug.Log(player == null);
-        Debug.Log(shockwave == null);
-
         Shockwave newShockwave = Instantiate(shockwave, player.transform, true);
         newShockwave.transform.localScale = Vector3.zero;
         newShockwave.transform.localPosition = Vector3.zero;
