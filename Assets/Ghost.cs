@@ -27,7 +27,7 @@ public class Ghost : MonoBehaviour
         
 
         animator = GetComponent<Animator>();
-        StartCoroutine(WaitBeforeDestroy());
+        StartCoroutine("WaitBeforeDestroy");
 
         Debug.Log($"shockwave range : {shockwaveMaxRange}");
     }
@@ -55,7 +55,7 @@ public class Ghost : MonoBehaviour
     }
     private IEnumerator DestroyByOther()
     {
-        StopCoroutine(WaitBeforeDestroy());
+        StopCoroutine("WaitBeforeDestroy");
 
         animator.enabled = true;
         DoShockwave();
@@ -67,6 +67,6 @@ public class Ghost : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer.Ennemies) && contactEnnemy) StartCoroutine(DestroyByOther());
+        if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer.Ennemies) && contactEnnemy) StartCoroutine("DestroyByOther");
     }
 }
