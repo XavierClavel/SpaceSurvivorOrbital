@@ -22,7 +22,10 @@ public class Power : Damager
         {
             StartCoroutine(nameof(Cooldown));
         }
+        onSetup();
     }
+    
+    public virtual void onSetup() {}
 
     protected override void onUse()
     {

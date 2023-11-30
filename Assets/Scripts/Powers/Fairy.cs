@@ -4,49 +4,44 @@ using UnityEngine;
 using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 using static Vault;
 
-public class Fairy : Power
+public class Fairy : MonoBehaviour
 {
-    public Transform player; 
+    private Transform player; 
     public float moveSpeed = 4.0f; 
     public float circleRadius = 5.0f; 
     private float angle = 0.0f;
 
     public Bullet bulletPrefab;
 
-    public Transform firePoint; 
-    public LayerMask enemyLayer; 
 
     private List<Transform> targets = new List<Transform>();
 
     private Transform detectedEnemy; 
 
-    static protected WaitForSeconds wait;
-
-    public GameObject fairy;
-    public GameObject fairy2;
-    private bool second = true;
-    private bool third = true;
-
     public Animator animator;
+    private interactorStats stats;
+    private Vector2 offsetRange;
 
-    protected override void Start()
+    public void Setup(interactorStats stats, Vector2 offsetRange ,bool isBig = false)
     {
-        
-        
-        stats = DataManager.dictPowers["Fairy"].interactor;
+        this.stats = stats;
+        this.offsetRange = offsetRange;
         player = PlayerController.instance.transform;
+        transform.position = player.position;
         StartCoroutine(nameof(Reload));
 
-        this.transform.position = player.position;
-
-        if (stats.pierce == 4) { animator.SetBool("BigFairy", true); }
-        if (stats.magazine >= 1 && second) { Instantiate(fairy, transform.position, Quaternion.identity); second = false; }
-        if (stats.magazine == 2 && third) { Instantiate(fairy2, transform.position, Quaternion.identity); third = false; }
+        if (isBig)
+        {
+            animator.SetBool("BigFairy", true);
+        }
     }
 
     private void Update()
     {
-        Vector3 offset = new Vector3(Mathf.Cos(angle) * circleRadius, Mathf.Sin(angle) * circleRadius, 0);
+        Vector3 circleOffset = new Vector3(Mathf.Cos(angle) * circleRadius, Mathf.Sin(angle) * circleRadius, 0);
+        Vector3 rangeOffset = new Vector3(offsetRange.x,offsetRange.y, 0);
+        Vector3 offset = circleOffset + rangeOffset;
+
         Vector3 targetPosition = player.position + offset;
 
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
