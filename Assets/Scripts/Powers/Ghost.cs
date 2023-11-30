@@ -25,9 +25,6 @@ public class Ghost : MonoBehaviour
         shockwaveElement = _.generic.elementA;
         explodeOnBullet = _.generic.boolC;
         explodeOnEnnemy = _.generic.boolB;
-
-        explodeOnBullet = true;
-        explodeOnEnnemy = true;
         
         StartCoroutine(nameof(DestroyByWait));
     }
