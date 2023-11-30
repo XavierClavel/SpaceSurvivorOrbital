@@ -34,13 +34,13 @@ public class Ghost : MonoBehaviour
 
     private IEnumerator WaitBeforeDestroy()
     {
-        yield return new WaitForSeconds(5.0f);
+        yield return Helpers.GetWait(5.0f);
 
         animator.enabled = true;
 
         DoShockwave();
 
-        yield return new WaitForSeconds(0.5f);
+        yield return Helpers.GetWait(0.5f);
 
         Destroy(this.gameObject);
     }
@@ -60,7 +60,7 @@ public class Ghost : MonoBehaviour
         animator.enabled = true;
         DoShockwave();
 
-        yield return new WaitForSeconds(0.5f);
+        yield return Helpers.GetWait(0.5f);
 
         Destroy(this.gameObject);
     }
