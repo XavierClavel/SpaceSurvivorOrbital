@@ -59,7 +59,6 @@ public abstract class DataBuilder<T> : EffectData
                 List<string> s = array.Split(';').ToList();
                 string key = getKey(s);
                 if (key == null) continue;
-                Debug.Log(key);
                 T value = BuildData(s);
                 if (value == null) continue;
 

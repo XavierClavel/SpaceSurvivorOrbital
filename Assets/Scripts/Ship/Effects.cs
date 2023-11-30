@@ -37,6 +37,8 @@ public enum effectType
     spread,
     pierce,
     aimingSpeed,
+    
+    knockback,
 
 
     //Other

@@ -33,17 +33,17 @@ public class Breakable : MonoBehaviour
 
     }
 
-    public void Hit(HitInfo hitInfo)
+    public virtual void Hit(HitInfo hitInfo)
     {
-        Hit(hitInfo.damage, hitInfo.effect, hitInfo.critical);
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(spriteOverlay.DOColor(Color.white, 0.1f));
+        sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
     }
 
 
     public virtual void Hit(int damage, status effect, bool critical)
     {
-        Sequence sequence = DOTween.Sequence();
-        sequence.Append(spriteOverlay.DOColor(Color.white, 0.1f));
-        sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
+        Hit(new HitInfo(damage, critical, effect));
     }
 
     public void StackDamage(float dps, status element)

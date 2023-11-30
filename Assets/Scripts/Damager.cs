@@ -9,12 +9,14 @@ public struct HitInfo
     public readonly int damage;
     public readonly bool critical;
     public readonly status effect;
+    public readonly int knockback;
 
     public HitInfo(int damage, bool critical, status effect)
     {
         this.damage = damage;
         this.critical = critical;
         this.effect = effect;
+        this.knockback = 0;
     }
 
     public HitInfo(int damage)
@@ -22,6 +24,7 @@ public struct HitInfo
         this.damage = damage;
         this.critical = false;
         this.effect = status.none;
+        this.knockback = 0;
     }
     
     public HitInfo(interactorStats stats, status effect = status.none)
@@ -30,6 +33,7 @@ public struct HitInfo
         critical = Helpers.ProbabilisticBool(stats.criticalChance);
         if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
         this.effect = effect;
+        this.knockback = stats.knockback;
     }
     
     public HitInfo(interactorStats stats)
@@ -38,6 +42,7 @@ public struct HitInfo
         critical = Helpers.ProbabilisticBool(stats.criticalChance);
         if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
         this.effect = stats.element;
+        this.knockback = stats.knockback;
     }
     
     

@@ -22,6 +22,7 @@ public class DamagerDataBuilder : DataBuilder<PlayerData>
         SetValue(ref stats.interactor.criticalMultiplier, Vault.key.upgrade.CriticalChance);
         SetValue(ref stats.interactor.magazine, Vault.key.upgrade.Magazine);
         SetValue(ref stats.interactor.magazineReloadTime, Vault.key.upgrade.MagazineCooldown);
+        SetValue(ref stats.interactor.knockback, Vault.key.upgrade.Knockback);
         
         TrySetValue(ref stats.generic.boolA, "BoolA");
         TrySetValue(ref stats.generic.boolB, "BoolB");

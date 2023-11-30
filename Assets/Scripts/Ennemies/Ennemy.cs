@@ -26,11 +26,6 @@ public class Ennemy : Breakable
     private int fireDamageRemaining = 0;
 
     [Header("Knockback Parameters")]
-    [SerializeField] float knockbackForce = 5f;
-    [SerializeField] float knockbackRiseDuration = 0.10f;
-    [SerializeField] float knockbackPlateauDuration = 0.10f;
-    [SerializeField] float knockbackFallDuration = 0.10f;
-    [SerializeField] float knockbackStunDuration = 0.10f;
     [SerializeField] Vector3 startDeformationScale = new Vector3(-0.5f, 0.1f, 1f);
     [SerializeField] float deformationDuration = 0.1f;
 
@@ -87,6 +82,10 @@ public class Ennemy : Breakable
     {
         base.Start();
 
+        rb.gravityScale = 0;
+        rb.drag = 1f;
+        speed = 2;
+
         player = PlayerController.instance;
         StressTest.nbEnnemies++;
         _health = maxHealth;
@@ -98,7 +97,6 @@ public class Ennemy : Breakable
         waitLightning = Helpers.GetWait(ConstantsData.lightningDuration);
         waitIce = Helpers.GetWait(ConstantsData.iceDuration);
         waitFire = Helpers.GetWait(ConstantsData.fireStep);
-        knockbackWindow = Helpers.GetWait(knockbackRiseDuration);
 
         //TODO : static initalizer
 
@@ -141,7 +139,7 @@ public class Ennemy : Breakable
 
     protected void Move(Vector2 direction, float speed)
     {
-        rb.MovePosition(rb.position + (direction +0.05f*direction.perpendicular()) * (Time.fixedDeltaTime * speed * speedMultiplier));
+        rb.AddForce(direction * speed);
     }
 
     protected void Move(Vector2 direction)
@@ -149,19 +147,19 @@ public class Ennemy : Breakable
         Move(direction, speed);
     }
 
-    public override void Hit(int damage, status effect, bool critical)
+    public override void Hit(HitInfo hitInfo)
     {
-        base.Hit(damage, effect, critical);
-        healthChange value = critical ? healthChange.critical : healthChange.hit;
-        if (damage != 0)
+        base.Hit(hitInfo);
+        healthChange value = hitInfo.critical ? healthChange.critical : healthChange.hit;
+        if (hitInfo.damage != 0)
         {
-            DamageDisplayHandler.DisplayDamage(damage, transform.position, value);
+            DamageDisplayHandler.DisplayDamage(hitInfo.damage, transform.position, value);
             StopCoroutine(nameof(ApplyDeformationOverTime));
             StartCoroutine(nameof(ApplyDeformationOverTime));
-            health -= damage;
+            health -= hitInfo.damage;
         }
 
-        switch (effect)
+        switch (hitInfo.effect)
         {
             case status.none:
                 break;
@@ -178,33 +176,19 @@ public class Ennemy : Breakable
                 ApplyFire();
                 break;
         }
-        ApplyKnockback();
+        ApplyKnockback(hitInfo.knockback);
     }
     
     
 
-    public void ApplyKnockback()
+    public void ApplyKnockback(int knockbackForce)
     {
-        OnKnockbackStart();
-        Sequence sequence = DOTween.Sequence();
-
-        sequence.Append(DOTween.To(() => rb.velocity, x => rb.velocity = x, (Vector2)(transform.position - player.transform.position).normalized * knockbackForce, knockbackRiseDuration));
-        sequence.AppendInterval(knockbackPlateauDuration);
-        sequence.Append(DOTween.To(() => rb.velocity, x => rb.velocity = x, Vector2.zero, knockbackFallDuration));
-        sequence.AppendInterval(knockbackStunDuration);
-        sequence.onComplete += OnKnockbackEnd;
-    }
-
-    protected virtual void OnKnockbackStart()
-    {
-        knockback = true;
-    }
-
-    protected virtual void OnKnockbackEnd()
-    {
-        knockback = false;
         rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0;
+        rb.AddForce((transform.position - player.transform.position).normalized * knockbackForce);
+
     }
+
 
     public void HealSelf(int amount)
     {

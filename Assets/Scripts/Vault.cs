@@ -144,6 +144,7 @@ public static class Vault
             public const string CriticalMultiplier = "CriticalMultiplier";
             public const string Magazine = "Magazine";
             public const string MagazineCooldown = "MagazineReloadTime";
+            public const string Knockback = "Knockback";
 
             public const string MaxPurple = "MaxPurple";
             public const string MaxGreen = "MaxGreen";

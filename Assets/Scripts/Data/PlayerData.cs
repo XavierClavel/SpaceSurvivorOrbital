@@ -89,6 +89,10 @@ public class PlayerData
             case effectType.magazine:
                 effect.ApplyOperation(ref interactor.magazine);
                 break;
+            
+            case effectType.knockback:
+                effect.ApplyOperation(ref interactor.knockback);
+                break;
 
             case effectType.attractorRange:
                 effect.ApplyOperation(ref attractor.range);
@@ -178,6 +182,7 @@ public class interactorStats
 
     public int pierce;
     public float speedWhileAiming;
+    public int knockback;
 
     public status element = status.none;
 
