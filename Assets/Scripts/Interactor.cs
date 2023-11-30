@@ -40,7 +40,7 @@ public abstract class Interactor : Damager
         DebugManager.DisplayValue("Magazine", stats.magazine.ToString());
 
         currentLayer = Vault.layer.ObstaclesAndEnnemiesAndResources;
-        currentLayerMask = LayerMask.GetMask(Vault.layer.Resources, Vault.layer.Ennemies, Vault.layer.Obstacles);
+        currentLayerMask = LayerMask.GetMask(Vault.layer.Resources, Vault.layer.Ennemies, Vault.layer.Obstacles, Vault.layer.EnnemiesOnly);
     }
 
     public void SwitchMode()

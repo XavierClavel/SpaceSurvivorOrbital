@@ -213,12 +213,18 @@ public class Laser : Interactor
 
         for (int i = 0; i < stopIndex; i++)
         {
-            if (hits[i].collider.gameObject.layer == LayerMask.NameToLayer(Vault.layer.Obstacles))
+            GameObject go = hits[i].collider.gameObject;
+            if (go.layer == LayerMask.NameToLayer(Vault.layer.Obstacles))
             {
                 lineRenderer.SetPosition(1, firePoint.position + firePoint.right * hits[i].distance);
                 return;
             }
-            HurtEnnemy(hits[i].collider.gameObject);
+
+            if (go.CompareTag("Transparent") && Ghost.dictGoToGhost.ContainsKey(go))
+            {
+                Ghost.dictGoToGhost[go].HitByLaser();
+            }
+            HurtEnnemy(go);
         }
 
         float range = hits.Length < stats.pierce

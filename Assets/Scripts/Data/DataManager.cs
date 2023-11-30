@@ -71,6 +71,9 @@ public class DataManager : ScriptableObject
         costDataBuilder.loadText(costData, ref dictCost, "Cost");
 
         PlayerManager.playerData.character.setBase();
+
+        DataSelector.selectedCharacter = selectedCharacter;
+        DataSelector.selectedWeapon = selectedWeapon;
         
         PlayerManager.setWeapon(dictWeapons[selectedWeapon], ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
         PlayerManager.setCharacter(ScriptableObjectManager.dictKeyToCharacterHandler[selectedCharacter]);

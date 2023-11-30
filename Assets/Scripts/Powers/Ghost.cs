@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.PackageManager;
@@ -5,6 +6,7 @@ using UnityEngine;
 
 public class Ghost : MonoBehaviour
 {
+    public static Dictionary<GameObject, Ghost> dictGoToGhost = new Dictionary<GameObject, Ghost>();
     [SerializeField] private Animator animator;
     [SerializeField] private Shockwave shockwave;
     [SerializeField] private Collider2D col;
@@ -17,6 +19,10 @@ public class Ghost : MonoBehaviour
     private bool explodeOnBullet = false;
     private bool explodeOnEnnemy = false;
 
+    private bool canBeDestroyedByLaser = false;
+    private float laserWaitBeforeHit = 0.3f;
+    private float currentLaserCooldown = 0f;
+
     public void Setup(PlayerData _)
     {
         isShockwaveEnabled = _.generic.boolA;
@@ -25,8 +31,28 @@ public class Ghost : MonoBehaviour
         shockwaveElement = _.generic.elementA;
         explodeOnBullet = _.generic.boolC;
         explodeOnEnnemy = _.generic.boolB;
-        
+
+        dictGoToGhost[gameObject] = this;
         StartCoroutine(nameof(DestroyByWait));
+
+        if (DataSelector.selectedWeapon == "Laser") StartCoroutine(nameof(WaitLaser));
+
+    }
+
+    private IEnumerator WaitLaser()
+    {
+        currentLaserCooldown = laserWaitBeforeHit;
+        while (currentLaserCooldown > 0)
+        {
+            yield return Helpers.GetWaitFixed;
+            currentLaserCooldown -= Time.fixedDeltaTime;
+        }
+        canBeDestroyedByLaser = true;
+    }
+
+    private void OnDestroy()
+    {
+        dictGoToGhost.Remove(gameObject);
     }
 
     private IEnumerator DestroyByWait()
@@ -73,5 +99,13 @@ public class Ghost : MonoBehaviour
             return;
         }
         
+    }
+    
+    public void HitByLaser()
+    {
+        if (!explodeOnBullet) return;
+        currentLaserCooldown = laserWaitBeforeHit;
+        if (!canBeDestroyedByLaser) return;
+        DestroyByCollision();
     }
 }
