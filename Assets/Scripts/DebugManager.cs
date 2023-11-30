@@ -19,7 +19,9 @@ public class DebugManager : MonoBehaviour
     [SerializeField] private bool fairy;
     [SerializeField] private bool shield;
     [SerializeField] private bool ghost;
-    
+    [SerializeField] private bool blackHole;
+    [SerializeField] private bool synthWave;
+
     [Header("Early Upgrades")]
     [SerializeField] bool startWithRadar;
     [SerializeField] bool startWithMinerBot;
@@ -47,6 +49,8 @@ public class DebugManager : MonoBehaviour
         if (fairy) AcquirePower(Vault.power.Fairy);
         if (shield) AcquirePower(Vault.power.Shield);
         if (ghost) AcquirePower(Vault.power.Ghost);
+        if (blackHole) AcquirePower(Vault.power.BlackHole);
+        if (synthWave) AcquirePower(Vault.power.SynthWave);
 
         areUpgradesFree = freeUpgrades;
     }

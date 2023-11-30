@@ -7,6 +7,8 @@ public static class Vault
         public const string Shield = "Shield";
         public const string Ghost = "Ghost";
         public const string Fairy = "Fairy";
+        public const string BlackHole = "BlackHole";
+        public const string SynthWave = "SynthWave";
     }
     
     public static class sfx
