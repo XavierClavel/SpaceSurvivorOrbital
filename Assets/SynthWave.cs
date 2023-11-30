@@ -13,6 +13,7 @@ public class SynthWave : Power
 
     public override void Setup(PlayerData _)
     {
+        base.Setup(_)
         isShockwaveEnabled = _.generic.boolA;
         shockwaveMaxRange = _.generic.floatA;
         shockwaveDamage = _.generic.intA;
