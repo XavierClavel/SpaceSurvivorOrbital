@@ -5,16 +5,16 @@ using UnityEngine;
 
 public class Ghost : MonoBehaviour
 {
-    Animator animator;
-
+    [SerializeField] private Animator animator;
     [SerializeField] private Shockwave shockwave;
 
     private bool isShockwaveEnabled;
     private int shockwaveDamage;
     private float shockwaveMaxRange;
     private status shockwaveElement;
-    private bool playerBullet = false;
-    private bool contactEnnemy = false;
+    
+    private bool explodeOnBullet = false;
+    private bool explodeOnEnnemy = false;
 
     public void Setup(PlayerData _)
     {
@@ -22,27 +22,29 @@ public class Ghost : MonoBehaviour
         shockwaveMaxRange = _.generic.floatA;
         shockwaveDamage = _.generic.intA;
         shockwaveElement = _.generic.elementA;
-        playerBullet = _.generic.boolC;
-        contactEnnemy = _.generic.boolB;
+        explodeOnBullet = _.generic.boolC;
+        explodeOnEnnemy = _.generic.boolB;
         
-
-        animator = GetComponent<Animator>();
-        StartCoroutine("WaitBeforeDestroy");
-
-        Debug.Log($"shockwave range : {shockwaveMaxRange}");
+        StartCoroutine(nameof(DestroyByWait));
     }
 
-    private IEnumerator WaitBeforeDestroy()
+    private IEnumerator DestroyByWait()
     {
         yield return Helpers.GetWait(5.0f);
+        Explode();
+    }
+    
+    private void DestroyByOther()
+    {
+        StopCoroutine(nameof(DestroyByWait));
+        Explode();
+    }
 
+    private void Explode()
+    {
         animator.enabled = true;
-
         DoShockwave();
-
-        yield return Helpers.GetWait(0.5f);
-
-        Destroy(this.gameObject);
+        Destroy(gameObject,0.5f);
     }
 
     private void DoShockwave()
@@ -53,20 +55,11 @@ public class Ghost : MonoBehaviour
         shockwaveGhost.Setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement);
         shockwaveGhost.doShockwave();
     }
-    private IEnumerator DestroyByOther()
-    {
-        StopCoroutine("WaitBeforeDestroy");
-
-        animator.enabled = true;
-        DoShockwave();
-
-        yield return Helpers.GetWait(0.5f);
-
-        Destroy(this.gameObject);
-    }
+    
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer.Ennemies) && contactEnnemy) StartCoroutine("DestroyByOther");
+        if (other.gameObject.layer != LayerMask.NameToLayer(Vault.layer.Ennemies) || !explodeOnEnnemy) return;
+        DestroyByOther();
     }
 }
