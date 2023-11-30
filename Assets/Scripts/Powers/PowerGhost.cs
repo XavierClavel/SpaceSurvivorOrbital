@@ -26,7 +26,6 @@ public class PowerGhost : Power, IEnnemyListener
 
     public void onEnnemyDeath(Vector2 position)
     {
-        Debug.Log("on ennemy death");
         spawnCounter++;
         if (spawnCounter < spawnsEvery) return;
         spawnCounter = 0;
@@ -34,7 +33,6 @@ public class PowerGhost : Power, IEnnemyListener
     }
     public void SpawnGhost(Vector2 position)
     {
-        Debug.Log("spawn ghost");
         Ghost newGhost = Instantiate(ghost);
         newGhost.transform.position = position;
         newGhost.Setup(fullStats);

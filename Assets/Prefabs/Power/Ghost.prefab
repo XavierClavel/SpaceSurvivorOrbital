@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 7477704614648643112}
   - component: {fileID: 136847809878825962}
   - component: {fileID: 8260006786367833540}
-  m_Layer: 0
+  - component: {fileID: -1664493242985401603}
+  m_Layer: 25
   m_Name: Ghost
-  m_TagString: Untagged
+  m_TagString: Transparent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 136847809878825962}
   shockwave: {fileID: -141122923076305419, guid: 5aa0f0f4bee25b54aa11b385564854bd, type: 3}
+  col: {fileID: 8260006786367833540}
 --- !u!212 &7477704614648643112
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -157,3 +159,30 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.078757405}
   serializedVersion: 2
   m_Radius: 0.5058912
+--- !u!50 &-1664493242985401603
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2377742761682786463}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

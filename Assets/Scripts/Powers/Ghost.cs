@@ -7,6 +7,7 @@ public class Ghost : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private Shockwave shockwave;
+    [SerializeField] private Collider2D col;
 
     private bool isShockwaveEnabled;
     private int shockwaveDamage;
@@ -24,6 +25,9 @@ public class Ghost : MonoBehaviour
         shockwaveElement = _.generic.elementA;
         explodeOnBullet = _.generic.boolC;
         explodeOnEnnemy = _.generic.boolB;
+
+        explodeOnBullet = true;
+        explodeOnEnnemy = true;
         
         StartCoroutine(nameof(DestroyByWait));
     }
@@ -34,8 +38,9 @@ public class Ghost : MonoBehaviour
         Explode();
     }
     
-    private void DestroyByOther()
+    private void DestroyByCollision()
     {
+        col.enabled = false;
         StopCoroutine(nameof(DestroyByWait));
         Explode();
     }
@@ -59,7 +64,17 @@ public class Ghost : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer != LayerMask.NameToLayer(Vault.layer.Ennemies) || !explodeOnEnnemy) return;
-        DestroyByOther();
+        if (explodeOnBullet && other.CompareTag("Bullet"))
+        {
+            DestroyByCollision();
+            return;
+        }
+
+        if (explodeOnEnnemy && other.gameObject.layer == LayerMask.NameToLayer(Vault.layer.Ennemies))
+        {
+            DestroyByCollision();
+            return;
+        }
+        
     }
 }

@@ -111,6 +111,7 @@ public class Ennemy : Breakable
 
         Transform childTransform = transform.Find("Sprite Overlay");
         cameraTransform = Camera.main.transform;
+        gameObject.tag = Vault.tag.Ennemy;
 
         if (childTransform != null)
         {

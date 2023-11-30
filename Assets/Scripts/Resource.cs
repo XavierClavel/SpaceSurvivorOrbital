@@ -55,13 +55,14 @@ public class Resource : Breakable
         Transform childTransform = transform.Find("Sprite Overlay");
         spriteOverlay = childTransform.gameObject;
         myCollider = GetComponent<Collider2D>();
+        gameObject.tag = Vault.tag.Resource;
 
     }
 
-    public override void Hit(int damage, status effect, bool critical)
+    public override void Hit(HitInfo hitInfo)
     {
-        base.Hit(damage, effect, critical);
-        health -= damage;
+        base.Hit(hitInfo);
+        health -= hitInfo.damage;
     }
 
     void Break()
