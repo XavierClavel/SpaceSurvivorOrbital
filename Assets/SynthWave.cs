@@ -17,19 +17,24 @@ public class SynthWave : Power
         shockwaveMaxRange = _.generic.floatA;
         shockwaveDamage = _.generic.intA;
         shockwaveElement = _.generic.elementA;
+
+        InvokeRepeating("DoShockwave", 0f, 2f);
     }
 
     protected override void Start()
     {
-        InvokeRepeating("DoShockwave", 0f, 2f);
+        
     }
 
     private void DoShockwave()
     {
-        Debug.Log("La fonction a été appelée !");
-        shockwave = Instantiate(shockwave, player.transform, true);
-        shockwave.transform.localScale = Vector3.zero;
-        shockwave.transform.localPosition = Vector3.zero;
-        shockwave.Setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement);
+        Debug.Log(player == null);
+        Debug.Log(shockwave == null);
+
+        Shockwave newShockwave = Instantiate(shockwave, player.transform, true);
+        newShockwave.transform.localScale = Vector3.zero;
+        newShockwave.transform.localPosition = Vector3.zero;
+        newShockwave.Setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement);
+        newShockwave.doShockwave();
     }
 }
