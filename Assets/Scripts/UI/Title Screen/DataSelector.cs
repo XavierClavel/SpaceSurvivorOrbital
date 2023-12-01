@@ -13,17 +13,21 @@ public class DataSelector : MonoBehaviour, UIPanel
     public static string selectedCharacter = string.Empty;
     public static string selectedWeapon = string.Empty;
     
+    [Header("Character")]
     [SerializeField] private TextMeshProUGUI characterTitleDisplay;
     [SerializeField] private GameObject characterCostDisplay;
     [SerializeField] private TextMeshProUGUI characterCostText;
     [SerializeField] private Image characterImage;
     [SerializeField] private Button characterBuyButton;
+    [SerializeField] private UpgradeDisplay characterDisplay;
     
+    [Header("Character")]
     [SerializeField] private TextMeshProUGUI weaponTitleDisplay;
     [SerializeField] private GameObject weaponCostDisplay;
     [SerializeField] private TextMeshProUGUI weaponCostText;
     [SerializeField] private Image weaponImage;
     [SerializeField] private Button weaponBuyButton;
+    [SerializeField] private UpgradeDisplay weaponDisplay;
 
     private void DisplayCharacter(SelectButton selectButton)
     {
@@ -35,6 +39,8 @@ public class DataSelector : MonoBehaviour, UIPanel
         
         characterCostText.SetText(selectButton.cost.ToString());
         characterImage.sprite = getIcon(selectButton.key);
+        
+        characterDisplay.SetupAction(selectButton.Buy);
     }
     
     private void DisplayWeapon(SelectButton selectButton)
@@ -47,6 +53,8 @@ public class DataSelector : MonoBehaviour, UIPanel
         
         weaponCostText.SetText(selectButton.cost.ToString());
         weaponImage.sprite = getIcon(selectButton.key);
+        
+        weaponDisplay.SetupAction(selectButton.Buy);
     }
 
     public static void DisplayGeneric(string key, SelectButton selectButton)

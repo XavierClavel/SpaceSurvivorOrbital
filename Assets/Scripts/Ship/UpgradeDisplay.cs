@@ -22,20 +22,25 @@ public class UpgradeDisplay : MonoBehaviour
         instance = this;
         buyAction = delegate { };
 
-        upgradeTextDisplay.SetText("");
-        upgradeTitleDisplay.SetText("");
+        if (instance.upgradeTitleDisplay != null) upgradeTextDisplay.SetText("");
+        if (instance.upgradeTextDisplay != null) upgradeTitleDisplay.SetText("");
     }
 
     public static void DisplayUpgrade(string key)
     {
-        LocalizationManager.LocalizeTextField(key + Vault.key.ButtonTitle, instance.upgradeTitleDisplay);
-        LocalizationManager.LocalizeTextField(key + Vault.key.ButtonDescription, instance.upgradeTextDisplay);
+        if (instance.upgradeTitleDisplay != null) LocalizationManager.LocalizeTextField(key + Vault.key.ButtonTitle, instance.upgradeTitleDisplay);
+        if (instance.upgradeTextDisplay != null) LocalizationManager.LocalizeTextField(key + Vault.key.ButtonDescription, instance.upgradeTextDisplay);
     }
 
     public void OnClick()
     {
         buyAction.Invoke();
-        EventSystem.current.SetSelectedGameObject(selectedButton);
+        if (selectedButton != null) EventSystem.current.SetSelectedGameObject(selectedButton);
+    }
+    
+    public void SetupAction(UnityAction action)
+    {
+        buyAction = action;
     }
 
     public static void SetupBuyButton(UnityAction action, GameObject selected)

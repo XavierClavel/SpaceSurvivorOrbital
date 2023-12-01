@@ -52,13 +52,13 @@ public class SelectButton : MonoBehaviour
     private void Select()
     {
         DataSelector.DisplayGeneric(key, this);
-        if (isUnlocked || TitleScreen.isSelectionFree)
-        {
-            DataSelector.SelectGeneric(key);
-            selectorLayout.UpdateSelectedButton(this);
-            return;
-        }
+        if (!isUnlocked && !TitleScreen.isSelectionFree) return;
+        DataSelector.SelectGeneric(key);
+        selectorLayout.UpdateSelectedButton(this);
+    }
 
+    public void Buy()
+    {
         if (!Transaction()) return;
         
         SaveManager.unlockOption(key);
@@ -67,7 +67,6 @@ public class SelectButton : MonoBehaviour
         isUnlocked = true;
         
         Select();
-
     }
 
     bool Transaction()
