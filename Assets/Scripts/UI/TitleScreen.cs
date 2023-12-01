@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class TitleScreen : MonoBehaviour, UIPanel
 {
@@ -37,11 +38,12 @@ public class TitleScreen : MonoBehaviour, UIPanel
     {
         SaveManager.Reset();
         UpdateSoulsDisplay();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void AddSouls()
     {
-        PlayerManager.setSouls(PlayerManager.getSouls() + 100);
+        PlayerManager.setSouls(SaveManager.retrieveSouls() + 100);
         UpdateSoulsDisplay();
         
     }

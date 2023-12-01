@@ -9,8 +9,6 @@ public enum healthChange { hit, critical, heal, poison, fire };
 public class DamageDisplayHandler : MonoBehaviour
 {
     [SerializeField] DamageDisplay damageDisplayPrefab;
-    [SerializeField] GameObject canvas;
-    static DamageDisplayHandler instance;
 
     public static Dictionary<GameObject, DamageDisplay> dictObjectToDisplay =
         new Dictionary<GameObject, DamageDisplay>();
@@ -20,7 +18,6 @@ public class DamageDisplayHandler : MonoBehaviour
 
     private void Start()
     {
-        instance = this;
         dictObjectToDisplay = new Dictionary<GameObject, DamageDisplay>();
         damageDisplayPool = new ComponentPool<DamageDisplay>(damageDisplayPrefab);
     }

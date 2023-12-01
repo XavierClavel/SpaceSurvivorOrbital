@@ -75,6 +75,7 @@ public class SelectButton : MonoBehaviour
         PlayerManager.setSouls();
         if (PlayerManager.getSouls() < cost) return false;
         PlayerManager.spendSouls(cost);
+        TitleScreen.UpdateSoulsDisplay();
         return true;
     }
 

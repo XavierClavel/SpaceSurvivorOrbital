@@ -56,6 +56,7 @@ public static class SaveManager
     public static void Reset()
     {
         saveData = new SaveData();
+        
         Save();
     }
 
