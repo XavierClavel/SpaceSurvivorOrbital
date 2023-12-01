@@ -173,8 +173,15 @@ public class ComponentPool<T> where T : Component
 
     public ComponentPool(T prefab)
     {
-        pool = new ComponentPool();
-        pool.prefab = prefab;
+        pool = new ComponentPool
+        {
+            prefab = prefab
+        };
+    }
+
+    public void recall(T instance)
+    {
+        pool.recall(instance);
     }
 
     public T get(Vector3 position)

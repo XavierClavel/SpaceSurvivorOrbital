@@ -32,8 +32,6 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.gameObject.name);
-        Debug.Log(other.gameObject.tag);
         if (other.CompareTag("Transparent")) return;
         
         SoundManager.PlaySfx(transform, Vault.sfx.BulletHit);

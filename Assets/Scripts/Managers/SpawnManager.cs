@@ -87,6 +87,13 @@ public class SpawnManager : Breakable
             health -= damage;
         }
     }
+    
+    public override void StackHit(int damage, int knockback)
+    {
+        base.StackHit(damage, knockback);
+        DamageDisplayHandler.DisplayStackedDamage(gameObject, damage);
+        health -= damage;
+    }
 
     IEnumerator SpawnController()
     {

@@ -32,10 +32,6 @@ public class DamagerDataBuilder : DataBuilder<PlayerData>
         TrySetValue(ref stats.generic.floatA, "FloatA");
         TrySetValue(ref stats.generic.floatB, "FloatB");
         TrySetValue(ref stats.generic.elementA, "ElementA");
-        
-        Debug.Log(stats.generic.floatA);
-        
-        
 
         return stats;
     }

@@ -180,6 +180,16 @@ public class Ennemy : Breakable
         ApplyKnockback(hitInfo.knockback);
     }
     
+    public override void StackHit(int damage, int knockback)
+    {
+        base.StackHit(damage, knockback);
+        health -= damage;
+        DamageDisplayHandler.DisplayStackedDamage(gameObject, damage);
+        StopCoroutine(nameof(ApplyDeformationOverTime));
+        StartCoroutine(nameof(ApplyDeformationOverTime));
+        ApplyKnockback(knockback);
+    }
+    
     
 
     public void ApplyKnockback(int knockbackForce)

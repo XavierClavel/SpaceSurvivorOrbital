@@ -8,77 +8,46 @@ public enum healthChange { hit, critical, heal, poison, fire };
 
 public class DamageDisplayHandler : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI damageDisplayPrefab;
-    [SerializeField] Canvas canvas;
+    [SerializeField] DamageDisplay damageDisplayPrefab;
+    [SerializeField] GameObject canvas;
     static DamageDisplayHandler instance;
-    static Vector3 scaleTarget = new Vector3(1.5f, 1.5f, 1.5f);
-    static Vector3 exitScale = new Vector3(0.5f, 0.5f, 0.5f);
-    static Color targetColor_white = new Color(1f, 1f, 1f, 0f);
-    static Color targetColor_red = new Color(1f, 0f, 0f, 0f);
-    static Color targetColor_green = new Color(0f, 1f, 0f, 0f);
-    static Color poisonColor = new Color(0.0627f, 0.9215f, 0.70588f);
-    static Color target_poisonColor = new Color(0.0627f, 0.9215f, 0.70588f, 0f);
-    static Color fireColor = new Color(0.9411f, 0.6f, 0.08627f);
-    static Color target_fireColor = new Color(0.9411f, 0.6f, 0.08627f, 0f);
+
+    public static Dictionary<GameObject, DamageDisplay> dictObjectToDisplay =
+        new Dictionary<GameObject, DamageDisplay>();
+
+    private static ComponentPool<DamageDisplay> damageDisplayPool;
+
 
     private void Start()
     {
         instance = this;
-
+        dictObjectToDisplay = new Dictionary<GameObject, DamageDisplay>();
+        damageDisplayPool = new ComponentPool<DamageDisplay>(damageDisplayPrefab);
     }
 
-    public static void DisplayDamage(int damage, Vector2 position, healthChange type = healthChange.hit)
+    public static void DisplayStackedDamage(GameObject target, int damage)
     {
-        GameObject container = new GameObject();
-        container.transform.position = new Vector3(position.x, position.y, 2f);
-        TextMeshProUGUI damageDisplay = Instantiate(instance.damageDisplayPrefab, position, Quaternion.identity);
-        damageDisplay.transform.SetParent(container.transform);
-
-        damageDisplay.text = damage.ToString();
-        GameObject displayObject = damageDisplay.gameObject;
-        RectTransform displayTransform = displayObject.GetComponent<RectTransform>();
-        //displayTransform.DOMoveY(displayTransform.position.y + 2f, 2f);
-        Color targetColor;
-        switch (type)
+        if (!dictObjectToDisplay.ContainsKey(target))
         {
-            case healthChange.hit:
-                targetColor = targetColor_white;
-                break;
-            case healthChange.critical:
-                damageDisplay.color = Color.red;
-                targetColor = targetColor_red;
-                break;
-            case healthChange.heal:
-                damageDisplay.color = Color.green;
-                targetColor = targetColor_green;
-                damageDisplay.text = "+" + damage.ToString();
-                break;
-
-            case healthChange.poison:
-                damageDisplay.color = poisonColor;
-                targetColor = target_poisonColor;
-                break;
-
-            case healthChange.fire:
-                damageDisplay.color = fireColor;
-                targetColor = target_fireColor;
-                break;
-
-            default:
-                targetColor = targetColor_white;
-                break;
+            DamageDisplay damageDisplay = DisplayDamage(damage, target.transform.position);
+            damageDisplay.setTarget(target);
         }
-        //damageDisplay.DOColor(targetColor, 1f).SetEase(Ease.InQuad);
-        //Sequence sequence = DOTween.Sequence();
-
-
-        //sequence.Append(displayTransform.DOScale(scaleTarget, 0.25f));
-
-        //sequence.Append(displayTransform.DOScaleX(scaleTarget.x, 0.25f));
-        //sequence.Append(displayTransform.DOScaleY(scaleTarget.y, 0.25f));
-
-        //sequence.Append(displayTransform.DOScale(exitScale, 1.5f)).SetEase(Ease.OutQuad);
-        Destroy(container, 1f);
+        else
+        {
+            DamageDisplay damageDisplay = dictObjectToDisplay[target];
+            damageDisplay.setPosition(target.transform.position + 0.5f * Vector3.up)
+                .updateValue(damage);
+        }
     }
 
+    public static DamageDisplay DisplayDamage(int damage, Vector2 position, healthChange type = healthChange.hit)
+    {
+        DamageDisplay damageDisplay = damageDisplayPool.get(position + 0.5f * Vector2.up);
+        damageDisplay
+            .setPool(damageDisplayPool)
+            .setColor(type)
+            .setValue(damage, type);
+        return damageDisplay;
+    }
+    
 }

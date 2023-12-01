@@ -64,6 +64,12 @@ public class Resource : Breakable
         base.Hit(hitInfo);
         health -= hitInfo.damage;
     }
+    
+    public override void StackHit(int damage, int knockback)
+    {
+        base.StackHit(damage, knockback);
+        health -= damage;
+    }
 
     void Break()
     {

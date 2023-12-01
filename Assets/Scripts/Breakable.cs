@@ -46,6 +46,11 @@ public class Breakable : MonoBehaviour
         Hit(new HitInfo(damage, critical, effect));
     }
 
+    public virtual void StackHit(int damage, int knockback)
+    {
+        
+    }
+
     public void StackDamage(float dps, status element)
     {
         stackedDamage += dps * Time.fixedDeltaTime;
@@ -53,7 +58,8 @@ public class Breakable : MonoBehaviour
 
         int damage = (int)stackedDamage;
         stackedDamage -= damage;
-        Hit(damage, element, false);
+        StackHit(damage, 0);
+        //Hit(damage, element, false);
     }
 
     protected virtual void OnDestroy()
