@@ -27,8 +27,6 @@ public class SceneTransitionManager : MonoBehaviour
         StartCoroutine(nameof(AnimationEnterScene));
     }
     
-    public void Test(gameScene newScene) {}
-
     public void ToTitleScreen()
     {
         Debug.Log("method called");

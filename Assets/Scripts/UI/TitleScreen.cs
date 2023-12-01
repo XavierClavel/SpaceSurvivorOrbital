@@ -38,7 +38,7 @@ public class TitleScreen : MonoBehaviour, UIPanel
     {
         SaveManager.Reset();
         UpdateSoulsDisplay();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneTransitionManager.TransitionToScene(gameScene.titleScreen);
     }
 
     public void AddSouls()
