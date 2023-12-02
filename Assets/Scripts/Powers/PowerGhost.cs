@@ -1,9 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PowerGhost : Power, IEnnemyListener
 {
@@ -31,7 +26,7 @@ public class PowerGhost : Power, IEnnemyListener
         spawnCounter = 0;
         SpawnGhost(position);
     }
-    public void SpawnGhost(Vector2 position)
+    private void SpawnGhost(Vector2 position)
     {
         Ghost newGhost = Instantiate(ghost);
         newGhost.transform.position = position;

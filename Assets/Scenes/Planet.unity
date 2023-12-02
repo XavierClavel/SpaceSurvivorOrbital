@@ -681,7 +681,7 @@ RectTransform:
   m_Children:
   - {fileID: 421135914}
   - {fileID: 157606360}
-  m_Father: {fileID: 1700240052}
+  m_Father: {fileID: 1007081080}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2264,9 +2264,9 @@ RectTransform:
   m_Father: {fileID: 1007081080}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 908, y: -485}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -50, y: 50}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &399998015
@@ -5004,7 +5004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noEnnemySpawn: 0
-  noTimer: 0
+  doTimerRun: 0
   startWithResources: 0
   freeUpgrades: 1
   divineLightning: 0
@@ -5268,6 +5268,8 @@ RectTransform:
   - {fileID: 1592457025}
   - {fileID: 23201901}
   - {fileID: 399998014}
+  - {fileID: 1087121948}
+  - {fileID: 38107357}
   - {fileID: 1700240052}
   - {fileID: 1261227890}
   m_Father: {fileID: 0}
@@ -5551,9 +5553,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1087121948}
+  - component: {fileID: 1087121950}
   - component: {fileID: 1087121949}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: Timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5566,7 +5569,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1087121947}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5574,12 +5577,12 @@ RectTransform:
   - {fileID: 110165092}
   - {fileID: 801951033}
   - {fileID: 704507127}
-  m_Father: {fileID: 1700240052}
+  m_Father: {fileID: 1007081080}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -795, y: -478}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 120, y: 50}
   m_SizeDelta: {x: 180, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1087121949
@@ -5633,6 +5636,21 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1087121950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087121947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0083788f26f02394f8930fad8ecd6b88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boss: {fileID: -9161221971145362554, guid: 0255db1fe2cced14ba96b9714800f0bb, type: 3}
+  timerSlider: {fileID: 1087121949}
+  winText: {fileID: 6080544551730886748, guid: 59da4376dd2ed2c4d84c795f064dc8d5, type: 3}
 --- !u!1 &1117088151
 GameObject:
   m_ObjectHideFlags: 0
@@ -6130,7 +6148,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -68, y: 0}
+  m_AnchoredPosition: {x: -68, y: -80}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1232134763
@@ -8180,9 +8198,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 38107357}
-  - {fileID: 1087121948}
+  m_Children: []
   m_Father: {fileID: 1007081080}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8211,9 +8227,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0083788f26f02394f8930fad8ecd6b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerSlider: {fileID: 1087121949}
-  totalTime: 120
   boss: {fileID: -9161221971145362554, guid: 0255db1fe2cced14ba96b9714800f0bb, type: 3}
+  timerSlider: {fileID: 1087121949}
   winText: {fileID: 6080544551730886748, guid: 59da4376dd2ed2c4d84c795f064dc8d5, type: 3}
 --- !u!1 &1750582266
 GameObject:

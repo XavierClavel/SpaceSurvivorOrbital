@@ -34,6 +34,8 @@ public static class ConstantsData
     public static float audioMinPitch;
     public static float audioMaxPitch;
 
+    public static int timerDuration;
+
 }
 
 public class ConstantsDataBuilder
@@ -75,6 +77,8 @@ public class ConstantsDataBuilder
         
         SetValue(ref ConstantsData.audioMinPitch, "Audio_MinPitch");
         SetValue(ref ConstantsData.audioMaxPitch, "Audio_MaxPitch");
+        
+        SetValue(ref ConstantsData.timerDuration, "Timer_Duration");
     }
     
     private void SetValue<T>(ref T variable, string key)

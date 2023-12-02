@@ -76,7 +76,7 @@ public class Spaceship : MonoBehaviour, IInteractable
     void LaunchShip()
     {
         PlayerManager.SetControlMode(PlayerController.isPlayingWithGamepad);
-        PlayerManager.currentTimer = Timer.timeRemaining;
+        //PlayerManager.currentTimer = Timer.timeRemaining;
         PlayerManager.setCurrentHealth(PlayerController.instance.health);
         PlayerManager.setSouls(PlayerController.instance.souls);
         

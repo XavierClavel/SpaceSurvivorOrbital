@@ -9,54 +9,45 @@ using DG.Tweening;
 
 public class Timer : MonoBehaviour
 {
-    public static int timeRemaining;
+    [SerializeField] Ennemy boss;
+    
+    public static int timeRemainingToAdd;
+    private float timeRemaining;
 
     public Slider timerSlider;
     
-    public float totalTime = 60.0f; // Temps total en secondes
     private float elapsedTime = 0.0f; // Temps écoulé en secondes
-   
-    private bool bossHere = false;
-
-    [SerializeField] Ennemy boss;
     
-    Transform playerTransform;
-    
-    public static Timer instance;
     
     public GameObject winText;
+    private float factor;
 
-    private void Awake()
-    {
-        instance = this;
-    }
+
+    
 
     void Start()
     {
-        playerTransform = PlayerController.instance.transform;
+        timeRemaining = ConstantsData.timerDuration;
+        factor = 1f / timeRemaining;
+        if (DebugManager.instance.doTimerRun) StartCoroutine(nameof(TimerRunner));
     }
-
-    private void Update()
+    
+    private IEnumerator TimerRunner()
     {
-        elapsedTime += Time.deltaTime;
-
-        timerSlider.value = 1 - (elapsedTime / totalTime);
-
-        if (elapsedTime >= totalTime  && bossHere == false)
+        while (timeRemaining > 0)
         {
-            Instantiate(boss, randomPos() + playerTransform.position, Quaternion.identity).onDeath.AddListener(OnBossDefeat);
-            bossHere = true;
+            timeRemaining -= Time.fixedDeltaTime;
+            timerSlider.value = timeRemaining * factor;
+            yield return Helpers.GetWait(Time.fixedDeltaTime);
         }
+
+        Vector3 bossPosition = PlayerController.instance.transform.position + Helpers.getRandomPositionInRadius(new Vector2(4f, 8f));
+        Instantiate(boss, bossPosition, Quaternion.identity)
+            .onDeath.AddListener(OnBossDefeat);
     }
 
-    Vector3 randomPos()
-    {
-        float signA = Random.Range(0, 2) * 2 - 1;
-        float signB = Random.Range(0, 2) * 2 - 1;
-        return signA * Random.Range(6f, 12f) * Vector2.up + signB * Random.Range(4f, 8f) * Vector2.right;
-    }
 
-    public void OnBossDefeat()
+    private void OnBossDefeat()
     {
         PauseMenu.instance.PauseGame(false);
         Instantiate(winText);

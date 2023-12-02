@@ -10,7 +10,7 @@ public class DebugManager : MonoBehaviour
     
     
     [SerializeField] bool noEnnemySpawn;
-    [SerializeField] bool noTimer;
+    public bool doTimerRun;
     [SerializeField] bool startWithResources;
     [SerializeField] private bool freeUpgrades;
 
@@ -30,11 +30,12 @@ public class DebugManager : MonoBehaviour
 
     public static bool testVersion = true;
     // Start is called before the first frame update
-    private static DebugManager instance;
+    public static DebugManager instance;
 
     private void Awake()
     {
         instance = this;
+        
     }
 
     void Start()
