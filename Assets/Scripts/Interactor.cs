@@ -68,7 +68,7 @@ public abstract class Interactor : Damager
     protected abstract void onStartUsing();
     protected abstract void onStopUsing();
 
-    private void Update()
+    protected virtual void Update()
     {
         spriteRenderer.flipY = transform.eulerAngles.z > 90 && transform.eulerAngles.z <= 270;
     }

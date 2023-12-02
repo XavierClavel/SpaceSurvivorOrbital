@@ -82,6 +82,8 @@ public class Laser : Interactor
     private bool overheating = false;
     private bool laserBeamActive;
     private const float laserSfxTransitionTime = 0.3f;
+    private float scrollSpeed = 2f;
+    private float tiling = 1f;
 
     protected override void Start()
     {
@@ -121,6 +123,10 @@ public class Laser : Interactor
         laserSfxSource.clip = sfx.getClip();
         laserSfxSource.Play();
 
+
+        lineRenderer.material.mainTextureScale = new Vector2(tiling, 1f);
+        scrollSpeed = stats.baseDamage.x / ConstantsData.laserDamageToSpeed;
+
     }
 
 
@@ -133,6 +139,12 @@ public class Laser : Interactor
     protected override void onStopUsing()
     {
         if (!overheating) onLaserStop();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        lineRenderer.material.mainTextureOffset = scrollSpeed * Time.time * Vector2.left;
     }
 
     private void FixedUpdate()
@@ -194,13 +206,14 @@ public class Laser : Interactor
     
     void UpdateLaserBeam()
     {
-        lineRenderer.SetPosition(0, firePoint.position);
+        Debug.Log(firePoint.position + 2*Vector3.back);
+        lineRenderer.SetPosition(0, firePoint.position + 2*Vector3.back);
         
 
         RaycastHit2D[] hits = Physics2D.CircleCastAll(firePoint.position, width, firePoint.right, stats.range, currentLayerMask);
         if (hits.Length == 0)
         {
-            lineRenderer.SetPosition(1, firePoint.position + firePoint.right * stats.range);
+            lineRenderer.SetPosition(1, firePoint.position + firePoint.right * stats.range + 2*Vector3.back);
             return;
         }
 
@@ -216,7 +229,7 @@ public class Laser : Interactor
             GameObject go = hits[i].collider.gameObject;
             if (go.layer == LayerMask.NameToLayer(Vault.layer.Obstacles))
             {
-                lineRenderer.SetPosition(1, firePoint.position + firePoint.right * hits[i].distance);
+                lineRenderer.SetPosition(1, firePoint.position + firePoint.right * hits[i].distance + 2*Vector3.back);
                 return;
             }
 
@@ -230,7 +243,7 @@ public class Laser : Interactor
         float range = hits.Length < stats.pierce
             ? stats.range
             : hits[stopIndex - 1].distance;
-        lineRenderer.SetPosition(1, firePoint.position + firePoint.right * range);
+        lineRenderer.SetPosition(1, firePoint.position + firePoint.right * range + 2*Vector3.back);
     }
     
 
