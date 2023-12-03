@@ -7,11 +7,16 @@ public class PowerGhost : Power, IEnnemyListener
     [SerializeField] private int spawnsEvery = 2;
     private int spawnCounter = 0;
 
+    private ComponentPool<Ghost> poolGhosts;
+    private static PowerGhost instance;
+
     
     public override void Setup(PlayerData _)
     {
         base.Setup(_);
         Ennemy.registerListener(this);
+        poolGhosts = new ComponentPool<Ghost>(ghost);
+        instance = this;
     }
 
     private void OnDestroy()
@@ -28,9 +33,13 @@ public class PowerGhost : Power, IEnnemyListener
     }
     private void SpawnGhost(Vector2 position)
     {
-        Ghost newGhost = Instantiate(ghost);
-        newGhost.transform.position = position;
+        Ghost newGhost = poolGhosts.get(position);
         newGhost.Setup(fullStats);
+    }
+
+    public static void recallGhost(Ghost ghostToRecall)
+    {
+        instance.poolGhosts.recall(ghostToRecall);
     }
 
 }

@@ -21,6 +21,8 @@ public class Ghost : MonoBehaviour
     private bool canBeDestroyedByLaser = false;
     private float laserWaitBeforeHit = 0.3f;
     private float currentLaserCooldown = 0f;
+    private static readonly int animReset = Animator.StringToHash("Reset");
+    private static readonly int animExplode = Animator.StringToHash("Explode");
 
     public void Setup(PlayerData _)
     {
@@ -33,8 +35,12 @@ public class Ghost : MonoBehaviour
 
         dictGoToGhost[gameObject] = this;
         StartCoroutine(nameof(DestroyByWait));
+        
+        currentLaserCooldown = laserWaitBeforeHit;
 
         if (DataSelector.selectedWeapon == "Laser") StartCoroutine(nameof(WaitLaser));
+        
+        animator.SetTrigger(animReset);
 
     }
 
@@ -69,9 +75,14 @@ public class Ghost : MonoBehaviour
 
     private void Explode()
     {
-        animator.enabled = true;
+        animator.SetTrigger(animExplode);
         DoShockwave();
-        Destroy(gameObject,0.5f);
+        Invoke(nameof(Recall),0.5f);
+    }
+
+    private void Recall()
+    {
+        PowerGhost.recallGhost(this);
     }
 
     private void DoShockwave()
