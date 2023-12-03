@@ -87,11 +87,15 @@ public class Ghost : MonoBehaviour
 
     private void DoShockwave()
     {
-        Shockwave shockwaveGhost = Instantiate(shockwave);
-        shockwaveGhost.transform.position = this.transform.position;
+        Shockwave shockwaveGhost = PowerGhost.SpawnShockwave(transform.position);
         shockwaveGhost.transform.localScale = Vector3.zero;
         shockwaveGhost.Setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement);
-        shockwaveGhost.doShockwave();
+        shockwaveGhost.setRecallMethod(delegate
+        {
+            PowerGhost.recallShockwave(shockwaveGhost);
+            
+        });
+        shockwaveGhost.doShockwave(true);
     }
     
 

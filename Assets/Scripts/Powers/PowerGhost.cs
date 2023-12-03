@@ -3,11 +3,14 @@ using UnityEngine;
 public class PowerGhost : Power, IEnnemyListener
 {
     [SerializeField] private Ghost ghost;
+    [SerializeField] private Shockwave ghostShockwave;
 
     [SerializeField] private int spawnsEvery = 2;
     private int spawnCounter = 0;
 
     private ComponentPool<Ghost> poolGhosts;
+    private ComponentPool<Shockwave> poolShockwaves;
+    
     private static PowerGhost instance;
 
     
@@ -16,6 +19,7 @@ public class PowerGhost : Power, IEnnemyListener
         base.Setup(_);
         Ennemy.registerListener(this);
         poolGhosts = new ComponentPool<Ghost>(ghost);
+        poolShockwaves = new ComponentPool<Shockwave>(ghostShockwave);
         instance = this;
     }
 
@@ -40,6 +44,16 @@ public class PowerGhost : Power, IEnnemyListener
     public static void recallGhost(Ghost ghostToRecall)
     {
         instance.poolGhosts.recall(ghostToRecall);
+    }
+    
+    public static Shockwave SpawnShockwave(Vector2 position)
+    {
+        return instance.poolShockwaves.get(position);
+    }
+    
+    public static void recallShockwave(Shockwave shockwaveToRecall)
+    {
+        instance.poolShockwaves.recall(shockwaveToRecall);
     }
 
 }

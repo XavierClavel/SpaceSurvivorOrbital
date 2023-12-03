@@ -20,22 +20,20 @@ public class SynthWave : Power
         shockwaveDamage = _.generic.intA;
         shockwaveElement = _.generic.elementA;
         doubleShockwave = _.generic.boolB;
-
-        InvokeRepeating("DoShockwave", 0f, stats.attackSpeed);
-        if (doubleShockwave) {InvokeRepeating("DoShockwave", 0.5f, stats.attackSpeed); }
-    }
-
-    protected override void Start()
-    {
         
+        
+        shockwave = Instantiate(shockwave, player.transform, true);
+        shockwave.Setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement);
+
+        InvokeRepeating(nameof(DoShockwave), 0f, stats.attackSpeed);
+        if (doubleShockwave) {InvokeRepeating(nameof(DoShockwave), 0.5f, stats.attackSpeed); }
     }
+
 
     private void DoShockwave()
     {
-        Shockwave newShockwave = Instantiate(shockwave, player.transform, true);
-        newShockwave.transform.localScale = Vector3.zero;
-        newShockwave.transform.localPosition = Vector3.zero;
-        newShockwave.Setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement);
-        newShockwave.doShockwave();
+        shockwave.transform.localScale = Vector3.zero;
+        shockwave.transform.localPosition = Vector3.zero;
+        shockwave.doShockwave();
     }
 }
