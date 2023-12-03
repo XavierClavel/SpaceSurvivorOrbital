@@ -15,21 +15,22 @@ public class Shockwave : MonoBehaviour
     private float shockwaveDuration = 1f;
     private int shockwaveDamage;
     private float shockwaveRange;
+    private int shockwaveKnockback;
     private status effect;
     private List<GameObject> objectsHit;
     private UnityAction recallAction = null;
     
-    public void Setup(float shockwaveRange, int shockwaveDamage, status effect)
+    public void Setup(float shockwaveRange, int shockwaveDamage, status effect, int shockwaveKnockback)
     {
         this.shockwaveRange = shockwaveRange;
         this.shockwaveDamage = shockwaveDamage;
+        this.shockwaveKnockback = shockwaveKnockback;
+        this.effect = effect;
         
         disc = GetComponent<Disc>();
         baseShockwaveColor = disc.Color;
         clearColor = baseShockwaveColor;
         clearColor.a = 0;
-    
-        this.effect = effect;
     }
     
     public void setRecallMethod(UnityAction action)
@@ -66,7 +67,7 @@ public class Shockwave : MonoBehaviour
         if (objectsHit.Contains(other.gameObject)) return;
         objectsHit.Add(other.gameObject);
         
-        HitInfo hitInfo = new HitInfo(shockwaveDamage, false, effect);
+        HitInfo hitInfo = new HitInfo(shockwaveDamage, false, effect, shockwaveKnockback);
         ObjectManager.dictObjectToHitable[other.gameObject].Hit(hitInfo);
         
     }

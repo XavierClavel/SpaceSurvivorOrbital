@@ -10,6 +10,14 @@ public struct HitInfo
     public readonly bool critical;
     public readonly status effect;
     public readonly int knockback;
+    
+    public HitInfo(int damage, bool critical, status effect, int knockback)
+    {
+        this.damage = damage;
+        this.critical = critical;
+        this.effect = effect;
+        this.knockback = knockback;
+    }
 
     public HitInfo(int damage, bool critical, status effect)
     {
