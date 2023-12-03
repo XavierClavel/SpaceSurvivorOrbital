@@ -26,6 +26,7 @@ public class Laser : Interactor
     private float width;
     [SerializeField] protected Transform firePoint;
     [SerializeField] LineRenderer lineRenderer;
+    [SerializeField] private GameObject collisionSprite;
     [SerializeField] private Shockwave shockwave;
     playerDirection _aimDirection_value = playerDirection.front;
 
@@ -127,6 +128,11 @@ public class Laser : Interactor
         lineRenderer.material.mainTextureScale = new Vector2(tiling, 1f);
         scrollSpeed = stats.baseDamage.x / ConstantsData.laserDamageToSpeed;
 
+        collisionSprite.transform.DORotate(360f * Vector3.forward,2, RotateMode.FastBeyond360)
+            .SetRelative()
+            .SetEase(Ease.Linear)
+            .SetLoops(-1);
+
     }
 
 
@@ -214,6 +220,7 @@ public class Laser : Interactor
         if (hits.Length == 0)
         {
             lineRenderer.SetPosition(1, firePoint.position + firePoint.right * stats.range + 2*Vector3.back);
+            collisionSprite.SetActive(false);
             return;
         }
 
@@ -229,7 +236,10 @@ public class Laser : Interactor
             GameObject go = hits[i].collider.gameObject;
             if (go.layer == LayerMask.NameToLayer(Vault.layer.Obstacles))
             {
-                lineRenderer.SetPosition(1, firePoint.position + firePoint.right * hits[i].distance + 2*Vector3.back);
+                Vector3 collisionPoint = firePoint.position + firePoint.right * hits[i].distance;
+                lineRenderer.SetPosition(1, collisionPoint + 2*Vector3.back);
+                collisionSprite.SetActive(true);
+                collisionSprite.transform.position = collisionPoint + 3*Vector3.back;
                 return;
             }
 
@@ -239,6 +249,7 @@ public class Laser : Interactor
             }
             HurtEnnemy(go);
         }
+        collisionSprite.SetActive(false);
 
         float range = hits.Length < stats.pierce
             ? stats.range
