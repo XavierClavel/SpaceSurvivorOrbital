@@ -71,7 +71,7 @@ public class SpawnManager : Breakable
         
         ObjectManager.registerDenSpawned();
 
-        if (doEnnemySpawn)
+        if (!DebugManager.instance.noEnnemySpawn)
         {
             StartCoroutine(nameof(SpawnController));
         }

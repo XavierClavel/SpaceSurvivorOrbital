@@ -13,11 +13,16 @@ public class UIManager : MonoBehaviour
     
     //Static
     private static UIManager instance;
+    private static float canvasHeight;
 
 #region MonoBehaviourEvents
     private void Start()
     {
         instance = this;
+        
+        Canvas.ForceUpdateCanvases(); 
+        canvasHeight = GetComponent<Canvas>().GetComponent<RectTransform>().rect.height;
+        
         upgradesUI = upgradesManager.getUITransform();
         planetsUI = planetManager.getUITransform();
         HideUpgradesUI();
@@ -31,12 +36,12 @@ public class UIManager : MonoBehaviour
 
     public static void HideUpgradesUI()
     {
-        instance.upgradesUI.anchoredPosition += Camera.main.scaledPixelHeight * Vector2.down;
+        instance.upgradesUI.anchoredPosition += canvasHeight * Vector2.down;
     }
 
     public static void HidePlanetsUI()
     {
-        instance.planetsUI.anchoredPosition += Camera.main.scaledPixelHeight * Vector2.down;
+        instance.planetsUI.anchoredPosition += canvasHeight * Vector2.down;
     }
 
     public static void DisplayUpgradesUI()
@@ -61,8 +66,8 @@ public class UIManager : MonoBehaviour
 
 #region staticAPI
 
-    public static float posAboveCamera => Camera.main.scaledPixelHeight;
-    public static float posBelowCamera => -Camera.main.scaledPixelHeight;
+    public static float posAboveCamera => canvasHeight;
+    public static float posBelowCamera => -canvasHeight;
 
     #endregion
 

@@ -29,7 +29,7 @@ public class Timer : MonoBehaviour
     {
         timeRemaining = ConstantsData.timerDuration;
         factor = 1f / timeRemaining;
-        if (DebugManager.instance.doTimerRun) StartCoroutine(nameof(TimerRunner));
+        if (!DebugManager.instance.noTimer) StartCoroutine(nameof(TimerRunner));
     }
     
     private IEnumerator TimerRunner()

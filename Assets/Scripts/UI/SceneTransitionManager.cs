@@ -13,6 +13,8 @@ public class SceneTransitionManager : MonoBehaviour
 
     [SerializeField] private RectTransform imageTransform;
     [SerializeField] private bool doFadeIn;
+    private float canvasX;
+    private float canvasY;
 
     private static SceneTransitionManager instance;
     
@@ -20,8 +22,14 @@ public class SceneTransitionManager : MonoBehaviour
     void Start()
     {
         instance = this;
-        imageTransform.sizeDelta = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight);
-        maskTransform.sizeDelta = 2 * Camera.main.pixelWidth * Vector2.one;
+        
+        Canvas.ForceUpdateCanvases();
+        Rect rec = GetComponentInParent<Canvas>().GetComponent<RectTransform>().rect;
+        canvasX = rec.width;
+        canvasY = rec.height;
+        
+        imageTransform.sizeDelta = new Vector2(canvasX, canvasY);
+        maskTransform.sizeDelta = 2 * canvasX * Vector2.one;
         if (!doFadeIn) return;
         overlay.SetActive(true);
         StartCoroutine(nameof(AnimationEnterScene));
@@ -38,9 +46,9 @@ public class SceneTransitionManager : MonoBehaviour
         
         SoundManager.onSceneChange(newScene);
         overlay.SetActive(true);
-        imageTransform.sizeDelta = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight);
+        imageTransform.sizeDelta = new Vector2(canvasX, canvasY);
         maskTransform.sizeDelta = Vector2.zero;
-        maskTransform.DOSizeDelta(2 * Camera.main.pixelWidth * Vector2.one, 1f).SetEase(Ease.InOutQuint).SetUpdate(true).SetDelay(0.2f)
+        maskTransform.DOSizeDelta(2 * canvasX * Vector2.one, 1f).SetEase(Ease.InOutQuint).SetUpdate(true).SetDelay(0.2f)
             .OnComplete(delegate
             {
                 PauseMenu.ResumeTime();

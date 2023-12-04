@@ -11,6 +11,8 @@ public class TitleScreenManager : MonoBehaviour
     private RectTransform dataSelectorUI;
     [SerializeField] TitleScreen titleScreen;
     [SerializeField] DataSelector dataSelector;
+    [SerializeField] private Canvas canvas;
+    private static float canvasHeight;
     
     //Static
     private static TitleScreenManager instance;
@@ -19,10 +21,15 @@ public class TitleScreenManager : MonoBehaviour
     private void Start()
     {
         instance = this;
+        
+        Canvas.ForceUpdateCanvases(); 
+        canvasHeight = canvas.GetComponent<RectTransform>().rect.height;
+        
         titleScreenUI = titleScreen.getUITransform();
         dataSelectorUI = dataSelector.getUITransform();
         HideDataSelector();
         titleScreen.Setup();
+        
     }
     #endregion
     
@@ -30,12 +37,13 @@ public class TitleScreenManager : MonoBehaviour
 
     public static void HideTitleScreen()
     {
-        instance.titleScreenUI.anchoredPosition += Camera.main.scaledPixelHeight * Vector2.down;
+        instance.titleScreenUI.anchoredPosition += canvasHeight * Vector2.down;
     }
 
     public static void HideDataSelector()
     {
-        instance.dataSelectorUI.anchoredPosition += Camera.main.scaledPixelHeight * Vector2.down;
+        Debug.Log(canvasHeight);
+        instance.dataSelectorUI.anchoredPosition += canvasHeight * Vector2.down;
     }
 
     public static void DisplayUpgradesUI()
@@ -59,8 +67,8 @@ public class TitleScreenManager : MonoBehaviour
 
     #region staticAPI
 
-    public static float posAboveCamera => Camera.main.scaledPixelHeight;
-    public static float posBelowCamera => -Camera.main.scaledPixelHeight;
+    public static float posAboveCamera => canvasHeight;
+    public static float posBelowCamera => -canvasHeight;
 
     #endregion
 

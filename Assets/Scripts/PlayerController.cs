@@ -276,7 +276,6 @@ public class PlayerController : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log(state);
             if (state == playerState.walking) SoundManager.PlaySfx(transform, "Footstep");
             yield return footstepsWait;
         }

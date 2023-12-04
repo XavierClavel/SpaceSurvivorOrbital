@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DebugManager : MonoBehaviour
 {
     public static bool areUpgradesFree { get; private set; }
     
     
-    [SerializeField] bool noEnnemySpawn;
-    public bool doTimerRun;
+    public bool noEnnemySpawn;
+    public bool noTimer;
     [SerializeField] bool startWithResources;
     [SerializeField] private bool freeUpgrades;
 
@@ -71,7 +72,7 @@ public class DebugManager : MonoBehaviour
         PlayerManager.AcquirePower(powerHandler);
         powerHandler.Activate();
         ObjectManager.HideAltarUI();
-        ObjectManager.altar.DepleteAltar();
+        ObjectManager.altar?.DepleteAltar();
     }
 
 }
