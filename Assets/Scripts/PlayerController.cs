@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
             if (_walkDirection_value == value) return;
             playerSprite.flipX = value == playerDirection.left;
             _walkDirection_value = value;
+            
             animator.SetInteger(Vault.animatorParameter.WalkDirection, (int)value);
         }
     }
@@ -374,6 +375,7 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
+        //SoundManager.PlaySfx(transform, key: "Footstep_grass");
         if (Helpers.isPlatformAndroid()) moveDir = joystickMove.Direction;
         else moveDir = controls.Player.Move.ReadValue<Vector2>();
 
@@ -385,6 +387,7 @@ public class PlayerController : MonoBehaviour
         }
         else state = playerState.idle;
         targetMoveAmount = moveDir * speed;
+
         moveAmount = Vector2.SmoothDamp(moveAmount, targetMoveAmount, ref smoothMoveVelocity, 0.10f);
     }
 

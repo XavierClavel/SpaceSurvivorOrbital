@@ -33,7 +33,6 @@ public class Resource : Breakable
             _health = value;
             healthBar.value = value;
             if (!healthBar.gameObject.activeInHierarchy && !isDestroy) healthBar.gameObject.SetActive(true);
-            //SoundManager.instance.PlaySfx(transform, sfx.playerHit);
             if (value >= 0 && value < maxHealth) spriteRenderer.sprite = damagedSprite;
             if (value <= 0 && !isDestroy) Break();
         }
@@ -62,18 +61,20 @@ public class Resource : Breakable
     public override void Hit(HitInfo hitInfo)
     {
         base.Hit(hitInfo);
+        SoundManager.PlaySfx(transform, key: "Eggs");
         health -= hitInfo.damage;
     }
     
     public override void StackHit(int damage, int knockback)
     {
         base.StackHit(damage, knockback);
+        SoundManager.PlaySfx(transform, key: "Eggs");
         health -= damage;
     }
 
     void Break()
     {
-        SoundManager.PlaySfx(transform,Vault.sfx.BreakResource);
+        SoundManager.PlaySfx(transform, key: "Eggs_Destroy");
         int nbItemsToSpawn = dropInterval.getRandom();
         for (int i = 0; i < nbItemsToSpawn; i++)
         {
