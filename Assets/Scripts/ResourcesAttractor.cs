@@ -22,6 +22,8 @@ public class ResourcesAttractor : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        SoundManager.PlaySfx(transform, key: "Collectible_Yellow_Green");
+
         switch (other.gameObject.tag)
         {
             case Vault.tag.GreenCollectible:
