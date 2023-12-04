@@ -13,6 +13,8 @@ public class ObjectManager : MonoBehaviour
     [SerializeField] GameObject altarFirstSelected;
     [SerializeField] GameObject loseScreen;
     [SerializeField] GameObject loseScreenFirstSelected;
+    public Transform powersDisplayLayout;
+    public PowerDisplay powerDisplayPrefab;
     public Slider reloadSlider;
 
     public ParticleSystem firePS;
@@ -117,6 +119,12 @@ public class ObjectManager : MonoBehaviour
         dictObjectToEnnemy = new Dictionary<GameObject, Ennemy>();
         dictObjectToInteractable = new Dictionary<GameObject, IInteractable>();
         dictObjectToResource = new Dictionary<GameObject, IResource>();
+    }
+
+    public static PowerDisplay AddPowerDisplay()
+    {
+        PowerDisplay powerDisplay = Instantiate(instance.powerDisplayPrefab, instance.powersDisplayLayout);
+        return powerDisplay;
     }
 
 

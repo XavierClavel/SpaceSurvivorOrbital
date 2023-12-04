@@ -23,5 +23,12 @@ public class PowerHandler : ObjectHandler
     {
         Power instance = GameObject.Instantiate(power);
         instance.Setup(PlayerManager.dictKeyToStats[key]);
+        DisplayPower();
+    }
+
+    private void DisplayPower()
+    {
+        PowerDisplay powerDisplay = ObjectManager.AddPowerDisplay();
+        powerDisplay.setSprite(getIcon());
     }
 }
