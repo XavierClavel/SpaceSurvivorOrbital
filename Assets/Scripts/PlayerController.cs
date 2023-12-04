@@ -121,6 +121,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public Vector2 aimVector;
 
     [SerializeField] protected SpriteRenderer spriteOverlay;
+    private WaitForSeconds footstepsWait;
 
     public int health
     {
@@ -265,6 +266,19 @@ public class PlayerController : MonoBehaviour
         
         DebugManager.DisplayValue("MaxHealth", maxHealth.ToString());
 
+        footstepsWait = new WaitForSeconds(ConstantsData.audioFootstepInterval);
+        StartCoroutine(nameof(PlayFootsteps));
+
+    }
+
+    private IEnumerator PlayFootsteps()
+    {
+        while (true)
+        {
+            Debug.Log(state);
+            if (state == playerState.walking) SoundManager.PlaySfx(transform, "Footstep");
+            yield return footstepsWait;
+        }
     }
 
     public void SetupShields(int amount)

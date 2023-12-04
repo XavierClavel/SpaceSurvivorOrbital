@@ -151,6 +151,11 @@ public class SoundManager : MonoBehaviour
     {
         PlaySfx(pos.position, key);
     }
+
+    public static void PlaySfx(string key)
+    {
+        PlaySfx(Vector3.zero, key);
+    }
     
     public static void PlaySfx(Vector3 pos, string key)
     {

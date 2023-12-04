@@ -37,6 +37,8 @@ public static class ConstantsData
     public static int timerDuration;
     public static float laserDamageToSpeed;
 
+    public static float audioFootstepInterval;
+
 }
 
 public class ConstantsDataBuilder
@@ -81,6 +83,8 @@ public class ConstantsDataBuilder
         
         SetValue(ref ConstantsData.timerDuration, "Timer_Duration");
         SetValue(ref ConstantsData.laserDamageToSpeed, "Laser_DamageToSpeed");
+        
+        SetValue(ref ConstantsData.audioFootstepInterval, "Audio_FootstepInterval");
     }
     
     private void SetValue<T>(ref T variable, string key)
