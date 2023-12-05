@@ -120,7 +120,7 @@ public class Laser : Interactor
             Debug.LogWarning($"Sfx key Laser not found");
             return;
         }
-        Sfx sfx = ScriptableObjectManager.dictKeyToSfx["Laser"];
+        Sfx sfx = ScriptableObjectManager.dictKeyToSfx["Laser_Shoot"];
         laserSfxSource.clip = sfx.getClip();
         laserSfxSource.Play();
 
