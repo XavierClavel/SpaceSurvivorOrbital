@@ -53,12 +53,14 @@ public class TitleScreenManager : MonoBehaviour
 
     public void SwitchToDataSelection()
     {
+        SoundManager.PlaySfx(transform, key: "Power_Switch");
         instance.titleScreenUI.DOAnchorPosY(posAboveCamera, 1f).SetEase(Ease.InOutQuint);
         instance.dataSelectorUI.DOAnchorPosY(0f, 1f).SetEase(Ease.InOutQuint);
     }
 
     public void SwitchToTitleScreen()
     {
+        SoundManager.PlaySfx(transform, key: "Power_Switch");
         instance.dataSelectorUI.DOAnchorPosY(posBelowCamera, 1f).SetEase(Ease.InOutQuint);
         instance.titleScreenUI.DOAnchorPosY(0f, 1f).SetEase(Ease.InOutQuint);
     }

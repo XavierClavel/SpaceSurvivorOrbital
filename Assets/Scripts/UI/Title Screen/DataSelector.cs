@@ -132,19 +132,21 @@ public class DataSelector : MonoBehaviour, UIPanel
     public void SelectCharacter(string value)
     {
         selectedCharacter = value;
+        SoundManager.PlaySfx(transform, key: "Button_Switch");
         if (selectedWeapon != string.Empty) startButton.interactable = true;
     }
 
     public void SelectWeapon(string value)
     {
         selectedWeapon = value;
+        SoundManager.PlaySfx(transform, key: "Button_Switch");
         if (selectedCharacter != string.Empty) startButton.interactable = true;
     }
 
     public void Validate()
     {
         PlayerManager.setWeapon(DataManager.dictWeapons[selectedWeapon], ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
-        
+        SoundManager.PlaySfx(transform, key: "Ship_TakeOff");
         PlanetSelector.SelectFirstPlanet();
     }
 

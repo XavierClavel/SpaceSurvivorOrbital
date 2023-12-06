@@ -171,7 +171,8 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
 
     public void SetActivePanel(int index)
     {
-        
+
+        SoundManager.PlaySfx(transform, key: "Power_Switch");
         SetActivePanel(panels[index]);
     }
 }

@@ -48,7 +48,7 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
 
     public void OnClick()
     {
-
+        SoundManager.PlaySfx(transform, key: "Button_Switch");
     }
 
 
@@ -85,6 +85,7 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
         {
             case skillButtonStatus.bought:
                 image.sprite = buttonSprite.purchased;
+                SoundManager.PlaySfx(transform, key: "Button_Buy");
                 HideCost();
                 break;
 

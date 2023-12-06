@@ -62,6 +62,7 @@ public class SelectButton : MonoBehaviour
         if (!Transaction()) return;
         
         SaveManager.unlockOption(key);
+        SoundManager.PlaySfx(transform, key: "Button_Buy");
         cross.SetActive(false);
         costPanel.SetActive(false);
         isUnlocked = true;
