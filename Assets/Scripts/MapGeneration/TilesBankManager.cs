@@ -9,7 +9,7 @@ public class TilesBankManager : ScriptableObject
     public TilesBank icePlanetBank;
     public TilesBank mushroomPlanetBank;
     public TilesBank junglePlanetBank;
-    public TilesBank stormPlanetBank;
+    //public TilesBank stormPlanetBank;
     public TilesBank desertPlanetBank;
     
     public Tile empty;
@@ -74,8 +74,8 @@ public class TilesBankManager : ScriptableObject
             case planetType.jungle:
                 return junglePlanetBank;
 
-            case planetType.storm:
-                return stormPlanetBank;
+            //case planetType.storm:
+            //    return stormPlanetBank;
 
             default:
                 return mushroomPlanetBank;
