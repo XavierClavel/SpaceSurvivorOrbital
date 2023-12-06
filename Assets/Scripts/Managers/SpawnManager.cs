@@ -41,6 +41,7 @@ public class SpawnManager : Breakable
 
     protected virtual void Death()
     {
+        SoundManager.PlaySfx(transform, key: "Spawn_Destroy");
         ObjectManager.registerDenDestroyed();
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
         Destroy(gameObject);
@@ -80,6 +81,7 @@ public class SpawnManager : Breakable
     public override void Hit(int damage, status effect, bool critical)
     {
         base.Hit(damage, effect, critical);
+        SoundManager.PlaySfx(transform, key: "Spawn_Hit");
         healthChange value = critical ? healthChange.critical : healthChange.hit;
         if (damage != 0)
         {

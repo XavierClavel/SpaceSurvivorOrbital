@@ -68,6 +68,7 @@ public class Spaceship : MonoBehaviour, IInteractable
             yield return Helpers.GetWaitFixed;
             fillAmount -= Time.fixedDeltaTime * factor;
             image.fillAmount = fillAmount;
+            SoundManager.PlaySfx(transform, key: "Ship_Loading");
         }
 
         LaunchShip();
@@ -75,6 +76,7 @@ public class Spaceship : MonoBehaviour, IInteractable
 
     void LaunchShip()
     {
+        SoundManager.PlaySfx(transform, key: "Ship_TakeOff");
         PlayerManager.SetControlMode(PlayerController.isPlayingWithGamepad);
         //PlayerManager.currentTimer = Timer.timeRemaining;
         PlayerManager.setCurrentHealth(PlayerController.instance.health);

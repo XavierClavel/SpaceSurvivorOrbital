@@ -213,6 +213,7 @@ public class Ennemy : Breakable
 
     protected virtual void Death()
     {
+        SoundManager.PlaySfx(transform, key: "Ennemy_Destroy");
         player.AddEnnemyScore(cost);
         StressTest.nbEnnemies--;
         SoundManager.PlaySfx(transform, Vault.sfx.EnnemyExplosion);

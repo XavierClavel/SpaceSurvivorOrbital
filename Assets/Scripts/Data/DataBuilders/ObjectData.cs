@@ -6,7 +6,7 @@ using System.Linq;
 public class ObjectData
 {
     public int maxHealth = 100;
-    public float baseSpeed = 3.5f;
+    public Vector2Int baseSpeed = new Vector2Int (5, 5);
     public float damageResistance = 0f;
     public int cost = 0;
     public Vector2Int baseDamage = new Vector2Int(5, 5);

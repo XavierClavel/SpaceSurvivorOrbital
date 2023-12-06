@@ -46,5 +46,6 @@ public class SynthWave : Power
         shockwave.transform.localScale = Vector3.zero;
         shockwave.transform.localPosition = Vector3.zero;
         shockwave.doShockwave();
+        SoundManager.PlaySfx(transform, key: "SynthWave_Sound");
     }
 }

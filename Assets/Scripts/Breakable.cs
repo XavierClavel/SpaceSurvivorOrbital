@@ -7,7 +7,7 @@ public class Breakable : MonoBehaviour
 {
     [SerializeField] private string key;
     protected int maxHealth = 150;
-    protected float baseSpeed;
+    protected Vector2Int baseSpeed;
     protected float damageResistance;
     protected Vector2Int baseDamage;
     protected int cost;

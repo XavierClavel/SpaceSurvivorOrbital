@@ -27,6 +27,7 @@ public class Sword : Interactor
     protected override void onUse()
     {
         player.OverrideWeaponRotation();
+        SoundManager.PlaySfx(transform, key: "Sword_Slash");
         swordCollider.enabled = true;
         Vector3 eulerDelta = stats.spread * 0.5f * Vector3.forward;
         Vector3 eulerBase = aimTransform.eulerAngles;

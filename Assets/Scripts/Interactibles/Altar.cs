@@ -52,9 +52,9 @@ public class Altar : MonoBehaviour, IInteractable
             yield return Helpers.GetWaitFixed;
             fillAmount -= Time.fixedDeltaTime * factor;
             image.fillAmount = fillAmount;
+            SoundManager.PlaySfx(transform, key: "Altar_Loading");
         }
-
-        ActivateAltar();
+       ActivateAltar();
     }
 
     public void DepleteAltar()

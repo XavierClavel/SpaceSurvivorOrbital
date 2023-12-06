@@ -187,6 +187,7 @@ public class Laser : Interactor
     {
         if (!isShockwaveEnabled) return;
         shockwave.doShockwave();
+        SoundManager.PlaySfx(transform, key: "Laser_Explode");
     }
 
     void onLaserStart()

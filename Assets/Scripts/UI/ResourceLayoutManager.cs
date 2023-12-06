@@ -67,6 +67,7 @@ public class ResourceLayoutManager : MonoBehaviour
     void OnSliderComplete(bool newResources)
     {
         sliderIndex++;
+        SoundManager.PlaySfx(transform, key: "Collectible_Full");
         full = sliderIndex >= sliders.Count;
 
         if (!newResources) return;

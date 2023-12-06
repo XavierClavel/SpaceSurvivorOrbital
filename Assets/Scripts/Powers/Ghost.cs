@@ -76,6 +76,7 @@ public class Ghost : MonoBehaviour
     private void Explode()
     {
         animator.SetTrigger(animExplode);
+        SoundManager.PlaySfx(transform, key: "Ghost_Explode");
         DoShockwave();
         Invoke(nameof(Recall),0.5f);
     }
