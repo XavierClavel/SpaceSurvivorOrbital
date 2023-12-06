@@ -76,6 +76,7 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
             currentTier++;
             PlanetSelectionManager.SelectNode(node);
             PlanetSelector.SelectPlanet(this);
+            SoundManager.PlaySfx(transform, key: "Ship_Landing");
         });
 
         planet.sprite = getSprite();
