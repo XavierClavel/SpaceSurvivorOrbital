@@ -22,6 +22,8 @@ public class DebugManager : MonoBehaviour
     [SerializeField] private bool ghost;
     [SerializeField] private bool blackHole;
     [SerializeField] private bool synthWave;
+    [SerializeField] private bool toxicZone;
+    [SerializeField] private bool dagger;
 
     [Header("Early Upgrades")]
     [SerializeField] bool startWithRadar;
@@ -53,6 +55,8 @@ public class DebugManager : MonoBehaviour
         if (ghost) AcquirePower(Vault.power.Ghost);
         if (blackHole) AcquirePower(Vault.power.BlackHole);
         if (synthWave) AcquirePower(Vault.power.SynthWave);
+        if (toxicZone) AcquirePower(Vault.power.ToxicZone);
+        if (dagger) AcquirePower(Vault.power.Dagger);
 
         areUpgradesFree = freeUpgrades;
     }

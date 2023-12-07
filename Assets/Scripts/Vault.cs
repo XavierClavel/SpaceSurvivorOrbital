@@ -9,6 +9,8 @@ public static class Vault
         public const string Fairy = "Fairy";
         public const string BlackHole = "BlackHole";
         public const string SynthWave = "SynthWave";
+        public const string ToxicZone = "ToxicZone";
+        public const string Dagger = "Dagger";
     }
     
     public static class sfx
