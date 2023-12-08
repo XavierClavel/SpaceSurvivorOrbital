@@ -7,9 +7,7 @@ public class Ghost : MonoBehaviour
 {
     public static Dictionary<GameObject, Ghost> dictGoToGhost = new Dictionary<GameObject, Ghost>();
     [SerializeField] private Animator animator;
-    [SerializeField] private Shockwave shockwave;
     [SerializeField] private Collider2D col;
-    
     
     private bool explodeOnBullet = false;
     private bool explodeOnEnnemy = false;

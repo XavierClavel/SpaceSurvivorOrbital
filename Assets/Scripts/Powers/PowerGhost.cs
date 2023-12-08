@@ -71,6 +71,7 @@ public class PowerGhost : Power, IEnnemyListener
     
     public static void recallShockwave(Shockwave shockwaveToRecall)
     {
+        Debug.Log("shockwave recalled");
         instance.poolShockwaves.recall(shockwaveToRecall);
     }
 
