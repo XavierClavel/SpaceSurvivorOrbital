@@ -12,11 +12,21 @@ public class PowerGhost : Power, IEnnemyListener
     private ComponentPool<Shockwave> poolShockwaves;
     
     private static PowerGhost instance;
+    
+    private static bool isShockwaveEnabled;
+    private static int shockwaveDamage;
+    private static float shockwaveMaxRange;
+    private static status shockwaveElement;
 
     
     public override void Setup(PlayerData _)
     {
         base.Setup(_);
+        isShockwaveEnabled = _.generic.boolA;
+        shockwaveMaxRange = _.generic.floatA;
+        shockwaveDamage = _.generic.intA;
+        shockwaveElement = _.generic.elementA;
+        
         Ennemy.registerListener(this);
         poolGhosts = new ComponentPool<Ghost>(ghost);
         poolShockwaves = new ComponentPool<Shockwave>(ghostShockwave);
@@ -46,9 +56,17 @@ public class PowerGhost : Power, IEnnemyListener
         instance.poolGhosts.recall(ghostToRecall);
     }
     
-    public static Shockwave SpawnShockwave(Vector2 position)
+    public static void SpawnShockwave(Vector2 position)
     {
-        return instance.poolShockwaves.get(position);
+        Shockwave shockwaveGhost = instance.poolShockwaves.get(position);
+        shockwaveGhost.transform.localScale = Vector3.zero;
+        shockwaveGhost.Setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement, 0);
+        shockwaveGhost.setRecallMethod(delegate
+        {
+            PowerGhost.recallShockwave(shockwaveGhost);
+            
+        });
+        shockwaveGhost.doShockwave(true);
     }
     
     public static void recallShockwave(Shockwave shockwaveToRecall)
