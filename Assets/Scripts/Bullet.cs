@@ -14,6 +14,13 @@ public class Bullet : MonoBehaviour
     [HideInInspector] public int pierce = 0;
     int currentPierce = 0;
     private HitInfo hitInfo;
+    private UnityAction<Bullet> onImpact = null;
+
+    public Bullet setImpactAction(UnityAction<Bullet> action)
+    {
+        this.onImpact = action;
+        return this;
+    }
 
 
     public void Fire(int speed, HitInfo hitInfo)
@@ -53,8 +60,14 @@ public class Bullet : MonoBehaviour
                 return;
             }
         }
+        
+        if (other.gameObject.CompareTag(Vault.tag.Ennemy))
+        {
+            ObjectManager.dictObjectToHitable[other.gameObject].Hit(hitInfo);
+            onImpact?.Invoke(this);
+        }
 
-        if (other.gameObject.CompareTag(Vault.tag.Ennemy) || other.gameObject.CompareTag(Vault.tag.Resource))
+        if (other.gameObject.CompareTag(Vault.tag.Resource))
         {
             ObjectManager.dictObjectToHitable[other.gameObject].Hit(hitInfo);
         }
