@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dagger : PowerHandler
+public class Dagger : Power
 {
     // Start is called before the first frame update
     void Start()
