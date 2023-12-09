@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum status { none, fire, ice, lightning }
 
@@ -9,15 +10,15 @@ public class Bullet : MonoBehaviour
     private const int damageScalePlayerToEnnemy = 20;
     [SerializeField] ParticleSystem bulletParticle;
     [SerializeField] Rigidbody2D rb;
+    public TrailRenderer trail;
     [HideInInspector] public int pierce = 0;
     int currentPierce = 0;
     private HitInfo hitInfo;
 
 
-    public void Fire(int speed, float lifetime, HitInfo hitInfo)
+    public void Fire(int speed, HitInfo hitInfo)
     {
-        Destroy(gameObject, lifetime);
-        rb.velocity = transform.up * 10f;
+        rb.velocity = transform.up * speed;
         this.hitInfo = hitInfo;
     }
 
@@ -38,7 +39,7 @@ public class Bullet : MonoBehaviour
         Helpers.SpawnPS(transform, bulletParticle);
 
 
-        if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer.Obstacles)) Destroy(gameObject);
+        if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer.Obstacles)) gameObject.SetActive(false);
 
 
         if (other.gameObject.CompareTag(Vault.tag.Player))
@@ -61,7 +62,7 @@ public class Bullet : MonoBehaviour
 
         if (currentPierce == pierce)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
 

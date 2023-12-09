@@ -49,6 +49,13 @@ public static class SingletonManager
 
 public static class Extensions
 {
+
+    public static T Pop<T>(this List<T> list, int index = 0)
+    {
+        T value = list[index];
+        list.RemoveAt(index);
+        return value;
+    }
     
     public static Vector2 perpendicular(this Vector2 v)
     {

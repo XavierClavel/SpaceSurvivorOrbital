@@ -63,8 +63,8 @@ public abstract class Damager : MonoBehaviour
     WaitForSeconds waitCooldown;
     protected PlayerController player;
     protected bool autoCooldown; //whether the interactor or the inheritor should handle cooldown
-    public interactorStats stats;
-    public PlayerData fullStats;
+    [HideInInspector] public interactorStats stats;
+    [HideInInspector] public PlayerData fullStats;
     [HideInInspector] public bool isUsing = false;
 
     protected virtual void Start()

@@ -15,6 +15,7 @@ public class Pistol : Gun
     private static bool main = true;
     private Pistol newPistol;
     private List<Pistol> childPistols = new List<Pistol>();
+    private List<Bullet> bulletsStack = new List<Bullet>();
 
     private void OnDestroy()
     {
@@ -99,6 +100,23 @@ public class Pistol : Gun
     {
         SoundManager.PlaySfx(transform, key:"Gun_Shoot");
         Bullet bullet = pool.get(position, eulerRotation);
-        bullet.Fire(stats.attackSpeed, bulletLifetime, new HitInfo(stats));
+        bulletsStack.Add(bullet);
+        StartCoroutine(nameof(ResetTrailDist), bullet);
+        bullet.Fire(stats.attackSpeed, new HitInfo(stats));
+        Invoke(nameof(recallBullet), bulletLifetime);
+    }
+
+    private void recallBullet()
+    {
+        Bullet bullet = bulletsStack.Pop();
+        bullet.trail.time = 0f;
+        bullet.gameObject.SetActive(false);
+        pool.recall(bullet);
+    } 
+    
+    IEnumerator ResetTrailDist(Bullet bullet){
+        yield return null;
+        bullet.trail.time = 0.2f;
+ 
     }
 }

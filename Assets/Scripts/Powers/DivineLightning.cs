@@ -52,7 +52,6 @@ public class DivineLightning : Power
     private void Strike()
     {
         Vector3 hitPoint = playerTransform.position + Helpers.getRandomPositionInRadius(range, shape.square);
-        Debug.Log(hitPoint);
         Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(hitPoint, stats.range, mask);
         status effect = stats.element;
         SoundManager.PlaySfx(transform, key: "Lighning_Strike");
