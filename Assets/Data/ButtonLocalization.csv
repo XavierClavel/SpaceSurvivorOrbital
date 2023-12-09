@@ -17,7 +17,7 @@ GUN_RIFLE2;;Super Mitraillette
 ;;Augmente la vitesse de tir et le chargeur
 GUN_DOUBLE1;;Double revolver
 ;;Tire 2 balles en même temps
-GUN_DOUBLE2;;Double revolver double
+GUN_DOUBLE2;;Double revolver double [x]
 ;;Tire 4 balles en même temps
 GUN_SNIPER1;;Sniper
 ;;Percée +1 et chance de critique augmentée
@@ -30,7 +30,7 @@ LASER_ULTRAVIOLET;;Ultraviolet
 LASER_XRAY;;Rayon X
 ;;Laser qui ondule ultra rapidement
 LASER_X1000;;Laser X1000
-;;Votre laser titre plus loin
+;;Votre laser tire plus loin
 LASER_X2000;;Laser X2000
 ;;"Laser plus épais
 Dégât en plus, zone de collision plus grande"
@@ -41,20 +41,11 @@ LASER_X9000;;Canon laser X9000
 ;;"Laser plus épais et plus long
 Dégât en plus, zone de collision plus grande"
 LASER_ELEMENT_1;;Capsule élémentaire 1
-;;"Amélioration Elémentaire, l’arme fait au choix :
-- Dégât Electrique 
-- Feu
-- Glace"
+;;Amélioration Elémentaire de Glace
 LASER_ELEMENT_2;;Capsule élémentaire 2
-;;"Amélioration Elémentaire, l’arme fait au choix :
-- Dégât Electrique 
-- Feu
-- Glace"
+;;"Amélioration Elémentaire Electrique "
 LASER_ELEMENT_3;;Capsule élémentaire 3
-;;"Amélioration Elémentaire, l’arme fait au choix :
-- Dégât Electrique 
-- Feu
-- Glace"
+;;Amélioration Elémentaire de feu
 LASER_SHOCKWAVE_1;;Attention ça chauffe
 ;;Quand la surchauffe est atteinte, le pistolet émet un onde de choc autour du joueur
 LASER_SHOCKWAVE_2;;Vous avez été prévenu
@@ -114,7 +105,7 @@ FAIRY_3b;;C'est la Fée-te
 
 Dégât : 10-20 par fée
 Vitesse entre 2 attaques : 1 seconde"
-FAIRY_4;;Résurrection
+FAIRY_4;;Résurrection [x]
 ;;"Votre fée vous ramène une fois à la vie. "
 CHARAC_MAXSTOCK_1;;Petit sac
 ;;"Vous pouvez stocker une ressource de chaque couleur en plus !
@@ -128,7 +119,7 @@ CHARAC_MAXSTOCK_3;;Grand sac
 ;;"Vous pouvez stocker une ressource de chaque couleur en plus !
 
 <B>+ 1 Max Ressource</B>"
-CHARAC_RADAR;;Radar
+CHARAC_RADAR;;Radar [x]
 ;;"Votre radar fonctionne à nouveau ! Vous pouvez maintenant voir votre position et celle de votre vaisseau.
 
 <B>Active le Radar </B>"
@@ -158,7 +149,7 @@ CHARAC_RADAR3d;;Sonde mystique
 ;;Indique sur le radar la position des Autels de pouvoirs
 Power_Lightning;;Eclair divin
 ;;"Des éclairs apparaissent aléatoirement autour de vous, blessant les ennemis. "
-LIGHTNING_1;;Surchage électrique
+LIGHTNING_1;;Surchage électrique [x]
 ;;Les éclairs ont 50% de chance de créer une zone électrique, si le joueur passe dedans, il fera des dégâts électriques pendant 2 secondes
 LIGHTNING_2a;;Double éclair
 ;;Deux éclairs apparaissent toutes les 1s
@@ -180,11 +171,11 @@ GHOST_2a;;Minage spectral
 ;;Le spectre explose au contact d’un ennemi
 GHOST_2b;;Il n’est pas mort ?
 ;;Le spectre explose quand le joueur tire/frappe le spectre.
-GHOST_3;;It follows
+GHOST_3;;It follows [x]
 ;;Le spectre se déplace au contact de l’ennemi le plus proche
-GHOST_4a;;Explosion fragmentée
+GHOST_4a;;Explosion fragmentée [x]
 ;;A l’explosion, des projectiles partent du fantôme
-GHOST_4b;;Super Spectre
+GHOST_4b;;Super Spectre [x]
 ;;Toutes les 10ème apparition d’un spectre, un gros spectre apparait.
 SynthWave;;Onde sonore
 ;;Une onde sonore repousse et frappe les ennemis tout autour de vous
@@ -204,7 +195,7 @@ WAVE_3c;;Onde de force protectrice
 ;;Une onde de force se déclenche quand vous prenez un coup, vous protégeant et repoussant violemment les ennemis
 WAVE_4;;Double Onde
 ;;Votre onde se dédouble, et se lance avec un léger décalage
-BlackHole;;Trou Noir
+BlackHole;;Trou Noir [X]
 ;;"Un trou noir apparait aléatoirement, attire et ralenti les ennemis "
 BLACKHOLE_1;;Gros trou noir
 ;;Le trou noir devient plus grand et plus puissant
@@ -232,7 +223,7 @@ DAGGER_3c;;Demie de dague
 ;;6 Dagues se lancent en même temps (position demie heure)
 DAGGER_4;;Effet miroir
 ;;Le pouvoir de votre dague se lance deux fois, avec tous ses bonus, l’un en miroir de l’autre
-ToxicZone;;Surface toxique
+ToxicZone;;Surface toxique [X]
 ;;Des zones circulaires apparaissent, infligeant des dégâts continuent aux ennemis passant dedans.
 TOXICZONE_1a;;Energisante
 ;;Quand le joueur passe dans la zone, il a un boost de vitesse
