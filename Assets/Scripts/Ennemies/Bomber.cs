@@ -50,7 +50,7 @@ public class Bomber : Ennemy
 
 
             ennemyState = state.approaching;
-            DOTween.To(() => currentSpeed, x => currentSpeed = x, speed, 0.5f).SetEase(Ease.InQuad); ;
+            DOTween.To(() => currentSpeed, x => currentSpeed = x, speed, 0.5f).SetEase(Ease.InQuad);
             continue;
         }
     }
