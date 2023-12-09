@@ -22,9 +22,42 @@ public class Dagger : Power
 
     protected override void onUse()
     {
-        Debug.Log(currentAngle);
-        Bullet dagger = pool.get(playerTransform.position + Vector3.back,  currentAngle * Vector3.forward);
+        FireDaggers(currentAngle);
         currentAngle -= angleDeviation;
+    }
+
+    private void FireDaggers(float rotation)
+    {
+        if (stats.projectiles == 1)
+        {
+            FireDagger(rotation);
+            return;
+        }
+
+        int sideProjectiles = stats.projectiles / 2;
+
+        if (stats.projectiles % 2 == 1)
+        {
+            for (int i = -sideProjectiles; i <= sideProjectiles; i++)
+            {
+                FireDagger(rotation + i * stats.spread);
+            }
+            return;
+        }
+
+        for (int i = -sideProjectiles; i <= sideProjectiles; i++)
+        {
+            if (i == 0) continue;
+            float j = i - Mathf.Sign(i) * 0.5f;
+
+            FireDagger(rotation + j * stats.spread);
+        }
+        return;
+    }
+
+    private void FireDagger(float rotation)
+    {
+        Bullet dagger = pool.get(playerTransform.position + Vector3.back,  rotation * Vector3.forward);
         dagger.Fire(stats.attackSpeed, new HitInfo(stats));
         daggersStack.Add(dagger);
         Invoke(nameof(recallDagger), 1f);
