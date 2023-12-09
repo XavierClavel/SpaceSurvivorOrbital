@@ -75,7 +75,7 @@ public class DataManager : ScriptableObject
         DataSelector.selectedCharacter = selectedCharacter;
         DataSelector.selectedWeapon = selectedWeapon;
         
-        PlayerManager.setWeapon(dictWeapons[selectedWeapon], ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
+        PlayerManager.setWeapon(dictWeapons[selectedWeapon].Clone(), ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
         PlayerManager.setCharacter(ScriptableObjectManager.dictKeyToCharacterHandler[selectedCharacter]);
         
         PlanetSelectionManager.GenerateData();

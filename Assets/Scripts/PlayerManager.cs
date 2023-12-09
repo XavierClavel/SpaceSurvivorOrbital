@@ -66,7 +66,9 @@ public class PlayerManager
 
     public static void setWeapon(PlayerData interactorData, WeaponHandler weaponHandler)
     {
-        weaponData.DuckCopyShallow(interactorData);
+        weaponData = interactorData;
+        Debug.Log(weaponData.interactor.projectiles);
+        Debug.Log(interactorData.interactor.projectiles);
         weaponPrefab = weaponHandler.getWeapon();
         weapon = weaponHandler;
     }
@@ -83,10 +85,12 @@ public class PlayerManager
         amountGreen = 0;
         amountOrange = 0;
         currentHealth = null;
+        currentTimer = 0;
 
-        playerData.character.setBase();
+        playerData.setBase();
         weaponData = new PlayerData();
         powers = new List<PowerHandler>();
+        dictKeyToStats = new Dictionary<string, PlayerData>();
     }
 
     public static void GatherResourceGreen() => amountGreen++;
@@ -98,9 +102,7 @@ public class PlayerManager
     public static void AcquirePower(PowerHandler powerHandler)
     {
         powers.Add(powerHandler);
-        PlayerData playerData = new PlayerData();
-        playerData.DuckCopyShallow(DataManager.dictPowers[powerHandler.getKey()]);
-        dictKeyToStats[powerHandler.getKey()] = playerData;
+        dictKeyToStats[powerHandler.getKey()] = DataManager.dictPowers[powerHandler.getKey()].Clone();
     }
 
     public static void AcquirePower(string key)
@@ -164,8 +166,4 @@ public class PlayerManager
         activateMinerBotAttractor = true;
     }
 
-    public static void ResetTimer()
-    {
-        currentTimer = 0;
-    }
 }

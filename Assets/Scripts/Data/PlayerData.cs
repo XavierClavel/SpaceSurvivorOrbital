@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class PlayerData
 {
     public resourcesStats resources = new resourcesStats();
@@ -9,6 +11,25 @@ public class PlayerData
     public interactorStats interactor = new interactorStats();
     public attractorStats attractor = new attractorStats();
     public genericStats generic = new genericStats();
+
+    public PlayerData Clone()
+    {
+        return new PlayerData()
+        {
+            resources = resources.Clone(),
+            character = new characterStats().setBase(),
+            interactor = interactor.Clone(),
+            attractor = attractor.Clone(),
+            generic = generic.Clone()
+
+        };
+    }
+
+    public void setBase()
+    {
+        character.setBase();
+        resources.setBase();
+    }
 
 
 
@@ -142,28 +163,48 @@ public class PlayerData
 
 }
 
-
+[Serializable]
 public class resourcesStats
 {
     public int maxPurple = 3;
     public int maxOrange = 3;
     public int maxGreen = 3;
+
+    public resourcesStats Clone()
+    {
+        return new resourcesStats()
+        {
+            maxGreen = 3,
+            maxPurple = 3,
+            maxOrange = 3,
+        };
+    }
+
+    public void setBase()
+    {
+        maxGreen = 3;
+        maxPurple = 3;
+        maxOrange = 3;
+    }
 }
 
+[Serializable]
 public class characterStats
 {
     public int maxHealth;
     public float baseSpeed;
     public float damageResistanceMultiplier;
 
-    public void setBase()
+    public characterStats setBase()
     {
         maxHealth = Vault.baseStats.MaxHealth;
         baseSpeed = Vault.baseStats.Speed;
         damageResistanceMultiplier = Vault.baseStats.DamageResistance;
+        return this;
     }
 }
 
+[Serializable]
 public class interactorStats
 {
     public Vector2Int baseDamage;
@@ -186,8 +227,29 @@ public class interactorStats
 
     public status element = status.none;
 
+    public interactorStats Clone()
+    {
+        return new interactorStats()
+        {
+            baseDamage = baseDamage,
+            attackSpeed = attackSpeed,
+            range = range,
+            cooldown = cooldown,
+            magazineReloadTime = magazineReloadTime,
+            criticalChance = criticalChance,
+            criticalMultiplier = criticalMultiplier,
+            magazine = magazine,
+            projectiles = projectiles,
+            spread = spread,
+            pierce = pierce,
+            speedWhileAiming = speedWhileAiming,
+            knockback = knockback,
+            element = element,
+        };
+    }
 }
 
+[Serializable]
 public class genericStats
 {
     public bool boolA = false;
@@ -201,10 +263,38 @@ public class genericStats
     public float floatB = 0f;
 
     public status elementA = status.none;
+
+    public genericStats Clone()
+    {
+        return new genericStats()
+        {
+            boolA = boolA,
+            boolB = boolB,
+            boolC = boolC,
+
+            intA = intA,
+            intB = intB,
+
+            floatA = floatA,
+            floatB = floatB,
+
+            elementA = elementA,
+        };
+    }
 }
 
+[Serializable]
 public class attractorStats
 {
     public float range = 5f;
     public float force = 5f;
+
+    public attractorStats Clone()
+    {
+        return new attractorStats()
+        {
+            range = range,
+            force = force,
+        };
+    }
 }

@@ -4,15 +4,24 @@ using UnityEngine;
 using System.Linq;
 using DG.Tweening;
 
-
+/**
+ * <pre>
+ * <p> BaseDamage -> Lightning strike damage </p>
+ * <p> Cooldown -> Delay between lightning strikes </p>
+ * <p> Projectiles -> Amount of lightning strikes </p>
+ * <p> BoolA -> Whether ennemies hit get stun half of the time </p>
+ * </pre>
+ */
 public class DivineLightning : Power
 {
     Vector2 range = new Vector2(14f, 8f);
     LayerMask mask;
-    [SerializeField] GameObject lightningStrike;
+    [SerializeField] Animator lightningStrike;
 
-    GameObjectPool pool;
+    ComponentPool<Animator> pool;
     [SerializeField] private ElectricZone electricZonePrefab;
+    private static readonly int animStrike = Animator.StringToHash("Strike");
+
     protected override void Start()
     {
         base.Start();
@@ -20,7 +29,7 @@ public class DivineLightning : Power
         mask = LayerMask.GetMask(Vault.layer.Ennemies, Vault.layer.Resources);
         //effect = status.lightning;
 
-        pool = new GameObjectPool(lightningStrike).setTimer(stats.projectiles);
+        pool = new ComponentPool<Animator>(lightningStrike).setTimer(stats.projectiles);
     }
 
     void SpawnEletricZone(Vector3 spawnPoint)
@@ -43,6 +52,7 @@ public class DivineLightning : Power
     private void Strike()
     {
         Vector3 hitPoint = playerTransform.position + Helpers.getRandomPositionInRadius(range, shape.square);
+        Debug.Log(hitPoint);
         Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(hitPoint, stats.range, mask);
         status effect = stats.element;
         SoundManager.PlaySfx(transform, key: "Lighning_Strike");
@@ -54,6 +64,7 @@ public class DivineLightning : Power
         
         //SpawnEletricZone(hitPoint);
 
-        GameObject go = pool.get(hitPoint);
+        Animator anim = pool.get(hitPoint);
+        anim.SetTrigger(animStrike);
     }
 }

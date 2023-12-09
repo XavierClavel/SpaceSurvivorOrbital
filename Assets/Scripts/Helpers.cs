@@ -7,6 +7,8 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 using System.Globalization;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.Events;
 
 public enum shape
@@ -48,32 +50,6 @@ public static class SingletonManager
 public static class Extensions
 {
     
-    public static void DuckCopyShallow(this System.Object dst, object src)
-    {
-        var srcT = src.GetType();
-        var dstT= dst.GetType();
-        if (srcT != dstT)
-        {
-            Debug.LogWarning($"Incompatible types for shallow copy : {srcT.Name} & {dstT.Name}");
-        }
-        foreach(var f in srcT.GetFields())
-        {
-            var dstF = dstT.GetField(f.Name);
-            if (dstF == null || dstF.IsLiteral)
-                continue;
-            dstF.SetValue(dst, f.GetValue(src));
-        }
-
-        foreach (var f in srcT.GetProperties())
-        {
-            var dstF = dstT.GetProperty(f.Name);
-            if (dstF == null)
-                continue;
-            
-            dstF.SetValue(dst, f.GetValue(src, null), null);
-        }
-    }
-
     public static Vector2 perpendicular(this Vector2 v)
     {
         return new Vector2(v.y, -v.x);
