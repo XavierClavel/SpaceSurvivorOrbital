@@ -53,13 +53,6 @@ public class LayoutManager : MonoBehaviour
 
     public void DecreaseAmount(int amount = 1)
     {
-        if (shieldRemaining > 0)
-        {
-            DecreaseShield();
-            amount--;
-            if (amount > 0) DecreaseAmount(amount);
-            return;
-        }
         int newIndex = Helpers.FloorInt(index - amount, 0);
         for (int i = index; i > newIndex; i--)
         {
@@ -69,10 +62,13 @@ public class LayoutManager : MonoBehaviour
         index = newIndex;
     }
 
-    public void DecreaseShield()
+    public void DecreaseShield(int amount = 1)
     {
-        shieldRemaining--;
-        shieldObjectsList[shieldRemaining].SetActive(false);
+        for (int i = 0; i < amount; i++)
+        {
+            shieldRemaining--;
+            shieldObjectsList[shieldRemaining].SetActive(false);
+        }
     }
 
     public void IncreaseAmount(int amount = 1)
@@ -92,5 +88,12 @@ public class LayoutManager : MonoBehaviour
         if (amount < index) DecreaseAmount(index - amount);
         else IncreaseAmount(amount - index);
     }
+    
+    public void SetShieldsAmount(int amount)
+    {
+        if (amount == shieldRemaining) return;
+        if (amount < shieldRemaining) DecreaseShield(shieldRemaining - amount);
+    }
+    
 
 }

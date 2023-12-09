@@ -123,6 +123,18 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] protected SpriteRenderer spriteOverlay;
     private WaitForSeconds footstepsWait;
+    private int shieldsAmount = 0;
+    
+    public int shields
+    {
+        get { return shieldsAmount; }
+        private set
+        {
+            healthBar.SetShieldsAmount(value);
+            shieldsAmount = value;
+            SoundManager.PlaySfx(transform, key: "Shield_Hit");
+        }
+    }
 
     public int health
     {
@@ -133,6 +145,21 @@ public class PlayerController : MonoBehaviour
             _health = value;
             SoundManager.PlaySfx(transform, key: "Player_Hit");
             if (value <= 0) Death();
+        }
+    }
+
+    private void takeDamage(int damage)
+    {
+        for (int i = 0; i < damage; i++)
+        {
+            if (shieldsAmount > 0)
+            {
+                shields--;
+            }
+            else
+            {
+                health--;
+            }
         }
     }
 
@@ -154,7 +181,7 @@ public class PlayerController : MonoBehaviour
     {
         if (instance.invulnerable) return;
         if (instance.interactorHandler.currentInteractor.isDamageAbsorbed()) return;
-        instance.health -= (int)(amount * (1 - instance.damageResistanceMultiplier));
+        instance.takeDamage((int)(amount * (1 - instance.damageResistanceMultiplier)));
         instance.OnHitOverlay();
         instance.StartCoroutine(nameof(ShakeCoroutine));
         instance.StartCoroutine(nameof(InvulnerabilityFrame));
@@ -283,6 +310,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetupShields(int amount)
     {
+        shieldsAmount = amount;
         healthBar.SetupShields(amount);
     }
 

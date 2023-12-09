@@ -34,8 +34,6 @@ public class DebugManager : MonoBehaviour
     [SerializeField] private RectTransform debugLayout;
     [SerializeField] private TextMeshProUGUI debugLine;
 
-    public static bool testVersion = true;
-    // Start is called before the first frame update
     public static DebugManager instance;
 
     private void Awake()
