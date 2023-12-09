@@ -41,18 +41,6 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public void Play()
-    {
-        SceneManager.LoadScene("Bossfight");
-        /*try {
-            SceneManager.LoadScene("Level Reference");
-            //SceneManager.LoadScene("Level " + levelReached);
-        }
-        catch {
-            SceneManager.LoadScene("Level Reference");
-        }*/
-    }
-
     public void ShowLevels()
     {
         StartCoroutine(MoveToLevelScreen());

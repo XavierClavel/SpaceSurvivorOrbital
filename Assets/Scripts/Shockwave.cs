@@ -10,7 +10,7 @@ public class Shockwave : MonoBehaviour
 {
     private const float shockwaveDelay = 1f;
     private Disc disc;
-    private Color baseShockwaveColor;
+    private Color? baseShockwaveColor = null;
     private Color clearColor;
     private float shockwaveDuration = 1f;
     private int shockwaveDamage;
@@ -28,8 +28,9 @@ public class Shockwave : MonoBehaviour
         this.effect = effect;
         
         disc = GetComponent<Disc>();
-        baseShockwaveColor = disc.Color;
-        clearColor = baseShockwaveColor;
+        baseShockwaveColor ??= disc.Color;
+        Debug.Log($"base shockwave color : {baseShockwaveColor.ToString()}");
+        clearColor = (Color)baseShockwaveColor;
         clearColor.a = 0;
     }
     
@@ -41,7 +42,7 @@ public class Shockwave : MonoBehaviour
     public void doShockwave(bool destroyOnComplete = false)
     {
         objectsHit = new List<GameObject>();
-        disc.Color = baseShockwaveColor;
+        if (baseShockwaveColor != null) disc.Color = (Color)baseShockwaveColor;
         transform.localScale = Vector3.zero;
         
         transform.DOScale(shockwaveRange, shockwaveDuration).OnComplete(

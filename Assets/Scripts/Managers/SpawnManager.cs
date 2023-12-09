@@ -78,15 +78,15 @@ public class SpawnManager : Breakable
         }
     }
 
-    public override void Hit(int damage, status effect, bool critical)
+    public override void Hit(HitInfo hitInfo)
     {
-        base.Hit(damage, effect, critical);
+        base.Hit(hitInfo);
         SoundManager.PlaySfx(transform, key: "Spawn_Hit");
-        healthChange value = critical ? healthChange.critical : healthChange.hit;
-        if (damage != 0)
+        healthChange value = hitInfo.critical ? healthChange.critical : healthChange.hit;
+        if (hitInfo.damage != 0)
         {
-            DamageDisplayHandler.DisplayDamage(damage, transform.position, value);
-            health -= damage;
+            DamageDisplayHandler.DisplayDamage(hitInfo.damage, transform.position, value);
+            health -= hitInfo.damage;
         }
     }
     

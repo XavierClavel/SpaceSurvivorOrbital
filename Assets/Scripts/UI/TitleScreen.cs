@@ -62,7 +62,6 @@ public static class ResetManager
         Debug.Log("game state reset");
         NodeManager.Reset();
         DataSelector.Reset();
-        PlayerManager.ResetTimer();
         PlayerManager.Reset();
         PlanetSelectionManager.GenerateData();
         Planet.Reset();
