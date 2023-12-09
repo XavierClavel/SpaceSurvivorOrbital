@@ -229,8 +229,8 @@ public class PlayerController : MonoBehaviour
     {
         if (Helpers.isPlatformAndroid()) Application.targetFrameRate = 60;
 
-        radar.SetActive(PlayerManager.activateRadar);
-        spaceshipIndicator.SetActive(PlayerManager.activateShipArrow);
+        radar.SetActive(PlayerManager.activateRadar || DebugManager.instance.displayRadar);
+        spaceshipIndicator.SetActive(PlayerManager.activateShipArrow || DebugManager.instance.displayShipIndicator);
 
         maxHealth = PlayerManager.playerData.character.maxHealth;
         int currentHealth = PlayerManager.currentHealth ?? maxHealth;
@@ -325,11 +325,6 @@ public class PlayerController : MonoBehaviour
             layoutManagerOrange.AddResource();
         }
 
-    }
-
-    public void debug_ActivateRadar()
-    {
-        radar.SetActive(true);
     }
 
 

@@ -23,7 +23,7 @@ public class ObjectIndicator : MonoBehaviour
     private void Awake()
     {
         ObjectManager.spaceshipIndicator = this;
-        gameObject.SetActive(false);
+        gameObject.SetActive(true);
     }
 
     private void Start()
@@ -38,6 +38,10 @@ public class ObjectIndicator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector2 direction = target.position - PlayerController.instance.transform.position;
+        transform.eulerAngles = Vector2.SignedAngle(Vector2.up, direction) * Vector3.forward;
+
+        /*
         Vector3 screenPos = camera.WorldToScreenPoint(target.position);
         Vector2 direction = screenPos - new Vector3(halfScreenx, halfScreeny, 0);
         float angle = Vector2.SignedAngle(Vector2.up, direction);
@@ -56,5 +60,6 @@ public class ObjectIndicator : MonoBehaviour
         //TODO : check behavior on larger resolutions
 
         rectTransform.anchoredPosition = new Vector2(posx, posy);
+        */
     }
 }

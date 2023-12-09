@@ -15,6 +15,10 @@ public class DebugManager : MonoBehaviour
     [SerializeField] bool startWithResources;
     [SerializeField] private bool freeUpgrades;
 
+    [Header("Radar")] 
+    public bool displayRadar;
+    public bool displayShipIndicator;
+
     [Header("Start with powers")] 
     [SerializeField] private bool divineLightning;
     [SerializeField] private bool fairy;
@@ -26,7 +30,6 @@ public class DebugManager : MonoBehaviour
     [SerializeField] private bool dagger;
 
     [Header("Early Upgrades")]
-    [SerializeField] bool startWithRadar;
     [SerializeField] bool startWithMinerBot;
     [SerializeField] private RectTransform debugLayout;
     [SerializeField] private TextMeshProUGUI debugLine;
@@ -45,7 +48,6 @@ public class DebugManager : MonoBehaviour
     {
         if (startWithResources) PlayerController.instance.debug_GiveResources(50);
         if (startWithMinerBot) PlayerController.instance.SpawnMinerBot();
-        if (startWithRadar) PlayerController.instance.debug_ActivateRadar();
         //if (noEnnemySpawn) SpawnManager.instance.debug_StopEnnemySpawn();
         //if (noTimer) Timer.instance.debug_StopTimer();
         
