@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 
@@ -21,7 +22,6 @@ public class Dagger : Power
     private ComponentPool<Shockwave> shockwavePool;
     private float currentAngle = 0f;
     const float angleDeviation = 10f;
-    private List<Bullet> daggersStack = new List<Bullet>();
     private bool doMirror;
     private bool doRecall;
     private bool doExplode;
@@ -32,8 +32,6 @@ public class Dagger : Power
         doMirror = fullStats.generic.boolA;
         doRecall = fullStats.generic.boolB;
         doExplode = fullStats.generic.boolC;
-        doMirror = true;
-        doExplode = true;
         
         autoCooldown = true;
         daggerPrefab = Instantiate(daggerPrefab);
@@ -83,20 +81,45 @@ public class Dagger : Power
     {
         Bullet dagger = pool.get(playerTransform.position + Vector3.back,  rotation * Vector3.forward);
         dagger.Fire(stats.attackSpeed, new HitInfo(stats));
-        dagger.setImpactAction(delegate(Bullet bullet)
+        if (doExplode)
         {
-            Debug.Log("Explosion");
-            Shockwave shockwave = shockwavePool.get(bullet.transform.position);
-            shockwave.Setup(2f, 15, status.none, 0);
-            shockwave.doShockwave();
-        });
-        daggersStack.Add(dagger);
-        Invoke(nameof(recallDagger), 1f);
+            dagger.setImpactAction(delegate(Bullet bullet)
+            {
+                Debug.Log("Explosion");
+                Shockwave shockwave = shockwavePool.get(bullet.transform.position);
+                shockwave.Setup(2f, 15, status.none, 0);
+                shockwave.doShockwave();
+            });   
+        }
+
+        if (doRecall)
+        {
+            
+        }
+        StartCoroutine(recall(dagger));
     }
 
-    private void recallDagger()
+    private IEnumerator recall(Bullet dagger)
     {
-        Bullet dagger = daggersStack.Pop();
+        if (!doRecall)
+        {
+            yield return Helpers.GetWait(1f);
+            recallDagger(dagger);
+            yield break;
+        }
+        
+        yield return Helpers.GetWait(1f);
+        Vector2 velocity = dagger.rb.velocity;
+        dagger.rb.velocity = Vector2.zero;
+        dagger.transform.DORotate(180f * Vector3.forward, 0.5f).SetRelative();
+        yield return Helpers.GetWait(0.5f);
+        dagger.rb.velocity = -velocity;
+        yield return Helpers.GetWait(1.5f);
+        recallDagger(dagger);
+    }
+
+    private void recallDagger(Bullet dagger)
+    {
         dagger.gameObject.SetActive(false);
         pool.recall(dagger);
     }

@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
 {
     private const int damageScalePlayerToEnnemy = 20;
     [SerializeField] ParticleSystem bulletParticle;
-    [SerializeField] Rigidbody2D rb;
+    public Rigidbody2D rb;
     public TrailRenderer trail;
     [HideInInspector] public int pierce = 0;
     int currentPierce = 0;
@@ -25,6 +25,7 @@ public class Bullet : MonoBehaviour
 
     public void Fire(int speed, HitInfo hitInfo)
     {
+        currentPierce = 0;
         rb.velocity = transform.up * speed;
         this.hitInfo = hitInfo;
     }
