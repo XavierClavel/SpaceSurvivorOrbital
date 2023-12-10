@@ -29,7 +29,6 @@ public class Shockwave : MonoBehaviour
         
         disc = GetComponent<Disc>();
         baseShockwaveColor ??= disc.Color;
-        Debug.Log($"base shockwave color : {baseShockwaveColor.ToString()}");
         clearColor = (Color)baseShockwaveColor;
         clearColor.a = 0;
     }

@@ -85,17 +85,13 @@ public class Dagger : Power
         {
             dagger.setImpactAction(delegate(Bullet bullet)
             {
-                Debug.Log("Explosion");
                 Shockwave shockwave = shockwavePool.get(bullet.transform.position);
                 shockwave.Setup(2f, 15, status.none, 0);
-                shockwave.doShockwave();
+                shockwave.setRecallMethod(delegate { shockwavePool.recall(shockwave); });
+                shockwave.doShockwave(true);
             });   
         }
 
-        if (doRecall)
-        {
-            
-        }
         StartCoroutine(recall(dagger));
     }
 
