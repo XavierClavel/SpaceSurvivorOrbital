@@ -7,6 +7,11 @@ using UnityEngine;
  * <p> BaseDamage -> Toxic Zone Dps </p>
  * <p> Cooldown -> Delay between toxic zones </p>
  * <p> Projectiles -> Amount of toxic zones </p>
+ * <p> BoolA -> Increase player speed </p>
+ * <p> BoolB -> Increase player damage </p>
+ * <p> BoolC -> Decrease ennemy speed </p>
+ * <p> Projectiles -> Amount of toxic zones </p>
+ * <p> Projectiles -> Amount of toxic zones </p>
  * </pre>
  */
 public class PowerToxicZone : Power

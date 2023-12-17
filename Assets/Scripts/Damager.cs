@@ -8,18 +8,10 @@ public struct HitInfo
 {
     public readonly int damage;
     public readonly bool critical;
-    public readonly status effect;
+    public readonly Stack<status> effect;
     public readonly int knockback;
     
-    public HitInfo(int damage, bool critical, status effect, int knockback)
-    {
-        this.damage = damage;
-        this.critical = critical;
-        this.effect = effect;
-        this.knockback = knockback;
-    }
-
-    public HitInfo(int damage, bool critical, status effect)
+    public HitInfo(int damage, bool critical, Stack<status> effect)
     {
         this.damage = damage;
         this.critical = critical;
@@ -27,11 +19,29 @@ public struct HitInfo
         this.knockback = 0;
     }
 
+    public HitInfo(int damage, bool critical, status effect, int knockback)
+    {
+        this.damage = damage;
+        this.critical = critical;
+        this.effect = new Stack<status>();
+        this.effect.Push(effect);
+        this.knockback = knockback;
+    }
+
+    public HitInfo(int damage, bool critical, status effect)
+    {
+        this.damage = damage;
+        this.critical = critical;
+        this.effect = new Stack<status>();
+        this.effect.Push(effect);
+        this.knockback = 0;
+    }
+
     public HitInfo(int damage)
     {
         this.damage = damage;
         this.critical = false;
-        this.effect = status.none;
+        this.effect = new Stack<status>();
         this.knockback = 0;
     }
     
@@ -40,7 +50,8 @@ public struct HitInfo
         damage = stats.baseDamage.getRandom();
         critical = Helpers.ProbabilisticBool(stats.criticalChance);
         if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
-        this.effect = effect;
+        this.effect = new Stack<status>();
+        this.effect.Push(effect);
         this.knockback = stats.knockback;
     }
     
@@ -49,7 +60,8 @@ public struct HitInfo
         damage = stats.baseDamage.getRandom();
         critical = Helpers.ProbabilisticBool(stats.criticalChance);
         if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
-        this.effect = stats.element;
+        this.effect = new Stack<status>();
+        this.effect.Push(stats.element);
         this.knockback = stats.knockback;
     }
     

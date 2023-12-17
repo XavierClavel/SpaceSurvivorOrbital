@@ -161,25 +161,11 @@ public class Ennemy : Breakable
             health -= hitInfo.damage;
         }
 
-        switch (hitInfo.effect)
-        {
-            case status.none:
-                break;
-
-            case status.lightning:
-                ApplyLightning();
-                break;
-
-            case status.ice:
-                ApplyIce();
-                break;
-
-            case status.fire:
-                ApplyFire();
-                break;
-        }
+        ApplyEffects(hitInfo);
         ApplyKnockback(hitInfo.knockback);
     }
+    
+    
     
     public override void StackHit(int damage, int knockback)
     {
@@ -195,6 +181,7 @@ public class Ennemy : Breakable
 
     public void ApplyKnockback(int knockbackForce)
     {
+        if (knockbackForce == 0) return;
         rb.velocity = Vector2.zero;
         rb.angularVelocity = 0;
         rb.AddForce((transform.position - player.transform.position).normalized * knockbackForce);
@@ -231,6 +218,35 @@ public class Ennemy : Breakable
 
 
     #region elementalEffects
+
+    void ApplyEffects(HitInfo hitInfo)
+    {
+        foreach (var effect in hitInfo.effect)
+        {
+            ApplyEffect(effect);
+        }
+    }
+
+    void ApplyEffect(status element)
+    {
+        switch (element)
+        {
+            case status.none:
+                break;
+
+            case status.lightning:
+                ApplyLightning();
+                break;
+
+            case status.ice:
+                ApplyIce();
+                break;
+
+            case status.fire:
+                ApplyFire();
+                break;
+        }
+    }
 
     void ApplyFire()
     {
