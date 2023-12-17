@@ -8,10 +8,10 @@ public struct HitInfo
 {
     public readonly int damage;
     public readonly bool critical;
-    public readonly Stack<status> effect;
+    public readonly HashSet<status> effect;
     public readonly int knockback;
     
-    public HitInfo(int damage, bool critical, Stack<status> effect)
+    public HitInfo(int damage, bool critical, HashSet<status> effect)
     {
         this.damage = damage;
         this.critical = critical;
@@ -23,8 +23,8 @@ public struct HitInfo
     {
         this.damage = damage;
         this.critical = critical;
-        this.effect = new Stack<status>();
-        this.effect.Push(effect);
+        this.effect = new HashSet<status>();
+        this.effect.Add(effect);
         this.knockback = knockback;
     }
 
@@ -32,8 +32,8 @@ public struct HitInfo
     {
         this.damage = damage;
         this.critical = critical;
-        this.effect = new Stack<status>();
-        this.effect.Push(effect);
+        this.effect = new HashSet<status>();
+        this.effect.Add(effect);
         this.knockback = 0;
     }
 
@@ -41,7 +41,7 @@ public struct HitInfo
     {
         this.damage = damage;
         this.critical = false;
-        this.effect = new Stack<status>();
+        this.effect = new HashSet<status>();
         this.knockback = 0;
     }
     
@@ -50,8 +50,8 @@ public struct HitInfo
         damage = stats.baseDamage.getRandom();
         critical = Helpers.ProbabilisticBool(stats.criticalChance);
         if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
-        this.effect = new Stack<status>();
-        this.effect.Push(effect);
+        this.effect = new HashSet<status>();
+        this.effect.Add(effect);
         this.knockback = stats.knockback;
     }
     
@@ -60,8 +60,8 @@ public struct HitInfo
         damage = stats.baseDamage.getRandom();
         critical = Helpers.ProbabilisticBool(stats.criticalChance);
         if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
-        this.effect = new Stack<status>();
-        this.effect.Push(stats.element);
+        this.effect = new HashSet<status>();
+        this.effect.Add(stats.element);
         this.knockback = stats.knockback;
     }
     
