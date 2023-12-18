@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class ToxicZone : MonoBehaviour
+public class ToxicZone : Power
 {
     private int dps;
 
