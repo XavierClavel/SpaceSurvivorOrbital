@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class BlackHole : Power
 {
-    // Start is called before the first frame update
-    void Start()
+    public string tagEnnemy = "Ennemy";
+    public float forceAttraction = 10f;
+
+    void OnTriggerStay(Collider other)
     {
-        
+        // Vérifier si l'objet a le tag cible
+        if (other.CompareTag(tagEnnemy))
+        {
+            Attraction(other.GetComponent<Rigidbody>());
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void Attraction(Rigidbody objetRB)
     {
-        
+        Vector3 direction = transform.position - objetRB.position;
+        float distance = direction.magnitude;
+
+        float force = forceAttraction / distance;
+
+        objetRB.AddForce(direction.normalized * force);
     }
 }
