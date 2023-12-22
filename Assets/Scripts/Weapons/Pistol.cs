@@ -17,6 +17,8 @@ public class Pistol : Gun
     private List<Pistol> childPistols = new List<Pistol>();
     private List<Bullet> bulletsStack = new List<Bullet>();
 
+    Animator animator;
+
     private void OnDestroy()
     {
         main = true;
@@ -98,7 +100,8 @@ public class Pistol : Gun
 
     void FireBullet(Vector3 position, Vector3 eulerRotation)
     {
-        SoundManager.PlaySfx(transform, key:"Gun_Shoot");
+        SoundManager.PlaySfx(transform, key: "Gun_Shoot");
+        //animator.SetBool("shoot", true);
         Bullet bullet = pool.get(position, eulerRotation);
         bulletsStack.Add(bullet);
         StartCoroutine(nameof(ResetTrailDist), bullet);

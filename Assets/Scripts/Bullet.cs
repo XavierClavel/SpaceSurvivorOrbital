@@ -16,6 +16,8 @@ public class Bullet : MonoBehaviour
     private HitInfo hitInfo;
     private UnityAction<Bullet> onImpact = null;
 
+    [SerializeField] Animator hit;
+
     public Bullet setImpactAction(UnityAction<Bullet> action)
     {
         this.onImpact = action;
@@ -44,6 +46,8 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Transparent")) return;
         
         SoundManager.PlaySfx(transform, Vault.sfx.BulletHit);
+
+        hit.Play("Hit");
         Helpers.SpawnPS(transform, bulletParticle);
 
 

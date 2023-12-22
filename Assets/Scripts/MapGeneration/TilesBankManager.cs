@@ -11,22 +11,33 @@ public class TilesBankManager : ScriptableObject
     public TilesBank junglePlanetBank;
     //public TilesBank stormPlanetBank;
     public TilesBank desertPlanetBank;
-    
-    public Tile empty;
+
+    [Header("Empty")]
+    public Tile empty1;
+    public Tile empty2;
+    public Tile empty3;
 
     [Header("Green")]
-    public Tile greenLow;
-    public Tile greenMid;
-    public Tile greenStrong;
+    public Tile green1;
+    public Tile green2;
+    public Tile green3;
 
     [Header("Yellow")]
-    public Tile yellowLow;
-    public Tile yellowMid;
-    public Tile yellowStrong;
+    public Tile yellow1;
+    public Tile yellow2;
+    public Tile yellow3;
 
-    [Header("Extra")]
-    public Tile autel;
-    public Tile den;
+    [Header("Altar")]
+    public Tile altar1;
+    public Tile altar2;
+    public Tile altar3;
+
+    [Header("Den")]
+    public Tile den1;
+    public Tile den2;
+    public Tile den3;
+
+    [Header("Other")]
     public Tile spaceship;
     
 
@@ -36,18 +47,26 @@ public class TilesBankManager : ScriptableObject
         TilesBank bank = getBank();
 
         spaceship.setTileObjects(bank.spaceship);
-        autel.setTileObjects(bank.autel);
-        den.setTileObjects(bank.den);
         
-        greenLow.setTileObjects(bank.greenLow);
-        greenMid.setTileObjects(bank.greenMid);
-        greenStrong.setTileObjects(bank.greenStrong);
+        altar1.setTileObjects(bank.altar1);
+        altar2.setTileObjects(bank.altar2);
+        altar3.setTileObjects(bank.altar3);
 
-        yellowLow.setTileObjects(bank.yellowLow);
-        yellowMid.setTileObjects(bank.yellowMid);
-        yellowStrong.setTileObjects(bank.yellowStrong);
+        den1.setTileObjects(bank.den1);
+        den2.setTileObjects(bank.den2);
+        den3.setTileObjects(bank.den3);
 
-        empty.setTileObjects(bank.emptyTiles);
+        green1.setTileObjects(bank.green1);
+        green2.setTileObjects(bank.green2);
+        green3.setTileObjects(bank.green3);
+
+        yellow1.setTileObjects(bank.yellow1);
+        yellow2.setTileObjects(bank.yellow2);
+        yellow3.setTileObjects(bank.yellow3);
+
+        empty1.setTileObjects(bank.empty1);
+        empty2.setTileObjects(bank.empty2);
+        empty3.setTileObjects(bank.empty3);
 
         TileManager.instance.groundSprite.color = bank.groundColor;
     }

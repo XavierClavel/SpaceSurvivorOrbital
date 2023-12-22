@@ -5,24 +5,24 @@ using UnityEngine;
 public class BlackHole : Power
 {
     public string tagEnnemy = "Ennemy";
-    public float forceAttraction = 10f;
+    public float forceAttraction = 0.1f;
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerStay2D(Collider2D other)
     {
         // Vérifier si l'objet a le tag cible
         if (other.CompareTag(tagEnnemy))
         {
-            Attraction(other.GetComponent<Rigidbody>());
+            Attraction(other.GetComponent<Rigidbody2D>());
         }
     }
 
-    void Attraction(Rigidbody objetRB)
+    void Attraction(Rigidbody2D rb)
     {
-        Vector3 direction = transform.position - objetRB.position;
+        Vector3 direction = -rb.position;
         float distance = direction.magnitude;
 
         float force = forceAttraction / distance;
 
-        objetRB.AddForce(direction.normalized * force);
+        rb.AddForce(direction.normalized * force);
     }
 }

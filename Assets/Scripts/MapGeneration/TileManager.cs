@@ -49,10 +49,12 @@ public class TileManager : MonoBehaviour
         
         bank.setTiles();
         tiles.Add(bank.spaceship);
-        bank.autel.setSpecificAmount(1);
-        tiles.Add(bank.autel);
-        tiles.Add(bank.empty);
-        
+        bank.altar1.setSpecificAmount(1);
+        tiles.Add(bank.altar1);
+        tiles.Add(bank.empty1);
+        tiles.Add(bank.empty2);
+        tiles.Add(bank.empty3);
+
         SetupPlanet();
 
         mapRadius = (mapSize - Vector2Int.one) / 2;
@@ -98,9 +100,9 @@ public class TileManager : MonoBehaviour
     void SetupPlanet()
     {
         planetSize = PlanetManager.getSize();
-        AllocateResource(PlanetManager.getDensAmount(), bank.den);
-        AllocateResource(PlanetManager.getGreenAmount(), bank.greenLow, bank.greenMid, bank.greenStrong);
-        AllocateResource(PlanetManager.getOrangeAmount(), bank.yellowLow, bank.yellowMid, bank.yellowStrong);
+        AllocateResource(PlanetManager.getDensAmount(), bank.den1);
+        AllocateResource(PlanetManager.getGreenAmount(), bank.green1, bank.green2, bank.green3);
+        AllocateResource(PlanetManager.getOrangeAmount(), bank.yellow1, bank.yellow2, bank.yellow3);
         
         mapSize = new Vector2Int(planetSize, planetSize);
 
