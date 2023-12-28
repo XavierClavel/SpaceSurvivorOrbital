@@ -9,10 +9,12 @@ public class TitleScreenManager : MonoBehaviour
     //Exposed
     private RectTransform titleScreenUI;
     private RectTransform dataSelectorUI;
+    private RectTransform equipmentSelectorUI;
     [SerializeField] TitleScreen titleScreen;
     [SerializeField] DataSelector dataSelector;
+    [SerializeField] EquipmentSelector equipmentSelector;
     [SerializeField] private Canvas canvas;
-    private static float canvasHeight;
+    private static float canvasWidth;
     
     //Static
     private static TitleScreenManager instance;
@@ -23,11 +25,13 @@ public class TitleScreenManager : MonoBehaviour
         instance = this;
         
         Canvas.ForceUpdateCanvases(); 
-        canvasHeight = canvas.GetComponent<RectTransform>().rect.height;
+        canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
         
         titleScreenUI = titleScreen.getUITransform();
         dataSelectorUI = dataSelector.getUITransform();
+        equipmentSelectorUI = equipmentSelector.getUITransform();
         HideDataSelector();
+        HideEquipmentSelector();
         titleScreen.Setup();
         
     }
@@ -37,40 +41,60 @@ public class TitleScreenManager : MonoBehaviour
 
     public static void HideTitleScreen()
     {
-        instance.titleScreenUI.anchoredPosition += canvasHeight * Vector2.down;
+        instance.titleScreenUI.anchoredPosition += canvasWidth * Vector2.left;
     }
 
     public static void HideDataSelector()
     {
-        Debug.Log(canvasHeight);
-        instance.dataSelectorUI.anchoredPosition += canvasHeight * Vector2.down;
+        Debug.Log(canvasWidth);
+        instance.dataSelectorUI.anchoredPosition += canvasWidth * Vector2.right;
+    }
+
+    public static void HideEquipmentSelector()
+    {
+        Debug.Log(canvasWidth);
+        instance.equipmentSelectorUI.anchoredPosition += canvasWidth * Vector2.right;
     }
 
     public static void DisplayUpgradesUI()
     {
-        instance.titleScreenUI.DOAnchorPosY(0f, 1f).SetEase(Ease.InOutQuint);
+        instance.titleScreenUI.DOAnchorPosX(0f, 1f).SetEase(Ease.InOutQuint);
     }
 
     public void SwitchToDataSelection()
     {
         SoundManager.PlaySfx(transform, key: "Power_Switch");
-        instance.titleScreenUI.DOAnchorPosY(posAboveCamera, 1f).SetEase(Ease.InOutQuint);
-        instance.dataSelectorUI.DOAnchorPosY(0f, 1f).SetEase(Ease.InOutQuint);
+        instance.titleScreenUI.DOAnchorPosX(posRightCamera, 1f).SetEase(Ease.InOutQuint);
+        instance.dataSelectorUI.DOAnchorPosX(0f, 1f).SetEase(Ease.InOutQuint);
+    }
+
+    public void SwitchToDataSelectionFromEquipment()
+    {
+        SoundManager.PlaySfx(transform, key: "Power_Switch");
+        instance.equipmentSelectorUI.DOAnchorPosX(posLeftCamera, 1f).SetEase(Ease.InOutQuint);
+        instance.dataSelectorUI.DOAnchorPosX(0, 1f).SetEase(Ease.InOutQuint);
     }
 
     public void SwitchToTitleScreen()
     {
         SoundManager.PlaySfx(transform, key: "Power_Switch");
-        instance.dataSelectorUI.DOAnchorPosY(posBelowCamera, 1f).SetEase(Ease.InOutQuint);
-        instance.titleScreenUI.DOAnchorPosY(0f, 1f).SetEase(Ease.InOutQuint);
+        instance.dataSelectorUI.DOAnchorPosX(posLeftCamera, 1f).SetEase(Ease.InOutQuint);
+        instance.titleScreenUI.DOAnchorPosX(0f, 1f).SetEase(Ease.InOutQuint);
     }
-    
+
+    public void SwitchToEquipmentScreen()
+    {
+        SoundManager.PlaySfx(transform, key: "Power_Switch");
+        instance.dataSelectorUI.DOAnchorPosX(posRightCamera, 1f).SetEase(Ease.InOutQuint);
+        instance.equipmentSelectorUI.DOAnchorPosX(0f, 1f).SetEase(Ease.InOutQuint);
+    }
+
     #endregion
 
     #region staticAPI
 
-    public static float posAboveCamera => canvasHeight;
-    public static float posBelowCamera => -canvasHeight;
+    public static float posLeftCamera => canvasWidth;
+    public static float posRightCamera => -canvasWidth;
 
     #endregion
 

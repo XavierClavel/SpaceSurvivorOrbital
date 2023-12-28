@@ -95,7 +95,12 @@ public class DataSelector : MonoBehaviour, UIPanel
         {
             return ScriptableObjectManager.dictKeyToWeaponHandler[key].getIcon();
         }
-        
+
+        if (ScriptableObjectManager.dictKeyToEquipmentHandler.ContainsKey(key))
+        {
+            return ScriptableObjectManager.dictKeyToEquipmentHandler[key].getIcon();
+        }
+
         Debug.LogWarning("Selected key does not exist");
         return null;
     }
@@ -125,7 +130,7 @@ public class DataSelector : MonoBehaviour, UIPanel
             instance.SelectWeapon(value);
             return;
         }
-        
+
         Debug.LogWarning("Selected key does not exist");
     }
 
