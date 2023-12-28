@@ -21,7 +21,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     [SerializeField] private Button characterBuyButton;
     [SerializeField] private UpgradeDisplay characterDisplay;
     
-    [Header("Character")]
+    [Header("Weapon")]
     [SerializeField] private TextMeshProUGUI weaponTitleDisplay;
     [SerializeField] private GameObject weaponCostDisplay;
     [SerializeField] private TextMeshProUGUI weaponCostText;
