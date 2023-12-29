@@ -29,7 +29,7 @@ public class DataManager : ScriptableObject
     public static Dictionary<string, int> dictCost = new Dictionary<string, int>();
     [SerializeField] string selectedCharacter = "Knil";
     [SerializeField] string selectedWeapon = "Laser";
-    [SerializeField] string selectedEquipment = "Radar";
+    [SerializeField] string selectedEquipment = "Suit";
     private static DataManager instance;
 
     

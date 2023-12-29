@@ -33,6 +33,7 @@ public class PlayerManager
     public static int? currentHealth = null;
 
     public static List<PowerHandler> powers = new List<PowerHandler>();
+    public static List<EquipmentHandler> equipments = new List<EquipmentHandler>();
 
     public static PlayerData playerData = new PlayerData();
     public static Dictionary<string, PlayerData> dictKeyToStats = new Dictionary<string, PlayerData>();

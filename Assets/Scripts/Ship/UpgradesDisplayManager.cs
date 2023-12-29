@@ -64,9 +64,9 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
 
         currentActivePanel = panels[0];
 
-        if (DataSelector.selectedCharacter == string.Empty) //Default buttons sprites if game launched from ship scene
+        if (DataSelector.selectedWeapon == string.Empty) //Default buttons sprites if game launched from ship scene
         {
-            DataSelector.selectedCharacter = defaultCharacter;
+            //DataSelector.selectedCharacter = defaultCharacter;
             DataSelector.selectedWeapon = defaultWeapon;
         }
 
@@ -113,15 +113,19 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     {
         List<string> keys = new List<string>
         {
-            PlayerManager.character.getKey(),
             PlayerManager.weapon.getKey(),
+            PlayerManager.equipment.getKey(),
+            //PlayerManager.character.getKey(),
+            
         };
         keys.AddList(PlayerManager.powers.Select(it => it.getKey()).ToList());
 
         List<Sprite> icons = new List<Sprite>
         {
-            DataSelector.getSelectedCharacter().getIcon(),
-            PlayerManager.weaponPrefab.spriteRenderer.sprite,
+            //PlayerManager.weaponPrefab.spriteRenderer.sprite,
+            DataSelector.getSelectedWeapon().getIcon(),
+            DataSelector.getSelectedEquipment().getIcon(),
+            //DataSelector.getSelectedCharacter().getIcon(),
         };
         icons.AddList(PlayerManager.powers.Select(it => it.getIcon()).ToList());
         
