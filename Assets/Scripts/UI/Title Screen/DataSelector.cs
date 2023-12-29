@@ -29,6 +29,16 @@ public class DataSelector : MonoBehaviour, UIPanel
     [SerializeField] private Button weaponBuyButton;
     [SerializeField] private UpgradeDisplay weaponDisplay;
 
+    public static string selectedEquipment = string.Empty;
+
+    [Header("Equipment")]
+    [SerializeField] private TextMeshProUGUI equipmentTitleDisplay;
+    [SerializeField] private GameObject equipmentCostDisplay;
+    [SerializeField] private TextMeshProUGUI equipmentCostText;
+    [SerializeField] private Image equipmentImage;
+    [SerializeField] private Button equipmentBuyButton;
+    [SerializeField] private UpgradeDisplay equipmentDisplay;
+
     private void DisplayCharacter(SelectButton selectButton)
     {
         if (!characterImage.gameObject.activeInHierarchy) characterImage.gameObject.SetActive(true);
@@ -57,6 +67,20 @@ public class DataSelector : MonoBehaviour, UIPanel
         weaponDisplay.SetupAction(selectButton.Buy);
     }
 
+    private void DisplayEquipment(SelectButton selectButton)
+    {
+        if (!equipmentImage.gameObject.activeInHierarchy) equipmentImage.gameObject.SetActive(true);
+        LocalizationManager.LocalizeTextField(selectButton.key, equipmentTitleDisplay);
+
+        equipmentCostDisplay.SetActive(!selectButton.isUnlocked);
+        equipmentBuyButton.gameObject.SetActive(!selectButton.isUnlocked);
+
+        equipmentCostText.SetText(selectButton.cost.ToString());
+        equipmentImage.sprite = getIcon(selectButton.key);
+
+        equipmentDisplay.SetupAction(selectButton.Buy);
+    }
+
     public static void DisplayGeneric(string key, SelectButton selectButton)
     {
         if (ScriptableObjectManager.dictKeyToCharacterHandler.ContainsKey(key))
@@ -70,6 +94,12 @@ public class DataSelector : MonoBehaviour, UIPanel
             instance.DisplayWeapon(selectButton);
             return;
         }
+
+        if (ScriptableObjectManager.dictKeyToEquipmentHandler.ContainsKey(key))
+        {
+            instance.DisplayEquipment(selectButton);
+            return;
+        }
     }
 
     private void Awake()
@@ -77,6 +107,7 @@ public class DataSelector : MonoBehaviour, UIPanel
         instance = this;
         characterImage.gameObject.SetActive(false);
         weaponImage.gameObject.SetActive(false);
+        equipmentImage.gameObject.SetActive(false);
     }
 
     public RectTransform getUITransform()
@@ -109,11 +140,13 @@ public class DataSelector : MonoBehaviour, UIPanel
     {
         selectedCharacter = string.Empty;
         selectedWeapon = string.Empty;
+        selectedEquipment = string.Empty;
     }
 
     public void SelectGeneric<T>(T value) where T : ObjectHandler
     {
         if (typeof(T) == typeof(CharacterHandler)) SelectCharacter(value.getKey());
+        else if (typeof(T) == typeof(EquipmentHandler)) SelectEquipment(value.getKey());
         else if (typeof(T) == typeof(WeaponHandler)) SelectWeapon(value.getKey());
     }
     
@@ -128,6 +161,12 @@ public class DataSelector : MonoBehaviour, UIPanel
         if (ScriptableObjectManager.dictKeyToWeaponHandler.ContainsKey(value))
         {
             instance.SelectWeapon(value);
+            return;
+        }
+
+        if (ScriptableObjectManager.dictKeyToEquipmentHandler.ContainsKey(value))
+        {
+            instance.SelectEquipment(value);
             return;
         }
 
@@ -147,6 +186,12 @@ public class DataSelector : MonoBehaviour, UIPanel
         SoundManager.PlaySfx(transform, key: "Button_Switch");
         if (selectedCharacter != string.Empty) startButton.interactable = true;
     }
+    public void SelectEquipment(string value)
+    {
+        selectedEquipment = value;
+        SoundManager.PlaySfx(transform, key: "Button_Switch");
+        if (selectedEquipment != string.Empty) startButton.interactable = true;
+    }
 
     public void Validate()
     {
@@ -163,5 +208,9 @@ public class DataSelector : MonoBehaviour, UIPanel
     public static CharacterHandler getSelectedCharacter()
     {
         return ScriptableObjectManager.dictKeyToCharacterHandler[selectedCharacter];
+    }
+    public static EquipmentHandler getSelectedEquipment()
+    {
+        return ScriptableObjectManager.dictKeyToEquipmentHandler[selectedEquipment];
     }
 }

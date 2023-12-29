@@ -22,6 +22,7 @@ public class PlayerManager
     public static PlayerData weaponData = new PlayerData();
     public static WeaponHandler weapon;
     public static CharacterHandler character;
+    public static EquipmentHandler equipment;
 
     public static int amountGreen { get; private set; }
     public static int amountOrange { get; private set; }
@@ -77,7 +78,12 @@ public class PlayerManager
     {
         character = characterHandler;
     }
-    
+
+    public static void setEquipment(EquipmentHandler equipmentHandler)
+    {
+        equipment = equipmentHandler;
+    }
+
 
     public static void Reset()
     {

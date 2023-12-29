@@ -10,7 +10,6 @@ public class SelectorLayout : MonoBehaviour
 {
     [SerializeField] selectorType type;
     [SerializeField] DataSelector dataSelector;
-    [SerializeField] EquipmentSelector equipmentSelector;
     [SerializeField] SelectButton button;
     SelectButton selectedButton;
 

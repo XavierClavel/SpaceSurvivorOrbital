@@ -11,8 +11,8 @@ public class TitleScreenManager : MonoBehaviour
     private RectTransform dataSelectorUI;
     private RectTransform equipmentSelectorUI;
     [SerializeField] TitleScreen titleScreen;
-    [SerializeField] DataSelector dataSelector;
-    [SerializeField] EquipmentSelector equipmentSelector;
+    [SerializeField] GameObject dataSelector;
+    [SerializeField] GameObject equipmentSelector;
     [SerializeField] private Canvas canvas;
     private static float canvasWidth;
     
@@ -28,8 +28,8 @@ public class TitleScreenManager : MonoBehaviour
         canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
         
         titleScreenUI = titleScreen.getUITransform();
-        dataSelectorUI = dataSelector.getUITransform();
-        equipmentSelectorUI = equipmentSelector.getUITransform();
+        dataSelectorUI = dataSelector.GetComponent<RectTransform>();
+        equipmentSelectorUI = equipmentSelector.GetComponent<RectTransform>();
         HideDataSelector();
         HideEquipmentSelector();
         titleScreen.Setup();
