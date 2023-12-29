@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour
 {
     private const int damageScalePlayerToEnnemy = 20;
     [SerializeField] ParticleSystem bulletParticle;
+    public GameObject impact;
     public Rigidbody2D rb;
     public TrailRenderer trail;
     [HideInInspector] public int pierce = 0;
@@ -46,9 +47,8 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Transparent")) return;
         
         SoundManager.PlaySfx(transform, Vault.sfx.BulletHit);
-
-        hit.Play("Hit");
         Helpers.SpawnPS(transform, bulletParticle);
+        impact.SetActive(true);
 
 
         if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer.Obstacles)) gameObject.SetActive(false);
