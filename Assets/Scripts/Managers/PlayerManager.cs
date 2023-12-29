@@ -77,6 +77,7 @@ public class PlayerManager
 
     public static void setCharacter(CharacterHandler characterHandler)
     {
+        //characterPrefab = characterHandler.getCharacter();
         character = characterHandler;
     }
 
