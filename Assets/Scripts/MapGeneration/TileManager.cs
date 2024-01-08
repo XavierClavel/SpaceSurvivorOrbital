@@ -54,9 +54,8 @@ public class TileManager : MonoBehaviour
         tiles.Add(bank.empty1);
         tiles.Add(bank.empty2);
         tiles.Add(bank.empty3);
-
         SetupPlanet();
-
+        Debug.Log($"Difficulty : {planetData.difficulty}");
         mapRadius = (mapSize - Vector2Int.one) / 2;
         player = PlayerController.instance;
 
