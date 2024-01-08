@@ -4610,17 +4610,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planetData:
     size: 1
-    difficulty: 1
+    difficulty: 5
     denScarcity: 1
     orangeScarcity: 1
     greenScarcity: 1
-    type: 1
+    type: 2
   groundSprite: {fileID: 2041782854}
   bank: {fileID: 11400000, guid: dde3abeea4d88e546a3066a1c045dada, type: 2}
   distanceConstraintsManager: {fileID: 11400000, guid: 2d707b2ee9386e44c815ae33e7a09322, type: 2}
   tileSize: {x: 9, y: 9}
   tiles: []
-  generateMap: 0
+  generateMap: 1
 --- !u!1001 &591678972
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4633,6 +4633,10 @@ PrefabInstance:
       propertyPath: impact
       value: 
       objectReference: {fileID: 1006280353004908655, guid: 3267956e684104e4481fd47d2a9b7014, type: 3}
+    - target: {fileID: 516386350, guid: 9a94a6d13824ffc4e8440d75984cb225, type: 3}
+      propertyPath: deformationDuration
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 386023908209535338, guid: 9a94a6d13824ffc4e8440d75984cb225, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -6654,7 +6658,7 @@ MonoBehaviour:
   shield: 0
   ghost: 0
   blackHole: 0
-  synthWave: 0
+  synthWave: 1
   toxicZone: 0
   dagger: 0
   startWithMinerBot: 0

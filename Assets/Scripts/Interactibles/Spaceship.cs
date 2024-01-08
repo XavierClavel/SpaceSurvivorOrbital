@@ -8,6 +8,7 @@ public class Spaceship : MonoBehaviour, IInteractable
 {
     [SerializeField] Image image;
     [SerializeField] float timeToLaunch = 10f;
+    [SerializeField] ParticleSystem launchEffect;
     float factor;
     float fillAmount = 1;
     bool hasExitedRadius = true;
@@ -66,6 +67,7 @@ public class Spaceship : MonoBehaviour, IInteractable
         while (fillAmount > 0)
         {
             yield return Helpers.GetWaitFixed;
+            Helpers.SpawnPS(transform, launchEffect);
             fillAmount -= Time.fixedDeltaTime * factor;
             image.fillAmount = fillAmount;
             SoundManager.PlaySfx(transform, key: "Ship_Loading");

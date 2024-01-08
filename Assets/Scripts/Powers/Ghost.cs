@@ -8,6 +8,7 @@ public class Ghost : MonoBehaviour
     public static Dictionary<GameObject, Ghost> dictGoToGhost = new Dictionary<GameObject, Ghost>();
     [SerializeField] private Animator animator;
     [SerializeField] private Collider2D col;
+    [SerializeField] public ParticleSystem explosion;
     
     private bool explodeOnBullet = false;
     private bool explodeOnEnnemy = false;
@@ -65,6 +66,7 @@ public class Ghost : MonoBehaviour
 
     private void Explode()
     {
+        explosion.Play();
         animator.SetTrigger(animExplode);
         SoundManager.PlaySfx(transform, key: "Ghost_Explode");
         PowerGhost.SpawnShockwave(transform.position);
