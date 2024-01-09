@@ -8,13 +8,15 @@ public enum status { none, fire, ice, lightning }
 public class Bullet : MonoBehaviour
 {
     private const int damageScalePlayerToEnnemy = 20;
-    [SerializeField] ParticleSystem bulletParticle;
+    [SerializeField] ParticleSystem impact;
     public Rigidbody2D rb;
     public TrailRenderer trail;
     [HideInInspector] public int pierce = 0;
     int currentPierce = 0;
     private HitInfo hitInfo;
     private UnityAction<Bullet> onImpact = null;
+
+    [SerializeField] Animator hit;
 
     public Bullet setImpactAction(UnityAction<Bullet> action)
     {
@@ -44,7 +46,7 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Transparent")) return;
         
         SoundManager.PlaySfx(transform, Vault.sfx.BulletHit);
-        Helpers.SpawnPS(transform, bulletParticle);
+        Helpers.SpawnPS(transform, impact);
 
 
         if (other.gameObject.layer == LayerMask.NameToLayer(Vault.layer.Obstacles)) gameObject.SetActive(false);

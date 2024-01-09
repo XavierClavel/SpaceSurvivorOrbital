@@ -8,20 +8,26 @@ public static class ScriptableObjectManager
     public static Dictionary<string, ButtonSprite> dictKeyToButtonSprites;
     public static Dictionary<string, PowerHandler> dictKeyToPowerHandler;
     public static Dictionary<string, WeaponHandler> dictKeyToWeaponHandler;
+    public static Dictionary<string, EquipmentHandler> dictKeyToEquipmentHandler;
     public static Dictionary<string, CharacterHandler> dictKeyToCharacterHandler;
     public static Dictionary<string, Sfx> dictKeyToSfx;
     static List<WeaponHandler> baseWeapons;
     static List<CharacterHandler> characters;
+    static List<EquipmentHandler> equipments;
 
     public static List<CharacterHandler> getCharacters()
     {
         return characters;
     }
 
-
     public static List<WeaponHandler> getWeapons()
     {
         return baseWeapons;
+    }
+
+    public static List<EquipmentHandler> getEquipment()
+    {
+        return equipments;
     }
 
     public static void LoadScriptableObjects()
@@ -61,6 +67,15 @@ public static class ScriptableObjectManager
         {
             dictKeyToCharacterHandler[characterHandler.getKey()] = characterHandler;
             characters.Add(characterHandler);
+        }
+
+        dictKeyToEquipmentHandler = new Dictionary<string, EquipmentHandler>();
+        equipments = new List<EquipmentHandler>();
+        EquipmentHandler[] equipmentHandlers = Resources.LoadAll<EquipmentHandler>(Vault.path.Equipments);
+        foreach (EquipmentHandler equipmentHandler in equipmentHandlers)
+        {
+            dictKeyToEquipmentHandler[equipmentHandler.getKey()] = equipmentHandler;
+            equipments.Add(equipmentHandler);
         }
 
         dictKeyToSfx = new Dictionary<string, Sfx>();

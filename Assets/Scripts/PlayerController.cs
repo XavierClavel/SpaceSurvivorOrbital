@@ -21,6 +21,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] FloatingJoystick joystickMove;
     [SerializeField] FloatingJoystick joystickAim;
     [SerializeField] SpriteRenderer playerSprite;
+    [SerializeField] Animator playerAnimator;
+
+    CharacterHandler characterHandler;
     InteractorHandler interactorHandler;
     [SerializeField] GameObject minerBot;
     [HideInInspector] public Transform attractorTransform;
@@ -240,9 +243,11 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-
         instance = this;
         interactorHandler = GetComponent<InteractorHandler>();
+
+        //playerSprite = characterHandler.spriteRenderer;
+        //playerAnimator = characterHandler.animator;
 
         if (Helpers.isPlatformAndroid())
         {
@@ -298,6 +303,8 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(nameof(PlayFootsteps));
 
     }
+
+
 
     private IEnumerator PlayFootsteps()
     {

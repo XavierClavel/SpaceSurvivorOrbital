@@ -8,6 +8,7 @@ public class Altar : MonoBehaviour, IInteractable
 {
     [SerializeField] Image image;
     [SerializeField] float timeToLaunch = 5f;
+    [SerializeField] ParticleSystem auraAltar;
     float factor;
     float fillAmount = 1;
     private Animator animator;
@@ -61,6 +62,7 @@ public class Altar : MonoBehaviour, IInteractable
     {
         animator.SetTrigger(Deplete);
         GetComponent<Collider2D>().enabled = false;
+        auraAltar.Stop();
     }
 
     void ActivateAltar()

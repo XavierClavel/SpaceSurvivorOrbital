@@ -22,6 +22,7 @@ public class PlayerManager
     public static PlayerData weaponData = new PlayerData();
     public static WeaponHandler weapon;
     public static CharacterHandler character;
+    public static EquipmentHandler equipment;
 
     public static int amountGreen { get; private set; }
     public static int amountOrange { get; private set; }
@@ -32,6 +33,7 @@ public class PlayerManager
     public static int? currentHealth = null;
 
     public static List<PowerHandler> powers = new List<PowerHandler>();
+    public static List<EquipmentHandler> equipments = new List<EquipmentHandler>();
 
     public static PlayerData playerData = new PlayerData();
     public static Dictionary<string, PlayerData> dictKeyToStats = new Dictionary<string, PlayerData>();
@@ -80,9 +82,15 @@ public class PlayerManager
 
     public static void setCharacter(CharacterHandler characterHandler)
     {
+        //characterPrefab = characterHandler.getCharacter();
         character = characterHandler;
     }
-    
+
+    public static void setEquipment(EquipmentHandler equipmentHandler)
+    {
+        equipment = equipmentHandler;
+    }
+
 
     public static void Reset()
     {

@@ -48,6 +48,7 @@ public class PlanetData
         this.type = Helpers.getRandomEnum<planetType>();
 
         this.difficulty = PlanetSelector.getDifficulty(this);
+        
 
         return this;
     }

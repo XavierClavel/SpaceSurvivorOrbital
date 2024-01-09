@@ -5,6 +5,7 @@ using UnityEngine;
 public class SnowActivation : MonoBehaviour
 {
     public GameObject player; // R�f�rence vers le transform du joueur
+    public int yModifier;
 
     private void Start()
     {
@@ -13,6 +14,6 @@ public class SnowActivation : MonoBehaviour
     private void Update()
     {
         // Suivre la position du joueur
-        transform.position = new Vector2(player.transform.position.x, player.transform.position.y +10);
+        transform.position = new Vector2(player.transform.position.x, player.transform.position.y + yModifier);
     }
 }

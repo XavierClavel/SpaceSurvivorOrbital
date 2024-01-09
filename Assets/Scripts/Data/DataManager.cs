@@ -20,6 +20,7 @@ public class DataManager : ScriptableObject
 
     public static Dictionary<string, PlayerData> dictWeapons = new Dictionary<string, PlayerData>();
     public static Dictionary<string, PlayerData> dictPowers = new Dictionary<string, PlayerData>();
+    public static Dictionary<string, PlayerData> dictEquipments = new Dictionary<string, PlayerData>();
     public static Dictionary<string, ObjectData> dictObjects = new Dictionary<string, ObjectData>();
     public static Dictionary<string, LocalizedString> dictLocalization = new Dictionary<string, LocalizedString>();
     public static Dictionary<string, UpgradeData> dictUpgrades = new Dictionary<string, UpgradeData>();
@@ -28,6 +29,7 @@ public class DataManager : ScriptableObject
     public static Dictionary<string, int> dictCost = new Dictionary<string, int>();
     [SerializeField] string selectedCharacter = "Knil";
     [SerializeField] string selectedWeapon = "Laser";
+    [SerializeField] string selectedEquipment = "Suit";
     private static DataManager instance;
 
     
@@ -74,10 +76,12 @@ public class DataManager : ScriptableObject
 
         DataSelector.selectedCharacter = selectedCharacter;
         DataSelector.selectedWeapon = selectedWeapon;
+        DataSelector.selectedEquipment = selectedEquipment;
         
         PlayerManager.setWeapon(dictWeapons[selectedWeapon].Clone(), ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
         PlayerManager.setCharacter(ScriptableObjectManager.dictKeyToCharacterHandler[selectedCharacter]);
-        
+        PlayerManager.setEquipment(ScriptableObjectManager.dictKeyToEquipmentHandler[selectedEquipment]);
+
         PlanetSelectionManager.GenerateData();
     }
 

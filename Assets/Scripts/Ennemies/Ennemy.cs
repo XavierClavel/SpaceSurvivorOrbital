@@ -152,6 +152,7 @@ public class Ennemy : Breakable
     {
         base.Hit(hitInfo);
         SoundManager.PlaySfx(transform, key: "Ennemy_Hit");
+
         healthChange value = hitInfo.critical ? healthChange.critical : healthChange.hit;
         if (hitInfo.damage != 0)
         {

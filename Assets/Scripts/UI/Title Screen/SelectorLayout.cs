@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 
-public enum selectorType { character, weapon }
+public enum selectorType { character, weapon, equipment }
 
 public class SelectorLayout : MonoBehaviour
 {
@@ -23,6 +23,10 @@ public class SelectorLayout : MonoBehaviour
 
             case selectorType.weapon:
                 SetupLayout(ScriptableObjectManager.getWeapons());
+                break;
+
+            case selectorType.equipment:
+                SetupLayout(ScriptableObjectManager.getEquipment());
                 break;
         }
     }
