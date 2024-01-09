@@ -29,6 +29,7 @@ public class Laser : Interactor
     [SerializeField] private GameObject collisionSprite;
     [SerializeField] private Shockwave shockwave;
     playerDirection _aimDirection_value = playerDirection.front;
+    private RaycastHit2D[] collidersInRay;
 
     private bool isShockwaveEnabled;
     private int shockwaveDamage;
@@ -213,31 +214,30 @@ public class Laser : Interactor
     
     void UpdateLaserBeam()
     {
-        Debug.Log(firePoint.position + 2*Vector3.back);
         lineRenderer.SetPosition(0, firePoint.position + 2*Vector3.back);
         
 
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(firePoint.position, width, firePoint.right, stats.range, currentLayerMask);
-        if (hits.Length == 0)
+        var size = Physics2D.CircleCastNonAlloc(firePoint.position, width, firePoint.right, collidersInRay, stats.range, currentLayerMask);
+        if (collidersInRay.Length == 0)
         {
             lineRenderer.SetPosition(1, firePoint.position + firePoint.right * stats.range + 2*Vector3.back);
             collisionSprite.SetActive(false);
             return;
         }
 
-        ApplyRaycast(hits);
+        ApplyRaycast();
     }
 
-    void ApplyRaycast(RaycastHit2D[] hits)
+    void ApplyRaycast()
     {
-        int stopIndex = Mathf.Min(hits.Length, stats.pierce + 1);
+        int stopIndex = Mathf.Min(collidersInRay.Length, stats.pierce + 1);
 
         for (int i = 0; i < stopIndex; i++)
         {
-            GameObject go = hits[i].collider.gameObject;
+            GameObject go = collidersInRay[i].collider.gameObject;
             if (go.layer == LayerMask.NameToLayer(Vault.layer.Obstacles))
             {
-                Vector3 collisionPoint = firePoint.position + firePoint.right * hits[i].distance;
+                Vector3 collisionPoint = firePoint.position + firePoint.right * collidersInRay[i].distance;
                 lineRenderer.SetPosition(1, collisionPoint + 2*Vector3.back);
                 collisionSprite.SetActive(true);
                 collisionSprite.transform.position = collisionPoint + 3*Vector3.back;
@@ -252,9 +252,9 @@ public class Laser : Interactor
         }
         collisionSprite.SetActive(false);
 
-        float range = hits.Length < stats.pierce
+        float range = collidersInRay.Length < stats.pierce
             ? stats.range
-            : hits[stopIndex - 1].distance;
+            : collidersInRay[stopIndex - 1].distance;
         lineRenderer.SetPosition(1, firePoint.position + firePoint.right * range + 2*Vector3.back);
     }
     

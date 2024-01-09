@@ -102,10 +102,7 @@ public class Pistol : Gun
         Bullet bullet = pool.get(position, eulerRotation);
         bulletsStack.Add(bullet);
         StartCoroutine(nameof(ResetTrailDist), bullet);
-        HitInfo hitInfo = new HitInfo(stats);
-        hitInfo.effect.Add(status.fire);
-        hitInfo.effect.Add(status.ice);
-        bullet.Fire(stats.attackSpeed, hitInfo);
+        bullet.Fire(stats.attackSpeed, new HitInfo(stats));
         Invoke(nameof(recallBullet), bulletLifetime);
     }
 
@@ -120,6 +117,5 @@ public class Pistol : Gun
     IEnumerator ResetTrailDist(Bullet bullet){
         yield return null;
         bullet.trail.time = 0.2f;
- 
     }
 }

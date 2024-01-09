@@ -20,6 +20,7 @@ public class TitleScreen : MonoBehaviour, UIPanel
     {
         isSelectionFree = freeSelection;
         instance = this;
+        PlayerManager.setSouls();
         UpdateSoulsDisplay();
     }
 
@@ -43,14 +44,13 @@ public class TitleScreen : MonoBehaviour, UIPanel
 
     public void AddSouls()
     {
-        PlayerManager.setSouls(SaveManager.retrieveSouls() + 100);
+        PlayerManager.gainSouls(100);
         UpdateSoulsDisplay();
-        
     }
 
     public static void UpdateSoulsDisplay()
     {
-        instance.soulsDisplay.SetText(SaveManager.retrieveSouls().ToString());
+        instance.soulsDisplay.SetText(PlayerManager.getSouls().ToString());
     }
 
 }

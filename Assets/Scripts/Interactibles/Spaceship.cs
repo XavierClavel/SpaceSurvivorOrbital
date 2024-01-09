@@ -82,7 +82,6 @@ public class Spaceship : MonoBehaviour, IInteractable
         PlayerManager.setCurrentHealth(PlayerController.instance.health);
         PlayerManager.setSouls(PlayerController.instance.souls);
         
-        SaveManager.updateSouls(PlayerManager.getSouls());
         SaveManager.Save();
         
         SceneTransitionManager.TransitionToScene(gameScene.ship);

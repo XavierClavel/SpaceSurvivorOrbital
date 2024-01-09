@@ -47,6 +47,11 @@ public class PlayerManager
         setSouls((SaveManager.retrieveSouls()));
     }
 
+    public static void gainSouls(int value)
+    {
+        setSouls(getSouls() + value);
+    }
+
     public static void setSouls(int value)
     {
         souls = value;
