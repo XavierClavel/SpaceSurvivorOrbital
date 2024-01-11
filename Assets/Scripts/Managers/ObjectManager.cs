@@ -26,6 +26,7 @@ public class ObjectManager : MonoBehaviour
     public static ObjectManager instance;
     public static Altar altar;
     public static ObjectIndicator spaceshipIndicator;
+    public static GameObject spaceship;
 
     public static Dictionary<GameObject, Ennemy> dictObjectToEnnemy = new Dictionary<GameObject, Ennemy>();
     public static Dictionary<GameObject, IResource> dictObjectToResource = new Dictionary<GameObject, IResource>();
@@ -33,6 +34,13 @@ public class ObjectManager : MonoBehaviour
     public static Dictionary<GameObject, Breakable> dictObjectToHitable = new Dictionary<GameObject, Breakable>();
     static int amountEggs = 0;
     private static int amountDens = 0;
+
+    public static void DisplaySpaceship()
+    {
+        spaceship.SetActive(true);
+    }
+
+    public static void HideSpaceship() { spaceship.SetActive(false); }
 
     public static void registerEggSpawned() {
         amountEggs++;
@@ -54,7 +62,7 @@ public class ObjectManager : MonoBehaviour
         amountDens--;
         if (amountDens == 0)
         {
-            PlayerManager.AcquireUpgradePoint();
+            DisplaySpaceship();
         }
     }
 
@@ -77,6 +85,18 @@ public class ObjectManager : MonoBehaviour
     {
         instance.altarUI.SetActive(false);
         instance.pauseMenu.ResumeGame();
+    }
+
+    public static void HitEnnemy(GameObject target, HitInfo hitInfo)
+    {
+        if (!dictObjectToEnnemy.ContainsKey(target)) return;
+        dictObjectToEnnemy[target].Hit(hitInfo);
+    }
+
+    public static void HitObject(GameObject target, HitInfo hitInfo)
+    {
+        if (!dictObjectToHitable.ContainsKey(target)) return;
+        dictObjectToHitable[target].Hit(hitInfo);
     }
 
     bool Transaction()

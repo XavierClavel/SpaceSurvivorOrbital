@@ -48,12 +48,6 @@ public class SpawnManager : Breakable
     }
 
 
-    public void debug_StopEnnemySpawn()
-    {
-        doEnnemySpawn = false;
-        StopCoroutine(nameof(SpawnController));
-    }
-
     protected override void Start()
     {
         base.Start();
@@ -71,11 +65,6 @@ public class SpawnManager : Breakable
         //playerTransform = PlayerController.instance.transform;
         
         ObjectManager.registerDenSpawned();
-
-        if (!DebugManager.instance.noEnnemySpawn)
-        {
-            StartCoroutine(nameof(SpawnController));
-        }
     }
 
     public override void Hit(HitInfo hitInfo)
@@ -97,93 +86,5 @@ public class SpawnManager : Breakable
         health -= damage;
     }
 
-    IEnumerator SpawnController()
-    {
-        float time = 0f;
-        while (true)
-        {
-            if (ennemiesToSpawnList.Count != 0 && time >= ennemiesToSpawnList[0].spawnTime)
-            {
-                SpawnEnnemy(ennemiesToSpawnList[0].entity);
-                ennemiesToSpawnList.RemoveAt(0);
-            }
 
-            if (time > waveDuration)
-            {
-                time = 0f;
-                wallet += spawnData.increment;
-                PrepareWave(wallet);
-            }
-
-            time += Time.fixedDeltaTime;
-            yield return Helpers.GetWaitFixed;
-        }
-    }
-
-    void PrepareWave(int maxCost)
-    {
-        int currentCost = 0;
-        ennemiesToSpawnList = new List<EntitySpawnInstance<Ennemy>>();
-        List<Ennemy> ennemies = ennemyPrefabs.Copy();
-        ennemies = ennemies.FindAll(it => 
-            DataManager.dictObjects[it.name].cost < spawnData.maxSpending &&
-            DataManager.dictObjects[it.name].cost > spawnData.minSpending
-            ).ToList();
-
-        while (currentCost < maxCost)
-        {
-            Ennemy ennemy = ennemies.getRandom();
-            int newCost = currentCost + DataManager.dictObjects[ennemy.name].cost;
-            if (newCost > maxCost)
-            {
-                ennemies.Remove(ennemy);
-                if (ennemies.Count == 0) break;
-                else continue;
-            }
-
-            float spawnTime = Random.Range(0f, waveDuration);
-
-            ennemiesToSpawnList.Add(new EntitySpawnInstance<Ennemy>(spawnTime, ennemy));
-            currentCost = newCost;
-        }
-
-        ennemiesToSpawnList.Sort(comparer);
-    }
-
-    public void SpawnEnnemy(Ennemy ennemy)
-    {
-        Vector3 position = spawnPosition.transform.position;
-        //Helpers.getRandomPositionInRing(4f, 4f, shape.square) + transform.position;
-        Instantiate(ennemy.gameObject, position, Quaternion.identity);
-    }
-
-    public void SpawnEnnemy()
-    {
-        GameObject ennemyPrefab = ennemyPrefabs[Random.Range(0, ennemyPrefabs.Count)].gameObject;
-        Vector3 position = spawnPosition.transform.position;
-        //Helpers.getRandomPositionInRing(4f, 4f, shape.square) + transform.position;
-        Instantiate(ennemyPrefab, position, Quaternion.identity);
-    }
-
-
-}
-
-public class EntitySpawnInstance<T>
-{
-    public float spawnTime;
-    public T entity;
-
-    public EntitySpawnInstance(float spawnTime, T entity)
-    {
-        this.spawnTime = spawnTime;
-        this.entity = entity;
-    }
-}
-
-public class EntitySpawnInstanceComparer<T> : IComparer<EntitySpawnInstance<T>>
-{
-    public int Compare(EntitySpawnInstance<T> entityA, EntitySpawnInstance<T> entityB)
-    {
-        return entityA.spawnTime.CompareTo(entityB.spawnTime);
-    }
 }

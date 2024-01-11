@@ -69,8 +69,6 @@ public class PlayerManager
     public static void setWeapon(PlayerData interactorData, WeaponHandler weaponHandler)
     {
         weaponData = interactorData;
-        Debug.Log(weaponData.interactor.projectiles);
-        Debug.Log(interactorData.interactor.projectiles);
         weaponPrefab = weaponHandler.getWeapon();
         weapon = weaponHandler;
     }
@@ -98,6 +96,7 @@ public class PlayerManager
         playerData.setBase();
         weaponData = new PlayerData();
         powers = new List<PowerHandler>();
+        equipments = new List<EquipmentHandler>();
         dictKeyToStats = new Dictionary<string, PlayerData>();
     }
 

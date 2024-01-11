@@ -26,19 +26,27 @@ public class PlanetSelector : MonoBehaviour
     //public Color colorStorm;
 
     [Header("Parameters")]
-    private static float resourceMultiplier = 0.33f;
-    private static float altarMultiplier = 0.5f;
-    private static float sizeMultiplier = 0.1f;
-    private static float randomMultiplier = 0.5f;
-    private static float globalDifficultyMultiplier = 0.8f;
-    static int globalDifficulty = -1;
+    public static int globalDifficulty = 0;
+
+    public static void IncreaseDifficulty()
+    {
+        if (globalDifficulty >= DataManager.dictDifficulty.Keys.Count) return;
+        globalDifficulty++;
+        Debug.Log($"Difficulty increased, now {globalDifficulty}");
+    }
+
+    public static void ResetDifficulty()
+    {
+        globalDifficulty = 0;
+    }
 
     private void Awake()
     {
         instance = this;
-        globalDifficulty++;
+        IncreaseDifficulty();
         InputManager.setSelectedObject(firstSelected);
     }
+
 
     public static void SelectPlanet(Planet planet)
     {
@@ -53,15 +61,9 @@ public class PlanetSelector : MonoBehaviour
         SceneTransitionManager.TransitionToScene(planetData);
     }
 
-    public static int getDifficulty(PlanetData planetData)
+    public static int getDifficulty()
     {
-        int resourceAmount = (int)planetData.greenScarcity + (int)planetData.orangeScarcity + (int)planetData.greenScarcity;
-        float resourceFactor = resourceMultiplier * (float)resourceAmount;
-        float sizeFactor = sizeMultiplier * ((float)planetData.size - 1f);
-        float randomFactor = randomMultiplier * Random.Range(-1f, 1f);
-        float globalFactor = globalDifficultyMultiplier * globalDifficulty;
-        float difficultyValue = resourceFactor + randomFactor + globalFactor - sizeFactor;
-        return (int)difficultyValue + 1;
+        return globalDifficulty;
     }
 
 }

@@ -41,6 +41,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     [SerializeField] private GridLayoutGroup gridLayout;
     [SerializeField] private Line lineAccessible;
     [SerializeField] private Line lineInaccessible;
+    [SerializeField] private RectTransform planetsPanel;
     
     //Public
     [HideInInspector] public GameObject firstSelectedButton;
@@ -76,6 +77,9 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     public static void SelectNode(Node node)
     {
         currentNode = node;
+        Debug.Log($"Current node : {node.key}");
+        Debug.Log($"Current node : {node.tier}");
+        Debug.Log($"Current node : {node.position}");
     }
 
     public static Node GetSelectedNode()
@@ -120,6 +124,17 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         PopulateGrid();
         getAccessibleNodes();
         CreateLinks();
+    }
+
+    public void MoveScreen()
+    {
+        Debug.Log(gridLayout.spacing.x);
+        Debug.Log(currentNode.position.x * gridLayout.spacing.x * Vector2.left);
+
+        planetsPanel.anchoredPosition = currentNode.tier * gridLayout.spacing.x * Vector2.left;
+
+        Debug.Log(planetsPanel.anchoredPosition);
+        Debug.Log(planetsPanel.anchoredPosition3D);
     }
 
     private void getAccessibleNodes()
@@ -282,8 +297,6 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
                 }   
                 else
                 {
-                    Debug.Log(node.childNodes.Count);
-                    Debug.Log(node.parentNodes.Count);
                     if (node.childNodes.Count == 0)// || node.parentNodes.Count == 0)
                     {
                         Debug.Log("culled");
@@ -395,6 +408,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
             foreach (Node childNode in parentNode.childNodes)
             {
                 Line polyline = Instantiate(line, transform, true);
+                polyline.transform.SetParent(planetsPanel.transform);
                 polyline.transform.localScale = Vector3.one;
                 polyline.transform.localPosition = Vector3.zero;
                 polyline.name = $"Line_{parentNode.key}_to_{childNode.key}";
@@ -405,6 +419,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
                 //polyline.GetComponent<RectTransform>().anchoredPosition3D = 10 * Vector3.back;
             }
         }
+        MoveScreen();
     }
     
 }

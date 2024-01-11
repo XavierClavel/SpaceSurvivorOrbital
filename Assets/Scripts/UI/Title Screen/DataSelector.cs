@@ -196,6 +196,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     public void Validate()
     {
         PlayerManager.setWeapon(DataManager.dictWeapons[selectedWeapon].Clone(), ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
+        PlayerManager.equipments.Add(getSelectedEquipment());
         SoundManager.PlaySfx(transform, key: "Ship_TakeOff");
         PlanetSelector.SelectFirstPlanet();
     }

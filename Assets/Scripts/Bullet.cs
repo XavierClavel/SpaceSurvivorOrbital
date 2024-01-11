@@ -66,13 +66,13 @@ public class Bullet : MonoBehaviour
         
         if (other.gameObject.CompareTag(Vault.tag.Ennemy))
         {
-            ObjectManager.dictObjectToHitable[other.gameObject].Hit(hitInfo);
+            ObjectManager.HitObject(other.gameObject, hitInfo);
             onImpact?.Invoke(this);
         }
 
         if (other.gameObject.CompareTag(Vault.tag.Resource))
         {
-            ObjectManager.dictObjectToHitable[other.gameObject].Hit(hitInfo);
+            ObjectManager.HitObject(other.gameObject, hitInfo);
         }
 
 

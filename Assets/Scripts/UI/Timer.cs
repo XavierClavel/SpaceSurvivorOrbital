@@ -34,7 +34,6 @@ public class Timer : MonoBehaviour
 
     void Start()
     {
-        timeRemaining = ConstantsData.timerDuration;
         factor = 1f / timeRemaining;
         if (!DebugManager.instance.noTimer) StartCoroutine(nameof(TimerRunner));
         float angle = startAngle + (endAngle - startAngle) * factor;
@@ -42,23 +41,23 @@ public class Timer : MonoBehaviour
     
     private IEnumerator TimerRunner()
     {
-        while (timeRemaining > 0)
+        while (true)
         {
-            timeRemaining -= Time.fixedDeltaTime;
-            //timerSlider.value = timeRemaining * factor;
-            //disc.AngRadiansEnd = endAngle + (startAngle - endAngle) * timeRemaining * factor;
-            timerDisplay.fillAmount = 1 - timeRemaining * factor;
-            skullPivotTransform.eulerAngles = endAngle * (1 - timeRemaining * factor) * Vector3.forward;
-            skullTransform.eulerAngles = Vector3.zero;
-            yield return Helpers.GetWait(Time.fixedDeltaTime);
+            timeRemaining = ConstantsData.timerDuration;
+            while (timeRemaining > 0)
+            {
+                timeRemaining -= Time.fixedDeltaTime;
+                //timerSlider.value = timeRemaining * factor;
+                //disc.AngRadiansEnd = endAngle + (startAngle - endAngle) * timeRemaining * factor;
+                timerDisplay.fillAmount = 1 - timeRemaining * factor;
+                //skullPivotTransform.eulerAngles = endAngle * (1 - timeRemaining * factor) * Vector3.forward;
+                //skullTransform.eulerAngles = Vector3.zero;
+                yield return Helpers.GetWait(Time.fixedDeltaTime);
+            }
+            PlanetSelector.IncreaseDifficulty();
         }
-        
-        
-        
-
-        Vector3 bossPosition = PlayerController.instance.transform.position + Helpers.getRandomPositionInRadius(new Vector2(4f, 8f));
-        Instantiate(boss, bossPosition, Quaternion.identity)
-            .onDeath.AddListener(OnBossDefeat);
+        //Vector3 bossPosition = PlayerController.instance.transform.position + Helpers.getRandomPositionInRadius(new Vector2(4f, 8f));
+        //Instantiate(boss, bossPosition, Quaternion.identity).onDeath.AddListener(OnBossDefeat);
     }
 
 

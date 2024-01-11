@@ -14,6 +14,8 @@ public class DebugManager : MonoBehaviour
     public bool noTimer;
     [SerializeField] bool startWithResources;
     [SerializeField] private bool freeUpgrades;
+    public bool shipPresent;
+    public bool shipInstantTP;
 
     [Header("Radar")] 
     public bool displayRadar;
@@ -39,7 +41,6 @@ public class DebugManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        
     }
 
     void Start()

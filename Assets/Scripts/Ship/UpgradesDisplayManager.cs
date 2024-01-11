@@ -41,6 +41,8 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     InputMaster inputActions;
     private static int nbPanelsInitialized = 0;
     NodeManager currentActivePanel;
+
+    private int weaponIndex = 0;
     
     
 #endregion
@@ -96,7 +98,9 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     public static void PanelInitialized()
     {
         nbPanelsInitialized++;
-        if (nbPanelsInitialized < PlayerManager.powers.Count + 2) return;
+        Debug.Log("Panel intialized");
+        Debug.Log($"expected {PlayerManager.powers.Count + PlayerManager.equipments.Count + 1} panels");
+        if (nbPanelsInitialized < PlayerManager.powers.Count + PlayerManager.equipments.Count + 1) return;
 
         foreach (NodeManager nodeManager in instance.panels)
         {
@@ -114,20 +118,17 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
         List<string> keys = new List<string>
         {
             PlayerManager.weapon.getKey(),
-            PlayerManager.equipment.getKey(),
-            //PlayerManager.character.getKey(),
             
         };
         keys.AddList(PlayerManager.powers.Select(it => it.getKey()).ToList());
+        keys.AddList(PlayerManager.equipments.Select(it => it.getKey()).ToList());
 
         List<Sprite> icons = new List<Sprite>
         {
-            //PlayerManager.weaponPrefab.spriteRenderer.sprite,
             DataSelector.getSelectedWeapon().getIcon(),
-            DataSelector.getSelectedEquipment().getIcon(),
-            //DataSelector.getSelectedCharacter().getIcon(),
         };
         icons.AddList(PlayerManager.powers.Select(it => it.getIcon()).ToList());
+        icons.AddList(PlayerManager.equipments.Select(it => it.getIcon()).ToList());
         
         for (int i = 0; i < panels.Count; i++)
         {
@@ -142,6 +143,7 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
                 int value = i;
                 buttons[i].onClick.AddListener(delegate { SetActivePanel(value); });
                 panels[i].setup(keys[i]);
+                Debug.Log("panel setup");
             }
                 
         }
@@ -149,7 +151,7 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     
     public void UpdateButtonSprites()
     {
-        buttons[1].image.sprite = PlayerManager.weaponPrefab.spriteRenderer.sprite;
+        buttons[weaponIndex].image.sprite = PlayerManager.weaponPrefab.spriteRenderer.sprite;
     }
 
     public void SetActivePanel(NodeManager nodeManager)
