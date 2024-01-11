@@ -117,6 +117,17 @@ public class PlayerManager
         AcquirePower(ScriptableObjectManager.dictKeyToPowerHandler[key]);
     }
 
+    public static void AcquireEquipment(EquipmentHandler equipmentHandler)
+    {
+        equipments.Add(equipmentHandler);
+        dictKeyToStats[equipmentHandler.getKey()] = DataManager.dictEquipments[equipmentHandler.getKey()].Clone();
+    }
+
+    public static void AcquireEquipment(string key)
+    {
+        AcquireEquipment(ScriptableObjectManager.dictKeyToEquipmentHandler[key]);
+    }
+
     public static void AcquireUpgradePoint()
     {
         amountBlue++;
