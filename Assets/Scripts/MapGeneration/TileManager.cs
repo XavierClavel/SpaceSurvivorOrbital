@@ -278,14 +278,14 @@ public class TileManager : MonoBehaviour
         int y = Mathf.Abs(position.y);
         if (x >= 4 || y >= 4) {
             ground.color = bank.groundColor3;
-            ground.sortingOrder = -9;
+            ground.sortingOrder = -13;
         } else if (x >= 2 || y >= 2) {
             ground.color = bank.groundColor2;
-            ground.sortingOrder = -8;
+            ground.sortingOrder = -12;
         } else
         {
             ground.color = bank.groundColor1;
-            ground.sortingOrder = -7;
+            ground.sortingOrder = -11;
         }
         return tile;
     }

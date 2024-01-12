@@ -10,7 +10,7 @@ public class SpawnManager : Breakable
     [SerializeField] TilesBankManager tilesBankManager;
     List<Ennemy> ennemyPrefabs;
 
-    public GameObject spawnPosition;
+    
     private SpawnData spawnData;
 
     //Transform playerTransform;
