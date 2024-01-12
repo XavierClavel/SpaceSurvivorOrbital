@@ -15,7 +15,7 @@ public class TileManager : MonoBehaviour
     List<TileWaveFunction> uncollapsedTiles = new List<TileWaveFunction>();
     Dictionary<Vector2Int, GameObject> dictPositionToTile = new Dictionary<Vector2Int, GameObject>();
     PlayerController player;
-    public static int planetSize = 9;
+    public static int planetDiameter = 9;
     Vector2Int mapSize;
     Vector2Int activationRadius = new Vector2Int(3, 3); //radius around player in which tiles are activated
     Vector2Int lastPos = Vector2Int.zero;
@@ -27,7 +27,7 @@ public class TileManager : MonoBehaviour
 
     float noiseFactor = 0.3f;   //chance to collapse a random tile
     public static TileManager instance;
-    const float tileRotationPeriod = 1f;
+    const float tileRotationPeriod = 0.05f;
     //TODO : adapat tilerotationperiod to planet size
 
     public bool generateMap;
@@ -55,7 +55,6 @@ public class TileManager : MonoBehaviour
         tiles.Add(bank.empty2);
         tiles.Add(bank.empty3);
         SetupPlanet();
-        Debug.Log($"Difficulty : {planetData.difficulty}");
         mapRadius = (mapSize - Vector2Int.one) / 2;
         player = PlayerController.instance;
 
@@ -98,12 +97,12 @@ public class TileManager : MonoBehaviour
 
     void SetupPlanet()
     {
-        planetSize = PlanetManager.getSize();
-        AllocateResource(PlanetManager.getDensAmount(), bank.den1);
+        planetDiameter = PlanetManager.getSize();
+        AllocateDens();
         AllocateResource(PlanetManager.getGreenAmount(), bank.green1, bank.green2, bank.green3);
         AllocateResource(PlanetManager.getOrangeAmount(), bank.yellow1, bank.yellow2, bank.yellow3);
         
-        mapSize = new Vector2Int(planetSize, planetSize);
+        mapSize = new Vector2Int(planetDiameter, planetDiameter);
 
         if (mapSize.x % 2 == 0 || mapSize.y % 2 == 0) throw new System.ArgumentOutOfRangeException("map size must be odd");
     }
@@ -128,6 +127,24 @@ public class TileManager : MonoBehaviour
         if (size1.maxAmount != 0) tiles.TryAdd(size1);
         if (size2.maxAmount != 0) tiles.TryAdd(size2);
         if (size3.maxAmount != 0) tiles.TryAdd(size3);
+    }
+
+    void AllocateDens()
+    {
+        int amount = 2;
+        switch (planetData.size)
+        {
+            case planetSize.small:
+                amount = 1; break;
+
+            case planetSize.medium: 
+                amount = 2; break;
+
+            case planetSize.large: 
+                amount = 4; break;
+        }
+        bank.den1.setSpecificAmount(amount);
+        tiles.Add(bank.den1);
     }
     
     void AllocateResource(int resourceAmount, Tile tile)
@@ -253,6 +270,23 @@ public class TileManager : MonoBehaviour
         GameObject tile = Instantiate(newTile.getTileObject(), worldPosition, Quaternion.identity);
         dictPositionToTile.Add(position, tile);
         map[index.x, index.y] = null;
+
+        SpriteRenderer ground = Instantiate(bank.ground);
+        ground.transform.position = worldPosition;
+        ground.transform.SetParent(tile.transform);
+        int x = Mathf.Abs(position.x);
+        int y = Mathf.Abs(position.y);
+        if (x >= 4 || y >= 4) {
+            ground.color = bank.groundColor3;
+            ground.sortingOrder = -13;
+        } else if (x >= 2 || y >= 2) {
+            ground.color = bank.groundColor2;
+            ground.sortingOrder = -12;
+        } else
+        {
+            ground.color = bank.groundColor1;
+            ground.sortingOrder = -11;
+        }
         return tile;
     }
 

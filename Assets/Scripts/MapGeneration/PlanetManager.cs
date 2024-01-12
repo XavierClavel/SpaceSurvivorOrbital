@@ -16,13 +16,17 @@ public static class PlanetManager
         return planetData != null;
     }
 
+    /// <summary>
+    /// Total length, not radius
+    /// </summary>
+    /// <returns></returns>
     public static int getSize()
     {
         return planetData.size switch
         {
             planetSize.small => 3,
-            planetSize.medium => 3,
-            planetSize.large => 5,
+            planetSize.medium => 5,
+            planetSize.large => 9,
             _ => 5
         };
     }

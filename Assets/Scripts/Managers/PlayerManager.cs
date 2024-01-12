@@ -74,8 +74,6 @@ public class PlayerManager
     public static void setWeapon(PlayerData interactorData, WeaponHandler weaponHandler)
     {
         weaponData = interactorData;
-        Debug.Log(weaponData.interactor.projectiles);
-        Debug.Log(interactorData.interactor.projectiles);
         weaponPrefab = weaponHandler.getWeapon();
         weapon = weaponHandler;
     }
@@ -103,6 +101,7 @@ public class PlayerManager
         playerData.setBase();
         weaponData = new PlayerData();
         powers = new List<PowerHandler>();
+        equipments = new List<EquipmentHandler>();
         dictKeyToStats = new Dictionary<string, PlayerData>();
     }
 
@@ -121,6 +120,17 @@ public class PlayerManager
     public static void AcquirePower(string key)
     {
         AcquirePower(ScriptableObjectManager.dictKeyToPowerHandler[key]);
+    }
+
+    public static void AcquireEquipment(EquipmentHandler equipmentHandler)
+    {
+        equipments.Add(equipmentHandler);
+        dictKeyToStats[equipmentHandler.getKey()] = DataManager.dictEquipments[equipmentHandler.getKey()].Clone();
+    }
+
+    public static void AcquireEquipment(string key)
+    {
+        AcquireEquipment(ScriptableObjectManager.dictKeyToEquipmentHandler[key]);
     }
 
     public static void AcquireUpgradePoint()

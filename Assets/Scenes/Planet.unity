@@ -396,7 +396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &16249141
 Transform:
   m_ObjectHideFlags: 0
@@ -405,7 +405,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 16249140}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 90}
+  m_LocalPosition: {x: 0.53, y: -0.78, z: 90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4610,7 +4610,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planetData:
     size: 1
-    difficulty: 5
+    difficulty: 0
     denScarcity: 1
     orangeScarcity: 1
     greenScarcity: 1
@@ -6650,7 +6650,9 @@ MonoBehaviour:
   noEnnemySpawn: 0
   noTimer: 0
   startWithResources: 0
-  freeUpgrades: 0
+  freeUpgrades: 1
+  shipPresent: 0
+  shipInstantTP: 1
   displayRadar: 0
   displayShipIndicator: 1
   divineLightning: 0
@@ -6658,7 +6660,7 @@ MonoBehaviour:
   shield: 0
   ghost: 0
   blackHole: 0
-  synthWave: 1
+  synthWave: 0
   toxicZone: 0
   dagger: 0
   startWithMinerBot: 0
@@ -9146,6 +9148,51 @@ Transform:
   m_Father: {fileID: 1875943327}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1335578398
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1335578400}
+  - component: {fileID: 1335578399}
+  m_Layer: 0
+  m_Name: SpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1335578399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335578398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a27189e2d8c49ad40becd30fc8bd9a13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilesBankManager: {fileID: 11400000, guid: dde3abeea4d88e546a3066a1c045dada, type: 2}
+--- !u!4 &1335578400
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335578398}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.904703, y: 2.564717, z: -3.1739717}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1377987704
 GameObject:
   m_ObjectHideFlags: 0
@@ -11367,6 +11414,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1856615360
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1856615361}
+  - component: {fileID: 1856615362}
+  m_Layer: 0
+  m_Name: Timer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1856615361
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856615360}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1958277321}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1856615362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856615360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0083788f26f02394f8930fad8ecd6b88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boss: {fileID: -9161221971145362554, guid: 0255db1fe2cced14ba96b9714800f0bb, type: 3}
+  timerDisplay: {fileID: 1064359167}
+  skullPivotTransform: {fileID: 271597320}
+  skullTransform: {fileID: 503884791}
+  winText: {fileID: 6080544551730886748, guid: 59da4376dd2ed2c4d84c795f064dc8d5, type: 3}
 --- !u!1 &1857517562
 GameObject:
   m_ObjectHideFlags: 0
@@ -11911,6 +12007,7 @@ Transform:
   - {fileID: 1210257086}
   - {fileID: 37161733}
   - {fileID: 5607312803016025184}
+  - {fileID: 1856615361}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12164,7 +12261,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2031684357}
-  - component: {fileID: 2031684358}
   m_Layer: 5
   m_Name: Radar
   m_TagString: Untagged
@@ -12201,23 +12297,6 @@ RectTransform:
   m_AnchoredPosition: {x: 142.65, y: 146}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2031684358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031684356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0083788f26f02394f8930fad8ecd6b88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boss: {fileID: -9161221971145362554, guid: 0255db1fe2cced14ba96b9714800f0bb, type: 3}
-  timerDisplay: {fileID: 1064359167}
-  skullPivotTransform: {fileID: 271597320}
-  skullTransform: {fileID: 503884791}
-  winText: {fileID: 6080544551730886748, guid: 59da4376dd2ed2c4d84c795f064dc8d5, type: 3}
 --- !u!1 &2041782853
 GameObject:
   m_ObjectHideFlags: 0

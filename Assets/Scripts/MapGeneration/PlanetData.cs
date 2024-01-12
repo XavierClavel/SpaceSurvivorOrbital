@@ -47,7 +47,7 @@ public class PlanetData
         this.greenScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
         this.type = Helpers.getRandomEnum<planetType>();
 
-        this.difficulty = PlanetSelector.getDifficulty(this);
+        this.difficulty = PlanetSelector.getDifficulty();
         
 
         return this;

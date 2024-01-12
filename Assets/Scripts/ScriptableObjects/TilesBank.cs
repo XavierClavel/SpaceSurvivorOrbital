@@ -5,7 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = Vault.other.scriptableObjectMenu + "tilesBank", order = 1)]
 public class TilesBank : ScriptableObject
 {
-    public Color groundColor;
+    public Color groundColor1;
+    public Color groundColor2;
+    public Color groundColor3;
+
+    public SpriteRenderer groundForm;
 
     [Header("Empty")]
     public List<GameObject> empty1;

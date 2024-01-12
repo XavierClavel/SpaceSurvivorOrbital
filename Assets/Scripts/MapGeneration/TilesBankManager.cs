@@ -39,6 +39,12 @@ public class TilesBankManager : ScriptableObject
 
     [Header("Other")]
     public Tile spaceship;
+    public SpriteRenderer ground;
+
+    public Color groundColor1;
+    public Color groundColor2;
+    public Color groundColor3;
+
     
 
     public void setTiles()
@@ -68,7 +74,11 @@ public class TilesBankManager : ScriptableObject
         empty2.setTileObjects(bank.empty2);
         empty3.setTileObjects(bank.empty3);
 
-        TileManager.instance.groundSprite.color = bank.groundColor;
+        TileManager.instance.groundSprite.color = bank.groundColor1;
+        groundColor1 = bank.groundColor1;
+        groundColor2 = bank.groundColor2;
+        groundColor3 = bank.groundColor3;
+        ground = bank.groundForm;
     }
 
     public List<Ennemy> GetEnnemies()

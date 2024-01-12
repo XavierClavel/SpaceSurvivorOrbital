@@ -84,7 +84,7 @@ public class Ennemy : Breakable
 
         rb.gravityScale = 0;
         rb.drag = 1f;
-        speed = 2;
+        speed = baseSpeed.getRandom();
 
         player = PlayerController.instance;
         StressTest.nbEnnemies++;
