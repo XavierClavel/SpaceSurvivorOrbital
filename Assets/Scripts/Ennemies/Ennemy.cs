@@ -58,6 +58,7 @@ public class Ennemy : Breakable
     }
 
     protected bool knockback = false;
+    private float remainingLightning = 0f;
 
     WaitForSeconds knockbackWindow;
 
@@ -145,7 +146,7 @@ public class Ennemy : Breakable
 
     protected void Move(Vector2 direction)
     {
-        Move(direction, speed);
+        Move(direction, speed * speedMultiplier);
     }
 
     public override void Hit(HitInfo hitInfo)
@@ -163,6 +164,7 @@ public class Ennemy : Breakable
         }
 
         ApplyEffects(hitInfo);
+        if (hitInfo.effect.Contains(status.lightning)) return; //no knockback if ennemy is stun
         ApplyKnockback(hitInfo.knockback);
     }
     
@@ -267,8 +269,8 @@ public class Ennemy : Breakable
     
     void ApplyLightning()
     {
-        StopCoroutine(nameof(LightningEffect));
-        StartCoroutine(nameof(LightningEffect));
+        if (remainingLightning <= 0f) StartCoroutine(nameof(LightningEffect));
+        else remainingLightning = ConstantsData.lightningDuration;
     }
 
     IEnumerator FireDamage()
@@ -297,7 +299,15 @@ public class Ennemy : Breakable
     {
         lightningPs.Play();
         speedMultiplier = 0f;
-        yield return waitLightning;
+        remainingLightning = ConstantsData.lightningDuration;
+
+        while (remainingLightning > 0f)
+        {
+            yield return Helpers.GetWaitFixed;
+            remainingLightning -= Time.fixedDeltaTime;
+            rb.velocity = Vector2.zero;
+        }
+        
         speedMultiplier = 1f;
         lightningPs.Stop();
     }
