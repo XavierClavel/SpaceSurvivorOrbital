@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,34 @@ public class PowerToxicZone : Power
     [SerializeField] private ToxicZone toxicZonePrefab;
     private static PowerToxicZone instance;
     
+    //dict ennemy -> how many toxic zones he is in
+    private Dictionary<GameObject, int> dictEnnemyToPresence = new Dictionary<GameObject, int>();
+
+    public static void OnEnnemyEnterToxicZone(GameObject ennemy)
+    {
+        if (instance.dictEnnemyToPresence.ContainsKey(ennemy)) instance.dictEnnemyToPresence[ennemy]++;
+        else instance.dictEnnemyToPresence[ennemy] = 1;
+    }
+
+    public static void OnEnnemyExitToxicZone(GameObject ennemy)
+    {
+        if (!instance.dictEnnemyToPresence.ContainsKey(ennemy)) return;
+        instance.dictEnnemyToPresence[ennemy]--;
+        if (instance.dictEnnemyToPresence[ennemy] == 0) instance.dictEnnemyToPresence.Remove(ennemy);
+    }
+
+    private void FixedUpdate()
+    {
+        foreach (GameObject ennemy in dictEnnemyToPresence.Keys)
+        {
+            if (!ObjectManager.dictObjectToEnnemy.ContainsKey(ennemy))
+            {
+                continue;
+            }
+            ObjectManager.dictObjectToEnnemy[ennemy].StackDamage(stats.baseDamage.x, status.none);
+        }
+    }
+
     protected override void Start()
     {
         base.Start();
