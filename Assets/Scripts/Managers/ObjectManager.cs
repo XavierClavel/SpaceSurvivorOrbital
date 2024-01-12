@@ -18,11 +18,14 @@ public class ObjectManager : MonoBehaviour
     public Transform powersDisplayLayout;
     public PowerDisplay powerDisplayPrefab;
     public Slider reloadSlider;
-    [SerializeField] private TextMeshProUGUI AlterMonsterDisplay;
+    
+    [SerializeField] public TextMeshProUGUI altarMonsterTotal;
+    [SerializeField] public TextMeshProUGUI altarMonsterCurrent;
 
     public ParticleSystem firePS;
     public ParticleSystem lightningPS;
     public GameObject upgradePS;
+    public ParticleSystem shipAppearPS;
 
     private bool upgradeGain = false;
 
@@ -40,6 +43,17 @@ public class ObjectManager : MonoBehaviour
     public static Dictionary<GameObject, Breakable> dictObjectToHitable = new Dictionary<GameObject, Breakable>();
     static int amountEggs = 0;
     private static int amountDens = 0;
+    private static int amountDensDestroyed = 0;
+
+    public void Start()
+    {
+        altarMonsterTotal.text = PlanetManager.getDensAmount().ToString();
+    }
+
+    private void Update()
+    {
+        altarMonsterCurrent.text = amountDensDestroyed.ToString();
+    }
 
     public static void DisplaySpaceship()
     {
@@ -75,8 +89,10 @@ public class ObjectManager : MonoBehaviour
 
     public static void registerDenDestroyed() {
         amountDens--;
+        amountDensDestroyed++;
         if (amountDens == 0)
         {
+            Instantiate(instance.shipAppearPS, PlayerController.instance.transform);
             DisplaySpaceship();
         }
     }
