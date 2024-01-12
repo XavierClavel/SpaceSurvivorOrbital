@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public abstract class Interactor : Damager
 {
     public SpriteRenderer spriteRenderer;
+    public HashSet<status> bonusStatuses = new HashSet<status>();
 
     //Guns
     protected int currentMagazine;

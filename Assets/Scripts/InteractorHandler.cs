@@ -12,6 +12,16 @@ public class InteractorHandler : MonoBehaviour
     PlayerController player;
     public static InteractorHandler playerInteractorHandler;
 
+    public void AddBonusStatus(status element)
+    {
+        currentInteractor.bonusStatuses.Add(element);
+    }
+    
+    public void RemoveBonusStatus(status element)
+    {
+        currentInteractor.bonusStatuses.Remove(element);
+    }
+
     public void Initialize(Interactor weaponInteractor, Transform rotationAxis, bool playerInteractor = false)
     {
         player = PlayerController.instance;

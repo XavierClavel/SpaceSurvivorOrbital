@@ -47,12 +47,7 @@ public class ObjectManager : MonoBehaviour
 
     public void Start()
     {
-        altarMonsterTotal.text = PlanetManager.getDensAmount().ToString();
-    }
-
-    private void Update()
-    {
-        altarMonsterCurrent.text = amountDensDestroyed.ToString();
+        //altarMonsterTotal.text = PlanetManager.getDensAmount().ToString();
     }
 
     public static void DisplaySpaceship()

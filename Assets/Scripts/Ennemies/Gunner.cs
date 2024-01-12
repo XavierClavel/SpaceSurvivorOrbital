@@ -7,7 +7,7 @@ public class Gunner : Ennemy
 {
     enum state { fleeing, shooting, approaching }
 
-    [SerializeField] int bulletSpeed = 5;
+    private int bulletSpeed = 1;
     [SerializeField] Vector2 shootRange = new Vector2(3f, 5f);
 
     [Header("Additional References")]

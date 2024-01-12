@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
@@ -24,12 +25,28 @@ public class ElectricZone : MonoBehaviour
         outerColor.a = 0;
         transform.DOScale(range, 0.5f)
             .SetDelay(0.2f)
-            .SetEase(Ease.OutCubic)
             .OnComplete(delegate
             {
-                DOTween.To(() => innerDisc.ColorInner, x => innerDisc.ColorInner = x, innerColor, 1f).SetEase(Ease.OutQuad);
-                DOTween.To(() => innerDisc.ColorOuter, x => innerDisc.ColorOuter = x, outerColor, 1f).SetEase(Ease.OutQuad);
-                transform.DOScale(range * 0.8f, 1f);
+                DOTween.To(() => innerDisc.ColorInner, x => innerDisc.ColorInner = x, innerColor, 1f)
+                    .SetEase(Ease.OutQuad)
+                    .SetDelay(1f);
+                DOTween.To(() => innerDisc.ColorOuter, x => innerDisc.ColorOuter = x, outerColor, 1f)
+                    .SetEase(Ease.OutQuad)
+                    .SetDelay(1f);
+                transform.DOScale(range * 0.8f, 1f)
+                    .SetDelay(1f);
             });
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.gameObject.CompareTag("Player")) return;
+        DivineLightning.instance.EnterElecZone();
+    }
+    
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (!other.gameObject.CompareTag("Player")) return;
+        DivineLightning.instance.ExitElecZone();
     }
 }

@@ -312,16 +312,15 @@ public class PlayerController : MonoBehaviour
 
         footstepsWait = new WaitForSeconds(ConstantsData.audioFootstepInterval);
         StartCoroutine(nameof(PlayFootsteps));
-
+        
     }
-
 
 
     private IEnumerator PlayFootsteps()
     {
         while (true)
         {
-            if (state == playerState.walking) SoundManager.PlaySfx(transform, "Footstep");
+            //if (state == playerState.walking) SoundManager.PlaySfx(transform, "Footstep");
             yield return footstepsWait;
         }
     }

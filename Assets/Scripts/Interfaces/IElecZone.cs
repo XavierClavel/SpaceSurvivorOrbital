@@ -10,7 +10,7 @@ public interface IElecZone
 
 public static class ElecEventManager
 {
-    public static List<IElecZone> eventListeners;
+    public static List<IElecZone> eventListeners = new List<IElecZone>();
 
     public static void registerListener(IElecZone listener)
     {

@@ -65,6 +65,21 @@ public struct HitInfo
         this.knockback = stats.knockback;
     }
     
+    public HitInfo(interactorStats stats, HashSet<status> bonusStatuses)
+    {
+        damage = stats.baseDamage.getRandom();
+        critical = Helpers.ProbabilisticBool(stats.criticalChance);
+        if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
+        this.effect = new HashSet<status>();
+        this.effect.Add(stats.element);
+        this.knockback = stats.knockback;
+        
+        foreach (var bonusStatus in bonusStatuses)
+        {
+            this.effect.Add(bonusStatus);
+        }
+    }
+    
     
     
 }

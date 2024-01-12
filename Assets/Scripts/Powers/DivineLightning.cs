@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,11 +10,12 @@ using DG.Tweening;
  * <p> BaseDamage -> Lightning strike damage </p>
  * <p> Cooldown -> Delay between lightning strikes </p>
  * <p> Projectiles -> Amount of lightning strikes </p>
- * <p> BoolA -> Whether ennemies hit get stun half of the time </p>
+ * <p> BoolB -> Whether electric zones spawn </p>
  * </pre>
  */
-public class DivineLightning : Power
+public class DivineLightning : Power, IElecZone
 {
+    public Counter elecZoneCounter;
     static readonly Vector2 range = new Vector2(14f, 8f);
     LayerMask mask;
     [SerializeField] Animator lightningStrike;
@@ -21,15 +23,56 @@ public class DivineLightning : Power
     ComponentPool<Animator> pool;
     [SerializeField] private ElectricZone electricZonePrefab;
     private static readonly int animStrike = Animator.StringToHash("Strike");
+    private int amountElecZoneTouched;
+    public static DivineLightning instance;
+    private bool stunChance;
+    private bool doSpawnElecZone;
+    private bool spawnElecZoneCounter = true;
 
     protected override void Start()
     {
         base.Start();
+        instance = this;
         autoCooldown = true;
         mask = LayerMask.GetMask(Vault.layer.Ennemies);
 
         pool = new ComponentPool<Animator>(lightningStrike).setTimer(stats.projectiles);
+        doSpawnElecZone = true;
+        stunChance = fullStats.generic.boolA;
+
+        elecZoneCounter = new Counter(Orchestrator.context, 2f);
+        elecZoneCounter.addOnStartEvent(ElecEventManager.ElecStart)
+            .addOnCompleteEvent(ElecEventManager.ElecStop);
+        
+        ElecEventManager.registerListener(this);
     }
+
+    private void OnDestroy()
+    {
+        ElecEventManager.unregisterListener(this);
+    }
+
+    public void EnterElecZone()
+    {
+        elecZoneCounter.ResetCounter();
+    }
+
+    public void ExitElecZone()
+    {
+        elecZoneCounter.ResetCounter();
+    }
+
+    public void OnElecStart()
+    {
+        InteractorHandler.playerInteractorHandler.AddBonusStatus(status.lightning);
+    }
+
+    public void OnElecStop()
+    {
+        InteractorHandler.playerInteractorHandler.RemoveBonusStatus(status.lightning);
+    }
+    
+    
 
     void SpawnEletricZone(Vector3 spawnPoint)
     {
@@ -43,12 +86,6 @@ public class DivineLightning : Power
     protected override void onUse()
     {
         List<Collider2D> hits = Physics2D.OverlapBoxAll(playerTransform.position, range,0, mask).ToList();
-        Debug.Log(hits.Count);
-        foreach (Collider2D hit in hits)
-        {
-            Debug.Log(hit.gameObject.name);
-            Debug.Log(LayerMask.LayerToName(hit.gameObject.layer));
-        }
         for (int i = 0; i < stats.projectiles; i++)
         {
             if (hits.Count == 0)
@@ -65,13 +102,17 @@ public class DivineLightning : Power
         Collider2D[] collidersInRadius = Physics2D.OverlapCircleAll(hitPoint, stats.range, mask);
         status effect = stats.element;
         SoundManager.PlaySfx(transform, key: "Lighning_Strike");
-        if (fullStats.generic.boolA)
+        if (stunChance)
         {
             if (Helpers.ProbabilisticBool(0.5f)) effect = status.lightning;
         }
         Hit(collidersInRadius, effect: effect);
-        
-        //SpawnEletricZone(hitPoint);
+
+        if (doSpawnElecZone)
+        {
+            if (spawnElecZoneCounter) SpawnEletricZone(hitPoint);
+            spawnElecZoneCounter = !spawnElecZoneCounter;
+        }
 
         Animator anim = pool.get(hitPoint);
         anim.SetTrigger(animStrike);

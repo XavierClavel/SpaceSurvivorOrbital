@@ -58,13 +58,10 @@ public class DebugManager : ScriptableObject
         return instance.debugEnabled && instance.noTimer;
     }
 
-    public void Setup()
-    {
-        instance = this;
-    }
 
     public void LoadData()
     {
+        instance = this;
         if (!debugEnabled) return;
         
         if (startWithResources) PlayerController.instance.debug_GiveResources(50);
