@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class ToxicZone : Power
 {
+    
+    
     private int dps;
 
     public void Setup(int dps, float scale)
@@ -20,11 +22,14 @@ public class ToxicZone : Power
         sequence.OnComplete(delegate { PowerToxicZone.recall(this); });
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (ObjectManager.dictObjectToEnnemy.ContainsKey(other.gameObject))
-        {
-            ObjectManager.dictObjectToEnnemy[other.gameObject].StackDamage(dps, status.none);
-        }
+        if (!ObjectManager.dictObjectToEnnemy.ContainsKey(other.gameObject)) return;
+        PowerToxicZone.OnEnnemyEnterToxicZone(other.gameObject);
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        PowerToxicZone.OnEnnemyExitToxicZone(other.gameObject);
     }
 }
