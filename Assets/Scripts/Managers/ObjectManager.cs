@@ -1,5 +1,7 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,9 +18,13 @@ public class ObjectManager : MonoBehaviour
     public Transform powersDisplayLayout;
     public PowerDisplay powerDisplayPrefab;
     public Slider reloadSlider;
+    [SerializeField] private TextMeshProUGUI AlterMonsterDisplay;
 
     public ParticleSystem firePS;
     public ParticleSystem lightningPS;
+    public GameObject upgradePS;
+
+    private bool upgradeGain = false;
 
     [Header("Interactors")]
     public Interactor gun;
@@ -51,7 +57,16 @@ public class ObjectManager : MonoBehaviour
         if (amountEggs == 0)
         {
             PlayerManager.AcquireUpgradePoint();
+
+            instance.StartCoroutine(nameof(UpgradeUpDisplay));
         }
+    }
+
+    IEnumerator UpgradeUpDisplay()
+    {
+        GameObject newInstanceUpgrade = Instantiate(instance.upgradePS, PlayerController.instance.transform);
+        yield return new WaitForSeconds(2);
+        Destroy(newInstanceUpgrade);
     }
     
     public static void registerDenSpawned() {
@@ -72,6 +87,7 @@ public class ObjectManager : MonoBehaviour
         amountEggs = 0;
         amountDens = 0;
         if (Helpers.isPlatformAndroid()) pauseButton.SetActive(true);
+
     }
 
     public static void DisplayAltarUI()
@@ -147,5 +163,5 @@ public class ObjectManager : MonoBehaviour
         return powerDisplay;
     }
 
-
+    
 }
