@@ -43,7 +43,7 @@ public class Spawner : MonoBehaviour
 
         wallet = spawnData.baseCost;
         ennemyPrefabs = tilesBankManager.GetEnnemies();
-        Debug.Log(tilesBankManager.GetEnnemies().Count);
+        //Debug.Log(tilesBankManager.GetEnnemies().Count);
 
         if (!DebugManager.instance.noEnnemySpawn)
         {
