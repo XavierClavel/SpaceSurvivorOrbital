@@ -24,6 +24,11 @@ public class Pistol : Gun
         main = true;
     }
 
+    private Vector3 getBulletStartPos()
+    {
+        return PlayerController.instance.transform.position + (Vector3)PlayerController.instance.aimVector * 0.5f;
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -62,7 +67,7 @@ public class Pistol : Gun
 
         if (stats.projectiles == 1)
         {
-            Vector3 position = firePoint.position;
+            Vector3 position = getBulletStartPos();
             Vector3 eulerRotation = firePoint.eulerAngles;
 
             FireBullet(position, eulerRotation);
@@ -92,7 +97,7 @@ public class Pistol : Gun
 
     void FireBulletByIndex(float i)
     {
-        Vector3 position = firePoint.position + i * distanceOffsetBetweenBullets * firePoint.right;
+        Vector3 position = getBulletStartPos() + i * distanceOffsetBetweenBullets * firePoint.right;
         Vector3 eulerRotation = firePoint.eulerAngles + i * stats.spread * Vector3.forward;
         
         FireBullet(position, eulerRotation);
@@ -101,7 +106,6 @@ public class Pistol : Gun
     void FireBullet(Vector3 position, Vector3 eulerRotation)
     {
         SoundManager.PlaySfx(transform, key: "Gun_Shoot");
-        //animator.SetBool("shoot", true);
         Bullet bullet = pool.get(position, eulerRotation);
         bulletsStack.Add(bullet);
         StartCoroutine(nameof(ResetTrailDist), bullet);

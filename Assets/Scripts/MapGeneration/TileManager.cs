@@ -131,19 +131,7 @@ public class TileManager : MonoBehaviour
 
     void AllocateDens()
     {
-        int amount = 2;
-        switch (planetData.size)
-        {
-            case planetSize.small:
-                amount = 1; break;
-
-            case planetSize.medium: 
-                amount = 2; break;
-
-            case planetSize.large: 
-                amount = 4; break;
-        }
-        bank.den1.setSpecificAmount(amount);
+        bank.den1.setSpecificAmount(PlanetManager.getDensAmount());
         tiles.Add(bank.den1);
     }
     

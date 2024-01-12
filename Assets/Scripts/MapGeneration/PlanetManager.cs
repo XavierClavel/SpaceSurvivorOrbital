@@ -69,15 +69,16 @@ public static class PlanetManager
     {
         return (int)Mathf.Ceil((getArea() - 2) * getScarcity(scarcity));
     }
-    
-    static int getDensAmount(planetResourceScarcity scarcity)
-    {
-        return (int)Mathf.Ceil((getArea() - 2) * getDenScarcity(scarcity));
-    }
 
     public static int getDensAmount()
     {
-        return getDensAmount(planetData.denScarcity);
+        return planetData.size switch
+        {
+            planetSize.small => 1,
+            planetSize.medium => 2,
+            planetSize.large => 4,
+            _ => 2
+        };
     }
 
     public static int getOrangeAmount()

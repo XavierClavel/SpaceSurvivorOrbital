@@ -439,8 +439,10 @@ public class PlayerController : MonoBehaviour
     Vector2 getMouseAimInput()
     {
         Vector2 mousePos = controls.Player.MousePosition.ReadValue<Vector2>();
+        Debug.Log(mousePos);
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector2 direction = (worldPos - transform.position);
+        Debug.DrawRay(transform.position, direction, Color.red);
         return direction.normalized;
     }
 
