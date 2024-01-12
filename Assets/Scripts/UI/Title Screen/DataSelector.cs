@@ -29,7 +29,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     [SerializeField] private Button weaponBuyButton;
     [SerializeField] private UpgradeDisplay weaponDisplay;
 
-    public static string selectedEquipment = string.Empty;
+    public static List<string> selectedEquipments = new List<string>();
 
     [Header("Equipment")]
     [SerializeField] private TextMeshProUGUI equipmentTitleDisplay;
@@ -140,7 +140,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     {
         selectedCharacter = string.Empty;
         selectedWeapon = string.Empty;
-        selectedEquipment = string.Empty;
+        selectedEquipments = new List<string>();
     }
 
     public void SelectGeneric<T>(T value) where T : ObjectHandler
@@ -188,15 +188,18 @@ public class DataSelector : MonoBehaviour, UIPanel
     }
     public void SelectEquipment(string value)
     {
-        selectedEquipment = value;
+        if (selectedEquipments.Contains(value)) selectedEquipments.Remove(value);
+        else selectedEquipments.Add(value);
         SoundManager.PlaySfx(transform, key: "Button_Switch");
-        if (selectedEquipment != string.Empty) startButton.interactable = true;
     }
 
     public void Validate()
     {
         PlayerManager.setWeapon(DataManager.dictWeapons[selectedWeapon].Clone(), ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
-        PlayerManager.AcquireEquipment(getSelectedEquipment());
+        foreach (var equipment in selectedEquipments)
+        {
+            PlayerManager.AcquireEquipment(equipment);
+        }
         SoundManager.PlaySfx(transform, key: "Ship_TakeOff");
         SceneTransitionManager.TransitionToScene(gameScene.ship);
     }
@@ -209,9 +212,5 @@ public class DataSelector : MonoBehaviour, UIPanel
     public static CharacterHandler getSelectedCharacter()
     {
         return ScriptableObjectManager.dictKeyToCharacterHandler[selectedCharacter];
-    }
-    public static EquipmentHandler getSelectedEquipment()
-    {
-        return ScriptableObjectManager.dictKeyToEquipmentHandler[selectedEquipment];
     }
 }
