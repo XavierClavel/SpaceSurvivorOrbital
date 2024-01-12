@@ -7131,14 +7131,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba26815f2e1449b4fa1ec156c71bef65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugEnabled: 1
   noEnnemySpawn: 1
   noTimer: 0
   startWithResources: 0
   freeUpgrades: 1
   shipPresent: 1
   shipInstantTP: 0
-  displayRadar: 0
-  displayShipIndicator: 1
   divineLightning: 0
   fairy: 0
   shield: 0
@@ -7147,9 +7146,8 @@ MonoBehaviour:
   synthWave: 0
   toxicZone: 1
   dagger: 0
-  startWithMinerBot: 0
   debugLayout: {fileID: 0}
-  debugLine: {fileID: 4914245839326521315, guid: b27436e5deec9b0459ea7651fd7467df, type: 3}
+  debugLine: {fileID: 0}
 --- !u!4 &949451850
 Transform:
   m_ObjectHideFlags: 0
@@ -12734,12 +12732,12 @@ MonoBehaviour:
   powersDisplayLayout: {fileID: 1564143111}
   powerDisplayPrefab: {fileID: 3532816450352066407, guid: 71c479d350842b747b991117e1d17dcd, type: 3}
   reloadSlider: {fileID: 1592457026}
-  altarMonsterTotal: {fileID: 693542176}
-  altarMonsterCurrent: {fileID: 376452893}
+  altarMonsterTotal: {fileID: 0}
+  altarMonsterCurrent: {fileID: 0}
   firePS: {fileID: 6640961548069553132, guid: 8d7cb2a9d35e3a04eab852898e188bc3, type: 3}
   lightningPS: {fileID: 2039944698610719546, guid: 6bb4b2cd4d6f83749af1646b7262f2a2, type: 3}
   upgradePS: {fileID: 4638755916334796555, guid: f006531d602a60a47b0d02a7aee43d02, type: 3}
-  shipAppearPS: {fileID: 1333619476989984811, guid: 803aee6a44131ed4c8d3e24520d4790d, type: 3}
+  shipAppearPS: {fileID: 0}
   gun: {fileID: 6882324194546309293, guid: efe6a2ccb7b80834cb294779f8138cb0, type: 3}
 --- !u!1 &2031684356
 GameObject:
@@ -13227,6 +13225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataManager: {fileID: 11400000, guid: 28a4b266a6a4a4747b26b6c533156fef, type: 2}
+  debugManager: {fileID: 11400000, guid: fceffc2147abd4c48b66bd1978f39c8a, type: 2}
 --- !u!4 &2114666475
 Transform:
   m_ObjectHideFlags: 0

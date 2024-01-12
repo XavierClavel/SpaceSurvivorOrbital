@@ -93,7 +93,7 @@ public class DebugManager : ScriptableObject
     {
         PowerHandler powerHandler = ScriptableObjectManager.dictKeyToPowerHandler[key];
         if (PlayerManager.powers.Contains(powerHandler)) return;
-        PlayerManager.AcquirePower(powerHandler); Debug.Log(PlayerManager.powers.Count);
+        PlayerManager.AcquirePower(powerHandler);
     }
 
 }
