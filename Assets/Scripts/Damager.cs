@@ -139,6 +139,8 @@ public abstract class Damager : MonoBehaviour
             }
             else
             {
+                Debug.Log(target == null);
+                Debug.Log(ObjectManager.dictObjectToHitable == null);
                 ObjectManager.dictObjectToHitable[target.gameObject].Hit(new HitInfo(stats));
             }
         }

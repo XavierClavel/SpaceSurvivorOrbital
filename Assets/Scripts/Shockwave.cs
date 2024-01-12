@@ -48,11 +48,10 @@ public class Shockwave : MonoBehaviour
             delegate
             {
                 transform.localScale = Vector3.zero;
-                if (destroyOnComplete)
-                {
-                    if (recallAction != null) Invoke(nameof(Recall), shockwaveDelay);
-                    else GameObject.Destroy(gameObject, shockwaveDelay);
-                }
+                if (!destroyOnComplete) return;
+                
+                if (recallAction != null) Invoke(nameof(Recall), shockwaveDelay);
+                else GameObject.Destroy(gameObject, shockwaveDelay);
             });
         DOTween.To(() => disc.Color, x => disc.Color = x, clearColor, shockwaveDuration).SetEase(Ease.OutQuad);
     }

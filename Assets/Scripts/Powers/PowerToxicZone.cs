@@ -16,7 +16,7 @@ using UnityEngine;
  */
 public class PowerToxicZone : Power
 {
-    Vector2 range = new Vector2(14f, 8f);
+    static readonly Vector2 range = new Vector2(14f, 8f);
 
     ComponentPool<ToxicZone> pool;
     [SerializeField] private ToxicZone toxicZonePrefab;
@@ -50,7 +50,6 @@ public class PowerToxicZone : Power
         Vector3 spawnPoint = playerTransform.position + Helpers.getRandomPositionInRadius(range, shape.square);
         ToxicZone toxicZone = pool.get(spawnPoint);
         toxicZone.Setup(stats.baseDamage.x, stats.range);
-        //toxicZone.transform.localScale = Vector3.zero;
     }
 
     public static void recall(ToxicZone toxicZone)

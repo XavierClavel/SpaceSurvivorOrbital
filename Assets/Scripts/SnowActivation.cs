@@ -4,20 +4,16 @@ using UnityEngine;
 
 public class SnowActivation : MonoBehaviour
 {
-    public GameObject player; // Référence vers le transform du joueur
+    public GameObject player; // Rï¿½fï¿½rence vers le transform du joueur
     public int yModifier;
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = PlayerController.instance.gameObject;
     }
     private void Update()
     {
-
-        if (player != null)     
-        {
-            // Suivre la position du joueur
-            transform.position = new Vector2(player.transform.position.x, player.transform.position.y +yModifier);
-        }
+        // Suivre la position du joueur
+        transform.position = new Vector2(player.transform.position.x, player.transform.position.y + yModifier);
     }
 }

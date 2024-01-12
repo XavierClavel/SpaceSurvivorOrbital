@@ -213,7 +213,6 @@ public class Laser : Interactor
     
     void UpdateLaserBeam()
     {
-        Debug.Log(firePoint.position + 2*Vector3.back);
         lineRenderer.SetPosition(0, firePoint.position + 2*Vector3.back);
         
 

@@ -78,7 +78,6 @@ public class DataManager : ScriptableObject
 
         DataSelector.selectedCharacter = selectedCharacter;
         DataSelector.selectedWeapon = selectedWeapon;
-        DataSelector.selectedEquipment = selectedEquipment;
         
         PlayerManager.setWeapon(dictWeapons[selectedWeapon].Clone(), ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
         PlayerManager.setCharacter(ScriptableObjectManager.dictKeyToCharacterHandler[selectedCharacter]);

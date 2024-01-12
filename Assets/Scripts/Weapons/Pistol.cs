@@ -120,6 +120,5 @@ public class Pistol : Gun
     IEnumerator ResetTrailDist(Bullet bullet){
         yield return null;
         bullet.trail.time = 0.2f;
- 
     }
 }

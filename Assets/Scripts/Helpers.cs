@@ -289,7 +289,7 @@ public static class Extensions
         }
     }
     
-    ///<summary>Returns random item of list.</summary>
+    ///<summary>Returns random item of list and removes it from the list.</summary>
     public static T popRandom<T>(this IList<T> list)
     {
         if (list.Count == 0) throw new ArgumentException("List is empty");

@@ -23,9 +23,4 @@ public class Orchestrator : MonoBehaviour
         PoolManager.reset();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

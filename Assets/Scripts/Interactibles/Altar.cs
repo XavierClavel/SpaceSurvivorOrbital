@@ -61,6 +61,7 @@ public class Altar : MonoBehaviour, IInteractable
     public void DepleteAltar()
     {
         animator.SetTrigger(Deplete);
+        GetComponent<Collider2D>().enabled = false;
         auraAltar.Stop();
     }
 

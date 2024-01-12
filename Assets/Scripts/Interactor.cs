@@ -36,8 +36,6 @@ public abstract class Interactor : Damager
     {
         base.Setup(fullStats);
         currentMagazine = stats.magazine;
-        
-        DebugManager.DisplayValue("Magazine", stats.magazine.ToString());
 
         currentLayer = Vault.layer.ObstaclesAndEnnemiesAndResources;
         currentLayerMask = LayerMask.GetMask(Vault.layer.Resources, Vault.layer.Ennemies, Vault.layer.Obstacles, Vault.layer.EnnemiesOnly);
@@ -70,6 +68,6 @@ public abstract class Interactor : Damager
 
     protected virtual void Update()
     {
-        spriteRenderer.flipY = transform.eulerAngles.z > 90 && transform.eulerAngles.z <= 270;
+        spriteRenderer.flipY = transform.eulerAngles.z is > 90 and <= 270;
     }
 }
