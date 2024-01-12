@@ -127,6 +127,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] protected SpriteRenderer spriteOverlay;
     private WaitForSeconds footstepsWait;
     private int shieldsAmount = 0;
+    private int bonusStockAmount = 0;
     
     public int shields
     {
@@ -256,6 +257,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void AddBonusStock(int amount)
+    {
+        bonusStockAmount = amount;
+    }
+
 
     void Start()
     {
@@ -277,12 +283,6 @@ public class PlayerController : MonoBehaviour
 
         souls = PlayerManager.getSouls();
 
-        layoutManagerOrange.Setup(PlayerManager.playerData.resources.maxOrange, ConstantsData.resourcesFillAmount, resourceType.orange);
-        layoutManagerGreen.Setup(PlayerManager.playerData.resources.maxGreen, ConstantsData.resourcesFillAmount, resourceType.green);
-
-        layoutManagerOrange.FillNSliders(PlayerManager.amountOrange);
-        layoutManagerGreen.FillNSliders(PlayerManager.amountGreen);
-
         invulnerabilityFrameDuration = Helpers.GetWait(ConstantsData.invulenerabilityFrame);
 
         _health = maxHealth;
@@ -294,6 +294,17 @@ public class PlayerController : MonoBehaviour
         foreach(PowerHandler powerHandler in PlayerManager.powers) {
             powerHandler.Activate();
         }
+
+        foreach (EquipmentHandler equipmentHandler in PlayerManager.equipments)
+        {
+            equipmentHandler.Activate();
+        }
+        
+        layoutManagerOrange.Setup(PlayerManager.playerData.resources.maxOrange + bonusStockAmount, ConstantsData.resourcesFillAmount, resourceType.orange);
+        layoutManagerGreen.Setup(PlayerManager.playerData.resources.maxGreen + bonusStockAmount, ConstantsData.resourcesFillAmount, resourceType.green);
+
+        layoutManagerOrange.FillNSliders(PlayerManager.amountOrange);
+        layoutManagerGreen.FillNSliders(PlayerManager.amountGreen);
         
         if (!Helpers.isPlatformAndroid()) InitializeControls();
         
@@ -459,19 +470,14 @@ public class PlayerController : MonoBehaviour
 
     playerDirection angleToDirection(float angle)
     {
-        switch (angle)
+        return angle switch
         {
-            case > 315f:
-                return playerDirection.back;
-            case > 225f:
-                return playerDirection.left;
-            case > 135f:
-                return playerDirection.front;
-            case > 45f:
-                return playerDirection.right;
-            default:
-                return playerDirection.back;
-        }
+            > 315f => playerDirection.back,
+            > 225f => playerDirection.left,
+            > 135f => playerDirection.front,
+            > 45f => playerDirection.right,
+            _ => playerDirection.back
+        };
     }
 
 
@@ -492,6 +498,7 @@ public class PlayerController : MonoBehaviour
     {
         ObjectManager.DisplayLoseScreen();
     }
+    
     public void OnClick()
     {
         PauseMenu.instance.ResumeGame();
