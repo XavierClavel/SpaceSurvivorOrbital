@@ -45,7 +45,7 @@ public class Spawner : MonoBehaviour
         ennemyPrefabs = tilesBankManager.GetEnnemies();
         //Debug.Log(tilesBankManager.GetEnnemies().Count);
 
-        if (!DebugManager.instance.noEnnemySpawn)
+        if (!DebugManager.doNoEnnemySpawn())
         {
             StartCoroutine(nameof(SpawnController));
         }

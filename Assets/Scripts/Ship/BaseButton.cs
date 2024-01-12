@@ -63,7 +63,7 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
     protected void Execute(buttonAction action)
     {
         if (status != skillButtonStatus.unlocked) return;
-        if (!DebugManager.areUpgradesFree && !SpendResources()) return;
+        if (!DebugManager.areUpgradesFree() && !SpendResources()) return;
         ResourcesDisplay.UpdateDisplay();
 
         NodeManager.UpdateList(activateButton, skillButtonStatus.unlocked);

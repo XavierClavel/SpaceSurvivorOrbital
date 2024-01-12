@@ -5,21 +5,18 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class DebugManager : MonoBehaviour
+[CreateAssetMenu(fileName = "DebugManager", menuName = Vault.other.scriptableObjectMenu + "DebugManager", order = 0)]
+public class DebugManager : ScriptableObject
 {
-    public static bool areUpgradesFree { get; private set; }
+    [SerializeField] private bool debugEnabled = true;
     
-    
-    public bool noEnnemySpawn;
-    public bool noTimer;
-    [SerializeField] bool startWithResources;
+    [Header("Game Rules")]
+    [SerializeField] private bool noEnnemySpawn;
+    [SerializeField] private bool noTimer;
+    [SerializeField] private bool startWithResources;
     [SerializeField] private bool freeUpgrades;
-    public bool shipPresent;
-    public bool shipInstantTP;
-
-    [Header("Radar")] 
-    public bool displayRadar;
-    public bool displayShipIndicator;
+    [SerializeField] private bool shipPresent;
+    [SerializeField] private bool shipInstantTP;
 
     [Header("Start with powers")] 
     [SerializeField] private bool divineLightning;
@@ -31,24 +28,46 @@ public class DebugManager : MonoBehaviour
     [SerializeField] private bool toxicZone;
     [SerializeField] private bool dagger;
 
-    [Header("Early Upgrades")]
-    [SerializeField] bool startWithMinerBot;
-    [SerializeField] private RectTransform debugLayout;
-    [SerializeField] private TextMeshProUGUI debugLine;
+    private RectTransform debugLayout;
+    private TextMeshProUGUI debugLine;
 
-    public static DebugManager instance;
+    private static DebugManager instance;
 
-    private void Awake()
+    public static bool areUpgradesFree()
+    {
+        return instance.debugEnabled && instance.freeUpgrades;
+    }
+
+    public static bool isShipPresent()
+    {
+        return instance.debugEnabled && instance.shipPresent;
+    }
+
+    public static bool isShipTpInstant()
+    {
+        return instance.debugEnabled && instance.shipInstantTP;
+    }
+
+    public static bool doNoEnnemySpawn()
+    {
+        return instance.debugEnabled && instance.noEnnemySpawn;
+    }
+
+    public static bool doNoTimer()
+    {
+        return instance.debugEnabled && instance.noTimer;
+    }
+
+    public void Setup()
     {
         instance = this;
     }
 
-    void Start()
+    public void LoadData()
     {
+        if (!debugEnabled) return;
+        
         if (startWithResources) PlayerController.instance.debug_GiveResources(50);
-        if (startWithMinerBot) PlayerController.instance.SpawnMinerBot();
-        //if (noEnnemySpawn) SpawnManager.instance.debug_StopEnnemySpawn();
-        //if (noTimer) Timer.instance.debug_StopTimer();
         
         if (divineLightning) AcquirePower(Vault.power.DivineLightning);
         if (fairy) AcquirePower(Vault.power.Fairy);
@@ -59,11 +78,11 @@ public class DebugManager : MonoBehaviour
         if (toxicZone) AcquirePower(Vault.power.ToxicZone);
         if (dagger) AcquirePower(Vault.power.Dagger);
 
-        areUpgradesFree = freeUpgrades;
     }
 
     public static void DisplayValue(string name, string value)
     {
+        return;
         if (instance.debugLayout == null) return;
         var obj = GameObject.Instantiate(instance.debugLine);
         obj.transform.SetParent(instance.debugLayout);
@@ -74,10 +93,7 @@ public class DebugManager : MonoBehaviour
     {
         PowerHandler powerHandler = ScriptableObjectManager.dictKeyToPowerHandler[key];
         if (PlayerManager.powers.Contains(powerHandler)) return;
-        PlayerManager.AcquirePower(powerHandler);
-        powerHandler.Activate();
-        ObjectManager.HideAltarUI();
-        ObjectManager.altar?.DepleteAltar();
+        PlayerManager.AcquirePower(powerHandler); Debug.Log(PlayerManager.powers.Count);
     }
 
 }

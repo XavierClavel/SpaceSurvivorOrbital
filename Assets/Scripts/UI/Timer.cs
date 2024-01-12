@@ -35,7 +35,7 @@ public class Timer : MonoBehaviour
     void Start()
     {
         factor = 1f / timeRemaining;
-        if (!DebugManager.instance.noTimer) StartCoroutine(nameof(TimerRunner));
+        if (!DebugManager.doNoTimer()) StartCoroutine(nameof(TimerRunner));
         float angle = startAngle + (endAngle - startAngle) * factor;
     }
     

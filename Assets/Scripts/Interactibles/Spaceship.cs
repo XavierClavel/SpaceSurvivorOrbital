@@ -29,8 +29,8 @@ public class Spaceship : MonoBehaviour, IInteractable
         ObjectManager.spaceshipIndicator.target = transform;
 
         ObjectManager.spaceship = gameObject;
-        if (DebugManager.instance.shipInstantTP) fillAmount = 0f;
-        if (!DebugManager.instance.shipPresent) ObjectManager.HideSpaceship();
+        if (DebugManager.isShipTpInstant()) fillAmount = 0f;
+        if (!DebugManager.isShipPresent()) ObjectManager.HideSpaceship();
         
     }
 
