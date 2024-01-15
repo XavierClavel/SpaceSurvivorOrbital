@@ -47,11 +47,17 @@ public class ObjectManager : MonoBehaviour
 
     public void Start()
     {
-        //altarMonsterTotal.text = PlanetManager.getDensAmount().ToString();
+        altarMonsterTotal.text = PlanetManager.getDensAmount().ToString();
+    }
+
+    private void Update()
+    {
+        altarMonsterCurrent.text = amountDensDestroyed.ToString();
     }
 
     public static void DisplaySpaceship()
     {
+        Debug.Log("Ship");
         spaceship.SetActive(true);
     }
 
@@ -83,8 +89,9 @@ public class ObjectManager : MonoBehaviour
     }
 
     public static void registerDenDestroyed() {
-        amountDens--;
         amountDensDestroyed++;
+        amountDens--;
+        
         if (amountDens == 0)
         {
             Instantiate(instance.shipAppearPS, PlayerController.instance.transform);
