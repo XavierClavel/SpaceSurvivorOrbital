@@ -104,6 +104,7 @@ public class ObjectManager : MonoBehaviour
         instance = this;
         amountEggs = 0;
         amountDens = 0;
+        amountDensDestroyed = 0;
         if (Helpers.isPlatformAndroid()) pauseButton.SetActive(true);
 
     }
