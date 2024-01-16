@@ -27,11 +27,13 @@ public class PlanetSelector : MonoBehaviour
 
     [Header("Parameters")]
     public static int globalDifficulty = 0;
+    public ParticleSystem difficultyPS;
 
     public static void IncreaseDifficulty()
     {
         if (globalDifficulty >= DataManager.dictDifficulty.Keys.Count) return;
         globalDifficulty++;
+        Instantiate(instance.difficultyPS, PlayerController.instance.transform);
         Debug.Log($"Difficulty increased, now {globalDifficulty}");
     }
 
