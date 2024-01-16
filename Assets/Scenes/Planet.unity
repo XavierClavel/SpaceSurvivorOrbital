@@ -4378,17 +4378,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 485862572}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 5.4}
-  m_LocalScale: {x: 59.99999, y: 60, z: 59.99999}
+  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 819867604}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 53.800003, y: -222.4}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -10.835999, y: -45.038963}
+  m_SizeDelta: {x: -21.669, y: -90.08}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &485862574
 MonoBehaviour:
@@ -4403,11 +4403,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
+    m_Left: 20
     m_Right: 0
-    m_Top: 0
+    m_Top: 10
     m_Bottom: 0
-  m_ChildAlignment: 7
+  m_ChildAlignment: 0
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
@@ -4880,11 +4880,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planetData:
     size: 1
-    difficulty: 0
+    difficulty: 1
     denScarcity: 1
-    orangeScarcity: 1
-    greenScarcity: 1
-    type: 4
+    violetScarcity: 0
+    ressourceScarcity: 1
+    type: 1
   groundSprite: {fileID: 2041782854}
   bank: {fileID: 11400000, guid: dde3abeea4d88e546a3066a1c045dada, type: 2}
   distanceConstraintsManager: {fileID: 11400000, guid: 2d707b2ee9386e44c815ae33e7a09322, type: 2}
@@ -6149,17 +6149,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 757684480}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 819867604}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 150.92499, y: -75}
-  m_SizeDelta: {x: 797.85, y: 106.344}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -10.837006, y: 44.482}
+  m_SizeDelta: {x: -21.67, y: -88.965}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &757684482
 MonoBehaviour:
@@ -6174,11 +6174,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
+    m_Left: 20
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 3
   m_Spacing: 17
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
@@ -6861,8 +6861,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 280, y: 0}
-  m_SizeDelta: {x: 500, y: 100}
+  m_AnchoredPosition: {x: 265, y: -89.517}
+  m_SizeDelta: {x: 530, y: 179.04}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &829871887
 GameObject:
@@ -7226,11 +7226,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1007081080}
+  - component: {fileID: 1007081081}
   - component: {fileID: 1007081079}
   - component: {fileID: 1007081078}
   - component: {fileID: 1007081077}
   - component: {fileID: 1007081082}
-  - component: {fileID: 1007081081}
   - component: {fileID: 1007081083}
   m_Layer: 5
   m_Name: Canvas

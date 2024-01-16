@@ -99,8 +99,7 @@ public class TileManager : MonoBehaviour
     {
         planetDiameter = PlanetManager.getSize();
         AllocateDens();
-        AllocateResource(PlanetManager.getGreenAmount(), bank.green1, bank.green2, bank.green3);
-        AllocateResource(PlanetManager.getOrangeAmount(), bank.yellow1, bank.yellow2, bank.yellow3);
+        AllocateResource(PlanetManager.getRessourceAmount(), bank.ressource1, bank.ressource2, bank.ressource3);
         
         mapSize = new Vector2Int(planetDiameter, planetDiameter);
 

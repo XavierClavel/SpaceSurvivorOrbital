@@ -24,8 +24,7 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
     //[SerializeField] DiscreteBarHandler dangerosityBar;
     [SerializeField] private Button button;
     [SerializeField] private DiscreteBarHandler violetBar;
-    [SerializeField] private DiscreteBarHandler orangeBar;
-    [SerializeField] private DiscreteBarHandler greenBar;
+    [SerializeField] private DiscreteBarHandler ressourceBar;
     [SerializeField] private GameObject displayPanel;
 
     private static Dictionary<String, Vector3> dictPlanetToPos = new Dictionary<string, Vector3>();
@@ -108,16 +107,12 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
         */
         
         violetBar.maxAmount = 5;
-        violetBar.currentAmount = (int)planetData.greenScarcity + 1;
+        violetBar.currentAmount = (int)planetData.violetScarcity + 1;
         violetBar.Initialize();
 
-        orangeBar.maxAmount = 3;
-        orangeBar.currentAmount = (int)planetData.orangeScarcity;
-        orangeBar.Initialize();
-
-        greenBar.maxAmount = 3;
-        greenBar.currentAmount = (int)planetData.greenScarcity;
-        greenBar.Initialize();
+        ressourceBar.maxAmount = 3;
+        ressourceBar.currentAmount = (int)planetData.ressourceScarcity;
+        ressourceBar.Initialize();
     }
 
 

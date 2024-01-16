@@ -17,15 +17,10 @@ public class TilesBankManager : ScriptableObject
     public Tile empty2;
     public Tile empty3;
 
-    [Header("Green")]
-    public Tile green1;
-    public Tile green2;
-    public Tile green3;
-
-    [Header("Yellow")]
-    public Tile yellow1;
-    public Tile yellow2;
-    public Tile yellow3;
+    [Header("Ressource")]
+    public Tile ressource1;
+    public Tile ressource2;
+    public Tile ressource3;
 
     [Header("Altar")]
     public Tile altar1;
@@ -62,13 +57,9 @@ public class TilesBankManager : ScriptableObject
         den2.setTileObjects(bank.den2);
         den3.setTileObjects(bank.den3);
 
-        green1.setTileObjects(bank.green1);
-        green2.setTileObjects(bank.green2);
-        green3.setTileObjects(bank.green3);
-
-        yellow1.setTileObjects(bank.yellow1);
-        yellow2.setTileObjects(bank.yellow2);
-        yellow3.setTileObjects(bank.yellow3);
+        ressource1.setTileObjects(bank.ressource1);
+        ressource2.setTileObjects(bank.ressource2);
+        ressource3.setTileObjects(bank.ressource3);
 
         empty1.setTileObjects(bank.empty1);
         empty2.setTileObjects(bank.empty2);

@@ -16,16 +16,11 @@ public class TilesBank : ScriptableObject
     public List<GameObject> empty2;
     public List<GameObject> empty3;
 
-    [Header("Green")]
-    public List<GameObject> green1;
-    public List<GameObject> green2;
-    public List<GameObject> green3;
-    
-    [Header("Yellow")]
-    public List<GameObject> yellow1;
-    public List<GameObject> yellow2;
-    public List<GameObject> yellow3;
-    
+    [Header("Ressource")]
+    public List<GameObject> ressource1;
+    public List<GameObject> ressource2;
+    public List<GameObject> ressource3;
+
     [Header("Altar")]
     public GameObject altar1;
     public GameObject altar2;

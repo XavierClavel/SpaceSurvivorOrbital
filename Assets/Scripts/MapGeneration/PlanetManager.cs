@@ -81,14 +81,9 @@ public static class PlanetManager
         };
     }
 
-    public static int getOrangeAmount()
+    public static int getRessourceAmount()
     {
-        return getResourceAmount(planetData.orangeScarcity);
-    }
-
-    public static int getGreenAmount()
-    {
-        return getResourceAmount(planetData.greenScarcity);
+        return getResourceAmount(planetData.ressourceScarcity);
     }
 
     public static planetResourceScarcity getVioletScarcity()
@@ -96,14 +91,9 @@ public static class PlanetManager
         return planetData.denScarcity;
     }
 
-    public static planetResourceScarcity getOrangeScarcity()
+    public static planetResourceScarcity getRessourceScarcity()
     {
-        return planetData.orangeScarcity;
-    }
-
-    public static planetResourceScarcity getGreenScarcity()
-    {
-        return planetData.greenScarcity;
+        return planetData.ressourceScarcity;
     }
 
     public static int getDifficulty()

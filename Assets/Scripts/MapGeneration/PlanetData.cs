@@ -15,8 +15,8 @@ public class PlanetData
     public planetSize size;
     public int difficulty;
     public planetResourceScarcity denScarcity;
-    public planetResourceScarcity orangeScarcity;
-    public planetResourceScarcity greenScarcity;
+    public planetResourceScarcity violetScarcity;
+    public planetResourceScarcity ressourceScarcity;
     public planetType type;
 
     public gameScene getScene()
@@ -42,9 +42,8 @@ public class PlanetData
     private PlanetData setData()
     {
         this.size = Helpers.getRandomEnum<planetSize>();
-        this.greenScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
-        this.orangeScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
-        this.greenScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
+        this.ressourceScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
+        this.violetScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
         this.type = Helpers.getRandomEnum<planetType>();
 
         this.difficulty = PlanetSelector.getDifficulty();
