@@ -13,6 +13,9 @@ public class ResourceLayoutManager : MonoBehaviour
     int sliderIndex = 0;
     bool full = false;
 
+    public ParticleSystem greenFull;
+    public ParticleSystem yellowFull;
+
     public void Setup(int nbSliders, int amountToFill, resourceType resource)
     {
         this.amountToFill = amountToFill;
@@ -76,10 +79,12 @@ public class ResourceLayoutManager : MonoBehaviour
         {
             case resourceType.orange:
                 PlayerManager.GatherResourceOrange();
+                Instantiate(yellowFull, PlayerController.instance.transform);
                 break;
 
             case resourceType.green:
                 PlayerManager.GatherResourceGreen();
+                Instantiate(greenFull, PlayerController.instance.transform);
                 break;
 
         }
