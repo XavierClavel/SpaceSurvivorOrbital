@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 
 public enum planetSize { small, medium, large }
-public enum planetResourceScarcity { none, rare, medium, common }
+public enum planetResourceScarcity { rare, medium, common }
 public enum planetType { ice, mushroom, desert, storm, jungle }
 
 [System.Serializable]

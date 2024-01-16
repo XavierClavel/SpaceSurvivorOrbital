@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -657,6 +657,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 119476309}
   m_CullTransparentMesh: 1
+--- !u!114 &187256680 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 991200071770259392, guid: 9fe2751d668581b40b79b1f29a33393c, type: 3}
+  m_PrefabInstance: {fileID: 711905164}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2481b01d6e230ed479723754e531af4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &205626659
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3194,6 +3205,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8910134057242515218, guid: 9fe2751d668581b40b79b1f29a33393c, type: 3}
+      propertyPath: yellowBar
+      value: 
+      objectReference: {fileID: 187256680}
+    - target: {fileID: 8910134057242515218, guid: 9fe2751d668581b40b79b1f29a33393c, type: 3}
+      propertyPath: planetData.denScarcity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910134057242515218, guid: 9fe2751d668581b40b79b1f29a33393c, type: 3}
+      propertyPath: planetData.violetScarcity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910134057242515218, guid: 9fe2751d668581b40b79b1f29a33393c, type: 3}
+      propertyPath: planetData.ressourceScarcity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8910134057242515222, guid: 9fe2751d668581b40b79b1f29a33393c, type: 3}
       propertyPath: m_Name
       value: Planet
