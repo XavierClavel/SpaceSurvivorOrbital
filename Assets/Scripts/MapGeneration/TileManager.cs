@@ -49,7 +49,7 @@ public class TileManager : MonoBehaviour
         
         bank.setTiles();
         tiles.Add(bank.spaceship);
-        bank.altar1.setSpecificAmount(1);
+        bank.altar1.setSpecificAmount(PlanetManager.getAltarAmount());
         tiles.Add(bank.altar1);
         tiles.Add(bank.empty1);
         tiles.Add(bank.empty2);

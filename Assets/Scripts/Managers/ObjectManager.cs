@@ -57,7 +57,6 @@ public class ObjectManager : MonoBehaviour
 
     public static void DisplaySpaceship()
     {
-        Debug.Log("Ship");
         spaceship.SetActive(true);
     }
 
@@ -69,19 +68,16 @@ public class ObjectManager : MonoBehaviour
 
     public static void registerEggDestroyed() {
         amountEggs--;
-        if (amountEggs == 0)
-        {
-            PlayerManager.AcquireUpgradePoint();
-
-            instance.StartCoroutine(nameof(UpgradeUpDisplay));
-        }
+        if (amountEggs > 0) return;
+        
+        PlayerManager.AcquireUpgradePoint();
+        UpgradeUpDisplay();
     }
 
-    IEnumerator UpgradeUpDisplay()
+    private static void UpgradeUpDisplay()
     {
         GameObject newInstanceUpgrade = Instantiate(instance.upgradePS, PlayerController.instance.transform);
-        yield return new WaitForSeconds(2);
-        Destroy(newInstanceUpgrade);
+        Destroy(newInstanceUpgrade,2f);
     }
     
     public static void registerDenSpawned() {
@@ -91,12 +87,10 @@ public class ObjectManager : MonoBehaviour
     public static void registerDenDestroyed() {
         amountDensDestroyed++;
         amountDens--;
-        
-        if (amountDens == 0)
-        {
-            Instantiate(instance.shipAppearPS, PlayerController.instance.transform);
-            DisplaySpaceship();
-        }
+
+        if (amountDens > 0) return;
+        Instantiate(instance.shipAppearPS, PlayerController.instance.transform);
+        DisplaySpaceship();
     }
 
     private void Awake()
@@ -133,25 +127,10 @@ public class ObjectManager : MonoBehaviour
         if (!dictObjectToHitable.ContainsKey(target)) return;
         dictObjectToHitable[target].Hit(hitInfo);
     }
-
-    bool Transaction()
-    {
-        Destroy(altar.gameObject);
-        return true;
-    }
-
-    public void SelectMinerBot()
-    {
-        if (!Transaction()) return;
-
-        PlayerController.instance.SpawnMinerBot();
-        HideAltarUI();
-        //PlayerManager.AcquirePower(powerType.creusetout);
-    }
+    
 
     public void SelectUpgradePoint()
     {
-        if (!Transaction()) return;
         PlayerManager.AcquireUpgradePoint();
         HideAltarUI();
     }

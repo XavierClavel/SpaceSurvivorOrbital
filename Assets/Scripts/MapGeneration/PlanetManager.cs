@@ -36,7 +36,7 @@ public static class PlanetManager
         return planetData.type;
     }
 
-    public static int getArea()
+    private static int getArea()
     {
         return (int)Mathf.Pow(getSize(), 2);
     }
@@ -56,7 +56,7 @@ public static class PlanetManager
 
     static int getResourceAmount(planetResourceScarcity scarcity)
     {
-        return (int)Mathf.Ceil((getArea() - 2) * getScarcity(scarcity));
+        return (int)Mathf.Ceil((getArea() - 1 - getAltarAmount() - getDensAmount()) * getScarcity(scarcity));
     }
 
     public static int getDensAmount()
@@ -67,6 +67,17 @@ public static class PlanetManager
             planetSize.medium => 2,
             planetSize.large => 4,
             _ => 2
+        };
+    }
+
+    public static int getAltarAmount()
+    {
+        return planetData.size switch
+        {
+            planetSize.small => 1,
+            planetSize.medium => 1,
+            planetSize.large => 2,
+            _ => throw new System.ArgumentOutOfRangeException("Unexpected enum value")
         };
     }
 

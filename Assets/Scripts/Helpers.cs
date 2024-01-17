@@ -180,7 +180,7 @@ public static class Extensions
     }
     public static char Last(this string str)
     {
-        return str[str.Length - 1];
+        return str[^1];
     }
 
     public static void updateX(this Transform t, float value)

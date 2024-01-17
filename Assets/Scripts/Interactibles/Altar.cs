@@ -15,11 +15,6 @@ public class Altar : MonoBehaviour, IInteractable
     private Animator animator;
     private static readonly int Deplete = Animator.StringToHash("Deplete");
 
-    private void Awake()
-    {
-        ObjectManager.altar = this;
-    }
-
     private void Start()
     {
         ObjectManager.dictObjectToInteractable.Add(gameObject, this);
@@ -70,6 +65,7 @@ public class Altar : MonoBehaviour, IInteractable
 
     void ActivateAltar()
     {
+        ObjectManager.altar = this;
         ObjectManager.DisplayAltarUI();
         AltarPanel.UpdateAltarDisplay();
     }

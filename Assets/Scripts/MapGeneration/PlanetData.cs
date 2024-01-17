@@ -26,7 +26,7 @@ public class PlanetData
             planetType.desert => gameScene.planetDesert,
             planetType.mushroom => gameScene.planetMushroom,
             planetType.storm => gameScene.planetStorm,
-            _ => throw new System.ArgumentOutOfRangeException($"Unexpected enum value")
+            _ => throw new ArgumentOutOfRangeException($"Unexpected enum value")
         };
     }
 
@@ -50,7 +50,7 @@ public class PlanetData
             planetType.jungle => planetResourceScarcity.common,
             planetType.mushroom => planetResourceScarcity.common,
             planetType.storm => planetResourceScarcity.rare,
-            _ => this.ressourceScarcity
+            _ => throw new ArgumentOutOfRangeException("Unexpected enum value")
         };
         
 
