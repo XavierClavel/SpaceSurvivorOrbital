@@ -11,6 +11,7 @@ using DG.Tweening;
  * <p> Cooldown -> Delay between lightning strikes </p>
  * <p> Projectiles -> Amount of lightning strikes </p>
  * <p> BoolB -> Whether electric zones spawn </p>
+ * <p> floatA -> Scale of the electric zone </p>
  * </pre>
  */
 public class DivineLightning : Power, IElecZone
@@ -28,6 +29,7 @@ public class DivineLightning : Power, IElecZone
     private bool stunChance;
     private bool doSpawnElecZone;
     private bool spawnElecZoneCounter = true;
+    private float scaleElecZone;
 
     protected override void Start()
     {
@@ -37,8 +39,9 @@ public class DivineLightning : Power, IElecZone
         mask = LayerMask.GetMask(Vault.layer.Ennemies);
 
         pool = new ComponentPool<Animator>(lightningStrike).setTimer(stats.projectiles);
-        doSpawnElecZone = true;
+        doSpawnElecZone = fullStats.generic.boolB;
         stunChance = fullStats.generic.boolA;
+        scaleElecZone = fullStats.generic.floatA;
 
         elecZoneCounter = new Counter(Orchestrator.context, 2f);
         elecZoneCounter.addOnStartEvent(ElecEventManager.ElecStart)
@@ -80,7 +83,7 @@ public class DivineLightning : Power, IElecZone
         electricZone.transform.position = spawnPoint;
         electricZone.transform.localScale = Vector3.zero;
         //TODO Fade Out and get smaller or just dispawn
-        electricZone.Setup(2f);
+        electricZone.Setup(scaleElecZone);
     }
 
     protected override void onUse()

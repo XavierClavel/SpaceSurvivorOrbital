@@ -152,8 +152,7 @@ public class Ennemy : Breakable
     public override void Hit(HitInfo hitInfo)
     {
         base.Hit(hitInfo);
-        SoundManager.PlaySfx(transform, key: "Ennemy_Hit");
-
+        
         healthChange value = hitInfo.critical ? healthChange.critical : healthChange.hit;
         if (hitInfo.damage != 0)
         {
@@ -203,10 +202,9 @@ public class Ennemy : Breakable
 
     protected virtual void Death()
     {
-        SoundManager.PlaySfx(transform, key: "Ennemy_Destroy");
+        //SoundManager.PlaySfx(transform, key: "Ennemy_Destroy");
         player.AddEnnemyScore(cost);
         StressTest.nbEnnemies--;
-        SoundManager.PlaySfx(transform, Vault.sfx.EnnemyExplosion);
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
         ObjectManager.dictObjectToHitable.Remove(gameObject);
         

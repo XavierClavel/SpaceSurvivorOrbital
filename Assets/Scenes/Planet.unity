@@ -396,7 +396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &16249141
 Transform:
   m_ObjectHideFlags: 0
@@ -3026,7 +3026,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2052866237, guid: d5c3c78dc08e7514d9a3a7754c37bb9a, type: 3}
+  m_Sprite: {fileID: 2133475177, guid: d5c3c78dc08e7514d9a3a7754c37bb9a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3458,7 +3458,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2052866237, guid: d5c3c78dc08e7514d9a3a7754c37bb9a, type: 3}
+  m_Sprite: {fileID: 2133475177, guid: d5c3c78dc08e7514d9a3a7754c37bb9a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4882,7 +4882,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planetData:
     size: 0
-    difficulty: 1
+    difficulty: 10
     denScarcity: 1
     violetScarcity: 0
     ressourceScarcity: 1
@@ -4892,7 +4892,7 @@ MonoBehaviour:
   distanceConstraintsManager: {fileID: 11400000, guid: 2d707b2ee9386e44c815ae33e7a09322, type: 2}
   tileSize: {x: 9, y: 9}
   tiles: []
-  generateMap: 0
+  generateMap: 1
 --- !u!1001 &591678972
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13519,7 +13519,11 @@ PrefabInstance:
       objectReference: {fileID: 1629019070}
     - target: {fileID: 5794317926654119749, guid: 94209ee71c76b454e972a73d03b64b6b, type: 3}
       propertyPath: negativeRange
-      value: -0.1
+      value: -0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5794317926654119749, guid: 94209ee71c76b454e972a73d03b64b6b, type: 3}
+      propertyPath: positiveRange
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 5794317926654119749, guid: 94209ee71c76b454e972a73d03b64b6b, type: 3}
       propertyPath: shakeDuration

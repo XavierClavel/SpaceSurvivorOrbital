@@ -45,7 +45,6 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Transparent")) return;
         
-        SoundManager.PlaySfx(transform, Vault.sfx.BulletHit);
         Helpers.SpawnPS(transform, impact);
 
 
@@ -66,6 +65,7 @@ public class Bullet : MonoBehaviour
         
         if (other.gameObject.CompareTag(Vault.tag.Ennemy))
         {
+            SoundManager.PlaySfx(transform, key: "Ennemy_Hit");
             ObjectManager.HitObject(other.gameObject, hitInfo);
             onImpact?.Invoke(this);
         }
