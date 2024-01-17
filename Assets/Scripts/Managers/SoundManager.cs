@@ -156,7 +156,7 @@ public class SoundManager : MonoBehaviour
     {
         PlaySfx(Vector3.zero, key);
     }
-    
+
     public static void PlaySfx(Vector3 pos, string key)
     {
         float randomPitch = UnityEngine.Random.Range(LowPitchRange, HighPitchRange);
