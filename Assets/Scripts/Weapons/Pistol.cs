@@ -29,6 +29,11 @@ public class Pistol : Gun
         return PlayerController.instance.transform.position + (Vector3)PlayerController.instance.aimVector * 0.5f;
     }
 
+    private Vector3 getBulletStartRotation()
+    {
+        return transform.localScale.y > 0 ? firePoint.eulerAngles : 180f*Vector3.forward + firePoint.eulerAngles;
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -68,7 +73,8 @@ public class Pistol : Gun
         if (stats.projectiles == 1)
         {
             Vector3 position = getBulletStartPos();
-            Vector3 eulerRotation = firePoint.eulerAngles;
+
+            Vector3 eulerRotation = getBulletStartRotation();
 
             FireBullet(position, eulerRotation);
             return;
@@ -98,7 +104,7 @@ public class Pistol : Gun
     void FireBulletByIndex(float i)
     {
         Vector3 position = getBulletStartPos() + i * distanceOffsetBetweenBullets * firePoint.right;
-        Vector3 eulerRotation = firePoint.eulerAngles + i * stats.spread * Vector3.forward;
+        Vector3 eulerRotation = getBulletStartRotation() + i * stats.spread * Vector3.forward;
         
         FireBullet(position, eulerRotation);
     }

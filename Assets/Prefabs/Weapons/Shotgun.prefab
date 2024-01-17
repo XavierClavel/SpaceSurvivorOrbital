@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3183411963381936566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.049, y: 0.104, z: 0}
+  m_LocalPosition: {x: -0.049, y: -0.099, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -108,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3858898858461825699}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.446, y: 0.2, z: 0}
+  m_LocalPosition: {x: 0.446, y: -0.003000006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -161,9 +161,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a584c069a418e224583df1d8aa685497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats:
+    baseDamage: {x: 0, y: 0}
+    attackSpeed: 0
+    range: 0
+    cooldown: 0
+    magazineReloadTime: 0
+    criticalChance: 0
+    criticalMultiplier: 0
+    magazine: 0
+    projectiles: 0
+    spread: 0
+    pierce: 0
+    speedWhileAiming: 0
+    knockback: 0
+    element: 0
+  fullStats:
+    resources:
+      maxPurple: 3
+      maxOrange: 3
+      maxGreen: 3
+    character:
+      maxHealth: 0
+      baseSpeed: 0
+      damageResistanceMultiplier: 0
+    interactor:
+      baseDamage: {x: 0, y: 0}
+      attackSpeed: 0
+      range: 0
+      cooldown: 0
+      magazineReloadTime: 0
+      criticalChance: 0
+      criticalMultiplier: 0
+      magazine: 0
+      projectiles: 0
+      spread: 0
+      pierce: 0
+      speedWhileAiming: 0
+      knockback: 0
+      element: 0
+    attractor:
+      range: 5
+      force: 5
+    generic:
+      boolA: 0
+      boolB: 0
+      boolC: 0
+      intA: 0
+      intB: 0
+      floatA: 0
+      floatB: 0
+      elementA: 0
   isUsing: 0
   spriteRenderer: {fileID: 7370130454214918330}
   currentLayer: 
+  aimTransform: {fileID: 0}
   reloadSlider: {fileID: 0}
   playerInteractor: 0
   firePoint: {fileID: 3534282171217049090}

@@ -69,6 +69,7 @@ public abstract class Interactor : Damager
 
     protected virtual void Update()
     {
-        spriteRenderer.flipY = transform.eulerAngles.z is > 90 and <= 270;
+        transform.localScale = transform.eulerAngles.z is > 90 and <= 270 ? 
+            new Vector3(1,-1,1) : new Vector3(1,1,1);
     }
 }
