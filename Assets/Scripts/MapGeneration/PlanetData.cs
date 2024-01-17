@@ -14,8 +14,6 @@ public class PlanetData
 {
     public planetSize size;
     public int difficulty;
-    public planetResourceScarcity denScarcity;
-    public planetResourceScarcity violetScarcity;
     public planetResourceScarcity ressourceScarcity;
     public planetType type;
 
@@ -28,7 +26,7 @@ public class PlanetData
             planetType.desert => gameScene.planetDesert,
             planetType.mushroom => gameScene.planetMushroom,
             planetType.storm => gameScene.planetStorm,
-            _ => gameScene.titleScreen
+            _ => throw new System.ArgumentOutOfRangeException($"Unexpected enum value")
         };
     }
 
@@ -41,12 +39,19 @@ public class PlanetData
 
     private PlanetData setData()
     {
-        this.size = Helpers.getRandomEnum<planetSize>();
-        this.ressourceScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
-        this.violetScarcity = Helpers.getRandomEnum<planetResourceScarcity>();
         this.type = Helpers.getRandomEnum<planetType>();
-
+        this.size = Helpers.getRandomEnum<planetSize>();
         this.difficulty = PlanetSelector.getDifficulty();
+
+        this.ressourceScarcity = this.type switch
+        {
+            planetType.desert => planetResourceScarcity.medium,
+            planetType.ice => planetResourceScarcity.medium,
+            planetType.jungle => planetResourceScarcity.common,
+            planetType.mushroom => planetResourceScarcity.common,
+            planetType.storm => planetResourceScarcity.rare,
+            _ => this.ressourceScarcity
+        };
         
 
         return this;

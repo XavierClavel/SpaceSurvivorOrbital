@@ -6,20 +6,32 @@ using UnityEngine;
 
 public class ToxicZone : Power
 {
-    
-    
-    private int dps;
+    [SerializeField] private Rigidbody2D rb;
+    private static float toxicZoneSpeed = 1f;
 
-    public void Setup(int dps, float scale)
+    public void Setup(float scale, bool doFollowPlayer)
     {
-        this.dps = dps;
-        
         transform.localScale = Vector3.zero;
         Sequence sequence = DOTween.Sequence();
         sequence.Append(transform.DOScale(scale * Vector3.one, 0.2f));
         sequence.AppendInterval(5f);
         sequence.Append(transform.DOScale(Vector3.zero, 0.2f));
-        sequence.OnComplete(delegate { PowerToxicZone.recall(this); });
+        sequence.OnComplete(delegate
+        {
+            if (doFollowPlayer) StopCoroutine(nameof(FollowPlayer));
+            PowerToxicZone.recall(this);
+        });
+
+        if (doFollowPlayer) StartCoroutine(nameof(FollowPlayer));
+    }
+
+    private IEnumerator FollowPlayer()
+    {
+        while (true)
+        {
+            yield return Helpers.GetWaitFixed;
+            rb.AddForce((playerTransform.position - transform.position).normalized * toxicZoneSpeed);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

@@ -54,11 +54,8 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
         if (tier != currentTier ||  !PlanetSelectionManager.getPossiblePathNodes().Contains(node))
         {
             button.interactable = false;
-            if (node == PlanetSelectionManager.GetSelectedNode())
-            {
-                planet.color = new Color(38, 29, 4);
-            }
-            else planet.color = Color.grey;
+            planet.color = node == PlanetSelectionManager.GetSelectedNode() ? 
+                new Color(38, 29, 4) : Color.grey;
         }
 
         if (PlanetSelectionManager.dictKeyToPlanetData.TryGetValue(node.key, out var value))
@@ -95,29 +92,6 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
             
         }
         
-        //GetComponent<Image>().color = getColor();
-
-        /*
-         sizeBar.maxAmount = 3;
-        sizeBar.currentAmount = (int)planetData.size + 1;
-        sizeBar.Initialize();
-
-        dangerosityBar.maxAmount = 10;
-        dangerosityBar.currentAmount = planetData.difficulty + 1;
-        dangerosityBar.Initialize();
-        */
-        
-        violetBar.maxAmount = 5;
-        violetBar.currentAmount = (int)planetData.violetScarcity + 1;
-        violetBar.Initialize();
-
-        yellowBar.maxAmount = 3;
-        yellowBar.currentAmount = (int)planetData.ressourceScarcity;
-        yellowBar.Initialize();
-
-        greenBar.maxAmount = 3;
-        greenBar.currentAmount = (int)planetData.ressourceScarcity;
-        greenBar.Initialize();
     }
 
 

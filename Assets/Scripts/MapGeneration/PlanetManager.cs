@@ -53,17 +53,6 @@ public static class PlanetManager
         };
     }
     
-    static float getDenScarcity(planetResourceScarcity scarcity)
-    {
-        return scarcity switch
-        {
-            //planetResourceScarcity.none => getDenScarcity(planetResourceScarcity.medium),
-            planetResourceScarcity.rare => ConstantsData.denSpawnRateLow,
-            planetResourceScarcity.medium => ConstantsData.denSpawnRateMid,
-            planetResourceScarcity.common => ConstantsData.denSpawnRateStrong,
-            _ => 0.2f
-        };
-    }
 
     static int getResourceAmount(planetResourceScarcity scarcity)
     {
@@ -84,16 +73,6 @@ public static class PlanetManager
     public static int getRessourceAmount()
     {
         return getResourceAmount(planetData.ressourceScarcity);
-    }
-
-    public static planetResourceScarcity getVioletScarcity()
-    {
-        return planetData.denScarcity;
-    }
-
-    public static planetResourceScarcity getRessourceScarcity()
-    {
-        return planetData.ressourceScarcity;
     }
 
     public static int getDifficulty()
