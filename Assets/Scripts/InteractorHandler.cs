@@ -14,12 +14,12 @@ public class InteractorHandler : MonoBehaviour
 
     public void AddBonusStatus(status element)
     {
-        currentInteractor.bonusStatuses.Add(element);
+        currentInteractor.stacker.stack(element);
     }
     
     public void RemoveBonusStatus(status element)
     {
-        currentInteractor.bonusStatuses.Remove(element);
+        currentInteractor.stacker.unstack(element);
     }
 
     public void Initialize(Interactor weaponInteractor, Transform rotationAxis, bool playerInteractor = false)

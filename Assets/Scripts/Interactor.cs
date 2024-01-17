@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public abstract class Interactor : Damager
 {
     public SpriteRenderer spriteRenderer;
-    public HashSet<status> bonusStatuses = new HashSet<status>();
+    public Stacker<status> stacker = new Stacker<status>();
 
     //Guns
     protected int currentMagazine;
@@ -36,6 +36,7 @@ public abstract class Interactor : Damager
     public override void Setup(PlayerData fullStats)
     {
         base.Setup(fullStats);
+        if (stats.element != status.none) stacker.stack(stats.element);
         currentMagazine = stats.magazine;
 
         currentLayer = Vault.layer.ObstaclesAndEnnemiesAndResources;

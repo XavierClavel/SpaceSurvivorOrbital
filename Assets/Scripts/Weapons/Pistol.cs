@@ -115,7 +115,7 @@ public class Pistol : Gun
         Bullet bullet = pool.get(position, eulerRotation);
         bulletsStack.Add(bullet);
         StartCoroutine(nameof(ResetTrailDist), bullet);
-        HitInfo hitInfo = new HitInfo(stats, bonusStatuses);
+        HitInfo hitInfo = new HitInfo(stats, stacker.get());
         bullet.Fire(stats.attackSpeed, hitInfo);
         Invoke(nameof(recallBullet), bulletLifetime);
     }

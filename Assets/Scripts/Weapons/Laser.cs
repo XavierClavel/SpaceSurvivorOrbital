@@ -85,7 +85,6 @@ public class Laser : Interactor
     private const float laserSfxTransitionTime = 0.3f;
     private float scrollSpeed = 2f;
     private float tiling = 1f;
-    private HashSet<status> elements;
 
     protected override void Start()
     {
@@ -133,8 +132,6 @@ public class Laser : Interactor
             .SetRelative()
             .SetEase(Ease.Linear)
             .SetLoops(-1);
-
-        elements = new HashSet<status> { stats.element };
 
     }
 
@@ -264,7 +261,7 @@ public class Laser : Interactor
     void HurtEnnemy(GameObject go)
     {
         if (!ObjectManager.dictObjectToHitable.ContainsKey(go)) return;
-        ObjectManager.dictObjectToHitable[go].StackDamage(dps,  elements);
+        ObjectManager.dictObjectToHitable[go].StackDamage(dps, stacker.get());
 
     }
 
