@@ -195,6 +195,7 @@ public class DataSelector : MonoBehaviour, UIPanel
 
     public void Validate()
     {
+        PlayerManager.setCharacter(ScriptableObjectManager.dictKeyToCharacterHandler[selectedCharacter]);
         PlayerManager.setWeapon(DataManager.dictWeapons[selectedWeapon].Clone(), ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
         foreach (var equipment in selectedEquipments)
         {

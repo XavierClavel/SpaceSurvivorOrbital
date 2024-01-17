@@ -80,8 +80,10 @@ public class PlayerManager
 
     public static void setCharacter(CharacterHandler characterHandler)
     {
-        //characterPrefab = characterHandler.getCharacter();
         character = characterHandler;
+        CharacterManager.applyCharacterEffect(playerData.character, characterHandler.getKey());
+        //characterPrefab = characterHandler.getCharacter();
+        //character = characterHandler;
     }
 
     public static void setEquipment(EquipmentHandler equipmentHandler)

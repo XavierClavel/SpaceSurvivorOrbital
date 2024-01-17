@@ -11,7 +11,7 @@ using UnityEngine;
  * <p> BoolA -> Increase player speed </p>
  * <p> BoolB -> Increase player damage </p>
  * <p> BoolC -> Decrease ennemy speed </p>
- * <p> Projectiles -> Amount of toxic zones </p>
+ * <p> BoolD -> Move towards player </p>
  * <p> Projectiles -> Amount of toxic zones </p>
  * </pre>
  */
@@ -26,6 +26,17 @@ public class PowerToxicZone : Power
     //dict ennemy -> how many toxic zones he is in
     private Dictionary<GameObject, int> dictEnnemyToPresence = new Dictionary<GameObject, int>();
 
+    private bool doFollowPlayer = false;
+    
+    protected override void Start()
+    {
+        base.Start();
+        autoCooldown = true;
+        instance = this;
+
+        pool = new ComponentPool<ToxicZone>(toxicZonePrefab);
+    }
+    
     public static void OnEnnemyEnterToxicZone(GameObject ennemy)
     {
         if (instance.dictEnnemyToPresence.ContainsKey(ennemy)) instance.dictEnnemyToPresence[ennemy]++;
@@ -47,17 +58,8 @@ public class PowerToxicZone : Power
             {
                 continue;
             }
-            ObjectManager.dictObjectToEnnemy[ennemy].StackDamage(stats.baseDamage.x, status.none);
+            ObjectManager.dictObjectToEnnemy[ennemy].StackDamage(stats.baseDamage.x, new HashSet<status>());
         }
-    }
-
-    protected override void Start()
-    {
-        base.Start();
-        autoCooldown = true;
-        instance = this;
-
-        pool = new ComponentPool<ToxicZone>(toxicZonePrefab);
     }
     
     protected override void onUse()
@@ -69,16 +71,16 @@ public class PowerToxicZone : Power
     {
         for (int i = 0; i < stats.projectiles; i++)
         {
-            Strike();
+            Spawn();
             yield return Helpers.GetWait(0.2f);
         }
     }
 
-    private void Strike()
+    private void Spawn()
     {
         Vector3 spawnPoint = playerTransform.position + Helpers.getRandomPositionInRadius(range, shape.square);
         ToxicZone toxicZone = pool.get(spawnPoint);
-        toxicZone.Setup(stats.baseDamage.x, stats.range);
+        toxicZone.Setup(stats.range, doFollowPlayer);
     }
 
     public static void recall(ToxicZone toxicZone)

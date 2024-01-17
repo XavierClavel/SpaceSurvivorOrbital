@@ -79,9 +79,8 @@ public class SpawnManager : Breakable
         }
     }
     
-    public override void StackHit(int damage, int knockback)
+    protected override void StackHit(int damage, HashSet<status> elements)
     {
-        base.StackHit(damage, knockback);
         DamageDisplayHandler.DisplayStackedDamage(gameObject, damage);
         health -= damage;
     }

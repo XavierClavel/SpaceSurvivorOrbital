@@ -274,7 +274,7 @@ public class PlayerController : MonoBehaviour
         int currentHealth = PlayerManager.currentHealth ?? maxHealth;
         baseSpeed = PlayerManager.playerData.character.baseSpeed;
         setSpeed(1f);
-        damageResistanceMultiplier = PlayerManager.playerData.character.damageResistanceMultiplier;
+        damageResistanceMultiplier = PlayerManager.playerData.character.damageMultiplier;
 
         rb = GetComponent<Rigidbody2D>();
         cameraTransform = Camera.main.transform;

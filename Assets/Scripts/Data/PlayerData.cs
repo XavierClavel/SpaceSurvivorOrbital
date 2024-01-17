@@ -60,7 +60,7 @@ public class PlayerData
                 break;
 
             case effectType.damageResistanceMultiplier:
-                effect.ApplyOperation(ref character.damageResistanceMultiplier);
+                effect.ApplyOperation(ref character.damageMultiplier);
                 break;
 
             case effectType.baseDamage:
@@ -192,14 +192,16 @@ public class resourcesStats
 public class characterStats
 {
     public int maxHealth;
+    public int maxShields;
     public float baseSpeed;
-    public float damageResistanceMultiplier;
+    public float damageMultiplier;
 
     public characterStats setBase()
     {
         maxHealth = Vault.baseStats.MaxHealth;
+        maxShields = Vault.baseStats.MaxShields;
         baseSpeed = Vault.baseStats.Speed;
-        damageResistanceMultiplier = Vault.baseStats.DamageResistance;
+        damageMultiplier = Vault.baseStats.DamageMultiplier;
         return this;
     }
 }

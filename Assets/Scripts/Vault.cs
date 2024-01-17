@@ -69,8 +69,9 @@ public static class Vault
     public static class baseStats
     {
         public const int MaxHealth = 3;
+        public const int MaxShields = 0;
         public const float Speed = 4.2f;
-        public const float DamageResistance = 0;
+        public const float DamageMultiplier = 1;
     }
 
     public static class unlockable
