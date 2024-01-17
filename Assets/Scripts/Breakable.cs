@@ -46,19 +46,19 @@ public class Breakable : MonoBehaviour
         Hit(new HitInfo(damage, critical, effect));
     }
 
-    public virtual void StackHit(int damage, int knockback)
+    protected virtual void StackHit(int damage, HashSet<status> elements)
     {
         
     }
 
-    public void StackDamage(float dps, status element)
+    public virtual void StackDamage(float dps, HashSet<status> elements)
     {
         stackedDamage += dps * Time.fixedDeltaTime;
         if (stackedDamage < 1f) return;
 
         int damage = (int)stackedDamage;
         stackedDamage -= damage;
-        StackHit(damage, 0);
+        StackHit(damage, elements);
         //Hit(damage, element, false);
     }
 

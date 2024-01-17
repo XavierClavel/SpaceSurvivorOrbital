@@ -219,12 +219,8 @@ public static class Extensions
         if (values == null) return list;
         foreach (T item in values)
         {
-            if (!list.Contains(item))
-            {
-                list.Add(item);
-            }
+            list.TryAdd(item);
         }
-        //list = list.Union(values);
         return list;
     }
 

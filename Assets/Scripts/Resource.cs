@@ -65,9 +65,8 @@ public class Resource : Breakable
         health -= hitInfo.damage;
     }
     
-    public override void StackHit(int damage, int knockback)
+    protected override void StackHit(int damage, HashSet<status> elements)
     {
-        base.StackHit(damage, knockback);
         SoundManager.PlaySfx(transform, key: "Eggs");
         health -= damage;
     }

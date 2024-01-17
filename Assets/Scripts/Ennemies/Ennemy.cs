@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.Events;
 using System.Net;
+using UnityEditor;
 
 public class Ennemy : Breakable
 {
@@ -59,6 +60,7 @@ public class Ennemy : Breakable
 
     protected bool knockback = false;
     private float remainingLightning = 0f;
+    private float remainingIce = 0f;
 
     WaitForSeconds knockbackWindow;
 
@@ -169,14 +171,13 @@ public class Ennemy : Breakable
     
     
     
-    public override void StackHit(int damage, int knockback)
+    protected override void StackHit(int damage, HashSet<status> elements)
     {
-        base.StackHit(damage, knockback);
+        ApplyEffects(elements);
         health -= damage;
         DamageDisplayHandler.DisplayStackedDamage(gameObject, damage);
         StopCoroutine(nameof(ApplyDeformationOverTime));
         StartCoroutine(nameof(ApplyDeformationOverTime));
-        ApplyKnockback(knockback);
     }
     
     
@@ -222,7 +223,12 @@ public class Ennemy : Breakable
 
     void ApplyEffects(HitInfo hitInfo)
     {
-        foreach (var effect in hitInfo.effect)
+        ApplyEffects(hitInfo.effect);
+    }
+    
+    void ApplyEffects(HashSet<status> effects)
+    {
+        foreach (var effect in effects)
         {
             ApplyEffect(effect);
         }
@@ -261,8 +267,8 @@ public class Ennemy : Breakable
 
     void ApplyIce()
     {
-        StopCoroutine(nameof(IceEffect));
-        StartCoroutine(nameof(IceEffect));
+        if (remainingIce <= 0f) StartCoroutine(nameof(IceEffect));
+        else remainingIce = ConstantsData.iceDuration;
     }
     
     void ApplyLightning()
@@ -288,7 +294,13 @@ public class Ennemy : Breakable
     {
         spriteRenderer.color = new Color32(126,171,242,255);
         speedMultiplier = ConstantsData.iceSlowdown;
-        yield return waitIce;
+
+        while (remainingIce > 0f)
+        {
+            yield return Helpers.GetWaitFixed;
+            remainingIce -= Time.fixedDeltaTime;
+        }
+        
         speedMultiplier = 1f;
         spriteRenderer.color = Color.white;
     }
