@@ -185,11 +185,17 @@ public class PlayerController : MonoBehaviour
     {
         if (instance.invulnerable) return;
         if (instance.interactorHandler.currentInteractor.isDamageAbsorbed()) return;
-        instance.takeDamage((int)(amount * (1 - instance.damageResistanceMultiplier)));
+        instance.takeDamage((int)(amount));
         instance.OnHitOverlay();
         instance.StartCoroutine(nameof(ShakeCoroutine));
         instance.StartCoroutine(nameof(InvulnerabilityFrame));
     }
+
+    public static void Heal(int amount)
+    {
+        instance.health += amount;
+    }
+    
     public void OnHitOverlay()
     {
         Sequence sequence = DOTween.Sequence();
@@ -496,6 +502,7 @@ public class PlayerController : MonoBehaviour
 
     void Death()
     {
+        if (!PlayerEventsManager.onPlayerDeath()) return;
         ObjectManager.DisplayLoseScreen();
     }
     
@@ -533,5 +540,10 @@ public class PlayerController : MonoBehaviour
 
         // Remettez la caméra à sa position d'origine après le screenshake
         cameraTransform.localPosition = originalCameraPosition;
-    }   
+    }
+
+    private void OnDestroy()
+    {
+        PlayerEventsManager.resetListeners();
+    }
 }

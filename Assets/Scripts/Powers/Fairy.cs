@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
-using static Vault;
 
 public class Fairy : MonoBehaviour
 {
