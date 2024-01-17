@@ -1,23 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
+using Image = UnityEngine.UI.Image;
 
 public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectHandler
 {
 
-    protected List<string> activateButton = new List<string>();
-    protected List<string> desactivateButton = new List<string>();
+    private List<string> buttonsToActivate = new List<string>();
+    private List<string> buttonsToDeactivate = new List<string>();
     [HideInInspector] public string key;
-    protected List<Effect> effects = new List<Effect>();
+    private List<Effect> effects = new List<Effect>();
 
 
     public skillButtonStatus status { get; private set; }
     [HideInInspector] public Button button;
     public RectTransform rectTransform;
-    protected Image image;
+    private Image image;
     protected delegate void buttonAction();
     protected UpgradeData upgradeData;
     ButtonSprite buttonSprite;
@@ -34,13 +36,14 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
 
         effects = upgradeData.effects.Copy();
 
-        activateButton = upgradeData.upgradesEnabled;
-        desactivateButton = upgradeData.upgradesDisabled;
-        desactivateButton.TryAdd(key);
+        buttonsToActivate = upgradeData.upgradesEnabled;
+        buttonsToDeactivate = upgradeData.upgradesDisabled;
+        buttonsToDeactivate.TryAdd(key);
+        
 
-        if (ScriptableObjectManager.dictKeyToButtonSprites.ContainsKey(upgradeData.spriteKey))
+        if (ScriptableObjectManager.dictKeyToButtonSprites.TryGetValue(upgradeData.spriteKey, out var sprite))
         {
-            buttonSprite = ScriptableObjectManager.dictKeyToButtonSprites[upgradeData.spriteKey];
+            buttonSprite = sprite;
         }
         else Debug.LogWarning($"sprite key {upgradeData.spriteKey} is not associated with button sprites");
     }
@@ -59,15 +62,51 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
             effect.Apply();
         }
     }
+    
+
+    private void getLeafNodes(List<Node> nodes, Node node)
+    {
+        foreach (var childNode in node.childNodes)
+        {
+            nodes.TryAdd(childNode);
+            getLeafNodes(nodes, childNode);
+        }
+    }
+
+    private void getRootNodes(List<Node> nodes, List<Node> leafNodes)
+    {
+        foreach (var leafNode in leafNodes)
+        {
+            nodes.TryAdd(leafNode.parentNodes);
+            getRootNodes(nodes, leafNode.parentNodes);
+        }
+    }
+
+    private void getUpgradesToDeactivate()
+    {
+        Node currentNode = UpgradesDisplayManager.instance.currentActivePanel.dictKeyToNode[key];
+        List<Node> nodes = new List<Node> {currentNode};
+        getLeafNodes(nodes, currentNode);
+        getRootNodes(nodes, nodes);
+
+        foreach (Node node in nodes)
+        {
+            if (node.tier <= currentNode.tier)
+            {
+                buttonsToDeactivate.TryAdd(node.key);
+            }
+        }
+    }
 
     protected void Execute(buttonAction action)
     {
         if (status != skillButtonStatus.unlocked) return;
         if (!DebugManager.areUpgradesFree() && !SpendResources()) return;
-        ResourcesDisplay.UpdateDisplay();
+        ResourcesDisplay.UpdateResourcesDisplay();
+        getUpgradesToDeactivate();
 
-        NodeManager.UpdateList(activateButton, skillButtonStatus.unlocked);
-        NodeManager.UpdateList(desactivateButton, skillButtonStatus.locked);
+        NodeManager.UpdateList(buttonsToActivate, skillButtonStatus.unlocked);
+        NodeManager.UpdateList(buttonsToDeactivate, skillButtonStatus.locked);
         NodeManager.UpdateButton(this, skillButtonStatus.bought);
 
         action();

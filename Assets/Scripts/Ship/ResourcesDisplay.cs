@@ -14,10 +14,10 @@ public class ResourcesDisplay : MonoBehaviour
     private void Start()
     {
         instance = this;
-        UpdateDisplay();
+        UpdateResourcesDisplay();
     }
 
-    public static void UpdateDisplay()
+    public static void UpdateResourcesDisplay()
     {
         instance.upgradePointsAmountText.text = PlayerManager.amountBlue.ToString();
         instance.greenText.text = PlayerManager.amountGreen.ToString();

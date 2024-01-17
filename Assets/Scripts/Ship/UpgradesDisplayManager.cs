@@ -40,7 +40,7 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     EventSystem eventSystem;
     InputMaster inputActions;
     private static int nbPanelsInitialized = 0;
-    NodeManager currentActivePanel;
+    public NodeManager currentActivePanel;
 
     private int weaponIndex = 0;
     
@@ -143,7 +143,6 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
                 int value = i;
                 buttons[i].onClick.AddListener(delegate { SetActivePanel(value); });
                 panels[i].setup(keys[i]);
-                Debug.Log("panel setup");
             }
                 
         }
