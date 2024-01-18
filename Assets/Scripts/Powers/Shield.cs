@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shield : Power
+public class Shield : Equipment
 {
     
     protected override void onUse()
