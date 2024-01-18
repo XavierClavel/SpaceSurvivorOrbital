@@ -17,8 +17,6 @@ public class AltarPanel : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        //instance.autelPanel.SetActive(true);
-        //instance.autelPanel.SetActive(false);
     }
     
 #endregion

@@ -21,12 +21,11 @@ public class PowerFairy : Power, IPlayerEvents
     
     public override void onSetup()
     {
-        isResurrectionAvailable = fullStats.generic.boolA;
-        isResurrectionAvailable = true;
+        isResurrectionAvailable = fullStats.generic.boolB;
         if (isResurrectionAvailable) PlayerEventsManager.registerListener(this);
         
         Fairy newFairy = Instantiate(fairy);
-        newFairy.Setup(stats, Vector2.zero,stats.pierce == 4);
+        newFairy.Setup(stats, Vector2.zero,fullStats.generic.boolA);
         
         if (stats.magazine >= 1) Instantiate(fairy, transform.position, Quaternion.identity).Setup(stats, fairyOffset1);
         if (stats.magazine == 2) Instantiate(fairy, transform.position, Quaternion.identity).Setup(stats, fairyOffset2);
@@ -36,6 +35,8 @@ public class PowerFairy : Power, IPlayerEvents
     {
         if (!isResurrectionAvailable) return false;
         isResurrectionAvailable = false;
+        
+        Debug.Log("Resurrection");
         
         PlayerController.Heal(1);
         return true;
