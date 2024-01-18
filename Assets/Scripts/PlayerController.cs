@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
 
 
     //Player parameters
-    private int maxHealth;
+    public int maxHealth;
     private float baseSpeed;
     private float damageResistanceMultiplier;
     private bool invulnerable = false;
@@ -294,7 +294,7 @@ public class PlayerController : MonoBehaviour
         }
 
         maxHealth = PlayerManager.playerData.character.maxHealth + bonusManager.getBonusMaxHealth();
-        int currentHealth = PlayerManager.currentHealth ?? maxHealth;
+        int currentHealth = maxHealth - PlayerManager.damageTaken;
         baseSpeed = PlayerManager.playerData.character.baseSpeed;   
         setSpeed(1f);
         damageResistanceMultiplier = PlayerManager.playerData.character.damageMultiplier;

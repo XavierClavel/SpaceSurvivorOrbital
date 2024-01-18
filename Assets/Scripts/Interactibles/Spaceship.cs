@@ -85,7 +85,7 @@ public class Spaceship : MonoBehaviour, IInteractable
         SoundManager.PlaySfx(transform, key: "Ship_TakeOff");
         PlayerManager.SetControlMode(PlayerController.isPlayingWithGamepad);
         //PlayerManager.currentTimer = Timer.timeRemaining;
-        PlayerManager.setCurrentHealth(PlayerController.instance.health);
+        PlayerManager.setCurrentDamage(PlayerController.instance.health, PlayerController.instance.maxHealth);
         PlayerManager.setSouls(PlayerController.instance.souls);
         
         SaveManager.Save();
