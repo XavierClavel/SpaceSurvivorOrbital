@@ -14,23 +14,28 @@ public class AltarPanel : MonoBehaviour
     
 #region MonoBehaviourEvents
 
-    private void Start()
+    private void Awake()
     {
         instance = this;
-        List<PowerHandler> powersRemaining = ScriptableObjectManager.dictKeyToPowerHandler.Values.ToList().Difference(PlayerManager.powers);
-        foreach (AltarItem altarItem in altarItems)
-        {
-            if (powersRemaining.Count == 0) continue;
-            PowerHandler selectedPower = powersRemaining.popRandom();
-            altarItem.Setup(selectedPower.getKey());
-        }
+        //instance.autelPanel.SetActive(true);
+        //instance.autelPanel.SetActive(false);
     }
     
 #endregion
 
     public static void UpdateAltarDisplay()
     {
+        Debug.Log(instance.gameObject.name);
+        Debug.Log(instance.upgradesPointsDisplay == null);
         instance.upgradesPointsDisplay.SetText(PlayerManager.amountBlue.ToString());
+        List<PowerHandler> powersRemaining = ScriptableObjectManager.dictKeyToPowerHandler.Values.ToList().Difference(PlayerManager.powers);
+        foreach (AltarItem altarItem in instance.altarItems)
+        {
+            if (powersRemaining.Count == 0) continue;
+            PowerHandler selectedPower = powersRemaining.popRandom();
+            altarItem.Setup(selectedPower.getKey());
+            Debug.Log(selectedPower.getKey());
+        }
     }
     
 }
