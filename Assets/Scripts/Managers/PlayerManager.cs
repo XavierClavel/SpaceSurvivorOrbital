@@ -117,6 +117,7 @@ public class PlayerManager
     {
         powers.Add(powerHandler);
         dictKeyToStats[powerHandler.getKey()] = DataManager.dictPowers[powerHandler.getKey()].Clone();
+        Debug.Log("Acquired power");
     }
 
     public static void AcquirePower(string key)

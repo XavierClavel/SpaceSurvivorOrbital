@@ -132,6 +132,7 @@ public class ObjectManager : MonoBehaviour
     public void SelectUpgradePoint()
     {
         PlayerManager.AcquireUpgradePoint();
+        altar.DepleteAltar();
         HideAltarUI();
     }
 
