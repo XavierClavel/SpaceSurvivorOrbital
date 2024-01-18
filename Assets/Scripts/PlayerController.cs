@@ -128,6 +128,8 @@ public class PlayerController : MonoBehaviour
     private WaitForSeconds footstepsWait;
     private int shieldsAmount = 0;
     private int bonusStockAmount = 0;
+
+    public static BonusManager bonusManager;
     
     public int shields
     {
@@ -251,6 +253,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        bonusManager = new BonusManager();
         interactorHandler = GetComponent<InteractorHandler>();
 
         //playerSprite = characterHandler.spriteRenderer;
@@ -268,33 +271,17 @@ public class PlayerController : MonoBehaviour
         bonusStockAmount = amount;
     }
 
-
     void Start()
     {
         if (Helpers.isPlatformAndroid()) Application.targetFrameRate = 60;
 
         radar.SetActive(PlayerManager.activateRadar);
         spaceshipIndicator.SetActive(PlayerManager.activateShipArrow);
-
-        maxHealth = PlayerManager.playerData.character.maxHealth;
-        int currentHealth = PlayerManager.currentHealth ?? maxHealth;
-        baseSpeed = PlayerManager.playerData.character.baseSpeed;
-        setSpeed(1f);
-        damageResistanceMultiplier = PlayerManager.playerData.character.damageMultiplier;
-
+        
         rb = GetComponent<Rigidbody2D>();
         cameraTransform = Camera.main.transform;
         soundManager = SoundManager.instance;
         healthBar = ObjectManager.instance.healthBar;
-
-        souls = PlayerManager.getSouls();
-
-        invulnerabilityFrameDuration = Helpers.GetWait(ConstantsData.invulenerabilityFrame);
-
-        _health = maxHealth;
-
-        healthBar.Setup(maxHealth, currentHealth);
-
         interactorHandler.Initialize(PlayerManager.weaponPrefab, pointerFront, true);
         
         foreach(PowerHandler powerHandler in PlayerManager.powers) {
@@ -305,9 +292,27 @@ public class PlayerController : MonoBehaviour
         {
             equipmentHandler.Activate();
         }
+
+        maxHealth = PlayerManager.playerData.character.maxHealth + bonusManager.getBonusMaxHealth();
+        int currentHealth = PlayerManager.currentHealth ?? maxHealth;
+        baseSpeed = PlayerManager.playerData.character.baseSpeed;   
+        setSpeed(1f);
+        damageResistanceMultiplier = PlayerManager.playerData.character.damageMultiplier;
         
-        layoutManagerOrange.Setup(PlayerManager.playerData.resources.maxOrange + bonusStockAmount, ConstantsData.resourcesFillAmount, resourceType.orange);
-        layoutManagerGreen.Setup(PlayerManager.playerData.resources.maxGreen + bonusStockAmount, ConstantsData.resourcesFillAmount, resourceType.green);
+
+        souls = PlayerManager.getSouls();
+
+        invulnerabilityFrameDuration = Helpers.GetWait(ConstantsData.invulenerabilityFrame);
+
+        _health = maxHealth;
+        healthBar.Setup(maxHealth, currentHealth);
+        
+        
+        
+        layoutManagerOrange.Setup(PlayerManager.playerData.resources.maxOrange + bonusManager.getBonusStock(), 
+            ConstantsData.resourcesFillAmount, resourceType.orange);
+        layoutManagerGreen.Setup(PlayerManager.playerData.resources.maxGreen + bonusManager.getBonusStock(), 
+            ConstantsData.resourcesFillAmount, resourceType.green);
 
         layoutManagerOrange.FillNSliders(PlayerManager.amountOrange);
         layoutManagerGreen.FillNSliders(PlayerManager.amountGreen);
@@ -502,7 +507,7 @@ public class PlayerController : MonoBehaviour
 
     void Death()
     {
-        if (!PlayerEventsManager.onPlayerDeath()) return;
+        if (PlayerEventsManager.onPlayerDeath()) return;
         ObjectManager.DisplayLoseScreen();
     }
     

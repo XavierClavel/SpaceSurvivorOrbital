@@ -5,7 +5,7 @@ using UnityEngine;
 public static class CharacterManager
 {
     private const string characterBase = "0";
-    private const string characterMaxHearts = "1";
+    private const string characterMaxHearts = "Knil";
     private const string characterShield = "2";
     private const string characterSpeed = "3";
     private const string characterStrength = "4";
