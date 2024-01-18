@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MyBox;
 using UnityEngine;
 
 [Serializable]
@@ -17,7 +18,7 @@ public class PlayerData
         return new PlayerData()
         {
             resources = resources.Clone(),
-            character = new characterStats().setBase(),
+            character = character.Clone(),
             interactor = interactor.Clone(),
             attractor = attractor.Clone(),
             generic = generic.Clone()
@@ -203,6 +204,17 @@ public class characterStats
         baseSpeed = Vault.baseStats.Speed;
         damageMultiplier = Vault.baseStats.DamageMultiplier;
         return this;
+    }
+
+    public characterStats Clone()
+    {
+        return new characterStats()
+        {
+            maxHealth = this.maxHealth,
+            maxShields = this.maxShields,
+            baseSpeed = this.baseSpeed,
+            damageMultiplier = this.damageMultiplier
+        };
     }
 }
 
