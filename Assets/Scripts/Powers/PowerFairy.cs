@@ -22,6 +22,7 @@ public class PowerFairy : Power, IPlayerEvents
     public override void onSetup()
     {
         isResurrectionAvailable = fullStats.generic.boolA;
+        isResurrectionAvailable = true;
         if (isResurrectionAvailable) PlayerEventsManager.registerListener(this);
         
         Fairy newFairy = Instantiate(fairy);

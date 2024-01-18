@@ -7,6 +7,6 @@ public class Stock : Equipment
     protected override void onUse()
     {
         int additionalResourceAmount = stats.projectiles;
-        PlayerController.instance.AddBonusStock(additionalResourceAmount);
+        PlayerController.bonusManager.addBonusStock(additionalResourceAmount);
     }
 }

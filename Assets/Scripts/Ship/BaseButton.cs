@@ -86,12 +86,12 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
     {
         Node currentNode = UpgradesDisplayManager.instance.currentActivePanel.dictKeyToNode[key];
         List<Node> nodes = new List<Node> {currentNode};
-        getLeafNodes(nodes, currentNode);
-        getRootNodes(nodes, nodes);
+        //getLeafNodes(nodes, currentNode);
+        //getRootNodes(nodes, nodes);
 
         foreach (Node node in nodes)
         {
-            if (node.tier <= currentNode.tier)
+            if (node.tier <= currentNode.tier && NodeManager.dictKeyToButton[node.key].status != skillButtonStatus.bought)
             {
                 buttonsToDeactivate.TryAdd(node.key);
             }

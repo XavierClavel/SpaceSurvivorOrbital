@@ -29,7 +29,7 @@ public class PlayerEventsManager
     }
     
     /**
-     * Dispatch event "onPlayerDeath". Returns false if one listener cancels player death.
+     * Dispatch event "onPlayerDeath". Returns true if one listener cancels player death.
      */
     public static bool onPlayerDeath()
     {

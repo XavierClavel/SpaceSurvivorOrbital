@@ -54,7 +54,7 @@ public class Timer : MonoBehaviour
                 //skullTransform.eulerAngles = Vector3.zero;
                 yield return Helpers.GetWait(Time.fixedDeltaTime);
             }
-            PlanetSelector.IncreaseDifficulty();
+            PlanetSelector.IncreaseDifficulty(true);
         }
         //Vector3 bossPosition = PlayerController.instance.transform.position + Helpers.getRandomPositionInRadius(new Vector2(4f, 8f));
         //Instantiate(boss, bossPosition, Quaternion.identity).onDeath.AddListener(OnBossDefeat);
