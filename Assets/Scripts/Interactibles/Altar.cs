@@ -10,6 +10,7 @@ public class Altar : MonoBehaviour, IInteractable
     [SerializeField] float timeToLaunch = 4f;
     [SerializeField] ParticleSystem auraAltar;
     [SerializeField] ParticleSystem altarActivate;
+    [SerializeField] ParticleSystem altarLoading;
     float factor;
     float fillAmount = 1;
     private Animator animator;
@@ -32,6 +33,8 @@ public class Altar : MonoBehaviour, IInteractable
     {
         image.gameObject.SetActive(true);
         altarActivate.Play();
+        altarLoading.Play();
+
         StartCoroutine(nameof(PrepareAltar));
         StartCoroutine(nameof(SfxLoadingAltar));
     }
@@ -40,6 +43,7 @@ public class Altar : MonoBehaviour, IInteractable
     {
         StopCoroutine(nameof(PrepareAltar));
         altarActivate.Stop();
+        altarLoading.Stop();
         fillAmount = 1;
         image.fillAmount = fillAmount;
         image.gameObject.SetActive(false);
