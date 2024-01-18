@@ -30,7 +30,7 @@ public class PlayerManager
 
     public static bool isPlayingWithGamepad { get; private set; }
     public static int currentTimer { get; set; }
-    public static int? currentHealth = null;
+    public static int damageTaken = 0;
 
     public static List<PowerHandler> powers = new List<PowerHandler>();
     public static List<EquipmentHandler> equipments = new List<EquipmentHandler>();
@@ -65,9 +65,9 @@ public class PlayerManager
         SaveManager.updateSouls(souls);
     }
 
-    public static void setCurrentHealth(int health)
+    public static void setCurrentDamage(int health, int maxHealth)
     {
-        currentHealth = health;
+        damageTaken = maxHealth - health;
     }
 
 
@@ -97,7 +97,7 @@ public class PlayerManager
         amountBlue = 0;
         amountGreen = 0;
         amountOrange = 0;
-        currentHealth = null;
+        damageTaken = 0;
         currentTimer = 0;
 
         playerData.setBase();
