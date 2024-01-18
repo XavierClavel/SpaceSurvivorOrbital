@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Altar : MonoBehaviour, IInteractable
 {
     [SerializeField] Image image;
-    [SerializeField] float timeToLaunch = 5f;
+    [SerializeField] float timeToLaunch = 4f;
     [SerializeField] ParticleSystem auraAltar;
     [SerializeField] ParticleSystem altarActivate;
     float factor;
@@ -31,9 +31,9 @@ public class Altar : MonoBehaviour, IInteractable
     private void OnTriggerEnter2D(Collider2D other)
     {
         image.gameObject.SetActive(true);
-        SoundManager.PlaySfx(transform, key: "Altar_Loading");
         altarActivate.Play();
         StartCoroutine(nameof(PrepareAltar));
+        StartCoroutine(nameof(SfxLoadingAltar));
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -53,7 +53,14 @@ public class Altar : MonoBehaviour, IInteractable
             fillAmount -= Time.fixedDeltaTime * factor;
             image.fillAmount = fillAmount;
         }
-       ActivateAltar();
+
+        ActivateAltar();
+    }
+
+    IEnumerator SfxLoadingAltar()
+    {
+       yield return new WaitForSeconds(timeToLaunch - 1);
+        SoundManager.PlaySfx(transform, key: "Altar_Loading");     
     }
 
     public void DepleteAltar()

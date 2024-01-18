@@ -71,6 +71,7 @@ public class ObjectManager : MonoBehaviour
         if (amountEggs > 0) return;
         
         PlayerManager.AcquireUpgradePoint();
+        SoundManager.PlaySfx(PlayerController.instance.transform, key: "Collectible_Blue");
         UpgradeUpDisplay();
     }
 
@@ -90,6 +91,7 @@ public class ObjectManager : MonoBehaviour
 
         if (amountDens > 0) return;
         Instantiate(instance.shipAppearPS, PlayerController.instance.transform);
+        SoundManager.PlaySfx(PlayerController.instance.transform, key: "Monster_Altar_Destroy");
         DisplaySpaceship();
     }
 
