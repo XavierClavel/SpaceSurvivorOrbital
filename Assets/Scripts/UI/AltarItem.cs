@@ -25,6 +25,7 @@ public class AltarItem : MonoBehaviour
         {
             AcquirePower(key);
         };
+        button.onClick.RemoveAllListeners();
         button.onClick.AddListener(action);
     }
     
