@@ -1,0 +1,150 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8341967541699158792
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4845253234707998957}
+  - component: {fileID: 1064752386361765338}
+  - component: {fileID: 6718325005904453249}
+  - component: {fileID: 5519359857692174018}
+  m_Layer: 0
+  m_Name: PowerSynthWave
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4845253234707998957
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8341967541699158792}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1064752386361765338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8341967541699158792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2722b48668f02246bb34509f6828ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats:
+    baseDamage: {x: 0, y: 0}
+    attackSpeed: 0
+    range: 0
+    cooldown: 0
+    magazineReloadTime: 0
+    criticalChance: 0
+    criticalMultiplier: 0
+    magazine: 0
+    projectiles: 0
+    spread: 0
+    pierce: 0
+    speedWhileAiming: 0
+    knockback: 0
+    element: 0
+  fullStats:
+    resources:
+      maxPurple: 3
+      maxOrange: 3
+      maxGreen: 3
+    character:
+      maxHealth: 0
+      maxShields: 0
+      baseSpeed: 0
+      damageMultiplier: 0
+    interactor:
+      baseDamage: {x: 0, y: 0}
+      attackSpeed: 0
+      range: 0
+      cooldown: 0
+      magazineReloadTime: 0
+      criticalChance: 0
+      criticalMultiplier: 0
+      magazine: 0
+      projectiles: 0
+      spread: 0
+      pierce: 0
+      speedWhileAiming: 0
+      knockback: 0
+      element: 0
+    attractor:
+      range: 5
+      force: 5
+    generic:
+      boolA: 0
+      boolB: 0
+      boolC: 0
+      intA: 0
+      intB: 0
+      floatA: 0
+      floatB: 0
+      elementA: 0
+  isUsing: 0
+  activateOnStart: 1
+  shockwave: {fileID: 865323002550565439, guid: c04bd634b596d754c94c7ba565c331b7, type: 3}
+--- !u!58 &6718325005904453249
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8341967541699158792}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1
+--- !u!114 &5519359857692174018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8341967541699158792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf6d3619c49698a4ebcebc3d9c33cde5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
