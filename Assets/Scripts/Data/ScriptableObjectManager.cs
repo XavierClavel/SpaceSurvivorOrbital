@@ -51,6 +51,7 @@ public static class ScriptableObjectManager
         WeaponHandler[] weaponHandlers = Resources.LoadAll<WeaponHandler>(Vault.path.BaseWeapons);
         foreach (WeaponHandler weaponHandler in weaponHandlers)
         {
+            if (!weaponHandler.canBeSelected()) continue;
             dictKeyToWeaponHandler[weaponHandler.getKey()] = weaponHandler;
             baseWeapons.Add(weaponHandler);
         }
