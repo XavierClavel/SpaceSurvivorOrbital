@@ -25,6 +25,7 @@ public class Dagger : Power
     private bool doMirror;
     private bool doRecall;
     private bool doExplode;
+    private float daggerDuration;
 
     public override void Setup(PlayerData _)
     {
@@ -39,6 +40,7 @@ public class Dagger : Power
         daggerPrefab.gameObject.SetActive(false);
         pool = new ComponentPool<Bullet>(daggerPrefab);
         shockwavePool = new ComponentPool<Shockwave>(daggerShockwave);
+        daggerDuration = Mathf.Min(Camera.main.getBounds().extents.x, Camera.main.getBounds().extents.y) * 0.95f / stats.attackSpeed;
     }
 
     protected override void onUse()
@@ -99,18 +101,18 @@ public class Dagger : Power
     {
         if (!doRecall)
         {
-            yield return Helpers.GetWait(1f);
+            yield return Helpers.GetWait(daggerDuration);
             recallDagger(dagger);
             yield break;
         }
         
-        yield return Helpers.GetWait(1f);
+        yield return Helpers.GetWait(daggerDuration);
         Vector2 velocity = dagger.rb.velocity;
         dagger.rb.velocity = Vector2.zero;
-        dagger.transform.DORotate(180f * Vector3.forward, 0.5f).SetRelative();
-        yield return Helpers.GetWait(0.5f);
+        dagger.transform.DORotate(180f * Vector3.forward, 0.1f).SetRelative();
+        yield return Helpers.GetWait(0.1f);
         dagger.rb.velocity = -velocity;
-        yield return Helpers.GetWait(1.5f);
+        yield return Helpers.GetWait(daggerDuration);
         recallDagger(dagger);
     }
 
