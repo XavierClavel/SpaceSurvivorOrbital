@@ -33,7 +33,7 @@ public class Altar : MonoBehaviour, IInteractable
     {
         image.gameObject.SetActive(true);
         altarActivate.Play();
-        altarLoading.Play();
+        //altarLoading.Play();
 
         StartCoroutine(nameof(PrepareAltar));
         StartCoroutine(nameof(SfxLoadingAltar));
@@ -43,7 +43,7 @@ public class Altar : MonoBehaviour, IInteractable
     {
         StopCoroutine(nameof(PrepareAltar));
         altarActivate.Stop();
-        altarLoading.Stop();
+        //altarLoading.Stop();
         fillAmount = 1;
         image.fillAmount = fillAmount;
         image.gameObject.SetActive(false);
