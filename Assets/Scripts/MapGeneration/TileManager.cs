@@ -365,14 +365,19 @@ public class TileManager : MonoBehaviour
             if (newPos.y > currentPos.y + mapRadius.y) newPos.y -= mapSize.y;
             else if (newPos.y < currentPos.y - mapRadius.y) newPos.y += mapSize.y;
             
-            /*
+            
             Vector3 deltaPos = PositionToWorld(newPos - pos);
-            Collider2D[] ennemies = Physics2D.OverlapAreaAll(pos - (Vector2)tileSize * 0.5f, pos + (Vector2)tileSize * 0.5f, mask);
+            Collider2D[] ennemies = Physics2D.OverlapAreaAll(
+                (pos - 0.5f*Vector2.one) * tileSize, 
+                (pos + 0.5f*Vector2.one) * tileSize, 
+                mask);
+            Debug.Log(ennemies.Length);
             foreach (var ennemy in ennemies)
             {
+                if (ennemy.CompareTag("Stele")) continue;
                 ennemy.transform.position += deltaPos;
             }
-            */
+            
             
             dictPositionToTile.Add(newPos, tile);
             tile.transform.position = PositionToWorld(newPos);
