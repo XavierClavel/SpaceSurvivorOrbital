@@ -11,9 +11,18 @@ public class ObjectHandler : ScriptableObject
     public Sprite getIcon() { return icon; }
 }
 
+public class HidableObjectHandler : ObjectHandler
+{
+    [SerializeField] private bool hide;
+    public bool canBeSelected()
+    {
+        return !hide;
+    }
+}
+
 
 [CreateAssetMenu(fileName = "PowerHandler", menuName = Vault.other.scriptableObjectMenu + "PowerHandler", order = 0)]
-public class PowerHandler : ObjectHandler
+public class PowerHandler : HidableObjectHandler
 {
     [SerializeField] private Power power;
 

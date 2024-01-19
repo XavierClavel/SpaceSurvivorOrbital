@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EquipmentHandler", menuName = Vault.other.scriptableObjectMenu + "EquipmentHandler", order = 0)]
-public class EquipmentHandler : ObjectHandler
+public class EquipmentHandler : HidableObjectHandler
 {   
     [SerializeField] private Equipment equipment;
     

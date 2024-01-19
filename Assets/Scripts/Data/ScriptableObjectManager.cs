@@ -43,6 +43,7 @@ public static class ScriptableObjectManager
         PowerHandler[] powerHandlers = Resources.LoadAll<PowerHandler>(Vault.path.Powers);
         foreach (PowerHandler powerHandler in powerHandlers)
         {
+            if (!powerHandler.canBeSelected()) continue;
             dictKeyToPowerHandler[powerHandler.getKey()] = powerHandler;
         }
         
@@ -66,6 +67,7 @@ public static class ScriptableObjectManager
         CharacterHandler[] characterHandlers = Resources.LoadAll<CharacterHandler>(Vault.path.Characters);
         foreach (CharacterHandler characterHandler in characterHandlers)
         {
+            if (!characterHandler.canBeSelected()) continue;
             dictKeyToCharacterHandler[characterHandler.getKey()] = characterHandler;
             characters.Add(characterHandler);
         }
@@ -75,6 +77,7 @@ public static class ScriptableObjectManager
         EquipmentHandler[] equipmentHandlers = Resources.LoadAll<EquipmentHandler>(Vault.path.Equipments);
         foreach (EquipmentHandler equipmentHandler in equipmentHandlers)
         {
+            if (!equipmentHandler.canBeSelected()) continue;
             dictKeyToEquipmentHandler[equipmentHandler.getKey()] = equipmentHandler;
             equipments.Add(equipmentHandler);
         }
