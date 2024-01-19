@@ -63,6 +63,7 @@ public class Shockwave : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (objectsHit == null) return;
         if (objectsHit.Contains(other.gameObject)) return;
         objectsHit.Add(other.gameObject);
         

@@ -30,6 +30,7 @@ public class DivineLightning : Power, IElecZone
     private bool doSpawnElecZone;
     private bool spawnElecZoneCounter = true;
     private float scaleElecZone;
+    private Camera cam;
 
     protected override void Start()
     {
@@ -48,6 +49,7 @@ public class DivineLightning : Power, IElecZone
             .addOnCompleteEvent(ElecEventManager.ElecStop);
         
         ElecEventManager.registerListener(this);
+        cam = Camera.main;
     }
 
     private void OnDestroy()
@@ -88,12 +90,13 @@ public class DivineLightning : Power, IElecZone
 
     protected override void onUse()
     {
-        List<Collider2D> hits = Physics2D.OverlapBoxAll(playerTransform.position, range,0, mask).ToList();
+        Bounds cameraBounds = cam.getBounds();
+        List<Collider2D> hits = Physics2D.OverlapAreaAll(cameraBounds.min, cameraBounds.max, mask).ToList();
         for (int i = 0; i < stats.projectiles; i++)
         {
             if (hits.Count == 0)
             {
-                Strike(playerTransform.position + Helpers.getRandomPositionInRadius(range));
+                Strike(cameraBounds.getRandom());
                 continue;
             }
             Strike(hits.popRandom().transform.position);
