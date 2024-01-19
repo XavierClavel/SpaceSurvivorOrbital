@@ -93,6 +93,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("UI")] 
     [SerializeField] private TextMeshProUGUI soulsDisplay;
+    [SerializeField] private TextMeshProUGUI blueDisplay;
     [SerializeField] ResourceLayoutManager layoutManagerOrange;
     [SerializeField] ResourceLayoutManager layoutManagerGreen;
     public LayoutManager bulletsLayoutManager;
@@ -421,6 +422,7 @@ public class PlayerController : MonoBehaviour
         Aim();
         attractorTransform.position = transform.position;
         originalCameraPosition = cameraTransform.localPosition;
+        instance.blueDisplay.SetText(PlayerManager.amountBlue.ToString());
     }
 
     void Move()
