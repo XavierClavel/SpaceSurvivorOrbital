@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Shapes;
 using DG.Tweening;
+using UnityEngine.Serialization;
 
 public interface UIPanel
 {
@@ -25,8 +26,10 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     [Header("UI Elements")]
     public SkillButton button;
     public Polyline line;
-    [SerializeField] List<NodeManager> panels;
+    private List<NodeManager> panels = new List<NodeManager>();
     [SerializeField] List<Button> buttons;
+    [SerializeField] private NodeManager prefabPanelSkill;
+    [SerializeField] private NodeManager prefabPanelUpgrade;
 
     [Header("Default display")]
     [SerializeField] string defaultCharacter = "Knil";
@@ -63,8 +66,6 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     {
         nbPanelsInitialized = 0;
         instance = this;
-
-        currentActivePanel = panels[0];
 
         if (DataSelector.selectedWeapon == string.Empty) //Default buttons sprites if game launched from ship scene
         {
@@ -118,17 +119,29 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
         List<string> keys = new List<string>
         {
             PlayerManager.weapon.getKey(),
-            
         };
-        keys.AddList(PlayerManager.powers.Select(it => it.getKey()).ToList());
         keys.AddList(PlayerManager.equipments.Select(it => it.getKey()).ToList());
+        keys.AddList(PlayerManager.powers.Select(it => it.getKey()).ToList());
 
         List<Sprite> icons = new List<Sprite>
         {
             DataSelector.getSelectedWeapon().getIcon(),
         };
-        icons.AddList(PlayerManager.powers.Select(it => it.getIcon()).ToList());
         icons.AddList(PlayerManager.equipments.Select(it => it.getIcon()).ToList());
+        icons.AddList(PlayerManager.powers.Select(it => it.getIcon()).ToList());
+
+        for (int i = 0; i < 1 + PlayerManager.equipments.Count; i++)
+        {
+            InstantiatePanel(prefabPanelSkill, keys[i]);
+        }
+        
+        for (int i = 1 + PlayerManager.equipments.Count; i < 1 + PlayerManager.equipments.Count + PlayerManager.powers.Count; i++)
+        {
+            InstantiatePanel(prefabPanelUpgrade, keys[i]);
+        }
+        
+        currentActivePanel = panels[0];
+        
         
         for (int i = 0; i < panels.Count; i++)
         {
@@ -144,8 +157,19 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
                 buttons[i].onClick.AddListener(delegate { SetActivePanel(value); });
                 panels[i].setup(keys[i]);
             }
-                
         }
+
+        for (int i = panels.Count; i < buttons.Count; i++)
+        {
+            buttons[i].gameObject.SetActive(false);
+        }
+    }
+
+    private void InstantiatePanel(NodeManager panel, string key)
+    {
+        panel = Instantiate(panel, transform);
+        panel.gameObject.name = $"Panel {key}";
+        panels.Add(panel);
     }
     
     public void UpdateButtonSprites()
