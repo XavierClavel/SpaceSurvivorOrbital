@@ -126,6 +126,23 @@ public static class SingletonManager
 
 public static class Extensions
 {
+    
+    public static Bounds getBounds(this Camera camera)
+    {
+        float screenAspect = (float)Screen.width / (float)Screen.height;
+        float cameraHeight = camera.orthographicSize * 2;
+        Bounds bounds = new Bounds(
+            camera.transform.position,
+            new Vector3(cameraHeight * screenAspect, cameraHeight, 0));
+        return bounds;
+    }
+
+    public static Vector3 getRandom(this Bounds bounds)
+    {
+        float x = bounds.center.x + Helpers.getRandomSign() * Helpers.getRandomFloat(bounds.extents.x * 0.8f);
+        float y = bounds.center.y + Helpers.getRandomSign() * Helpers.getRandomFloat(bounds.extents.y * 0.8f);
+        return new Vector3(x, y, 0f);
+    }
 
     public static void TryRemove<T1, T2>(this Dictionary<T1, T2> dict, T1 key)
     {

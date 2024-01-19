@@ -27,6 +27,7 @@ public class PowerToxicZone : Power
     private Dictionary<GameObject, int> dictEnnemyToPresence = new Dictionary<GameObject, int>();
 
     private bool doFollowPlayer = false;
+    private Camera cam;
     
     protected override void Start()
     {
@@ -35,6 +36,7 @@ public class PowerToxicZone : Power
         instance = this;
 
         pool = new ComponentPool<ToxicZone>(toxicZonePrefab);
+        cam = Camera.main;
     }
     
     public static void OnEnnemyEnterToxicZone(GameObject ennemy)
@@ -69,17 +71,17 @@ public class PowerToxicZone : Power
 
     IEnumerator SpawnToxicZones()
     {
+        Bounds cameraBounds = cam.getBounds();
         for (int i = 0; i < stats.projectiles; i++)
         {
-            Spawn();
+            Spawn(cameraBounds);
             yield return Helpers.GetWait(0.2f);
         }
     }
 
-    private void Spawn()
+    private void Spawn(Bounds bounds)
     {
-        Vector3 spawnPoint = playerTransform.position + Helpers.getRandomPositionInRadius(range, shape.square);
-        ToxicZone toxicZone = pool.get(spawnPoint);
+        ToxicZone toxicZone = pool.get(bounds);
         toxicZone.Setup(stats.range, doFollowPlayer);
     }
 

@@ -189,6 +189,11 @@ public class ComponentPool<T> where T : Component
         return get(position, Quaternion.identity);
     }
     
+    public T get(Bounds bounds)
+    {
+        return get(bounds.getRandom(), Quaternion.identity);
+    }
+    
     public T get(Vector3 position, Vector3 rotation)
     {
         return get(position, Quaternion.Euler(rotation));
