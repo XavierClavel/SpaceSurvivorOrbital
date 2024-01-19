@@ -80,6 +80,21 @@ public class ObjectManager : MonoBehaviour
         GameObject newInstanceUpgrade = Instantiate(instance.upgradePS, PlayerController.instance.transform);
         Destroy(newInstanceUpgrade,2f);
     }
+
+    public static void registerHitable(Breakable hitable)
+    {
+        dictObjectToHitable[hitable.gameObject] = hitable;
+    }
+
+    public static void unregisterHitable(GameObject gameObject)
+    {
+        dictObjectToHitable.TryRemove(gameObject);
+    }
+
+    public static Breakable retrieveHitable(GameObject gameObject)
+    {
+        return !dictObjectToHitable.ContainsKey(gameObject) ? null : dictObjectToHitable[gameObject];
+    }
     
     public static void registerDenSpawned() {
         amountDens++;

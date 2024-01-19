@@ -207,7 +207,7 @@ public class Ennemy : Breakable
         player.AddEnnemyScore(cost);
         StressTest.nbEnnemies--;
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
-        ObjectManager.dictObjectToHitable.Remove(gameObject);
+        ObjectManager.unregisterHitable(gameObject);
         
         onDeath.Invoke();
         StartCoroutine(nameof(ShakeCoroutine));

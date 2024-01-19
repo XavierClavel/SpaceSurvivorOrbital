@@ -44,7 +44,7 @@ public class SpawnManager : Breakable
         SoundManager.PlaySfx(transform, key: "Spawn_Destroy");
         ObjectManager.registerDenDestroyed();
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
-        ObjectManager.dictObjectToHitable.TryRemove(gameObject);
+        ObjectManager.unregisterHitable(gameObject);
         Destroy(gameObject);
     }
 

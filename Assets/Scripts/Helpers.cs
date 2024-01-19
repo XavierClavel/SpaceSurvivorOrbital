@@ -823,7 +823,7 @@ public class Helpers : MonoBehaviour
 
     }
 
-    public static Vector3 getRandomPositionInRing(Vector2 minRadius, Vector2 maxRadius, shape shape)
+    public static Vector3 getRandomPositionInRing(Vector2 radius, shape shape)
     {
         switch (shape)
         {
@@ -831,8 +831,19 @@ public class Helpers : MonoBehaviour
                 throw new NotImplementedException();
 
             case shape.square:
-                float valueX = Helpers.getRandomSign() * UnityEngine.Random.Range(minRadius.x, maxRadius.x);
-                float valueY = Helpers.getRandomSign() * UnityEngine.Random.Range(minRadius.y, maxRadius.y);
+                float valueX;
+                float valueY;
+                if (getRandomBool())
+                {
+                    valueX = Helpers.getRandomSign() * radius.x;
+                    valueY = Helpers.getRandomSign() * getRandomFloat(radius.y);
+                }
+                else
+                {
+                    valueX = Helpers.getRandomSign() * getRandomFloat(radius.x);
+                    valueY = Helpers.getRandomSign() * radius.y;
+                }
+                
                 return new Vector3(valueX, valueY, 0f);
 
             default:

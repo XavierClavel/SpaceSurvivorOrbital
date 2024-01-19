@@ -68,7 +68,7 @@ public class Shockwave : MonoBehaviour
         objectsHit.Add(other.gameObject);
         
         HitInfo hitInfo = new HitInfo(shockwaveDamage, false, effect, shockwaveKnockback);
-        ObjectManager.dictObjectToHitable[other.gameObject].Hit(hitInfo);
+        ObjectManager.retrieveHitable(other.gameObject)?.Hit(hitInfo);
         
     }
 }

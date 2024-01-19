@@ -260,9 +260,7 @@ public class Laser : Interactor
 
     void HurtEnnemy(GameObject go)
     {
-        if (!ObjectManager.dictObjectToHitable.ContainsKey(go)) return;
-        ObjectManager.dictObjectToHitable[go].StackDamage(dps, stacker.get());
-
+        ObjectManager.retrieveHitable(go)?.StackDamage(dps, stacker.get());
     }
 
     protected override void onUse()

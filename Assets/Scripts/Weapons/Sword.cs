@@ -44,7 +44,7 @@ public class Sword : Interactor
     public void onHit(Collider2D other)
     {
         HitInfo hitInfo = new HitInfo(stats);
-        ObjectManager.dictObjectToHitable[other.gameObject].Hit(hitInfo);
+        ObjectManager.retrieveHitable(other.gameObject)?.Hit(hitInfo);
     }
 
     private void onAttackEnd()

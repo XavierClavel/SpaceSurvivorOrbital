@@ -154,9 +154,7 @@ public abstract class Damager : MonoBehaviour
             }
             else
             {
-                Debug.Log(target == null);
-                Debug.Log(ObjectManager.dictObjectToHitable == null);
-                ObjectManager.dictObjectToHitable[target.gameObject].Hit(new HitInfo(stats));
+                ObjectManager.retrieveHitable(target.gameObject)?.Hit(new HitInfo(stats));
             }
         }
     }
@@ -168,7 +166,7 @@ public abstract class Damager : MonoBehaviour
 
     public void Hit(GameObject target, status effect = status.none)
     {
-        ObjectManager.dictObjectToHitable[target].Hit(new HitInfo(stats, effect));
+        ObjectManager.retrieveHitable(target)?.Hit(new HitInfo(stats, effect));
     }
     
 

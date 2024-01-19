@@ -64,7 +64,7 @@ public class Breakable : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
-        ObjectManager.dictObjectToHitable.TryRemove(gameObject);
+        ObjectManager.unregisterHitable(gameObject);
     }
 
 

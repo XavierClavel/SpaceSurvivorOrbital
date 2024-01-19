@@ -21,6 +21,7 @@ public class TileManager : MonoBehaviour
     Vector2Int lastPos = Vector2Int.zero;
     Vector2Int mapRadius;
     List<Tile> tilesToPlace = new List<Tile>();
+    private int mask;
 
     [HideInInspector] public static int tilesInAdvance => instance.uncollapsedTiles.Count - instance.tilesToPlace.Count;
     [HideInInspector] public static int tilesToPlaceAmount => instance.tilesToPlace.Count;
@@ -43,6 +44,7 @@ public class TileManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        mask = LayerMask.GetMask(Vault.layer.Ennemies);
         instance = this;
         if (!PlanetManager.hasData()) PlanetManager.setData(planetData);
         if (!generateMap) return;
@@ -356,14 +358,22 @@ public class TileManager : MonoBehaviour
             if (!dictPositionToTile.ContainsKey(pos)) continue;
             GameObject tile = dictPositionToTile[pos];
             dictPositionToTile.Remove(pos);
-            //Vector2Int newPos = Helpers.CentralSymmetry(pos, lastPos) + offset;
             Vector2Int newPos = pos;// - offset;
             if (newPos.x > currentPos.x + mapRadius.x) newPos.x -= mapSize.x;
             else if (newPos.x < currentPos.x - mapRadius.x) newPos.x += mapSize.x;
 
             if (newPos.y > currentPos.y + mapRadius.y) newPos.y -= mapSize.y;
             else if (newPos.y < currentPos.y - mapRadius.y) newPos.y += mapSize.y;
-
+            
+            /*
+            Vector3 deltaPos = PositionToWorld(newPos - pos);
+            Collider2D[] ennemies = Physics2D.OverlapAreaAll(pos - (Vector2)tileSize * 0.5f, pos + (Vector2)tileSize * 0.5f, mask);
+            foreach (var ennemy in ennemies)
+            {
+                ennemy.transform.position += deltaPos;
+            }
+            */
+            
             dictPositionToTile.Add(newPos, tile);
             tile.transform.position = PositionToWorld(newPos);
         }
