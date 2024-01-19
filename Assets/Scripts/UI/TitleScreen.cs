@@ -12,6 +12,7 @@ public class TitleScreen : MonoBehaviour, UIPanel
     private static TitleScreen instance;
     public static bool isSelectionFree { get; private set; }
     [SerializeField] private TextMeshProUGUI soulsDisplay;
+    [SerializeField] private TextMeshProUGUI soulsDisplay2;
 
     [Header("Debug")] 
     [SerializeField] private bool freeSelection;
@@ -51,6 +52,7 @@ public class TitleScreen : MonoBehaviour, UIPanel
     public static void UpdateSoulsDisplay()
     {
         instance.soulsDisplay.SetText(PlayerManager.getSouls().ToString());
+        instance.soulsDisplay2.SetText(PlayerManager.getSouls().ToString());
     }
 
 }
