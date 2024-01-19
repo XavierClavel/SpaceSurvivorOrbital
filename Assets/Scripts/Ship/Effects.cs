@@ -244,30 +244,6 @@ public class Effect
     }
     
 
-    public void Unlock()
-    {
-        List<string> value = Helpers.ParseList(this.value);
-        foreach (string s in value) UnlockItem(s);
-    }
-
-    void UnlockItem(string s)
-    {
-        switch (s)
-        {
-            case Vault.unlockable.Radar:
-                PlayerManager.ActivateRadar();
-                break;
-
-            case Vault.unlockable.ShipIndicator:
-                PlayerManager.ActivateShipArrow();
-                break;
-
-            default:
-                throw new System.ArgumentException($"Unlockable \"{s}\" was not found");
-        }
-    }
-
-
     public void ApplyOperation(ref Interactor parameter)
     {
         Interactor value = ScriptableObjectManager.dictKeyToWeaponHandler[this.value.Trim()].getWeapon();

@@ -106,7 +106,6 @@ public class PlayerController : MonoBehaviour
     public float largeSize = 5.0f;
 
     [Header("Bonus")]
-    [SerializeField] public GameObject radar;
     [SerializeField] GameObject spaceshipIndicator;
 
     public static bool isPlayingWithGamepad = false;
@@ -276,7 +275,6 @@ public class PlayerController : MonoBehaviour
     {
         if (Helpers.isPlatformAndroid()) Application.targetFrameRate = 60;
 
-        radar.SetActive(PlayerManager.activateRadar);
         spaceshipIndicator.SetActive(PlayerManager.activateShipArrow);
         
         rb = GetComponent<Rigidbody2D>();

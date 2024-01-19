@@ -15,6 +15,7 @@ public class ObjectManager : MonoBehaviour
     [SerializeField] GameObject altarFirstSelected;
     [SerializeField] GameObject loseScreen;
     [SerializeField] GameObject loseScreenFirstSelected;
+    [SerializeField] private GameObject radar;
     public Transform powersDisplayLayout;
     public PowerDisplay powerDisplayPrefab;
     public Slider reloadSlider;
@@ -58,6 +59,11 @@ public class ObjectManager : MonoBehaviour
     public static void DisplaySpaceship()
     {
         spaceship.SetActive(true);
+    }
+
+    public static void ActivateRadar()
+    {
+        instance.radar.SetActive(true);
     }
 
     public static void HideSpaceship() { spaceship.SetActive(false); }
@@ -116,6 +122,7 @@ public class ObjectManager : MonoBehaviour
         amountEggs = 0;
         amountDens = 0;
         amountDensDestroyed = 0;
+        radar.SetActive(false);
         if (Helpers.isPlatformAndroid()) pauseButton.SetActive(true);
 
     }

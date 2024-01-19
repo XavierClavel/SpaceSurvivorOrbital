@@ -74,6 +74,11 @@ public class Bullet : MonoBehaviour
         {
             ObjectManager.HitObject(other.gameObject, hitInfo);
         }
+        
+        if (other.gameObject.CompareTag("Stele"))
+        {
+            ObjectManager.HitObject(other.gameObject, hitInfo);
+        }
 
 
         if (currentPierce == pierce)

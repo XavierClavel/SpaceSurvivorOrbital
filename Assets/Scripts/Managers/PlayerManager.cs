@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public class PlayerManager
 {
 
-    public static bool activateRadar = false;
     public static bool activateShipArrow = false;
     public static bool activateMinerBotAttractor = false;
 
@@ -22,7 +21,6 @@ public class PlayerManager
     public static PlayerData weaponData = new PlayerData();
     public static WeaponHandler weapon;
     public static CharacterHandler character;
-    public static EquipmentHandler equipment;
 
     public static int amountGreen { get; private set; }
     public static int amountOrange { get; private set; }
@@ -86,11 +84,6 @@ public class PlayerManager
         //character = characterHandler;
     }
 
-    public static void setEquipment(EquipmentHandler equipmentHandler)
-    {
-        equipment = equipmentHandler;
-    }
-
 
     public static void Reset()
     {
@@ -117,7 +110,6 @@ public class PlayerManager
     {
         powers.Add(powerHandler);
         dictKeyToStats[powerHandler.getKey()] = DataManager.dictPowers[powerHandler.getKey()].Clone();
-        Debug.Log("Acquired power");
     }
 
     public static void AcquirePower(string key)
@@ -159,7 +151,6 @@ public class PlayerManager
         switch (effect.effect)
         {
             case effectType.unlocks:
-                effect.Unlock();
                 break;
 
             case effectType.weapon:
@@ -177,19 +168,6 @@ public class PlayerManager
         amountGreen -= costGreen;
         amountOrange -= costOrange;
     }
-
-    public static void ActivateRadar()
-    {
-        activateRadar = true;
-    }
-    public static void ActivateShipArrow()
-    {
-        activateShipArrow = true;
-    }
-
-    public static void ActivateMinerBotAttractor()
-    {
-        activateMinerBotAttractor = true;
-    }
+    
 
 }

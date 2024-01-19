@@ -52,6 +52,7 @@ public class SpawnManager : Breakable
     protected override void Start()
     {
         base.Start();
+        gameObject.tag = "Stele";
         
         difficulty = PlanetManager.getDifficulty();
         spawnData = DataManager.dictDifficulty[difficulty.ToString()];

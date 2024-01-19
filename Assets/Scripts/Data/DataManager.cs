@@ -81,7 +81,6 @@ public class DataManager : ScriptableObject
         
         PlayerManager.setWeapon(dictWeapons[selectedWeapon].Clone(), ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
         PlayerManager.setCharacter(ScriptableObjectManager.dictKeyToCharacterHandler[selectedCharacter]);
-        PlayerManager.setEquipment(ScriptableObjectManager.dictKeyToEquipmentHandler[selectedEquipment]);
 
         PlanetSelectionManager.GenerateData();
     }
