@@ -21,6 +21,8 @@ public class UpgradeButton : TreeButton
 
     protected override bool SpendResources()
     {
+        Debug.Log(blueCost);
+        Debug.Log(PlayerManager.amountBlue);
         if (PlayerManager.amountBlue < blueCost) return false;
 
         PlayerManager.SpendUpgradePoints(blueCost);

@@ -169,10 +169,10 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     {
         nodeMatrix = new Node[maxX, maxY];
         int middleYIndex = (int)(0.5 * maxY);
-        nodeMatrix[0, middleYIndex] = new Node(0, middleYIndex);
+        //nodeMatrix[0, middleYIndex] = new Node(0, middleYIndex);
         //currentNode = nodeMatrix[0, middleYIndex];
 
-        for (int i = 1; i < maxX - 1; i++)
+        for (int i = 0; i < maxX - 1; i++)
         {
             GenerateNodeColumn(i);
         }
@@ -230,7 +230,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     private static List<Node> selectPaths(List<Node> options)
     {
         if (options.Count == 0) return options;
-        if (options[0].tier == 1 || options[0].tier == maxX) return options; 
+        if (options[0].tier is 1 or maxX) return options; 
         switch (options.Count)
         {
             case 1 : return options;
