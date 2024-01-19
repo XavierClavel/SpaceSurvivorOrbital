@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CharacterHandler", menuName = Vault.other.scriptableObjectMenu + "CharacterHandler", order = 0)]
-public class CharacterHandler : ObjectHandler
+public class CharacterHandler : HidableObjectHandler
 {
     [SerializeField]  public GameObject character;
     [HideInInspector] public SpriteRenderer spriteRenderer;

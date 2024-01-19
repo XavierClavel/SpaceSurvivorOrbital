@@ -28,6 +28,9 @@ public class UpgradeDisplay : MonoBehaviour
 
     public static void DisplayUpgrade(string key)
     {
+        instance.buyButton.gameObject.SetActive(
+            NodeManager.dictKeyToButton[key]. status is skillButtonStatus.unlocked
+                );
         if (instance.upgradeTitleDisplay != null) LocalizationManager.LocalizeTextField(key + Vault.key.ButtonTitle, instance.upgradeTitleDisplay);
         if (instance.upgradeTextDisplay != null) LocalizationManager.LocalizeTextField(key + Vault.key.ButtonDescription, instance.upgradeTextDisplay);
     }
