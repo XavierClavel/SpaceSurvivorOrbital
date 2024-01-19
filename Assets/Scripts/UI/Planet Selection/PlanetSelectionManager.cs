@@ -169,10 +169,10 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     {
         nodeMatrix = new Node[maxX, maxY];
         int middleYIndex = (int)(0.5 * maxY);
-        //nodeMatrix[0, middleYIndex] = new Node(0, middleYIndex);
+        nodeMatrix[0, middleYIndex] = new Node(0, middleYIndex);
         //currentNode = nodeMatrix[0, middleYIndex];
 
-        for (int i = 0; i < maxX - 1; i++)
+        for (int i = 1; i < maxX - 1; i++)
         {
             GenerateNodeColumn(i);
         }

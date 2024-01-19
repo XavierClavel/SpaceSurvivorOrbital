@@ -23,8 +23,6 @@ public class AltarPanel : MonoBehaviour
 
     public static void UpdateAltarDisplay()
     {
-        Debug.Log(instance.gameObject.name);
-        Debug.Log(instance.upgradesPointsDisplay == null);
         instance.upgradesPointsDisplay.SetText(PlayerManager.amountBlue.ToString());
         List<PowerHandler> powersRemaining = ScriptableObjectManager.dictKeyToPowerHandler.Values.ToList().Difference(PlayerManager.powers);
         foreach (AltarItem altarItem in instance.altarItems)
@@ -32,7 +30,6 @@ public class AltarPanel : MonoBehaviour
             if (powersRemaining.Count == 0) continue;
             PowerHandler selectedPower = powersRemaining.popRandom();
             altarItem.Setup(selectedPower.getKey());
-            Debug.Log(selectedPower.getKey());
         }
     }
     

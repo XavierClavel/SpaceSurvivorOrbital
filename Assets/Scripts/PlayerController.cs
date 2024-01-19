@@ -503,7 +503,7 @@ public class PlayerController : MonoBehaviour
 
         rb.MovePosition(rb.position + localMove);
         pointerFront.position = transform.position;
-        cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
+        cameraTransform.position = new Vector3(transform.position.x + 2f, transform.position.y, cameraTransform.position.z);
 
     }
 
