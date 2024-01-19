@@ -127,6 +127,11 @@ public static class SingletonManager
 public static class Extensions
 {
 
+    public static void TryRemove<T1, T2>(this Dictionary<T1, T2> dict, T1 key)
+    {
+        if (dict.ContainsKey(key)) dict.Remove(key);
+    }
+
     public static T Pop<T>(this List<T> list, int index = 0)
     {
         T value = list[index];
