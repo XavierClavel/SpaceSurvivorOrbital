@@ -21,12 +21,16 @@ public class DebugManager : ScriptableObject
     [Header("Start with powers")] 
     [SerializeField] private bool divineLightning;
     [SerializeField] private bool fairy;
-    [SerializeField] private bool shield;
     [SerializeField] private bool ghost;
     [SerializeField] private bool blackHole;
     [SerializeField] private bool synthWave;
     [SerializeField] private bool toxicZone;
     [SerializeField] private bool dagger;
+
+    [Header("Start with equipments")] 
+    [SerializeField] private bool shield;
+    [SerializeField] private bool suit;
+    [SerializeField] private bool radar;
 
     private RectTransform debugLayout;
     private TextMeshProUGUI debugLine;
@@ -68,12 +72,15 @@ public class DebugManager : ScriptableObject
         
         if (divineLightning) AcquirePower(Vault.power.DivineLightning);
         if (fairy) AcquirePower(Vault.power.Fairy);
-        if (shield) AcquirePower(Vault.power.Shield);
         if (ghost) AcquirePower(Vault.power.Ghost);
         if (blackHole) AcquirePower(Vault.power.BlackHole);
         if (synthWave) AcquirePower(Vault.power.SynthWave);
         if (toxicZone) AcquirePower(Vault.power.ToxicZone);
         if (dagger) AcquirePower(Vault.power.Dagger);
+        
+        if (shield) AcquireEquipment(Vault.power.Shield);
+        if (suit) AcquireEquipment("Suit");
+        if (radar) AcquireEquipment("Radar");
 
     }
 
@@ -91,6 +98,13 @@ public class DebugManager : ScriptableObject
         PowerHandler powerHandler = ScriptableObjectManager.dictKeyToPowerHandler[key];
         if (PlayerManager.powers.Contains(powerHandler)) return;
         PlayerManager.AcquirePower(powerHandler);
+    }
+    
+    static void AcquireEquipment(string key)
+    {
+        EquipmentHandler equipmentHandler = ScriptableObjectManager.dictKeyToEquipmentHandler[key];
+        if (PlayerManager.equipments.Contains(equipmentHandler)) return;
+        PlayerManager.AcquireEquipment(equipmentHandler);
     }
 
 }
