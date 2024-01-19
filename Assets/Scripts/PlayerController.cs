@@ -307,6 +307,7 @@ public class PlayerController : MonoBehaviour
 
         _health = maxHealth;
         healthBar.Setup(maxHealth, currentHealth);
+        healthBar.SetupShields(shieldsAmount);
         
         
         
@@ -340,7 +341,6 @@ public class PlayerController : MonoBehaviour
     public void SetupShields(int amount)
     {
         shieldsAmount = amount;
-        healthBar.SetupShields(amount);
     }
 
 
