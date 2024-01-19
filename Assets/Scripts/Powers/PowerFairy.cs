@@ -38,7 +38,7 @@ public class PowerFairy : Power, IPlayerEvents
         
         Debug.Log("Resurrection");
         
-        PlayerController.Heal(1);
+        PlayerController.Heal(PlayerController.instance.maxHealth);
         return true;
     }
 
