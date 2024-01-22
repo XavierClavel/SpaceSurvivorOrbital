@@ -99,8 +99,8 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     public static void PanelInitialized()
     {
         nbPanelsInitialized++;
-        Debug.Log("Panel intialized");
-        Debug.Log($"expected {PlayerManager.powers.Count + PlayerManager.equipments.Count + 1} panels");
+        //Debug.Log("Panel intialized");
+        //Debug.Log($"expected {PlayerManager.powers.Count + PlayerManager.equipments.Count + 1} panels");
         if (nbPanelsInitialized < PlayerManager.powers.Count + PlayerManager.equipments.Count + 1) return;
 
         foreach (NodeManager nodeManager in instance.panels)
