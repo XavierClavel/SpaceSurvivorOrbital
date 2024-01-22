@@ -16,7 +16,7 @@ public class SpawnManager : Breakable
 
     //Transform playerTransform;
     bool doEnnemySpawn = true;
-    float waveDuration = 20f;
+    float waveDuration = 100f;
 
     private int difficulty;
 

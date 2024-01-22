@@ -11,21 +11,24 @@ public class Spawner : MonoBehaviour
     private int planetDiameter;
 
     [Header("References")]
-    [SerializeField] public int baseCostLarge;
-    [SerializeField] public int baseCostMedium;
-    [SerializeField] public int baseCostSmall;
+    [SerializeField] public float baseCostLarge;
+    [SerializeField] public float baseCostMedium;
+    [SerializeField] public float baseCostSmall;
 
-    [SerializeField] public int incrementLarge;
-    [SerializeField] public int incrementMedium;
-    [SerializeField] public int incrementSmall;
+    [SerializeField] public float incrementLarge;
+    [SerializeField] public float incrementMedium;
+    [SerializeField] public float incrementSmall;
 
-
+    [SerializeField] public float waveDurationLarge;
+    [SerializeField] public float waveDurationMedium;
+    [SerializeField] public float waveDurationSmall;
+    
 
     private SpawnData spawnData;
 
     //Transform playerTransform;
     bool doEnnemySpawn = true;
-    float waveDuration = 10f;
+    float waveDuration;
     List<EntitySpawnInstance<Ennemy>> ennemiesToSpawnList = new List<EntitySpawnInstance<Ennemy>>();
 
     private int difficulty;
@@ -67,6 +70,20 @@ public class Spawner : MonoBehaviour
             wallet = spawnData.baseCost * baseCostSmall;
         }
         Debug.Log("wallet is" + wallet);
+
+        if (planetDiameter == 7)
+        {
+            waveDuration = waveDurationLarge;
+        }
+        else if (planetDiameter == 5)
+        {
+            waveDuration = waveDurationMedium;
+        }
+        else if (planetDiameter == 3)
+        {
+            waveDuration = waveDurationSmall;
+        }
+
 
         ennemyPrefabs = tilesBankManager.GetEnnemies();
         //Debug.Log(tilesBankManager.GetEnnemies().Count);
