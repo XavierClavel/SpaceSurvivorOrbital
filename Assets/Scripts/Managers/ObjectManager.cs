@@ -27,6 +27,7 @@ public class ObjectManager : MonoBehaviour
     public ParticleSystem lightningPS;
     public GameObject upgradePS;
     public ParticleSystem shipAppearPS;
+    public ParticleSystem difficultyPS;
 
     private bool upgradeGain = false;
 
