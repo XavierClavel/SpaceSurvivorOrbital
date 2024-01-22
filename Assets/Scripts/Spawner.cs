@@ -10,14 +10,14 @@ public class Spawner : MonoBehaviour
 
     private int planetDiameter;
 
-    [Header("References")]
-    [SerializeField] public float baseCostLarge;
-    [SerializeField] public float baseCostMedium;
-    [SerializeField] public float baseCostSmall;
+    [Header("Multiplier")]
+    [SerializeField] public int baseCostLarge;
+    [SerializeField] public int baseCostMedium;
+    [SerializeField] public int baseCostSmall;
 
-    [SerializeField] public float incrementLarge;
-    [SerializeField] public float incrementMedium;
-    [SerializeField] public float incrementSmall;
+    [SerializeField] public int incrementLarge;
+    [SerializeField] public int incrementMedium;
+    [SerializeField] public int incrementSmall;
 
     [SerializeField] public float waveDurationLarge;
     [SerializeField] public float waveDurationMedium;

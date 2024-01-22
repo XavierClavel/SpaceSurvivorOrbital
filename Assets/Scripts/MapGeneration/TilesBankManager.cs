@@ -24,13 +24,9 @@ public class TilesBankManager : ScriptableObject
 
     [Header("Altar")]
     public Tile altar1;
-    public Tile altar2;
-    public Tile altar3;
 
     [Header("Den")]
     public Tile den1;
-    public Tile den2;
-    public Tile den3;
 
     [Header("Other")]
     public Tile spaceship;
@@ -50,12 +46,8 @@ public class TilesBankManager : ScriptableObject
         spaceship.setTileObjects(bank.spaceship);
         
         altar1.setTileObjects(bank.altar1);
-        altar2.setTileObjects(bank.altar2);
-        altar3.setTileObjects(bank.altar3);
 
         den1.setTileObjects(bank.den1);
-        den2.setTileObjects(bank.den2);
-        den3.setTileObjects(bank.den3);
 
         ressource1.setTileObjects(bank.ressource1);
         ressource2.setTileObjects(bank.ressource2);
