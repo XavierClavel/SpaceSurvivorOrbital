@@ -28,7 +28,7 @@ public abstract class Gun : Interactor
             bulletsLayoutManager = player.bulletsLayoutManager;
             bulletsLayoutManager.Setup(stats.magazine);
         }
-        magazineReloadWindow = Helpers.GetWait(stats.magazineReloadTime);
+        magazineReloadWindow = Helpers.getWait(stats.magazineReloadTime);
 
         autoCooldown = false;
         bulletPrefab.gameObject.layer = LayerMask.NameToLayer(currentLayer);

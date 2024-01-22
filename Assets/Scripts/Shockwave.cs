@@ -19,7 +19,14 @@ public class Shockwave : MonoBehaviour
     private status effect;
     private List<GameObject> objectsHit;
     private UnityAction recallAction = null;
-    
+    [SerializeField] private ParticleSystem ps = null;
+    private bool _ispsNotNull;
+
+    private void Start()
+    {
+        _ispsNotNull = ps != null;
+    }
+
     public void Setup(float shockwaveRange, int shockwaveDamage, status effect, int shockwaveKnockback)
     {
         this.shockwaveRange = shockwaveRange;
@@ -40,6 +47,7 @@ public class Shockwave : MonoBehaviour
 
     public void doShockwave(bool destroyOnComplete = false)
     {
+        if (_ispsNotNull) ps.Play();
         objectsHit = new List<GameObject>();
         if (baseShockwaveColor != null) disc.Color = (Color)baseShockwaveColor;
         transform.localScale = Vector3.zero;

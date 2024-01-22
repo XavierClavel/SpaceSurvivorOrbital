@@ -52,7 +52,7 @@ public class Timer : MonoBehaviour
                 timerDisplay.fillAmount = 1 - timeRemaining * factor;
                 //skullPivotTransform.eulerAngles = endAngle * (1 - timeRemaining * factor) * Vector3.forward;
                 //skullTransform.eulerAngles = Vector3.zero;
-                yield return Helpers.GetWait(Time.fixedDeltaTime);
+                yield return Helpers.getWait(Time.fixedDeltaTime);
             }
             PlanetSelector.IncreaseDifficulty(true);
         }

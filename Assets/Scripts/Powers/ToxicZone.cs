@@ -7,10 +7,11 @@ using UnityEngine;
 public class ToxicZone : Power
 {
     [SerializeField] private Rigidbody2D rb;
-    private static float toxicZoneSpeed = 1f;
+    private float toxicZoneSpeed = 1f;
 
-    public void Setup(float scale, bool doFollowPlayer)
+    public void Setup(float scale, float speed)
     {
+        this.toxicZoneSpeed = speed;
         transform.localScale = Vector3.zero;
         Sequence sequence = DOTween.Sequence();
         sequence.Append(transform.DOScale(scale * Vector3.one, 0.2f));
@@ -18,18 +19,18 @@ public class ToxicZone : Power
         sequence.Append(transform.DOScale(Vector3.zero, 0.2f));
         sequence.OnComplete(delegate
         {
-            if (doFollowPlayer) StopCoroutine(nameof(FollowPlayer));
+            if (toxicZoneSpeed > 0f) StopCoroutine(nameof(FollowPlayer));
             PowerToxicZone.recall(this);
         });
 
-        if (doFollowPlayer) StartCoroutine(nameof(FollowPlayer));
+        if (toxicZoneSpeed > 0f) StartCoroutine(nameof(FollowPlayer));
     }
 
     private IEnumerator FollowPlayer()
     {
         while (true)
         {
-            yield return Helpers.GetWaitFixed;
+            yield return Helpers.getWaitFixed();
             rb.AddForce((playerTransform.position - transform.position).normalized * toxicZoneSpeed);
         }
     }
@@ -44,4 +45,5 @@ public class ToxicZone : Power
     {
         PowerToxicZone.OnEnnemyExitToxicZone(other.gameObject);
     }
+
 }

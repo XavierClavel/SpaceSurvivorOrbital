@@ -72,7 +72,7 @@ public class Spawner : MonoBehaviour
             }
 
             time += Time.fixedDeltaTime;
-            yield return Helpers.GetWaitFixed;
+            yield return Helpers.getWaitFixed();
         }
     }
 

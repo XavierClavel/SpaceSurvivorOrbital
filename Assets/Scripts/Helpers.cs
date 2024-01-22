@@ -26,7 +26,7 @@ public class Counter
         remainingTime = duration;
         while (remainingTime > 0f)
         {
-            yield return Helpers.GetWaitFixed;
+            yield return Helpers.getWaitFixed();
             remainingTime -= Time.fixedDeltaTime;
         }
 
@@ -562,13 +562,18 @@ public class Helpers : MonoBehaviour
 {
     static readonly Dictionary<float, WaitForSeconds> waitDictionary = new Dictionary<float, WaitForSeconds>();
     static readonly Dictionary<float, WaitForSecondsRealtime> waitDictionaryRealtime = new Dictionary<float, WaitForSecondsRealtime>();
+    private static WaitForFixedUpdate waitFixedUpdate = new WaitForFixedUpdate(); 
     public static readonly WaitForEndOfFrame GetWaitFrame = new WaitForEndOfFrame();
-    public static readonly WaitForFixedUpdate GetWaitFixed = new WaitForFixedUpdate();
     public static Helpers instance;
     private static TextMeshProUGUI debugDisplay;
     private static Dictionary<int, TextMeshProUGUI> dictDebugDisplays = new Dictionary<int, TextMeshProUGUI>();
     [SerializeField] GameObject debugDisplayPrefab;
     static bool? platformAndroidValue = null;
+
+    public static WaitForFixedUpdate getWaitFixed()
+    {
+        return waitFixedUpdate;
+    } 
 
     public static List<Collider2D> OverlapCircularArcAll(Transform center, Vector2 direction, float radius, float span, int layerMask)
     {
@@ -947,14 +952,15 @@ public class Helpers : MonoBehaviour
         instance = this;
     }
 
-    public static WaitForSeconds GetWait(float time)
+    public static WaitForSeconds getWait(float time)
     {
         if (waitDictionary.TryGetValue(time, out WaitForSeconds wait)) return wait;
         waitDictionary[time] = new WaitForSeconds(time);
         return waitDictionary[time];
     }
+    
 
-    public static WaitForSecondsRealtime GetWaitRealtime(float time)
+    public static WaitForSecondsRealtime getWaitRealtime(float time)
     {
         if (waitDictionaryRealtime.TryGetValue(time, out WaitForSecondsRealtime wait)) return wait;
         waitDictionaryRealtime[time] = new WaitForSecondsRealtime(time);

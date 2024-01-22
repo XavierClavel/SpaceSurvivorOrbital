@@ -95,11 +95,11 @@ public class Ennemy : Breakable
         healthBar.maxValue = _health;
         healthBar.value = _health;
 
-        wait = Helpers.GetWait(attackSpeed);
-        waitStateStep = Helpers.GetWait(stateStep);
-        waitLightning = Helpers.GetWait(ConstantsData.lightningDuration);
-        waitIce = Helpers.GetWait(ConstantsData.iceDuration);
-        waitFire = Helpers.GetWait(ConstantsData.fireStep);
+        wait = Helpers.getWait(attackSpeed);
+        waitStateStep = Helpers.getWait(stateStep);
+        waitLightning = Helpers.getWait(ConstantsData.lightningDuration);
+        waitIce = Helpers.getWait(ConstantsData.iceDuration);
+        waitFire = Helpers.getWait(ConstantsData.fireStep);
 
         //TODO : static initalizer
 
@@ -188,7 +188,11 @@ public class Ennemy : Breakable
         rb.velocity = Vector2.zero;
         rb.angularVelocity = 0;
         rb.AddForce((transform.position - player.transform.position).normalized * knockbackForce);
+    }
 
+    public void ApplyForce(Vector2 force)
+    {
+        rb.AddForce(force);
     }
 
 
@@ -297,7 +301,7 @@ public class Ennemy : Breakable
 
         while (remainingIce > 0f)
         {
-            yield return Helpers.GetWaitFixed;
+            yield return Helpers.getWaitFixed();
             remainingIce -= Time.fixedDeltaTime;
         }
         
@@ -313,7 +317,7 @@ public class Ennemy : Breakable
 
         while (remainingLightning > 0f)
         {
-            yield return Helpers.GetWaitFixed;
+            yield return Helpers.getWaitFixed();
             remainingLightning -= Time.fixedDeltaTime;
             rb.velocity = Vector2.zero;
         }

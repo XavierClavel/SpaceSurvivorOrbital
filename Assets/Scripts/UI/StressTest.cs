@@ -21,7 +21,7 @@ public class StressTest : MonoBehaviour
 
     IEnumerator SpawnEnnemies()
     {
-        WaitForSeconds wait = Helpers.GetWait(0.2f);
+        WaitForSeconds wait = Helpers.getWait(0.2f);
         while (true)
         {
             //SpawnManager.instance.SpawnEnnemy();

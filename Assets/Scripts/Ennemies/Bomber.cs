@@ -20,7 +20,7 @@ public class Bomber : Ennemy
     {
         base.Start();
 
-        waitExplosion = Helpers.GetWait(timeBeforeExplosion);
+        waitExplosion = Helpers.getWait(timeBeforeExplosion);
         sqrExplosionStartDistance = Mathf.Pow(explosionStartDistance, 2);
         playerLayer = LayerMask.GetMask(Vault.layer.Player);
 

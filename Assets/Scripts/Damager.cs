@@ -104,7 +104,7 @@ public abstract class Damager : MonoBehaviour
         player = PlayerController.instance;
         this.stats = fullStats.interactor;
         this.fullStats = fullStats;
-        waitCooldown = Helpers.GetWait(stats.cooldown);
+        waitCooldown = Helpers.getWait(stats.cooldown);
     }
 
     public void Use()

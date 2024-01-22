@@ -8,21 +8,25 @@ public class Ghost : MonoBehaviour
     public static Dictionary<GameObject, Ghost> dictGoToGhost = new Dictionary<GameObject, Ghost>();
     [SerializeField] private Animator animator;
     [SerializeField] private Collider2D col;
+    [SerializeField] private Rigidbody2D rb;
     [SerializeField] public ParticleSystem explosion;
     
     private bool explodeOnBullet = false;
     private bool explodeOnEnnemy = false;
+    private float speed;
 
     private bool canBeDestroyedByLaser = false;
     private float laserWaitBeforeHit = 0.3f;
     private float currentLaserCooldown = 0f;
     private static readonly int animReset = Animator.StringToHash("Reset");
     private static readonly int animExplode = Animator.StringToHash("Explode");
+    private bool isBig;
 
-    public void Setup(PlayerData _)
+    public Ghost Setup(PlayerData _)
     {
         explodeOnBullet = _.generic.boolC;
         explodeOnEnnemy = _.generic.boolB;
+        speed = _.character.baseSpeed;
 
         dictGoToGhost[gameObject] = this;
         StartCoroutine(nameof(DestroyByWait));
@@ -33,6 +37,14 @@ public class Ghost : MonoBehaviour
         
         animator.SetTrigger(animReset);
         col.enabled = true;
+        if (speed > 0) StartCoroutine(nameof(Move));
+
+        return this;
+    }
+
+    public void setBig()
+    {
+        isBig = true;
     }
 
     private IEnumerator WaitLaser()
@@ -40,7 +52,7 @@ public class Ghost : MonoBehaviour
         currentLaserCooldown = laserWaitBeforeHit;
         while (currentLaserCooldown > 0)
         {
-            yield return Helpers.GetWaitFixed;
+            yield return Helpers.getWaitFixed();
             currentLaserCooldown -= Time.fixedDeltaTime;
         }
         canBeDestroyedByLaser = true;
@@ -48,12 +60,12 @@ public class Ghost : MonoBehaviour
 
     private void OnDestroy()
     {
-        dictGoToGhost.Remove(gameObject);
+        dictGoToGhost.TryRemove(gameObject);
     }
 
     private IEnumerator DestroyByWait()
     {
-        yield return Helpers.GetWait(5.0f);
+        yield return Helpers.getWait(5f);
         Explode();
     }
     
@@ -69,7 +81,9 @@ public class Ghost : MonoBehaviour
         explosion.Play();
         animator.SetTrigger(animExplode);
         SoundManager.PlaySfx(transform, key: "Ghost_Explode");
-        PowerGhost.SpawnShockwave(transform.position);
+        var position = transform.position;
+        PowerGhost.SpawnShockwave(position, isBig);
+        PowerGhost.SpawnProjectiles(position);
         Invoke(nameof(Recall),0.5f);
     }
 
@@ -101,5 +115,16 @@ public class Ghost : MonoBehaviour
         currentLaserCooldown = laserWaitBeforeHit;
         if (!canBeDestroyedByLaser) return;
         DestroyByCollision();
+    }
+    
+    private IEnumerator Move()
+    {
+        while (true)
+        {
+            Vector2 distanceToPlayer = PlayerController.instance.transform.position - transform.position;
+            Vector2 directionToPlayer = distanceToPlayer.normalized;
+            rb.AddForce(directionToPlayer * speed);
+            yield return Helpers.getWaitFixed();
+        }
     }
 }

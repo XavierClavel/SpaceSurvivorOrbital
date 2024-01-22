@@ -75,7 +75,7 @@ public class MainMenu : MonoBehaviour
         int nbPoints = 50;
         float step = 1f / nbPoints;
         float stepTime = totalTime * step;
-        WaitForSeconds waitStep = Helpers.GetWait(stepTime);
+        WaitForSeconds waitStep = Helpers.getWait(stepTime);
         for (int i = 0; i <= nbPoints; i++)
         {
             yield return waitStep;

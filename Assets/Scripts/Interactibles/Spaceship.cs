@@ -70,7 +70,7 @@ public class Spaceship : MonoBehaviour, IInteractable
     {
         while (fillAmount > 0)
         {
-            yield return Helpers.GetWaitFixed;
+            yield return Helpers.getWaitFixed();
             Helpers.SpawnPS(transform, launchEffect);
             fillAmount -= Time.fixedDeltaTime * factor;
             image.fillAmount = fillAmount;

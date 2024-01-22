@@ -101,18 +101,18 @@ public class Dagger : Power
     {
         if (!doRecall)
         {
-            yield return Helpers.GetWait(daggerDuration);
+            yield return Helpers.getWait(daggerDuration);
             recallDagger(dagger);
             yield break;
         }
         
-        yield return Helpers.GetWait(daggerDuration);
+        yield return Helpers.getWait(daggerDuration);
         Vector2 velocity = dagger.rb.velocity;
         dagger.rb.velocity = Vector2.zero;
         dagger.transform.DORotate(180f * Vector3.forward, 0.1f).SetRelative();
-        yield return Helpers.GetWait(0.1f);
+        yield return Helpers.getWait(0.1f);
         dagger.rb.velocity = -velocity;
-        yield return Helpers.GetWait(daggerDuration);
+        yield return Helpers.getWait(daggerDuration);
         recallDagger(dagger);
     }
 

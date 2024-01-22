@@ -4,6 +4,7 @@ using UnityEngine;
 public interface IPlayerEvents
 {
     bool onPlayerDeath();
+    bool onPlayerHit(bool shieldHit);
 }
 
 /**
@@ -17,12 +18,18 @@ public class PlayerEventsManager
     {
         eventListeners = new List<IPlayerEvents>();
     }
-
+    
+    /**
+     * Adds a listener for player events. The listener will be notified of every player event.
+     */
     public static void registerListener(IPlayerEvents listener)
     {
         eventListeners.Add(listener);
     }
-
+    
+    /**
+     * Removes a listener from player events.
+     */
     public static void unregisterListener(IPlayerEvents listener)
     {
         eventListeners.TryRemove(listener);
@@ -37,6 +44,20 @@ public class PlayerEventsManager
         foreach (var eventListener in eventListeners)
         {
             value = eventListener.onPlayerDeath() || value;
+        }
+        return value;
+    }
+    
+    /**
+     * Dispatches event "onPlayerHit". Returns true if one listener cancels player hit.
+     * <param name="shieldHit">Whether a shield will be removed instead of a heart.</param>
+     */
+    public static bool onPlayerHit(bool shieldHit)
+    {
+        bool value = false;
+        foreach (var eventListener in eventListeners)
+        {
+            value = eventListener.onPlayerHit(shieldHit) || value;
         }
         return value;
     }

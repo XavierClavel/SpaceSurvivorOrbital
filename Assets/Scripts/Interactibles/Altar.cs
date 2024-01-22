@@ -53,7 +53,7 @@ public class Altar : MonoBehaviour, IInteractable
     {
         while (fillAmount > 0)
         {
-            yield return Helpers.GetWaitFixed;
+            yield return Helpers.getWaitFixed();
             fillAmount -= Time.fixedDeltaTime * factor;
             image.fillAmount = fillAmount;
         }

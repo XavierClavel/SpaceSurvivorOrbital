@@ -42,6 +42,11 @@ public class PowerFairy : Power, IPlayerEvents
         return true;
     }
 
+    public bool onPlayerHit(bool shieldHit)
+    {
+        return false;
+    }
+    
     private void OnDestroy()
     {
         PlayerEventsManager.unregisterListener(this);

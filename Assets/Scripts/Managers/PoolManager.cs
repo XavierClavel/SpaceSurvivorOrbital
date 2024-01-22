@@ -50,7 +50,7 @@ public class GameObjectPool : Pool<GameObject>
 
     public GameObjectPool setTimer(float lifetime)
     {
-        wait = Helpers.GetWait(lifetime);
+        wait = Helpers.getWait(lifetime);
         return this;
     }
 
@@ -167,7 +167,7 @@ public class ComponentPool<T> where T : Component
 
     public ComponentPool<T> setTimer(float lifetime)
     {
-        wait = Helpers.GetWait(lifetime);
+        wait = Helpers.getWait(lifetime);
         return this;
     }
 

@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf6d3619c49698a4ebcebc3d9c33cde5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ps: {fileID: 2376868217071355367}
 --- !u!58 &4995980824834999105
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -193,11 +194,23 @@ PrefabInstance:
     m_TransformParent: {fileID: 3882144131259286512}
     m_Modifications:
     - target: {fileID: 4757581197571992581, guid: 306fdacdcd0e5474ab8f09b2a5f7e0c8, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757581197571992581, guid: 306fdacdcd0e5474ab8f09b2a5f7e0c8, type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757581197571992581, guid: 306fdacdcd0e5474ab8f09b2a5f7e0c8, type: 3}
       propertyPath: moveWithTransform
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4757581197571992581, guid: 306fdacdcd0e5474ab8f09b2a5f7e0c8, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757581197571992581, guid: 306fdacdcd0e5474ab8f09b2a5f7e0c8, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4757581197571992582, guid: 306fdacdcd0e5474ab8f09b2a5f7e0c8, type: 3}
@@ -256,6 +269,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4757581197714271109, guid: 306fdacdcd0e5474ab8f09b2a5f7e0c8, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757581197714271109, guid: 306fdacdcd0e5474ab8f09b2a5f7e0c8, type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4757581197714271110, guid: 306fdacdcd0e5474ab8f09b2a5f7e0c8, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
@@ -272,5 +293,10 @@ PrefabInstance:
 --- !u!4 &2376868217071355366 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4757581197714271108, guid: 306fdacdcd0e5474ab8f09b2a5f7e0c8, type: 3}
+  m_PrefabInstance: {fileID: 7132021655653740130}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2376868217071355367 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4757581197714271109, guid: 306fdacdcd0e5474ab8f09b2a5f7e0c8, type: 3}
   m_PrefabInstance: {fileID: 7132021655653740130}
   m_PrefabAsset: {fileID: 0}

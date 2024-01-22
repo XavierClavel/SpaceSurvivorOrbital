@@ -44,8 +44,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd91ddbe080f3844bde20b59655862c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats:
+    baseDamage: {x: 0, y: 0}
+    attackSpeed: 0
+    range: 0
+    cooldown: 0
+    magazineReloadTime: 0
+    criticalChance: 0
+    criticalMultiplier: 0
+    magazine: 0
+    projectiles: 0
+    spread: 0
+    pierce: 0
+    speedWhileAiming: 0
+    knockback: 0
+    element: 0
+  fullStats:
+    resources:
+      maxPurple: 3
+      maxOrange: 3
+      maxGreen: 3
+    character:
+      maxHealth: 0
+      maxShields: 0
+      baseSpeed: 0
+      damageMultiplier: 0
+    interactor:
+      baseDamage: {x: 0, y: 0}
+      attackSpeed: 0
+      range: 0
+      cooldown: 0
+      magazineReloadTime: 0
+      criticalChance: 0
+      criticalMultiplier: 0
+      magazine: 0
+      projectiles: 0
+      spread: 0
+      pierce: 0
+      speedWhileAiming: 0
+      knockback: 0
+      element: 0
+    attractor:
+      range: 5
+      force: 5
+    generic:
+      boolA: 0
+      boolB: 0
+      boolC: 0
+      intA: 0
+      intB: 0
+      floatA: 0
+      floatB: 0
+      elementA: 0
   isUsing: 0
   activateOnStart: 0
   ghost: {fileID: 5343876965683560267, guid: 9f42a613ceb593f4fa7bc558efa2c087, type: 3}
+  bigGhost: {fileID: 5343876965683560267, guid: 228e16e998d14874aa4968c83b6ad7f5, type: 3}
   ghostShockwave: {fileID: -141122923076305419, guid: 5aa0f0f4bee25b54aa11b385564854bd, type: 3}
-  spawnsEvery: 2

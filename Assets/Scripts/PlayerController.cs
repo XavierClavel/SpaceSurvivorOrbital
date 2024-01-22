@@ -158,14 +158,23 @@ public class PlayerController : MonoBehaviour
     {
         for (int i = 0; i < damage; i++)
         {
-            if (shieldsAmount > 0)
-            {
-                shields--;
-            }
-            else
-            {
-                health--;
-            }
+            if (PlayerEventsManager.onPlayerHit(shieldsAmount > 0)) continue;
+            takeDamage();
+        }
+    }
+    
+    /**
+     * Removes one shield, if there are none left removes one heart.
+     */
+    private void takeDamage()
+    {
+        if (shieldsAmount > 0)
+        {
+            shields--;
+        }
+        else
+        {
+            health--;
         }
     }
 
@@ -182,7 +191,15 @@ public class PlayerController : MonoBehaviour
     }
 
     #region interface
+    
+    public static void Hurt(Vector2Int amount)
+    {
+        Hurt((float)amount.getRandom());
+    }
 
+    /**
+     * Called when the player is dealt damage.
+     */
     public static void Hurt(float amount)
     {
         if (instance.invulnerable) return;
@@ -203,11 +220,6 @@ public class PlayerController : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
         sequence.Append(spriteOverlay.DOColor(Color.white, 0.1f));
         sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
-    }
-
-    public static void Hurt(Vector2Int amount)
-    {
-        Hurt((float)amount.getRandom());
     }
 
     IEnumerator InvulnerabilityFrame()
@@ -301,7 +313,7 @@ public class PlayerController : MonoBehaviour
 
         souls = PlayerManager.getSouls();
 
-        invulnerabilityFrameDuration = Helpers.GetWait(ConstantsData.invulenerabilityFrame);
+        invulnerabilityFrameDuration = Helpers.getWait(ConstantsData.invulenerabilityFrame);
 
         _health = maxHealth;
         healthBar.Setup(maxHealth, currentHealth);

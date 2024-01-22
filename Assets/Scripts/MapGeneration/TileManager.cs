@@ -294,7 +294,7 @@ public class TileManager : MonoBehaviour
     {
         while (true)
         {
-            yield return Helpers.GetWait(tileRotationPeriod);
+            yield return Helpers.getWait(tileRotationPeriod);
             UpdateActiveTiles();
         }
     }

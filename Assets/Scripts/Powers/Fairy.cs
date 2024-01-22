@@ -10,8 +10,7 @@ public class Fairy : MonoBehaviour
     private float angle = 0.0f;
 
     public Bullet bulletPrefab;
-
-
+    
     private List<Transform> targets = new List<Transform>();
 
     private Transform detectedEnemy; 
@@ -80,7 +79,7 @@ public class Fairy : MonoBehaviour
     {
         while (true)
         {
-            yield return Helpers.GetWait(stats.cooldown);
+            yield return Helpers.getWait(stats.cooldown);
             if (targets.Count > 0) Shoot(targets.getRandom());
         }
     }

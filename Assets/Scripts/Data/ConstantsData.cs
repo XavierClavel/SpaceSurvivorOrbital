@@ -38,6 +38,11 @@ public static class ConstantsData
     public static float laserDamageToSpeed;
 
     public static float audioFootstepInterval;
+    
+    public static float protectingWaveCooldown;
+    public static int protectingWaveDamage;
+    public static float protectingWaveRange;
+    public static int protectingWaveKnockback;
 
 }
 
@@ -85,6 +90,11 @@ public class ConstantsDataBuilder
         SetValue(ref ConstantsData.laserDamageToSpeed, "Laser_DamageToSpeed");
         
         SetValue(ref ConstantsData.audioFootstepInterval, "Audio_FootstepInterval");
+        
+        SetValue(ref ConstantsData.protectingWaveCooldown, "ProtectingWave_Cooldown");
+        SetValue(ref ConstantsData.protectingWaveDamage, "ProtectingWave_Damage");
+        SetValue(ref ConstantsData.protectingWaveKnockback, "ProtectingWave_Knockback");
+        SetValue(ref ConstantsData.protectingWaveRange, "ProtectingWave_Range");
     }
     
     private void SetValue<T>(ref T variable, string key)

@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Win32.SafeHandles;
 using UnityEngine;
 using UnityEngine.Events;
 
 public enum status { none, fire, ice, lightning }
+
 
 public class Bullet : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class Bullet : MonoBehaviour
     int currentPierce = 0;
     private HitInfo hitInfo;
     private UnityAction<Bullet> onImpact = null;
+    private ComponentPool<Bullet> pool = null;
 
     [SerializeField] Animator hit;
 
@@ -24,12 +27,31 @@ public class Bullet : MonoBehaviour
         return this;
     }
 
+    public Bullet setTimer(float timer)
+    {
+        StartCoroutine(nameof(RecallTimer), timer);
+        return this;
+    }
 
-    public void Fire(int speed, HitInfo hitInfo)
+    private IEnumerator RecallTimer(float timer)
+    {
+        yield return Helpers.getWait(timer);
+        recallBullet();
+    }
+
+    private void recallBullet()
+    {
+        StopCoroutine(nameof(RecallTimer));
+        pool?.recall(this);
+    }
+
+
+    public Bullet Fire(int speed, HitInfo hitInfo)
     {
         currentPierce = 0;
         rb.velocity = transform.up * speed;
         this.hitInfo = hitInfo;
+        return this;
     }
 
     public void Fire(int speed, float lifetime, int damage)
@@ -38,8 +60,13 @@ public class Bullet : MonoBehaviour
         rb.velocity = transform.up * 10f;
         hitInfo = new HitInfo(damage, false, status.none);
     }
-
-
+    
+    public Bullet setPool(ComponentPool<Bullet> pool)
+    {
+        this.pool = pool;
+        return this;
+    }
+    
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -83,6 +110,7 @@ public class Bullet : MonoBehaviour
 
         if (currentPierce == pierce)
         {
+            recallBullet();
             gameObject.SetActive(false);
         }
 
