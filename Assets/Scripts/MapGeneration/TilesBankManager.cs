@@ -15,7 +15,6 @@ public class TilesBankManager : ScriptableObject
     [Header("Empty")]
     public Tile empty1;
     public Tile empty2;
-    public Tile empty3;
 
     [Header("Ressource")]
     public Tile ressource1;
@@ -55,7 +54,6 @@ public class TilesBankManager : ScriptableObject
 
         empty1.setTileObjects(bank.empty1);
         empty2.setTileObjects(bank.empty2);
-        empty3.setTileObjects(bank.empty3);
 
         TileManager.instance.groundSprite.color = bank.groundColor1;
         groundColor1 = bank.groundColor1;

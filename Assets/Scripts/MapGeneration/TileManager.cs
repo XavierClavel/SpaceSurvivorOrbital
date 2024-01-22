@@ -55,7 +55,6 @@ public class TileManager : MonoBehaviour
         tiles.Add(bank.altar1);
         tiles.Add(bank.empty1);
         tiles.Add(bank.empty2);
-        tiles.Add(bank.empty3);
         SetupPlanet();
         mapRadius = (mapSize - Vector2Int.one) / 2;
         player = PlayerController.instance;
@@ -371,7 +370,7 @@ public class TileManager : MonoBehaviour
                 (pos - 0.5f*Vector2.one) * tileSize, 
                 (pos + 0.5f*Vector2.one) * tileSize, 
                 mask);
-            Debug.Log(ennemies.Length);
+            //Debug.Log(ennemies.Length);
             foreach (var ennemy in ennemies)
             {
                 if (ennemy.CompareTag("Stele")) continue;

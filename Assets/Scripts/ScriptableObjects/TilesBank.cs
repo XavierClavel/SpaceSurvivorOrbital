@@ -14,7 +14,6 @@ public class TilesBank : ScriptableObject
     [Header("Empty")]
     public List<GameObject> empty1;
     public List<GameObject> empty2;
-    public List<GameObject> empty3;
 
     [Header("Ressource")]
     public List<GameObject> ressource1;
@@ -23,13 +22,9 @@ public class TilesBank : ScriptableObject
 
     [Header("Altar")]
     public GameObject altar1;
-    public GameObject altar2;
-    public GameObject altar3;
 
     [Header("Den")]
     public GameObject den1;
-    public GameObject den2;
-    public GameObject den3;
 
     [Header("Other")]
     public GameObject spaceship;
