@@ -26,8 +26,8 @@ public static class PlanetManager
         {
             planetSize.small => 3,
             planetSize.medium => 5,
-            planetSize.large => 9,
-            _ => 5
+            planetSize.large => 7,
+            _ => 1
         };
     }
 
@@ -65,7 +65,7 @@ public static class PlanetManager
         {
             planetSize.small => 1,
             planetSize.medium => 2,
-            planetSize.large => 4,
+            planetSize.large => 3,
             _ => 2
         };
     }

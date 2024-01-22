@@ -265,7 +265,7 @@ public class TileManager : MonoBehaviour
         ground.transform.SetParent(tile.transform);
         int x = Mathf.Abs(position.x);
         int y = Mathf.Abs(position.y);
-        if (x >= 4 || y >= 4) {
+        if (x >= 3 || y >= 3) {
             ground.color = bank.groundColor3;
             ground.sortingOrder = -13;
         } else if (x >= 2 || y >= 2) {

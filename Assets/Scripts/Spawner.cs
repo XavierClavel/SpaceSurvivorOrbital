@@ -8,6 +8,19 @@ public class Spawner : MonoBehaviour
     [SerializeField] TilesBankManager tilesBankManager;
     List<Ennemy> ennemyPrefabs;
 
+    private int planetDiameter;
+
+    [Header("References")]
+    [SerializeField] public int baseCostLarge;
+    [SerializeField] public int baseCostMedium;
+    [SerializeField] public int baseCostSmall;
+
+    [SerializeField] public int incrementLarge;
+    [SerializeField] public int incrementMedium;
+    [SerializeField] public int incrementSmall;
+
+
+
     private SpawnData spawnData;
 
     //Transform playerTransform;
@@ -41,7 +54,20 @@ public class Spawner : MonoBehaviour
         Debug.Log($"Difficulty : {difficulty}");
         spawnData = DataManager.dictDifficulty[difficulty.ToString()];
 
-        wallet = spawnData.baseCost;
+        planetDiameter = PlanetManager.getSize();
+        if (planetDiameter == 7)
+        {
+            wallet = spawnData.baseCost * baseCostLarge;
+        } else if (planetDiameter == 5)
+        {
+            wallet = spawnData.baseCost * baseCostMedium;
+        }
+        else if (planetDiameter == 3)
+        {
+            wallet = spawnData.baseCost * baseCostSmall;
+        }
+        Debug.Log("wallet is" + wallet);
+
         ennemyPrefabs = tilesBankManager.GetEnnemies();
         //Debug.Log(tilesBankManager.GetEnnemies().Count);
 
@@ -67,7 +93,18 @@ public class Spawner : MonoBehaviour
             if (time > waveDuration)
             {
                 time = 0f;
-                wallet += spawnData.increment;
+                if (planetDiameter == 7)
+                {
+                    wallet += spawnData.increment * incrementLarge;
+                }
+                else if (planetDiameter == 5)
+                {
+                    wallet += spawnData.increment * incrementMedium;
+                }
+                else if (planetDiameter == 3)
+                {
+                    wallet += spawnData.increment * incrementSmall;
+                }
                 PrepareWave(wallet);
             }
 
