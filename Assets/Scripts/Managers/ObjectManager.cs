@@ -25,6 +25,7 @@ public class ObjectManager : MonoBehaviour
 
     public ParticleSystem firePS;
     public ParticleSystem lightningPS;
+    public ParticleSystem icePS;
     public GameObject upgradePS;
     public ParticleSystem shipAppearPS;
     public ParticleSystem difficultyPS;

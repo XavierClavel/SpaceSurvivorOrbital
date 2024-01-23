@@ -85,8 +85,7 @@ public class Dagger : Power
         Bullet dagger = pool.get(playerTransform.position + Vector3.back,  rotation * Vector3.forward);
         dagger.Fire(stats.attackSpeed, new HitInfo(stats));
         if (doExplode)
-        {
-            //Instantiate(explosion, transform.position, Quaternion.identity);
+        {   
 
             dagger.setImpactAction(delegate(Bullet bullet)
             {

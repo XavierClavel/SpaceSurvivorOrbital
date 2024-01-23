@@ -35,6 +35,7 @@ public class Ennemy : Breakable
 
     private ParticleSystem firePs;
     private ParticleSystem lightningPs;
+    private ParticleSystem icePs;
 
     [Header("Parameters")]
     [SerializeField] protected float speed = 1f;
@@ -130,6 +131,10 @@ public class Ennemy : Breakable
         lightningPs =  Instantiate(ObjectManager.instance.lightningPS);
         lightningPs.transform.SetParent(transform);
         lightningPs.transform.localPosition = Vector3.zero;
+
+        icePs = Instantiate(ObjectManager.instance.icePS);
+        icePs.transform.SetParent(transform);
+        icePs.transform.localPosition = Vector3.zero;
     }
     
     
@@ -296,6 +301,8 @@ public class Ennemy : Breakable
 
     IEnumerator IceEffect()
     {
+        Debug.Log("Ice Go");
+        icePs.Play();
         spriteRenderer.color = new Color32(126,171,242,255);
         speedMultiplier = ConstantsData.iceSlowdown;
 
@@ -307,6 +314,7 @@ public class Ennemy : Breakable
         
         speedMultiplier = 1f;
         spriteRenderer.color = Color.white;
+        icePs.Stop();
     }
     
     IEnumerator LightningEffect()
