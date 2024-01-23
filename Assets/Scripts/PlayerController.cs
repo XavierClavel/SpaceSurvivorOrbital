@@ -328,7 +328,7 @@ public class PlayerController : MonoBehaviour
 
         layoutManagerOrange.FillNSliders(PlayerManager.amountOrange);
         layoutManagerGreen.FillNSliders(PlayerManager.amountGreen);
-        
+
         if (!Helpers.isPlatformAndroid()) InitializeControls();
         
         DebugManager.DisplayValue("MaxHealth", maxHealth.ToString());
@@ -343,7 +343,7 @@ public class PlayerController : MonoBehaviour
     {
         while (true)
         {
-            //if (state == playerState.walking) SoundManager.PlaySfx(transform, "Footstep");
+            if (state == playerState.walking) SoundManager.PlaySfx(transform, "Footstep");
             yield return footstepsWait;
         }
     }

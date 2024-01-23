@@ -103,7 +103,6 @@ public class PlayerManager
     public static void GatherResourceGreen() => amountGreen++;
     public static void GatherResourceOrange() => amountOrange++;
 
-
     public static void SetControlMode(bool boolean) => isPlayingWithGamepad = boolean;
 
     public static void AcquirePower(PowerHandler powerHandler)

@@ -66,12 +66,11 @@ public class ResourceLayoutManager : MonoBehaviour
     }
 
 
-
     void OnSliderComplete(bool newResources)
     {
         sliderIndex++;
-        SoundManager.PlaySfx(transform, key: "Collectible_Full");
         full = sliderIndex >= sliders.Count;
+        
 
         if (!newResources) return;
 
@@ -79,11 +78,13 @@ public class ResourceLayoutManager : MonoBehaviour
         {
             case resourceType.orange:
                 PlayerManager.GatherResourceOrange();
+                SoundManager.PlaySfx(transform, key: "Collectible_Full");
                 Instantiate(yellowFull, PlayerController.instance.transform);
                 break;
 
             case resourceType.green:
                 PlayerManager.GatherResourceGreen();
+                SoundManager.PlaySfx(transform, key: "Collectible_Full");
                 Instantiate(greenFull, PlayerController.instance.transform);
                 break;
 
