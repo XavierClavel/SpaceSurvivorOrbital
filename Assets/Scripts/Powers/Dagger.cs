@@ -21,6 +21,7 @@ public class Dagger : Power
     [SerializeField] public ParticleSystem explosion;
     private ComponentPool<Bullet> pool;
     private ComponentPool<Shockwave> shockwavePool;
+    private ComponentPool<ParticleSystem> explosionPool;
     private float currentAngle = 0f;
     const float angleDeviation = 30f;
     private bool doMirror = false;
@@ -41,6 +42,8 @@ public class Dagger : Power
         daggerPrefab.gameObject.SetActive(false);
         pool = new ComponentPool<Bullet>(daggerPrefab);
         shockwavePool = new ComponentPool<Shockwave>(daggerShockwave);
+        explosionPool = new ComponentPool<ParticleSystem>(explosion);
+        explosionPool.setTimer(1f);
         daggerDuration = Mathf.Min(Camera.main.getBounds().extents.x, Camera.main.getBounds().extents.y) * 0.95f / stats.attackSpeed;
     }
 
@@ -89,6 +92,7 @@ public class Dagger : Power
 
             dagger.setImpactAction(delegate(Bullet bullet)
             {
+                explosionPool.get(bullet.transform.position).Play();
                 Shockwave shockwave = shockwavePool.get(bullet.transform.position);
                 shockwave.Setup(2f, 10, status.none, 0);
                 shockwave.setRecallMethod(delegate { shockwavePool.recall(shockwave); });
