@@ -46,6 +46,7 @@ public class ResourceLayoutManager : MonoBehaviour
 
     public void setPartialAmount(int amount)
     {
+        if (full) return;
         sliders[sliderIndex].value = amount;
     }
 
