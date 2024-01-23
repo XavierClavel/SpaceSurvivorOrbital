@@ -9,7 +9,7 @@ public class Ghost : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Collider2D col;
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] public ParticleSystem explosion;
+    [SerializeField] ParticleSystem explosion;
     
     private bool explodeOnBullet = false;
     private bool explodeOnEnnemy = false;

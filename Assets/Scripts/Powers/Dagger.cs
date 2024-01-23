@@ -18,11 +18,12 @@ public class Dagger : Power
 {
     [SerializeField] private Bullet daggerPrefab;
     [SerializeField] private Shockwave daggerShockwave;
+    [SerializeField] public ParticleSystem explosion;
     private ComponentPool<Bullet> pool;
     private ComponentPool<Shockwave> shockwavePool;
     private float currentAngle = 0f;
-    const float angleDeviation = 10f;
-    private bool doMirror;
+    const float angleDeviation = 30f;
+    private bool doMirror = false;
     private bool doRecall;
     private bool doExplode;
     private float daggerDuration;
@@ -88,10 +89,11 @@ public class Dagger : Power
             dagger.setImpactAction(delegate(Bullet bullet)
             {
                 Shockwave shockwave = shockwavePool.get(bullet.transform.position);
-                shockwave.Setup(2f, 15, status.none, 0);
+                shockwave.Setup(2f, 10, status.none, 0);
                 shockwave.setRecallMethod(delegate { shockwavePool.recall(shockwave); });
                 shockwave.doShockwave(true);
-            });   
+            });
+
         }
 
         StartCoroutine(recall(dagger));

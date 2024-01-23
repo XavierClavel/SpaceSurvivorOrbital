@@ -11,6 +11,7 @@ public class Bullet : MonoBehaviour
 {
     private const int damageScalePlayerToEnnemy = 20;
     [SerializeField] ParticleSystem impact;
+    [SerializeField] ParticleSystem explosion;
     public Rigidbody2D rb;
     public TrailRenderer trail;
     [HideInInspector] public int pierce = 0;

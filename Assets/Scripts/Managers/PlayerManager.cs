@@ -24,6 +24,8 @@ public class PlayerManager
 
     public static int amountGreen { get; private set; }
     public static int amountOrange { get; private set; }
+    public static int filledGreen { get; private set; }
+    public static int filledOrange { get; private set; }
     public static int amountBlue { get; private set; }
 
     public static bool isPlayingWithGamepad { get; private set; }
@@ -90,6 +92,8 @@ public class PlayerManager
         amountBlue = 0;
         amountGreen = 0;
         amountOrange = 0;
+        filledGreen = 0;
+        filledOrange = 0;
         damageTaken = 0;
         currentTimer = 0;
 
@@ -102,6 +106,9 @@ public class PlayerManager
 
     public static void GatherResourceGreen() => amountGreen++;
     public static void GatherResourceOrange() => amountOrange++;
+    public static void FilledResourceGreen() => filledGreen++;
+    public static void FilledResourceOrange() => filledOrange++;
+
 
     public static void SetControlMode(bool boolean) => isPlayingWithGamepad = boolean;
 
