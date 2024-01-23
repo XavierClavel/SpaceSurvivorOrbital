@@ -44,6 +44,11 @@ public class ResourceLayoutManager : MonoBehaviour
         OnSliderComplete(newResources);
     }
 
+    public void setPartialAmount(int amount)
+    {
+        sliders[sliderIndex].value = amount;
+    }
+
     public void EmptySlider()
     {
         if (sliderIndex == 0) return;
@@ -89,6 +94,12 @@ public class ResourceLayoutManager : MonoBehaviour
                 break;
 
         }
+    }
+
+    public int getCurrentAmount()
+    {
+        if (full) return 0;
+        return (int)sliders[sliderIndex].value;
     }
 
 }

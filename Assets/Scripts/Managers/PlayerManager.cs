@@ -106,8 +106,10 @@ public class PlayerManager
 
     public static void GatherResourceGreen() => amountGreen++;
     public static void GatherResourceOrange() => amountOrange++;
-    public static void FilledResourceGreen() => filledGreen++;
-    public static void FilledResourceOrange() => filledOrange++;
+    public static void setPartialResourceGreen(int value) => filledGreen = value;
+    public static int getPartialResourceGreen() =>  filledGreen;
+    public static void setPartialResourceOrange(int value) => filledOrange = value;
+    public static int getPartialResourceOrange() => filledOrange;
 
 
     public static void SetControlMode(bool boolean) => isPlayingWithGamepad = boolean;

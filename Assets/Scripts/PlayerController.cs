@@ -94,8 +94,8 @@ public class PlayerController : MonoBehaviour
     [Header("UI")] 
     [SerializeField] private TextMeshProUGUI soulsDisplay;
     [SerializeField] private TextMeshProUGUI blueDisplay;
-    [SerializeField] ResourceLayoutManager layoutManagerOrange;
-    [SerializeField] ResourceLayoutManager layoutManagerGreen;
+    public ResourceLayoutManager layoutManagerOrange;
+    public ResourceLayoutManager layoutManagerGreen;
     public LayoutManager bulletsLayoutManager;
     EventSystem eventSystem;
     [SerializeField] GameObject button;
@@ -328,6 +328,9 @@ public class PlayerController : MonoBehaviour
 
         layoutManagerOrange.FillNSliders(PlayerManager.amountOrange);
         layoutManagerGreen.FillNSliders(PlayerManager.amountGreen);
+        
+        layoutManagerOrange.setPartialAmount(PlayerManager.getPartialResourceOrange());
+        layoutManagerGreen.setPartialAmount(PlayerManager.getPartialResourceGreen());
 
         if (!Helpers.isPlatformAndroid()) InitializeControls();
         
