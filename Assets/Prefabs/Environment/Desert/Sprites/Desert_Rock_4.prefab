@@ -10,10 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4544990262416783695}
   - component: {fileID: 1205144003046418709}
-  - component: {fileID: 6200361695447890556}
+  - component: {fileID: 6872424063003545742}
+  - component: {fileID: 8841921854599503480}
+  - component: {fileID: 3821482250838231493}
   m_Layer: 20
   m_Name: Desert_Rock_4
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,7 +87,65 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &6200361695447890556
+--- !u!114 &6872424063003545742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8662846441744287678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30ca8f9a4e8bf8d428b4f04ac18f4f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isChild: 0
+--- !u!61 &8841921854599503480
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8662846441744287678}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.15225193, y: 0.87456465}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.03, y: 2.98}
+    newSize: {x: 1.93, y: 2.35}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.3375223, y: 1.2308707}
+  m_EdgeRadius: 0
+--- !u!60 &3821482250838231493
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,40 +189,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.195, y: -0.5}
-      - {x: 0.285, y: -0.21}
+    - - {x: -0.8644264, y: 0.08142477}
+      - {x: -1.2637882, y: -0.3725331}
+      - {x: 0.22834803, y: -0.37995586}
       - {x: 0.305, y: -0.14999999}
       - {x: 0.36499998, y: 0.04}
-      - {x: 0.36499998, y: 0.53999996}
-      - {x: 0.39499998, y: 0.59999996}
-      - {x: 0.475, y: 0.81}
-      - {x: 0.48499998, y: 0.85999995}
-      - {x: 0.475, y: 0.89}
-      - {x: 0.405, y: 0.87}
-      - {x: 0.345, y: 0.84999996}
-      - {x: 0.45499998, y: 1.41}
-      - {x: 0.45499998, y: 1.49}
-      - {x: 0.385, y: 1.49}
-      - {x: 0.355, y: 1.48}
-      - {x: 0.13499999, y: 1.3299999}
-      - {x: 0.015, y: 1.22}
-      - {x: -0.085, y: 1.1}
-      - {x: -0.285, y: 0.89}
-      - {x: -0.385, y: 0.84}
-      - {x: -0.435, y: 0.79999995}
-      - {x: -0.465, y: 0.72999996}
-      - {x: -0.49499997, y: 0.65}
-      - {x: -0.79499996, y: 0.41}
-      - {x: -0.805, y: 0.28}
-      - {x: -0.92499995, y: 0.01}
-      - {x: -1.265, y: -0.37}
-      - {x: -1.475, y: -0.75}
-      - {x: -1.475, y: -0.78}
-      - {x: -1.4549999, y: -0.79999995}
-      - {x: -0.91499996, y: -0.85999995}
-      - {x: -0.895, y: -0.88}
-      - {x: -0.114999995, y: -0.88}
-      - {x: 0.005, y: -0.82}
-      - {x: 0.044999998, y: -0.78999996}
-      - {x: 0.095, y: -0.75}
   m_UseDelaunayMesh: 0

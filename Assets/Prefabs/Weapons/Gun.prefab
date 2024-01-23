@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 1001
   m_Sprite: {fileID: -549263685, guid: 32fb265d6584bcf419c333f627450f1f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -147,6 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6247577526394543101}
   - component: {fileID: 6882324194546309293}
+  - component: {fileID: 8376140095224638684}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -244,3 +245,16 @@ MonoBehaviour:
   firePoint: {fileID: 3534282171217049090}
   bulletPrefab: {fileID: 4478075856262805781, guid: c318572b656b92542abd302bed3be5af, type: 3}
   distanceOffsetBetweenBullets: 0.01
+--- !u!114 &8376140095224638684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6247577526394543100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53854e988eec2cf47bd2cf57e825d01d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  referenceObject: {fileID: 3183411963381936566}

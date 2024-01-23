@@ -86,6 +86,8 @@ public class Dagger : Power
         dagger.Fire(stats.attackSpeed, new HitInfo(stats));
         if (doExplode)
         {
+            //Instantiate(explosion, transform.position, Quaternion.identity);
+
             dagger.setImpactAction(delegate(Bullet bullet)
             {
                 Shockwave shockwave = shockwavePool.get(bullet.transform.position);

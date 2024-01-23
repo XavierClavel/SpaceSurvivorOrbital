@@ -43,7 +43,7 @@ public class Altar : MonoBehaviour, IInteractable
     {
         StopCoroutine(nameof(PrepareAltar));
         altarActivate.Stop();
-        //altarLoading.Stop();
+        
         fillAmount = 1;
         image.fillAmount = fillAmount;
         image.gameObject.SetActive(false);
@@ -72,6 +72,7 @@ public class Altar : MonoBehaviour, IInteractable
         animator.SetTrigger(Deplete);
         GetComponent<Collider2D>().enabled = false;
         auraAltar.Stop();
+        altarLoading.Stop();
     }
 
     void ActivateAltar()

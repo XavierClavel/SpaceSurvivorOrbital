@@ -5,7 +5,7 @@ using UnityEngine;
 public class Fairy : MonoBehaviour
 {
     private Transform player; 
-    public float moveSpeed = 4.0f; 
+    public float moveSpeed = 17.0f; 
     public float circleRadius = 5.0f; 
     private float angle = 0.0f;
 

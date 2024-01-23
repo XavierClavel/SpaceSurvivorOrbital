@@ -10,10 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 9198005301346789318}
   - component: {fileID: 1914168324715880858}
-  - component: {fileID: 5874565996402917598}
+  - component: {fileID: -3797742165076846935}
+  - component: {fileID: 2872959459452603446}
+  - component: {fileID: 8049412453436202124}
   m_Layer: 20
   m_Name: __Rock 2
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1914168324715880858
 SpriteRenderer:
@@ -85,8 +87,66 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &5874565996402917598
-PolygonCollider2D:
+--- !u!114 &-3797742165076846935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7574552320370352370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30ca8f9a4e8bf8d428b4f04ac18f4f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isChild: 0
+--- !u!61 &2872959459452603446
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7574552320370352370}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.43791127, y: 0.1661042}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 8.18, y: 8.18}
+    newSize: {x: 8.19, y: 8.19}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.9888406, y: 0.56940436}
+  m_EdgeRadius: 0
+--- !u!61 &8049412453436202124
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -117,7 +177,7 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.460562, y: -0.37750983}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -127,39 +187,6 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.085, y: -0.565}
-      - {x: 0.275, y: -0.53499997}
-      - {x: 0.42499998, y: -0.53499997}
-      - {x: 0.85499996, y: -0.515}
-      - {x: 1.005, y: -0.475}
-      - {x: 1.225, y: -0.465}
-      - {x: 1.255, y: -0.505}
-      - {x: 1.375, y: -0.475}
-      - {x: 1.375, y: -0.36499998}
-      - {x: 1.355, y: -0.225}
-      - {x: 1.3149999, y: -0.095}
-      - {x: 1.0749999, y: 0.275}
-      - {x: 0.935, y: 0.385}
-      - {x: 0.825, y: 0.39499998}
-      - {x: 0.675, y: 0.39499998}
-      - {x: 0.53499997, y: 0.375}
-      - {x: 0.21499999, y: 0.355}
-      - {x: -0.074999996, y: 0.325}
-      - {x: -0.13499999, y: 0.33499998}
-      - {x: -0.355, y: 0.185}
-      - {x: -0.49499997, y: 0.095}
-      - {x: -0.555, y: 0.024999999}
-      - {x: -0.555, y: -0.21499999}
-      - {x: -0.45499998, y: -0.33499998}
-      - {x: -0.39499998, y: -0.39499998}
-      - {x: -0.49499997, y: -0.42499998}
-      - {x: -0.525, y: -0.515}
-      - {x: -0.53499997, y: -0.60499996}
-      - {x: -0.48499998, y: -0.655}
-      - {x: -0.42499998, y: -0.655}
-      - {x: -0.295, y: -0.635}
-      - {x: -0.265, y: -0.60499996}
-      - {x: -0.155, y: -0.60499996}
-  m_UseDelaunayMesh: 0
+  serializedVersion: 2
+  m_Size: {x: 2.003941, y: 0.5090022}
+  m_EdgeRadius: 0

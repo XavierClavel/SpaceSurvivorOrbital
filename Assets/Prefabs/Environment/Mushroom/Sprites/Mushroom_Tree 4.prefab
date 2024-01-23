@@ -10,10 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6819441562168795532}
   - component: {fileID: 6196638730305724411}
-  - component: {fileID: 2427031776782743031}
+  - component: {fileID: 8411968346908874780}
+  - component: {fileID: 2434009229473225356}
+  - component: {fileID: 1946016063157085644}
   m_Layer: 20
   m_Name: Mushroom_Tree 4
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1950426366, guid: 1884c95ea2f3b944c87d471db77fcef8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -85,8 +87,66 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &2427031776782743031
-PolygonCollider2D:
+--- !u!114 &8411968346908874780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7981825322817635970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30ca8f9a4e8bf8d428b4f04ac18f4f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isChild: 0
+--- !u!61 &2434009229473225356
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7981825322817635970}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.20322585, y: 1.6838713}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 16.43, y: 16.416666}
+    newSize: {x: 16.43, y: 16.416666}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.2235427, y: 4.339237}
+  m_EdgeRadius: 0
+--- !u!61 &1946016063157085644
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -117,7 +177,7 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.014516354, y: -0.7047719}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -127,23 +187,6 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.31565094, y: -0.9829445}
-      - {x: -0.653841, y: -1.2074394}
-      - {x: -0.104104996, y: -1.0374937}
-      - {x: 0.19093895, y: -1.0630465}
-      - {x: 0.0142707825, y: -1.2537155}
-      - {x: 0.2856617, y: -1.1528625}
-      - {x: 0.97499996, y: -1.1766663}
-      - {x: 0.965, y: -1.1466663}
-      - {x: 0.835, y: -1.1166662}
-      - {x: 0.575, y: -1.0766662}
-      - {x: 0.3058586, y: -0.87698746}
-      - {x: 0.20780945, y: -0.62672424}
-      - {x: 0.20622253, y: -0.52467537}
-      - {x: -0.084423065, y: -0.53003883}
-      - {x: -0.16501808, y: -0.7259941}
-      - {x: -0.50086594, y: -0.9619093}
-      - {x: -0.85426325, y: -0.9966258}
-  m_UseDelaunayMesh: 0
+  serializedVersion: 2
+  m_Size: {x: 0.7816038, y: 0.4329188}
+  m_EdgeRadius: 0

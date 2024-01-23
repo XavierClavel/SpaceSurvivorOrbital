@@ -10,10 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 146937968671534819}
   - component: {fileID: 5200117163156617561}
-  - component: {fileID: -3101435982724960050}
+  - component: {fileID: 3985953045937443935}
+  - component: {fileID: 8449007531856878982}
+  - component: {fileID: 3836187044695050581}
   m_Layer: 20
   m_Name: Wood
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,7 +87,65 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &-3101435982724960050
+--- !u!114 &3985953045937443935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143469119623930538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30ca8f9a4e8bf8d428b4f04ac18f4f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isChild: 0
+--- !u!61 &8449007531856878982
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143469119623930538}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.18843937, y: 1.152805}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 8.18, y: 8.18}
+    newSize: {x: 8.19, y: 8.19}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4.876769, y: 0.9527957}
+  m_EdgeRadius: 0
+--- !u!60 &3836187044695050581
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,25 +189,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.87128925, y: -0.4133439}
-      - {x: -0.21083355, y: -0.31649208}
-      - {x: 0.4272766, y: -0.20647907}
-      - {x: 1.1774635, y: -0.06815243}
-      - {x: 1.8513975, y: 0.15282154}
-      - {x: 2.2420464, y: 0.36018276}
-      - {x: 2.2669268, y: 0.57900524}
-      - {x: 1.975316, y: 1.3322392}
-      - {x: 1.6676073, y: 1.5520849}
-      - {x: 0.48094082, y: 1.4394684}
-      - {x: -0.4172716, y: 1.4182396}
-      - {x: -0.8583975, y: 1.119751}
-      - {x: -1.657608, y: 0.8837662}
-      - {x: -1.9045506, y: 0.98474693}
-      - {x: -2.4179087, y: 0.730196}
-      - {x: -2.384347, y: 0.48107815}
-      - {x: -2.626521, y: 0.20368958}
-      - {x: -2.5229387, y: -0.25206184}
-      - {x: -2.0811014, y: -0.40589905}
-      - {x: -1.7524385, y: -0.600379}
-      - {x: -1.4190817, y: -0.51620054}
+    - - {x: 2.1000054, y: 0.98559296}
+      - {x: -2.480796, y: -0.2671945}
+      - {x: -1.8747644, y: -0.5597346}
+      - {x: 0.1396293, y: -0.4067185}
+      - {x: 0.88470936, y: -0.20936382}
+      - {x: 2.2740233, y: 0.42486966}
   m_UseDelaunayMesh: 0
