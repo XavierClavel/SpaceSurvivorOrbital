@@ -47,7 +47,7 @@ public class Bullet : MonoBehaviour
     }
 
 
-    public Bullet Fire(int speed, HitInfo hitInfo)
+    public Bullet Fire(float speed, HitInfo hitInfo)
     {
         currentPierce = 0;
         rb.velocity = transform.up * speed;
@@ -119,7 +119,7 @@ public class Bullet : MonoBehaviour
         currentPierce++;
     }
 
-    public void FireFairy(int speed, float lifetime, int pierce, Transform newTarget, HitInfo hitInfo)
+    public void FireFairy(float speed, float lifetime, int pierce, Transform newTarget, HitInfo hitInfo)
     {
         Destroy(gameObject, lifetime);
         Vector3 direction = (newTarget.position - transform.position).normalized;

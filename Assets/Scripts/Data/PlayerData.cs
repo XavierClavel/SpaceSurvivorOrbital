@@ -222,7 +222,7 @@ public class characterStats
 public class interactorStats
 {
     public Vector2Int baseDamage;
-    public int attackSpeed;
+    public float attackSpeed;
     public float range;
 
     public float cooldown;
