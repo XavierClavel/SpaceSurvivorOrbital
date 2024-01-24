@@ -13,13 +13,13 @@ public class Altar : MonoBehaviour, IInteractable
     [SerializeField] ParticleSystem altarLoading;
     float factor;
     float fillAmount = 1;
-    private Animator animator;
+    public Animator animator;
     private static readonly int Deplete = Animator.StringToHash("Deplete");
 
     private void Start()
     {
         ObjectManager.dictObjectToInteractable.Add(gameObject, this);
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
 
         factor = 1f / timeToLaunch;
     }
