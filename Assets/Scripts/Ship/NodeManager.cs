@@ -14,7 +14,7 @@ public class NodeManager : MonoBehaviour
     Dictionary<int, List<Node>> dictTierToNodes = new Dictionary<int, List<Node>>();
     public Dictionary<string, Node> dictKeyToNode = new Dictionary<string, Node>();
     public List<Node> firstTierNodes = new List<Node>();
-    const int maxTier = 4;
+    const int maxTier = 5;
     Node[,] nodeMatrix;
     int maxRow = -1;
     [HideInInspector] public GameObject firstSelectedButton;
