@@ -8,17 +8,12 @@ using UnityEngine.UI;
 public class SpawnManager : Breakable
 {
     [SerializeField] private Collider2D collider;
-    [SerializeField] TilesBankManager tilesBankManager;
-    List<Ennemy> ennemyPrefabs;
-
     
     private SpawnData spawnData;
 
-    //Transform playerTransform;
-    bool doEnnemySpawn = true;
-    float waveDuration = 100f;
 
     private int difficulty;
+    private bool isDestroyed = false;
 
     int wallet;
     [SerializeField] Slider healthBar;
@@ -40,6 +35,8 @@ public class SpawnManager : Breakable
 
     protected virtual void Death()
     {
+        if (isDestroyed) return;
+        isDestroyed = true;
         collider.enabled = false;
         SoundManager.PlaySfx(transform, key: "Spawn_Destroy");
         ObjectManager.registerDenDestroyed();
@@ -62,8 +59,6 @@ public class SpawnManager : Breakable
         healthBar.value = _health;
 
         
-        wallet = spawnData.baseCost;
-        ennemyPrefabs = tilesBankManager.GetEnnemies();
         //playerTransform = PlayerController.instance.transform;
         
         ObjectManager.registerDenSpawned();

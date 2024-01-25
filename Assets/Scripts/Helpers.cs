@@ -126,7 +126,32 @@ public static class SingletonManager
 
 public static class Extensions
 {
-    
+
+    public static Vector3 getRotation(this Vector2 direction)
+    {
+        return Vector2.SignedAngle(Vector2.right, direction) * Vector3.forward;
+    }
+
+    public static Vector3 getRotation(this Vector3 direction)
+    {
+        return Vector2.SignedAngle(Vector2.right, direction) * Vector3.forward;
+    }
+
+    public static Quaternion getRotationQuat(this Vector3 direction)
+    {
+        return Quaternion.Euler(direction.getRotation());
+    }
+
+
+    public static Vector3 getRotationTo(this Transform t, Transform target)
+    {
+        return (target.position - t.position).getRotation();
+    }
+    public static Vector3 getRotationTo(this Transform t, Vector3 position)
+    {
+        return (position - t.position).getRotation();
+    }
+
     public static Bounds getBounds(this Camera camera)
     {
         float screenAspect = (float)Screen.width / (float)Screen.height;

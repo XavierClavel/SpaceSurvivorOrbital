@@ -55,7 +55,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     //Consts
     private const float minDistanceBetweenPlanetsSqr = 100;
     private const int maxAttempts = 50;
-    private Vector2 randomizePositionFactor = new Vector2(100f,25f);
+    private Vector2 randomizePositionFactor = new Vector2(0f,00f);
 
     
 #region staticAPI
@@ -311,6 +311,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
 
     Vector3 getPlanetPosition(Vector3 position, string me)
     {
+        return position;
         Vector3? newPos = null;
         int currentAttempt = 0;
 
@@ -355,7 +356,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
 
     Vector3? tryPosition(Vector3 position)
     {
-        Vector3 newPos = position + Helpers.getRandomPositionInRadius(randomizePositionFactor);
+        Vector3 newPos = position;// + Helpers.getRandomPositionInRadius(randomizePositionFactor);
         foreach (var planetPos in planetsPos)
         {
             
@@ -387,9 +388,9 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     {
         return gridLayout.cellSize.y * planet.planetData.size switch
         {
-            planetSize.small => 0.8f,
-            planetSize.medium => 1f,
-            planetSize.large => 1.2f,
+            planetSize.small => 0.45f,
+            planetSize.medium => 0.75f,
+            planetSize.large => 1.1f,
             _ => throw new ArgumentOutOfRangeException()
         };
     }
@@ -413,8 +414,8 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
                 polyline.transform.localPosition = Vector3.zero;
                 polyline.name = $"Line_{parentNode.key}_to_{childNode.key}";
                 
-                line.Start = panelRect.InverseTransformPoint(dictKeyToPlanet[parentNode.key].planet.GetComponent<RectTransform>().position);
-                line.End = panelRect.InverseTransformPoint(dictKeyToPlanet[childNode.key].planet.GetComponent<RectTransform>().position);
+                polyline.Start = panelRect.InverseTransformPoint(dictKeyToPlanet[parentNode.key].planet.GetComponent<RectTransform>().position);
+                polyline.End = panelRect.InverseTransformPoint(dictKeyToPlanet[childNode.key].planet.GetComponent<RectTransform>().position);
 
                 //polyline.GetComponent<RectTransform>().anchoredPosition3D = 10 * Vector3.back;
             }

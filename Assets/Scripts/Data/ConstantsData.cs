@@ -44,6 +44,9 @@ public static class ConstantsData
     public static float protectingWaveRange;
     public static int protectingWaveKnockback;
 
+    public static int chargeBaseCost;
+    public static int chargeCostIncrement;
+
 }
 
 public class ConstantsDataBuilder
@@ -95,6 +98,9 @@ public class ConstantsDataBuilder
         SetValue(ref ConstantsData.protectingWaveDamage, "ProtectingWave_Damage");
         SetValue(ref ConstantsData.protectingWaveKnockback, "ProtectingWave_Knockback");
         SetValue(ref ConstantsData.protectingWaveRange, "ProtectingWave_Range");
+
+        SetValue(ref ConstantsData.chargeBaseCost, "Charge_BaseCost");
+        SetValue(ref ConstantsData.chargeCostIncrement, "Charge_CostIncrement");
     }
     
     private void SetValue<T>(ref T variable, string key)

@@ -17,6 +17,7 @@ public class PowerFairy : Power, IPlayerEvents
     public Fairy fairy;
     [SerializeField] private Vector2 fairyOffset1;
     [SerializeField] private Vector2 fairyOffset2;
+    [SerializeField] ParticleSystem revivalPS;
     private bool isResurrectionAvailable = false;
     
     public override void onSetup()
@@ -37,6 +38,7 @@ public class PowerFairy : Power, IPlayerEvents
         isResurrectionAvailable = false;
         
         Debug.Log("Resurrection");
+        Instantiate(revivalPS, playerTransform.position, Quaternion.identity).Play();
         
         PlayerController.Heal(PlayerController.instance.maxHealth);
         return true;

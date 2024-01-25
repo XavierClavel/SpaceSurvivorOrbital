@@ -19,11 +19,10 @@ public class DivineLightning : Power, IElecZone
     public Counter elecZoneCounter;
     static readonly Vector2 range = new Vector2(14f, 8f);
     LayerMask mask;
-    [SerializeField] Animator lightningStrike;
+    [SerializeField] ParticleSystem lightningStrike;
 
-    ComponentPool<Animator> pool;
+    ComponentPool<ParticleSystem> pool;
     [SerializeField] private ElectricZone electricZonePrefab;
-    private static readonly int animStrike = Animator.StringToHash("Strike");
     private int amountElecZoneTouched;
     public static DivineLightning instance;
     private bool stunChance;
@@ -39,7 +38,7 @@ public class DivineLightning : Power, IElecZone
         autoCooldown = true;
         mask = LayerMask.GetMask(Vault.layer.Ennemies);
 
-        pool = new ComponentPool<Animator>(lightningStrike).setTimer(stats.projectiles);
+        pool = new ComponentPool<ParticleSystem>(lightningStrike).setTimer(1f);
         doSpawnElecZone = fullStats.generic.boolB;
         stunChance = fullStats.generic.boolA;
         scaleElecZone = fullStats.generic.floatA;
@@ -120,7 +119,7 @@ public class DivineLightning : Power, IElecZone
             spawnElecZoneCounter = !spawnElecZoneCounter;
         }
 
-        Animator anim = pool.get(hitPoint);
-        anim.SetTrigger(animStrike);
+        ParticleSystem ps = pool.get(hitPoint);
+        ps.Play();
     }
 }

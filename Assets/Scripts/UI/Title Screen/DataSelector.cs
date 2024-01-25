@@ -5,10 +5,11 @@ using UnityEngine.UI;
 using System;
 using TMPro;
 using UnityEngine.Serialization;
+using System.Linq;
 
 public class DataSelector : MonoBehaviour, UIPanel
 {
-    private static DataSelector instance;
+    public static DataSelector instance;
     [SerializeField] Button startButton;
     public static string selectedCharacter = string.Empty;
     public static string selectedWeapon = string.Empty;
@@ -38,6 +39,40 @@ public class DataSelector : MonoBehaviour, UIPanel
     [SerializeField] private Image equipmentImage;
     [SerializeField] private Button equipmentBuyButton;
     [SerializeField] private UpgradeDisplay equipmentDisplay;
+
+    public Dictionary<string, SelectButton> dictKeyToButton = new Dictionary<string, SelectButton>();
+    [SerializeField] List<SelectorLayout> selectorLayouts;
+
+    private int currentEquipmentCharge = 0;
+    private int maxEquipmentCharge = 4;
+    private int maxMaxEquipmentCharge = 10;
+
+    [SerializeField] private GameObject buyChargeButton;
+    [SerializeField] private TextMeshProUGUI chargeCostDisplay;
+
+    [SerializeField] private List<ChargeIndicator> chargeIndicators;
+
+    public Color colorUnfilled;
+    public Color colorFilled;
+    public Color colorLocked;
+
+    private int currentChargeCost;
+
+
+    public void BuyCharge()
+    {
+        if (!DataSelector.Transaction(currentChargeCost)) return;
+        maxEquipmentCharge++;
+        SaveManager.setCharge(maxEquipmentCharge);
+        UpdateCurrentCharge();
+    }
+
+    private void UpdateBuyChargeButton()
+    {
+        buyChargeButton.SetActive(maxEquipmentCharge < maxMaxEquipmentCharge);
+        currentChargeCost = ConstantsData.chargeBaseCost + (maxEquipmentCharge - 3) * ConstantsData.chargeCostIncrement;
+        chargeCostDisplay.SetText(currentChargeCost.ToString());
+    }
 
     private void DisplayCharacter(SelectButton selectButton)
     {
@@ -105,10 +140,35 @@ public class DataSelector : MonoBehaviour, UIPanel
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
         characterImage.gameObject.SetActive(false);
         weaponImage.gameObject.SetActive(false);
         equipmentImage.gameObject.SetActive(false);
+
+        selectorLayouts.ForEach(it => it.Setup());
+
+        dictKeyToButton[DataManager.dictWeapons.Keys.ToList()[0]].Select();
+        dictKeyToButton[ScriptableObjectManager.dictKeyToCharacterHandler.Keys.ToList()[0]].Select();
+
+        maxEquipmentCharge = SaveManager.getCharge();
+
+        UpdateCurrentCharge();
     }
+
+    public void UpdateCurrentCharge()
+    {
+        for (int i = 0; i < chargeIndicators.Count; i++)
+        {
+            if (i < currentEquipmentCharge) chargeIndicators[chargeIndicators.Count - 1 - i].Fill();
+            else if (i < maxEquipmentCharge) chargeIndicators[chargeIndicators.Count - 1 - i].Unfill();
+            else chargeIndicators[chargeIndicators.Count - 1 - i].Lock();
+        }
+        UpdateBuyChargeButton();
+    }
+
 
     public RectTransform getUITransform()
     {
@@ -138,8 +198,8 @@ public class DataSelector : MonoBehaviour, UIPanel
 
     public static void Reset()
     {
-        selectedCharacter = string.Empty;
-        selectedWeapon = string.Empty;
+        selectedCharacter = null;
+        selectedWeapon = null;
         selectedEquipments = new List<string>();
     }
 
@@ -175,6 +235,8 @@ public class DataSelector : MonoBehaviour, UIPanel
 
     public void SelectCharacter(string value)
     {
+        if (selectedCharacter != null) dictKeyToButton[selectedCharacter].onDeselect();
+        dictKeyToButton[value].onSelect();
         selectedCharacter = value;
         SoundManager.PlaySfx(transform, key: "Button_Switch");
         if (selectedWeapon != string.Empty) startButton.interactable = true;
@@ -182,14 +244,32 @@ public class DataSelector : MonoBehaviour, UIPanel
 
     public void SelectWeapon(string value)
     {
+        if (selectedWeapon != null) dictKeyToButton[selectedWeapon].onDeselect();
+        dictKeyToButton[value].onSelect();
         selectedWeapon = value;
         SoundManager.PlaySfx(transform, key: "Button_Switch");
         if (selectedCharacter != string.Empty) startButton.interactable = true;
     }
     public void SelectEquipment(string value)
     {
-        if (selectedEquipments.Contains(value)) selectedEquipments.Remove(value);
-        else selectedEquipments.Add(value);
+        
+        if (selectedEquipments.Contains(value)) //unselect
+        {
+            selectedEquipments.Remove(value);
+            dictKeyToButton[value].onDeselect();
+            currentEquipmentCharge -= ScriptableObjectManager.dictKeyToEquipmentHandler[value].getCharge();
+        }
+        else //select
+        {
+            if (ScriptableObjectManager.dictKeyToEquipmentHandler[value].getCharge() + currentEquipmentCharge > maxEquipmentCharge)
+            {
+                return;
+            }
+            selectedEquipments.Add(value);
+            dictKeyToButton[value].onSelect();
+            currentEquipmentCharge += ScriptableObjectManager.dictKeyToEquipmentHandler[value].getCharge();
+        }
+        UpdateCurrentCharge();
         SoundManager.PlaySfx(transform, key: "Button_Switch");
     }
 
@@ -213,5 +293,14 @@ public class DataSelector : MonoBehaviour, UIPanel
     public static CharacterHandler getSelectedCharacter()
     {
         return ScriptableObjectManager.dictKeyToCharacterHandler[selectedCharacter];
+    }
+
+    public static bool Transaction(int cost)
+    {
+        PlayerManager.setSouls();
+        if (PlayerManager.getSouls() < cost) return false;
+        PlayerManager.spendSouls(cost);
+        TitleScreen.UpdateSoulsDisplay();
+        return true;
     }
 }

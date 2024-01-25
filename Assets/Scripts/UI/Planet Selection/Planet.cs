@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
 {
     //Consts
-    private Vector2 randomizePositionFactor = new Vector2(100f,25f);
+    private Vector2 randomizePositionFactor = new Vector2(70f,10f);
     
     //Static
     public static int currentTier = 0;

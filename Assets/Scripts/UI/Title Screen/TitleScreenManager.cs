@@ -46,13 +46,11 @@ public class TitleScreenManager : MonoBehaviour
 
     public static void HideDataSelector()
     {
-        Debug.Log(canvasWidth);
         instance.dataSelectorUI.anchoredPosition += canvasWidth * Vector2.right;
     }
 
     public static void HideEquipmentSelector()
     {
-        Debug.Log(canvasWidth);
         instance.equipmentSelectorUI.anchoredPosition += canvasWidth * Vector2.right;
     }
 

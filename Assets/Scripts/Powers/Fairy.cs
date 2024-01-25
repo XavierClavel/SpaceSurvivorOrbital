@@ -68,11 +68,12 @@ public class Fairy : MonoBehaviour
 
     void Shoot(Transform detectedEnemy)
     {
+        Vector3 direction = (detectedEnemy.position - transform.position).normalized;
         //soundManager.PlaySfx(transform, sfx.ennemyShoots);
-        Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        Bullet bullet = Instantiate(bulletPrefab, transform.position, direction.getRotationQuat());
         bullet.gameObject.SetActive(true);
-
-        bullet.FireFairy(stats.attackSpeed, stats.range, stats.pierce, detectedEnemy, new HitInfo(stats));
+       
+        bullet.FireFairy(stats.attackSpeed, stats.range, stats.pierce, direction, new HitInfo(stats));
     }
 
     IEnumerator Reload()

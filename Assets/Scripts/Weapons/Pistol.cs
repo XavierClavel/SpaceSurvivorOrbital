@@ -26,7 +26,7 @@ public class Pistol : Gun
 
     private Vector3 getBulletStartPos()
     {
-        return PlayerController.instance.transform.position + (Vector3)PlayerController.instance.aimVector * 0.5f;
+        return PlayerController.instance.transform.position + aimTransform.right * 0.5f;
     }
 
     private Vector3 getBulletStartRotation()
@@ -61,6 +61,7 @@ public class Pistol : Gun
         newPistol.Setup(fullStats);
         newPistol.transform.SetParent(rotationAxis);
         newPistol.transform.localPosition = 0.7f * Vector2.right;
+        newPistol.transform.localRotation = Quaternion.identity;
         newPistol.aimTransform = rotationAxis;
         
         childPistols.Add(newPistol);

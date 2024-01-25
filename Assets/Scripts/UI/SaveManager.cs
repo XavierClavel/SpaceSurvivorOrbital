@@ -12,6 +12,7 @@ public static class SaveManager
     private class SaveData
     {
         public int souls = 0;
+        public int maxCharge = 3;
         public List<String> optionsUnlocked = new List<string>
         {
             "Gun"
@@ -19,6 +20,14 @@ public static class SaveManager
     }
     
     static SaveData saveData = null;
+
+    public static int getCharge() => saveData.maxCharge;
+
+    public static void setCharge(int maxCharge)
+    {
+        saveData.maxCharge = maxCharge;
+        Save();
+    }
 
     public static int retrieveSouls()
     {
@@ -55,7 +64,10 @@ public static class SaveManager
 
     public static void Reset()
     {
-        saveData = new SaveData();
+        saveData = new SaveData
+        {
+            maxCharge = 3,
+        };
         
         Save();
     }

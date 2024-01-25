@@ -36,14 +36,6 @@ public class Spawner : MonoBehaviour
     int wallet;
     EntitySpawnInstanceComparer<Ennemy> comparer = new EntitySpawnInstanceComparer<Ennemy>();
 
-    protected virtual void Death()
-    {
-        SoundManager.PlaySfx(transform, key: "Spawn_Destroy");
-        ObjectManager.registerDenDestroyed();
-        ObjectManager.dictObjectToEnnemy.Remove(gameObject);
-        Destroy(gameObject);
-    }
-
 
     public void debug_StopEnnemySpawn()
     {

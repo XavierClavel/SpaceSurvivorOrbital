@@ -53,10 +53,6 @@ public class ObjectManager : MonoBehaviour
         altarMonsterTotal.text = PlanetManager.getDensAmount().ToString();
     }
 
-    private void Update()
-    {
-        altarMonsterCurrent.text = amountDensDestroyed.ToString();
-    }
 
     public static void DisplaySpaceship()
     {
@@ -111,6 +107,7 @@ public class ObjectManager : MonoBehaviour
     public static void registerDenDestroyed() {
         amountDensDestroyed++;
         amountDens--;
+        instance.altarMonsterCurrent.SetText(amountDensDestroyed.ToString());
 
         if (amountDens > 0) return;
         Instantiate(instance.shipAppearPS, PlayerController.instance.transform);

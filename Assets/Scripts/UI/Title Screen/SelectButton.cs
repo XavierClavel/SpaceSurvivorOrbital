@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Shapes;
 
 public class SelectButton : MonoBehaviour
 {
@@ -14,6 +15,12 @@ public class SelectButton : MonoBehaviour
     [HideInInspector] public int cost = 0;
     [SerializeField] private GameObject costPanel;
     [SerializeField] private TextMeshProUGUI costDiplay;
+    [SerializeField] private Image sprite;
+    [SerializeField] private ShapeRenderer rectangleFill;
+    [SerializeField] private ShapeRenderer discFill;
+    [SerializeField] private Color colorFilled;
+    [SerializeField] private Color colorUnfilled;
+
 
     private void Awake()
     {
@@ -44,22 +51,39 @@ public class SelectButton : MonoBehaviour
         cross.SetActive(!isUnlocked);
         costPanel.SetActive(!isUnlocked);
         
-        button.image.sprite = DataSelector.getIcon(key);
+        sprite.sprite = DataSelector.getIcon(key);
         button.onClick.AddListener(Select);
+
+        DataSelector.instance.dictKeyToButton[key] = this;
     }
 
 
-    private void Select()
+    public void Select()
     {
+        
         DataSelector.DisplayGeneric(key, this);
         if (!isUnlocked && !TitleScreen.isSelectionFree) return;
         DataSelector.SelectGeneric(key);
         selectorLayout.UpdateSelectedButton(this);
     }
 
+    public void onSelect()
+    {
+        if (rectangleFill == null) return;
+        rectangleFill.Color = colorFilled;
+        discFill.Color = colorFilled;
+    }
+
+    public void onDeselect() {
+        if (rectangleFill == null) return;
+        rectangleFill.Color = colorUnfilled;
+        discFill.Color = colorUnfilled;
+    }
+
+
     public void Buy()
     {
-        if (!Transaction()) return;
+        if (!DataSelector.Transaction(cost)) return;
         
         SaveManager.unlockOption(key);
         SoundManager.PlaySfx(transform, key: "Button_Buy");
@@ -70,13 +94,6 @@ public class SelectButton : MonoBehaviour
         Select();
     }
 
-    bool Transaction()
-    {
-        PlayerManager.setSouls();
-        if (PlayerManager.getSouls() < cost) return false;
-        PlayerManager.spendSouls(cost);
-        TitleScreen.UpdateSoulsDisplay();
-        return true;
-    }
+    
 
 }

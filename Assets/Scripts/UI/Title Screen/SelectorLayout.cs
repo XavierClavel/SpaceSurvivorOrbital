@@ -13,7 +13,7 @@ public class SelectorLayout : MonoBehaviour
     [SerializeField] SelectButton button;
     SelectButton selectedButton;
 
-    void Start()
+    public void Setup()
     {
         switch (type)
         {
@@ -47,8 +47,10 @@ public class SelectorLayout : MonoBehaviour
 
     public void UpdateSelectedButton(SelectButton newButton)
     {
-        if (selectedButton != null) selectedButton.background.color = Color.white;
-        selectedButton = newButton;
+        if (selectedButton != null) selectedButton = newButton;
+        return;
+        selectedButton.background.color = Color.white;
+        
         selectedButton.background.color = Color.yellow;
     }
 }
