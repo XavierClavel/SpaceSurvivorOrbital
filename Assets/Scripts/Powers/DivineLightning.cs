@@ -20,6 +20,7 @@ public class DivineLightning : Power, IElecZone
     static readonly Vector2 range = new Vector2(14f, 8f);
     LayerMask mask;
     [SerializeField] ParticleSystem lightningStrike;
+    [SerializeField] ParticleSystem lightningStrikeBig;
 
     ComponentPool<ParticleSystem> pool;
     [SerializeField] private ElectricZone electricZonePrefab;
@@ -29,6 +30,7 @@ public class DivineLightning : Power, IElecZone
     private bool doSpawnElecZone;
     private bool spawnElecZoneCounter = true;
     private float scaleElecZone;
+    private bool bigLightning = false;
     private Camera cam;
 
     protected override void Start()
@@ -37,13 +39,21 @@ public class DivineLightning : Power, IElecZone
         instance = this;
         autoCooldown = true;
         mask = LayerMask.GetMask(Vault.layer.Ennemies);
+        bigLightning = fullStats.generic.boolC;
 
-        pool = new ComponentPool<ParticleSystem>(lightningStrike).setTimer(1f);
+        if (bigLightning)
+        {
+            pool = new ComponentPool<ParticleSystem>(lightningStrikeBig).setTimer(1f);
+        } else
+        {
+            pool = new ComponentPool<ParticleSystem>(lightningStrike).setTimer(1f);
+        }
+       
         doSpawnElecZone = fullStats.generic.boolB;
         stunChance = fullStats.generic.boolA;
         scaleElecZone = fullStats.generic.floatA;
 
-        elecZoneCounter = new Counter(Orchestrator.context, 2f);
+        elecZoneCounter = new Counter(Orchestrator.context, fullStats.generic.floatB);
         elecZoneCounter.addOnStartEvent(ElecEventManager.ElecStart)
             .addOnCompleteEvent(ElecEventManager.ElecStop);
         
@@ -83,6 +93,7 @@ public class DivineLightning : Power, IElecZone
         ElectricZone electricZone = Instantiate(electricZonePrefab);
         electricZone.transform.position = spawnPoint;
         electricZone.transform.localScale = Vector3.zero;
+        electricZone.timerDuration = fullStats.generic.floatB;
         //TODO Fade Out and get smaller or just dispawn
         electricZone.Setup(scaleElecZone);
     }

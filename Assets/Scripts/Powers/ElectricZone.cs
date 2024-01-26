@@ -14,9 +14,11 @@ public class ElectricZone : MonoBehaviour
     private Color innerColor;
     private Color outerColor;
 
+    public float timerDuration;
+
     public void Setup(float range)
     {
-        Destroy(gameObject,2f);
+        Destroy(gameObject,timerDuration);
         
         innerColor = innerDisc.ColorInner;
         outerColor = innerDisc.ColorOuter;
