@@ -1508,7 +1508,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 342989743}
-  - component: {fileID: 342989744}
   m_Layer: 5
   m_Name: Selection Layouts
   m_TagString: Untagged
@@ -1537,32 +1536,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &342989744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 342989742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 50
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 40
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
 --- !u!1 &409527669
 GameObject:
   m_ObjectHideFlags: 0
@@ -1793,7 +1766,7 @@ GameObject:
   m_Component:
   - component: {fileID: 481038082}
   - component: {fileID: 481038084}
-  - component: {fileID: 481038083}
+  - component: {fileID: 481038085}
   m_Layer: 5
   m_Name: EquipmentLayout
   m_TagString: Untagged
@@ -1816,37 +1789,11 @@ RectTransform:
   m_Father: {fileID: 342989743}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 150, y: -100}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &481038083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 481038081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 50
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 1
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
 --- !u!114 &481038084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1862,6 +1809,30 @@ MonoBehaviour:
   type: 2
   dataSelector: {fileID: 1822772322}
   button: {fileID: 8230026497907968637, guid: ed35021994e77e44fa783a00ff992b1a, type: 3}
+--- !u!114 &481038085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481038081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 70
+    m_Right: 0
+    m_Top: 110
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 1
+  m_CellSize: {x: 50, y: 50}
+  m_Spacing: {x: 185, y: 100}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &541859923
 GameObject:
   m_ObjectHideFlags: 0
@@ -8101,9 +8072,9 @@ MonoBehaviour:
   - {fileID: 1804872108}
   - {fileID: 411487121}
   - {fileID: 1234067188}
-  colorUnfilled: {r: 0.5647059, g: 0.7725491, b: 0.77647066, a: 1}
-  colorFilled: {r: 0.9245283, g: 0.62038493, b: 0.3436454, a: 1}
-  colorLocked: {r: 0.43921572, g: 0.58431375, b: 0.58431375, a: 1}
+  colorUnfilled: {r: 0.14901961, g: 0.3647059, b: 0.34901962, a: 1}
+  colorFilled: {r: 0.5764706, g: 0.80392164, b: 0.8078432, a: 1}
+  colorLocked: {r: 0.023529414, g: 0.09019608, b: 0.1137255, a: 1}
 --- !u!224 &1822772323
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8804,7 +8775,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7449831444239551597, guid: 44f5937ed3b07b8419cbed9d854eb676, type: 3}
       propertyPath: width
-      value: 123.6
+      value: 126.92
       objectReference: {fileID: 0}
     - target: {fileID: 7449831444239551597, guid: 44f5937ed3b07b8419cbed9d854eb676, type: 3}
       propertyPath: color.b
