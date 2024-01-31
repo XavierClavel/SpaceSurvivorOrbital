@@ -56,6 +56,8 @@ public class Dagger : Power
 
     private void FireDaggers(float rotation)
     {
+        SoundManager.PlaySfx(transform, key: "Dagger_Throw");
+
         if (stats.projectiles == 1)
         {
             FireDagger(rotation);
@@ -93,6 +95,7 @@ public class Dagger : Power
             dagger.setImpactAction(delegate(Bullet bullet)
             {
                 explosionPool.get(bullet.transform.position).Play();
+                SoundManager.PlaySfx(transform, key: "Ghost_Explode");
                 Shockwave shockwave = shockwavePool.get(bullet.transform.position);
                 shockwave.Setup(2f, 10, status.none, 0);
                 shockwave.setRecallMethod(delegate { shockwavePool.recall(shockwave); });
