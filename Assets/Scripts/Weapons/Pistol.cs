@@ -60,7 +60,7 @@ public class Pistol : Gun
         Pistol newPistol = (Pistol)Instantiate(PlayerManager.weaponPrefab);
         newPistol.Setup(fullStats);
         newPistol.transform.SetParent(rotationAxis);
-        newPistol.transform.localPosition = 0.7f * Vector2.right;
+        newPistol.transform.localPosition = 0.4f * Vector2.right;
         newPistol.transform.localRotation = Quaternion.identity;
         newPistol.aimTransform = rotationAxis;
         
