@@ -113,8 +113,9 @@ public class ComponentPool : Pool<Component>
         else
         {
             Component instance = stack.Pop();
-            instance.transform.position = position;
-            instance.transform.rotation = rotation;
+            var transform = instance.transform;
+            transform.position = position;
+            transform.rotation = rotation;
             instance.gameObject.SetActive(true);
             return instance;
         }
@@ -214,10 +215,5 @@ public class ComponentPool<T> where T : Component
         target.gameObject.SetActive(false);
         pool.push(target);
     }
-
-}
-
-public class EventPool<T>
-{
 
 }

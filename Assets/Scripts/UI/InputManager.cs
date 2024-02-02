@@ -14,8 +14,15 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        SingletonManager.OnInstanciation(this);
-        instance = SingletonManager.get<InputManager>();
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
 
         playerInput = GetComponent<PlayerInput>();
     }

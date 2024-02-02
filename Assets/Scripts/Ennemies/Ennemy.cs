@@ -167,6 +167,7 @@ public class Ennemy : Breakable
             StopCoroutine(nameof(ApplyDeformationOverTime));
             StartCoroutine(nameof(ApplyDeformationOverTime));
             health -= hitInfo.damage;
+            if (health <= 0) return;
         }
 
         ApplyEffects(hitInfo);
@@ -266,12 +267,8 @@ public class Ennemy : Breakable
 
     void ApplyFire()
     {
-        bool isOnFire = fireDamageRemaining > 0;
-        fireDamageRemaining = ConstantsData.fireDuration;
-        if (!isOnFire)
-        {
-            StartCoroutine(nameof(FireDamage));
-        }
+        if (fireDamageRemaining <= 0f) StartCoroutine(nameof(FireDamage));
+        else fireDamageRemaining = ConstantsData.fireDuration;
     }
 
     void ApplyIce()
@@ -288,6 +285,7 @@ public class Ennemy : Breakable
 
     IEnumerator FireDamage()
     {
+        fireDamageRemaining = ConstantsData.fireDuration;
         firePs.Play();
         while (fireDamageRemaining > 0)
         {
@@ -302,15 +300,19 @@ public class Ennemy : Breakable
     IEnumerator IceEffect()
     {
         Debug.Log("Ice Go");
+        Debug.Log(ConstantsData.iceDuration);
         icePs.Play();
         spriteRenderer.color = new Color32(126,171,242,255);
         speedMultiplier = ConstantsData.iceSlowdown;
+        remainingIce = ConstantsData.iceDuration;
 
         while (remainingIce > 0f)
         {
             yield return Helpers.getWaitFixed();
             remainingIce -= Time.fixedDeltaTime;
         }
+        
+        Debug.Log("Ice stop");
         
         speedMultiplier = 1f;
         spriteRenderer.color = Color.white;

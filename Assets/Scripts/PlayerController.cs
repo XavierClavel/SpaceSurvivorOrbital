@@ -99,6 +99,7 @@ public class PlayerController : MonoBehaviour
     public LayoutManager bulletsLayoutManager;
     EventSystem eventSystem;
     [SerializeField] GameObject button;
+    [SerializeField] private Transform camTarget;
 
     private bool playerControlled = true;
 
@@ -465,9 +466,12 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 mousePos = controls.Player.MousePosition.ReadValue<Vector2>();
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-        Vector2 direction = (worldPos - transform.position);
-        Debug.DrawRay(transform.position, direction, Color.red);
-        return direction.normalized;
+        var position = transform.position;
+        Vector2 direction = (worldPos - position);
+        Vector3 normalizedDirection = direction.normalized;
+        float magnitude = direction.sqrMagnitude;
+        camTarget.position = position + Mathf.Clamp(magnitude, 0f, 16f) * 0.1f * normalizedDirection;
+        return normalizedDirection;
     }
 
     void Aim()

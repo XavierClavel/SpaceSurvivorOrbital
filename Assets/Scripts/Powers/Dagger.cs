@@ -128,7 +128,6 @@ public class Dagger : Power
 
     private void recallDagger(Bullet dagger)
     {
-        dagger.gameObject.SetActive(false);
         pool.recall(dagger);
     }
 }

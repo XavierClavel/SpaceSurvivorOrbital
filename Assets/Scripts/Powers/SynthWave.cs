@@ -88,7 +88,6 @@ public class SynthWave : Power, IPlayerEvents
 
     private void DoShockwave(Shockwave shockwave)
     {
-        Debug.Log("shockwave");
         var transform1 = shockwave.transform;
         transform1.localScale = Vector3.zero;
         transform1.localPosition = Vector3.zero;
