@@ -18,6 +18,7 @@ public class SynthWave : Power, IPlayerEvents
     [SerializeField] private Shockwave shockwave;
     private Shockwave shockwave2;
     private Shockwave protectingShockwave;
+    [SerializeField] ParticleSystem protectingPS;
     
     private bool doubleShockwave;
     private int shockwaveDamage;
@@ -78,7 +79,9 @@ public class SynthWave : Power, IPlayerEvents
     private void DoProtectingWave()
     {
         Debug.Log("ProtectingWave");
+
         DoShockwave(protectingShockwave);
+        protectingPS.Play();
         SoundManager.PlaySfx(transform, key: "SynthWave_Sound");
     } 
 
