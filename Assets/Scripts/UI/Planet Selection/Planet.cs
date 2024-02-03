@@ -77,20 +77,18 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
         });
 
         planet.sprite = getSprite();
-        if (tier != 0 && row != 3)
+        
+        if (dictPlanetToPos.TryGetValue(node.key, out var pos))
         {
-            if (dictPlanetToPos.TryGetValue(node.key, out var pos))
-            {
-                planet.transform.position += pos;
-            }
-            else
-            {
-                Vector3 pos2 = Helpers.getRandomPositionInRadius(randomizePositionFactor);
-                planet.transform.position += pos2;
-                dictPlanetToPos[node.key] = pos2;
-            }
-            
+            planet.transform.position += pos;
         }
+        else
+        {
+            Vector3 pos2 = Helpers.getRandomPositionInRadius(randomizePositionFactor);
+            planet.transform.position += pos2;
+            dictPlanetToPos[node.key] = pos2;
+        }
+            
         
     }
 

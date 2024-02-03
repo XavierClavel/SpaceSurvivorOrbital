@@ -69,7 +69,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
 
     public static PlanetData getStartPlanetData()
     {
-        currentNode = nodeMatrix[0, 3];
+        currentNode = null;
         Planet.currentTier = 1;
         return dictKeyToPlanetData["x0-y3"];
     }
@@ -91,10 +91,15 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     {
         if (currentNode == null)
         {
-            return new List<Node>()
+            var list = new List<Node>();
+            for (int i = 0; i < maxY; i++)
             {
-                nodeMatrix[0, 3],
-            };
+                Node node = nodeMatrix[0, i];
+                if (node == null) continue;
+                list.Add(node);
+            }
+
+            return list;
         }
             
         else return currentNode.childNodes;
@@ -117,6 +122,13 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         GenerateNodeMatrix();
         GeneratePaths();
         GeneratePlanetData();
+        
+        getAccessibleNodes();
+        foreach (var node in nodeMatrix)
+        {
+            if (node == null) continue;
+            if (!accessibleNodes.Contains(node)) nodeMatrix[node.tier, node.row] = null;
+        }
     }
 
     public void DisplayData()
@@ -128,6 +140,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
 
     public void MoveScreen()
     {
+        if (currentNode == null) return;
         Debug.Log(gridLayout.spacing.x);
         Debug.Log(currentNode.position.x * gridLayout.spacing.x * Vector2.left);
 
@@ -137,15 +150,31 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         Debug.Log(planetsPanel.anchoredPosition3D);
     }
 
-    private void getAccessibleNodes()
+    private static void getAccessibleNodes()
     {
-        currentNode ??= nodeMatrix[0, 3];
-        accessibleNodes = new List<Node>();
-        accessibleNodes.Add(currentNode);
-        getAccessibleNodes(currentNode);
+        if (currentNode != null)
+        {
+            accessibleNodes = new List<Node>
+            {
+                currentNode
+            };
+            getAccessibleNodes(currentNode);
+        }
+        else
+        {
+            accessibleNodes = new List<Node>();
+            for (int i = 0; i < maxY; i++)
+            {
+                Node node = nodeMatrix[0, i];
+                if (node == null) continue;
+                accessibleNodes.Add(node);
+                getAccessibleNodes(node);
+            }
+        }
+        
     }
 
-    private void getAccessibleNodes(Node node)
+    private static void getAccessibleNodes(Node node)
     {
         if (node.childNodes.IsNullOrEmpty()) return;
         foreach (var childNode in node.childNodes)
@@ -169,10 +198,8 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     {
         nodeMatrix = new Node[maxX, maxY];
         int middleYIndex = (int)(0.5 * maxY);
-        nodeMatrix[0, middleYIndex] = new Node(0, middleYIndex);
-        //currentNode = nodeMatrix[0, middleYIndex];
 
-        for (int i = 1; i < maxX - 1; i++)
+        for (int i = 0; i < maxX - 1; i++)
         {
             GenerateNodeColumn(i);
         }
@@ -230,15 +257,15 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     private static List<Node> selectPaths(List<Node> options)
     {
         if (options.Count == 0) return options;
-        if (options[0].tier is 1 or maxX) return options; 
+        if (options[0].tier is maxX) return options; 
         switch (options.Count)
         {
             case 1 : return options;
             case 2 :
-                //if (Helpers.ProbabilisticBool(0.5f)) options.popRandom();
+                if (Helpers.ProbabilisticBool(0.3f)) options.popRandom();
                 return options;
             case 3 :
-                //options.popRandom();
+                options.popRandom();
                 return options;
             default :
                 return options;
