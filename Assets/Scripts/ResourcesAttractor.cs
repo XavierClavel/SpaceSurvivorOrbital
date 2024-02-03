@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,11 @@ public class ResourcesAttractor : MonoBehaviour
 {
     [SerializeField] CircleCollider2D attractorZone;
     float attractorForce;
+    private static ResourcesAttractor instance;
 
     private void Start()
     {
+        instance = this;
         attractorZone.radius = PlayerManager.playerData.attractor.range;
         attractorForce = PlayerManager.playerData.attractor.force;
         PlayerController.instance.attractorTransform = transform;
@@ -36,5 +39,11 @@ public class ResourcesAttractor : MonoBehaviour
         }
 
         Destroy(other.gameObject);
+    }
+
+    public static void ForceUpdate()
+    {
+        instance.attractorZone.enabled = false;
+        instance.attractorZone.enabled = true;
     }
 }

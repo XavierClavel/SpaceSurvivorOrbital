@@ -77,8 +77,9 @@ public class Resource : Breakable
         int nbItemsToSpawn = dropInterval.getRandom();
         for (int i = 0; i < nbItemsToSpawn; i++)
         {
-            Instantiate(itemPrefab, randomPos() + transform.position, Quaternion.identity);
+            var go = Instantiate(itemPrefab, randomPos() + transform.position, Quaternion.identity);
         }
+        ResourcesAttractor.ForceUpdate();
         ObjectManager.registerEggDestroyed();
         animator.enabled = true;
         isDestroy = true;

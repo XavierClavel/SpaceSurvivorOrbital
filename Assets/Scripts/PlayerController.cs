@@ -98,10 +98,7 @@ public class PlayerController : MonoBehaviour
     public ResourceLayoutManager layoutManagerGreen;
     public LayoutManager bulletsLayoutManager;
     EventSystem eventSystem;
-    [SerializeField] GameObject button;
     [SerializeField] private Transform camTarget;
-
-    private bool playerControlled = true;
 
     public float smallSize = 3.0f;
     public float largeSize = 5.0f;
@@ -117,8 +114,8 @@ public class PlayerController : MonoBehaviour
     //Player parameters
     public int maxHealth;
     private float baseSpeed;
-    private float damageResistanceMultiplier;
     private bool invulnerable = false;
+    private float damageMultiplier;
 
     //Wait
     WaitForSeconds invulnerabilityFrameDuration;
@@ -128,7 +125,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] protected SpriteRenderer spriteOverlay;
     private WaitForSeconds footstepsWait;
     private int shieldsAmount = 0;
-    private int bonusStockAmount = 0;
 
     public static BonusManager bonusManager;
     
@@ -279,10 +275,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void AddBonusStock(int amount)
-    {
-        bonusStockAmount = amount;
-    }
 
     void Start()
     {
@@ -309,7 +301,7 @@ public class PlayerController : MonoBehaviour
         int currentHealth = maxHealth - PlayerManager.damageTaken;
         baseSpeed = PlayerManager.playerData.character.baseSpeed;   
         setSpeed(1f);
-        damageResistanceMultiplier = PlayerManager.playerData.character.damageMultiplier;
+        damageMultiplier = PlayerManager.playerData.character.damageMultiplier;
         
 
         souls = PlayerManager.getSouls();
@@ -513,8 +505,6 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!playerControlled) return;
-
         Vector2 localMove = moveAmount * Time.fixedDeltaTime;
         _walkDirection = angleToDirection(Vector2.SignedAngle(localMove, Vector2.down) + 180f);
 
