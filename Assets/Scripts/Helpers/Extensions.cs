@@ -9,12 +9,12 @@ public static class Extensions
     
     public static Vector3 getRotation(this Vector2 direction)
     {
-        return Vector2.SignedAngle(Vector2.right, direction) * Vector3.forward;
+        return Vector2.SignedAngle(Vector2.up, direction) * Vector3.forward;
     }
 
     public static Vector3 getRotation(this Vector3 direction)
     {
-        return Vector2.SignedAngle(Vector2.right, direction) * Vector3.forward;
+        return Vector2.SignedAngle(Vector2.up, direction) * Vector3.forward;
     }
 
     public static Quaternion getRotationQuat(this Vector3 direction)

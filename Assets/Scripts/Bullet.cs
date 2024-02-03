@@ -55,10 +55,13 @@ public class Bullet : MonoBehaviour
         return this;
     }
 
-    public void Fire(int speed, float lifetime, int damage)
+    public void Fire(float speed, float lifetime, int damage)
     {
-        Destroy(gameObject, lifetime);
-        rb.velocity = transform.up * 10f;
+        if (pool == null)
+        {
+            Destroy(gameObject, lifetime);   
+        }
+        rb.velocity = transform.up * speed;
         hitInfo = new HitInfo(damage, false, status.none);
     }
     

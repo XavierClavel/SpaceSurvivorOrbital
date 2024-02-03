@@ -59,10 +59,11 @@ public class PlayerManager
         souls = value;
         SaveManager.updateSouls(souls);
     }
-    public static void spendSouls(int value)
+    public static int spendSouls(int value)
     {
         souls -= value;
         SaveManager.updateSouls(souls);
+        return souls;
     }
 
     public static void setCurrentDamage(int health, int maxHealth)

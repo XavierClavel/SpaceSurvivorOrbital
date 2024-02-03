@@ -91,4 +91,9 @@ public static class PlanetManager
         return planetData.difficulty;
     }
 
+    public static bool isBoss()
+    {
+        return false;
+    }
+
 }

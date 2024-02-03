@@ -22,6 +22,10 @@ public class Breakable : MonoBehaviour
         ObjectManager.dictObjectToHitable.Add(gameObject, this);
         if (!DataManager.dictObjects.ContainsKey(key))
         {
+            foreach (var it in DataManager.dictObjects)
+            {
+                Debug.Log($"\"{it.Key}\"");
+            }
             throw new System.ArgumentException($"Key \"{key}\" used for gameObject \"{gameObject.name}\" does not exist in file ObjectData.csv");
         }
         ObjectData objectData = DataManager.dictObjects[key];

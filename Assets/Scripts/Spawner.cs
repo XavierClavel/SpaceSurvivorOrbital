@@ -6,6 +6,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] TilesBankManager tilesBankManager;
+    [SerializeField] private Boss boss;
     List<Ennemy> ennemyPrefabs;
 
     private int planetDiameter;
@@ -83,6 +84,11 @@ public class Spawner : MonoBehaviour
         if (!DebugManager.doNoEnnemySpawn())
         {
             StartCoroutine(nameof(SpawnController));
+        }
+
+        if (PlanetManager.isBoss() || DebugManager.doSpawnBossOnStart())
+        {
+            SpawnEnnemy(boss);   
         }
     }
 

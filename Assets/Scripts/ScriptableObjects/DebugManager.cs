@@ -32,6 +32,9 @@ public class DebugManager : ScriptableObject
     [SerializeField] private bool suit;
     [SerializeField] private bool radar;
 
+    [Header("Others")] 
+    [SerializeField] private bool spawnBossOnStart;
+    
     private RectTransform debugLayout;
     private TextMeshProUGUI debugLine;
 
@@ -60,6 +63,11 @@ public class DebugManager : ScriptableObject
     public static bool doNoTimer()
     {
         return instance.debugEnabled && instance.noTimer;
+    }
+
+    public static bool doSpawnBossOnStart()
+    {
+        return instance.debugEnabled && instance.spawnBossOnStart;
     }
 
 

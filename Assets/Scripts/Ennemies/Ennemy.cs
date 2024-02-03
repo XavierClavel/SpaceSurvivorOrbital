@@ -10,7 +10,7 @@ using UnityEditor;
 public class Ennemy : Breakable
 {
     
-    public UnityEvent onDeath = new UnityEvent();
+    [HideInInspector] public UnityEvent onDeath = new UnityEvent();
 
     protected PlayerController player;
     [SerializeField] Slider healthBar;
@@ -19,10 +19,9 @@ public class Ennemy : Breakable
     protected Vector2 directionToPlayer;
     static protected WaitForSeconds wait;
     static protected WaitForSeconds waitStateStep;
-    static WaitForSeconds waitIce;
-    private static WaitForSeconds waitLightning;
     private static WaitForSeconds waitFire;
     float speedMultiplier = 1f;
+    protected bool isImmuneToEffects = false;
 
     private int fireDamageRemaining = 0;
 
@@ -98,8 +97,6 @@ public class Ennemy : Breakable
 
         wait = Helpers.getWait(attackSpeed);
         waitStateStep = Helpers.getWait(stateStep);
-        waitLightning = Helpers.getWait(ConstantsData.lightningDuration);
-        waitIce = Helpers.getWait(ConstantsData.iceDuration);
         waitFire = Helpers.getWait(ConstantsData.fireStep);
 
         //TODO : static initalizer
@@ -246,6 +243,7 @@ public class Ennemy : Breakable
 
     void ApplyEffect(status element)
     {
+        if (isImmuneToEffects) return;
         switch (element)
         {
             case status.none:
@@ -380,7 +378,7 @@ public class Ennemy : Breakable
         
     }
 
-    Transform cameraTransform;
+    protected Transform cameraTransform;
     private Vector3 originalCameraPosition;
 
     [Header("CameraShake")]
