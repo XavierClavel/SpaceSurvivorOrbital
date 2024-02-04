@@ -16,6 +16,7 @@ public class ObjectManager : MonoBehaviour
     [SerializeField] GameObject loseScreen;
     [SerializeField] GameObject loseScreenFirstSelected;
     [SerializeField] private GameObject radar;
+    [SerializeField] private Slider bossHealthbar;
     public Transform powersDisplayLayout;
     public PowerDisplay powerDisplayPrefab;
     public Slider reloadSlider;
@@ -185,5 +186,10 @@ public class ObjectManager : MonoBehaviour
         return powerDisplay;
     }
 
-    
+    public static Slider getBossHealthbar()
+    {
+        return instance.bossHealthbar;
+    }
+
+
 }

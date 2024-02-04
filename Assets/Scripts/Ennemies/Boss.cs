@@ -15,10 +15,16 @@ public class Boss : Ennemy
     protected override void Start()
     {
         base.Start();
+        maxHealth = 1000 * PlanetSelector.getDifficulty();
+        health = maxHealth;
+        healthBar = ObjectManager.getBossHealthbar();
+        healthBar.gameObject.SetActive(true);
+        healthBar.maxValue = maxHealth;
+        healthBar.value = health;
         isImmuneToEffects = true;
         waveSpread = 360f / amountMultiBullets;
         poolBullets = new ComponentPool<Bullet>(bulletPrefab);
-        InvokeRepeating(nameof(FireTowardsPlayer),2f,2f);
+        InvokeRepeating(nameof(FireTowardsPlayer),2f,1f);
         InvokeRepeating(nameof(FireBulletsWave), 5f, 10f);
     }
 

@@ -68,7 +68,11 @@ public class PlanetSelector : MonoBehaviour
 
     public static int getDifficulty()
     {
-        return globalDifficulty;
+        if (DebugManager.instance == null)
+        {
+            return globalDifficulty;
+        }
+        return DebugManager.doOverrideDifficulty() ? DebugManager.getDebugDifficulty() : globalDifficulty;
     }
 
 }

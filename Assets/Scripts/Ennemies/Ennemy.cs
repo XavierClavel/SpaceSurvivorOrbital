@@ -13,7 +13,7 @@ public class Ennemy : Breakable
     [HideInInspector] public UnityEvent onDeath = new UnityEvent();
 
     protected PlayerController player;
-    [SerializeField] Slider healthBar;
+    [SerializeField] protected Slider healthBar;
     [SerializeField] protected Rigidbody2D rb;
     protected Vector2 distanceToPlayer;
     protected Vector2 directionToPlayer;

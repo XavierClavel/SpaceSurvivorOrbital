@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 
 public class Spawner : MonoBehaviour
 {
@@ -88,6 +89,7 @@ public class Spawner : MonoBehaviour
 
         if (PlanetManager.isBoss() || DebugManager.doSpawnBossOnStart())
         {
+            Debug.Log("boss spawned");
             SpawnEnnemy(boss);   
         }
     }

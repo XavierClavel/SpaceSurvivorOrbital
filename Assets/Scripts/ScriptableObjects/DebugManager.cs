@@ -34,11 +34,14 @@ public class DebugManager : ScriptableObject
 
     [Header("Others")] 
     [SerializeField] private bool spawnBossOnStart;
+
+    [SerializeField] private bool overrideDifficulty;
+    [SerializeField] private int debugDifficulty;
     
     private RectTransform debugLayout;
     private TextMeshProUGUI debugLine;
 
-    private static DebugManager instance;
+    public static DebugManager instance;
 
     public static bool areUpgradesFree()
     {
@@ -68,6 +71,16 @@ public class DebugManager : ScriptableObject
     public static bool doSpawnBossOnStart()
     {
         return instance.debugEnabled && instance.spawnBossOnStart;
+    }
+
+    public static bool doOverrideDifficulty()
+    {
+        return instance.debugEnabled && instance.overrideDifficulty;
+    }
+
+    public static int getDebugDifficulty()
+    {
+        return instance.debugDifficulty;
     }
 
 
