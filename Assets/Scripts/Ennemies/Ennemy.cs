@@ -43,7 +43,7 @@ public class Ennemy : Breakable
     [SerializeField] protected float range = 5f;
     [SerializeField] protected float stateStep = 0.5f;
     int _health;
-    int health
+    protected int health
     {
         get { return _health; }
         set

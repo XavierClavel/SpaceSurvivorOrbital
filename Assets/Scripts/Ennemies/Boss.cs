@@ -10,6 +10,7 @@ public class Boss : Ennemy
     private const float bulletLifetime = 5f;
     private const int amountMultiBullets = 16;
     private float waveSpread;
+    private const float bulletSpread = 10f;
 
     protected override void Start()
     {
@@ -23,7 +24,7 @@ public class Boss : Ennemy
 
     private void FireTowardsPlayer()
     {
-        FireBullets(transform.getRotationTo(player.transform).z, 1,waveSpread);
+        FireBullets(transform.getRotationTo(player.transform).z, health > maxHealth * 0.5f ? 1 : 3,  bulletSpread);
     }
 
     private void FireBulletsWave()

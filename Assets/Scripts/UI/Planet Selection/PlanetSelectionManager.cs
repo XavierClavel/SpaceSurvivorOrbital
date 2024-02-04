@@ -283,7 +283,14 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
                 if (node == null) continue;
                 
                 node.key = $"x{x}-y{y}";
-                dictKeyToPlanetData[node.key] = PlanetData.getRandom();
+                if (x == maxX - 1)
+                {
+                    dictKeyToPlanetData[node.key] = PlanetData.Boss();
+                }
+                else
+                {
+                    dictKeyToPlanetData[node.key] = PlanetData.getRandom();
+                }
             }
         }
     }

@@ -93,7 +93,7 @@ public static class PlanetManager
 
     public static bool isBoss()
     {
-        return false;
+        return planetData.isBoss;
     }
 
 }

@@ -16,6 +16,19 @@ public class PlanetData
     public int difficulty;
     public planetResourceScarcity ressourceScarcity;
     public planetType type;
+    public bool isBoss = false;
+
+    public static PlanetData Boss()
+    {
+        return new PlanetData()
+        {
+            size = planetSize.small,
+            difficulty = 0,
+            ressourceScarcity =  planetResourceScarcity.rare,
+            type = planetType.storm,
+            isBoss = true,
+        };
+    }
 
     public gameScene getScene()
     {
