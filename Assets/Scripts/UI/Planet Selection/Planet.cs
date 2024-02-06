@@ -98,7 +98,7 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
         return planetData.type switch
         {
             planetType.mushroom => PlanetSelector.instance.planetMushroom,
-            //planetType.storm => PlanetSelector.instance.planetStorm,
+            planetType.storm => PlanetSelector.instance.planetStorm,
             planetType.ice => PlanetSelector.instance.planetIce,
             planetType.jungle => PlanetSelector.instance.planetJungle,
             planetType.desert => PlanetSelector.instance.planetDesert,
@@ -114,7 +114,7 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
             planetType.mushroom => PlanetSelector.instance.colorMushroom,
             planetType.desert => PlanetSelector.instance.colorDesert,
             planetType.jungle => PlanetSelector.instance.colorJungle,
-            //planetType.storm => PlanetSelector.instance.colorStorm,
+            planetType.storm => PlanetSelector.instance.colorStorm,
             _ => PlanetSelector.instance.colorMushroom
         };
     }

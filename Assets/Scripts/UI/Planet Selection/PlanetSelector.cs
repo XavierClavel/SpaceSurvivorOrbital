@@ -15,7 +15,7 @@ public class PlanetSelector : MonoBehaviour
     public Sprite planetIce;
     public Sprite planetJungle;
     public Sprite planetDesert;
-    //public Sprite planetStorm;
+    public Sprite planetStorm;
 
     [Header("Background Colors")]
 
@@ -23,7 +23,7 @@ public class PlanetSelector : MonoBehaviour
     public Color colorIce;
     public Color colorJungle;
     public Color colorDesert;
-    //public Color colorStorm;
+    public Color colorStorm;
 
     [Header("Parameters")]
     public static int globalDifficulty = 0;

@@ -111,7 +111,6 @@ public class Ennemy : Breakable
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         Transform childTransform = transform.Find("Sprite Overlay");
-        cameraTransform = Camera.main.transform;
         gameObject.tag = Vault.tag.Ennemy;
 
         if (childTransform != null)
@@ -217,8 +216,8 @@ public class Ennemy : Breakable
         ObjectManager.unregisterHitable(gameObject);
         
         onDeath.Invoke();
-        StartCoroutine(nameof(ShakeCoroutine));
-        
+        StartCoroutine(Camera.main.GetComponent<Shake>().ShakeCoroutine());
+        Destroy(gameObject);
         listeners.ForEach(it => it.onEnnemyDeath(transform.position));
         
     }
@@ -346,7 +345,6 @@ public class Ennemy : Breakable
 
     private void Update()
     {
-        originalCameraPosition = cameraTransform.localPosition;
 
         if (player == null)
         {
@@ -378,33 +376,12 @@ public class Ennemy : Breakable
         
     }
 
-    protected Transform cameraTransform;
-    private Vector3 originalCameraPosition;
-
     [Header("CameraShake")]
     public float shakeDuration = 0.1f;
     public float shakeIntensity = 1f;
     public float negativeRange = -0.1f;
     public float positiveRange = 0.1f;
 
-    private IEnumerator ShakeCoroutine()
-    {
-        float elapsedTime = 0f;
-
-        while (elapsedTime < shakeDuration)
-        {
-            float randomX = Random.Range(negativeRange, positiveRange) * shakeIntensity;
-            float randomY = Random.Range(negativeRange, positiveRange) * shakeIntensity;
-            Vector3 randomPoint = originalCameraPosition + new Vector3(randomX, randomY, 0f);
-            cameraTransform.localPosition = randomPoint;
-
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        cameraTransform.localPosition = originalCameraPosition;
-        Destroy(gameObject);
-
-    }
     private IEnumerator ApplyDeformationOverTime()
     {
         float elapsedTime = 0f;
