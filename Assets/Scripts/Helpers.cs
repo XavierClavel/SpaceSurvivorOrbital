@@ -321,16 +321,20 @@ public class Helpers : MonoBehaviour
         return UnityEngine.Random.Range(0, 2) == 0;
     }
 
-    public static TEnum getRandomEnum<TEnum>() where TEnum : System.Enum
+    public static TEnum getRandomEnum<TEnum>(params TEnum[] excludedValues) where TEnum : System.Enum
     {
         if (!typeof(TEnum).IsEnum)
         {
             throw new ArgumentException("T must be an enumerated type");
         }
 
-        Array values = Enum.GetValues(typeof(TEnum));
-        return (TEnum)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+        var values = Enum.GetValues(typeof(TEnum)).Cast<TEnum>().ToList();
+        values.TryRemove(excludedValues);
+
+        return values.getRandom();
     }
+    
+    
 
 
     public static Vector2Int RoundToVector2IntStep(Vector3 value, Vector2Int step)

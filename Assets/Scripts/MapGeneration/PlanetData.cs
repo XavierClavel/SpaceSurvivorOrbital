@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using System.Linq;
 
 
 public enum planetSize { small, medium, large }
@@ -52,7 +53,7 @@ public class PlanetData
 
     private PlanetData setData()
     {
-        this.type = Helpers.getRandomEnum<planetType>();
+        this.type = Helpers.getRandomEnum<planetType>(planetType.storm);
         this.size = Helpers.getRandomEnum<planetSize>();
         this.difficulty = PlanetSelector.getDifficulty();
 

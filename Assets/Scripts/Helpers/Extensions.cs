@@ -54,6 +54,7 @@ public static class Extensions
     
     private static System.Random rng = new System.Random();
 
+
     public static bool isEmpty<T>(this IList<T> list)
     {
         return list.Count == 0;
@@ -196,6 +197,14 @@ public static class Extensions
     public static void TryRemove<T>(this List<T> list, T value)
     {
         if (list.Contains(value)) list.Remove(value);
+    }
+    
+    public static void TryRemove<T>(this List<T> list, IEnumerable<T> values)
+    {
+        foreach (var val in values)
+        {
+            list.TryRemove(val);
+        }
     }
 
     ///<summary>
