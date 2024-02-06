@@ -26,7 +26,7 @@ public class SelectorLayout : MonoBehaviour
                 break;
 
             case selectorType.equipment:
-                SetupLayout(ScriptableObjectManager.getEquipment());
+                SetupEquipmentLayout(ScriptableObjectManager.getEquipment());
                 break;
         }
     }
@@ -35,14 +35,24 @@ public class SelectorLayout : MonoBehaviour
     {
         foreach (ObjectHandler handler in list)
         {
-            SelectButton newButton = Instantiate(button);
-            newButton.transform.SetParent(transform);
+            SelectButton newButton = Instantiate(button, transform, true);
             newButton.transform.localScale = Vector3.one;
             newButton.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero;
             newButton.Setup(handler.getKey(), this);
         }
-
-
+    }
+    
+    void SetupEquipmentLayout(List<EquipmentHandler> list)
+    {
+        foreach (EquipmentHandler handler in list)
+        {
+            ChargedSelectButton newButton = (ChargedSelectButton)Instantiate(button, transform, true);
+            newButton.transform.localScale = Vector3.one;
+            newButton.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero;
+            newButton.Setup(handler.getKey(), this);
+            
+            newButton.setCharge(handler.getCharge());
+        }
     }
 
     public void UpdateSelectedButton(SelectButton newButton)

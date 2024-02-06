@@ -8,7 +8,7 @@ using System.Linq;
 
 public enum planetSize { small, medium, large }
 public enum planetResourceScarcity { rare, medium, common }
-public enum planetType { ice, mushroom, desert, storm, jungle }
+public enum planetType { ice, mushroom, desert, storm, jungle, shop }
 
 [System.Serializable]
 public class PlanetData
@@ -54,6 +54,10 @@ public class PlanetData
     private PlanetData setData()
     {
         this.type = Helpers.getRandomEnum<planetType>(planetType.storm);
+        if (this.type == planetType.shop)
+        {
+            return this;
+        }
         this.size = Helpers.getRandomEnum<planetSize>();
         this.difficulty = PlanetSelector.getDifficulty();
 
