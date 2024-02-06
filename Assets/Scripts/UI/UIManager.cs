@@ -22,6 +22,8 @@ public class UIManager : MonoBehaviour
         
         Canvas.ForceUpdateCanvases(); 
         canvasHeight = GetComponent<Canvas>().GetComponent<RectTransform>().rect.height;
+
+        if (upgradesManager == null) return;
         
         upgradesUI = upgradesManager.getUITransform();
         planetsUI = planetManager.getUITransform();
@@ -60,6 +62,11 @@ public class UIManager : MonoBehaviour
     {
         instance.planetsUI.DOAnchorPosY(posBelowCamera, 1f).SetEase(Ease.InOutQuint);
         instance.upgradesUI.DOAnchorPosY(0f, 1f).SetEase(Ease.InOutQuint);
+    }
+    
+    public void LoadShip()
+    {
+        SceneTransitionManager.TransitionToScene(gameScene.ship);
     }
     
 #endregion

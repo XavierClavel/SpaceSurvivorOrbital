@@ -102,7 +102,8 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
             planetType.ice => PlanetSelector.instance.planetIce,
             planetType.jungle => PlanetSelector.instance.planetJungle,
             planetType.desert => PlanetSelector.instance.planetDesert,
-            _ => PlanetSelector.instance.planetMushroom
+            planetType.shop => PlanetSelector.instance.shop,
+            _ => PlanetSelector.instance.planetMushroom,
         };
     }
 

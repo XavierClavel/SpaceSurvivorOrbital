@@ -28,6 +28,7 @@ public enum gameScene
     planetMushroom,
     planetStorm,
     planetJungle,
+    shop,
 }
 
 public class SoundManager : MonoBehaviour
@@ -81,6 +82,7 @@ public class SoundManager : MonoBehaviour
             {
                 { gameScene.titleScreen, titleScreenMusic},
                 { gameScene.ship, shipMusic},
+                { gameScene.shop, shipMusic},
                 { gameScene.planetDesert, planetDesertMusic},
                 { gameScene.planetIce, planetIceMusic},
                 { gameScene.planetMushroom, planetMushroomMusic},

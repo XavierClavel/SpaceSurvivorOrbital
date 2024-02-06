@@ -40,6 +40,7 @@ public class PlanetData
             planetType.desert => gameScene.planetDesert,
             planetType.mushroom => gameScene.planetMushroom,
             planetType.storm => gameScene.planetStorm,
+            planetType.shop => gameScene.shop,
             _ => throw new ArgumentOutOfRangeException($"Unexpected enum value")
         };
     }
@@ -56,6 +57,7 @@ public class PlanetData
         this.type = Helpers.getRandomEnum<planetType>(planetType.storm);
         if (this.type == planetType.shop)
         {
+            this.size = planetSize.medium;
             return this;
         }
         this.size = Helpers.getRandomEnum<planetSize>();

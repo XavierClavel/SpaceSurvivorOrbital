@@ -16,6 +16,7 @@ public class PlanetSelector : MonoBehaviour
     public Sprite planetJungle;
     public Sprite planetDesert;
     public Sprite planetStorm;
+    public Sprite shop;
 
     [Header("Background Colors")]
 
