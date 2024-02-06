@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,15 @@ public class LayoutManager : MonoBehaviour
     private int maxAmount;
     private bool _isEmptyNull;
     private int shieldRemaining = 0;
+    private bool autoDisplay = false;
+
+    private void Start()
+    {
+        if (autoDisplay)
+        {
+            Setup(Shop.maxHealth, Shop.maxHealth - PlayerManager.damageTaken);
+        }
+    }
 
     public void Setup(int maxAmount)
     {
@@ -30,6 +40,7 @@ public class LayoutManager : MonoBehaviour
     
     public void Setup(int maxAmount, int currentAmount)
     {
+        Shop.maxHealth = maxAmount;
         Setup(maxAmount);
         SetAmount(currentAmount);
     }
