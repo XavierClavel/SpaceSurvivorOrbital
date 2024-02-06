@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+using UnityEditor;
 using UnityEngine;
 
 public class Boss : Ennemy
@@ -15,6 +17,12 @@ public class Boss : Ennemy
     private SpriteRenderer spriteRenderer;
     private float timeBeforeWave = 10f;
     private bool waveDone;
+    state ennemyState = state.approaching;
+    Vector2 currentDir;
+    float currentSpeed;
+    float sqrFleeRange;
+    float sqrShootRange;
+    Vector2 shootRange = new Vector2(3f, 5f);
 
     protected override void Start()
     {
@@ -27,58 +35,120 @@ public class Boss : Ennemy
         healthBar.maxValue = maxHealth;
         healthBar.value = health;
         isImmuneToEffects = true;
+        isImmuneToKnockback = true;
         waveSpread = 360f / amountMultiBullets;
         poolBullets = new ComponentPool<Bullet>(bulletPrefab);
-        InvokeRepeating(nameof(FireTowardsPlayer),2f,1f);
-        InvokeRepeating(nameof(FireBulletsWave), timeBeforeWave, 10f);
-        StartCoroutine(nameof(waitPS));
+        speed *= 50f;
+        
+        sqrFleeRange = Mathf.Pow(shootRange.x, 2);
+        sqrShootRange = Mathf.Pow(shootRange.y, 2);
+        
+        StartCoroutine(nameof(BossController));
+        StartCoroutine(nameof(SwitchState));
     }
 
-    IEnumerator waitPS()
+    private IEnumerator BossController()
     {
-        yield return new WaitForSeconds(8);
-        waveExplosionPS.Play();
+        int counter = 0;
+        while (true)
+        {
+            yield return Helpers.getWait(1f);
+            counter++;
+            if (counter == 10)
+            {
+                waveExplosionPS.Play();
+                yield return Helpers.getWait(2f);
+                FireBulletsWave();
+                counter = 0;
+            }
+            else
+            {
+                FireTowardsPlayer();
+            }
+        }
     }
 
     private void FireTowardsPlayer()
     {
-        
-        FireBullets(transform.getRotationTo(player.transform).z, health > maxHealth * 0.5f ? 1 : 3,  bulletSpread);
+        Helpers.FireProjectiles(
+            FireBullet,
+            health > maxHealth * 0.5f ? 1 : 3, 
+            bulletSpread,
+            transform.getRotationTo(player.transform).z
+            );
     }
 
     private void FireBulletsWave()
     {
-        FireBullets(0f, amountMultiBullets,waveSpread);
+        Helpers.FireProjectiles(FireBullet, amountMultiBullets, waveSpread, 0f);
         waveExplosionPS.Stop();
-        StartCoroutine(nameof(waitPS));
     }
 
-    private void FireBullets(float rotation, int amountBullets, float spread)
+    private void FireBullet(float rotation)
     {
-        int sideBullets = amountBullets / 2;
-
-        if (amountBullets % 2 == 1)
+        poolBullets
+            .get(transform.position + Vector3.back + new Vector3 (0, -2, 0),  rotation * Vector3.forward)
+            .setPool(poolBullets)
+            .setTimer(bulletLifetime)
+            .Fire(bulletSpeed, bulletLifetime, baseDamage.getRandom());
+    }
+    
+    protected override void FixedUpdate()
+        //TODO : run on lower frequency
+    {
+        base.FixedUpdate();
+        switch (ennemyState)
         {
-            for (int i = -sideBullets; i <= sideBullets; i++)
-            {
-                FireBullet(rotation + i * spread);
-            }
-            return;
-        }
+            case state.fleeing:
+                Move(-directionToPlayer, currentSpeed);
+                currentDir = -directionToPlayer;
+                break;
 
-        for (int i = -sideBullets; i <= sideBullets; i++)
-        {
-            if (i == 0) continue;
-            float j = i - Mathf.Sign(i) * 0.5f;
+            case state.shooting:
+                Move(currentDir, currentSpeed);
+                break;
 
-            FireBullet(rotation + j * spread);
+            case state.approaching:
+                Move(directionToPlayer, currentSpeed);
+                currentDir = directionToPlayer;
+                break;
         }
     }
     
-    private void FireBullet(float rotation)
+    IEnumerator SwitchState()
     {
-        poolBullets.get(transform.position + Vector3.back + new Vector3 (0, -2, 0),  rotation * Vector3.forward)
-            .setPool(poolBullets)
-            .Fire(bulletSpeed, bulletLifetime, baseDamage.getRandom());
+        while (true)
+        {
+            yield return waitStateStep;
+            float sqrDistance = distanceToPlayer.sqrMagnitude;
+
+            if (sqrDistance < sqrFleeRange)
+            {
+                ennemyState = state.fleeing;
+                DOTween.To(() => currentSpeed, x => currentSpeed = x, fleeSpeed, 0.5f).SetEase(Ease.InQuad);
+                continue;
+            }
+
+            if (sqrDistance < sqrShootRange)
+            {
+                ennemyState = state.shooting;
+                DOTween.To(() => currentSpeed, x => currentSpeed = x, 0f, 0.5f).SetEase(Ease.InQuad); ;
+                continue;
+
+            }
+
+            ennemyState = state.approaching;
+            DOTween.To(() => currentSpeed, x => currentSpeed = x, speed, 0.5f).SetEase(Ease.InQuad); ;
+            continue;
+        }
+    }
+    
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag(Vault.tag.Player))
+        {
+            PlayerController.Hurt(baseDamage);
+            ApplyKnockback(200, true);
+        }
     }
 }

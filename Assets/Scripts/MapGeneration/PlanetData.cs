@@ -23,7 +23,7 @@ public class PlanetData
     {
         return new PlanetData()
         {
-            size = planetSize.small,
+            size = planetSize.medium,
             difficulty = 0,
             ressourceScarcity =  planetResourceScarcity.rare,
             type = planetType.storm,

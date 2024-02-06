@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+public enum state { fleeing, shooting, approaching }
+
 public class Gunner : Ennemy
 {
-    enum state { fleeing, shooting, approaching }
+
 
     private int bulletSpeed = 1;
     [SerializeField] Vector2 shootRange = new Vector2(3f, 5f);

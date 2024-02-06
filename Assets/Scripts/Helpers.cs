@@ -28,6 +28,28 @@ public class Helpers : MonoBehaviour
     private static Dictionary<int, TextMeshProUGUI> dictDebugDisplays = new Dictionary<int, TextMeshProUGUI>();
     [SerializeField] GameObject debugDisplayPrefab;
     static bool? platformAndroidValue = null;
+    
+    public static void FireProjectiles(UnityAction<float> fireAction , int amountBullets, float spread, float startRotation = 0f)
+    {
+        int sideBullets = amountBullets / 2;
+
+        if (amountBullets % 2 == 1)
+        {
+            for (int i = -sideBullets; i <= sideBullets; i++)
+            {
+                fireAction.Invoke(startRotation + i * spread);
+            }
+            return;
+        }
+
+        for (int i = -sideBullets; i <= sideBullets; i++)
+        {
+            if (i == 0) continue;
+            float j = i - Mathf.Sign(i) * 0.5f;
+
+            fireAction.Invoke(startRotation + j * spread);
+        }
+    }
 
     public static WaitForFixedUpdate getWaitFixed()
     {

@@ -22,6 +22,7 @@ public class Ennemy : Breakable
     private static WaitForSeconds waitFire;
     float speedMultiplier = 1f;
     protected bool isImmuneToEffects = false;
+    protected bool isImmuneToKnockback = false;
 
     private int fireDamageRemaining = 0;
 
@@ -184,8 +185,9 @@ public class Ennemy : Breakable
     
     
 
-    public void ApplyKnockback(int knockbackForce)
+    public void ApplyKnockback(int knockbackForce, bool overrideImmunity = false)
     {
+        if (isImmuneToKnockback && !overrideImmunity) return;
         if (knockbackForce == 0) return;
         rb.velocity = Vector2.zero;
         rb.angularVelocity = 0;
