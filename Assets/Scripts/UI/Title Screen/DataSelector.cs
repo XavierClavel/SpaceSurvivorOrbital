@@ -38,6 +38,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     [SerializeField] private TextMeshProUGUI equipmentTitleDisplay;
     [SerializeField] private GameObject equipmentCostDisplay;
     [SerializeField] private TextMeshProUGUI equipmentCostText;
+    [SerializeField] private TextMeshProUGUI equipmentDescriptionText;
     [SerializeField] private Image equipmentImage;
     [SerializeField] private Button equipmentBuyButton;
     [SerializeField] private UpgradeDisplay equipmentDisplay;
@@ -110,6 +111,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     {
         if (!equipmentImage.gameObject.activeInHierarchy) equipmentImage.gameObject.SetActive(true);
         LocalizationManager.LocalizeTextField(selectButton.key, equipmentTitleDisplay);
+        LocalizationManager.LocalizeTextField(selectButton.key + Vault.key.ButtonDescription, equipmentDescriptionText);
 
         equipmentCostDisplay.SetActive(!selectButton.isUnlocked);
         equipmentBuyButton.gameObject.SetActive(!selectButton.isUnlocked);
