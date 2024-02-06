@@ -18,6 +18,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     [SerializeField] private TextMeshProUGUI characterTitleDisplay;
     [SerializeField] private GameObject characterCostDisplay;
     [SerializeField] private TextMeshProUGUI characterCostText;
+    [SerializeField] private TextMeshProUGUI characterDescriptionText;
     [SerializeField] private Image characterImage;
     [SerializeField] private Button characterBuyButton;
     [SerializeField] private UpgradeDisplay characterDisplay;
@@ -26,6 +27,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     [SerializeField] private TextMeshProUGUI weaponTitleDisplay;
     [SerializeField] private GameObject weaponCostDisplay;
     [SerializeField] private TextMeshProUGUI weaponCostText;
+    [SerializeField] private TextMeshProUGUI weaponDescriptionText;
     [SerializeField] private Image weaponImage;
     [SerializeField] private Button weaponBuyButton;
     [SerializeField] private UpgradeDisplay weaponDisplay;
@@ -78,6 +80,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     {
         if (!characterImage.gameObject.activeInHierarchy) characterImage.gameObject.SetActive(true);
         LocalizationManager.LocalizeTextField(selectButton.key, characterTitleDisplay);
+        LocalizationManager.LocalizeTextField(selectButton.key + Vault.key.ButtonDescription, characterDescriptionText);
         
         characterCostDisplay.SetActive(!selectButton.isUnlocked);
         characterBuyButton.gameObject.SetActive(!selectButton.isUnlocked);
@@ -92,6 +95,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     {
         if (!weaponImage.gameObject.activeInHierarchy) weaponImage.gameObject.SetActive(true);
         LocalizationManager.LocalizeTextField(selectButton.key, weaponTitleDisplay);
+        LocalizationManager.LocalizeTextField(selectButton.key + Vault.key.ButtonDescription, weaponDescriptionText);
         
         weaponCostDisplay.SetActive(!selectButton.isUnlocked);
         weaponBuyButton.gameObject.SetActive(!selectButton.isUnlocked);
