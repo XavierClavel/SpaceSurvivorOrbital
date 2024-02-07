@@ -39,6 +39,7 @@ public class EffectData
         {"BoolA", effectType.boolA},
         {"BoolB", effectType.boolB},
         {"BoolC", effectType.boolC},
+        {"BoolD", effectType.boolD},
         {"IntA", effectType.intA},
         {"IntB", effectType.intB},
         {"FloatA",effectType.floatA},

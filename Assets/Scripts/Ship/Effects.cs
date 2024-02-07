@@ -44,21 +44,6 @@ public enum effectType
     //Other
     effect,
 
-    poisonDamage,
-    poisonDuration,
-    poisonPeriod,
-
-    fireDamage,
-    fireDuration,
-    firePeriod,
-
-    iceSpeedMultiplier,
-    iceDuration,
-
-    toolPower,
-    toolSpeed,
-    toolRange,
-
     attractorRange,
     attractorForce,
 
@@ -72,6 +57,7 @@ public enum effectType
     boolA,
     boolB,
     boolC,
+    boolD,
     intA,
     intB,
     floatA,

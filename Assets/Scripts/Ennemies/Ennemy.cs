@@ -72,12 +72,12 @@ public class Ennemy : Breakable
 
     public static void registerListener(IEnnemyListener listener)
     {
-        listeners.Add(listener);
+        listeners.TryAdd(listener);
     }
 
     public static void unregisterListener(IEnnemyListener listener)
     {
-        listeners.Remove(listener);
+        listeners.TryRemove(listener);
     }
 
 #endregion
@@ -214,14 +214,13 @@ public class Ennemy : Breakable
         //SoundManager.PlaySfx(transform, key: "Ennemy_Destroy");
         player.AddEnnemyScore(cost);
         StressTest.nbEnnemies--;
-        ObjectManager.dictObjectToEnnemy.Remove(gameObject);
+        ObjectManager.dictObjectToEnnemy.TryRemove(gameObject);
         ObjectManager.unregisterHitable(gameObject);
         
         onDeath.Invoke();
-        StartCoroutine(Camera.main.GetComponent<Shake>().ShakeCoroutine());
+        Shake.doShake();
+        listeners.ForEach(it => it.onEnnemyDeath(this));
         Destroy(gameObject);
-        listeners.ForEach(it => it.onEnnemyDeath(transform.position));
-        
     }
 
 

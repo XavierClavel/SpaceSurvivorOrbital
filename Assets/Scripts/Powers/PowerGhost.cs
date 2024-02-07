@@ -69,12 +69,12 @@ public class PowerGhost : Power, IEnnemyListener
         Ennemy.unregisterListener(this);
     }
 
-    public void onEnnemyDeath(Vector2 position)
+    public void onEnnemyDeath(Ennemy ennemy)
     {
         spawnCounter++;
         if (spawnCounter < spawnsEvery) return;
         spawnCounter = 0;
-        SpawnGhost(position);
+        SpawnGhost(ennemy.transform.position);
     }
     private void SpawnGhost(Vector2 position)
     {

@@ -140,6 +140,10 @@ public class PlayerData
                 effect.ApplyOperation(ref generic.boolC);
                 break;
             
+            case effectType.boolD:
+                effect.ApplyOperation(ref generic.boolD);
+                break;
+            
             case effectType.intA:
                 effect.ApplyOperation(ref generic.intA);
                 break;
@@ -269,6 +273,7 @@ public class genericStats
     public bool boolA = false;
     public bool boolB = false;
     public bool boolC = false;
+    public bool boolD = false;
 
     public int intA = 0;
     public int intB = 0;
@@ -285,6 +290,7 @@ public class genericStats
             boolA = boolA,
             boolB = boolB,
             boolC = boolC,
+            boolD = boolD,
 
             intA = intA,
             intB = intB,

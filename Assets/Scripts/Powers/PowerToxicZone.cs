@@ -11,12 +11,13 @@ using UnityEngine;
  * <p> BoolA -> Increase player speed </p>
  * <p> BoolB -> Increase player damage </p>
  * <p> BoolC -> Decrease ennemy speed </p>
+ * <p> BoolD -> Heal on kill </p>
  * <p> Projectiles -> Amount of toxic zones </p>
  * <p> Range -> Scale of toxic zones </p>
  * <p> BaseSpeed -> Speed towards player </p>
  * </pre>
  */
-public class PowerToxicZone : Power
+public class PowerToxicZone : Power, IEnnemyListener
 {
 
     ComponentPool<ToxicZone> pool;
@@ -32,6 +33,7 @@ public class PowerToxicZone : Power
     private bool doFreezeEnnemies;
     private bool doIncreasePlayerSpeed;
     private bool doIncreasePlayerDamage;
+    private bool doHealOnKill;
     
     protected override void Start()
     {
@@ -42,6 +44,7 @@ public class PowerToxicZone : Power
         doIncreasePlayerSpeed = fullStats.generic.boolA;
         doIncreasePlayerDamage = fullStats.generic.boolB;
         doFreezeEnnemies = fullStats.generic.boolC;
+        doHealOnKill = fullStats.generic.boolD;
 
         if (doFreezeEnnemies)
         {
@@ -51,8 +54,12 @@ public class PowerToxicZone : Power
         pool = new ComponentPool<ToxicZone>(toxicZonePrefab);
         cam = Camera.main;
 
-        ennemyStacker = new Stacker<Ennemy>()
-            .addOnStartStackingEvent(FreezeEnnemy);
+        ennemyStacker = new Stacker<Ennemy>();
+
+        if (doFreezeEnnemies)
+        {
+            ennemyStacker.addOnStartStackingEvent(FreezeEnnemy);
+        }    
 
         playerStacker = new SingleStacker();
         if (doIncreasePlayerSpeed)
@@ -68,6 +75,19 @@ public class PowerToxicZone : Power
                 .addOnStartStackingEvent(PlayerController.ApplyStrengthBoost)
                 .addOnStopStackingEvent(PlayerController.RemoveStrengthBoost);
         }
+
+        killStacker = new SingleStacker();
+        if (doHealOnKill)
+        {
+            killStacker.addThresholdAction(10, delegate
+            {
+                PlayerController.Heal();
+                killStacker.reset();
+            });
+            playerStacker.addOnStopStackingEvent(killStacker.reset);
+        }
+        
+        Ennemy.registerListener(this);
     }
     
     private void FixedUpdate()
@@ -161,5 +181,20 @@ public class PowerToxicZone : Power
     public static void recall(ToxicZone toxicZone)
     {
         instance.pool.recall(toxicZone);
+    }
+
+    public void onEnnemyDeath(Ennemy ennemy)
+    {
+        ennemyStacker.remove(ennemy);
+        if (playerStacker.get() == 0)
+        {
+            return;
+        }
+        killStacker.stack();
+    }
+
+    private void OnDestroy()
+    {
+        Ennemy.unregisterListener(this);
     }
 }

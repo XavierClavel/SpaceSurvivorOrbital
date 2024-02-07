@@ -49,6 +49,16 @@ public class Stacker<T>
     {
         return dict.Keys.ToHashSet();
     }
+
+    public void remove(T value)
+    {
+        if (!dict.ContainsKey(value))
+        {
+            return;
+        }
+
+        dict.Remove(value);
+    }
 }
 
 public class SingleStacker
@@ -112,9 +122,7 @@ public class SingleStacker
         }
     }
 
-    public void reset()
-    {
-        amount = 0;
-    }
+    public void reset() => amount = 0;
+    public int get() => amount;
 
 }

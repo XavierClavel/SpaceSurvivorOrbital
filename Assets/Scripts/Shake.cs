@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Shake : MonoBehaviour
 {
@@ -14,11 +16,20 @@ public class Shake : MonoBehaviour
     public float negativeRange = -0.1f;
     public float positiveRange = 0.1f;
 
+    private static Shake instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public void Update()
     {
         cameraTransform = mainCamera.transform;
         originalCameraPosition = cameraTransform.localPosition;
     }
+
+    public static void doShake() => instance.StartCoroutine(nameof(ShakeCoroutine));
 
     public IEnumerator ShakeCoroutine()
     {

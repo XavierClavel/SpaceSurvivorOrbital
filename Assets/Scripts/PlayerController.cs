@@ -209,7 +209,7 @@ public class PlayerController : MonoBehaviour
         instance.StartCoroutine(nameof(InvulnerabilityFrame));
     }
 
-    public static void Heal(int amount)
+    public static void Heal(int amount = 1)
     {
         instance.health += amount;
     }
