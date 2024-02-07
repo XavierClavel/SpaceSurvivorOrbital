@@ -3246,7 +3246,6 @@ GameObject:
   - component: {fileID: 459822656}
   - component: {fileID: 459822658}
   - component: {fileID: 459822659}
-  - component: {fileID: 459822660}
   m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3482,23 +3481,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &459822660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 459822650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d6a31f4eb6a0d246ae041e3121f5383, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 459822652}
-  shakeDuration: 10
-  shakeIntensity: 10
-  negativeRange: -10
-  positiveRange: 10
 --- !u!1 &475645621
 GameObject:
   m_ObjectHideFlags: 0
@@ -12169,6 +12151,7 @@ GameObject:
   - component: {fileID: 1849049664}
   - component: {fileID: 1849049666}
   - component: {fileID: 1849049667}
+  - component: {fileID: 1849049668}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -12225,6 +12208,23 @@ MonoBehaviour:
   m_YawDamping: 0
   m_RollDamping: 0
   m_AngularDamping: 0
+--- !u!114 &1849049668
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849049663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 1
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1856615360
 GameObject:
   m_ObjectHideFlags: 0
@@ -13241,6 +13241,10 @@ PrefabInstance:
       propertyPath: soulsDisplay
       value: 
       objectReference: {fileID: 1629019070}
+    - target: {fileID: 5794317926654119749, guid: 94209ee71c76b454e972a73d03b64b6b, type: 3}
+      propertyPath: cinemachineCamera
+      value: 
+      objectReference: {fileID: 459822658}
     - target: {fileID: 5794317926654119749, guid: 94209ee71c76b454e972a73d03b64b6b, type: 3}
       propertyPath: layoutManagerGreen
       value: 

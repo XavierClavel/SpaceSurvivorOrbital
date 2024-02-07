@@ -218,7 +218,7 @@ public class Ennemy : Breakable
         ObjectManager.unregisterHitable(gameObject);
         
         onDeath.Invoke();
-        Shake.doShake();
+        PlayerController.Shake(shakeIntensity, shakeDuration);
         listeners.ForEach(it => it.onEnnemyDeath(this));
         Destroy(gameObject);
     }
@@ -379,7 +379,7 @@ public class Ennemy : Breakable
 
     [Header("CameraShake")]
     public float shakeDuration = 0.1f;
-    public float shakeIntensity = 1f;
+    public float shakeIntensity = 2f;
     public float negativeRange = -0.1f;
     public float positiveRange = 0.1f;
 

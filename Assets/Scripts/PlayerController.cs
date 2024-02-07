@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
@@ -31,6 +32,9 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public InputMaster controls;
     [HideInInspector] public playerState _playerState_value = playerState.idle;
     [HideInInspector] public bool reflectsProjectiles = false;
+
+    [SerializeField] private CinemachineVirtualCamera cinemachineCamera;
+    private CinemachineBasicMultiChannelPerlin camNoise;
 
     private const float boostedSpeed = 6f;
     [HideInInspector]
@@ -205,7 +209,7 @@ public class PlayerController : MonoBehaviour
         if (instance.interactorHandler.currentInteractor.isDamageAbsorbed()) return;
         instance.takeDamage((int)(amount));
         instance.OnHitOverlay();
-        instance.StartCoroutine(nameof(ShakeCoroutine));
+        Shake(instance.playerShakeIntensity, instance.playerShakeDuration);
         instance.StartCoroutine(nameof(InvulnerabilityFrame));
     }
 
@@ -275,6 +279,8 @@ public class PlayerController : MonoBehaviour
             joystickMove.gameObject.SetActive(true);
             joystickAim.gameObject.SetActive(true);
         }
+
+        camNoise = cinemachineCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
 
@@ -531,31 +537,25 @@ public class PlayerController : MonoBehaviour
     private Vector3 originalCameraPosition;
 
     [Header("CameraShake")]
-    public float shakeDuration = 0.1f;
-    public float shakeIntensity = 0.05f;
+    private float shakeDuration = 0.1f;
+    private float shakeIntensity = 0.1f;
+    public float playerShakeDuration = 0.1f;
+    public float playerShakeIntensity = 0.05f;
     public float negativeRange = -0.1f;
     public float positiveRange = 0.1f;
 
+    public static void Shake(float shakeIntensity, float shakeDuration)
+    {
+        instance.shakeIntensity = shakeIntensity;
+        instance.shakeDuration = shakeDuration;
+        instance.StartCoroutine(nameof(ShakeCoroutine));
+    }
+
     private IEnumerator ShakeCoroutine()
     {
-        float elapsedTime = 0f;
-
-        while (elapsedTime < shakeDuration)
-        {
-            // Générez des valeurs aléatoires pour le déplacement en 2D
-            float randomX = Random.Range(negativeRange, positiveRange) * shakeIntensity;
-            float randomY = Random.Range(negativeRange, positiveRange) * shakeIntensity;
-
-            // Appliquez le déplacement à la caméra en 2D
-            Vector3 randomPoint = originalCameraPosition + new Vector3(randomX, randomY, 0f);
-            cameraTransform.localPosition = randomPoint;
-
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        // Remettez la caméra à sa position d'origine après le screenshake
-        cameraTransform.localPosition = originalCameraPosition;
+        camNoise.m_AmplitudeGain = shakeIntensity;
+        yield return Helpers.getWait(shakeDuration);
+        camNoise.m_AmplitudeGain = 0f;
     }
 
     private void OnDestroy()
