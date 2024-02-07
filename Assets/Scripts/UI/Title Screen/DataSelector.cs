@@ -61,6 +61,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     public Color colorLocked;
 
     private int currentChargeCost;
+    private bool validated = false;
 
 
     public void BuyCharge()
@@ -284,6 +285,8 @@ public class DataSelector : MonoBehaviour, UIPanel
 
     public void Validate()
     {
+        if (validated) return;
+        validated = true;
         PlayerManager.setCharacter(ScriptableObjectManager.dictKeyToCharacterHandler[selectedCharacter]);
         PlayerManager.setWeapon(DataManager.dictWeapons[selectedWeapon].Clone(), ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
         foreach (var equipment in selectedEquipments)
