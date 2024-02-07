@@ -100,25 +100,23 @@ public class SingleStacker
 
         amount++;
 
-        foreach (var v in onAboveThreshold)
+        foreach (var v in onAboveThreshold.Where(v => v.Key == amount))
         {
-            if (v.Key != amount) { continue;}
             v.Value.Invoke();
         }
     }
 
     public void unstack()
     {
+        foreach (var v in onBelowThreshold.Where(v => v.Key == amount))
+        {
+            v.Value.Invoke();
+        }
+        
         amount--;
         if (amount == 0)
         {
             onStopStacking.ForEach(it => it.Invoke());
-        }
-        
-        foreach (var v in onBelowThreshold)
-        {
-            if (v.Key != amount - 1) { continue;}
-            v.Value.Invoke();
         }
     }
 
