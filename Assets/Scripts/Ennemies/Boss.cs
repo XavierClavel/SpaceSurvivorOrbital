@@ -80,12 +80,14 @@ public class Boss : Ennemy
 
     private void FireBulletsWave()
     {
+        SoundManager.PlaySfx(transform, key: "Boss_WaveShoot");
         Helpers.FireProjectiles(FireBullet, amountMultiBullets, waveSpread, 0f);
         waveExplosionPS.Stop();
     }
 
     private void FireBullet(float rotation)
     {
+        SoundManager.PlaySfx(transform, key: "Boss_Shoot");
         poolBullets
             .get(transform.position + Vector3.back + new Vector3 (0, -2, 0),  rotation * Vector3.forward)
             .setPool(poolBullets)

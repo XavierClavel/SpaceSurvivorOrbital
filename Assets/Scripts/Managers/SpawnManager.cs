@@ -60,8 +60,6 @@ public class SpawnManager : Breakable
 
         
         //playerTransform = PlayerController.instance.transform;
-        
-        ObjectManager.registerDenSpawned();
     }
 
     public override void Hit(HitInfo hitInfo)
