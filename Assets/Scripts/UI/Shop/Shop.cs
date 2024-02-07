@@ -7,10 +7,10 @@ public class Shop : MonoBehaviour
 {
     [SerializeField] private SoulsDisplay soulsDisplay;
     
-    private const int costHealth = 50;
-    private const int costResourceBlue = 100;
-    private const int costResourceOrange = 50;
-    private const int costResourceGreen = 50;
+    private const int costHealth = 20;
+    private const int costResourceBlue = 30;
+    private const int costResourceOrange = 10;
+    private const int costResourceGreen = 10;
 
     public static int maxHealth;
     public static int healthLost;
