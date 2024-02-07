@@ -7,18 +7,18 @@ using UnityEngine.Events;
 public class Stacker<T>
 {
     private Dictionary<T, int> dict = new Dictionary<T, int>();
-    private UnityAction<T> onStartStacking = null;
-    private UnityAction<T> onStopStacking = null;
+    private List<UnityAction<T>> onStartStacking = new List<UnityAction<T>>();
+    private List<UnityAction<T>> onStopStacking = new List<UnityAction<T>>();
     
     public Stacker<T> addOnStartStackingEvent(UnityAction<T> action)
     {
-        onStartStacking = action;
+        onStartStacking.Add(action);
         return this;
     }
 
     public Stacker<T> addOnStopStackingEvent(UnityAction<T> action)
     {
-        onStopStacking = action;
+        onStopStacking.Add(action);
         return this;
     }
 
@@ -29,7 +29,7 @@ public class Stacker<T>
         else
         {
             dict[value] = 1;
-            onStartStacking?.Invoke(value);
+            onStartStacking.ForEach(it => it.Invoke(value));
         }
     }
 
@@ -40,7 +40,7 @@ public class Stacker<T>
         if (dict[value] == 0)
         {
             dict.Remove(value);
-            onStopStacking?.Invoke(value);
+            onStopStacking.ForEach(it => it.Invoke(value));
         }
     }
 
@@ -53,18 +53,18 @@ public class Stacker<T>
 public class SingleStacker
 {
     private int amount = 0;
-    private UnityAction onStartStacking = null;
-    private UnityAction onStopStacking = null;
+    private List<UnityAction> onStartStacking = new List<UnityAction>();
+    private List<UnityAction> onStopStacking = new List<UnityAction>();
     
     public SingleStacker addOnStartStackingEvent(UnityAction action)
     {
-        onStartStacking = action;
+        onStartStacking.Add(action);
         return this;
     }
 
     public SingleStacker addOnStopStackingEvent(UnityAction action)
     {
-        onStopStacking = action;
+        onStopStacking.Add(action);
         return this;
     }
 
@@ -72,7 +72,7 @@ public class SingleStacker
     {
         if (amount == 0)
         {
-            onStartStacking?.Invoke();
+            onStartStacking.ForEach(it => it.Invoke());
         }
 
         amount++;
@@ -83,7 +83,7 @@ public class SingleStacker
         amount--;
         if (amount == 0)
         {
-            onStopStacking?.Invoke();
+            onStopStacking.ForEach(it => it.Invoke());
         }
     }
 
