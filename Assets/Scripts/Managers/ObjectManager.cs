@@ -52,6 +52,7 @@ public class ObjectManager : MonoBehaviour
     public void Start()
     {
         altarMonsterTotal.text = PlanetManager.getDensAmount().ToString();
+        amountDens = PlanetManager.getDensAmount();
     }
 
 
