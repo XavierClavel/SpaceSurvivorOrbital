@@ -568,4 +568,6 @@ public class PlayerController : MonoBehaviour
     public static void ApplyStrengthBoost() => instance.damageMultiplier *= 1.2f;
     public static void RemoveStrengthBoost() => instance.damageMultiplier /= 1.2f;
 
+    public static float getDamageMultiplier() => instance.damageMultiplier;
+
 }

@@ -6,7 +6,7 @@ using System.Linq;
 
 public struct HitInfo
 {
-    public readonly int damage;
+    public int damage;
     public readonly bool critical;
     public readonly HashSet<status> effect;
     public readonly int knockback;
@@ -17,6 +17,11 @@ public struct HitInfo
         this.critical = critical;
         this.effect = effect;
         this.knockback = 0;
+    }
+
+    public void addDamageMultiplier()
+    {
+        this.damage = (int) (damage * PlayerController.getDamageMultiplier());
     }
 
     public HitInfo(int damage, bool critical, status effect, int knockback)
