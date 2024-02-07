@@ -563,13 +563,9 @@ public class PlayerController : MonoBehaviour
         PlayerEventsManager.resetListeners();
     }
 
-    public static void ApplySpeedBoost()
-    {
-        instance.baseSpeed = boostedSpeed;
-    }
+    public static void ApplySpeedBoost() => instance.baseSpeed = boostedSpeed;
+    public static void RemoveSpeedBoost() => instance.baseSpeed = PlayerManager.playerData.character.baseSpeed;
+    public static void ApplyStrengthBoost() => instance.damageMultiplier *= 1.2f;
+    public static void RemoveStrengthBoost() => instance.damageMultiplier /= 1.2f;
 
-    public static void RemoveSpeedBoost()
-    {
-        instance.baseSpeed = PlayerManager.playerData.character.baseSpeed;
-    }
 }

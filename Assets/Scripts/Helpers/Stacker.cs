@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using MyBox;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -55,6 +56,8 @@ public class SingleStacker
     private int amount = 0;
     private List<UnityAction> onStartStacking = new List<UnityAction>();
     private List<UnityAction> onStopStacking = new List<UnityAction>();
+    private Dictionary<int, UnityAction> onAboveThreshold = new Dictionary<int, UnityAction>();
+    private Dictionary<int, UnityAction> onBelowThreshold = new Dictionary<int, UnityAction>();
     
     public SingleStacker addOnStartStackingEvent(UnityAction action)
     {
@@ -67,6 +70,16 @@ public class SingleStacker
         onStopStacking.Add(action);
         return this;
     }
+    
+    public SingleStacker addThresholdAction(int threshold, UnityAction aboveAction, UnityAction belowAction = null)
+    {
+        onAboveThreshold[threshold] = aboveAction;
+        if (belowAction != null)
+        {
+            onBelowThreshold[threshold] = belowAction;
+        }
+        return this;
+    }
 
     public void stack()
     {
@@ -76,6 +89,12 @@ public class SingleStacker
         }
 
         amount++;
+
+        foreach (var v in onAboveThreshold)
+        {
+            if (v.Key != amount) { continue;}
+            v.Value.Invoke();
+        }
     }
 
     public void unstack()
@@ -85,6 +104,17 @@ public class SingleStacker
         {
             onStopStacking.ForEach(it => it.Invoke());
         }
+        
+        foreach (var v in onBelowThreshold)
+        {
+            if (v.Key != amount - 1) { continue;}
+            v.Value.Invoke();
+        }
+    }
+
+    public void reset()
+    {
+        amount = 0;
     }
 
 }

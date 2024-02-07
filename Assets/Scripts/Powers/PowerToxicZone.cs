@@ -26,6 +26,7 @@ public class PowerToxicZone : Power
     //dict ennemy -> how many toxic zones he is in
     private static Stacker<Ennemy> ennemyStacker;
     private static SingleStacker playerStacker;
+    private static SingleStacker killStacker;
 
     private Camera cam;
     private bool doFreezeEnnemies;
@@ -59,6 +60,13 @@ public class PowerToxicZone : Power
             playerStacker
                 .addOnStartStackingEvent(PlayerController.ApplySpeedBoost)
                 .addOnStopStackingEvent(PlayerController.RemoveSpeedBoost);
+        }
+
+        if (doIncreasePlayerDamage)
+        {
+            playerStacker
+                .addOnStartStackingEvent(PlayerController.ApplyStrengthBoost)
+                .addOnStopStackingEvent(PlayerController.RemoveStrengthBoost);
         }
     }
     
