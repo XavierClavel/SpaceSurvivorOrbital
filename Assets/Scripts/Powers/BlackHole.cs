@@ -30,10 +30,18 @@ public class BlackHole : MonoBehaviour
         });
     }
 
-
     void OnTriggerStay2D(Collider2D other)
     {
         // Checker si l'objet a le tag cible
+        if (other.CompareTag("Player"))
+        {
+            float sqrDist = (transform.position - other.transform.position).sqrMagnitude;
+            if (sqrDist < 0.25 * Mathf.Pow(scale, 2))
+            {
+                PowerBlackHole.TraverseBlackHole();
+            }
+            return;
+        }
         if (!other.CompareTag(Vault.tag.Ennemy)) return;
         if (!ObjectManager.dictObjectToEnnemy.ContainsKey(other.gameObject))
         {
@@ -52,6 +60,14 @@ public class BlackHole : MonoBehaviour
             ennemy.StackDamage(dps, elements);
         }
         
+    }
+
+    public void Remove()
+    {
+        transform.DOScale(Vector3.zero, 0.2f).OnComplete(delegate
+        {
+            PowerBlackHole.recall(this);
+        });
     }
 
 }

@@ -11,6 +11,7 @@ using UnityEngine;
  * <p> Knockback -> Attraction force </p>
  * <p> BaseDamage -> Black hole dps </p>
  * <p> BoolA -> Whether to spawn white hole </p>
+ * <p> BoolB -> Whether black holes can be traversed </p>
  * </pre>
  */
 public class PowerBlackHole : Power
@@ -27,6 +28,10 @@ public class PowerBlackHole : Power
     private float blackHoleForce;
     private float blackHoleDps;
     private bool doSpawnWhiteHole;
+    private bool doWormHole;
+
+    private BlackHole blackHole;
+    private WhiteHole whiteHole;
 
     public override void onSetup()
     {
@@ -41,11 +46,12 @@ public class PowerBlackHole : Power
         blackHoleForce = stats.knockback;
         blackHoleDps = stats.baseDamage.getRandom();
         doSpawnWhiteHole = fullStats.generic.boolA;
+        doWormHole = fullStats.generic.boolB;
     }
 
     protected override void onUse()
     {
-        BlackHole blackHole = pool.get(cam);
+        blackHole = pool.get(cam);
         blackHole.setup(blackHoleSize, blackHoleDuration, blackHoleForce, blackHoleDps);
 
         if (!doSpawnWhiteHole)
@@ -53,7 +59,7 @@ public class PowerBlackHole : Power
             return;
         }
 
-        WhiteHole whiteHole = poolWhite.get(cam);
+        whiteHole = poolWhite.get(cam);
         whiteHole.setup(blackHoleSize, blackHoleDuration, blackHoleForce, blackHoleDps);
     }
     
@@ -65,5 +71,17 @@ public class PowerBlackHole : Power
     public static void recall(WhiteHole whiteHole)
     {
         instance.poolWhite.recall(whiteHole);
+    }
+
+    public static void TraverseBlackHole()
+    {
+        if (!instance.doWormHole)
+        {
+            return;
+        }
+        PlayerController.instance.transform.position =
+            instance.whiteHole.transform.position + Helpers.getRandomPositionInRing(new Vector2(1f, 1f), shape.square);
+        instance.blackHole.Remove();
+        instance.whiteHole.Remove();
     }
 }

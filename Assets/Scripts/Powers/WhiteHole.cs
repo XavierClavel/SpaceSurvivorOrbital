@@ -53,5 +53,13 @@ public class WhiteHole : MonoBehaviour
         }
         
     }
+    
+    public void Remove()
+    {
+        transform.DOScale(Vector3.zero, 0.2f).OnComplete(delegate
+        {
+            PowerBlackHole.recall(this);
+        });
+    }
 
 }
