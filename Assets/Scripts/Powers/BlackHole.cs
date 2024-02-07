@@ -1,19 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
-public class BlackHole : Power
+public class BlackHole : MonoBehaviour
 {
-    public float forceAttraction = 0.1f;
+    private float forceAttraction;
+
+    public void setup(float scale, float lifetime, float force)
+    {
+        this.forceAttraction = force;
+        transform.localScale = Vector3.zero;
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(transform.DOScale(scale * Vector3.one, 0.2f));
+        sequence.AppendInterval(lifetime);
+        sequence.Append(transform.DOScale(Vector3.zero, 0.2f));
+        sequence.OnComplete(delegate
+        {
+            PowerBlackHole.recall(this);
+        });
+    }
 
     void OnTriggerStay2D(Collider2D other)
     {
-        // V�rifier si l'objet a le tag cible
-        if (other.CompareTag(Vault.tag.Ennemy))
+        // Checker si l'objet a le tag cible
+        if (!other.CompareTag(Vault.tag.Ennemy)) return;
+        if (!ObjectManager.dictObjectToEnnemy.ContainsKey(other.gameObject))
         {
-            Ennemy ennemy = ObjectManager.dictObjectToEnnemy[other.gameObject];
-            ennemy.ApplyForce(CalculateForce(ennemy.transform));
+            return;
         }
+        Ennemy ennemy = ObjectManager.dictObjectToEnnemy[other.gameObject];
+        ennemy.ApplyForce(CalculateForce(ennemy.transform));
     }
 
     private Vector2 CalculateForce(Transform t)

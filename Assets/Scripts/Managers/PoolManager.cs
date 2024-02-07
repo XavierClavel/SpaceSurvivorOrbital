@@ -190,6 +190,11 @@ public class ComponentPool<T> where T : Component
         return get(position, Quaternion.identity);
     }
     
+    public T get(Camera cam)
+    {
+        return get(cam.getBounds());
+    }
+    
     public T get(Bounds bounds)
     {
         return get(bounds.getRandom(), Quaternion.identity);
