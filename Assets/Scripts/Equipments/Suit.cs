@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Suit: Equipment
 {
-    protected override void onUse()
+    public override void onSetup()
     {
-        int additionalMaxHearts = fullStats.character.maxHealth;
+        int additionalMaxHearts = stats.projectiles;
         PlayerController.bonusManager.addBonusMaxHealth(additionalMaxHearts);
     }
 }
