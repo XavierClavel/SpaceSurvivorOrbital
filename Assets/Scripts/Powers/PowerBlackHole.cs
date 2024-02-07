@@ -9,6 +9,7 @@ using UnityEngine;
  * <p> Projectiles -> Amount of black holes </p>
  * <p> Range -> Scale of black holes </p>
  * <p> Knockback -> Attraction force </p>
+ * <p> BaseDamage -> Black hole dps </p>
  * </pre>
  */
 public class PowerBlackHole : Power
@@ -21,6 +22,7 @@ public class PowerBlackHole : Power
     private float blackHoleDuration;
     private float blackHoleSize;
     private float blackHoleForce;
+    private float blackHoleDps;
 
     public override void onSetup()
     {
@@ -32,12 +34,15 @@ public class PowerBlackHole : Power
         blackHoleDuration = stats.attackSpeed;
         blackHoleSize = stats.range;
         blackHoleForce = stats.knockback;
+        blackHoleDps = stats.baseDamage.getRandom();
+        
+        Debug.Log(blackHoleSize);
     }
 
     protected override void onUse()
     {
         BlackHole blackHole = pool.get(cam);
-        blackHole.setup(blackHoleSize, blackHoleDuration, blackHoleForce);
+        blackHole.setup(blackHoleSize, blackHoleDuration, blackHoleForce, blackHoleDps);
     }
     
     public static void recall(BlackHole blackHole)

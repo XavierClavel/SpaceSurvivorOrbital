@@ -57,6 +57,7 @@ public class Breakable : MonoBehaviour
 
     public virtual void StackDamage(float dps, HashSet<status> elements)
     {
+        if (dps <= 0f) return;
         stackedDamage += dps * Time.fixedDeltaTime;
         if (stackedDamage < 1f) return;
 
