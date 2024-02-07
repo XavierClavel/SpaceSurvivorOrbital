@@ -10,12 +10,15 @@ using UnityEngine;
  * <p> Range -> Scale of black holes </p>
  * <p> Knockback -> Attraction force </p>
  * <p> BaseDamage -> Black hole dps </p>
+ * <p> BoolA -> Whether to spawn white hole </p>
  * </pre>
  */
 public class PowerBlackHole : Power
 {
     [SerializeField] private BlackHole prefabBlackHole;
+    [SerializeField] private WhiteHole prefabWhiteHole;
     private ComponentPool<BlackHole> pool;
+    private ComponentPool<WhiteHole> poolWhite;
     private Camera cam;
     private static PowerBlackHole instance;
 
@@ -23,6 +26,7 @@ public class PowerBlackHole : Power
     private float blackHoleSize;
     private float blackHoleForce;
     private float blackHoleDps;
+    private bool doSpawnWhiteHole;
 
     public override void onSetup()
     {
@@ -30,23 +34,36 @@ public class PowerBlackHole : Power
         instance = this;
         autoCooldown = true;
         pool = new ComponentPool<BlackHole>(prefabBlackHole);
+        poolWhite = new ComponentPool<WhiteHole>(prefabWhiteHole);
 
         blackHoleDuration = stats.attackSpeed;
         blackHoleSize = stats.range;
         blackHoleForce = stats.knockback;
         blackHoleDps = stats.baseDamage.getRandom();
-        
-        Debug.Log(blackHoleSize);
+        doSpawnWhiteHole = fullStats.generic.boolA;
     }
 
     protected override void onUse()
     {
         BlackHole blackHole = pool.get(cam);
         blackHole.setup(blackHoleSize, blackHoleDuration, blackHoleForce, blackHoleDps);
+
+        if (!doSpawnWhiteHole)
+        {
+            return;
+        }
+
+        WhiteHole whiteHole = poolWhite.get(cam);
+        whiteHole.setup(blackHoleSize, blackHoleDuration, blackHoleForce, blackHoleDps);
     }
     
     public static void recall(BlackHole blackHole)
     {
         instance.pool.recall(blackHole);
+    }
+    
+    public static void recall(WhiteHole whiteHole)
+    {
+        instance.poolWhite.recall(whiteHole);
     }
 }
