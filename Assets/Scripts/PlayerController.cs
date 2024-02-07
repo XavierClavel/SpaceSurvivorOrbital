@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public InputMaster controls;
     [HideInInspector] public playerState _playerState_value = playerState.idle;
     [HideInInspector] public bool reflectsProjectiles = false;
+
+    private const float boostedSpeed = 6f;
     [HideInInspector]
     public playerState state
     {
@@ -559,5 +561,15 @@ public class PlayerController : MonoBehaviour
     private void OnDestroy()
     {
         PlayerEventsManager.resetListeners();
+    }
+
+    public static void ApplySpeedBoost()
+    {
+        instance.baseSpeed = boostedSpeed;
+    }
+
+    public static void RemoveSpeedBoost()
+    {
+        instance.baseSpeed = PlayerManager.playerData.character.baseSpeed;
     }
 }

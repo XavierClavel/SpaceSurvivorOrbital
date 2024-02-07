@@ -37,13 +37,23 @@ public class ToxicZone : Power
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            PowerToxicZone.onPlayerEnterToxicZone();
+            return;
+        }
         if (!ObjectManager.dictObjectToEnnemy.ContainsKey(other.gameObject)) return;
-        PowerToxicZone.OnEnnemyEnterToxicZone(other.gameObject);
+        PowerToxicZone.onEnnemyEnterToxicZone(other.gameObject);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        PowerToxicZone.OnEnnemyExitToxicZone(other.gameObject);
+        if (other.gameObject.CompareTag("Player"))
+        {
+            PowerToxicZone.onPlayerExitToxicZone();
+            return;
+        }
+        PowerToxicZone.onEnnemyExitToxicZone(other.gameObject);
     }
 
 }

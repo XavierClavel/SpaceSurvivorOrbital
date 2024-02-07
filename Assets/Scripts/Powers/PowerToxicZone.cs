@@ -24,9 +24,13 @@ public class PowerToxicZone : Power
     private static PowerToxicZone instance;
     
     //dict ennemy -> how many toxic zones he is in
-    private Dictionary<GameObject, int> dictEnnemyToPresence = new Dictionary<GameObject, int>();
+    private static Stacker<Ennemy> ennemyStacker;
+    private static SingleStacker playerStacker;
 
     private Camera cam;
+    private bool doFreezeEnnemies;
+    private bool doIncreasePlayerSpeed;
+    private bool doIncreasePlayerDamage;
     
     protected override void Start()
     {
@@ -34,46 +38,87 @@ public class PowerToxicZone : Power
         autoCooldown = true;
         instance = this;
 
+        doIncreasePlayerSpeed = fullStats.generic.boolA;
+        doIncreasePlayerDamage = fullStats.generic.boolB;
+        doFreezeEnnemies = fullStats.generic.boolC;
+
+        if (doFreezeEnnemies)
+        {
+            StartCoroutine(nameof(ReapplyEffect));
+        }
+
         pool = new ComponentPool<ToxicZone>(toxicZonePrefab);
         cam = Camera.main;
+
+        ennemyStacker = new Stacker<Ennemy>()
+            .addOnStartStackingEvent(FreezeEnnemy);
+
+        playerStacker = new SingleStacker();
+        if (doIncreasePlayerSpeed)
+        {
+            playerStacker
+                .addOnStartStackingEvent(PlayerController.ApplySpeedBoost)
+                .addOnStopStackingEvent(PlayerController.RemoveSpeedBoost);
+        }
     }
     
     private void FixedUpdate()
     {
         DealDamage();
     }
+
+    private IEnumerator ReapplyEffect()
+    {
+        while (true)
+        {
+            yield return Helpers.getWait(1f);
+            foreach (var ennemy in ennemyStacker.get())
+            {
+                ennemy.ApplyEffect(status.ice);
+            }
+        }
+    }
     
     /**
      * Registers that a specific ennemy has entered a toxic zone, and updates the dictionary.
      */
-    public static void OnEnnemyEnterToxicZone(GameObject ennemy)
+    public static void onEnnemyEnterToxicZone(GameObject go)
     {
-        if (instance.dictEnnemyToPresence.ContainsKey(ennemy)) instance.dictEnnemyToPresence[ennemy]++;
-        else instance.dictEnnemyToPresence[ennemy] = 1;
+        if (!ObjectManager.dictObjectToEnnemy.ContainsKey(go))
+        {
+            return;
+        }
+        Ennemy ennemy = ObjectManager.dictObjectToEnnemy[go];
+        ennemyStacker.stack(ennemy);
+        
     }
+    
+    private void FreezeEnnemy(Ennemy ennemy) => ennemy.ApplyEffect(status.ice);
     
     /**
      * Registers that a specific ennemy has exited a toxic zone, and updates the dictionary.
      */
-    public static void OnEnnemyExitToxicZone(GameObject ennemy)
+    public static void onEnnemyExitToxicZone(GameObject go)
     {
-        if (!instance.dictEnnemyToPresence.ContainsKey(ennemy)) return;
-        instance.dictEnnemyToPresence[ennemy]--;
-        if (instance.dictEnnemyToPresence[ennemy] == 0) instance.dictEnnemyToPresence.Remove(ennemy);
+        if (!ObjectManager.dictObjectToEnnemy.ContainsKey(go))
+        {
+            return;
+        }
+        Ennemy ennemy = ObjectManager.dictObjectToEnnemy[go];
+        ennemyStacker.unstack(ennemy);
     }
+
+    public static void onPlayerEnterToxicZone() => playerStacker.stack();
+    public static void onPlayerExitToxicZone() => playerStacker.unstack();
     
     /**
      * Runs through every ennemy currently inside a toxic zone, using the dictionary, and stacks damage to it.
      */
     private void DealDamage()
     {
-        foreach (GameObject ennemy in dictEnnemyToPresence.Keys)
+        foreach (Ennemy ennemy in ennemyStacker.get())
         {
-            if (!ObjectManager.dictObjectToEnnemy.ContainsKey(ennemy))
-            {
-                continue;
-            }
-            ObjectManager.dictObjectToEnnemy[ennemy].StackDamage(stats.baseDamage.x, new HashSet<status>());
+            ennemy.StackDamage(stats.baseDamage.x, new HashSet<status>());
         }
     }
     

@@ -242,7 +242,7 @@ public class Ennemy : Breakable
         }
     }
 
-    void ApplyEffect(status element)
+    public void ApplyEffect(status element)
     {
         if (isImmuneToEffects) return;
         switch (element)
