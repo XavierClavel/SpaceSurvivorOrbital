@@ -32,7 +32,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     [SerializeField] private Button weaponBuyButton;
     [SerializeField] private UpgradeDisplay weaponDisplay;
 
-    public static List<string> selectedEquipments = new List<string>();
+    public static HashSet<string> selectedEquipments = new HashSet<string>();
 
     [Header("Equipment")]
     [SerializeField] private TextMeshProUGUI equipmentTitleDisplay;
@@ -209,7 +209,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     {
         selectedCharacter = null;
         selectedWeapon = null;
-        selectedEquipments = new List<string>();
+        selectedEquipments = new HashSet<string>();
     }
 
     public void SelectGeneric<T>(T value) where T : ObjectHandler
