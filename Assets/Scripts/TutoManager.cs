@@ -61,10 +61,14 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
         tutoText.SetText("Trouvez et détruisez une stèle !");
         yield return new WaitUntil(isSteleDestroyed);
         tutoText.SetText("Bien joué ! Attention un ennemi ! Détruisez le !");
+        yield return new WaitUntil(killedFirstWave);
+        tutoText.SetText("Super ! Maintenant, récoltez des ressources en détruisant des oeufs.");
 
     }
     public bool isSteleDestroyed() => steleDestroyed == 1;
     public bool killedFirstWave() => ennemiesKilled == 1;
+
+    public bool ressourcesDestroyed() => ennemiesKilled == 1;
 
     public void onEnnemyDeath(Ennemy ennemy) => ennemiesKilled++;
     public void onAltarUsed(Altar altar) => altarUsed++;
