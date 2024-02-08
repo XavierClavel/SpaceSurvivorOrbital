@@ -92,7 +92,7 @@ public class PowerBlackHole : Power
             return;
         }
         PlayerController.instance.transform.position =
-            instance.whiteHole.transform.position + Helpers.getRandomPositionInRing(new Vector2(1f, 1f), shape.square);
+            instance.whiteHole.transform.position + Helpers.getRandomPositionInRing(Vector2.one, shape.square);
         instance.blackHole.Remove();
         instance.whiteHole.Remove();
     }

@@ -527,6 +527,7 @@ public class PlayerController : MonoBehaviour
     void Death()
     {
         if (PlayerEventsManager.onPlayerDeath()) return;
+        PauseMenu.instance.PauseGame(false);
         ObjectManager.DisplayLoseScreen();
     }
     
