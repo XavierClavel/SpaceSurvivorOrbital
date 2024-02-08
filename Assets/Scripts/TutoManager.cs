@@ -60,10 +60,10 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
 
     private IEnumerator Tuto()
     {
-        tutoText.SetText("Bienvenue dans Cosmic Deserter !\r\nVotre patrie a été détruite par une arm�e Alien. \r\nVous devez fuir de cette galaxie � tout prix !");
+        tutoText.SetText("Bienvenue dans Cosmic Deserter !\r\nVotre patrie a été détruite par une armée Alien. \r\nVous devez fuir de cette galaxie � tout prix !");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
-        tutoText.SetText("Se d�placer : ZQSD \r\nTirer : Clic gauche");
+        tutoText.SetText("Se déplacer : ZQSD \r\nTirer : Clic gauche");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         tutoText.SetText("Pour fuir d'une plan�te, vous devez d�truire les st�les ennemis. \r\nLe nombre de st�les ennemis restantes est visible en bas � droite.");
