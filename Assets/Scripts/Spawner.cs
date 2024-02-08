@@ -168,7 +168,7 @@ public class Spawner : MonoBehaviour
     {
         Bounds bounds = Camera.main.getBounds();
         Vector3 position = Helpers.getRandomPositionInRing(bounds.extents, shape.square) + PlayerController.instance.transform.position;
-        Instantiate(ennemy.gameObject, position, Quaternion.identity);
+        Instantiate(ennemy, position, Quaternion.identity);
     }
 
     public void SpawnEnnemy()

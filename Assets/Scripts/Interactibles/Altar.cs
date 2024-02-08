@@ -35,6 +35,7 @@ public class Altar : MonoBehaviour, IInteractable
         //animator = GetComponent<Animator>();
 
         factor = 1f / timeToLaunch;
+        listeners.ForEach(it => it.onAltarSpawned(this));
     }
 
     public void StartInteracting() { }

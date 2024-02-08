@@ -26,6 +26,7 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
 
     private List<MonsterStele> steles = new List<MonsterStele>();
     private List<Resource> resources = new List<Resource>();
+    public List<Altar> altars = new List<Altar>();
     public bool click = false;
 
     [SerializeField] private Ennemy ennemyPrefab;
@@ -60,7 +61,7 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
 
     private IEnumerator Tuto()
     {
-        tutoText.SetText("Bienvenue dans Cosmic Deserter !\r\nVotre planète a été détruite par une armée Alien. \r\nVous devez fuir de cette galaxie à tout prix !");
+        tutoText.SetText("Bienvenue dans Cosmic Deserter !\r\nVotre planète a été détruite par une armée Alien. \r\nVous devez fuir de cette galaxie à tout prix ! \n Cliquez pour continuer");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         tutoText.SetText("Se déplacer : ZQSD \r\nTirer : Clic gauche");
@@ -70,15 +71,19 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         tutoText.SetText("Trouvez et détruisez une stèle !");
+        ShowFirstStele();
         yield return new WaitUntil(isSteleDestroyed);
         tutoText.SetText("Bien joué ! Attention un ennemi ! Détruisez le !");
+        SpawnEnnemies(1);
         yield return new WaitUntil(killedFirstWave);
         tutoText.SetText("Super ! Maintenant, récoltez des ressources en détruisant des oeufs.");
+        ShowResources();
         yield return new WaitUntil(resourcesDestroyed);
         tutoText.SetText("Une ressource verte ou jaune se gagne en remplissant les jauges en haut à droite. \r\n En détruisant tous les oeufs d'une planète, vous gagnez une ressource bleu");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         tutoText.SetText("Fouillez la planète pour découvrir un autel de pouvoir. \r\nPuis positionnez vous devant (dans le cercle).");
+        ShowFirstAltar();
         yield return new WaitUntil(isAltarUsed);
         tutoText.SetText("Les ressources bleu servent à améliorer vos pouvoirs. \r\nLes jaune et verte, vos équipements.");
         yield return Helpers.getWait(2f);
@@ -87,17 +92,19 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         tutoText.SetText("D'autres ennemis ! Faites leur la peau !!!");
+        SpawnEnnemies(3);
         yield return new WaitUntil(killedSecondWave);
-        tutoText.SetText("Avez-vous remarqué ? Comme chaque planète est sphérique, en marchant dans le même sens, vous en ferez le tour.");
+        tutoText.SetText("Avez-vous remarqué ? Comme chaque planète est sphérique, en marchant dans le même sens, vous en ferez le tour. Plus vous vous éloignez du centre, plus le sol sera sombre");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         tutoText.SetText("La dernière stèle vient d'apparaitre, détruisez là !");
+        ShowSecondStele();
+        PlayerManager.isTuto = false;
         yield return new WaitUntil(isStele2Destroyed);
         tutoText.SetText("Une fois les stèles détruites, vous pouvez vous téléportez dans votre vaisseau. \r\nLe cercle de téléportation apparait au centre de la planète");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         tutoText.SetText("Quand vous êtes prêt à partir, entre dans le cercle de téléportation !\r\nBon courage !");
-
     }
     public bool doClick() => click;
     
@@ -108,10 +115,16 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     public bool isAltarUsed() => altarUsed == 1;
 
 
-    public bool resourcesDestroyed() => resourceDestroyed == 1;
+    public bool resourcesDestroyed() => resourceDestroyed == 4;
 
     public void onEnnemyDeath(Ennemy ennemy) => ennemiesKilled++;
     public void onAltarUsed(Altar altar) => altarUsed++;
+    public void onAltarSpawned(Altar altar)
+    {
+        altars.Add(altar);
+        altar.gameObject.SetActive(false);
+    }
+
     public void onResourceDestroyed(Resource resource) => resourceDestroyed++;
     public void onResourceSpawned(Resource resource)
     {
@@ -127,20 +140,13 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
 
     public void onSteleDestroyed(MonsterStele stele) => steleDestroyed++;
 
-    private void ShowFirstStele()
-    {
-        steles[0].gameObject.SetActive(true);
-    }
+    private void ShowFirstStele() => steles[0].gameObject.SetActive(true);
 
-    private void ShowSecondStele()
-    {
-        steles[1].gameObject.SetActive(false);
-    }
+    private void ShowSecondStele() => steles[1].gameObject.SetActive(true);
 
-    private void ShowResources()
-    {
-        resources.ForEach(it => it.gameObject.SetActive(false));
-    }
+    private void ShowResources() => resources.ForEach(it => it.gameObject.SetActive(true));
+    private void ShowFirstAltar() => altars[0].gameObject.SetActive(true);
+    private void ShowSecondAltar() => altars[1].gameObject.SetActive(true);
 
     private void SpawnEnnemies(int amount)
     {
