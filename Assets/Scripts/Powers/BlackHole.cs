@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class BlackHole : MonoBehaviour
 {
+    public AudioSource blackHoleSound;
     private float scale;
     private float forceAttraction;
     private float dps;
@@ -21,6 +22,8 @@ public class BlackHole : MonoBehaviour
         this.scale = scale;
         
         transform.localScale = Vector3.zero;
+        blackHoleSound.volume = 0.5f;
+        blackHoleSound.Play();
         Sequence sequence = DOTween.Sequence();
         sequence.Append(transform.DOScale(scale * Vector3.one, 0.2f));
         sequence.AppendCallback(delegate { isActive = true; });
@@ -29,6 +32,7 @@ public class BlackHole : MonoBehaviour
         sequence.Append(transform.DOScale(Vector3.zero, 0.2f));
         sequence.OnComplete(delegate
         {
+            blackHoleSound.DOFade(0f, 0.5f);
             PowerBlackHole.recall(this);
         });
     }

@@ -13,6 +13,7 @@ public class ToxicZone : MonoBehaviour
     public void Setup(float scale, float speed)
     {
         this.toxicZoneSpeed = speed;
+        SoundManager.PlaySfx(transform, key: "ToxicZone_Appear");
         transform.localScale = Vector3.zero;
         Sequence sequence = DOTween.Sequence();
         sequence.Append(transform.DOScale(scale * Vector3.one, 0.2f));

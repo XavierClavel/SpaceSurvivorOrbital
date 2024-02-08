@@ -34,12 +34,14 @@ public class PowerToxicZone : Power, IEnnemyListener
     private bool doIncreasePlayerSpeed;
     private bool doIncreasePlayerDamage;
     private bool doHealOnKill;
+    private float toxicZoneSpeed;
     
     public override void onSetup()
     {
         autoCooldown = true;
         instance = this;
 
+        toxicZoneSpeed = stats.attackSpeed;
         doIncreasePlayerSpeed = fullStats.generic.boolA;
         doIncreasePlayerDamage = fullStats.generic.boolB;
         doFreezeEnnemies = fullStats.generic.boolC;
@@ -181,7 +183,7 @@ public class PowerToxicZone : Power, IEnnemyListener
     private void Spawn(Bounds bounds)
     {
         ToxicZone toxicZone = pool.get(bounds);
-        toxicZone.Setup(stats.range, 5f);
+        toxicZone.Setup(stats.range, toxicZoneSpeed);
     }
 
     public static void recall(ToxicZone toxicZone)

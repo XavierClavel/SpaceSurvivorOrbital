@@ -6,7 +6,6 @@ using UnityEngine.Serialization;
 public class TileManager : MonoBehaviour
 {
     public PlanetData planetData;
-    public SpriteRenderer groundSprite;
     [SerializeField] TilesBankManager bank;
     TileWaveFunction[,] map;
     [SerializeField] DistanceConstraintsManager distanceConstraintsManager;

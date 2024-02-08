@@ -55,7 +55,6 @@ public class TilesBankManager : ScriptableObject
         empty1.setTileObjects(bank.empty1);
         empty2.setTileObjects(bank.empty2);
 
-        TileManager.instance.groundSprite.color = bank.groundColor1;
         groundColor1 = bank.groundColor1;
         groundColor2 = bank.groundColor2;
         groundColor3 = bank.groundColor3;

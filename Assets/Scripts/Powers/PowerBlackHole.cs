@@ -40,7 +40,6 @@ public class PowerBlackHole : Power
         autoCooldown = true;
         pool = new ComponentPool<BlackHole>(prefabBlackHole);
         poolWhite = new ComponentPool<WhiteHole>(prefabWhiteHole);
-
         blackHoleDuration = stats.attackSpeed;
         blackHoleSize = stats.range;
         blackHoleForce = stats.knockback;

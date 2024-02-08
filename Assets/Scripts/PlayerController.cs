@@ -222,6 +222,7 @@ public class PlayerController : MonoBehaviour
     public static void Heal(int amount = 1)
     {
         instance.boostSpeed.Play();
+        SoundManager.PlaySfx(instance.transform, key: "Heal_Player");
         instance.health += amount;
     }
     
@@ -570,6 +571,7 @@ public class PlayerController : MonoBehaviour
     public static void ApplySpeedBoost()
     {
         instance.boostSpeed.Play();
+        SoundManager.PlaySfx(instance.transform, key: "Boost_Player");
         instance.baseSpeed = boostedSpeed;
     }
     public static void RemoveSpeedBoost()
@@ -580,6 +582,7 @@ public class PlayerController : MonoBehaviour
     public static void ApplyStrengthBoost()
     {
         instance.boostAttack.Play();
+        SoundManager.PlaySfx(instance.transform, key: "Boost_Player");
         instance.damageMultiplier *= 1.2f;
     }
     public static void RemoveStrengthBoost()
