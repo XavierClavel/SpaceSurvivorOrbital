@@ -43,7 +43,7 @@ public class Ennemy : Breakable
     [Header("Parameters")]
     [SerializeField] protected float speed = 1f;
     [SerializeField] protected float fleeSpeed = 2f;
-    [SerializeField] protected float attackSpeed = 0.5f;
+    [SerializeField] protected float cooldown = 1f;
     [SerializeField] protected float range = 5f;
     [SerializeField] protected float stateStep = 0.5f;
     int _health;
@@ -99,7 +99,7 @@ public class Ennemy : Breakable
         healthBar.maxValue = _health;
         healthBar.value = _health;
 
-        wait = Helpers.getWait(attackSpeed);
+        wait = Helpers.getWait(cooldown);
         waitStateStep = Helpers.getWait(stateStep);
         waitFire = Helpers.getWait(ConstantsData.fireStep);
 

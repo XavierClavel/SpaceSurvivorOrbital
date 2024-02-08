@@ -51,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 136847809878825962}
   col: {fileID: 8260006786367833540}
+  rb: {fileID: -1664493242985401603}
   explosion: {fileID: 5846059835306389378}
 --- !u!212 &7477704614648643112
 SpriteRenderer:
@@ -173,7 +174,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -221,11 +222,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7584972273357522795, guid: cc71ff284b2b6134ca0b2dbffa088e69, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.4
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 7584972273357522795, guid: cc71ff284b2b6134ca0b2dbffa088e69, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.4
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 7584972273357522795, guid: cc71ff284b2b6134ca0b2dbffa088e69, type: 3}
       propertyPath: m_LocalPosition.x

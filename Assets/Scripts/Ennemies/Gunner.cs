@@ -9,7 +9,7 @@ public class Gunner : Ennemy
 {
 
 
-    private int bulletSpeed = 1;
+    private int bulletSpeed = 5;
     [SerializeField] Vector2 shootRange = new Vector2(3f, 5f);
 
     [Header("Additional References")]

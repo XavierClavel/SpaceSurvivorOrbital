@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] SpriteRenderer playerSprite;
     [SerializeField] Animator playerAnimator;
 
+    [SerializeField] ParticleSystem boostAttack;
+    [SerializeField] ParticleSystem boostSpeed;
+    [SerializeField] ParticleSystem heartGain;
+
     CharacterHandler characterHandler;
     InteractorHandler interactorHandler;
     [SerializeField] GameObject minerBot;
@@ -123,6 +127,8 @@ public class PlayerController : MonoBehaviour
     private bool invulnerable = false;
     private float damageMultiplier;
 
+    [HideInInspector] public float speedMultiplier = 1f;
+
     //Wait
     WaitForSeconds invulnerabilityFrameDuration;
 
@@ -215,6 +221,7 @@ public class PlayerController : MonoBehaviour
 
     public static void Heal(int amount = 1)
     {
+        instance.boostSpeed.Play();
         instance.health += amount;
     }
     
@@ -308,8 +315,8 @@ public class PlayerController : MonoBehaviour
         maxHealth = PlayerManager.playerData.character.maxHealth + bonusManager.getBonusMaxHealth();
         shieldsAmount = bonusManager.getBonusShield();
         int currentHealth = maxHealth - PlayerManager.damageTaken;
-        baseSpeed = PlayerManager.playerData.character.baseSpeed;   
-        setSpeed(1f);
+        baseSpeed = PlayerManager.playerData.character.baseSpeed;
+        speedMultiplier = 1f;
         damageMultiplier = PlayerManager.playerData.character.damageMultiplier;
         
 
@@ -351,12 +358,6 @@ public class PlayerController : MonoBehaviour
             if (state == playerState.walking) SoundManager.PlaySfx(transform, "Footstep");
             yield return footstepsWait;
         }
-    }
-
-
-    public void setSpeed(float speedMultiplier)
-    {
-        speed = baseSpeed * speedMultiplier;
     }
 
 
@@ -448,7 +449,7 @@ public class PlayerController : MonoBehaviour
             state = playerState.walking;
         }
         else state = playerState.idle;
-        targetMoveAmount = moveDir * speed;
+        targetMoveAmount = moveDir * baseSpeed * speedMultiplier;
 
         moveAmount = Vector2.SmoothDamp(moveAmount, targetMoveAmount, ref smoothMoveVelocity, 0.10f);
     }
@@ -566,10 +567,26 @@ public class PlayerController : MonoBehaviour
         PlayerEventsManager.resetListeners();
     }
 
-    public static void ApplySpeedBoost() => instance.baseSpeed = boostedSpeed;
-    public static void RemoveSpeedBoost() => instance.baseSpeed = PlayerManager.playerData.character.baseSpeed;
-    public static void ApplyStrengthBoost() => instance.damageMultiplier *= 1.2f;
-    public static void RemoveStrengthBoost() => instance.damageMultiplier /= 1.2f;
+    public static void ApplySpeedBoost()
+    {
+        instance.boostSpeed.Play();
+        instance.baseSpeed = boostedSpeed;
+    }
+    public static void RemoveSpeedBoost()
+    {
+        instance.boostSpeed.Stop();
+        instance.baseSpeed = PlayerManager.playerData.character.baseSpeed;
+    }
+    public static void ApplyStrengthBoost()
+    {
+        instance.boostAttack.Play();
+        instance.damageMultiplier *= 1.2f;
+    }
+    public static void RemoveStrengthBoost()
+    {
+        instance.boostAttack.Stop();
+        instance.damageMultiplier /= 1.2f;
+    }
 
     public static float getDamageMultiplier() => instance.damageMultiplier;
 

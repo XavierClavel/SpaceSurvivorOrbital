@@ -48,14 +48,14 @@ public class InteractorHandler : MonoBehaviour
     {
         action = true;
         currentInteractor.StartUsing();
-        player.setSpeed(currentInteractor.stats.speedWhileAiming);
+        player.speedMultiplier = currentInteractor.stats.speedWhileAiming;
     }
 
     public void StopAction(bool cancelAction = true)
     {
         if (cancelAction) action = false;
         currentInteractor.StopUsing();
-        player.setSpeed(1f);
+        player.speedMultiplier = 1f;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
