@@ -17,6 +17,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener
     [SerializeField] GameObject loseScreenFirstSelected;
     [SerializeField] private GameObject radar;
     [SerializeField] private Slider bossHealthbar;
+    [SerializeField] private GameObject steleDisplay;
     public Transform powersDisplayLayout;
     public PowerDisplay powerDisplayPrefab;
     public Slider reloadSlider;
@@ -197,5 +198,10 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener
     {
         amountDens++;
         altarMonsterTotal.text = amountDens.ToString();
+    }
+
+    public static void DisableSteleDisplay()
+    {
+        instance.steleDisplay.SetActive(false);
     }
 }
