@@ -23,6 +23,8 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     private int altarUsed = 0;
     private int resourceDestroyed = 0;
     private int steleDestroyed = 0;
+
+    private List<MonsterStele> steles = new List<MonsterStele>();
     
 
     // Start is called before the first frame update
@@ -52,17 +54,17 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
 
     private IEnumerator Tuto()
     {
-        tutoText.SetText("Bienvenue dans Cosmic Deserter !\r\nVotre patrie a été détruite par une armée Alien. \r\nVous devez fuir de cette galaxie à tout prix !");
+        tutoText.SetText("Bienvenue dans Cosmic Deserter !\r\nVotre patrie a ï¿½tï¿½ dï¿½truite par une armï¿½e Alien. \r\nVous devez fuir de cette galaxie ï¿½ tout prix !");
         yield return new WaitUntil(killedFirstWave);
-        tutoText.SetText("Se déplacer : ZQSD \r\nTirer : Clic gauche");
+        tutoText.SetText("Se dï¿½placer : ZQSD \r\nTirer : Clic gauche");
         yield return new WaitUntil(killedFirstWave);
-        tutoText.SetText("Pour fuir d'une planète, vous devez détruire les stèles ennemis. \r\nLe nombre de stèles ennemis restantes est visible en bas à droite.");
+        tutoText.SetText("Pour fuir d'une planï¿½te, vous devez dï¿½truire les stï¿½les ennemis. \r\nLe nombre de stï¿½les ennemis restantes est visible en bas ï¿½ droite.");
         yield return new WaitUntil(killedFirstWave);
-        tutoText.SetText("Trouvez et détruisez une stèle !");
+        tutoText.SetText("Trouvez et dï¿½truisez une stï¿½le !");
         yield return new WaitUntil(isSteleDestroyed);
-        tutoText.SetText("Bien joué ! Attention un ennemi ! Détruisez le !");
+        tutoText.SetText("Bien jouï¿½ ! Attention un ennemi ! Dï¿½truisez le !");
         yield return new WaitUntil(killedFirstWave);
-        tutoText.SetText("Super ! Maintenant, récoltez des ressources en détruisant des oeufs.");
+        tutoText.SetText("Super ! Maintenant, rï¿½coltez des ressources en dï¿½truisant des oeufs.");
 
     }
     public bool isSteleDestroyed() => steleDestroyed == 1;
@@ -73,5 +75,22 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     public void onEnnemyDeath(Ennemy ennemy) => ennemiesKilled++;
     public void onAltarUsed(Altar altar) => altarUsed++;
     public void onResourceDestroyed(Resource resource) => resourceDestroyed++;
+
+    public void onSteleSpawned(MonsterStele stele)
+    {
+        steles.Add(stele);
+        stele.gameObject.SetActive(false);
+    }
+
     public void onSteleDestroyed(MonsterStele stele) => steleDestroyed++;
+
+    private void ShowFirstStele()
+    {
+        steles[0].gameObject.SetActive(true);
+    }
+
+    private void ShowSecondStele()
+    {
+        steles[1].gameObject.SetActive(false);
+    }
 }
