@@ -209,7 +209,7 @@ public class PlayerController : MonoBehaviour
         if (instance.interactorHandler.currentInteractor.isDamageAbsorbed()) return;
         instance.takeDamage((int)(amount));
         instance.OnHitOverlay();
-        Shake(instance.playerShakeIntensity, instance.playerShakeDuration);
+        Shake(playerShakeIntensity, playerShakeDuration);
         instance.StartCoroutine(nameof(InvulnerabilityFrame));
     }
 
