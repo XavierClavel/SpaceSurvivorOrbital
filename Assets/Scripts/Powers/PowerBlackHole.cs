@@ -99,15 +99,16 @@ public class PowerBlackHole : Power
     
     public static void SpawnShockwave(Vector2 position)
     {
-        Debug.Log("Explode");
-        Shockwave shockwave = instance.poolShockwaves.get(position);
-        if (instance.doExplode)
+        if (!instance.doExplode)
         {
-            shockwave.setPsPool(instance.poolExplosion);
+            return;
         }
+        
+        Shockwave shockwave = instance.poolShockwaves.get(position);
         shockwave
             .Setup(instance.blackHoleSize * 0.5f, shockwaveDamage, status.none, 0)
             .setPool(instance.poolShockwaves)
+            .setPsPool(instance.poolExplosion)
             .doShockwave(true);
     }
 }
