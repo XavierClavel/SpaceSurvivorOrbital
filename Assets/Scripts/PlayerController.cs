@@ -103,6 +103,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("UI")] 
     [SerializeField] private TextMeshProUGUI soulsDisplay;
+    [SerializeField] private TextMeshProUGUI souls2Display;
     [SerializeField] private TextMeshProUGUI blueDisplay;
     public ResourceLayoutManager layoutManagerOrange;
     public ResourceLayoutManager layoutManagerGreen;
@@ -195,6 +196,8 @@ public class PlayerController : MonoBehaviour
         private set
         {
             soulsDisplay.SetText(value.ToString());
+            souls2Display.SetText(value.ToString());
+
             _souls = value;
         }
     }

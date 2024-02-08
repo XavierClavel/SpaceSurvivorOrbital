@@ -38,7 +38,6 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     void Awake()
     {
         instance = this;
-        tutoActive.SetActive(true);
         PlanetManager.setData(new PlanetData() {size = planetSize.small});
         if (!PlayerManager.isTuto)
         {
@@ -63,6 +62,8 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
 
     private IEnumerator Tuto()
     {
+        tutoActive.SetActive(true);
+
         tutoText.SetText("Bienvenue dans Cosmic Deserter !\r\nVotre planète a été détruite par une armée Alien. \r\nVous devez fuir de cette galaxie à tout prix ! \n Cliquez pour continuer");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
@@ -107,7 +108,7 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
         SpawnEnnemies(3);
         yield return new WaitUntil(killedSecondWave);
         
-        tutoText.SetText("Avez-vous remarqué ? Comme chaque planète est sphérique, en marchant dans le même sens, vous en ferez le tour. Plus vous vous éloignez du centre, plus le sol sera sombre");
+        tutoText.SetText("Avez-vous remarqué ? Comme chaque planète est sphérique, en marchant dans le même sens, vous en ferez le tour. \r\nPlus vous vous éloignez du centre, plus le sol sera sombre");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         
@@ -120,7 +121,10 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         
-        tutoText.SetText("Quand vous êtes prêt à partir, entre dans le cercle de téléportation !\r\nBon courage !");
+        tutoText.SetText("Quand vous êtes prêt à partir, entrez dans le cercle de téléportation !\r\nBon courage !");
+
+        yield return Helpers.getWait(3f);
+        tutoActive.SetActive(false);
     }
     public bool doClick() => click;
     
