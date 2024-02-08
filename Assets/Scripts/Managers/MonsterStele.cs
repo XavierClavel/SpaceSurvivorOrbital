@@ -53,7 +53,6 @@ public class MonsterStele : Breakable
         collider.enabled = false;
         SoundManager.PlaySfx(transform, key: "Spawn_Destroy");
         listeners.ForEach(it => it.onSteleDestroyed(this));
-        ObjectManager.registerDenDestroyed();
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
         ObjectManager.unregisterHitable(gameObject);
         Destroy(gameObject);
@@ -71,6 +70,8 @@ public class MonsterStele : Breakable
         _health = spawnData.denHealth;
         healthBar.maxValue = _health;
         healthBar.value = _health;
+        
+        listeners.ForEach(it => it.onSteleSpawned(this));
 
         
         //playerTransform = PlayerController.instance.transform;

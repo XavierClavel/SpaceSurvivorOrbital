@@ -46,15 +46,8 @@ public class ObjectManager : MonoBehaviour, IMonsterStele
     public static Dictionary<GameObject, IInteractable> dictObjectToInteractable = new Dictionary<GameObject, IInteractable>();
     public static Dictionary<GameObject, Breakable> dictObjectToHitable = new Dictionary<GameObject, Breakable>();
     static int amountEggs = 0;
-    private static int amountDens = 0;
-    private static int amountDensDestroyed = 0;
-    
-
-    public void Start()
-    {
-        altarMonsterTotal.text = PlanetManager.getDensAmount().ToString();
-        amountDens = PlanetManager.getDensAmount();
-    }
+    private int amountDens = 0;
+    private int amountDensDestroyed = 0;
 
 
     public static void DisplaySpaceship()
@@ -103,22 +96,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele
         return !dictObjectToHitable.ContainsKey(gameObject) ? null : dictObjectToHitable[gameObject];
     }
     
-    public static void registerDenSpawned() {
-        amountDens++;
-    }
 
-    public static void registerDenDestroyed() {
-        amountDensDestroyed++;
-        Debug.Log($"Registered stele destroyed, current amount destroyed is now {amountDensDestroyed}");
-        amountDens--;
-        instance.altarMonsterCurrent.SetText(amountDensDestroyed.ToString());
-        Debug.Log($"Text value is {instance.altarMonsterCurrent.text}");
-
-        if (amountDens > 0) return;
-        Instantiate(instance.shipAppearPS, PlayerController.instance.transform);
-        SoundManager.PlaySfx(PlayerController.instance.transform, key: "Monster_Altar_Destroy");
-        DisplaySpaceship();
-    }
 
     private void Awake()
     {
@@ -128,6 +106,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele
         amountDensDestroyed = 0;
         radar.SetActive(false);
         if (Helpers.isPlatformAndroid()) pauseButton.SetActive(true);
+        MonsterStele.registerListener(this);
 
     }
 
@@ -197,6 +176,21 @@ public class ObjectManager : MonoBehaviour, IMonsterStele
 
     public void onSteleDestroyed(MonsterStele stele)
     {
-        
+        amountDensDestroyed++;
+        Debug.Log($"Registered stele destroyed, current amount destroyed is now {amountDensDestroyed}");
+        amountDens--;
+        instance.altarMonsterCurrent.SetText(amountDensDestroyed.ToString());
+        Debug.Log($"Text value is {instance.altarMonsterCurrent.text}");
+
+        if (amountDens > 0) return;
+        Instantiate(instance.shipAppearPS, PlayerController.instance.transform);
+        SoundManager.PlaySfx(PlayerController.instance.transform, key: "Monster_Altar_Destroy");
+        DisplaySpaceship();
+    }
+
+    public void onSteleSpawned(MonsterStele stele)
+    {
+        amountDens++;
+        altarMonsterTotal.text = amountDens.ToString();
     }
 }

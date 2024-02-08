@@ -23,7 +23,9 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     private int altarUsed = 0;
     private int resourceDestroyed = 0;
     private int steleDestroyed = 0;
-    private int clicked = 0;
+
+    private List<MonsterStele> steles = new List<MonsterStele>();
+    private bool click = false;
     
 
     // Start is called before the first frame update
@@ -51,39 +53,52 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
         Altar.unregisterListener(this);
     }
 
+    private void Update()
+    {
+        click = Input.GetMouseButtonDown(0);
+    }
+
     private IEnumerator Tuto()
     {
-        tutoText.SetText("Bienvenue dans Cosmic Deserter !\r\nVotre patrie a été détruite par une armée Alien. \r\nVous devez fuir de cette galaxie à tout prix !");
+        tutoText.SetText("Bienvenue dans Cosmic Deserter !\r\nVotre patrie a ï¿½tï¿½ dï¿½truite par une armï¿½e Alien. \r\nVous devez fuir de cette galaxie ï¿½ tout prix !");
         yield return new WaitUntil(isCLicked);
-        tutoText.SetText("Se déplacer : ZQSD \r\nTirer : Clic gauche");
+        tutoText.SetText("Se dï¿½placer : ZQSD \r\nTirer : Clic gauche");
         yield return new WaitUntil(isCLicked);
-        tutoText.SetText("Pour fuir d'une planète, vous devez détruire les stèles ennemis. \r\nLe nombre de stèles ennemis restantes est visible en bas à droite.");
+        tutoText.SetText("Pour fuir d'une planï¿½te, vous devez dï¿½truire les stï¿½les ennemis. \r\nLe nombre de stï¿½les ennemis restantes est visible en bas ï¿½ droite.");
         yield return new WaitUntil(isCLicked);
-        tutoText.SetText("Trouvez et détruisez une stèle !");
+        tutoText.SetText("Trouvez et dï¿½truisez une stï¿½le !");
         yield return new WaitUntil(isSteleDestroyed);
-        tutoText.SetText("Bien joué ! Attention un ennemi ! Détruisez le !");
+        tutoText.SetText("Bien jouï¿½ ! Attention un ennemi ! Dï¿½truisez le !");
         yield return new WaitUntil(killedFirstWave);
-        tutoText.SetText("Super ! Maintenant, récoltez des ressources en détruisant des oeufs.");
+        tutoText.SetText("Super ! Maintenant, rï¿½coltez des ressources en dï¿½truisant des oeufs.");
         yield return new WaitUntil(resourcesDestroyed);
-        tutoText.SetText("Une ressource verte ou jaune se gagne en remplissant les jauges en haut à droite. \r\n En détruisant tous les oeufs d'une planète, vous gagnez une ressource bleu");
+        tutoText.SetText("Une ressource verte ou jaune se gagne en remplissant les jauges en haut ï¿½ droite. \r\n En dï¿½truisant tous les oeufs d'une planï¿½te, vous gagnez une ressource bleu");
         yield return new WaitUntil(isCLicked);
-        tutoText.SetText("Fouillez la planète pour découvrir un autel de pouvoir. \r\nPuis positionnez vous devant (dans le cercle).");
+        tutoText.SetText("Fouillez la planï¿½te pour dï¿½couvrir un autel de pouvoir. \r\nPuis positionnez vous devant (dans le cercle).");
         yield return new WaitUntil(isAltarUsed);
-        tutoText.SetText("Les ressources bleu servent à améliorer vos pouvoirs. \r\nLes jaune et verte, vos équipements.");
+        tutoText.SetText("Les ressources bleu servent ï¿½ amï¿½liorer vos pouvoirs. \r\nLes jaune et verte, vos ï¿½quipements.");
         yield return new WaitUntil(isCLicked);
-        tutoText.SetText("Chaque planète possède des ressources d'un type spécifique.");
+        tutoText.SetText("Chaque planï¿½te possï¿½de des ressources d'un type spï¿½cifique.");
         yield return new WaitUntil(isCLicked);
         tutoText.SetText("D'autres ennemis ! Faites leur la peau !!!");
         yield return new WaitUntil(killedSecondWave);
-        tutoText.SetText("Avez-vous remarqué ? Chaque planète est sphérique ! En marchant dans le même sens, vous en ferez donc le tour.");
+        tutoText.SetText("Avez-vous remarquï¿½ ? Chaque planï¿½te est sphï¿½rique ! En marchant dans le mï¿½me sens, vous en ferez donc le tour.");
         yield return new WaitUntil(isCLicked);
-        tutoText.SetText("La dernière stèle vient d'apparaitre, détruisez là !");
+        tutoText.SetText("La derniï¿½re stï¿½le vient d'apparaitre, dï¿½truisez lï¿½ !");
         yield return new WaitUntil(isStele2Destroyed);
-        tutoText.SetText("Une fois les stèles détruites, vous pouvez vous téléportez dans votre vaisseau. \r\nLe cercle de téléportation apparait au centre de la planète");
+        tutoText.SetText("Une fois les stï¿½les dï¿½truites, vous pouvez vous tï¿½lï¿½portez dans votre vaisseau. \r\nLe cercle de tï¿½lï¿½portation apparait au centre de la planï¿½te");
         yield return new WaitUntil(isCLicked);
-        tutoText.SetText("Quand vous êtes prêt à partir, entre dans le cercle de téléportation !\r\nBon courage !");
+        tutoText.SetText("Quand vous ï¿½tes prï¿½t ï¿½ partir, entre dans le cercle de tï¿½lï¿½portation !\r\nBon courage !");
 
     }
+        tutoText.SetText("Super ! Maintenant, rï¿½coltez des ressources en dï¿½truisant des oeufs.");
+
+    }
+
+    public bool doClick() => click;
+    
+    public bool isSteleDestroyed() => steleDestroyed == 1;
+    public bool killedFirstWave() => ennemiesKilled == 1;
 
     public bool isCLicked() => clicked == 1;
     public bool isSteleDestroyed() => steleDestroyed == 1;
@@ -98,5 +113,22 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     public void onEnnemyDeath(Ennemy ennemy) => ennemiesKilled++;
     public void onAltarUsed(Altar altar) => altarUsed++;
     public void onResourceDestroyed(Resource resource) => resourceDestroyed++;
+
+    public void onSteleSpawned(MonsterStele stele)
+    {
+        steles.Add(stele);
+        stele.gameObject.SetActive(false);
+    }
+
     public void onSteleDestroyed(MonsterStele stele) => steleDestroyed++;
+
+    private void ShowFirstStele()
+    {
+        steles[0].gameObject.SetActive(true);
+    }
+
+    private void ShowSecondStele()
+    {
+        steles[1].gameObject.SetActive(false);
+    }
 }
