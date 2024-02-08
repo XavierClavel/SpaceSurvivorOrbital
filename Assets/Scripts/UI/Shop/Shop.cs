@@ -55,7 +55,8 @@ public class Shop : MonoBehaviour
     public void BuyHealth()
     {
         if (!Transaction(costHealth)) return;
-        PlayerManager.damageTaken = 0;
+        PlayerManager.damageTaken = Mathf.Clamp(PlayerManager.damageTaken - 3, 0, 1000);
+        healthBar.SetAmount(maxHealth - PlayerManager.damageTaken);
     }
 
     public void BuyResourceBlue()
