@@ -38,11 +38,13 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     void Awake()
     {
         instance = this;
-        PlanetManager.setData(new PlanetData() {size = planetSize.small});
         if (!PlayerManager.isTuto)
         {
             return;
         }
+        
+        PlanetManager.setData(new PlanetData() {size = planetSize.small});
+        
         Ennemy.registerListener(this);
         Altar.registerListener(this);
         Resource.registerListener(this);
