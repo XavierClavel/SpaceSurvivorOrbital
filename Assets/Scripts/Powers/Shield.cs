@@ -5,10 +5,11 @@ using UnityEngine;
 public class Shield : Equipment
 {
     
-    protected override void onUse()
+    public override void Boost(BonusManager bonusManager)
     {
         int shieldsAmount = stats.projectiles;
-        if (fullStats.generic.boolA) PlayerController.instance.reflectsProjectiles = true;
-        PlayerController.instance.SetupShields(shieldsAmount);
+        Debug.Log(shieldsAmount);
+        if (fullStats.generic.boolA && PlayerController.instance != null) PlayerController.instance.reflectsProjectiles = true;
+        bonusManager.addBonusShield(shieldsAmount);
     }
 }

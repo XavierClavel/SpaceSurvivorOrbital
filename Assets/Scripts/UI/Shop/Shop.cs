@@ -16,6 +16,7 @@ public class Shop : MonoBehaviour
     public static int healthLost;
     public static int shieldsAmount;
     private static Shop instance;
+    private BonusManager bonusManager = new BonusManager();
 
     public static void Reset()
     {
@@ -25,6 +26,19 @@ public class Shop : MonoBehaviour
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        foreach (EquipmentHandler equipmentHandler in PlayerManager.equipments)
+        {
+            if (!equipmentHandler.isBooster())
+            {
+                continue;
+            }
+            equipmentHandler.Activate(bonusManager);
+        }
+        maxHealth = PlayerManager.playerData.character.maxHealth + bonusManager.getBonusMaxHealth();
     }
 
 

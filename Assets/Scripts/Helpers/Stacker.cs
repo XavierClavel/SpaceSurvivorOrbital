@@ -124,3 +124,42 @@ public class SingleStacker
     public int get() => amount;
 
 }
+
+public class SingleStackerSingleThreshold
+{
+    private int amount = 0;
+    private int threshold;
+    private List<UnityAction> onThresholdReached = new List<UnityAction>();
+
+    public SingleStackerSingleThreshold addAction(UnityAction action)
+    {
+        onThresholdReached.Add(action);
+        return this;
+    }
+
+    public SingleStackerSingleThreshold setThreshold(int value)
+    {
+        amount = value;
+        return this;
+    }
+
+    public void stack(int value = 1)
+    {
+        amount += value;
+        if (amount < threshold)
+        {
+            return;
+        }
+        
+        onThresholdReached.ForEach(it => it.Invoke());
+        reset();
+    }
+
+    public void unstack(int value = 1)
+    {
+        amount -= value;
+    }
+    
+    public void reset() => amount = 0;
+    public int get() => amount;
+}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,14 @@ public class Power : Damager
 
     public override void Setup(PlayerData stats)
     {
-        playerTransform = PlayerController.instance.transform;
+        try
+        {
+            playerTransform = PlayerController.instance.transform;
+        }
+        catch (Exception)
+        {
+            
+        }
         isUsing = true;
         base.Setup(stats);
 
@@ -24,6 +32,8 @@ public class Power : Damager
         }
         onSetup();
     }
+    
+    public virtual void Boost(BonusManager bonusManager) {}
     
     public virtual void onSetup() {}
 

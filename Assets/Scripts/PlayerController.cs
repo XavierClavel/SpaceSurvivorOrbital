@@ -302,10 +302,11 @@ public class PlayerController : MonoBehaviour
 
         foreach (EquipmentHandler equipmentHandler in PlayerManager.equipments)
         {
-            equipmentHandler.Activate();
+            equipmentHandler.Activate(bonusManager);
         }
 
         maxHealth = PlayerManager.playerData.character.maxHealth + bonusManager.getBonusMaxHealth();
+        shieldsAmount = bonusManager.getBonusShield();
         int currentHealth = maxHealth - PlayerManager.damageTaken;
         baseSpeed = PlayerManager.playerData.character.baseSpeed;   
         setSpeed(1f);
@@ -350,11 +351,6 @@ public class PlayerController : MonoBehaviour
             if (state == playerState.walking) SoundManager.PlaySfx(transform, "Footstep");
             yield return footstepsWait;
         }
-    }
-
-    public void SetupShields(int amount)
-    {
-        shieldsAmount = amount;
     }
 
 
