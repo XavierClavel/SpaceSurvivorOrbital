@@ -17,6 +17,7 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     [SerializeField] List<TileRow> tiles;
 
     [SerializeField] private TextMeshProUGUI tutoText;
+    [SerializeField] private TileManager tileManager;
 
     private int ennemiesKilled = 0;
     private int altarUsed = 0;
@@ -38,7 +39,7 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
         MonsterStele.registerListener(this);
         
         tiles.Reverse();
-        TileManager.instance.SetMap(tiles, tileSize);
+        tileManager.SetMap(tiles, tileSize);
         
         StartCoroutine(nameof(Tuto));
     }
@@ -51,11 +52,18 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
 
     private IEnumerator Tuto()
     {
-        tutoText.SetText("aaaaaaa");
+        tutoText.SetText("Bienvenue dans Cosmic Deserter !\r\nVotre patrie a été détruite par une armée Alien. \r\nVous devez fuir de cette galaxie à tout prix !");
         yield return new WaitUntil(killedFirstWave);
-        tutoText.SetText("bbbbbbbbb");
-    }
+        tutoText.SetText("Se déplacer : ZQSD \r\nTirer : Clic gauche");
+        yield return new WaitUntil(killedFirstWave);
+        tutoText.SetText("Pour fuir d'une planète, vous devez détruire les stèles ennemis. \r\nLe nombre de stèles ennemis restantes est visible en bas à droite.");
+        yield return new WaitUntil(killedFirstWave);
+        tutoText.SetText("Trouvez et détruisez une stèle !");
+        yield return new WaitUntil(isSteleDestroyed);
+        tutoText.SetText("Bien joué ! Attention un ennemi ! Détruisez le !");
 
+    }
+    public bool isSteleDestroyed() => steleDestroyed == 1;
     public bool killedFirstWave() => ennemiesKilled == 1;
 
     public void onEnnemyDeath(Ennemy ennemy) => ennemiesKilled++;

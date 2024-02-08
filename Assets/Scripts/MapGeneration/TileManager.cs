@@ -313,6 +313,8 @@ public class TileManager : MonoBehaviour
         {
             foreach (GameObject tile in tileRow.tileRow)
             {
+
+                Debug.Log(index);
                 Vector2Int position = IndexToPosition(index);
                 Vector3 worldPosition = PositionToWorld(position);
                 GameObject go = Instantiate(tile, worldPosition, Quaternion.identity);
