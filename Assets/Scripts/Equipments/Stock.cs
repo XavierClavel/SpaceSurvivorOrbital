@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Stock : Equipment
 {
-    protected override void onUse()
+    public override void Boost(BonusManager bonusManager)
     {
         int additionalResourceAmount = stats.projectiles;
         PlayerController.bonusManager.addBonusStock(additionalResourceAmount);
