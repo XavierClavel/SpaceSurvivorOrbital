@@ -27,6 +27,7 @@ public class Boss : Ennemy
     protected override void Start()
     {
         base.Start();
+        ObjectManager.DisableSteleDisplay();
         spriteRenderer = GetComponent<SpriteRenderer>();
         maxHealth = 1000 * PlanetSelector.getDifficulty();
         health = maxHealth;
