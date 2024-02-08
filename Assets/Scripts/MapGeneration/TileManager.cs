@@ -314,7 +314,9 @@ public class TileManager : MonoBehaviour
             foreach (GameObject tile in tileRow.tileRow)
             {
                 Vector2Int position = IndexToPosition(index);
-                dictPositionToTile.Add(position, tile);
+                Vector3 worldPosition = PositionToWorld(position);
+                GameObject go = Instantiate(tile, worldPosition, Quaternion.identity);
+                dictPositionToTile.Add(position, go);
                 index.x++;
             }
             index.y++;

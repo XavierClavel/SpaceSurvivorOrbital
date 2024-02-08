@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [System.Serializable]
@@ -14,6 +15,8 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     [SerializeField] bool doMapMove;
     [SerializeField] Vector2Int tileSize;
     [SerializeField] List<TileRow> tiles;
+
+    [SerializeField] private TextMeshProUGUI tutoText;
 
     private int ennemiesKilled = 0;
     private int altarUsed = 0;
@@ -48,8 +51,9 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
 
     private IEnumerator Tuto()
     {
+        tutoText.SetText("aaaaaaa");
         yield return new WaitUntil(killedFirstWave);
-        Debug.Log("Done !");
+        tutoText.SetText("bbbbbbbbb");
     }
 
     public bool killedFirstWave() => ennemiesKilled == 1;
