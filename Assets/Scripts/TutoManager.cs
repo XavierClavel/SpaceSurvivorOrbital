@@ -61,11 +61,14 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     private IEnumerator Tuto()
     {
         tutoText.SetText("Bienvenue dans Cosmic Deserter !\r\nVotre patrie a �t� d�truite par une arm�e Alien. \r\nVous devez fuir de cette galaxie � tout prix !");
-        yield return new WaitUntil(isCLicked);
+        yield return Helpers.getWait(2f);
+        yield return new WaitUntil(doClick);
         tutoText.SetText("Se d�placer : ZQSD \r\nTirer : Clic gauche");
-        yield return new WaitUntil(isCLicked);
+        yield return Helpers.getWait(2f);
+        yield return new WaitUntil(doClick);
         tutoText.SetText("Pour fuir d'une plan�te, vous devez d�truire les st�les ennemis. \r\nLe nombre de st�les ennemis restantes est visible en bas � droite.");
-        yield return new WaitUntil(isCLicked);
+        yield return Helpers.getWait(2f);
+        yield return new WaitUntil(doClick);
         tutoText.SetText("Trouvez et d�truisez une st�le !");
         yield return new WaitUntil(isSteleDestroyed);
         tutoText.SetText("Bien jou� ! Attention un ennemi ! D�truisez le !");
@@ -73,37 +76,34 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
         tutoText.SetText("Super ! Maintenant, r�coltez des ressources en d�truisant des oeufs.");
         yield return new WaitUntil(resourcesDestroyed);
         tutoText.SetText("Une ressource verte ou jaune se gagne en remplissant les jauges en haut � droite. \r\n En d�truisant tous les oeufs d'une plan�te, vous gagnez une ressource bleu");
-        yield return new WaitUntil(isCLicked);
+        yield return Helpers.getWait(2f);
+        yield return new WaitUntil(doClick);
         tutoText.SetText("Fouillez la plan�te pour d�couvrir un autel de pouvoir. \r\nPuis positionnez vous devant (dans le cercle).");
         yield return new WaitUntil(isAltarUsed);
         tutoText.SetText("Les ressources bleu servent � am�liorer vos pouvoirs. \r\nLes jaune et verte, vos �quipements.");
-        yield return new WaitUntil(isCLicked);
+        yield return Helpers.getWait(2f);
+        yield return new WaitUntil(doClick);
         tutoText.SetText("Chaque plan�te poss�de des ressources d'un type sp�cifique.");
-        yield return new WaitUntil(isCLicked);
+        yield return Helpers.getWait(2f);
+        yield return new WaitUntil(doClick);
         tutoText.SetText("D'autres ennemis ! Faites leur la peau !!!");
         yield return new WaitUntil(killedSecondWave);
         tutoText.SetText("Avez-vous remarqu� ? Chaque plan�te est sph�rique ! En marchant dans le m�me sens, vous en ferez donc le tour.");
-        yield return new WaitUntil(isCLicked);
+        yield return Helpers.getWait(2f);
+        yield return new WaitUntil(doClick);
         tutoText.SetText("La derni�re st�le vient d'apparaitre, d�truisez l� !");
         yield return new WaitUntil(isStele2Destroyed);
         tutoText.SetText("Une fois les st�les d�truites, vous pouvez vous t�l�portez dans votre vaisseau. \r\nLe cercle de t�l�portation apparait au centre de la plan�te");
-        yield return new WaitUntil(isCLicked);
+        yield return Helpers.getWait(2f);
+        yield return new WaitUntil(doClick);
         tutoText.SetText("Quand vous �tes pr�t � partir, entre dans le cercle de t�l�portation !\r\nBon courage !");
 
     }
-        tutoText.SetText("Super ! Maintenant, r�coltez des ressources en d�truisant des oeufs.");
-
-    }
-
     public bool doClick() => click;
     
     public bool isSteleDestroyed() => steleDestroyed == 1;
     public bool killedFirstWave() => ennemiesKilled == 1;
-
-    public bool isCLicked() => clicked == 1;
-    public bool isSteleDestroyed() => steleDestroyed == 1;
     public bool isStele2Destroyed() => steleDestroyed == 2;
-    public bool killedFirstWave() => ennemiesKilled == 1;
     public bool killedSecondWave() => ennemiesKilled == 4;
     public bool isAltarUsed() => altarUsed == 1;
 
