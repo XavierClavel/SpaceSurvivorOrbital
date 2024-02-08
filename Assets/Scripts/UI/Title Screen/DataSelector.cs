@@ -82,7 +82,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     private void DisplayCharacter(SelectButton selectButton)
     {
         if (!characterImage.gameObject.activeInHierarchy) characterImage.gameObject.SetActive(true);
-        LocalizationManager.LocalizeTextField(selectButton.key, characterTitleDisplay);
+        LocalizationManager.LocalizeTextField(selectButton.key + Vault.key.ButtonTitle, characterTitleDisplay);
         LocalizationManager.LocalizeTextField(selectButton.key + Vault.key.ButtonDescription, characterDescriptionText);
         
         characterCostDisplay.SetActive(!selectButton.isUnlocked);
@@ -97,7 +97,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     private void DisplayWeapon(SelectButton selectButton)
     {
         if (!weaponImage.gameObject.activeInHierarchy) weaponImage.gameObject.SetActive(true);
-        LocalizationManager.LocalizeTextField(selectButton.key, weaponTitleDisplay);
+        LocalizationManager.LocalizeTextField(selectButton.key + Vault.key.ButtonTitle, weaponTitleDisplay);
         LocalizationManager.LocalizeTextField(selectButton.key + Vault.key.ButtonDescription, weaponDescriptionText);
         
         weaponCostDisplay.SetActive(!selectButton.isUnlocked);
@@ -112,7 +112,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     private void DisplayEquipment(SelectButton selectButton)
     {
         if (!equipmentImage.gameObject.activeInHierarchy) equipmentImage.gameObject.SetActive(true);
-        LocalizationManager.LocalizeTextField(selectButton.key, equipmentTitleDisplay);
+        LocalizationManager.LocalizeTextField(selectButton.key + Vault.key.ButtonTitle, equipmentTitleDisplay);
         LocalizationManager.LocalizeTextField(selectButton.key + Vault.key.ButtonDescription, equipmentDescriptionText);
         equipmentChargeDisplay.gameObject.SetActive(true);
         equipmentChargeDisplay.setCharge(ScriptableObjectManager.dictKeyToEquipmentHandler[selectButton.key].getCharge());
@@ -215,13 +215,12 @@ public class DataSelector : MonoBehaviour, UIPanel
 
     public void SelectGeneric<T>(T value) where T : ObjectHandler
     {
-        if (typeof(T) == typeof(CharacterHandler)) SelectCharacter(value.getKey());
-        else if (typeof(T) == typeof(EquipmentHandler)) SelectEquipment(value.getKey());
-        else if (typeof(T) == typeof(WeaponHandler)) SelectWeapon(value.getKey());
+        SelectGeneric(value.getKey());
     }
     
     public static void SelectGeneric(string value) 
     {
+        SoundManager.PlaySfx("Button_Switch");
         if (ScriptableObjectManager.dictKeyToCharacterHandler.ContainsKey(value))
         {
             instance.SelectCharacter(value);
@@ -248,7 +247,6 @@ public class DataSelector : MonoBehaviour, UIPanel
         if (selectedCharacter != null) dictKeyToButton[selectedCharacter].onDeselect();
         dictKeyToButton[value].onSelect();
         selectedCharacter = value;
-        SoundManager.PlaySfx(transform, key: "Button_Switch");
         if (selectedWeapon != string.Empty) startButton.interactable = true;
     }
 
@@ -257,12 +255,11 @@ public class DataSelector : MonoBehaviour, UIPanel
         if (selectedWeapon != null) dictKeyToButton[selectedWeapon].onDeselect();
         dictKeyToButton[value].onSelect();
         selectedWeapon = value;
-        SoundManager.PlaySfx(transform, key: "Button_Switch");
         if (selectedCharacter != string.Empty) startButton.interactable = true;
     }
     public void SelectEquipment(string value)
     {
-        
+
         if (selectedEquipments.Contains(value)) //unselect
         {
             selectedEquipments.Remove(value);
@@ -280,7 +277,6 @@ public class DataSelector : MonoBehaviour, UIPanel
             currentEquipmentCharge += ScriptableObjectManager.dictKeyToEquipmentHandler[value].getCharge();
         }
         UpdateCurrentCharge();
-        SoundManager.PlaySfx(transform, key: "Button_Switch");
     }
 
     public void Validate()
