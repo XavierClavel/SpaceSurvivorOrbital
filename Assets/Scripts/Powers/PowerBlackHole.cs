@@ -12,14 +12,19 @@ using UnityEngine;
  * <p> BaseDamage -> Black hole dps </p>
  * <p> BoolA -> Whether to spawn white hole </p>
  * <p> BoolB -> Whether black holes can be traversed </p>
+ * <p> BoolC -> Explosion </p>
  * </pre>
  */
 public class PowerBlackHole : Power
 {
     [SerializeField] private BlackHole prefabBlackHole;
     [SerializeField] private WhiteHole prefabWhiteHole;
+    [SerializeField] private Shockwave prefabShockwave;
+    [SerializeField] ParticleSystem explosion;
     private ComponentPool<BlackHole> pool;
     private ComponentPool<WhiteHole> poolWhite;
+    private ComponentPool<Shockwave> poolShockwaves;
+    private ComponentPool<ParticleSystem> poolExplosion;
     private Camera cam;
     private static PowerBlackHole instance;
 
@@ -29,9 +34,13 @@ public class PowerBlackHole : Power
     private float blackHoleDps;
     private bool doSpawnWhiteHole;
     private bool doWormHole;
+    private bool doExplode;
 
     private BlackHole blackHole;
     private WhiteHole whiteHole;
+
+    private const int shockwaveDamage = 20;
+    
 
     public override void onSetup()
     {
@@ -40,12 +49,16 @@ public class PowerBlackHole : Power
         autoCooldown = true;
         pool = new ComponentPool<BlackHole>(prefabBlackHole);
         poolWhite = new ComponentPool<WhiteHole>(prefabWhiteHole);
+        poolShockwaves = new ComponentPool<Shockwave>(prefabShockwave);
+        poolExplosion = new ComponentPool<ParticleSystem>(explosion);
+        poolExplosion.setTimer(3f);
         blackHoleDuration = stats.attackSpeed;
         blackHoleSize = stats.range;
         blackHoleForce = stats.knockback;
         blackHoleDps = stats.baseDamage.getRandom();
         doSpawnWhiteHole = fullStats.generic.boolA;
         doWormHole = fullStats.generic.boolB;
+        doExplode = fullStats.generic.boolC;
     }
 
     protected override void onUse()
@@ -82,5 +95,19 @@ public class PowerBlackHole : Power
             instance.whiteHole.transform.position + Helpers.getRandomPositionInRing(new Vector2(1f, 1f), shape.square);
         instance.blackHole.Remove();
         instance.whiteHole.Remove();
+    }
+    
+    public static void SpawnShockwave(Vector2 position)
+    {
+        Debug.Log("Explode");
+        Shockwave shockwave = instance.poolShockwaves.get(position);
+        if (instance.doExplode)
+        {
+            shockwave.setPsPool(instance.poolExplosion);
+        }
+        shockwave
+            .Setup(instance.blackHoleSize * 0.5f, shockwaveDamage, status.none, 0)
+            .setPool(instance.poolShockwaves)
+            .doShockwave(true);
     }
 }

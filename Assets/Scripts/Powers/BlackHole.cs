@@ -29,12 +29,7 @@ public class BlackHole : MonoBehaviour
         sequence.AppendCallback(delegate { isActive = true; });
         sequence.AppendInterval(lifetime);
         sequence.AppendCallback(delegate { isActive = false; });
-        sequence.Append(transform.DOScale(Vector3.zero, 0.2f));
-        sequence.OnComplete(delegate
-        {
-            blackHoleSound.DOFade(0f, 0.5f);
-            PowerBlackHole.recall(this);
-        });
+        sequence.OnComplete(Remove);
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -74,8 +69,10 @@ public class BlackHole : MonoBehaviour
     {
         transform.DOScale(Vector3.zero, 0.2f).OnComplete(delegate
         {
+            PowerBlackHole.SpawnShockwave(transform.position);
             PowerBlackHole.recall(this);
         });
     }
+    
 
 }

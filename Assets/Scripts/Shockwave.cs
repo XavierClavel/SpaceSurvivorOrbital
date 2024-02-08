@@ -21,13 +21,15 @@ public class Shockwave : MonoBehaviour
     private UnityAction recallAction = null;
     [SerializeField] private ParticleSystem ps = null;
     private bool _ispsNotNull;
+    private ComponentPool<Shockwave> pool = null;
+    private ComponentPool<ParticleSystem> poolPs = null;
 
     private void Start()
     {
         _ispsNotNull = ps != null;
     }
 
-    public void Setup(float shockwaveRange, int shockwaveDamage, status effect, int shockwaveKnockback)
+    public Shockwave Setup(float shockwaveRange, int shockwaveDamage, status effect, int shockwaveKnockback)
     {
         this.shockwaveRange = shockwaveRange;
         this.shockwaveDamage = shockwaveDamage;
@@ -38,6 +40,20 @@ public class Shockwave : MonoBehaviour
         baseShockwaveColor ??= disc.Color;
         clearColor = (Color)baseShockwaveColor;
         clearColor.a = 0;
+
+        return this;
+    }
+
+    public Shockwave setPool(ComponentPool<Shockwave> pool)
+    {
+        this.pool = pool;
+        return this;
+    }
+
+    public Shockwave setPsPool(ComponentPool<ParticleSystem> pool)
+    {
+        this.poolPs = pool;
+        return this;
     }
     
     public void setRecallMethod(UnityAction action)
@@ -47,6 +63,13 @@ public class Shockwave : MonoBehaviour
 
     public void doShockwave(bool destroyOnComplete = false)
     {
+        if (poolPs != null)
+        {
+            var ps = poolPs.get(transform.position);
+            ps.transform.localScale = shockwaveRange * Vector3.one;
+            ps.Play();
+        }
+        
         if (_ispsNotNull) ps.Play();
         objectsHit = new List<GameObject>();
         if (baseShockwaveColor != null) disc.Color = (Color)baseShockwaveColor;
@@ -58,7 +81,8 @@ public class Shockwave : MonoBehaviour
                 transform.localScale = Vector3.zero;
                 if (!destroyOnComplete) return;
                 
-                if (recallAction != null) Invoke(nameof(Recall), shockwaveDelay);
+                if (pool != null) pool.recall(this);
+                else if (recallAction != null) Invoke(nameof(Recall), shockwaveDelay);
                 else GameObject.Destroy(gameObject, shockwaveDelay);
             });
         DOTween.To(() => disc.Color, x => disc.Color = x, clearColor, shockwaveDuration).SetEase(Ease.OutQuad);

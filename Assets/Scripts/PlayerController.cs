@@ -556,7 +556,6 @@ public class PlayerController : MonoBehaviour
     private IEnumerator ShakeCoroutine()
     {
         isShaking = true;
-        Debug.Log("GoShake");
         camNoise.m_AmplitudeGain = shakeIntensity;
         yield return Helpers.getWait(shakeDuration);
         camNoise.m_AmplitudeGain = 0f;
