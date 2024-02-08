@@ -25,6 +25,7 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     private int steleDestroyed = 0;
 
     private List<MonsterStele> steles = new List<MonsterStele>();
+    private bool click = false;
     
 
     // Start is called before the first frame update
@@ -52,6 +53,11 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
         Altar.unregisterListener(this);
     }
 
+    private void Update()
+    {
+        click = Input.GetMouseButtonDown(0);
+    }
+
     private IEnumerator Tuto()
     {
         tutoText.SetText("Bienvenue dans Cosmic Deserter !\r\nVotre patrie a �t� d�truite par une arm�e Alien. \r\nVous devez fuir de cette galaxie � tout prix !");
@@ -67,6 +73,9 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
         tutoText.SetText("Super ! Maintenant, r�coltez des ressources en d�truisant des oeufs.");
 
     }
+
+    public bool doClick() => click;
+    
     public bool isSteleDestroyed() => steleDestroyed == 1;
     public bool killedFirstWave() => ennemiesKilled == 1;
 
