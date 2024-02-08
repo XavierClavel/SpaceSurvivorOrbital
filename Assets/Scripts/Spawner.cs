@@ -47,6 +47,10 @@ public class Spawner : MonoBehaviour
 
     protected void Start()
     {
+        if (PlayerManager.isTuto)
+        {
+            return;
+        }
         difficulty = PlanetSelector.getDifficulty();
         Debug.Log($"Difficulty : {difficulty}");
         spawnData = DataManager.dictDifficulty[difficulty.ToString()];

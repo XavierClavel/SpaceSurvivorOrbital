@@ -24,9 +24,19 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     // Start is called before the first frame update
     void Awake()
     {
+        PlanetManager.setData(new PlanetData() {size = planetSize.small});
+        if (!PlayerManager.isTuto)
+        {
+            return;
+        }
         Ennemy.registerListener(this);
         Altar.registerListener(this);
         Resource.registerListener(this);
+        MonsterStele.registerListener(this);
+        
+        tiles.Reverse();
+        TileManager.instance.SetMap(tiles, tileSize);
+        
         StartCoroutine(nameof(Tuto));
     }
 

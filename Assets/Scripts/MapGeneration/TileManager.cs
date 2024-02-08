@@ -43,6 +43,10 @@ public class TileManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        if (PlayerManager.isTuto)
+        {
+            return;
+        }
         mask = LayerMask.GetMask(Vault.layer.Ennemies);
         instance = this;
         if (!PlanetManager.hasData()) PlanetManager.setData(planetData);
