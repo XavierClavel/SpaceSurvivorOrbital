@@ -51,6 +51,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource planetDesertMusic;
     [SerializeField] private AudioSource planetStormMusic;
     [SerializeField] private AudioSource planetMushroomMusic;
+    [SerializeField] private AudioSource shopMusic;
 
     [Header(" ")]
     //public sfxContainer[] test;
@@ -82,7 +83,7 @@ public class SoundManager : MonoBehaviour
             {
                 { gameScene.titleScreen, titleScreenMusic},
                 { gameScene.ship, shipMusic},
-                { gameScene.shop, shipMusic},
+                { gameScene.shop, shopMusic},
                 { gameScene.planetDesert, planetDesertMusic},
                 { gameScene.planetIce, planetIceMusic},
                 { gameScene.planetMushroom, planetMushroomMusic},
