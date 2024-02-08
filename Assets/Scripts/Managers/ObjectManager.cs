@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ObjectManager : MonoBehaviour, IMonsterStele
+public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener
 {
     [Header("UI")]
     public LayoutManager healthBar;
@@ -62,11 +62,13 @@ public class ObjectManager : MonoBehaviour, IMonsterStele
 
     public static void HideSpaceship() { spaceship.SetActive(false); }
 
-    public static void registerEggSpawned() {
+    public void onResourceSpawned(Resource resource)
+    {
         amountEggs++;
     }
 
-    public static void registerEggDestroyed() {
+    public void onResourceDestroyed(Resource resource)
+    {
         amountEggs--;
         if (amountEggs > 0) return;
         
@@ -107,7 +109,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele
         radar.SetActive(false);
         if (Helpers.isPlatformAndroid()) pauseButton.SetActive(true);
         MonsterStele.registerListener(this);
-
+        Resource.registerListener(this);
     }
 
     public static void DisplayAltarUI()
@@ -161,6 +163,9 @@ public class ObjectManager : MonoBehaviour, IMonsterStele
         dictObjectToEnnemy = new Dictionary<GameObject, Ennemy>();
         dictObjectToInteractable = new Dictionary<GameObject, IInteractable>();
         dictObjectToResource = new Dictionary<GameObject, IResource>();
+        
+        Resource.unregisterListener(this);
+        MonsterStele.unregisterListener(this);
     }
 
     public static PowerDisplay AddPowerDisplay()

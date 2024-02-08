@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourcesAttractor : MonoBehaviour
+public class ResourcesAttractor : MonoBehaviour, IResourceListener
 {
     [SerializeField] CircleCollider2D attractorZone;
     float attractorForce;
@@ -15,6 +15,13 @@ public class ResourcesAttractor : MonoBehaviour
         attractorZone.radius = PlayerManager.playerData.attractor.range;
         attractorForce = PlayerManager.playerData.attractor.force;
         PlayerController.instance.attractorTransform = transform;
+        
+        Resource.registerListener(this);
+    }
+
+    private void OnDestroy()
+    {
+        Resource.unregisterListener(this);
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -41,7 +48,12 @@ public class ResourcesAttractor : MonoBehaviour
         Destroy(other.gameObject);
     }
 
-    public static void ForceUpdate()
+    public void onResourceSpawned(Resource resource)
+    {
+        
+    }
+
+    public void onResourceDestroyed(Resource resource)
     {
         instance.attractorZone.enabled = false;
         instance.attractorZone.enabled = true;

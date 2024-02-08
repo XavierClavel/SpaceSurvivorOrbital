@@ -59,14 +59,14 @@ public class Resource : Breakable
 
         dropInterval = baseDamage;
 
-        ObjectManager.registerEggSpawned();
-
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         Transform childTransform = transform.Find("Sprite Overlay");
         spriteOverlay = childTransform.gameObject;
         myCollider = GetComponent<Collider2D>();
         gameObject.tag = Vault.tag.Resource;
+        
+        listeners.ForEach(it => it.onResourceSpawned(this));
 
     }
 
@@ -91,8 +91,6 @@ public class Resource : Breakable
         {
             var go = Instantiate(itemPrefab, randomPos() + transform.position, Quaternion.identity);
         }
-        ResourcesAttractor.ForceUpdate();
-        ObjectManager.registerEggDestroyed();
         animator.enabled = true;
         isDestroy = true;
         healthBar.gameObject.SetActive(false);

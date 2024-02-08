@@ -164,7 +164,7 @@ public class Spawner : MonoBehaviour
         ennemiesToSpawnList.Sort(comparer);
     }
 
-    public void SpawnEnnemy(Ennemy ennemy)
+    public static void SpawnEnnemy(Ennemy ennemy)
     {
         Bounds bounds = Camera.main.getBounds();
         Vector3 position = Helpers.getRandomPositionInRing(bounds.extents, shape.square) + PlayerController.instance.transform.position;

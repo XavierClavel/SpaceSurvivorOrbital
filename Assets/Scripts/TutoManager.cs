@@ -25,12 +25,17 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     private int steleDestroyed = 0;
 
     private List<MonsterStele> steles = new List<MonsterStele>();
-    private bool click = false;
+    private List<Resource> resources = new List<Resource>();
+    public bool click = false;
+
+    [SerializeField] private Ennemy ennemyPrefab;
+    public static TutoManager instance;
     
 
     // Start is called before the first frame update
     void Awake()
     {
+        instance = this;
         PlanetManager.setData(new PlanetData() {size = planetSize.small});
         if (!PlayerManager.isTuto)
         {
@@ -51,11 +56,6 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     {
         Ennemy.unregisterListener(this);
         Altar.unregisterListener(this);
-    }
-
-    private void Update()
-    {
-        click = Input.GetMouseButtonDown(0);
     }
 
     private IEnumerator Tuto()
@@ -113,6 +113,11 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     public void onEnnemyDeath(Ennemy ennemy) => ennemiesKilled++;
     public void onAltarUsed(Altar altar) => altarUsed++;
     public void onResourceDestroyed(Resource resource) => resourceDestroyed++;
+    public void onResourceSpawned(Resource resource)
+    {
+        resources.Add(resource);
+        resource.gameObject.SetActive(false);
+    }
 
     public void onSteleSpawned(MonsterStele stele)
     {
@@ -130,5 +135,30 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     private void ShowSecondStele()
     {
         steles[1].gameObject.SetActive(false);
+    }
+
+    private void ShowResources()
+    {
+        resources.ForEach(it => it.gameObject.SetActive(false));
+    }
+
+    private void SpawnEnnemies(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            Spawner.SpawnEnnemy(ennemyPrefab);
+        }
+    }
+
+    public void Click()
+    {
+        StartCoroutine(nameof(clickCoroutine));
+    }
+
+    private IEnumerator clickCoroutine()
+    {
+        click = true;
+        yield return null;
+        click = false;
     }
 }

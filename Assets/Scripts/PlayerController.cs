@@ -410,6 +410,7 @@ public class PlayerController : MonoBehaviour
 
         controls.Player.MouseAimActive.started += ctx =>
         {
+            TutoManager.instance.Click();
             Aim();
             interactorHandler.StartAction();
         };
