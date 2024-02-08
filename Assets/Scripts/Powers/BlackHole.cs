@@ -12,6 +12,7 @@ public class BlackHole : MonoBehaviour
     private HashSet<status> elements = new HashSet<status>();
 
     private const float damageSqrRadius = 3f;
+    private bool isActive = false;
 
     public void setup(float scale, float lifetime, float force, float damage)
     {
@@ -22,7 +23,9 @@ public class BlackHole : MonoBehaviour
         transform.localScale = Vector3.zero;
         Sequence sequence = DOTween.Sequence();
         sequence.Append(transform.DOScale(scale * Vector3.one, 0.2f));
+        sequence.AppendCallback(delegate { isActive = true; });
         sequence.AppendInterval(lifetime);
+        sequence.AppendCallback(delegate { isActive = false; });
         sequence.Append(transform.DOScale(Vector3.zero, 0.2f));
         sequence.OnComplete(delegate
         {
@@ -32,6 +35,7 @@ public class BlackHole : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
+        if (!isActive) return;
         // Checker si l'objet a le tag cible
         if (other.CompareTag("Player"))
         {
