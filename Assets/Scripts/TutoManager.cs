@@ -15,6 +15,7 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     [SerializeField] bool doMapMove;
     [SerializeField] Vector2Int tileSize;
     [SerializeField] List<TileRow> tiles;
+    [SerializeField] GameObject tutoActive;
 
     [SerializeField] private TextMeshProUGUI tutoText;
     [SerializeField] private TileManager tileManager;
@@ -37,6 +38,7 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     void Awake()
     {
         instance = this;
+        tutoActive.SetActive(true);
         PlanetManager.setData(new PlanetData() {size = planetSize.small});
         if (!PlayerManager.isTuto)
         {
