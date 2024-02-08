@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class PlayerManager
 {
-    public static bool isTuto = true;
+    public static bool isTuto = false;
     
     public static bool activateShipArrow = false;
     public static bool activateMinerBotAttractor = false;
@@ -91,6 +91,7 @@ public class PlayerManager
 
     public static void Reset()
     {
+        isTuto = false;
         amountBlue = 0;
         amountGreen = 0;
         amountOrange = 0;

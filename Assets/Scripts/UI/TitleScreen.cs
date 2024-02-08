@@ -49,6 +49,15 @@ public class TitleScreen : MonoBehaviour, UIPanel
         UpdateSoulsDisplay();
     }
 
+    public void LoadTuto()
+    {
+        ResetManager.Reset();
+        PlayerManager.setCharacter(ScriptableObjectManager.dictKeyToCharacterHandler["Knil"]);
+        PlayerManager.setWeapon(DataManager.dictWeapons["Gun"].Clone(), ScriptableObjectManager.dictKeyToWeaponHandler["Gun"]);
+        PlayerManager.isTuto = true;
+        SceneTransitionManager.TransitionToScene(gameScene.planetJungle);
+    }
+
     public static void UpdateSoulsDisplay()
     {
         instance.soulsDisplay.SetText(PlayerManager.getSouls().ToString());
