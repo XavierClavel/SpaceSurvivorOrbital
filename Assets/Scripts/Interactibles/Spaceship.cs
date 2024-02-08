@@ -89,11 +89,8 @@ public class Spaceship : MonoBehaviour, IInteractable
         PlayerManager.SetControlMode(PlayerController.isPlayingWithGamepad);
         //PlayerManager.currentTimer = Timer.timeRemaining;
         PlayerManager.setCurrentDamage(PlayerController.instance.health, PlayerController.instance.maxHealth);
-        PlayerManager.setSouls(PlayerController.instance.souls);
         PlayerManager.setPartialResourceGreen(PlayerController.instance.layoutManagerGreen.getCurrentAmount());
         PlayerManager.setPartialResourceOrange(PlayerController.instance.layoutManagerOrange.getCurrentAmount());
-        
-        SaveManager.Save();
         
         SceneTransitionManager.TransitionToScene(destination);
     }

@@ -569,6 +569,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
+        PlayerManager.setSouls(souls);
         PlayerEventsManager.resetListeners();
     }
 

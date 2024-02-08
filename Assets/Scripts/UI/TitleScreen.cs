@@ -19,16 +19,16 @@ public class TitleScreen : MonoBehaviour, UIPanel
 
     private void Awake()
     {
-        isSelectionFree = freeSelection;
         instance = this;
-        PlayerManager.setSouls();
-        UpdateSoulsDisplay();
     }
 
     // Start is called before the first frame update
     public void Setup()
     {
         ResetManager.Reset();
+        isSelectionFree = freeSelection;
+        PlayerManager.setSouls();
+        UpdateSoulsDisplay();
     }
 
     public RectTransform getUITransform()
