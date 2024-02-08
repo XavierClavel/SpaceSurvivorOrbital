@@ -12,6 +12,9 @@ public class Ennemy : Breakable
     
     [HideInInspector] public UnityEvent onDeath = new UnityEvent();
 
+    const float shakeDuration = 0.2f;
+    const float shakeIntensity = 0.5f;
+
     protected PlayerController player;
     [SerializeField] protected Slider healthBar;
     [SerializeField] protected Rigidbody2D rb;
@@ -376,12 +379,6 @@ public class Ennemy : Breakable
         overlaydSpriteRenderer.flipX = !isMovingRight;
         
     }
-
-    [Header("CameraShake")]
-    public float shakeDuration = 0.1f;
-    public float shakeIntensity = 2f;
-    public float negativeRange = -0.1f;
-    public float positiveRange = 0.1f;
 
     private IEnumerator ApplyDeformationOverTime()
     {

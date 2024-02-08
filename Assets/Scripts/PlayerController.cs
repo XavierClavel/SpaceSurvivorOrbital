@@ -539,23 +539,30 @@ public class PlayerController : MonoBehaviour
     [Header("CameraShake")]
     private float shakeDuration = 0.1f;
     private float shakeIntensity = 0.1f;
-    public float playerShakeDuration = 0.1f;
-    public float playerShakeIntensity = 0.05f;
-    public float negativeRange = -0.1f;
-    public float positiveRange = 0.1f;
+    private const float playerShakeDuration = 0.5f;
+    private const float playerShakeIntensity = 3f;
+    private bool isShaking = false;
 
     public static void Shake(float shakeIntensity, float shakeDuration)
     {
+        if (instance.isShaking &&  instance.shakeIntensity > shakeIntensity)
+        {
+            return;
+        }
         instance.shakeIntensity = shakeIntensity;
         instance.shakeDuration = shakeDuration;
+        instance.StopCoroutine(nameof(ShakeCoroutine));
         instance.StartCoroutine(nameof(ShakeCoroutine));
     }
 
     private IEnumerator ShakeCoroutine()
     {
+        isShaking = true;
+        Debug.Log("GoShake");
         camNoise.m_AmplitudeGain = shakeIntensity;
         yield return Helpers.getWait(shakeDuration);
         camNoise.m_AmplitudeGain = 0f;
+        isShaking = false;
     }
 
     private void OnDestroy()

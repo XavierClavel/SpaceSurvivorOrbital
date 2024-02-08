@@ -11,6 +11,7 @@ public class Altar : MonoBehaviour, IInteractable
     [SerializeField] ParticleSystem auraAltar;
     [SerializeField] ParticleSystem altarActivate;
     [SerializeField] ParticleSystem altarLoading;
+    [SerializeField] ParticleSystem playerEffect;
     float factor;
     float fillAmount = 1;
     public Animator animator;
@@ -42,6 +43,7 @@ public class Altar : MonoBehaviour, IInteractable
     private void OnTriggerExit2D(Collider2D other)
     {
         StopCoroutine(nameof(PrepareAltar));
+        playerEffect.Stop();
         altarActivate.Stop();
         
         fillAmount = 1;
@@ -51,12 +53,17 @@ public class Altar : MonoBehaviour, IInteractable
 
     IEnumerator PrepareAltar()
     {
+        playerEffect.Play();
+
         while (fillAmount > 0)
         {
             yield return Helpers.getWaitFixed();
             fillAmount -= Time.fixedDeltaTime * factor;
+            PlayerController.Shake(1f, 1f);
             image.fillAmount = fillAmount;
         }
+
+        playerEffect.Stop();
 
         ActivateAltar();
     }
@@ -64,7 +71,7 @@ public class Altar : MonoBehaviour, IInteractable
     IEnumerator SfxLoadingAltar()
     {
        yield return new WaitForSeconds(timeToLaunch - 1);
-        SoundManager.PlaySfx(transform, key: "Altar_Loading");     
+       SoundManager.PlaySfx(transform, key: "Altar_Loading");     
     }
 
     public void DepleteAltar()

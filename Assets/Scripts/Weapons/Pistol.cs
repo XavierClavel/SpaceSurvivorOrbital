@@ -71,6 +71,8 @@ public class Pistol : Gun
     {
         childPistols.ForEach( it => it.Fire());
 
+        PlayerController.Shake(1f, 0.2f);
+
         if (stats.projectiles == 1)
         {
             Vector3 position = getBulletStartPos();

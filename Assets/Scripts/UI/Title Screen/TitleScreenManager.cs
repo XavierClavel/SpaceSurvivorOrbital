@@ -87,6 +87,8 @@ public class TitleScreenManager : MonoBehaviour
         instance.equipmentSelectorUI.DOAnchorPosX(0f, 1f).SetEase(Ease.InOutQuint);
     }
 
+    public void Quit() => Application.Quit();
+
     #endregion
 
     #region staticAPI

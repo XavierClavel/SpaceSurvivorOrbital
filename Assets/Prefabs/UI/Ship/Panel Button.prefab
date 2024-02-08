@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 526775395574365985}
   - component: {fileID: 8063169387157452710}
   - component: {fileID: 3583283558628395336}
+  - component: {fileID: 8817032500068859880}
   m_Layer: 5
   m_Name: Panel Button
   m_TagString: Untagged
@@ -41,8 +42,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchoredPosition: {x: -32.635315, y: 20.94513}
+  m_SizeDelta: {x: 215.2706, y: 108.1099}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7209107034686606088
 CanvasRenderer:
@@ -230,6 +231,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &8817032500068859880
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654010256073031939}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a5064b6fb3524d240a9ba7fda3c6c976, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &939003902057538416
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,7 +562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blendMode: 0
   scaleMode: 0
-  color: {r: 0.023529412, g: 0.20784314, b: 0.21176471, a: 1}
+  color: {r: 0.023529414, g: 0.20392159, b: 0.20784315, a: 1}
   detailLevel: 2
   renderQueue: -1
   zTest: 4
@@ -553,12 +575,12 @@ MonoBehaviour:
   stencilReadMask: 255
   stencilWriteMask: 255
   pivot: 1
-  width: 200
+  width: 210
   height: 100
   type: 0
   cornerRadiusMode: 0
-  cornerRadii: {x: 17.84, y: 17.84, z: 17.84, w: 17.84}
-  thickness: 6.13
+  cornerRadii: {x: 0.25, y: 0.25, z: 0.25, w: 0.25}
+  thickness: 0.1
   thicknessSpace: 0
   matchDashSpacingToSize: 1
   dashed: 0
