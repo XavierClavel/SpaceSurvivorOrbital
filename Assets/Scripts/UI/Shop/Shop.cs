@@ -6,6 +6,7 @@ using UnityEngine;
 public class Shop : MonoBehaviour
 {
     [SerializeField] private SoulsDisplay soulsDisplay;
+    [SerializeField] private LayoutManager healthBar;
     
     private const int costHealth = 20;
     private const int costResourceBlue = 30;
@@ -39,6 +40,7 @@ public class Shop : MonoBehaviour
             equipmentHandler.Activate(bonusManager);
         }
         maxHealth = PlayerManager.playerData.character.maxHealth + bonusManager.getBonusMaxHealth();
+        healthBar.Setup(maxHealth,  maxHealth - PlayerManager.damageTaken);
     }
 
 
