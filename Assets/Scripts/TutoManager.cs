@@ -60,43 +60,43 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
 
     private IEnumerator Tuto()
     {
-        tutoText.SetText("Bienvenue dans Cosmic Deserter !\r\nVotre patrie a été détruite par une armée Alien. \r\nVous devez fuir de cette galaxie � tout prix !");
+        tutoText.SetText("Bienvenue dans Cosmic Deserter !\r\nVotre planète a été détruite par une armée Alien. \r\nVous devez fuir de cette galaxie à tout prix !");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         tutoText.SetText("Se déplacer : ZQSD \r\nTirer : Clic gauche");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
-        tutoText.SetText("Pour fuir d'une plan�te, vous devez d�truire les st�les ennemis. \r\nLe nombre de st�les ennemis restantes est visible en bas � droite.");
+        tutoText.SetText("Pour fuir d'une planète, vous devez détruire les stèles ennemis. \r\nLe nombre de stèles ennemis restantes est visible en bas à droite.");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
-        tutoText.SetText("Trouvez et d�truisez une st�le !");
+        tutoText.SetText("Trouvez et détruisez une stèle !");
         yield return new WaitUntil(isSteleDestroyed);
-        tutoText.SetText("Bien jou� ! Attention un ennemi ! D�truisez le !");
+        tutoText.SetText("Bien joué ! Attention un ennemi ! Détruisez le !");
         yield return new WaitUntil(killedFirstWave);
-        tutoText.SetText("Super ! Maintenant, r�coltez des ressources en d�truisant des oeufs.");
+        tutoText.SetText("Super ! Maintenant, récoltez des ressources en détruisant des oeufs.");
         yield return new WaitUntil(resourcesDestroyed);
-        tutoText.SetText("Une ressource verte ou jaune se gagne en remplissant les jauges en haut � droite. \r\n En d�truisant tous les oeufs d'une plan�te, vous gagnez une ressource bleu");
+        tutoText.SetText("Une ressource verte ou jaune se gagne en remplissant les jauges en haut à droite. \r\n En détruisant tous les oeufs d'une planète, vous gagnez une ressource bleu");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
-        tutoText.SetText("Fouillez la plan�te pour d�couvrir un autel de pouvoir. \r\nPuis positionnez vous devant (dans le cercle).");
+        tutoText.SetText("Fouillez la planète pour découvrir un autel de pouvoir. \r\nPuis positionnez vous devant (dans le cercle).");
         yield return new WaitUntil(isAltarUsed);
-        tutoText.SetText("Les ressources bleu servent � am�liorer vos pouvoirs. \r\nLes jaune et verte, vos �quipements.");
+        tutoText.SetText("Les ressources bleu servent à améliorer vos pouvoirs. \r\nLes jaune et verte, vos équipements.");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
-        tutoText.SetText("Chaque plan�te poss�de des ressources d'un type sp�cifique.");
+        tutoText.SetText("Chaque planète possède des ressources d'un type spécifique.");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         tutoText.SetText("D'autres ennemis ! Faites leur la peau !!!");
         yield return new WaitUntil(killedSecondWave);
-        tutoText.SetText("Avez-vous remarqu� ? Chaque plan�te est sph�rique ! En marchant dans le m�me sens, vous en ferez donc le tour.");
+        tutoText.SetText("Avez-vous remarqué ? Comme chaque planète est sphérique, en marchant dans le même sens, vous en ferez le tour.");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
-        tutoText.SetText("La derni�re st�le vient d'apparaitre, d�truisez l� !");
+        tutoText.SetText("La dernière stèle vient d'apparaitre, détruisez là !");
         yield return new WaitUntil(isStele2Destroyed);
-        tutoText.SetText("Une fois les st�les d�truites, vous pouvez vous t�l�portez dans votre vaisseau. \r\nLe cercle de t�l�portation apparait au centre de la plan�te");
+        tutoText.SetText("Une fois les stèles détruites, vous pouvez vous téléportez dans votre vaisseau. \r\nLe cercle de téléportation apparait au centre de la planète");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
-        tutoText.SetText("Quand vous �tes pr�t � partir, entre dans le cercle de t�l�portation !\r\nBon courage !");
+        tutoText.SetText("Quand vous êtes prêt à partir, entre dans le cercle de téléportation !\r\nBon courage !");
 
     }
     public bool doClick() => click;
