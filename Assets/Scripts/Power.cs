@@ -14,6 +14,8 @@ public class Power : Damager
         isUsing = true;
         base.Setup(stats);
 
+        onSetup();
+
         if (activateOnStart)
         {
             Use();
@@ -22,7 +24,6 @@ public class Power : Damager
         {
             StartCoroutine(nameof(Cooldown));
         }
-        onSetup();
     }
     
     public virtual void onSetup() {}

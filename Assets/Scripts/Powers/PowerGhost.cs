@@ -85,7 +85,8 @@ public class PowerGhost : Power, IEnnemyListener
             poolBigGhosts
                 .get(position)
                 .Setup(fullStats)
-                .setBig();
+                .setBig(); 
+            return;
         }
         Ghost newGhost = poolGhosts.get(position);
         newGhost.Setup(fullStats);

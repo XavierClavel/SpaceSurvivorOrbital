@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class ToxicZone : Power
+public class ToxicZone : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
+
     private float toxicZoneSpeed = 1f;
 
     public void Setup(float scale, float speed)
@@ -15,7 +16,7 @@ public class ToxicZone : Power
         transform.localScale = Vector3.zero;
         Sequence sequence = DOTween.Sequence();
         sequence.Append(transform.DOScale(scale * Vector3.one, 0.2f));
-        sequence.AppendInterval(5f);
+        sequence.AppendInterval(30f);
         sequence.Append(transform.DOScale(Vector3.zero, 0.2f));
         sequence.OnComplete(delegate
         {
@@ -31,7 +32,8 @@ public class ToxicZone : Power
         while (true)
         {
             yield return Helpers.getWaitFixed();
-            rb.AddForce((playerTransform.position - transform.position).normalized * toxicZoneSpeed);
+            Debug.Log((PlayerController.instance.transform.position - transform.position).normalized * toxicZoneSpeed);
+            rb.AddForce((PlayerController.instance.transform.position - transform.position).normalized * toxicZoneSpeed);
         }
     }
 

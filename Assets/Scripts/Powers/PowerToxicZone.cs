@@ -23,7 +23,7 @@ public class PowerToxicZone : Power, IEnnemyListener
     ComponentPool<ToxicZone> pool;
     [SerializeField] private ToxicZone toxicZonePrefab;
     private static PowerToxicZone instance;
-    
+
     //dict ennemy -> how many toxic zones he is in
     private static Stacker<Ennemy> ennemyStacker;
     private static SingleStacker playerStacker;
@@ -35,9 +35,8 @@ public class PowerToxicZone : Power, IEnnemyListener
     private bool doIncreasePlayerDamage;
     private bool doHealOnKill;
     
-    protected override void Start()
+    public override void onSetup()
     {
-        base.Start();
         autoCooldown = true;
         instance = this;
 
@@ -118,7 +117,6 @@ public class PowerToxicZone : Power, IEnnemyListener
         }
         Ennemy ennemy = ObjectManager.dictObjectToEnnemy[go];
         ennemyStacker.stack(ennemy);
-        
     }
     
     private void FreezeEnnemy(Ennemy ennemy) => ennemy.ApplyEffect(status.ice);
@@ -136,8 +134,16 @@ public class PowerToxicZone : Power, IEnnemyListener
         ennemyStacker.unstack(ennemy);
     }
 
-    public static void onPlayerEnterToxicZone() => playerStacker.stack();
-    public static void onPlayerExitToxicZone() => playerStacker.unstack();
+    public static void onPlayerEnterToxicZone()
+    {
+        playerStacker.stack();
+        Debug.Log(playerStacker.get());
+    }
+    public static void onPlayerExitToxicZone()
+    {
+        playerStacker.unstack();
+        Debug.Log(playerStacker.get());
+    }
     
     /**
      * Runs through every ennemy currently inside a toxic zone, using the dictionary, and stacks damage to it.
@@ -175,7 +181,7 @@ public class PowerToxicZone : Power, IEnnemyListener
     private void Spawn(Bounds bounds)
     {
         ToxicZone toxicZone = pool.get(bounds);
-        toxicZone.Setup(stats.range, fullStats.character.baseSpeed);
+        toxicZone.Setup(stats.range, 5f);
     }
 
     public static void recall(ToxicZone toxicZone)
