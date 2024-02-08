@@ -35,6 +35,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 0f;
         Time.fixedDeltaTime = 0f;
+        Debug.Log(Time.timeScale);
         SoundManager.instance.StopTime();
 
         if (!Helpers.isPlatformAndroid()) PlayerController.instance.controls.Disable();
