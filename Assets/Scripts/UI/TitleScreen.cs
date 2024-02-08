@@ -52,9 +52,11 @@ public class TitleScreen : MonoBehaviour, UIPanel
     public void LoadTuto()
     {
         ResetManager.Reset();
-        PlayerManager.setCharacter(ScriptableObjectManager.dictKeyToCharacterHandler["Knil"]);
-        PlayerManager.setWeapon(DataManager.dictWeapons["Gun"].Clone(), ScriptableObjectManager.dictKeyToWeaponHandler["Gun"]);
+        DataSelector.selectedCharacter = "Knil";
+        DataSelector.selectedWeapon = "Gun";
         PlayerManager.isTuto = true;
+        DataSelector.instance.ValidateSelection();
+        SoundManager.PlaySfx(transform, key: "Ship_TakeOff");
         SceneTransitionManager.TransitionToScene(gameScene.planetJungle);
     }
 

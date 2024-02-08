@@ -279,16 +279,21 @@ public class DataSelector : MonoBehaviour, UIPanel
         UpdateCurrentCharge();
     }
 
-    public void Validate()
+    public void ValidateSelection()
     {
-        if (validated) return;
-        validated = true;
         PlayerManager.setCharacter(ScriptableObjectManager.dictKeyToCharacterHandler[selectedCharacter]);
         PlayerManager.setWeapon(DataManager.dictWeapons[selectedWeapon].Clone(), ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
         foreach (var equipment in selectedEquipments)
         {
             PlayerManager.AcquireEquipment(equipment);
         }
+    }
+
+    public void Validate()
+    {
+        if (validated) return;
+        validated = true;
+        ValidateSelection();
         SoundManager.PlaySfx(transform, key: "Ship_TakeOff");
         SceneTransitionManager.TransitionToScene(gameScene.ship);
     }
