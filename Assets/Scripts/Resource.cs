@@ -37,6 +37,18 @@ public class Resource : Breakable
             if (value <= 0 && !isDestroy) Break();
         }
     }
+    
+    public static List<IResourceListener> listeners = new List<IResourceListener>();
+
+    public static void registerListener(IResourceListener listener)
+    {
+        listeners.TryAdd(listener);
+    }
+
+    public static void unregisterListener(IResourceListener listener)
+    {
+        listeners.TryRemove(listener);
+    }
 
     protected override void Start()
     {
@@ -85,6 +97,7 @@ public class Resource : Breakable
         isDestroy = true;
         healthBar.gameObject.SetActive(false);
         myCollider.enabled = false;
+        listeners.ForEach(it => it.onResourceDestroyed(this));
         Destroy(spriteOverlay);
 
 

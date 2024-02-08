@@ -32,6 +32,18 @@ public class MonsterStele : Breakable
             if (value <= 0) Death();
         }
     }
+    
+    public static List<IMonsterStele> listeners = new List<IMonsterStele>();
+
+    public static void registerListener(IMonsterStele listener)
+    {
+        listeners.TryAdd(listener);
+    }
+
+    public static void unregisterListener(IMonsterStele listener)
+    {
+        listeners.TryRemove(listener);
+    }
 
     protected virtual void Death()
     {
@@ -40,6 +52,7 @@ public class MonsterStele : Breakable
         isDestroyed = true;
         collider.enabled = false;
         SoundManager.PlaySfx(transform, key: "Spawn_Destroy");
+        listeners.ForEach(it => it.onSteleDestroyed(this));
         ObjectManager.registerDenDestroyed();
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
         ObjectManager.unregisterHitable(gameObject);

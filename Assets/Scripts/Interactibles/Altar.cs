@@ -16,7 +16,19 @@ public class Altar : MonoBehaviour, IInteractable
     float fillAmount = 1;
     public Animator animator;
     private static readonly int Deplete = Animator.StringToHash("Deplete");
+    
+    public static List<IAltarListener> listeners = new List<IAltarListener>();
 
+    public static void registerListener(IAltarListener listener)
+    {
+        listeners.TryAdd(listener);
+    }
+
+    public static void unregisterListener(IAltarListener listener)
+    {
+        listeners.TryRemove(listener);
+    }
+    
     private void Start()
     {
         ObjectManager.dictObjectToInteractable.Add(gameObject, this);
@@ -80,6 +92,7 @@ public class Altar : MonoBehaviour, IInteractable
         GetComponent<Collider2D>().enabled = false;
         auraAltar.Stop();
         altarLoading.Stop();
+        listeners.ForEach(it => it.onAltarUsed(this));
     }
 
     void ActivateAltar()

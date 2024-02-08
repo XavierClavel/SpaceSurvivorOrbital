@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ObjectManager : MonoBehaviour
+public class ObjectManager : MonoBehaviour, IMonsterStele
 {
     [Header("UI")]
     public LayoutManager healthBar;
@@ -48,6 +48,7 @@ public class ObjectManager : MonoBehaviour
     static int amountEggs = 0;
     private static int amountDens = 0;
     private static int amountDensDestroyed = 0;
+    
 
     public void Start()
     {
@@ -194,5 +195,8 @@ public class ObjectManager : MonoBehaviour
         return instance.bossHealthbar;
     }
 
-
+    public void onSteleDestroyed(MonsterStele stele)
+    {
+        
+    }
 }

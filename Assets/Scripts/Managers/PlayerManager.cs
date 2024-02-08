@@ -8,7 +8,8 @@ using UnityEngine.UI;
 
 public class PlayerManager
 {
-
+    public static bool isTuto = false;
+    
     public static bool activateShipArrow = false;
     public static bool activateMinerBotAttractor = false;
 
