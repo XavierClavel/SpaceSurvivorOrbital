@@ -13,6 +13,7 @@ public class Spaceship : MonoBehaviour, IInteractable
     float fillAmount = 1;
     bool hasExitedRadius = true;
     static Spaceship instance;
+    private gameScene destination = gameScene.ship;
 
 
     private void Awake()
@@ -80,6 +81,8 @@ public class Spaceship : MonoBehaviour, IInteractable
         LaunchShip();
     }
 
+    public static void setDestination(gameScene scene) => instance.destination = scene;
+
     void LaunchShip()
     {
         SoundManager.PlaySfx(transform, key: "Ship_TakeOff");
@@ -92,7 +95,7 @@ public class Spaceship : MonoBehaviour, IInteractable
         
         SaveManager.Save();
         
-        SceneTransitionManager.TransitionToScene(gameScene.ship);
+        SceneTransitionManager.TransitionToScene(destination);
     }
 
 

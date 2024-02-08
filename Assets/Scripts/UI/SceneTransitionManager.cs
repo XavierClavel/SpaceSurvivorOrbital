@@ -78,6 +78,7 @@ public class SceneTransitionManager : MonoBehaviour
             gameScene.planetStorm => Vault.scene.Planet,
             gameScene.planetJungle => Vault.scene.Planet,
             gameScene.shop => Vault.scene.Shop,
+            gameScene.win => Vault.scene.Win,
             _ => Vault.scene.TitleScreen
         };
     }

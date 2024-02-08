@@ -39,6 +39,7 @@ public static class Vault
         public const string Shop = "Shop";
         public const string SelectorScreen = "SelectorScreen";
         public const string PlanetSelector = "Planet Selection";
+        public const string Win = "Win";
     }
 
     public static class layer

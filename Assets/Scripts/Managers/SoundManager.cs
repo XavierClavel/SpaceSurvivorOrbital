@@ -29,6 +29,7 @@ public enum gameScene
     planetStorm,
     planetJungle,
     shop,
+    win,
 }
 
 public class SoundManager : MonoBehaviour
@@ -52,6 +53,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource planetStormMusic;
     [SerializeField] private AudioSource planetMushroomMusic;
     [SerializeField] private AudioSource shopMusic;
+    [SerializeField] private AudioSource winMusic;
 
     [Header(" ")]
     //public sfxContainer[] test;
@@ -89,6 +91,7 @@ public class SoundManager : MonoBehaviour
                 { gameScene.planetMushroom, planetMushroomMusic},
                 { gameScene.planetStorm, planetStormMusic},
                 { gameScene.planetJungle, planetJungleMusic},
+                { gameScene.win, winMusic},
             };
             onSceneChange(currentScene);
         }
