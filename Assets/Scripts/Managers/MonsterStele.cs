@@ -5,7 +5,7 @@ using System.Linq;
 using DG.Tweening;
 using UnityEngine.UI;
 
-public class SpawnManager : Breakable
+public class MonsterStele : Breakable
 {
     [SerializeField] private Collider2D collider;
     
@@ -36,6 +36,7 @@ public class SpawnManager : Breakable
     protected virtual void Death()
     {
         if (isDestroyed) return;
+        Debug.Log("One stele was destroyed");
         isDestroyed = true;
         collider.enabled = false;
         SoundManager.PlaySfx(transform, key: "Spawn_Destroy");
