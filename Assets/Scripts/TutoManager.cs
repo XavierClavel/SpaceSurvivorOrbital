@@ -57,6 +57,8 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     {
         Ennemy.unregisterListener(this);
         Altar.unregisterListener(this);
+        Resource.unregisterListener(this);
+        MonsterStele.unregisterListener(this);
     }
 
     private IEnumerator Tuto()
@@ -160,7 +162,6 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
 
     private void ShowResources() => resources.ForEach(it => it.gameObject.SetActive(true));
     private void ShowFirstAltar() => altars[0].gameObject.SetActive(true);
-    private void ShowSecondAltar() => altars[1].gameObject.SetActive(true);
 
     private void SpawnEnnemies(int amount)
     {
