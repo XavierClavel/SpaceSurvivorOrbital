@@ -27,7 +27,7 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     public SkillButton button;
     public Polyline line;
     private List<NodeManager> panels = new List<NodeManager>();
-    [SerializeField] List<Button> buttons;
+    [SerializeField] List<UpgradePanelButton> buttons;
     [SerializeField] private NodeManager prefabPanelSkill;
     [SerializeField] private NodeManager prefabPanelUpgrade;
 
@@ -147,21 +147,21 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
         {
             if (i >= keys.Count)
             {
-                buttons[i].gameObject.SetActive(false);
+                buttons[i].Disable();
                 panels[i].gameObject.SetActive(false);
             }
             else
             {
-                buttons[i].image.sprite = icons[i];
+                buttons[i].setSprite(icons[i]);
                 int value = i;
-                buttons[i].onClick.AddListener(delegate { SetActivePanel(value); });
+                buttons[i].setAction(delegate { SetActivePanel(value); });
                 panels[i].setup(keys[i]);
             }
         }
 
         for (int i = panels.Count; i < buttons.Count; i++)
         {
-            buttons[i].gameObject.SetActive(false);
+            buttons[i].Disable();
         }
     }
 
@@ -174,7 +174,7 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     
     public void UpdateButtonSprites()
     {
-        buttons[weaponIndex].image.sprite = PlayerManager.weaponPrefab.spriteRenderer.sprite;
+        buttons[weaponIndex].setSprite(PlayerManager.weaponPrefab.spriteRenderer.sprite);
     }
 
     public void SetActivePanel(NodeManager nodeManager)
