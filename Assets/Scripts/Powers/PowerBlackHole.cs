@@ -40,6 +40,9 @@ public class PowerBlackHole : Power
     private WhiteHole whiteHole;
 
     private const int shockwaveDamage = 20;
+
+    private const float sqrDistMin = 30f;
+    private const float sqrDistPlayerMin = 30f;
     
 
     public override void onSetup()
@@ -63,15 +66,31 @@ public class PowerBlackHole : Power
 
     protected override void onUse()
     {
-        blackHole = pool.get(cam);
+        Bounds bounds = cam.getBounds();
+        Vector3 blackHolePos = Vector3.zero;
+        for (int i = 0; i < 30; i++)
+        {
+            blackHolePos = bounds.getRandom();
+            if ((playerTransform.position - blackHolePos).sqrMagnitude > sqrDistPlayerMin) break;
+        }
+        blackHole = pool.get(blackHolePos);
         blackHole.setup(blackHoleSize, blackHoleDuration, blackHoleForce, blackHoleDps);
 
         if (!doSpawnWhiteHole)
         {
             return;
         }
+        
+        Vector3 whiteHolePos = Vector3.zero;
+        for (int i = 0; i < 30; i++)
+        {
+            whiteHolePos = bounds.getRandom();
+            if ((playerTransform.position - whiteHolePos).sqrMagnitude > sqrDistPlayerMin &&
+                (blackHolePos - whiteHolePos).sqrMagnitude > sqrDistMin
+                ) break;
+        }
 
-        whiteHole = poolWhite.get(cam);
+        whiteHole = poolWhite.get(whiteHolePos);
         whiteHole.setup(blackHoleSize, blackHoleDuration, blackHoleForce, blackHoleDps);
     }
     
