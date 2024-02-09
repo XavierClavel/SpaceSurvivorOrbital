@@ -30,6 +30,7 @@ public class DebugManager : ScriptableObject
     [Header("Start with equipments")] 
     [SerializeField] private bool shield;
     [SerializeField] private bool suit;
+    [SerializeField] private bool stock;
     [SerializeField] private bool radar;
 
     [Header("Others")] 
@@ -101,6 +102,7 @@ public class DebugManager : ScriptableObject
         
         if (shield) AcquireEquipment(Vault.power.Shield);
         if (suit) AcquireEquipment("Suit");
+        if (stock) AcquireEquipment("Stock");
         if (radar) AcquireEquipment("Radar");
 
     }

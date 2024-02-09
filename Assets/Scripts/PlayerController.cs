@@ -298,8 +298,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         if (Helpers.isPlatformAndroid()) Application.targetFrameRate = 60;
-
-        spaceshipIndicator.SetActive(PlayerManager.activateShipArrow);
         
         rb = GetComponent<Rigidbody2D>();
         cameraTransform = Camera.main.transform;
