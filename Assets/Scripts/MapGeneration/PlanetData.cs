@@ -55,7 +55,7 @@ public class PlanetData
     private PlanetData setData(int tier)
     {
         this.type = Helpers.getRandomEnum<planetType>(planetType.storm, planetType.shop);
-        if (tier > 2 && Helpers.ProbabilisticBool(0.10f))
+        if (tier > 1 && Helpers.ProbabilisticBool(0.10f))
         {
             this.type = planetType.shop;
             this.size = planetSize.medium;
