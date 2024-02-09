@@ -57,6 +57,8 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     private const int maxAttempts = 50;
     private Vector2 randomizePositionFactor = new Vector2(0f,00f);
 
+    private static Node endNode = null;
+
     
 #region staticAPI
 
@@ -121,6 +123,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         
         GenerateNodeMatrix();
         GeneratePaths();
+        Cull();
         GeneratePlanetData();
         
         getAccessibleNodes();
@@ -128,6 +131,28 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         {
             if (node == null) continue;
             if (!accessibleNodes.Contains(node)) nodeMatrix[node.tier, node.row] = null;
+        }
+    }
+
+    private static void Cull()
+    {
+        int unconnectedNodesOnTier = int.MaxValue;
+        int tier = maxX - 2;
+        List<Node> leafNodes = new List<Node>();
+        while (tier >= 0)
+        {
+            for (int y = 0; y < maxY; y++)
+            {
+                Node node = nodeMatrix[tier, y];
+                if (node == null) continue;
+                leafNodes.Clear();
+                getAccessibleNodes(node, leafNodes);
+                if (leafNodes.Contains(endNode)) continue;
+                node.Destroy();
+                nodeMatrix[tier, y] = null;
+            }
+
+            tier--;
         }
     }
 
@@ -158,7 +183,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
             {
                 currentNode
             };
-            getAccessibleNodes(currentNode);
+            getAccessibleNodes(currentNode, accessibleNodes);
         }
         else
         {
@@ -168,19 +193,19 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
                 Node node = nodeMatrix[0, i];
                 if (node == null) continue;
                 accessibleNodes.Add(node);
-                getAccessibleNodes(node);
+                getAccessibleNodes(node, accessibleNodes);
             }
         }
         
     }
 
-    private static void getAccessibleNodes(Node node)
+    private static void getAccessibleNodes(Node node, List<Node> nodes)
     {
         if (node.childNodes.IsNullOrEmpty()) return;
         foreach (var childNode in node.childNodes)
         {
-            accessibleNodes.TryAdd(childNode);
-            getAccessibleNodes(childNode);
+            nodes.TryAdd(childNode);
+            getAccessibleNodes(childNode, nodes);
         }
     }
 
@@ -206,6 +231,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
 
 
         nodeMatrix[maxX - 1, middleYIndex] = new Node(maxX - 1, middleYIndex);
+        endNode = nodeMatrix[maxX - 1, middleYIndex];
     }
 
     private static void GenerateNodeColumn(int x)
@@ -226,13 +252,15 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         {
             for (int y = 0; y < maxY; y++)
             {
-                if (nodeMatrix[tier, y] == null) continue;
+                Node node = nodeMatrix[tier, y];
+                if (node == null) continue;
 
                 List<Node> options = getPathOptions(tier, y);
                 options = selectPaths(options);
                 foreach (Node neighborNode in options)
                 {
-                    nodeMatrix[tier, y].childNodes.Add(neighborNode);
+                    node.childNodes.Add(neighborNode);
+                    neighborNode.parentNodes.Add(node);
                 }
             }
         }

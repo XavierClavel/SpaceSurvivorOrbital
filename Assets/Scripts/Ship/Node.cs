@@ -16,6 +16,11 @@ public class Node
     public Vector2Int position = new Vector2Int();
     NodeManager nodeManager;
 
+    public void Destroy()
+    {
+        childNodes.ForEach(it => it.parentNodes.TryRemove(this));
+        parentNodes.ForEach(it => it.childNodes.TryRemove(this));
+    }
 
     public Node(string key, List<string> childKeys, int row, NodeManager nodeManager)
     {
