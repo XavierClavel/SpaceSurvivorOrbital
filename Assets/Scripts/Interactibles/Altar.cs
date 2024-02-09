@@ -58,6 +58,7 @@ public class Altar : MonoBehaviour, IInteractable
         StopCoroutine(nameof(PrepareAltar));
         playerEffect.Stop();
         altarActivate.Stop();
+        PlayerController.StopShake();
         
         fillAmount = 1;
         image.fillAmount = fillAmount;
@@ -67,14 +68,17 @@ public class Altar : MonoBehaviour, IInteractable
     IEnumerator PrepareAltar()
     {
         playerEffect.Play();
+        PlayerController.StartShake(1f, 1f);
 
         while (fillAmount > 0)
         {
             yield return Helpers.getWaitFixed();
             fillAmount -= Time.fixedDeltaTime * factor;
-            PlayerController.Shake(1f, 1f);
+            
             image.fillAmount = fillAmount;
         }
+        
+        PlayerController.StopShake();
 
         playerEffect.Stop();
 

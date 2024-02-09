@@ -541,10 +541,26 @@ public class PlayerController : MonoBehaviour
     private const float playerShakeDuration = 0.5f;
     private const float playerShakeIntensity = 3f;
     private bool isShaking = false;
+    private bool overrideShake = false;
+
+    public static void StartShake(float shakeIntensity, float shakeDuration)
+    {
+        instance.StopCoroutine(nameof(ShakeCoroutine));
+        instance.overrideShake = true;
+        instance.camNoise.m_AmplitudeGain = shakeIntensity;
+    }
+
+    public static void StopShake()
+    {
+        if (!instance.overrideShake) return;
+        instance.overrideShake = false;
+        instance.camNoise.m_AmplitudeGain = 0f;
+    }
 
     public static void Shake(float shakeIntensity, float shakeDuration)
     {
-        if (instance.isShaking &&  instance.shakeIntensity > shakeIntensity)
+        if (instance.overrideShake) return;
+        if (instance.isShaking &&  instance.shakeIntensity >= shakeIntensity)
         {
             return;
         }
