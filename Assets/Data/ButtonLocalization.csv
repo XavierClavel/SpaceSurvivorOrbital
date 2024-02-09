@@ -2,54 +2,105 @@ Key;EN;FR
 Knil;KNIL;KNIL
 ;;"Courageux mais long à la détente, il possède des statistiques équilibrés.
 
-<B>Bonus de départ :</B> Aucun"
+Aucun bonus de départ"
 Tifart;TIF'ART;TIF'ART
 ;;"Rapidité et fluidité font d’elle une survivante de l’extrême.
-<B>Bonus de départ :</B> +30% de vitesse de déplacement"
+Bonus de départ :+30% de vitesse de déplacement"
 Gun;REVOLVER;REVOLVER
 ;;"Un revolver avec un incroyable potentiel d'évolution.
-
-<B>Statistiques </B> : 20-40 Dégâts par tir"
+Tir au coup par coup. "
 Laser;LASER;LASER
 ;;"Un pistolet laser transperçant les ennemis. 
-
-<B>Statistiques :</B> 10 Dégâts par seconde"
+Tir en continu."
 Radar;Radar;Radar
-;;Un radar pour retrouver votre vaisseau. L'améliorer permet de détecter les ressources, autels de pouvoir ou stèle ennemis proche.
+;;Un radar pour retrouver votre vaisseau. L'améliorer permet de détecter les ressources, autels de pouvoir ou stèles ennemis proches.
 Suit;Suit;Combinaison
-;;Une amélioration de votre combinaison. Chaque amélioration augmente votre nombre de coeur maximum.
+;;L'équiper vous octroie un coeur de plus. Chaque amélioration augmente votre nombre de coeur maximum.
 Stock;Bags;Sacs
-;;Vous permet d'augmenter la maximum de ressource stockable. Chaque amélioration augmente ce maximum.
-GUN_POWER_1;;Puissance de feu
-;;Vos dégâts augmentent
-GUN_EVOLUTION_2;;Grosse balle
-;;Vos balles sont plus grosses
+;;Augmente de 1 le nombre maximum de ressource stockable. Chaque amélioration augmente ce maximum.
+GUN_POWER_1;;Puissance 1
+;;"Augmente vos dégâts.
+
+Dégâts :
+20-40 -> 30-50"
+GUN_POWER_2;;Puissance 2
+;;"Augmente vos dégâts.  
+
+Dégâts :
+30-50 -> 40-60"
 GUN_SHOTGUN1;;Fusil à pompe
-;;Tire 3 projectiles
-GUN_SHOTGUN2;;Super Fusil à pompe
-;;Tire 5 projectiles
+;;"Votre revolver se transforme en fusil à pompe ! 
+
+Tirer trois balles en cône.
+
+Dégâts par balle :
+40-60 -> 60-80"
+GUN_SHOTGUN2;;Fusil à pompe v2
+;;"Version du fusil à pompe amélioré. 
+
+Tirer cinq balles en cône.
+
+Dégâts par balle :
+60-80 -> 80-100"
 GUN_DOUBLE1;;Double revolver
-;;Chaque tir déclenche une second tir en sens inverse.
-GUN_DOUBLE2;;Double revolver double [x]
-;;Chaque tir déclenche trois autres tirs (en forme de croix)
-GUN_SPEED_1;;Vitesse
-;;Vous tirez plus vite
-GUN_SPEED_2;;Tir rapide
-;;Vous tirez plus vite
-GUN_SPEED_3;;Tir très rapide
-;;Vous tirez plus vite
+;;"Vous dégainez un deuxième revolver !
+
+Vous tirez devant et derrière vous en même temps.
+
+Dégâts par balle :
+40-60 -> 50-70"
+GUN_DOUBLE2;;Revolver Squad
+;;"Vous dégainez deux autres revolver !?!
+
+Vous tirez devant, derrière, à gauche et à droite en même temps.
+
+Dégâts par balle :
+50-70 -> 60-80"
+GUN_SPEED_1;;Vitesse 1
+;;"Vous tirez plus vite.
+
+Vitesse de tir :
+10 -> 12"
+GUN_SPEED_2;;Vitesse 2
+;;"Vous tirez encore plus vite.
+
+Vitesse de tir :
+12 -> 14"
+GUN_SPEED_3;;Vitesse 3
+;;"Toujours plus vite, vraiment.
+
+Vitesse de tir :
+14 -> 16"
 GUN_RELOAD_1;;Rechargement rapide
-;;Vous rechargez plus vite
-GUN_RELOAD_2;;Rechargement rapide ++
-;;Vous rechargez plus vite
-GUN_RELOAD_3;;Rechargement rapide +++
-;;Vous rechargez plus vite
-Gun_AMMO_1;;Chargeur amélioré
-;;Votre chargeur possède 9 balles.
-Gun_AMMO_2;;Chargeur amélioré ++
-;;Votre chargeur possède 12 balles.
-Gun_AMMO_3;;Chargeur amélioré +++
-;;Votre chargeur possède 15 balles.
+;;"Vous rechargez plus vite.
+
+Vitesse de rechargement :
+1,2s -> 1s"
+GUN_RELOAD_2;;Rechargement rapide 2
+;;"Vous rechargez encore plus vite.
+
+Vitesse de rechargement :
+1s -> 0,8s"
+GUN_RELOAD_3;;Rechargement rapide 3
+;;"Vous avez la recharge dans la peau.
+
+Vitesse de rechargement :
+0,8s -> 0,6s"
+Gun_AMMO_1;;Bang
+;;"Votre chargeur possède 9 balles.
+
+Chargeur :
+6 -> 9"
+Gun_AMMO_2;;Bang bang
+;;"Votre chargeur possède 12 balles.
+
+Chargeur :
+9 -> 12"
+Gun_AMMO_3;;Bang bang bang
+;;"Votre chargeur possède 15 balles.
+
+Chargeur :
+12 -> 15"
 LASER_MICROWAVE;;Micro-onde
 ;;Laser qui ondule
 LASER_ULTRAVIOLET;;Ultraviolet
@@ -98,171 +149,258 @@ Renvoie de projectile (tant que vous avez des boucliers)"
 SHIELD_4;;Grand Bouclier
 ;;"Votre bouclier peut arrêter un boulet de canon. 
 
-+ 2 Bouclier (se restaure en chaque planète)"
++ 2 Boucliers (se restaurent en chaque planète)"
 Fairy;;Petite fée
-;;"Une fée apparait à vos côtés, elle tire des boules d'énergie automatiquement. "
+;;Une fée apparait à vos côtés, elle tire des boules d'énergie automatiquement sur les ennemis.
 FAIRY_1;;Fée
-;;"Votre fée devient plus forte ! Elle tire des boules d'énergies plus puissante
+;;"Votre fée devient plus forte ! Elle tire des boules d'énergies plus puissante.
 
-Tire automatiquement
-Dégât : 20-30
-Vitesse entre 2 attaques : 1 secondes"
+Dégâts par tir : 
+5-10 -> 10-15"
 FAIRY_2a;;Fée Feu
 ;;"Votre fée fait des dégâts de feu ! 
 
 Brûle les ennemis en continue"
-FAIRY_2ab;;Fée de Glace
+FAIRY_2ab;;Fée Glace
 ;;"Votre fée fait des dégâts de glace! 
 
 Ralenti les ennemis en les gelant"
 FAIRY_3a;;Grande Fée
-;;"Votre fée a atteint son apogée ! Elle tire des plus rayon d'énergies transperçant les ennemis.
+;;"Votre fée a atteint son apogée ! Ses statistiques s'améliorent !
 
-Dégât : 460
-Durée attaque : 3s
-Temps de recharge : 1s
-Percée : 4"
+Dégât : 
+10-15 -> 20-30
+Vitesse d'attaque : 
+13 -> 17"
 FAIRY_2b;;Fée au carré
-;;"Une deuxième fée vient vous prêter main forte ! Elle tire des boules d'énergies.
+;;"Une deuxième fée vient vous prêter main forte ! 
 
-Dégât : 10-20 par fée
-Vitesse entre 2 attaques : 1 secondes"
+Nombre de fées :
+1 -> 2"
 FAIRY_3b;;C'est la Fée-te
 ;;"Une troisième fée vient vous prêter main forte ! Des boules d'énergie volent de partout !
 
-Dégât : 10-20 par fée
-Vitesse entre 2 attaques : 1 seconde"
-FAIRY_4;;Résurrection [x]
-;;"Votre fée vous ramène une fois à la vie. "
+Nombre de fées :
+2 -> 3"
+FAIRY_4;;Pouvoir des fées
+;;"Si vous mourrez, vous récupérez tous vos coeurs. 
+
+Valable 1 fois par partie. "
 CHARAC_MAXSTOCK_1;;Petit sac
 ;;"Vous pouvez stocker une ressource de chaque couleur en plus !
 
-<B>+ 1 Max Ressource</B>"
+Max ressource +1"
 CHARAC_MAXSTOCK_2;;Sac
 ;;"Vous pouvez stocker une ressource de chaque couleur en plus !
 
-<B>+ 1 Max Ressource</B>"
+Max ressource +1"
 CHARAC_MAXSTOCK_3;;Grand sac
 ;;"Vous pouvez stocker une ressource de chaque couleur en plus !
 
-<B>+ 1 Max Ressource</B>"
-CHARAC_RADAR;;Radar [x]
-;;"Votre radar fonctionne à nouveau ! Vous pouvez maintenant voir votre position et celle de votre vaisseau.
-
-<B>Active le Radar </B>"
+Max ressource +1"
 CHARAC_LIFE1;;Combinaison +
 ;;Augmente votre maximum de coeur de 1
 CHARAC_LIFE2;;Combinaison ++
 ;;Augmente votre maximum de coeur de 1
 CHARAC_LIFE3;;Combinaison +++
 ;;Augmente votre maximum de coeur de 1
-CHARAC_RADAR1;;Radar
-;;Votre radar marche à nouveau ! Vous indique votre position et la position de votre vaisseau quand vous êtes sur une planète
-CHARAC_RADAR2a;;Analyse des nuisibles vert
-;;Permet de voir la quantité de ressource verte présente sur une planète
-CHARAC_RADAR2b;;Analyse des nuisibles jaune
-;;Permet de voir la quantité de ressource jaune présente sur une planète
-CHARAC_RADAR2c;;Analyse Aliens
-;;Permet de détecter la puissance des forces Aliens sur la futures planète
+CHARAC_RADAR2a;;Radar à nuisible vert
+;;Permet de détecter les ressources verte prochent de vous sur une planète.
+CHARAC_RADAR2b;;Radar à nuisible jaune
+;;Permet de détecter les ressources jaune prochent de vous sur une planète.
+CHARAC_RADAR2c;;Radar à Alien
+;;Permet de détecter les stèles ennemis prochent de vous sur une planète.
 CHARAC_RADAR2d;;Timer
-;;Votre Radar indique quand la flotte ennemi débarquera sur votre planète
-CHARAC_RADAR3a;;Radar à nuisible vert
-;;Votre radar indique la direction et position des nuisibles vert
-CHARAC_RADAR3b;;Radar à nuisible jaune
-;;Votre radar indique la direction et position des nuisibles jaune
-CHARAC_RADAR3c;;Radar à Alien
-;;Indique sur le radar la position des Antres Aliens
+;;Votre Radar indique quand la force ennemi devient plus puissante. (difficulté qui augmente).
 CHARAC_RADAR3d;;Sonde mystique
-;;Indique sur le radar la position des Autels de pouvoirs
+;;Permet de détecter les Autels de pouvoir prochent de vous sur une planète.
 Power_Lightning;;Eclair divin
-;;"Des éclairs apparaissent aléatoirement autour de vous, blessant les ennemis. "
-LIGHTNING_1;;Surchage électrique [x]
-;;Les éclairs ont 50% de chance de créer une zone électrique, si le joueur passe dedans, il fera des dégâts électriques pendant 2 secondes
+;;Des éclairs apparaissent ciblent aléatoirement les ennemis autour de vous.
+LIGHTNING_1;;Surchage électrique
+;;Les éclairs ont 50% de chance de créer une zone électrique, si votre personnage passe dedans, il fera des dégâts électriques pendant 2 secondes (paralyse les ennemis).
 LIGHTNING_2a;;Double éclair
-;;Deux éclairs apparaissent toutes les 1s
-LIGHTNING_2b;;Puissance élec
-;;Puissance des éclairs doublée
+;;"Le nombre d'éclair qui apparait passe à 2.
+
+Eclair :
+1 -> 2"
+LIGHTNING_2b;;Voltage
+;;"La puissance des éclairs est doublée.
+
+Dégât par éclair :
+7-12 -> 14-24"
 LIGHTNING_3a;;Triple éclair
-;;Trois éclairs apparaissent toutes les 1s
+;;"Le nombre d'éclair qui apparait passe à 3.
+
+Eclair :
+2 -> 3"
 LIGHTNING_3b;;Courant continu
-;;Zone d’impact doublé
+;;"La zone électrique est doublée.
+
+Surface de la zone :
+2 -> 4"
 LIGHTNING_4a;;Main du jugement
-;;5 éclairs apparaissent toutes les 1s
+;;"Le nombre d'éclair qui apparait passe à 5.
+
+Eclair :
+3 -> 5"
 LIGHTNING_4b;;Lance de Zeus
-;;Dégât et zone d’impact doublé
-Ghost;;Réveil des enfers
-;;Un fantôme à une chance sur deux d'apparaitre après la mort d'un ennemi
+;;"La puissance des éclairs et la zone électrique sont doublées.
+
+Dégât par éclair :
+14-24 -> 28-48
+Surface de la zone : 
+4 -> 8"
+Ghost;;Fantôme explosif
+;;Un fantôme à 50% de chance d'apparaitre après la mort d'un ennemi. Il explose au bout d'un certain temps, blessant les ennemis proches.
 GHOST_1_FIRE;;Feu d’outre tombe
-;;Quand le spectre explose, il brûle les ennemis
+;;"Quand le fantôme explose, il brûle les ennemis.
+
+L'explosion du fantôme gagne : Brûlure"
 GHOST_2a_ENNEMY;;Minage spectral
-;;Le spectre explose au contact d’un ennemi
+;;"Le spectre explose au contact d’un ennemi. 
+
+Vive les ricochets."
 GHOST_2b_PLAYER;;Il n’est pas mort ?
-;;Le spectre explose quand le joueur tire/frappe le spectre.
-GHOST_3_FOLLOW;;It follows [x]
-;;Le spectre se déplace au contact de l’ennemi le plus proche
-GHOST_4a_PROJECTILES;;Explosion fragmentée [x]
-;;A l’explosion, des projectiles partent du fantôme
-GHOST_4b_BIG;;Super Spectre [x]
-;;Toutes les 10ème apparition d’un spectre, un gros spectre apparait.
+;;"Le fantôme explose quand le frappez ou lui tirez dessus. "
+GHOST_3_FOLLOW;;Viens par ici
+;;"Le fantôme suit le joueur. "
+GHOST_4a_PROJECTILES;;Fantôme brisé
+;;"Quand le fantôme explose, des projectiles partent tout autour de lui. 
+
+Nombre de projectiles :
+6"
+GHOST_4b_BIG;;Gros fantôme
+;;"Toutes les 10ème apparition d’un fantôme, un gros fantôme apparait.
+
+Et donc, cela fait une plus grosse explosion. "
 SynthWave;;Onde sonore
-;;Une onde sonore repousse et frappe les ennemis tout autour de vous
-WAVE_1;;Agrandissement
-;;Votre onde s’étend plus loin
+;;"Une onde sonore repousse et frappe les ennemis tout autour de vous. "
+WAVE_1;;Grande onde 1
+;;"Votre onde sonore s’étend plus loin. 
+
+Dimension : 
+3 -> 4"
 WAVE_2a;;Onde de choc 1
-;;Votre vague devient électrique, ne repousse plus les ennemis mais les paralyse
+;;"Votre onde devient électrique, ne repousse plus les ennemis mais les paralyse. 
+
+Onde gagne l'effet électrique."
 WAVE_2b;;Onde sonique
-;;Votre vague ne repousse plus les ennemis mais fait plus de dégâts, et apparait plus souvent
+;;"Votre onde ne repousse plus les ennemis mais fait plus de dégâts, et apparait plus souvent. 
+
+Dégâts :
+4 -> 6
+Vitesse apparition : 
+6 -> 4"
 WAVE_2c;;Onde de force
-;;Votre vague repousse plus violemment les ennemis
-WAVE_3a;;Onde de choc 2
-;;Les ennemis restent paralysés plus longtemps
+;;"Votre onde repousse plus violemment les ennemis. 
+
+Force de l'onde : 
+150 -> 300"
+WAVE_3a;;Grande onde 2
+;;"Votre onde sonore s’étend plus loin. 
+
+Dimension : 
+4 -> 5"
 WAVE_3b;;Onde supra-sonique
-;;Votre onde sonique s'abat toujours plus vite et plus forte
+;;"Votre onde sonique s'abat toujours plus vite et plus forte.
+
+Dégâts :
+6 -> 8
+Vitesse apparition : 
+4 -> 2"
 WAVE_3c;;Onde de force protectrice
-;;Une onde de force se déclenche quand vous prenez un coup, vous protégeant et repoussant violemment les ennemis
+;;"Une onde se déclenche quand vous prenez un coup, vous protégeant et repoussant violemment les ennemis. 
+
+Force de l'onde : 
+200
+Temps de recharge : 
+30s"
 WAVE_4;;Double Onde
-;;Votre onde se dédouble, et se lance avec un léger décalage
-BlackHole;;Trou Noir [X]
+;;"Votre onde se dédouble, et la seconde se lance avec un léger décalage. 
+
+Nombre d'onde : 
+1 -> 2"
+BlackHole;;Trou Noir
 ;;"Un trou noir apparait aléatoirement, attire et ralenti les ennemis "
 BLACKHOLE_1;;Gros trou noir
-;;Le trou noir devient plus grand et plus puissant
+;;"Le trou noir devient plus grand et plus puissant
+
+Dimension : 
+1 -> 1,5"
 BLACKHOLE_2a;;Trou blanc
-;;Un trou blanc apparait avec les même propriétés que le trou noir qui repousse les ennemis
+;;Un trou blanc apparait en plus du trou noir. Le trou blanc repousse les ennemis.
 BLACKHOLE_2b;;Electromagnétique
-;;Des éclairs sortent du trou noirs, blessant les ennemis à proximité
+;;"Des éclairs sortent du trou noirs, blessant les ennemis à proximité. 
+
+Dégâts par seconde :
+2-6"
 BLACKHOLE_3a;;Trou de verre
-;;Si le joueur va dans un trou noir, il se téléporte dans le trou blanc et vice versa, les trous explosent à la suite de la téléportation
+;;Si le joueur va dans un trou noir, il se téléporte dans le trou blanc. Les trous explosent à la suite de la téléportation, infligeant des dégâts aux ennemis proches.
 BLACKHOLE_3b;;Electromagnétique 2
-;;
-BLACKHOLE_4;;Big bang
+;;"Les éclairs sont plus puissant.
+
+Dégâts par seconde :
+6-12"
+BLACKHOLE_4;;Big Bang
 ;;A sa disparation, le trou noir attire fortement les ennemis et explose, leur infligeant des dégâts
 Dagger;;Dagues
-;;Des dagues sont jetées une par une dans le sens horaire en partant du joueur et transperce les ennemis
+;;Des dagues sont jetées une par une dans le sens horaire en partant du personnage.
 DAGGER_1;;Quart de dague
-;;3 dagues se lancent en même temps (position quart d’heure)
+;;"3 dagues se lancent en même temps.
+
+Nombre de dague :
+1 -> 3"
 DAGGER_2;;Dague éclair
-;;Les dagues vont plus vite et paralyse les ennemis
+;;"Les dagues vont plus vite et paralyse les ennemis. 
+
+Vitesse des dagues : 
+15 -> 20
+Effet élémentaire :
+Electrique"
 DAGGER_3a;;Daguarang
-;;Les dagues reviennent vers le joueur après quelques instants
+;;"Les dagues reviennent vers le joueur après quelques instants. "
 DAGGER_3b;;Dague Explosive
-;;Les dagues explosent au contact d’un ennemi
+;;Les dagues explosent au contact d’un ennemi, infligeant des dégâts aux ennemis proches.
 DAGGER_3c;;Demie de dague
-;;5 Dagues se lancent en même temps (position demie heure)
+;;"5 Dagues se lancent en même temps.
+
+Nombre de dagues : 
+3 -> 5"
 DAGGER_4;;Effet miroir
-;;Le pouvoir de votre dague se lance deux fois, avec tous ses bonus, l’un en miroir de l’autre
-ToxicZone;;Surface toxique [X]
+;;Le pouvoir de votre dague se lance deux fois, avec tous ses bonus, l’un en miroir de l’autre.
+ToxicZone;;Surface toxique
 ;;Des zones circulaires apparaissent, infligeant des dégâts continuent aux ennemis passant dedans.
 TOXICZONE_1a;;Energisante
-;;Quand le joueur passe dans la zone, il a un boost de vitesse
+;;"Quand le joueur passe dans la zone, il a un boost de vitesse.
+
+Vitesse du joueur : 
++ 20%"
 TOXICZONE_1b;;Glacée
-;;Les ennemis dans la zone sont ralenti
+;;"Les ennemis dans la zone sont ralentis.
+
+Effet élémentaire : 
+Glace"
 TOXICZONE_2a;;Bulle de puissance
-;;Quand le joueur est dans la zone, il a un boost de dégât
+;;"Quand le joueur est dans la zone, il a un boost de dégât.
+
+Boost de dégât : 
++ 20%"
 TOXICZONE_2b;;Racine de vie
-;;Si le joueur tue 10 ennemis tout en étant dans la zone, il regagne 1 cœur
+;;"Si le joueur tue 10 ennemis tout en étant dans la zone, il regagne 1 cœur.
+(il n'est pas obligé de rester dans la même zone) "
 TOXICZONE_2c;;Voisines
-;;Double le nombre de zone
+;;"Le nombre de zone qui apparait est doublé.
+
+Nombre de zone : 
+2 -> 4"
 TOXICZONE_2d;;Mouvante
-;;La zone se déplace dans la même direction que le joueur
-TOXICZONE_3;;Agrandissement
-;;La zone est plus grande
+;;"La zone se déplace dans la même direction que le joueur. 
+
+Vitesse de la zone : 
+5"
+TOXICZONE_3;;Largeur +
+;;"Les zones deviennet plus grande. 
+
+Dimension : 
+3 -> 5
+"
