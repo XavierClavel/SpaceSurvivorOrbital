@@ -83,7 +83,12 @@ public class GameObjectPool : Pool<GameObject>
         if (wait != null) Orchestrator.context.StartCoroutine(WaitAndRetrieve(instance));
         return instance;
     }
-
+    
+    public void recall(GameObject target)
+    {
+        target.SetActive(false);
+        push(target);
+    }
     
 
     public GameObject get(Vector3 position)

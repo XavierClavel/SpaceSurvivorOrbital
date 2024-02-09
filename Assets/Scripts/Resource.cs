@@ -5,12 +5,13 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.Events;
 
-enum type { violet, orange, green }
+public enum type {orange, green }
 
 public class Resource : Breakable
 {
     [SerializeField] GameObject itemPrefab;
     [SerializeField] Slider healthBar;
+    [SerializeField] private type resourceType;
 
     [Header("Animation")]
     public Sprite damagedSprite;
@@ -86,19 +87,13 @@ public class Resource : Breakable
     void Break()
     {
         SoundManager.PlaySfx(transform, key: "Eggs_Destroy");
-        int nbItemsToSpawn = dropInterval.getRandom();
-        for (int i = 0; i < nbItemsToSpawn; i++)
-        {
-            var go = Instantiate(itemPrefab, randomPos() + transform.position, Quaternion.identity);
-        }
+        ObjectManager.SpawnResources(resourceType, transform.position, dropInterval.getRandom());
         animator.enabled = true;
         isDestroy = true;
         healthBar.gameObject.SetActive(false);
         myCollider.enabled = false;
         listeners.ForEach(it => it.onResourceDestroyed(this));
         Destroy(spriteOverlay);
-
-
     }
 
 

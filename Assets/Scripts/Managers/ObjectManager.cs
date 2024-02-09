@@ -50,6 +50,12 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener
     private int amountDens = 0;
     private int amountDensDestroyed = 0;
 
+    [Header("Prefabs")] 
+    [SerializeField] private GameObject resourceItemOrange;
+    [SerializeField] private GameObject resourceItemGreen;
+    private GameObjectPool poolResourceOrange;
+    private GameObjectPool poolResourceGreen;
+
 
     public static void DisplaySpaceship()
     {
@@ -111,6 +117,47 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener
         if (Helpers.isPlatformAndroid()) pauseButton.SetActive(true);
         MonsterStele.registerListener(this);
         Resource.registerListener(this);
+
+        poolResourceGreen = new GameObjectPool(resourceItemGreen);
+        poolResourceOrange = new GameObjectPool(resourceItemOrange);
+    }
+
+    public static void recallItemOrange(GameObject go) => instance.poolResourceOrange.recall(go);
+    public static void recallItemGreen(GameObject go) => instance.poolResourceGreen.recall(go);
+
+    public static void SpawnResourcesOrange(Vector3 position, int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            instance.poolResourceOrange.get(position + instance.randomPos());
+        }
+    }
+    
+    
+    public static void SpawnResourcesGreen(Vector3 position, int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            instance.poolResourceGreen.get(position + instance.randomPos());
+        }
+    }
+
+    public static void SpawnResources(type resourceType, Vector3 position, int amount)
+    {
+        if (resourceType == type.green) SpawnResourcesGreen(position, amount);
+        else if (resourceType == type.orange) SpawnResourcesOrange(position, amount);
+    }
+    
+    public static void SpawnResources(Vector3 position, int amount)
+    {
+        SpawnResources(Helpers.getRandomEnum<type>(), position, amount);
+    }
+    
+    Vector3 randomPos()
+    {
+        float signA = Helpers.getRandomSign();
+        float signB = Helpers.getRandomSign();
+        return signA * Helpers.getRandomFloat(1.5f) * Vector2.up + signB * Helpers.getRandomFloat(1.5f) * Vector2.right;
     }
 
     public static void DisplayAltarUI()

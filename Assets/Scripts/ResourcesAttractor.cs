@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = System.Object;
 
 public class ResourcesAttractor : MonoBehaviour, IResourceListener
 {
@@ -38,14 +39,14 @@ public class ResourcesAttractor : MonoBehaviour, IResourceListener
         {
             case Vault.tag.GreenCollectible:
                 PlayerController.instance.IncreaseGreen();
+                ObjectManager.recallItemGreen(other.gameObject);
                 break;
 
             case Vault.tag.OrangeCollectible:
                 PlayerController.instance.IncreaseOrange();
+                ObjectManager.recallItemOrange(other.gameObject);
                 break;
         }
-
-        Destroy(other.gameObject);
     }
 
     public void onResourceSpawned(Resource resource)
