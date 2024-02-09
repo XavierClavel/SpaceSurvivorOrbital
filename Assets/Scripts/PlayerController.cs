@@ -26,9 +26,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] ParticleSystem boostAttack;
     [SerializeField] ParticleSystem boostSpeed;
-    [SerializeField] ParticleSystem heartGain;
 
-    CharacterHandler characterHandler;
     InteractorHandler interactorHandler;
     [SerializeField] GameObject minerBot;
     [HideInInspector] public Transform attractorTransform;
@@ -282,9 +280,6 @@ public class PlayerController : MonoBehaviour
         bonusManager = new BonusManager();
         interactorHandler = GetComponent<InteractorHandler>();
 
-        //playerSprite = characterHandler.spriteRenderer;
-        //playerAnimator = characterHandler.animator;
-
         if (Helpers.isPlatformAndroid())
         {
             joystickMove.gameObject.SetActive(true);
@@ -298,6 +293,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         if (Helpers.isPlatformAndroid()) Application.targetFrameRate = 60;
+        
+        playerAnimator.runtimeAnimatorController = DataSelector.getSelectedCharacter().getAnimatorController();
+        playerSprite.sprite = DataSelector.getSelectedCharacter().getIcon();
         
         rb = GetComponent<Rigidbody2D>();
         cameraTransform = Camera.main.transform;
