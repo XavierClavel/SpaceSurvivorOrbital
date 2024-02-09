@@ -112,7 +112,7 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
         SpawnEnnemies(3);
         yield return new WaitUntil(killedSecondWave);
         
-        tutoText.SetText("Avez-vous remarqué ? Comme chaque planète est sphérique, en marchant dans le même sens, vous en ferez le tour. \r\nPlus vous vous éloignez du centre, plus le sol sera sombre");
+        tutoText.SetText("Avez-vous remarqué ? Comme chaque planète est sphérique, en marchant dans le même sens, vous en ferez le tour.");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         
