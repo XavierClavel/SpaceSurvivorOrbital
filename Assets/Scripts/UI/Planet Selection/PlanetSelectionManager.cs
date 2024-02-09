@@ -136,18 +136,14 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
 
     private static void Cull()
     {
-        int unconnectedNodesOnTier = int.MaxValue;
         int tier = maxX - 2;
-        List<Node> leafNodes = new List<Node>();
         while (tier >= 0)
         {
             for (int y = 0; y < maxY; y++)
             {
                 Node node = nodeMatrix[tier, y];
                 if (node == null) continue;
-                leafNodes.Clear();
-                getAccessibleNodes(node, leafNodes);
-                if (leafNodes.Contains(endNode)) continue;
+                if (!node.childNodes.isEmpty()) continue;
                 node.Destroy();
                 nodeMatrix[tier, y] = null;
             }
