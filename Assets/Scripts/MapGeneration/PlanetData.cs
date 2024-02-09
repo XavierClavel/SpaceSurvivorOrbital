@@ -45,18 +45,19 @@ public class PlanetData
         };
     }
 
-    public static PlanetData getRandom()
+    public static PlanetData getRandom(int tier)
     {
         PlanetData planetData = new PlanetData();
-        planetData.setData();
+        planetData.setData(tier);
         return planetData;
     }
 
-    private PlanetData setData()
+    private PlanetData setData(int tier)
     {
-        this.type = Helpers.getRandomEnum<planetType>(planetType.storm);
-        if (this.type == planetType.shop)
+        this.type = Helpers.getRandomEnum<planetType>(planetType.storm, planetType.shop);
+        if (tier > 2 && Helpers.ProbabilisticBool(0.10f))
         {
+            this.type = planetType.shop;
             this.size = planetSize.medium;
             return this;
         }

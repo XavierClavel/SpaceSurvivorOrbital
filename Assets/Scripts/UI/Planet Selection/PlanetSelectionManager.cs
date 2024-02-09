@@ -317,7 +317,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
                 }
                 else
                 {
-                    dictKeyToPlanetData[node.key] = PlanetData.getRandom();
+                    dictKeyToPlanetData[node.key] = PlanetData.getRandom(x);
                 }
             }
         }
