@@ -115,6 +115,8 @@ public class SoundManager : MonoBehaviour
 
     public static void onSceneChange(gameScene newScene)
     {
+        if (newScene == instance.currentScene) return;
+        instance.currentScene = newScene;
         AudioSource previousMusicSource = currentMusicSource;
         previousMusicSource?.DOFade(0f, 1f).SetEase(Ease.Linear).OnComplete(previousMusicSource.Stop);
         currentMusicSource = dictSceneToMusic[newScene];
