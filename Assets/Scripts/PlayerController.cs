@@ -563,9 +563,10 @@ public class PlayerController : MonoBehaviour
     public static void StopShake()
     {
         if (!instance.overrideShake) return;
-        instance.cinemachineCamera.ForceCameraPosition(instance.camTarget.position, Quaternion.identity);
+        instance.cinemachineCamera.ForceCameraPosition(instance.cameraNoShake.transform.position, instance.cameraNoShake.transform.rotation);
         instance.overrideShake = false;
         instance.camNoise.m_AmplitudeGain = 0f;
+        instance.cinemachineCamera.ForceCameraPosition(instance.cameraNoShake.transform.position, instance.cameraNoShake.transform.rotation);
     }
 
     public static void Shake(float shakeIntensity, float shakeDuration)

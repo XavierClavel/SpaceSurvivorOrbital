@@ -111,7 +111,12 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
 
 #region API
 
-    public RectTransform getUITransform()
+    private void OnDestroy()
+    {
+        Planet.currentTier++;
+    }
+
+public RectTransform getUITransform()
     {
         return GetComponent<RectTransform>();
     }

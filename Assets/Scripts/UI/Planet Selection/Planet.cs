@@ -51,6 +51,7 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
     {
         this.tier = node.tier;
         this.row = node.row;
+        Debug.Log($"tier : {tier}, row: {row}, currentTier: {currentTier}, inPathNodes: {PlanetSelectionManager.getPossiblePathNodes().Contains(node)}");
         if (tier != currentTier ||  !PlanetSelectionManager.getPossiblePathNodes().Contains(node))
         {
             button.interactable = false;
@@ -70,7 +71,6 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
 
         button.onClick.AddListener(delegate
         {
-            currentTier++;
             PlanetSelectionManager.SelectNode(node);
             PlanetSelector.SelectPlanet(this);
             SoundManager.PlaySfx(transform, key: "Ship_Landing");
