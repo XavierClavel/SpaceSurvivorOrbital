@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MyBox;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,13 +14,14 @@ public class TileManager : MonoBehaviour
     [HideInInspector] public List<Tile> tiles;
     List<TileWaveFunction> uncollapsedTiles = new List<TileWaveFunction>();
     Dictionary<Vector2Int, GameObject> dictPositionToTile = new Dictionary<Vector2Int, GameObject>();
+    private Dictionary<Vector2Int, Tile> dictTiles = new Dictionary<Vector2Int, Tile>();
     PlayerController player;
     public static int planetDiameter = 9;
     Vector2Int mapSize;
     Vector2Int activationRadius = new Vector2Int(3, 3); //radius around player in which tiles are activated
     Vector2Int lastPos = Vector2Int.zero;
     Vector2Int mapRadius;
-    List<Tile> tilesToPlace = new List<Tile>();
+    List<Tile> tilesToPlace = null;
     private int mask;
 
     [HideInInspector] public static int tilesInAdvance => instance.uncollapsedTiles.Count - instance.tilesToPlace.Count;
@@ -51,6 +53,41 @@ public class TileManager : MonoBehaviour
         instance = this;
         if (!PlanetManager.hasData()) PlanetManager.setData(planetData);
         if (!generateMap) return;
+
+        int maxAttempts = 200;
+        int currentAttempt = 0;
+        while ((tilesToPlace == null || !tilesToPlace.isEmpty()) && currentAttempt < maxAttempts)
+        {
+            if (tilesToPlace != null)
+            {
+                Debug.Log($"Failed to generate map, {tilesToPlace.Count} tiles missing");
+            }
+            TryGenerateMap();
+            currentAttempt++;
+        }
+        
+
+        if (currentAttempt == maxAttempts)
+        {
+            Debug.LogError($"Failed to respect contraints after {currentAttempt} tries, tiles left :");
+            tilesToPlace.ForEach(it => Debug.LogError(it.name));
+        }
+        else
+        {
+            Debug.Log($"Map generation successful after {currentAttempt} tries");
+        }
+        
+        GenerateTileObjects();
+
+        StartCoroutine(nameof(TileManagement));
+    }
+
+    private void TryGenerateMap()
+    {
+        tiles = new List<Tile>();
+        tilesToPlace = new List<Tile>();
+        uncollapsedTiles = new List<TileWaveFunction>();
+        dictTiles = new Dictionary<Vector2Int, Tile>();
         
         bank.setTiles();
         tiles.Add(bank.spaceship);
@@ -95,9 +132,8 @@ public class TileManager : MonoBehaviour
 
         InitalizeMap();
         PlaceTiles();
-
-        StartCoroutine(nameof(TileManagement));
     }
+    
 
     void SetupPlanet()
     {
@@ -230,7 +266,7 @@ public class TileManager : MonoBehaviour
         return uncollapsedTilesOfLeastEntropy.getRandom();
     }
 
-    GameObject CollapseWaveFunction(TileWaveFunction tileWaveFunction)
+    void CollapseWaveFunction(TileWaveFunction tileWaveFunction)
     {
         uncollapsedTiles.Remove(tileWaveFunction);
 
@@ -255,31 +291,42 @@ public class TileManager : MonoBehaviour
                 ApplyConstraint(uncollapsedTiles, newTile);
             }
         }
-
-        Vector2Int position = IndexToPosition(index);
-        Vector3 worldPosition = PositionToWorld(position);
-        GameObject tile = Instantiate(newTile.getTileObject(), worldPosition, Quaternion.identity);
-        dictPositionToTile.Add(position, tile);
-        map[index.x, index.y] = null;
-
-        SpriteRenderer ground = Instantiate(bank.ground);
-        ground.transform.position = worldPosition;
-        ground.transform.SetParent(tile.transform);
-        int x = Mathf.Abs(position.x);
-        int y = Mathf.Abs(position.y);
-        if (x >= 3 || y >= 3) {
-            ground.color = bank.groundColor3;
-            ground.sortingOrder = -13;
-        } else if (x >= 2 || y >= 2) {
-            ground.color = bank.groundColor2;
-            ground.sortingOrder = -12;
-        } else
-        {
-            ground.color = bank.groundColor1;
-            ground.sortingOrder = -11;
-        }
-        return tile;
+        
+        dictTiles[index] = newTile;
+        
     }
+
+
+    private void GenerateTileObjects()
+    {
+        foreach (var v in dictTiles)
+        {
+            Vector2Int index = v.Key;
+            Vector2Int position = IndexToPosition(index);
+            Vector3 worldPosition = PositionToWorld(position);
+            GameObject tile = Instantiate(v.Value.getTileObject(), worldPosition, Quaternion.identity);
+            dictPositionToTile.Add(position, tile);
+            map[index.x, index.y] = null;
+
+            SpriteRenderer ground = Instantiate(bank.ground, tile.transform, true);
+            ground.transform.position = worldPosition;
+            int x = Mathf.Abs(position.x);
+            int y = Mathf.Abs(position.y);
+            if (x >= 3 || y >= 3) {
+                ground.color = bank.groundColor3;
+                ground.sortingOrder = -13;
+            } else if (x >= 2 || y >= 2) {
+                ground.color = bank.groundColor2;
+                ground.sortingOrder = -12;
+            } else
+            {
+                ground.color = bank.groundColor1;
+                ground.sortingOrder = -11;
+            }
+        }
+    }
+    
+    
 
     Vector2Int IndexToPosition(Vector2Int index)
     {

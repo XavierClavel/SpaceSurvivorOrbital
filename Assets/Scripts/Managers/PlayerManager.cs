@@ -31,6 +31,7 @@ public class PlayerManager
 
     public static List<PowerHandler> powers = new List<PowerHandler>();
     public static List<EquipmentHandler> equipments = new List<EquipmentHandler>();
+    public static HashSet<ArtefactHandler> artefacts = new HashSet<ArtefactHandler>();
 
     public static PlayerData playerData = new PlayerData();
     public static Dictionary<string, PlayerData> dictKeyToStats = new Dictionary<string, PlayerData>();
@@ -135,6 +136,17 @@ public class PlayerManager
         AcquireEquipment(ScriptableObjectManager.dictKeyToEquipmentHandler[key]);
     }
 
+    public static void AcquireArtefact(ArtefactHandler artefactHandler)
+    {
+        artefacts.Add(artefactHandler);
+        dictKeyToStats[artefactHandler.getKey()] = DataManager.dictArtefacts[artefactHandler.getKey()].Clone();
+    }
+    
+    public static void AcquireArtefact(string key)
+    {
+        AcquireArtefact(ScriptableObjectManager.dictKeyToArtefactHandler[key]);
+    }
+    
     public static void AcquireUpgradePoint()
     {
         amountBlue++;

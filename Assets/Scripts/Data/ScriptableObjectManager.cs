@@ -10,6 +10,7 @@ public static class ScriptableObjectManager
     public static Dictionary<string, WeaponHandler> dictKeyToWeaponHandler;
     public static Dictionary<string, EquipmentHandler> dictKeyToEquipmentHandler;
     public static Dictionary<string, CharacterHandler> dictKeyToCharacterHandler;
+    public static Dictionary<string, ArtefactHandler> dictKeyToArtefactHandler;
     public static Dictionary<string, Sfx> dictKeyToSfx;
     static List<WeaponHandler> baseWeapons;
     static List<CharacterHandler> characters;

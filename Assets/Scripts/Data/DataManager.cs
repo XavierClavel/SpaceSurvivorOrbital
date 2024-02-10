@@ -21,6 +21,7 @@ public class DataManager : ScriptableObject
 
     public static Dictionary<string, PlayerData> dictWeapons = new Dictionary<string, PlayerData>();
     public static Dictionary<string, PlayerData> dictPowers = new Dictionary<string, PlayerData>();
+    public static Dictionary<string, PlayerData> dictArtefacts = new Dictionary<string, PlayerData>();
     public static Dictionary<string, PlayerData> dictEquipments = new Dictionary<string, PlayerData>();
     public static Dictionary<string, ObjectData> dictObjects = new Dictionary<string, ObjectData>();
     public static Dictionary<string, LocalizedString> dictLocalization = new Dictionary<string, LocalizedString>();
@@ -30,7 +31,6 @@ public class DataManager : ScriptableObject
     public static Dictionary<string, int> dictCost = new Dictionary<string, int>();
     [SerializeField] string selectedCharacter = "Knil";
     [SerializeField] string selectedWeapon = "Laser";
-    [SerializeField] string selectedEquipment = "Suit";
     private static DataManager instance;
 
     
