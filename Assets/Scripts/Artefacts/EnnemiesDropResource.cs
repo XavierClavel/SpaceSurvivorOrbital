@@ -6,10 +6,12 @@ using UnityEngine;
 public class EnnemiesDropResource : Artefact, IEnnemyListener
 {
     private int amount = 0;
+    private int dropEvery;
 
     public override void onSetup()
     {
         Ennemy.registerListener(this);
+        dropEvery = stats.projectiles;
     }
 
     private void OnDestroy()
@@ -20,7 +22,7 @@ public class EnnemiesDropResource : Artefact, IEnnemyListener
     public void onEnnemyDeath(Ennemy ennemy)
     {
         amount++;
-        if (amount < stats.projectiles) return;
+        if (amount < dropEvery) return;
         amount = 0;
         ObjectManager.SpawnResources(ennemy.transform.position, 1);
     }
