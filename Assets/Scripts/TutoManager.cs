@@ -72,11 +72,11 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         
-        tutoText.SetText("Se déplacer : ZQSD \r\nTirer : Clic gauche");
+        tutoText.SetText("Se déplacer : ZQSD \r\nTirer : Clic gauche \n Cliquez pour continuer");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         
-        tutoText.SetText("Pour fuir d'une planète, vous devez détruire les stèles ennemis. \r\nLe nombre de stèles ennemis restantes est visible en bas à droite.");
+        tutoText.SetText("Pour fuir d'une planète, vous devez détruire les stèles ennemis. \r\nLe nombre de stèles ennemis restantes est visible en bas à droite. \n Cliquez pour continuer");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         
@@ -92,7 +92,7 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
         ShowResources();
         yield return new WaitUntil(resourcesDestroyed);
         
-        tutoText.SetText("Une ressource verte ou jaune se gagne en remplissant les jauges en haut à droite. \r\n En détruisant tous les oeufs d'une planète, vous gagnez une ressource bleu");
+        tutoText.SetText("Une ressource verte ou jaune se gagne en remplissant les jauges en haut à droite. \r\n En détruisant tous les oeufs d'une planète, vous gagnez une ressource bleu. \n Cliquez pour continuer");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         
@@ -100,11 +100,11 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
         ShowFirstAltar();
         yield return new WaitUntil(isAltarUsed);
         
-        tutoText.SetText("Les ressources bleu servent à améliorer vos pouvoirs. \r\nLes jaune et verte, vos équipements.");
+        tutoText.SetText("Les ressources bleu servent à améliorer vos pouvoirs. \r\nLes jaune et verte, vos équipements. \n Cliquez pour continuer");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         
-        tutoText.SetText("Chaque planète possède des ressources d'un type spécifique.");
+        tutoText.SetText("Chaque planète possède des ressources d'un type spécifique. \n Cliquez pour continuer");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         
@@ -112,7 +112,7 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
         SpawnEnnemies(3);
         yield return new WaitUntil(killedSecondWave);
         
-        tutoText.SetText("Avez-vous remarqué ? Comme chaque planète est sphérique, en marchant dans le même sens, vous en ferez le tour.");
+        tutoText.SetText("Avez-vous remarqué ? Comme chaque planète est sphérique, en marchant dans le même sens, vous en ferez le tour. \n Cliquez pour continuer");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         
@@ -121,7 +121,7 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
         PlayerManager.isTuto = false;
         yield return new WaitUntil(isStele2Destroyed);
         
-        tutoText.SetText("Une fois les stèles détruites, vous pouvez vous téléportez dans votre vaisseau. \r\nLe cercle de téléportation apparait au centre de la planète");
+        tutoText.SetText("Une fois les stèles détruites, vous pouvez vous téléportez dans votre vaisseau. \r\nLe cercle de téléportation apparait au centre de la planète. \n Cliquez pour continuer");
         yield return Helpers.getWait(2f);
         yield return new WaitUntil(doClick);
         
