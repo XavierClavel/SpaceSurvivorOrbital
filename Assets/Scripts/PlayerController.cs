@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera cinemachineCamera;
     private CinemachineBasicMultiChannelPerlin camNoise;
     [SerializeField] private Camera cameraNoShake;
+    private Vector2 noise = Vector2.zero;
 
     private const float boostedSpeed = 6f;
     [HideInInspector]
@@ -348,7 +349,7 @@ public class PlayerController : MonoBehaviour
 
         footstepsWait = new WaitForSeconds(ConstantsData.audioFootstepInterval);
         StartCoroutine(nameof(PlayFootsteps));
-        
+
     }
 
 
@@ -454,13 +455,19 @@ public class PlayerController : MonoBehaviour
         targetMoveAmount = moveDir * baseSpeed * speedMultiplier;
 
         moveAmount = Vector2.SmoothDamp(moveAmount, targetMoveAmount, ref smoothMoveVelocity, 0.10f);
-        Vector2 localMove = moveAmount * Time.fixedDeltaTime;
-        _walkDirection = angleToDirection(Vector2.SignedAngle(localMove, Vector2.down) + 180f);
-        rb.MovePosition(rb.position + localMove);
+        
         pointerFront.position = transform.position;
         cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
 
     }
+
+    private void FixedUpdate()
+    {
+        Vector2 localMove = moveAmount * Time.fixedDeltaTime;
+        _walkDirection = angleToDirection(Vector2.SignedAngle(localMove, Vector2.down) + 180f);
+        rb.MovePosition(rb.position + localMove);
+    }
+
 
     Vector2 getGamepadAimInput()
     {
@@ -469,11 +476,15 @@ public class PlayerController : MonoBehaviour
 
     Vector2 getMouseAimInput()
     {
+        CinemachineVirtualCamera c;
         var noise = camNoise.m_AmplitudeGain;
+        camNoise.enabled = false;
         camNoise.m_AmplitudeGain = 0f;
         Vector2 mousePos = controls.Player.MousePosition.ReadValue<Vector2>();
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector3 worldPos = cameraNoShake.ScreenToWorldPoint(mousePos);
+        
         camNoise.m_AmplitudeGain = noise;
+        camNoise.enabled = true;
         var position = pointerFront.position;
         Vector2 direction = (worldPos - position);
         Vector3 normalizedDirection = direction.normalized;
@@ -570,6 +581,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator ShakeCoroutine()
     {
+        Debug.Log(shakeIntensity);
         isShaking = true;
         camNoise.m_AmplitudeGain = shakeIntensity;
         yield return Helpers.getWait(shakeDuration);
