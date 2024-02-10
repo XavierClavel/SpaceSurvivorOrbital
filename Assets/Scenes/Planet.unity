@@ -341,7 +341,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 23201900}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1679,7 +1679,7 @@ GameObject:
   m_Component:
   - component: {fileID: 157686478}
   - component: {fileID: 157686480}
-  - component: {fileID: 157686479}
+  - component: {fileID: 157686481}
   m_Layer: 28
   m_Name: cm
   m_TagString: Untagged
@@ -1702,7 +1702,19 @@ Transform:
   m_Father: {fileID: 1398583157}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &157686479
+--- !u!114 &157686480
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157686477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &157686481
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1745,18 +1757,6 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 5000
---- !u!114 &157686480
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 157686477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &186330240
 GameObject:
   m_ObjectHideFlags: 0
@@ -2953,7 +2953,7 @@ GameObject:
   - component: {fileID: 459822658}
   - component: {fileID: 459822659}
   m_Layer: 8
-  m_Name: Main Camera
+  m_Name: ShakeCam
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9642,8 +9642,8 @@ GameObject:
   - component: {fileID: 1398583151}
   - component: {fileID: 1398583150}
   m_Layer: 28
-  m_Name: Main Camera (1)
-  m_TagString: Untagged
+  m_Name: NoShakeCam
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13430,6 +13430,10 @@ PrefabInstance:
       propertyPath: souls2Display
       value: 
       objectReference: {fileID: 1099983609}
+    - target: {fileID: 5794317926654119749, guid: 94209ee71c76b454e972a73d03b64b6b, type: 3}
+      propertyPath: noiseTransform
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5794317926654119749, guid: 94209ee71c76b454e972a73d03b64b6b, type: 3}
       propertyPath: cinemachineCamera
       value: 

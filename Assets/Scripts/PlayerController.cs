@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private CinemachineBasicMultiChannelPerlin camNoise;
     [SerializeField] private Camera cameraNoShake;
     private Vector2 noise = Vector2.zero;
+    [SerializeField] private Transform noiseTransform;
 
     private const float boostedSpeed = 6f;
     [HideInInspector]
@@ -300,7 +301,7 @@ public class PlayerController : MonoBehaviour
         playerSprite.sprite = DataSelector.getSelectedCharacter().getIcon();
         
         rb = GetComponent<Rigidbody2D>();
-        cameraTransform = Camera.main.transform;
+        cameraTransform = cinemachineCamera.transform;
         soundManager = SoundManager.instance;
         healthBar = ObjectManager.instance.healthBar;
         interactorHandler.Initialize(PlayerManager.weaponPrefab, pointerFront, true);
@@ -481,7 +482,7 @@ public class PlayerController : MonoBehaviour
         camNoise.enabled = false;
         camNoise.m_AmplitudeGain = 0f;
         Vector2 mousePos = controls.Player.MousePosition.ReadValue<Vector2>();
-        Vector3 worldPos = cameraNoShake.ScreenToWorldPoint(mousePos);
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
         
         camNoise.m_AmplitudeGain = noise;
         camNoise.enabled = true;
@@ -562,6 +563,7 @@ public class PlayerController : MonoBehaviour
     public static void StopShake()
     {
         if (!instance.overrideShake) return;
+        instance.cinemachineCamera.ForceCameraPosition(instance.camTarget.position, Quaternion.identity);
         instance.overrideShake = false;
         instance.camNoise.m_AmplitudeGain = 0f;
     }
@@ -586,7 +588,25 @@ public class PlayerController : MonoBehaviour
         camNoise.m_AmplitudeGain = shakeIntensity;
         yield return Helpers.getWait(shakeDuration);
         camNoise.m_AmplitudeGain = 0f;
+        cinemachineCamera.ForceCameraPosition(cameraNoShake.transform.position, cameraNoShake.transform.rotation);
         isShaking = false;
+        /*
+        float timeLeft = shakeDuration;
+        while (timeLeft > 0)
+        {
+            Vector2 position = new Vector2()
+            {
+                x = Helpers.getRandomSign() * Helpers.getRandomFloat(shakeIntensity),
+                y = Helpers.getRandomSign() * Helpers.getRandomFloat(shakeIntensity),
+            };
+            noiseTransform.localPosition = position;
+            timeLeft -= Time.deltaTime;
+            yield return null;
+        }
+        noiseTransform.position = Vector3.zero;
+        isShaking = false;
+        */
+        //cinemachineCamera.ForceCameraPosition(camTarget.position, Quaternion.identity);
     }
 
     private void OnDestroy()
