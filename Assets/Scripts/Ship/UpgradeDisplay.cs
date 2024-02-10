@@ -8,8 +8,8 @@ using UnityEngine.EventSystems;
 
 public class UpgradeDisplay : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI upgradeTitleDisplay;
-    [SerializeField] TextMeshProUGUI upgradeTextDisplay;
+    [SerializeField] StringLocalizer upgradeTitleDisplay;
+    [SerializeField] StringLocalizer upgradeTextDisplay;
     [SerializeField] Button buyButton;
     static UpgradeDisplay instance;
     static UnityAction buyAction;
@@ -21,9 +21,6 @@ public class UpgradeDisplay : MonoBehaviour
     {
         instance = this;
         buyAction = delegate { };
-
-        if (instance.upgradeTitleDisplay != null) upgradeTitleDisplay.SetText("");
-        if (instance.upgradeTextDisplay != null) upgradeTextDisplay.SetText("");
     }
 
     public static void DisplayUpgrade(string key)
@@ -31,8 +28,8 @@ public class UpgradeDisplay : MonoBehaviour
         instance.buyButton.gameObject.SetActive(
             NodeManager.dictKeyToButton[key]. status is skillButtonStatus.unlocked
                 );
-        if (instance.upgradeTitleDisplay != null) LocalizationManager.LocalizeTextField(key + Vault.key.ButtonTitle, instance.upgradeTitleDisplay);
-        if (instance.upgradeTextDisplay != null) LocalizationManager.LocalizeTextField(key + Vault.key.ButtonDescription, instance.upgradeTextDisplay);
+        if (instance.upgradeTitleDisplay != null) instance.upgradeTitleDisplay.setKey(key + Vault.key.ButtonTitle);
+        if (instance.upgradeTextDisplay != null) instance.upgradeTextDisplay.setKey(key + Vault.key.ButtonDescription);
     }
 
     public void OnClick()

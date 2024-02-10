@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MyBox;
 using UnityEngine;
 using TMPro;
 
@@ -12,7 +13,7 @@ public class StringLocalizer : MonoBehaviour
     public void setKey(string key)
     {
         this.key = key;
-        OnEnable();
+        UpdateKey();
     }
 
     private void OnEnable()
@@ -28,13 +29,12 @@ public class StringLocalizer : MonoBehaviour
 
     private void Setup()
     {
-        if (key == null) return;
         if (textDisplay == null)
         {
             textDisplay = GetComponent<TextMeshProUGUI>();
-            Initialize();
+            LocalizationManager.registerStringLocalizer(this);
         }
-        UpdateText();
+        if (!key.IsNullOrEmpty()) UpdateKey();
     }
 
     public void UpdateText()
@@ -42,20 +42,15 @@ public class StringLocalizer : MonoBehaviour
         textDisplay.SetText(localizedString.getText());
     }
 
-
-    public void Initialize()
+    private void UpdateKey()
     {
         if (!DataManager.dictLocalization.ContainsKey(key))
         {
             throw new System.ArgumentException($"{gameObject.name} is trying to call the \"{key}\" key which does not exist.");
         }
         localizedString = DataManager.dictLocalization[key];
-        LocalizationManager.registerStringLocalizer(this);
+        UpdateText();
     }
-
-
-
-
-
+    
 
 }

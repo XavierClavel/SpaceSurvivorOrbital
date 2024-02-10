@@ -1125,6 +1125,7 @@ GameObject:
   - component: {fileID: 174819501}
   - component: {fileID: 174819503}
   - component: {fileID: 174819502}
+  - component: {fileID: 174819504}
   m_Layer: 5
   m_Name: Character Description
   m_TagString: Untagged
@@ -1251,6 +1252,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 174819500}
   m_CullTransparentMesh: 1
+--- !u!114 &174819504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174819500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98ca66dcc6143c4093e4c8bf42481cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 
 --- !u!1001 &181451398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1899,6 +1913,7 @@ GameObject:
   - component: {fileID: 218296804}
   - component: {fileID: 218296803}
   - component: {fileID: 218296802}
+  - component: {fileID: 218296805}
   m_Layer: 5
   m_Name: Weapon Title
   m_TagString: Untagged
@@ -2023,6 +2038,19 @@ RectTransform:
   m_AnchoredPosition: {x: 100, y: 126}
   m_SizeDelta: {x: 385.87, y: 76.54}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &218296805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 218296801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98ca66dcc6143c4093e4c8bf42481cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 
 --- !u!1 &218485751
 GameObject:
   m_ObjectHideFlags: 0
@@ -2899,7 +2927,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 409527670}
-  - component: {fileID: 409527671}
   - component: {fileID: 409527673}
   - component: {fileID: 409527676}
   - component: {fileID: 409527675}
@@ -2939,21 +2966,6 @@ RectTransform:
   m_AnchoredPosition: {x: 704, y: -75}
   m_SizeDelta: {x: 440, y: 750}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &409527671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 409527669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 388547337ad8db9438606eedf402d67a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upgradeTitleDisplay: {fileID: 1027453216}
-  upgradeTextDisplay: {fileID: 0}
-  buyButton: {fileID: 0}
 --- !u!222 &409527673
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5398,6 +5410,7 @@ GameObject:
   - component: {fileID: 1027453218}
   - component: {fileID: 1027453217}
   - component: {fileID: 1027453216}
+  - component: {fileID: 1027453219}
   m_Layer: 5
   m_Name: Equipment Title
   m_TagString: Untagged
@@ -5522,6 +5535,19 @@ RectTransform:
   m_AnchoredPosition: {x: -0.0015125, y: 177.23}
   m_SizeDelta: {x: 440, y: 112.88}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1027453219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027453215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98ca66dcc6143c4093e4c8bf42481cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 
 --- !u!1 &1041530406
 GameObject:
   m_ObjectHideFlags: 0
@@ -5789,6 +5815,7 @@ GameObject:
   - component: {fileID: 1069560435}
   - component: {fileID: 1069560434}
   - component: {fileID: 1069560433}
+  - component: {fileID: 1069560436}
   m_Layer: 5
   m_Name: Character Title
   m_TagString: Untagged
@@ -5913,6 +5940,19 @@ RectTransform:
   m_AnchoredPosition: {x: 100, y: 153}
   m_SizeDelta: {x: 385.87, y: 86.46}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1069560436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069560432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98ca66dcc6143c4093e4c8bf42481cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 
 --- !u!1 &1069984889
 GameObject:
   m_ObjectHideFlags: 0
@@ -6911,6 +6951,7 @@ GameObject:
   - component: {fileID: 1228377948}
   - component: {fileID: 1228377950}
   - component: {fileID: 1228377949}
+  - component: {fileID: 1228377951}
   m_Layer: 5
   m_Name: Equipment Description
   m_TagString: Untagged
@@ -7035,6 +7076,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1228377947}
   m_CullTransparentMesh: 1
+--- !u!114 &1228377951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228377947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98ca66dcc6143c4093e4c8bf42481cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 
 --- !u!1 &1228977818
 GameObject:
   m_ObjectHideFlags: 0
@@ -7550,7 +7604,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1295779903}
-  - component: {fileID: 1295779904}
   - component: {fileID: 1295779906}
   - component: {fileID: 1295779909}
   - component: {fileID: 1295779908}
@@ -7588,21 +7641,6 @@ RectTransform:
   m_AnchoredPosition: {x: 556.28, y: 82}
   m_SizeDelta: {x: 700, y: 440}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1295779904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1295779902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 388547337ad8db9438606eedf402d67a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upgradeTitleDisplay: {fileID: 1069560433}
-  upgradeTextDisplay: {fileID: 2094663512}
-  buyButton: {fileID: 0}
 --- !u!222 &1295779906
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8801,7 +8839,7 @@ PrefabInstance:
     - target: {fileID: 5681009950712291936, guid: 86f60a3b3a172f24db19b9ea2814da3b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2064059345}
+      objectReference: {fileID: 0}
     - target: {fileID: 5681009950712291936, guid: 86f60a3b3a172f24db19b9ea2814da3b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnClick
@@ -9848,7 +9886,7 @@ PrefabInstance:
     - target: {fileID: 5681009950712291936, guid: 86f60a3b3a172f24db19b9ea2814da3b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 409527671}
+      objectReference: {fileID: 0}
     - target: {fileID: 5681009950712291936, guid: 86f60a3b3a172f24db19b9ea2814da3b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnClick
@@ -11051,6 +11089,7 @@ GameObject:
   - component: {fileID: 1814968925}
   - component: {fileID: 1814968927}
   - component: {fileID: 1814968926}
+  - component: {fileID: 1814968928}
   m_Layer: 5
   m_Name: Weapon Description (1)
   m_TagString: Untagged
@@ -11177,6 +11216,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1814968924}
   m_CullTransparentMesh: 1
+--- !u!114 &1814968928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814968924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98ca66dcc6143c4093e4c8bf42481cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 
 --- !u!1 &1822772321
 GameObject:
   m_ObjectHideFlags: 0
@@ -11207,27 +11259,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startButton: {fileID: 950430974}
-  characterTitleDisplay: {fileID: 1069560433}
+  characterTitleDisplay: {fileID: 1069560436}
   characterCostDisplay: {fileID: 1712381414}
   characterCostText: {fileID: 2094663512}
-  characterDescriptionText: {fileID: 174819502}
+  characterDescriptionText: {fileID: 174819504}
   characterImage: {fileID: 1366512128}
   characterBuyButton: {fileID: 1824426448}
-  characterDisplay: {fileID: 1295779904}
-  weaponTitleDisplay: {fileID: 218296802}
+  characterDisplay: {fileID: 0}
+  weaponTitleDisplay: {fileID: 218296805}
   weaponCostDisplay: {fileID: 253098007}
   weaponCostText: {fileID: 2012524814}
-  weaponDescriptionText: {fileID: 1814968926}
+  weaponDescriptionText: {fileID: 1814968928}
   weaponImage: {fileID: 945702807}
   weaponBuyButton: {fileID: 2050326965}
-  weaponDisplay: {fileID: 2064059345}
-  equipmentTitleDisplay: {fileID: 1027453216}
+  weaponDisplay: {fileID: 0}
+  equipmentTitleDisplay: {fileID: 1027453219}
   equipmentCostDisplay: {fileID: 1208035505}
   equipmentCostText: {fileID: 1974377985}
-  equipmentDescriptionText: {fileID: 1228377949}
+  equipmentDescriptionText: {fileID: 1228377951}
   equipmentImage: {fileID: 1248140993}
   equipmentBuyButton: {fileID: 986754542}
-  equipmentDisplay: {fileID: 409527671}
+  equipmentDisplay: {fileID: 0}
   equipmentChargeDisplay: {fileID: 1464547926}
   selectorLayouts:
   - {fileID: 59450098}
@@ -13335,7 +13387,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2064059344}
-  - component: {fileID: 2064059345}
   - component: {fileID: 2064059347}
   - component: {fileID: 2064059350}
   - component: {fileID: 2064059349}
@@ -13373,21 +13424,6 @@ RectTransform:
   m_AnchoredPosition: {x: 556.28, y: -310}
   m_SizeDelta: {x: 700, y: 337}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2064059345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2064059343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 388547337ad8db9438606eedf402d67a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upgradeTitleDisplay: {fileID: 218296802}
-  upgradeTextDisplay: {fileID: 2012524814}
-  buyButton: {fileID: 0}
 --- !u!222 &2064059347
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14296,7 +14332,7 @@ PrefabInstance:
     - target: {fileID: 5681009950712291936, guid: 86f60a3b3a172f24db19b9ea2814da3b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1295779904}
+      objectReference: {fileID: 0}
     - target: {fileID: 5681009950712291936, guid: 86f60a3b3a172f24db19b9ea2814da3b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnClick

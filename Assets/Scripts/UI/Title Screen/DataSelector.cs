@@ -15,19 +15,19 @@ public class DataSelector : MonoBehaviour, UIPanel
     public static string selectedWeapon = string.Empty;
     
     [Header("Character")]
-    [SerializeField] private TextMeshProUGUI characterTitleDisplay;
+    [SerializeField] private StringLocalizer characterTitleDisplay;
     [SerializeField] private GameObject characterCostDisplay;
     [SerializeField] private TextMeshProUGUI characterCostText;
-    [SerializeField] private TextMeshProUGUI characterDescriptionText;
+    [SerializeField] private StringLocalizer characterDescriptionText;
     [SerializeField] private Image characterImage;
     [SerializeField] private Button characterBuyButton;
     [SerializeField] private UpgradeDisplay characterDisplay;
     
     [Header("Weapon")]
-    [SerializeField] private TextMeshProUGUI weaponTitleDisplay;
+    [SerializeField] private StringLocalizer weaponTitleDisplay;
     [SerializeField] private GameObject weaponCostDisplay;
     [SerializeField] private TextMeshProUGUI weaponCostText;
-    [SerializeField] private TextMeshProUGUI weaponDescriptionText;
+    [SerializeField] private StringLocalizer weaponDescriptionText;
     [SerializeField] private Image weaponImage;
     [SerializeField] private Button weaponBuyButton;
     [SerializeField] private UpgradeDisplay weaponDisplay;
@@ -35,10 +35,10 @@ public class DataSelector : MonoBehaviour, UIPanel
     public static HashSet<string> selectedEquipments = new HashSet<string>();
 
     [Header("Equipment")]
-    [SerializeField] private TextMeshProUGUI equipmentTitleDisplay;
+    [SerializeField] private StringLocalizer equipmentTitleDisplay;
     [SerializeField] private GameObject equipmentCostDisplay;
     [SerializeField] private TextMeshProUGUI equipmentCostText;
-    [SerializeField] private TextMeshProUGUI equipmentDescriptionText;
+    [SerializeField] private StringLocalizer equipmentDescriptionText;
     [SerializeField] private Image equipmentImage;
     [SerializeField] private Button equipmentBuyButton;
     [SerializeField] private UpgradeDisplay equipmentDisplay;
@@ -83,8 +83,8 @@ public class DataSelector : MonoBehaviour, UIPanel
     private void DisplayCharacter(SelectButton selectButton)
     {
         if (!characterImage.gameObject.activeInHierarchy) characterImage.gameObject.SetActive(true);
-        LocalizationManager.LocalizeTextField(selectButton.key + Vault.key.ButtonTitle, characterTitleDisplay);
-        LocalizationManager.LocalizeTextField(selectButton.key + Vault.key.ButtonDescription, characterDescriptionText);
+        characterTitleDisplay.setKey(selectButton.key + Vault.key.ButtonTitle);
+        characterDescriptionText.setKey(selectButton.key + Vault.key.ButtonDescription);
         
         characterCostDisplay.SetActive(!selectButton.isUnlocked);
         characterBuyButton.gameObject.SetActive(!selectButton.isUnlocked);
@@ -98,8 +98,8 @@ public class DataSelector : MonoBehaviour, UIPanel
     private void DisplayWeapon(SelectButton selectButton)
     {
         if (!weaponImage.gameObject.activeInHierarchy) weaponImage.gameObject.SetActive(true);
-        LocalizationManager.LocalizeTextField(selectButton.key + Vault.key.ButtonTitle, weaponTitleDisplay);
-        LocalizationManager.LocalizeTextField(selectButton.key + Vault.key.ButtonDescription, weaponDescriptionText);
+        weaponTitleDisplay.setKey(selectButton.key + Vault.key.ButtonTitle);
+        weaponDescriptionText.setKey(selectButton.key + Vault.key.ButtonDescription);
         
         weaponCostDisplay.SetActive(!selectButton.isUnlocked);
         weaponBuyButton.gameObject.SetActive(!selectButton.isUnlocked);
@@ -113,8 +113,8 @@ public class DataSelector : MonoBehaviour, UIPanel
     private void DisplayEquipment(SelectButton selectButton)
     {
         if (!equipmentImage.gameObject.activeInHierarchy) equipmentImage.gameObject.SetActive(true);
-        LocalizationManager.LocalizeTextField(selectButton.key + Vault.key.ButtonTitle, equipmentTitleDisplay);
-        LocalizationManager.LocalizeTextField(selectButton.key + Vault.key.ButtonDescription, equipmentDescriptionText);
+        equipmentTitleDisplay.setKey(selectButton.key + Vault.key.ButtonTitle);
+        equipmentDescriptionText.setKey(selectButton.key + Vault.key.ButtonDescription);
         equipmentChargeDisplay.gameObject.SetActive(true);
         equipmentChargeDisplay.setCharge(ScriptableObjectManager.dictKeyToEquipmentHandler[selectButton.key].getCharge());
         

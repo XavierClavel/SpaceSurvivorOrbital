@@ -9,17 +9,16 @@ using UnityEngine.UI;
 
 public class AltarItem : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI titleField;
-
-    [SerializeField] private TextMeshProUGUI descriptionField;
+    [SerializeField] private StringLocalizer titleField;
+    [SerializeField] private StringLocalizer descriptionField;
 
     [SerializeField] private Image icon;
     [SerializeField] private Button button;
 
     public void Setup(string key)
     {
-        LocalizationManager.LocalizeTextField(key + Vault.key.ButtonTitle, titleField);
-        LocalizationManager.LocalizeTextField(key + Vault.key.ButtonDescription, descriptionField);
+        titleField.setKey(key + Vault.key.ButtonTitle);
+        descriptionField.setKey(key + Vault.key.ButtonDescription);
         icon.sprite = ScriptableObjectManager.dictKeyToPowerHandler[key].getIcon();
         UnityAction action = delegate
         {

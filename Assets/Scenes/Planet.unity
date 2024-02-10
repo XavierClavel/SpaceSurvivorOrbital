@@ -4991,8 +4991,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94efec53ccfb4d34e8d6de3d39a62d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  titleField: {fileID: 1635461940}
-  descriptionField: {fileID: 954681794}
+  titleField: {fileID: 1635461942}
+  descriptionField: {fileID: 954681796}
   icon: {fileID: 135653544}
   button: {fileID: 2022433218}
 --- !u!1 &704507126
@@ -6006,6 +6006,7 @@ GameObject:
   - component: {fileID: 785793073}
   - component: {fileID: 785793075}
   - component: {fileID: 785793074}
+  - component: {fileID: 785793076}
   m_Layer: 5
   m_Name: Titre
   m_TagString: Untagged
@@ -6130,6 +6131,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 785793072}
   m_CullTransparentMesh: 1
+--- !u!114 &785793076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 785793072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98ca66dcc6143c4093e4c8bf42481cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 
 --- !u!1 &801951032
 GameObject:
   m_ObjectHideFlags: 0
@@ -7008,6 +7022,7 @@ GameObject:
   - component: {fileID: 954681793}
   - component: {fileID: 954681795}
   - component: {fileID: 954681794}
+  - component: {fileID: 954681796}
   m_Layer: 5
   m_Name: Description
   m_TagString: Untagged
@@ -7132,6 +7147,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954681792}
   m_CullTransparentMesh: 1
+--- !u!114 &954681796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954681792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98ca66dcc6143c4093e4c8bf42481cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 
 --- !u!1 &968670307
 GameObject:
   m_ObjectHideFlags: 0
@@ -8064,8 +8092,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94efec53ccfb4d34e8d6de3d39a62d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  titleField: {fileID: 785793074}
-  descriptionField: {fileID: 1818768846}
+  titleField: {fileID: 785793076}
+  descriptionField: {fileID: 1818768848}
   icon: {fileID: 901858225}
   button: {fileID: 877668482}
 --- !u!1 &1119918921
@@ -11077,6 +11105,7 @@ GameObject:
   - component: {fileID: 1635461939}
   - component: {fileID: 1635461941}
   - component: {fileID: 1635461940}
+  - component: {fileID: 1635461942}
   m_Layer: 5
   m_Name: Titre
   m_TagString: Untagged
@@ -11201,6 +11230,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1635461938}
   m_CullTransparentMesh: 1
+--- !u!114 &1635461942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635461938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98ca66dcc6143c4093e4c8bf42481cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 
 --- !u!1 &1647088969
 GameObject:
   m_ObjectHideFlags: 0
@@ -11877,6 +11919,7 @@ GameObject:
   - component: {fileID: 1818768845}
   - component: {fileID: 1818768847}
   - component: {fileID: 1818768846}
+  - component: {fileID: 1818768848}
   m_Layer: 5
   m_Name: Description
   m_TagString: Untagged
@@ -12001,6 +12044,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1818768844}
   m_CullTransparentMesh: 1
+--- !u!114 &1818768848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818768844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98ca66dcc6143c4093e4c8bf42481cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 
 --- !u!1 &1848652699
 GameObject:
   m_ObjectHideFlags: 0
@@ -13268,7 +13324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fdb1d195525c0a4e9075dac61cee36b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedLang: 0
 --- !u!114 &87380905712393586
 MonoBehaviour:
   m_ObjectHideFlags: 0
