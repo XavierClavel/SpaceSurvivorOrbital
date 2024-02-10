@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private CinemachineVirtualCamera cinemachineCamera;
     private CinemachineBasicMultiChannelPerlin camNoise;
+    [SerializeField] private Camera cameraNoShake;
 
     private const float boostedSpeed = 6f;
     [HideInInspector]
@@ -468,9 +469,12 @@ public class PlayerController : MonoBehaviour
 
     Vector2 getMouseAimInput()
     {
+        var noise = camNoise.m_AmplitudeGain;
+        camNoise.m_AmplitudeGain = 0f;
         Vector2 mousePos = controls.Player.MousePosition.ReadValue<Vector2>();
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-        var position = transform.position;
+        camNoise.m_AmplitudeGain = noise;
+        var position = pointerFront.position;
         Vector2 direction = (worldPos - position);
         Vector3 normalizedDirection = direction.normalized;
         float magnitude = direction.sqrMagnitude;
