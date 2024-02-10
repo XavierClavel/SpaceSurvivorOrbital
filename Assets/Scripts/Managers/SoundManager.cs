@@ -62,7 +62,6 @@ public class SoundManager : MonoBehaviour
 
 
     public static SoundManager instance = null;
-    private bool start = true;
 
     struct clip
     {
@@ -94,7 +93,7 @@ public class SoundManager : MonoBehaviour
                 { gameScene.planetJungle, planetJungleMusic},
                 { gameScene.win, winMusic},
             };
-            onSceneChange(currentScene);
+            onSceneChange(currentScene, true);
         }
         else if (instance != this)
         {
@@ -114,10 +113,9 @@ public class SoundManager : MonoBehaviour
         HighPitchRange = ConstantsData.audioMaxPitch;
     }
 
-    public static void onSceneChange(gameScene newScene)
+    public static void onSceneChange(gameScene newScene, bool init = false)
     {
-        if (!instance.start && newScene == instance.currentScene) return;
-        instance.start = false;
+        if (!init && newScene == instance.currentScene) return;
         instance.currentScene = newScene;
         AudioSource previousMusicSource = currentMusicSource;
         previousMusicSource?.DOFade(0f, 1f).SetEase(Ease.Linear).OnComplete(previousMusicSource.Stop);
