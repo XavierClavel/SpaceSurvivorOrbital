@@ -21,9 +21,9 @@ public class Shop : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textHealButton;
     
     private const int costHealth = 20;
-    private const int costResourceBlue = 30;
-    private const int costResourceOrange = 10;
-    private const int costResourceGreen = 10;
+    private const int costResourceBlue = 50;
+    private const int costResourceOrange = 30;
+    private const int costResourceGreen = 30;
 
     public static int maxHealth;
     public static int maxStock;
