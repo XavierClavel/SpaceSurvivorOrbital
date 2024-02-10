@@ -53,6 +53,7 @@ public class UIManager : MonoBehaviour
 
     public void SwitchToPlanetSelection()
     {
+        SoundManager.PlaySfx("Power_Switch");
         instance.upgradesManager.onPanelUnfocus();
         instance.upgradesUI.DOAnchorPosY(posAboveCamera, 1f).SetEase(Ease.InOutQuint);
         instance.planetsUI.DOAnchorPosY(0f, 1f).SetEase(Ease.InOutQuint);
@@ -60,6 +61,7 @@ public class UIManager : MonoBehaviour
 
     public void SwitchToUpgradesSelection()
     {
+        SoundManager.PlaySfx("Power_Switch");
         instance.planetsUI.DOAnchorPosY(posBelowCamera, 1f).SetEase(Ease.InOutQuint);
         instance.upgradesUI.DOAnchorPosY(0f, 1f).SetEase(Ease.InOutQuint);
     }

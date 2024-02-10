@@ -58,6 +58,8 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     private Vector2 randomizePositionFactor = new Vector2(0f,00f);
 
     private static Node endNode = null;
+    private bool acceptPlanetSelection = true;
+    private static PlanetSelectionManager instance;
 
     
 #region staticAPI
@@ -105,6 +107,15 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         }
             
         else return currentNode.childNodes;
+    }
+
+    public static void SelectPlanet(Planet planet, Node node)
+    {
+        if (!instance.acceptPlanetSelection) return;
+        SoundManager.PlaySfx("Ship_Landing");
+        instance.acceptPlanetSelection = false;
+        PlanetSelectionManager.SelectNode(node);
+        PlanetSelector.SelectPlanet(planet);
     }
 
 #endregion
@@ -213,6 +224,7 @@ public RectTransform getUITransform()
 
     public void Setup()
     {
+        instance = this;
         panelRect = GetComponent<RectTransform>();
 
         DisplayData();

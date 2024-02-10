@@ -1,6 +1,16 @@
 public static class Vault
 {
 
+    public static class character
+    {
+        public const string Knil = "Knil";
+    }
+
+    public static class weapon
+    {
+        public const string Gun = "Gun";
+    }
+
     public static class power
     {
         public const string DivineLightning = "Power_Lightning";

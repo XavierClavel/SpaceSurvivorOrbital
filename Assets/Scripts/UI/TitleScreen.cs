@@ -52,8 +52,8 @@ public class TitleScreen : MonoBehaviour, UIPanel
     public void LoadTuto()
     {
         ResetManager.Reset();
-        DataSelector.selectedCharacter = "Knil";
-        DataSelector.selectedWeapon = "Gun";
+        DataSelector.selectedCharacter = Vault.character.Knil;
+        DataSelector.selectedWeapon = Vault.weapon.Gun;
         PlayerManager.isTuto = true;
         DataSelector.instance.ValidateSelection();
         SoundManager.PlaySfx(transform, key: "Ship_TakeOff");

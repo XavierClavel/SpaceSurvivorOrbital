@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -29,7 +30,6 @@ public class SceneTransitionManager : MonoBehaviour
         canvasY = rec.height;
         
         imageTransform.sizeDelta = new Vector2(canvasX, canvasY);
-        maskTransform.sizeDelta = 2 * canvasX * Vector2.one;
         if (!doFadeIn) return;
         overlay.SetActive(true);
         StartCoroutine(nameof(AnimationEnterScene));
@@ -40,13 +40,19 @@ public class SceneTransitionManager : MonoBehaviour
         Debug.Log("method called");
         LocalTransitionToScene(gameScene.titleScreen);
     }
-    
+
     public void LocalTransitionToScene(gameScene newScene)
     {
         SoundManager.onSceneChange(newScene);
         overlay.SetActive(true);
+        StartCoroutine(nameof(TransitionCoroutine), SceneToName(newScene));
+    }
+
+    private IEnumerator TransitionCoroutine(string scene)
+    {
         imageTransform.sizeDelta = new Vector2(canvasX, canvasY);
         maskTransform.sizeDelta = Vector2.zero;
+        yield return null;
         maskTransform
             .DOSizeDelta(2 * canvasX * Vector2.one, 1f)
             .SetEase(Ease.InOutQuint)
@@ -55,7 +61,7 @@ public class SceneTransitionManager : MonoBehaviour
             .OnComplete(delegate
             {
                 PauseMenu.ResumeTime();
-                SceneManager.LoadScene(SceneToName(newScene));
+                SceneManager.LoadScene(scene);
             });
     }
 
@@ -90,6 +96,7 @@ public class SceneTransitionManager : MonoBehaviour
 
     IEnumerator AnimationEnterScene()
     {
+        maskTransform.sizeDelta = 2 * canvasX * Vector2.one;
         yield return null;
         maskTransform.DOSizeDelta(Vector2.zero, 1f).SetEase(Ease.InOutQuint);
     }

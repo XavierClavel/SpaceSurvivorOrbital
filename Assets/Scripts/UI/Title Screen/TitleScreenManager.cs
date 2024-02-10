@@ -61,28 +61,28 @@ public class TitleScreenManager : MonoBehaviour
 
     public void SwitchToDataSelection()
     {
-        SoundManager.PlaySfx(transform, key: "Power_Switch");
+        SoundManager.PlaySfx("Power_Switch");
         instance.titleScreenUI.DOAnchorPosX(posRightCamera, 1f).SetEase(Ease.InOutQuint);
         instance.dataSelectorUI.DOAnchorPosX(0f, 1f).SetEase(Ease.InOutQuint);
     }
 
     public void SwitchToDataSelectionFromEquipment()
     {
-        SoundManager.PlaySfx(transform, key: "Power_Switch");
+        SoundManager.PlaySfx("Power_Switch");
         instance.equipmentSelectorUI.DOAnchorPosX(posLeftCamera, 1f).SetEase(Ease.InOutQuint);
         instance.dataSelectorUI.DOAnchorPosX(0, 1f).SetEase(Ease.InOutQuint);
     }
 
     public void SwitchToTitleScreen()
     {
-        SoundManager.PlaySfx(transform, key: "Power_Switch");
+        SoundManager.PlaySfx("Power_Switch");
         instance.dataSelectorUI.DOAnchorPosX(posLeftCamera, 1f).SetEase(Ease.InOutQuint);
         instance.titleScreenUI.DOAnchorPosX(0f, 1f).SetEase(Ease.InOutQuint);
     }
 
     public void SwitchToEquipmentScreen()
     {
-        SoundManager.PlaySfx(transform, key: "Power_Switch");
+        SoundManager.PlaySfx("Power_Switch");
         instance.dataSelectorUI.DOAnchorPosX(posRightCamera, 1f).SetEase(Ease.InOutQuint);
         instance.equipmentSelectorUI.DOAnchorPosX(0f, 1f).SetEase(Ease.InOutQuint);
     }

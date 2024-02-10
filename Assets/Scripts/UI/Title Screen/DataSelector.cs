@@ -62,6 +62,7 @@ public class DataSelector : MonoBehaviour, UIPanel
 
     private int currentChargeCost;
     private bool validated = false;
+    private bool playSound = false;
 
 
     public void BuyCharge()
@@ -166,6 +167,7 @@ public class DataSelector : MonoBehaviour, UIPanel
         maxEquipmentCharge = SaveManager.getCharge();
 
         UpdateCurrentCharge();
+        playSound = true;
     }
 
     public void UpdateCurrentCharge()
@@ -217,10 +219,10 @@ public class DataSelector : MonoBehaviour, UIPanel
     {
         SelectGeneric(value.getKey());
     }
-    
+
     public static void SelectGeneric(string value) 
     {
-        SoundManager.PlaySfx("Button_Switch");
+        if (instance.playSound) SoundManager.PlaySfx("Button_Switch");
         if (ScriptableObjectManager.dictKeyToCharacterHandler.ContainsKey(value))
         {
             instance.SelectCharacter(value);

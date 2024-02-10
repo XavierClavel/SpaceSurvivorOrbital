@@ -51,7 +51,7 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
 
     public void OnClick()
     {
-        SoundManager.PlaySfx(transform, key: "Button_Switch");
+        SoundManager.PlaySfx("Button_Switch");
     }
 
 
