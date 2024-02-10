@@ -33,6 +33,7 @@ public class DataManager : ScriptableObject
     [SerializeField] string selectedCharacter = "Knil";
     [SerializeField] string selectedWeapon = "Laser";
     private static DataManager instance;
+    private static bool initialized = false;
 
     
     public void LoadData()
@@ -85,7 +86,10 @@ public class DataManager : ScriptableObject
         PlayerManager.setCharacter(ScriptableObjectManager.dictKeyToCharacterHandler[selectedCharacter]);
 
         PlanetSelectionManager.GenerateData();
+        initialized = true;
     }
+
+    public static bool isInitialized() => initialized;
 
     private void getSaveData()
     {

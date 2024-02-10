@@ -70,10 +70,25 @@ public class EffectData
         }
     }
 
+    protected T getValue<T>(string key, T defaultValue)
+    {
+        string value = dictColumnToValue[key];
+        if (string.IsNullOrEmpty(value)) return defaultValue;
+        try
+        {
+            return Helpers.parseString<T>(dictColumnToValue[key]);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Failed to parse value in column \"{key}\".");
+            return defaultValue;
+        }
+    }
+
     protected void SetValue<T>(ref T variable, string key)
     {
         string value = dictColumnToValue[key];
-        if (value == null || value == "" || value == string.Empty) return;
+        if (string.IsNullOrEmpty(value)) return;
         try
         {
             variable = Helpers.parseString<T>(dictColumnToValue[key]);

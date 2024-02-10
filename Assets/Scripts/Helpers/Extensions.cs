@@ -59,6 +59,11 @@ public static class Extensions
     {
         return list.Count == 0;
     }
+
+    public static int maxIndex<T>(this IList<T> list)
+    {
+        return list.Count - 1;
+    }
     
     public static List<T> getRandomList<T>(this IEnumerable<T> list, int size)
     {
