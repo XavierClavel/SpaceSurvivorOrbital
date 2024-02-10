@@ -453,6 +453,12 @@ public class PlayerController : MonoBehaviour
         targetMoveAmount = moveDir * baseSpeed * speedMultiplier;
 
         moveAmount = Vector2.SmoothDamp(moveAmount, targetMoveAmount, ref smoothMoveVelocity, 0.10f);
+        Vector2 localMove = moveAmount * Time.fixedDeltaTime;
+        _walkDirection = angleToDirection(Vector2.SignedAngle(localMove, Vector2.down) + 180f);
+        rb.MovePosition(rb.position + localMove);
+        pointerFront.position = transform.position;
+        cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
+
     }
 
     Vector2 getGamepadAimInput()
@@ -507,19 +513,7 @@ public class PlayerController : MonoBehaviour
             _ => playerDirection.back
         };
     }
-
-
-    void FixedUpdate()
-    {
-        Vector2 localMove = moveAmount * Time.fixedDeltaTime;
-        _walkDirection = angleToDirection(Vector2.SignedAngle(localMove, Vector2.down) + 180f);
-
-        rb.MovePosition(rb.position + localMove);
-        pointerFront.position = transform.position;
-        cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
-
-    }
-
+    
     void Death()
     {
         if (PlayerEventsManager.onPlayerDeath()) return;

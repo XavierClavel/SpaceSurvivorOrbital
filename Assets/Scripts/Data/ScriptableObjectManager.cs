@@ -48,6 +48,14 @@ public static class ScriptableObjectManager
             dictKeyToPowerHandler[powerHandler.getKey()] = powerHandler;
         }
         
+        dictKeyToArtefactHandler = new Dictionary<string, ArtefactHandler>();
+        ArtefactHandler[] artefactHandlers = Resources.LoadAll<ArtefactHandler>(Vault.path.Artefacts);
+        foreach (ArtefactHandler artefactHandler in artefactHandlers)
+        {
+            if (!artefactHandler.canBeSelected()) continue;
+            dictKeyToArtefactHandler[artefactHandler.getKey()] = artefactHandler;
+        }
+        
         dictKeyToWeaponHandler = new Dictionary<string, WeaponHandler>();
         baseWeapons = new List<WeaponHandler>();
         WeaponHandler[] weaponHandlers = Resources.LoadAll<WeaponHandler>(Vault.path.BaseWeapons);
