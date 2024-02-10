@@ -11,6 +11,7 @@ public class DataManager : ScriptableObject
     [SerializeField] TextAsset weaponData;
     [SerializeField] TextAsset powerData;
     [SerializeField] TextAsset equipmentsData;
+    [SerializeField] private TextAsset artefactsData;
     [SerializeField] TextAsset breakableData;
     [SerializeField] List<TextAsset> localizationData;
     [SerializeField] TextAsset buttonLocalization;
@@ -55,6 +56,7 @@ public class DataManager : ScriptableObject
         damagerDataBuilder.loadText(weaponData, ref dictWeapons, "Weapons");
         damagerDataBuilder.loadText(powerData, ref dictPowers, "Powers");
         damagerDataBuilder.loadText(equipmentsData, ref dictEquipments, "Equipments");
+        damagerDataBuilder.loadText(artefactsData, ref dictArtefacts, "Artefacts");
 
         objectDataBuilder.loadText(breakableData, ref dictObjects, "Entities");
         
