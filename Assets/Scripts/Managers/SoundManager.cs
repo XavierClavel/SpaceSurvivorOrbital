@@ -62,6 +62,7 @@ public class SoundManager : MonoBehaviour
 
 
     public static SoundManager instance = null;
+    private bool start = true;
 
     struct clip
     {
@@ -115,7 +116,8 @@ public class SoundManager : MonoBehaviour
 
     public static void onSceneChange(gameScene newScene)
     {
-        if (newScene == instance.currentScene) return;
+        if (!instance.start && newScene == instance.currentScene) return;
+        instance.start = false;
         instance.currentScene = newScene;
         AudioSource previousMusicSource = currentMusicSource;
         previousMusicSource?.DOFade(0f, 1f).SetEase(Ease.Linear).OnComplete(previousMusicSource.Stop);
