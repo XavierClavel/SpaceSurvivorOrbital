@@ -30,6 +30,7 @@ public static class Vault
         public const string Powers = "Powers/";
         public const string Characters = "Characters/";
         public const string Equipments = "Equipments/";
+        public const string Artefacts = "Artefacts/";
     }
     public static class scene
     {
