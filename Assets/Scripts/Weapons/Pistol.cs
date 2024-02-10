@@ -71,7 +71,7 @@ public class Pistol : Gun
     {
         childPistols.ForEach( it => it.Fire());
 
-        //PlayerController.Shake(0.7f, 0.2f);
+        PlayerController.Shake(0.7f, 0.2f);
 
         if (stats.projectiles == 1)
         {
