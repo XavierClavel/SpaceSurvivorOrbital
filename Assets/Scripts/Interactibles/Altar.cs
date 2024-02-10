@@ -68,7 +68,7 @@ public class Altar : MonoBehaviour, IInteractable
     IEnumerator PrepareAltar()
     {
         playerEffect.Play();
-        PlayerController.StartShake(1f, 1f);
+        //PlayerController.StartShake(1f, 1f);
 
         while (fillAmount > 0)
         {
@@ -78,7 +78,7 @@ public class Altar : MonoBehaviour, IInteractable
             image.fillAmount = fillAmount;
         }
         
-        PlayerController.StopShake();
+        //PlayerController.StopShake();
 
         playerEffect.Stop();
 

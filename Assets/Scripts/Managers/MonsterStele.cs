@@ -80,7 +80,7 @@ public class MonsterStele : Breakable
     public override void Hit(HitInfo hitInfo)
     {
         base.Hit(hitInfo);
-        PlayerController.Shake(0.5f, 0.2f);
+        //PlayerController.Shake(0.5f, 0.2f);
         SoundManager.PlaySfx(transform, key: "Spawn_Hit");
         healthChange value = hitInfo.critical ? healthChange.critical : healthChange.hit;
         if (hitInfo.damage != 0)
