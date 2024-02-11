@@ -10,6 +10,7 @@ public class ArtefactHandler : HidableObjectHandler
     public void Activate(BonusManager bonusManager)
     {
         Artefact instance = GameObject.Instantiate(artefact);
+        Debug.Log(instance.name);
         instance.Setup(PlayerManager.dictKeyToStats[key]);
         if (booster)
         {

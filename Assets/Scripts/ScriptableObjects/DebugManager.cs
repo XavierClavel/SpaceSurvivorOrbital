@@ -33,6 +33,9 @@ public class DebugManager : ScriptableObject
     [SerializeField] private bool stock;
     [SerializeField] private bool radar;
 
+    [Header("Start with artefacts")] [SerializeField]
+    private bool ennemiesDropResources;
+
     [Header("Others")] 
     [SerializeField] private bool spawnBossOnStart;
 
@@ -92,6 +95,7 @@ public class DebugManager : ScriptableObject
         
         if (startWithResources) PlayerController.instance.debug_GiveResources(50);
         
+        //Powers
         if (divineLightning) AcquirePower(Vault.power.DivineLightning);
         if (fairy) AcquirePower(Vault.power.Fairy);
         if (ghost) AcquirePower(Vault.power.Ghost);
@@ -100,10 +104,14 @@ public class DebugManager : ScriptableObject
         if (toxicZone) AcquirePower(Vault.power.ToxicZone);
         if (dagger) AcquirePower(Vault.power.Dagger);
         
+        //Equipments
         if (shield) AcquireEquipment(Vault.power.Shield);
         if (suit) AcquireEquipment("Suit");
         if (stock) AcquireEquipment("Stock");
         if (radar) AcquireEquipment("Radar");
+        
+        //Artefacts
+        if (ennemiesDropResources) AcquireArtefact("First");
 
     }
 
@@ -128,6 +136,17 @@ public class DebugManager : ScriptableObject
         EquipmentHandler equipmentHandler = ScriptableObjectManager.dictKeyToEquipmentHandler[key];
         if (PlayerManager.equipments.Contains(equipmentHandler)) return;
         PlayerManager.AcquireEquipment(equipmentHandler);
+    }
+    
+    static void AcquireArtefact(string key)
+    {
+        ArtefactHandler artefactHandler = ScriptableObjectManager.dictKeyToArtefactHandler[key];
+        if (PlayerManager.artefacts.Contains(artefactHandler))
+        {
+            Debug.Log($"Key {key} not found");
+            return;
+        }
+        PlayerManager.AcquireArtefact(artefactHandler);
     }
 
 }

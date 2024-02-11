@@ -314,6 +314,13 @@ public class PlayerController : MonoBehaviour
         {
             equipmentHandler.Activate(bonusManager);
         }
+        
+        Debug.Log(PlayerManager.artefacts.Count);
+
+        foreach (ArtefactHandler artefactHandler in PlayerManager.artefacts)
+        {
+            artefactHandler.Activate(bonusManager);
+        }
 
         maxHealth = PlayerManager.playerData.character.maxHealth + bonusManager.getBonusMaxHealth();
         shieldsAmount = bonusManager.getBonusShield();

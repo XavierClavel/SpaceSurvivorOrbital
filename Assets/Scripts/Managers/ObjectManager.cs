@@ -146,6 +146,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener
     {
         if (resourceType == type.green) SpawnResourcesGreen(position, amount);
         else if (resourceType == type.orange) SpawnResourcesOrange(position, amount);
+        ResourcesAttractor.ForceUpdate();
     }
     
     public static void SpawnResources(Vector3 position, int amount)
