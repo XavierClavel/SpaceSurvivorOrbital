@@ -299,12 +299,14 @@ public class TileManager : MonoBehaviour
 
     private void GenerateTileObjects()
     {
+        GameObject parent = Instantiate(new GameObject());
+        parent.name = "Map";
         foreach (var v in dictTiles)
         {
             Vector2Int index = v.Key;
             Vector2Int position = IndexToPosition(index);
             Vector3 worldPosition = PositionToWorld(position);
-            GameObject tile = Instantiate(v.Value.getTileObject(), worldPosition, Quaternion.identity);
+            GameObject tile = Instantiate(v.Value.getTileObject(), worldPosition, Quaternion.identity, parent.transform);
             dictPositionToTile.Add(position, tile);
             map[index.x, index.y] = null;
 
