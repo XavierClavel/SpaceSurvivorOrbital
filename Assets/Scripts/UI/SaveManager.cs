@@ -29,9 +29,20 @@ public static class SaveManager
         Save();
     }
 
-    public static int retrieveSouls()
+    public static int getSouls()
     {
         return saveData.souls;
+    }
+    
+    public static void setSouls(int value)
+    {
+        saveData.souls = value;
+        Save();
+    }
+
+    public static void spendSouls(int value)
+    {
+        setSouls(getSouls() - value);
     }
 
     public static bool isOptionUnlocked(string key)
@@ -47,12 +58,6 @@ public static class SaveManager
     public static void unlockOption(string key)
     {
         saveData.optionsUnlocked.Add(key);
-        Save();
-    }
-
-    public static void updateSouls(int value)
-    {
-        saveData.souls = value;
         Save();
     }
 

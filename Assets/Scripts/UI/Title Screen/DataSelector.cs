@@ -21,7 +21,6 @@ public class DataSelector : MonoBehaviour, UIPanel
     [SerializeField] private StringLocalizer characterDescriptionText;
     [SerializeField] private Image characterImage;
     [SerializeField] private Button characterBuyButton;
-    [SerializeField] private UpgradeDisplay characterDisplay;
     
     [Header("Weapon")]
     [SerializeField] private StringLocalizer weaponTitleDisplay;
@@ -30,7 +29,6 @@ public class DataSelector : MonoBehaviour, UIPanel
     [SerializeField] private StringLocalizer weaponDescriptionText;
     [SerializeField] private Image weaponImage;
     [SerializeField] private Button weaponBuyButton;
-    [SerializeField] private UpgradeDisplay weaponDisplay;
 
     public static HashSet<string> selectedEquipments = new HashSet<string>();
 
@@ -41,7 +39,6 @@ public class DataSelector : MonoBehaviour, UIPanel
     [SerializeField] private StringLocalizer equipmentDescriptionText;
     [SerializeField] private Image equipmentImage;
     [SerializeField] private Button equipmentBuyButton;
-    [SerializeField] private UpgradeDisplay equipmentDisplay;
     [SerializeField] private ChargedSelectButton equipmentChargeDisplay;
 
     public Dictionary<string, SelectButton> dictKeyToButton = new Dictionary<string, SelectButton>();
@@ -88,11 +85,11 @@ public class DataSelector : MonoBehaviour, UIPanel
         
         characterCostDisplay.SetActive(!selectButton.isUnlocked);
         characterBuyButton.gameObject.SetActive(!selectButton.isUnlocked);
+        characterBuyButton.onClick.RemoveAllListeners();
+        characterBuyButton.onClick.AddListener(selectButton.Buy);
         
         characterCostText.SetText(selectButton.cost.ToString());
         characterImage.sprite = getIcon(selectButton.key);
-        
-        characterDisplay.SetupAction(selectButton.Buy);
     }
     
     private void DisplayWeapon(SelectButton selectButton)
@@ -103,11 +100,11 @@ public class DataSelector : MonoBehaviour, UIPanel
         
         weaponCostDisplay.SetActive(!selectButton.isUnlocked);
         weaponBuyButton.gameObject.SetActive(!selectButton.isUnlocked);
+        weaponBuyButton.onClick.RemoveAllListeners();
+        weaponBuyButton.onClick.AddListener(selectButton.Buy);
         
         weaponCostText.SetText(selectButton.cost.ToString());
         weaponImage.sprite = getIcon(selectButton.key);
-        
-        weaponDisplay.SetupAction(selectButton.Buy);
     }
 
     private void DisplayEquipment(SelectButton selectButton)
@@ -120,11 +117,11 @@ public class DataSelector : MonoBehaviour, UIPanel
         
         equipmentCostDisplay.SetActive(!selectButton.isUnlocked);
         equipmentBuyButton.gameObject.SetActive(!selectButton.isUnlocked);
+        equipmentBuyButton.onClick.RemoveAllListeners();
+        equipmentBuyButton.onClick.AddListener(selectButton.Buy);
 
         equipmentCostText.SetText(selectButton.cost.ToString());
         equipmentImage.sprite = getIcon(selectButton.key);
-
-        equipmentDisplay.SetupAction(selectButton.Buy);
     }
 
     public static void DisplayGeneric(string key, SelectButton selectButton)
@@ -312,9 +309,8 @@ public class DataSelector : MonoBehaviour, UIPanel
 
     public static bool Transaction(int cost)
     {
-        PlayerManager.setSouls();
-        if (PlayerManager.getSouls() < cost) return false;
-        PlayerManager.spendSouls(cost);
+        if (SaveManager.getSouls() < cost) return false;
+        SaveManager.spendSouls(cost);
         TitleScreen.UpdateSoulsDisplay();
         return true;
     }

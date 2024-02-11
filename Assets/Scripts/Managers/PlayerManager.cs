@@ -37,31 +37,20 @@ public class PlayerManager
     public static Dictionary<string, PlayerData> dictKeyToStats = new Dictionary<string, PlayerData>();
     private static int souls = 0;
 
-    public static int getSouls()
-    {
-        return souls;
-    }
+    public static int getSouls() => souls;
 
-    public static void setSouls()
-    {
-        setSouls((SaveManager.retrieveSouls()));
-    }
+    public static void resetSouls() => setSouls(0);
 
-    public static void gainSouls(int value)
-    {
-        setSouls(getSouls() + value);
-    }
+    public static void gainSouls(int value) => setSouls(souls + value);
 
-    public static void setSouls(int value)
+    public static void setSouls(int value) => souls = value;
+    public static void spendSouls(int value) => setSouls(souls - value);
+
+    public static void saveSouls()
     {
-        souls = value;
-        SaveManager.updateSouls(souls);
-    }
-    public static int spendSouls(int value)
-    {
-        souls -= value;
-        SaveManager.updateSouls(souls);
-        return souls;
+        int currentSavedSouls = SaveManager.getSouls();
+        SaveManager.setSouls(currentSavedSouls + souls);
+        resetSouls();
     }
 
     public static void setCurrentDamage(int health, int maxHealth)
@@ -96,6 +85,7 @@ public class PlayerManager
         filledOrange = 0;
         damageTaken = 0;
         currentTimer = 0;
+        saveSouls();
 
         playerData.setBase();
         weaponData = new PlayerData();
