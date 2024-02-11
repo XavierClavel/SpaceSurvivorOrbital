@@ -464,6 +464,10 @@ public class PlayerController : MonoBehaviour
 
         moveAmount = Vector2.SmoothDamp(moveAmount, targetMoveAmount, ref smoothMoveVelocity, 0.10f);
         
+        Vector2 localMove = moveAmount * Time.fixedDeltaTime;
+        _walkDirection = angleToDirection(Vector2.SignedAngle(localMove, Vector2.down) + 180f);
+        rb.MovePosition(rb.position + localMove);
+        
         pointerFront.position = transform.position;
         cameraTransform.position = new Vector3(transform.position.x, transform.position.y, cameraTransform.position.z);
 
@@ -471,9 +475,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 localMove = moveAmount * Time.fixedDeltaTime;
-        _walkDirection = angleToDirection(Vector2.SignedAngle(localMove, Vector2.down) + 180f);
-        rb.MovePosition(rb.position + localMove);
+        
     }
 
 
@@ -484,15 +486,8 @@ public class PlayerController : MonoBehaviour
 
     Vector2 getMouseAimInput()
     {
-        CinemachineVirtualCamera c;
-        var noise = camNoise.m_AmplitudeGain;
-        camNoise.enabled = false;
-        camNoise.m_AmplitudeGain = 0f;
         Vector2 mousePos = controls.Player.MousePosition.ReadValue<Vector2>();
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-        
-        camNoise.m_AmplitudeGain = noise;
-        camNoise.enabled = true;
+        Vector3 worldPos = cameraNoShake.ScreenToWorldPoint(mousePos);
         var position = pointerFront.position;
         Vector2 direction = (worldPos - position);
         Vector3 normalizedDirection = direction.normalized;
@@ -503,6 +498,9 @@ public class PlayerController : MonoBehaviour
 
     void Aim()
     {
+        cinemachineCamera.transform.rotation = Quaternion.identity;
+        cameraNoShake.transform.rotation = Quaternion.identity;
+        
         if (Helpers.isPlatformAndroid()) aimVector = joystickAim.Direction;
         else aimVector = isPlayingWithGamepad ? getGamepadAimInput() : getMouseAimInput();
 
@@ -560,7 +558,7 @@ public class PlayerController : MonoBehaviour
     private bool isShaking = false;
     private bool overrideShake = false;
 
-    public static void StartShake(float shakeIntensity, float shakeDuration)
+    public static void StartShake(float shakeIntensity)
     {
         instance.StopCoroutine(nameof(ShakeCoroutine));
         instance.overrideShake = true;
@@ -592,6 +590,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator ShakeCoroutine()
     {
         Debug.Log(shakeIntensity);
+        cinemachineCamera.ForceCameraPosition(cameraNoShake.transform.position, cameraNoShake.transform.rotation);
         isShaking = true;
         camNoise.m_AmplitudeGain = shakeIntensity;
         yield return Helpers.getWait(shakeDuration);

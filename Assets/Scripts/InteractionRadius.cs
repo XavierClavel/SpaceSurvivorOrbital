@@ -52,6 +52,7 @@ public class InteractionRadius : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!ObjectManager.dictObjectToInteractable.ContainsKey(other.gameObject)) return;
         interactables.Add(ObjectManager.dictObjectToInteractable[other.gameObject]);
     }
 

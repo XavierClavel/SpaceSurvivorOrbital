@@ -70,8 +70,7 @@ public class Pistol : Gun
     protected override void Fire()
     {
         childPistols.ForEach( it => it.Fire());
-
-        //PlayerController.Shake(0.7f, 0.2f);
+        int sideProjectiles = stats.projectiles / 2;
 
         if (stats.projectiles == 1)
         {
@@ -80,28 +79,24 @@ public class Pistol : Gun
             Vector3 eulerRotation = getBulletStartRotation();
 
             FireBullet(position, eulerRotation);
-            return;
-        }
-
-        int sideProjectiles = stats.projectiles / 2;
-
-        if (stats.projectiles % 2 == 1)
+        } else if (stats.projectiles % 2 == 1)
         {
             for (int i = -sideProjectiles; i <= sideProjectiles; i++)
             {
                 FireBulletByIndex(i);
             }
-            return;
         }
-
-        for (int i = -sideProjectiles; i <= sideProjectiles; i++)
+        else
         {
-            if (i == 0) continue;
-            float j = (float)i - Mathf.Sign(i) * 0.5f;
-
-            FireBulletByIndex(j);
+            for (int i = -sideProjectiles; i <= sideProjectiles; i++)
+            {
+                if (i == 0) continue;
+                float j = (float)i - Mathf.Sign(i) * 0.5f;
+                FireBulletByIndex(j);
+            }
         }
-        return;
+        
+        PlayerController.Shake(0.7f, 0.2f);
     }
 
     void FireBulletByIndex(float i)

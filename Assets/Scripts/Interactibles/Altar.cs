@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Altar : MonoBehaviour, IInteractable
+public class Altar : MonoBehaviour
 {
     [SerializeField] Image image;
     [SerializeField] float timeToLaunch = 4f;
@@ -31,17 +31,10 @@ public class Altar : MonoBehaviour, IInteractable
     
     private void Start()
     {
-        ObjectManager.dictObjectToInteractable.Add(gameObject, this);
-        //animator = GetComponent<Animator>();
-
+        timeToLaunch = 500;
         factor = 1f / timeToLaunch;
         listeners.ForEach(it => it.onAltarSpawned(this));
     }
-
-    public void StartInteracting() { }
-
-    public void StopInteracting() { }
-    public void Interacting() { }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -68,7 +61,8 @@ public class Altar : MonoBehaviour, IInteractable
     IEnumerator PrepareAltar()
     {
         playerEffect.Play();
-        //PlayerController.StartShake(1f, 1f);
+        
+        PlayerController.StartShake(1f);
 
         while (fillAmount > 0)
         {
@@ -78,7 +72,7 @@ public class Altar : MonoBehaviour, IInteractable
             image.fillAmount = fillAmount;
         }
         
-        //PlayerController.StopShake();
+        PlayerController.StopShake();
 
         playerEffect.Stop();
 
