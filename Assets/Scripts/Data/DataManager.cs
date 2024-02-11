@@ -4,6 +4,7 @@ using System.Text;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using MyBox;
 
 [CreateAssetMenu(fileName = "DataManager", menuName = Vault.other.scriptableObjectMenu + "DataManager", order = 0)]
 public class DataManager : ScriptableObject
@@ -81,6 +82,9 @@ public class DataManager : ScriptableObject
 
         DataSelector.selectedCharacter = selectedCharacter;
         DataSelector.selectedWeapon = selectedWeapon;
+
+        dictWeapons.ForEach(it => Debug.Log(it.Key));
+        ScriptableObjectManager.dictKeyToWeaponHandler.ForEach(it => Debug.Log(it.Key));
         
         PlayerManager.setWeapon(dictWeapons[selectedWeapon].Clone(), ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);
         PlayerManager.setCharacter(ScriptableObjectManager.dictKeyToCharacterHandler[selectedCharacter]);

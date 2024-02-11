@@ -65,7 +65,7 @@ public class Helpers : MonoBehaviour
         foreach (Collider2D collider in collidersInRadius)
         {
             if (Vector2.Angle(collider.bounds.center - center.position, direction) <= halfSpan)
-            {
+            { 
                 validColliders.Add(collider);
             }
         }
