@@ -27,7 +27,11 @@ public class AltarPanel : MonoBehaviour
         List<PowerHandler> powersRemaining = ScriptableObjectManager.dictKeyToPowerHandler.Values.ToList().Difference(PlayerManager.powers);
         foreach (AltarItem altarItem in instance.altarItems)
         {
-            if (powersRemaining.Count == 0) continue;
+            if (PlayerManager.powers.Count >= 6 || powersRemaining.Count == 0)
+            {
+                altarItem.gameObject.SetActive(false);
+                continue;
+            }
             PowerHandler selectedPower = powersRemaining.popRandom();
             altarItem.Setup(selectedPower.getKey());
         }
