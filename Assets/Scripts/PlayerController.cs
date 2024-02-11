@@ -37,8 +37,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private CinemachineVirtualCamera cinemachineCamera;
     private CinemachineBasicMultiChannelPerlin camNoise;
-    [SerializeField] private Camera cameraNoShake;
-    private Transform cameraNoShakeTransform;
     private Vector2 noise = Vector2.zero;
     [SerializeField] private Transform noiseTransform;
 
@@ -102,6 +100,7 @@ public class PlayerController : MonoBehaviour
     public Transform pointerRight;
     public Transform pointerLeft;
     Vector2 moveDir;
+    private Camera cam;
 
     [Header("UI")] 
     [SerializeField] private TextMeshProUGUI soulsDisplay;
@@ -291,12 +290,12 @@ public class PlayerController : MonoBehaviour
         }
 
         camNoise = cinemachineCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        cameraNoShakeTransform = cameraNoShake.transform;
     }
 
 
     void Start()
     {
+        cam = Camera.main;
         if (Helpers.isPlatformAndroid()) Application.targetFrameRate = 60;
         
         playerAnimator.runtimeAnimatorController = DataSelector.getSelectedCharacter().getAnimatorController();
@@ -485,7 +484,7 @@ public class PlayerController : MonoBehaviour
     Vector2 getMouseAimInput()
     {
         Vector2 mousePos = controls.Player.MousePosition.ReadValue<Vector2>();
-        Vector3 worldPos = cameraNoShake.ScreenToWorldPoint(mousePos);
+        Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
         var position = pointerFront.position;
         Vector2 direction = (worldPos - position);
         Vector3 normalizedDirection = direction.normalized;
@@ -497,7 +496,6 @@ public class PlayerController : MonoBehaviour
     void Aim()
     {
         cinemachineCamera.transform.rotation = Quaternion.identity;
-        cameraNoShake.transform.rotation = Quaternion.identity;
         
         if (Helpers.isPlatformAndroid()) aimVector = joystickAim.Direction;
         else aimVector = isPlayingWithGamepad ? getGamepadAimInput() : getMouseAimInput();
@@ -566,12 +564,8 @@ public class PlayerController : MonoBehaviour
     public static void StopShake()
     {
         if (!instance.overrideShake) return;
-        var position = instance.cameraNoShakeTransform.position;
-        var rotation = instance.cameraNoShakeTransform.rotation;
-        instance.cinemachineCamera.ForceCameraPosition(position, rotation);
         instance.overrideShake = false;
         instance.camNoise.m_AmplitudeGain = 0f;
-        instance.cinemachineCamera.ForceCameraPosition(position, rotation);
     }
 
     public static void Shake(float shakeIntensity, float shakeDuration)
@@ -589,15 +583,10 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator ShakeCoroutine()
     {
-        var position = cameraNoShakeTransform.position;
-        var rotation = cameraNoShakeTransform.rotation;
-        
-        cinemachineCamera.ForceCameraPosition(position, rotation);
         isShaking = true;
         camNoise.m_AmplitudeGain = shakeIntensity;
         yield return Helpers.getWait(shakeDuration);
         camNoise.m_AmplitudeGain = 0f;
-        cinemachineCamera.ForceCameraPosition(position, rotation);
         isShaking = false;
     }
 
