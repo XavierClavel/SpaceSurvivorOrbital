@@ -44,11 +44,14 @@ public class Boss : Ennemy
         sqrFleeRange = Mathf.Pow(shootRange.x, 2);
         sqrShootRange = Mathf.Pow(shootRange.y, 2);
         
-        onDeath.AddListener(ObjectManager.DisplaySpaceship);
-        onDeath.AddListener(delegate { Spaceship.setDestination(gameScene.win); });
-        
         StartCoroutine(nameof(BossController));
         StartCoroutine(nameof(SwitchState));
+    }
+
+    protected override void onDeath()
+    {
+        ObjectManager.DisplaySpaceship();
+        Spaceship.setDestination(gameScene.win);
     }
 
     private IEnumerator BossController()

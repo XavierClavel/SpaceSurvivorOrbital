@@ -151,7 +151,10 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener
     
     public static void SpawnResources(Vector3 position, int amount)
     {
-        SpawnResources(Helpers.getRandomEnum<type>(), position, amount);
+        for (int i = 0; i < amount; i++)
+        {
+            SpawnResources(Helpers.getRandomEnum<type>(), position, 1);
+        }
     }
     
     Vector3 randomPos()

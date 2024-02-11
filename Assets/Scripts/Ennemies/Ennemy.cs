@@ -9,8 +9,6 @@ using UnityEditor;
 
 public class Ennemy : Breakable
 {
-    
-    [HideInInspector] public UnityEvent onDeath = new UnityEvent();
 
     const float shakeDuration = 0.2f;
     const float shakeIntensity = 0.5f;
@@ -220,11 +218,13 @@ public class Ennemy : Breakable
         ObjectManager.dictObjectToEnnemy.TryRemove(gameObject);
         ObjectManager.unregisterHitable(gameObject);
         
-        onDeath.Invoke();
+        onDeath();
         PlayerController.Shake(shakeIntensity, shakeDuration);
         listeners.ForEach(it => it.onEnnemyDeath(this));
         Destroy(gameObject);
     }
+    
+    protected virtual void onDeath() {}
 
 
 
