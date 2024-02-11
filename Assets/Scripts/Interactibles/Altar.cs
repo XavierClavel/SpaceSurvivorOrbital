@@ -31,7 +31,6 @@ public class Altar : MonoBehaviour
     
     private void Start()
     {
-        timeToLaunch = 500;
         factor = 1f / timeToLaunch;
         listeners.ForEach(it => it.onAltarSpawned(this));
     }
