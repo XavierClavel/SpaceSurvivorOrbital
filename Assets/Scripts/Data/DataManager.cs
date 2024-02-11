@@ -98,8 +98,6 @@ public class DataManager : ScriptableObject
     private void getSaveData()
     {
         SaveManager.Load();
-        int souls = SaveManager.getSouls();
-        PlayerManager.setSouls(souls);
     }
 
 }
