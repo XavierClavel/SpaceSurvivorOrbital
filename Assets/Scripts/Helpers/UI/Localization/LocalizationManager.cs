@@ -26,7 +26,7 @@ public class LocalizationManager : MonoBehaviour
     
     public static void UpdateLocalization()
     {
-        stringLocalizers.ForEach(it => it.UpdateText());
+        stringLocalizers.ForEach(it => it.Setup());
     }
     
     /**

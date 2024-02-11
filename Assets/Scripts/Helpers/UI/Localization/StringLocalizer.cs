@@ -13,7 +13,7 @@ public class StringLocalizer : MonoBehaviour
     public void setKey(string key)
     {
         this.key = key;
-        UpdateKey();
+        Setup();
     }
 
     private void OnEnable()
@@ -22,24 +22,19 @@ public class StringLocalizer : MonoBehaviour
         Setup();
     }
 
-    private void Start()
-    {
-        Setup();
-    }
-
-    private void Setup()
+    public void Setup()
     {
         if (textDisplay == null)
         {
             textDisplay = GetComponent<TextMeshProUGUI>();
+            if (textDisplay == null)
+            {
+                Debug.LogError($"GameObject {gameObject.name} does not have TextMeshProUGUI component");
+                return;
+            }
             LocalizationManager.registerStringLocalizer(this);
         }
         if (!key.IsNullOrEmpty()) UpdateKey();
-    }
-
-    public void UpdateText()
-    {
-        textDisplay.SetText(localizedString.getText());
     }
 
     private void UpdateKey()
@@ -49,7 +44,7 @@ public class StringLocalizer : MonoBehaviour
             throw new System.ArgumentException($"{gameObject.name} is trying to call the \"{key}\" key which does not exist.");
         }
         localizedString = DataManager.dictLocalization[key];
-        UpdateText();
+        textDisplay.SetText(localizedString.getText());
     }
     
 

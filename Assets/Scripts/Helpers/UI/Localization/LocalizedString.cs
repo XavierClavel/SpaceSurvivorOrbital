@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MyBox;
 using UnityEngine;
 
 public class LocalizedString
@@ -7,6 +8,12 @@ public class LocalizedString
     public Dictionary<string, string> dictString = new Dictionary<string, string>();
     public string getText()
     {
+        if (!dictString.ContainsKey(LocalizationManager.getLanguage()))
+        {
+            Debug.LogWarning($"String is not localized in {LocalizationManager.getLanguage()} yet :");
+            dictString.ForEach(it => Debug.Log($"key : {it.Key}, value : {it.Value}"));
+            return "";
+        }
         return dictString[LocalizationManager.getLanguage()];
     }
 }
