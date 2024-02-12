@@ -76,6 +76,11 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener
 
     public void onResourceDestroyed(Resource resource)
     {
+        ObjectManager.SpawnResources(
+            resource.resourceType,
+            transform.position,
+            (int)(resource.dropInterval.getRandom() * PlayerController.bonusManager.getBonusResources()));
+        
         amountEggs--;
         if (amountEggs > 0) return;
         

@@ -43,14 +43,8 @@ public class Shop : MonoBehaviour
 
     private void Start()
     {
-        foreach (EquipmentHandler equipmentHandler in PlayerManager.equipments)
-        {
-            if (!equipmentHandler.isBooster())
-            {
-                continue;
-            }
-            equipmentHandler.Activate(bonusManager);
-        }
+        bonusManager.applyCharacterEffect();
+        bonusManager.applyEquipmentsEffects();
         maxHealth = PlayerManager.playerData.character.maxHealth + bonusManager.getBonusMaxHealth();
         maxStock = PlayerManager.playerData.resources.maxOrange + bonusManager.getBonusStock();
         

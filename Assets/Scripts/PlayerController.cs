@@ -150,6 +150,7 @@ public class PlayerController : MonoBehaviour
             healthBar.SetShieldsAmount(value);
             shieldsAmount = value;
             SoundManager.PlaySfx(transform, key: "Shield_Hit");
+            if (value == 0 && health == 0) Death();
         }
     }
 
@@ -307,6 +308,8 @@ public class PlayerController : MonoBehaviour
         healthBar = ObjectManager.instance.healthBar;
         interactorHandler.Initialize(PlayerManager.weaponPrefab, pointerFront, true);
         
+        bonusManager.applyCharacterEffect();
+        
         foreach(PowerHandler powerHandler in PlayerManager.powers) {
             powerHandler.Activate();
         }
@@ -315,8 +318,6 @@ public class PlayerController : MonoBehaviour
         {
             equipmentHandler.Activate(bonusManager);
         }
-        
-        Debug.Log(PlayerManager.artefacts.Count);
 
         foreach (ArtefactHandler artefactHandler in PlayerManager.artefacts)
         {
@@ -326,7 +327,7 @@ public class PlayerController : MonoBehaviour
         maxHealth = PlayerManager.playerData.character.maxHealth + bonusManager.getBonusMaxHealth();
         shieldsAmount = bonusManager.getBonusShield();
         int currentHealth = maxHealth - PlayerManager.damageTaken;
-        baseSpeed = PlayerManager.playerData.character.baseSpeed;
+        baseSpeed = PlayerManager.playerData.character.baseSpeed * bonusManager.getBonusSpeed();
         speedMultiplier = 1f;
         damageMultiplier = PlayerManager.playerData.character.damageMultiplier;
         

@@ -69,7 +69,6 @@ public class PlayerManager
     public static void setCharacter(CharacterHandler characterHandler)
     {
         character = characterHandler;
-        CharacterManager.applyCharacterEffect(playerData.character, characterHandler.getKey());
         //characterPrefab = characterHandler.getCharacter();
         //character = characterHandler;
     }
