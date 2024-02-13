@@ -4,11 +4,11 @@ using UnityEngine;
 
 public static class CharacterManager
 {
-    private const string characterBase = "0";
+    private const string characterBase = "Knil";
     private const string characterMaxHearts = "1";
     private const string characterShield = "2";
     private const string characterSpeed = "Tifart";
-    private const string characterStrength = "Knil";
+    private const string characterStrength = "4";
     private const string characterResources = "5";
     private const string characterRadar = "6";
     private const string characterAltar = "7";
