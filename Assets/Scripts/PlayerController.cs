@@ -106,8 +106,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI soulsDisplay;
     [SerializeField] private TextMeshProUGUI souls2Display;
     [SerializeField] private TextMeshProUGUI blueDisplay;
-    public ResourceLayoutManager layoutManagerOrange;
-    public ResourceLayoutManager layoutManagerGreen;
     public LayoutManager bulletsLayoutManager;
     EventSystem eventSystem;
     [SerializeField] private Transform camTarget;
@@ -247,7 +245,6 @@ public class PlayerController : MonoBehaviour
 
     public void IncreaseOrange()
     {
-        layoutManagerOrange.AddResource();
         Sequence sequence = DOTween.Sequence();
         sequence.Append(spriteOverlay.DOColor(Color.yellow, 0.05f));
         sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
@@ -255,7 +252,6 @@ public class PlayerController : MonoBehaviour
 
     public void IncreaseGreen()
     {
-        layoutManagerGreen.AddResource();
         Sequence sequence = DOTween.Sequence();
         sequence.Append(spriteOverlay.DOColor(Color.green, 0.05f));
         sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
@@ -340,18 +336,7 @@ public class PlayerController : MonoBehaviour
         healthBar.Setup(maxHealth, currentHealth);
         healthBar.SetupShields(shieldsAmount);
         
-        
-        
-        layoutManagerOrange.Setup(PlayerManager.playerData.resources.maxOrange + bonusManager.getBonusStock(), 
-            ConstantsData.resourcesFillAmount, resourceType.orange);
-        layoutManagerGreen.Setup(PlayerManager.playerData.resources.maxGreen + bonusManager.getBonusStock(), 
-            ConstantsData.resourcesFillAmount, resourceType.green);
-
-        layoutManagerOrange.FillNSliders(PlayerManager.amountOrange);
-        layoutManagerGreen.FillNSliders(PlayerManager.amountGreen);
-        
-        layoutManagerOrange.setPartialAmount(PlayerManager.getPartialResourceOrange());
-        layoutManagerGreen.setPartialAmount(PlayerManager.getPartialResourceGreen());
+        ObjectManager.instance.setupResources();
 
         if (!Helpers.isPlatformAndroid()) InitializeControls();
         
@@ -392,19 +377,6 @@ public class PlayerController : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;
         }
-    }
-
-    public void debug_GiveResources(int amount)
-    {
-        for (int i = 0; i < amount; i++)
-        {
-            layoutManagerGreen.AddResource();
-        }
-        for (int i = 0; i < amount; i++)
-        {
-            layoutManagerOrange.AddResource();
-        }
-
     }
 
 

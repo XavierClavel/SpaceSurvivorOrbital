@@ -93,8 +93,6 @@ public class DebugManager : ScriptableObject
         instance = this;
         if (!debugEnabled) return;
         
-        if (startWithResources) PlayerController.instance.debug_GiveResources(50);
-        
         //Powers
         if (divineLightning) AcquirePower(Vault.power.DivineLightning);
         if (fairy) AcquirePower(Vault.power.Fairy);

@@ -92,17 +92,5 @@ public class Resource : Breakable
         listeners.ForEach(it => it.onResourceDestroyed(this));
         Destroy(spriteOverlay);
     }
-
-
-
-    Vector3 randomPos()
-    {
-        Transform playerTransform = PlayerController.instance.transform;
-        float signA = Helpers.getRandomSign();
-        float signB = Helpers.getRandomSign();
-        return signA * Helpers.getRandomFloat(1.5f) * Vector2.up + signB * Helpers.getRandomFloat(1.5f) * Vector2.right;
-    }
-
-    public void StartMining() { }
-    public void StopMining() { }
+    
 }
