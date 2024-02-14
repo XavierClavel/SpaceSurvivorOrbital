@@ -83,7 +83,6 @@ public class DataManager : ScriptableObject
         DataSelector.selectedCharacter = selectedCharacter;
         DataSelector.selectedWeapon = selectedWeapon;
 
-        dictWeapons.ForEach(it => Debug.Log(it.Key));
         ScriptableObjectManager.dictKeyToWeaponHandler.ForEach(it => Debug.Log(it.Key));
         
         PlayerManager.setWeapon(dictWeapons[selectedWeapon].Clone(), ScriptableObjectManager.dictKeyToWeaponHandler[selectedWeapon]);

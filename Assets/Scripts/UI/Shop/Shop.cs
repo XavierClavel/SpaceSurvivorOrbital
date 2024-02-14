@@ -54,6 +54,7 @@ public class Shop : MonoBehaviour
         UpdateHealButton();
         UpdateGreenResourceButton();
         UpdateOrangeResourceButton();
+        UpdateBlueResourceButton();
     }
 
     private void UpdateHealButton()
@@ -74,9 +75,16 @@ public class Shop : MonoBehaviour
     private void UpdateOrangeResourceButton()
     {
         if (PlayerManager.amountOrange != maxStock) return;
-        greenResourceButton.interactable = false;
+        orangeResourceButton.interactable = false;
         textOrangeResource.SetText("Full");
         PlayerManager.setPartialResourceOrange(0);
+    }
+    
+    private void UpdateBlueResourceButton()
+    {
+        if (PlayerManager.amountBlue != maxStock) return;
+        blueResourceButton.interactable = false;
+        textBlueResource.SetText("Full");
     }
 
 
@@ -101,6 +109,7 @@ public class Shop : MonoBehaviour
         if (!Transaction(costResourceBlue)) return;
         PlayerManager.AcquireUpgradePoint();
         ResourcesDisplay.UpdateResourcesDisplay();
+        UpdateBlueResourceButton();
     }
 
     public void BuyResourceOrange()

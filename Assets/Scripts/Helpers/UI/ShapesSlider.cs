@@ -45,7 +45,6 @@ public class ShapesSlider : MonoBehaviour
         if (locked) return this;
         currentValue = value;
         UpdateSlider();
-        Debug.Log($"{currentValue}/{sliderMaxValue}");
         if (value != sliderMaxValue) return this;
         onComplete?.Invoke();
         return this;

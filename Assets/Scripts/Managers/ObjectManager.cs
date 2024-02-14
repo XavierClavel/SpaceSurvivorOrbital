@@ -25,6 +25,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
     public ShapesSlider sliderGreen;
     [SerializeField] private DiscreteBarHandler displayOrange;
     [SerializeField] private DiscreteBarHandler displayGreen;
+    [SerializeField] private DiscreteBarHandler displayBlue;
     
     [SerializeField] public TextMeshProUGUI altarMonsterTotal;
     [SerializeField] public TextMeshProUGUI altarMonsterCurrent;
@@ -136,6 +137,9 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
 
     public void setupResources()
     {
+        displayBlue.Initialize(PlayerManager.playerData.resources.maxPurple + PlayerController.bonusManager.getBonusStock(),
+            PlayerManager.amountBlue);
+        
         displayGreen.Initialize(PlayerManager.playerData.resources.maxGreen + PlayerController.bonusManager.getBonusStock(), 
             PlayerManager.amountGreen);
         displayOrange.Initialize(
@@ -234,11 +238,11 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
         if (!dictObjectToHitable.ContainsKey(target)) return;
         dictObjectToHitable[target].Hit(hitInfo);
     }
-    
 
     public void SelectUpgradePoint()
     {
         PlayerManager.AcquireUpgradePoint();
+        displayBlue.IncreaseAmount();
         altar.DepleteAltar();
         HideAltarUI();
     }
