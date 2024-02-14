@@ -8,7 +8,6 @@ using UnityEngine.UI;
 [Serializable]
 public class Language
 {
-    public Sprite flag;
     public string name;
     public string key;
 }
@@ -16,7 +15,6 @@ public class Language
 public class LanguageSelector : MonoBehaviour
 {
     [SerializeField] private List<Language> languages;
-    [SerializeField] private Image flagIcon;
     [SerializeField] private TextMeshProUGUI textDisplay;
     [SerializeField] private Button nextButton;
     [SerializeField] private Button previousButton;
@@ -46,7 +44,6 @@ public class LanguageSelector : MonoBehaviour
 
     private void DisplayLanguage(Language language)
     {
-        flagIcon.sprite = language.flag;
         textDisplay.SetText(language.name);
     }
 
