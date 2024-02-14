@@ -60,6 +60,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     private static Node endNode = null;
     private bool acceptPlanetSelection = true;
     private static PlanetSelectionManager instance;
+    private ShipInputs shipInputs;
 
     
 #region staticAPI
@@ -222,7 +223,31 @@ public RectTransform getUITransform()
         panelRect = GetComponent<RectTransform>();
 
         DisplayData();
+        shipInputs = new ShipInputs();
+        shipInputs.Enable();
     }
+
+
+    private void Update()
+    {
+        Scroll();
+    }
+
+
+    private Vector2 moveAmount = Vector2.zero;
+    private Vector2 targetMoveAmount;
+    private Vector2 smoothMoveVelocity;
+
+    private void Scroll()
+    {
+        targetMoveAmount = 15f * shipInputs.Base.Scroll.ReadValue<float>() * Vector2.right;
+        moveAmount = Vector2.SmoothDamp(moveAmount, targetMoveAmount, ref smoothMoveVelocity, 0.10f);
+        planetsPanel.anchoredPosition = new Vector2(
+                                            Mathf.Clamp(planetsPanel.anchoredPosition.x - moveAmount.x, -2500f, 700f),
+                                            planetsPanel.anchoredPosition.y
+                                                );
+    }
+    
 
 #endregion
 
