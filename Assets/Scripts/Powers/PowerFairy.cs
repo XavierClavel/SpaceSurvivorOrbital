@@ -48,7 +48,12 @@ public class PowerFairy : Power, IPlayerEvents
     {
         return false;
     }
-    
+
+    public void onResourcePickup(resourceType type)
+    {
+        
+    }
+
     private void OnDestroy()
     {
         PlayerEventsManager.unregisterListener(this);

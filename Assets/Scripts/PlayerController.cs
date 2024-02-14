@@ -106,8 +106,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI soulsDisplay;
     [SerializeField] private TextMeshProUGUI souls2Display;
     [SerializeField] private TextMeshProUGUI blueDisplay;
-    public ResourceLayoutManager layoutManagerOrange;
-    public ResourceLayoutManager layoutManagerGreen;
     public LayoutManager bulletsLayoutManager;
     EventSystem eventSystem;
     [SerializeField] private Transform camTarget;
@@ -150,6 +148,7 @@ public class PlayerController : MonoBehaviour
             healthBar.SetShieldsAmount(value);
             shieldsAmount = value;
             SoundManager.PlaySfx(transform, key: "Shield_Hit");
+            if (value == 0 && health == 0) Death();
         }
     }
 
@@ -246,7 +245,6 @@ public class PlayerController : MonoBehaviour
 
     public void IncreaseOrange()
     {
-        layoutManagerOrange.AddResource();
         Sequence sequence = DOTween.Sequence();
         sequence.Append(spriteOverlay.DOColor(Color.yellow, 0.05f));
         sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
@@ -254,7 +252,6 @@ public class PlayerController : MonoBehaviour
 
     public void IncreaseGreen()
     {
-        layoutManagerGreen.AddResource();
         Sequence sequence = DOTween.Sequence();
         sequence.Append(spriteOverlay.DOColor(Color.green, 0.05f));
         sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
@@ -307,6 +304,8 @@ public class PlayerController : MonoBehaviour
         healthBar = ObjectManager.instance.healthBar;
         interactorHandler.Initialize(PlayerManager.weaponPrefab, pointerFront, true);
         
+        bonusManager.applyCharacterEffect();
+        
         foreach(PowerHandler powerHandler in PlayerManager.powers) {
             powerHandler.Activate();
         }
@@ -315,8 +314,6 @@ public class PlayerController : MonoBehaviour
         {
             equipmentHandler.Activate(bonusManager);
         }
-        
-        Debug.Log(PlayerManager.artefacts.Count);
 
         foreach (ArtefactHandler artefactHandler in PlayerManager.artefacts)
         {
@@ -326,7 +323,7 @@ public class PlayerController : MonoBehaviour
         maxHealth = PlayerManager.playerData.character.maxHealth + bonusManager.getBonusMaxHealth();
         shieldsAmount = bonusManager.getBonusShield();
         int currentHealth = maxHealth - PlayerManager.damageTaken;
-        baseSpeed = PlayerManager.playerData.character.baseSpeed;
+        baseSpeed = PlayerManager.playerData.character.baseSpeed * bonusManager.getBonusSpeed();
         speedMultiplier = 1f;
         damageMultiplier = PlayerManager.playerData.character.damageMultiplier;
         
@@ -339,18 +336,7 @@ public class PlayerController : MonoBehaviour
         healthBar.Setup(maxHealth, currentHealth);
         healthBar.SetupShields(shieldsAmount);
         
-        
-        
-        layoutManagerOrange.Setup(PlayerManager.playerData.resources.maxOrange + bonusManager.getBonusStock(), 
-            ConstantsData.resourcesFillAmount, resourceType.orange);
-        layoutManagerGreen.Setup(PlayerManager.playerData.resources.maxGreen + bonusManager.getBonusStock(), 
-            ConstantsData.resourcesFillAmount, resourceType.green);
-
-        layoutManagerOrange.FillNSliders(PlayerManager.amountOrange);
-        layoutManagerGreen.FillNSliders(PlayerManager.amountGreen);
-        
-        layoutManagerOrange.setPartialAmount(PlayerManager.getPartialResourceOrange());
-        layoutManagerGreen.setPartialAmount(PlayerManager.getPartialResourceGreen());
+        ObjectManager.instance.setupResources();
 
         if (!Helpers.isPlatformAndroid()) InitializeControls();
         
@@ -391,19 +377,6 @@ public class PlayerController : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;
         }
-    }
-
-    public void debug_GiveResources(int amount)
-    {
-        for (int i = 0; i < amount; i++)
-        {
-            layoutManagerGreen.AddResource();
-        }
-        for (int i = 0; i < amount; i++)
-        {
-            layoutManagerOrange.AddResource();
-        }
-
     }
 
 

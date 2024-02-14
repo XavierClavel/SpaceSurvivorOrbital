@@ -10,6 +10,12 @@ public struct HitInfo
     public readonly bool critical;
     public readonly HashSet<status> effect;
     public readonly int knockback;
+
+    public HitInfo ApplyBonus()
+    {
+        damage = (int) (damage * PlayerController.bonusManager.getBonusStrength());
+        return this;
+    }
     
     public HitInfo(int damage, bool critical, HashSet<status> effect)
     {

@@ -178,13 +178,7 @@ public RectTransform getUITransform()
     public void MoveScreen()
     {
         if (currentNode == null) return;
-        Debug.Log(gridLayout.spacing.x);
-        Debug.Log(currentNode.position.x * gridLayout.spacing.x * Vector2.left);
-
         planetsPanel.anchoredPosition = currentNode.tier * gridLayout.spacing.x * Vector2.left;
-
-        Debug.Log(planetsPanel.anchoredPosition);
-        Debug.Log(planetsPanel.anchoredPosition3D);
     }
 
     private static void getAccessibleNodes()

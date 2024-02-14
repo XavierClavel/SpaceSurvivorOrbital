@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener
+public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IPlayerEvents
 {
     [Header("UI")]
     public LayoutManager healthBar;
@@ -21,6 +21,10 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener
     public Transform powersDisplayLayout;
     public PowerDisplay powerDisplayPrefab;
     public Slider reloadSlider;
+    public ShapesSlider sliderOrange;
+    public ShapesSlider sliderGreen;
+    [SerializeField] private DiscreteBarHandler displayOrange;
+    [SerializeField] private DiscreteBarHandler displayGreen;
     
     [SerializeField] public TextMeshProUGUI altarMonsterTotal;
     [SerializeField] public TextMeshProUGUI altarMonsterCurrent;
@@ -76,6 +80,11 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener
 
     public void onResourceDestroyed(Resource resource)
     {
+        ObjectManager.SpawnResources(
+            resource.resourceType,
+            resource.transform.position,
+            (int)(resource.dropInterval.getRandom() * PlayerController.bonusManager.getBonusResources()));
+        
         amountEggs--;
         if (amountEggs > 0) return;
         
@@ -117,9 +126,46 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener
         if (Helpers.isPlatformAndroid()) pauseButton.SetActive(true);
         MonsterStele.registerListener(this);
         Resource.registerListener(this);
+        PlayerEventsManager.registerListener(this);
 
         poolResourceGreen = new GameObjectPool(resourceItemGreen);
         poolResourceOrange = new GameObjectPool(resourceItemOrange);
+        
+        
+    }
+
+    public void setupResources()
+    {
+        displayGreen.Initialize(PlayerManager.playerData.resources.maxGreen + PlayerController.bonusManager.getBonusStock(), 
+            PlayerManager.amountGreen);
+        displayOrange.Initialize(
+            PlayerManager.playerData.resources.maxOrange + PlayerController.bonusManager.getBonusStock(), 
+            PlayerManager.amountOrange);
+        
+
+        displayGreen.addOnFullAction(sliderGreen.Lock);
+        displayOrange.addOnFullAction(sliderOrange.Lock);
+        
+        sliderGreen
+            .setMaxSliderValue(ConstantsData.resourcesFillAmount)
+            .setValue(PlayerManager.getPartialResourceGreen())
+            .addOnCompleteAction(delegate
+                {
+                    sliderGreen.resetValue();
+                    displayGreen.IncreaseAmount();
+                });
+        
+
+        sliderOrange
+            .setMaxSliderValue(ConstantsData.resourcesFillAmount)
+            .setValue(PlayerManager.getPartialResourceOrange())
+            .addOnCompleteAction(delegate
+                {
+                    sliderOrange.resetValue();
+                    displayOrange.IncreaseAmount();
+                    Debug.Log("Completed");
+                });
+        
     }
 
     public static void recallItemOrange(GameObject go) => instance.poolResourceOrange.recall(go);
@@ -254,5 +300,21 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener
     public static void DisableSteleDisplay()
     {
         instance.steleDisplay.SetActive(false);
+    }
+
+    public bool onPlayerDeath()
+    {
+        return false;
+    }
+
+    public bool onPlayerHit(bool shieldHit)
+    {
+        return false;
+    }
+
+    public void onResourcePickup(resourceType type)
+    {
+        if (type == resourceType.green) sliderGreen.increase();
+        else if (type == resourceType.orange) sliderOrange.increase();
     }
 }

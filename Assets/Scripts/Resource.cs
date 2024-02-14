@@ -11,7 +11,7 @@ public class Resource : Breakable
 {
     [SerializeField] GameObject itemPrefab;
     [SerializeField] Slider healthBar;
-    [SerializeField] private type resourceType;
+    public type resourceType;
 
     [Header("Animation")]
     public Sprite damagedSprite;
@@ -20,10 +20,8 @@ public class Resource : Breakable
     private bool isDestroy = false;
     private new GameObject spriteOverlay;
     public Collider2D myCollider;
-
-
-    [Header("Parameters")]
-    Vector2Int dropInterval;
+    
+    [HideInInspector] public Vector2Int dropInterval;
     int _health;
 
     public int health
@@ -87,7 +85,6 @@ public class Resource : Breakable
     void Break()
     {
         SoundManager.PlaySfx(transform, key: "Eggs_Destroy");
-        ObjectManager.SpawnResources(resourceType, transform.position, dropInterval.getRandom());
         animator.enabled = true;
         isDestroy = true;
         healthBar.gameObject.SetActive(false);
@@ -95,17 +92,5 @@ public class Resource : Breakable
         listeners.ForEach(it => it.onResourceDestroyed(this));
         Destroy(spriteOverlay);
     }
-
-
-
-    Vector3 randomPos()
-    {
-        Transform playerTransform = PlayerController.instance.transform;
-        float signA = Helpers.getRandomSign();
-        float signB = Helpers.getRandomSign();
-        return signA * Helpers.getRandomFloat(1.5f) * Vector2.up + signB * Helpers.getRandomFloat(1.5f) * Vector2.right;
-    }
-
-    public void StartMining() { }
-    public void StopMining() { }
+    
 }

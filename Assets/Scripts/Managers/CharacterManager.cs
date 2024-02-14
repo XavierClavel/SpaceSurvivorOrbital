@@ -4,15 +4,19 @@ using UnityEngine;
 
 public static class CharacterManager
 {
-    private const string characterBase = "0";
+    private const string characterBase = "Knil";
     private const string characterMaxHearts = "1";
     private const string characterShield = "2";
     private const string characterSpeed = "Tifart";
     private const string characterStrength = "4";
+    private const string characterResources = "5";
+    private const string characterRadar = "6";
+    private const string characterAltar = "7";
 
+    public static void applyCharacterEffect(this BonusManager bonusManager) =>
+        applyCharacterEffect(bonusManager, PlayerManager.character.getKey());
 
-
-    public static void applyCharacterEffect(characterStats stats, string character)
+    public static void applyCharacterEffect(this BonusManager bonusManager, string character)
     {
         switch (character)
         {
@@ -20,20 +24,28 @@ public static class CharacterManager
                 return;
             
             case characterMaxHearts:
-                stats.maxHealth = 4;
+                bonusManager.addBonusMaxHealth(2);
                 return;
             
             case characterSpeed:
-                stats.baseSpeed = 5.5f;
+                bonusManager.addBonusSpeed(1.3f);
                 return;
             
             case characterStrength:
-                stats.damageMultiplier = 1.1f;
+                bonusManager.addBonusStrength(1.25f);
                 return;
             
             case characterShield:
-                stats.maxShields = 2;
-                stats.maxHealth = 0;
+                bonusManager.addBonusMaxHealth(-3);
+                bonusManager.addBonusShield(2);
+                return;
+            
+            case characterResources:
+                bonusManager.addBonusResources(2f);
+                return;
+            
+            case characterAltar:
+                bonusManager.addBonusAltarItem(1);
                 return;
             
             default :

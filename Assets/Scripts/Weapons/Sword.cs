@@ -41,6 +41,8 @@ public class Sword : Interactor
     public void onHit(Collider2D other)
     {
         HitInfo hitInfo = new HitInfo(stats);
+        hitInfo.ApplyBonus();
+        hitInfo.addDamageMultiplier();
         ObjectManager.retrieveHitable(other.gameObject)?.Hit(hitInfo);
     }
 

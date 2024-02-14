@@ -260,7 +260,7 @@ public class Laser : Interactor
 
     void HurtEnnemy(GameObject go)
     {
-        ObjectManager.retrieveHitable(go)?.StackDamage(dps * PlayerController.getDamageMultiplier(), stacker.get());
+        ObjectManager.retrieveHitable(go)?.StackDamage(dps * PlayerController.getDamageMultiplier() * PlayerController.bonusManager.getBonusStrength(), stacker.get());
     }
 
     protected override void onUse()

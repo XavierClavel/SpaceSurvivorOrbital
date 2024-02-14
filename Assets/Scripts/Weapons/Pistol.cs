@@ -115,6 +115,7 @@ public class Pistol : Gun
         StartCoroutine(nameof(ResetTrailDist), bullet);
         HitInfo hitInfo = new HitInfo(stats, stacker.get());
         hitInfo.addDamageMultiplier();
+        hitInfo.ApplyBonus();
         bullet.Fire(stats.attackSpeed, hitInfo);
         Invoke(nameof(recallBullet), bulletLifetime);
     }
