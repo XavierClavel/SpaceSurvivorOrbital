@@ -92,6 +92,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
         if (amountEggs > 0) return;
         
         PlayerManager.AcquireUpgradePoint();
+        displayBlue.IncreaseAmount();
         SoundManager.PlaySfx(PlayerController.instance.transform, key: "Collectible_Blue");
         UpgradeUpDisplay();
     }

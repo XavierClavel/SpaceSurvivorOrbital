@@ -105,7 +105,6 @@ public class PlayerController : MonoBehaviour
     [Header("UI")] 
     [SerializeField] private TextMeshProUGUI soulsDisplay;
     [SerializeField] private TextMeshProUGUI souls2Display;
-    [SerializeField] private TextMeshProUGUI blueDisplay;
     public LayoutManager bulletsLayoutManager;
     EventSystem eventSystem;
     [SerializeField] private Transform camTarget;
@@ -418,7 +417,6 @@ public class PlayerController : MonoBehaviour
         Aim();
         attractorTransform.position = transform.position;
         originalCameraPosition = cameraTransform.localPosition;
-        instance.blueDisplay.SetText(PlayerManager.amountBlue.ToString());
     }
 
     void Move()
