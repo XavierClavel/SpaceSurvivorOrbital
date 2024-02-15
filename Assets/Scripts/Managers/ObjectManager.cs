@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
     
     [SerializeField] public TextMeshProUGUI altarMonsterTotal;
     [SerializeField] public TextMeshProUGUI altarMonsterCurrent;
+    [SerializeField] private Image characterDisplay;
 
     public ParticleSystem firePS;
     public ParticleSystem lightningPS;
@@ -133,6 +135,11 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
         poolResourceOrange = new GameObjectPool(resourceItemOrange);
         
         
+    }
+
+    private void Start()
+    {
+        characterDisplay.sprite = DataSelector.getSelectedCharacter().getIcon();
     }
 
     public void setupResources()
