@@ -7,6 +7,7 @@ using TMPro;
 public class AltarPanel : MonoBehaviour
 {
     [SerializeField] private List<AltarItem> altarItems;
+    [SerializeField] private GameObject blueResource;
     [SerializeField] private GameObject autelPanel;
     [SerializeField] private TextMeshProUGUI upgradesPointsDisplay;
 
@@ -32,6 +33,9 @@ public class AltarPanel : MonoBehaviour
                 altarItem.gameObject.SetActive(false);
                 continue;
             }
+            
+            instance.blueResource.SetActive(!PlayerManager.isTuto);
+            
             PowerHandler selectedPower = powersRemaining.popRandom();
             altarItem.Setup(selectedPower.getKey());
         }
