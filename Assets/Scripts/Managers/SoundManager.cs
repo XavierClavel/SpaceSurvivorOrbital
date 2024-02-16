@@ -41,6 +41,7 @@ public class SoundManager : MonoBehaviour
     List<clip> audioIds;
 
     private static float sfxVolume = 1f;
+    private static float musicVolume = 1f;
 
 
 
@@ -75,6 +76,17 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public static void UpdateSfxVolume(float value)
+    {
+        sfxVolume = value;
+    }
+
+    public static void UpdateMusicVolume(float value)
+    {
+        musicVolume = value;
+        currentMusicSource.DOFade(musicVolume, 0.1f).SetEase(Ease.Linear);
+    }
+
     private void Awake()
     {
         if (instance == null)
@@ -103,8 +115,6 @@ public class SoundManager : MonoBehaviour
         
         audioIds = new List<clip>();
         
-        List<sfx> sfxList = Enum.GetValues(typeof(sfx)).Cast<sfx>().ToList();
-
     }
 
     private void Start()
@@ -121,7 +131,7 @@ public class SoundManager : MonoBehaviour
         previousMusicSource?.DOFade(0f, 1f).SetEase(Ease.Linear).OnComplete(previousMusicSource.Stop);
         currentMusicSource = dictSceneToMusic[newScene];
         currentMusicSource.Play();
-        currentMusicSource.DOFade(1f, 1f).SetEase(Ease.Linear);
+        currentMusicSource.DOFade(musicVolume, 1f).SetEase(Ease.Linear);
     }
 
 
