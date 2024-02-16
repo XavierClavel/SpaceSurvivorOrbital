@@ -309,6 +309,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2957111297325457222}
+  - component: {fileID: 4836650423567398006}
   - component: {fileID: 5947235248552603171}
   - component: {fileID: 6995382724397758491}
   - component: {fileID: 9118859911423707607}
@@ -343,6 +344,22 @@ RectTransform:
   m_AnchoredPosition: {x: 1100.8, y: -427.5}
   m_SizeDelta: {x: 300, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4836650423567398006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2331065687773704258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94efec53ccfb4d34e8d6de3d39a62d71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleField: {fileID: 5937914701270924773}
+  descriptionField: {fileID: 6593036820655831699}
+  icon: {fileID: 0}
+  button: {fileID: 31889034784775431}
 --- !u!222 &5947235248552603171
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -775,6 +792,7 @@ GameObject:
   - component: {fileID: 4440537358191385120}
   - component: {fileID: 7983167468235759467}
   - component: {fileID: 1700651259904099664}
+  - component: {fileID: 5937914701270924773}
   m_Layer: 5
   m_Name: Titre
   m_TagString: Untagged
@@ -899,6 +917,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5937914701270924773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6966980877600521001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98ca66dcc6143c4093e4c8bf42481cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: altar_blueResource_title
 --- !u!1 &7558049854575657353
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,6 +1084,7 @@ GameObject:
   - component: {fileID: 5760417392893267104}
   - component: {fileID: 1476628892029985276}
   - component: {fileID: 1115428208122062511}
+  - component: {fileID: 6593036820655831699}
   m_Layer: 5
   m_Name: Description
   m_TagString: Untagged
@@ -1177,6 +1209,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6593036820655831699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9097288490260908168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98ca66dcc6143c4093e4c8bf42481cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: altar_blueResource_description
 --- !u!1001 &5667299210995302247
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1317,6 +1362,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7372291268374590267}
   m_SourcePrefab: {fileID: 100100000, guid: 86f60a3b3a172f24db19b9ea2814da3b, type: 3}
+--- !u!114 &31889034784775431 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5681009950712291936, guid: 86f60a3b3a172f24db19b9ea2814da3b, type: 3}
+  m_PrefabInstance: {fileID: 5667299210995302247}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5522210254352041443 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 145415278880471684, guid: 86f60a3b3a172f24db19b9ea2814da3b, type: 3}

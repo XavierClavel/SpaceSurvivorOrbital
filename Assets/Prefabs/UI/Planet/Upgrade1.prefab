@@ -301,11 +301,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9166091145542300832}
+  - component: {fileID: 5559777887253210859}
   - component: {fileID: 6945701071360936123}
   - component: {fileID: 7735750685019354066}
   - component: {fileID: 3728106774574510848}
   - component: {fileID: 3313425469283054831}
-  - component: {fileID: 5559777887253210859}
   m_Layer: 5
   m_Name: Upgrade1
   m_TagString: Untagged
@@ -336,6 +336,22 @@ RectTransform:
   m_AnchoredPosition: {x: 700, y: -427.5}
   m_SizeDelta: {x: 300, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5559777887253210859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3438279737658696167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94efec53ccfb4d34e8d6de3d39a62d71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleField: {fileID: 5076368932208671154}
+  descriptionField: {fileID: 6377898226034186035}
+  icon: {fileID: 6231429845025542558}
+  button: {fileID: 1135825788369276695}
 --- !u!222 &6945701071360936123
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -448,22 +464,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5559777887253210859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3438279737658696167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94efec53ccfb4d34e8d6de3d39a62d71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  titleField: {fileID: 5076368932208671154}
-  descriptionField: {fileID: 6377898226034186035}
-  icon: {fileID: 6231429845025542558}
-  button: {fileID: 1135825788369276695}
 --- !u!1 &3549399144459120695
 GameObject:
   m_ObjectHideFlags: 0
