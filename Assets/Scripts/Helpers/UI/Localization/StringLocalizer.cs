@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using MyBox;
@@ -46,6 +47,9 @@ public class StringLocalizer : MonoBehaviour
         localizedString = DataManager.dictLocalization[key];
         textDisplay.SetText(localizedString.getText());
     }
-    
 
+    private void OnDestroy()
+    {
+        LocalizationManager.unregisterStringLocalizer(this);
+    }
 }

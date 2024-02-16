@@ -4,7 +4,7 @@ using MyBox;
 using UnityEngine;
 using TMPro;
 
-public class LocalizationManager : MonoBehaviour
+public static class LocalizationManager
 {
     public static HashSet<StringLocalizer> stringLocalizers = new HashSet<StringLocalizer>();
     private static string selectedLanguage = "FR";
@@ -12,11 +12,7 @@ public class LocalizationManager : MonoBehaviour
     public static string getLanguage() => selectedLanguage;
 
     public static void registerStringLocalizer(StringLocalizer s) => stringLocalizers.Add(s);
-
-    public void getLocalizedString(string key)
-    {
-        DataManager.dictLocalization[key].getText();
-    }
+    public static void unregisterStringLocalizer(StringLocalizer s) => stringLocalizers.Remove(s);
 
     public static void setLanguage(string value)
     {
@@ -39,8 +35,4 @@ public class LocalizationManager : MonoBehaviour
         field.gameObject.AddComponent<StringLocalizer>().setKey(key);
     }
 
-    private void OnDestroy()
-    {
-        stringLocalizers = new HashSet<StringLocalizer>();
-    }
 }
