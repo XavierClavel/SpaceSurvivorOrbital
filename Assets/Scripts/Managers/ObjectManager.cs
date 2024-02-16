@@ -32,6 +32,8 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
     [SerializeField] public TextMeshProUGUI altarMonsterCurrent;
     [SerializeField] private Image characterDisplay;
     [SerializeField] private TextMeshProUGUI bulletsDisplay;
+    [SerializeField] public TextMeshProUGUI objectiveDestroy;
+    [SerializeField] public TextMeshProUGUI shipReady;
 
     public ParticleSystem firePS;
     public ParticleSystem lightningPS;
@@ -304,6 +306,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
 
         if (amountDens > 0) return;
         Instantiate(instance.shipAppearPS, PlayerController.instance.transform);
+        objectiveDestroy.text = shipReady.text;
         SoundManager.PlaySfx(PlayerController.instance.transform, key: "Monster_Altar_Destroy");
         DisplaySpaceship();
     }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8953,6 +8953,7 @@ GameObject:
   - component: {fileID: 1320092166}
   - component: {fileID: 1320092168}
   - component: {fileID: 1320092167}
+  - component: {fileID: 1320092169}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -9029,10 +9030,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
+  m_fontSize: 72
   m_fontSizeBase: 80
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -9079,6 +9080,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1320092165}
   m_CullTransparentMesh: 1
+--- !u!114 &1320092169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320092165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98ca66dcc6143c4093e4c8bf42481cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: SFX_Volume
 --- !u!1 &1322617190
 GameObject:
   m_ObjectHideFlags: 0
@@ -9090,6 +9104,7 @@ GameObject:
   - component: {fileID: 1322617191}
   - component: {fileID: 1322617193}
   - component: {fileID: 1322617192}
+  - component: {fileID: 1322617194}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -9214,6 +9229,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1322617190}
   m_CullTransparentMesh: 1
+--- !u!114 &1322617194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322617190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98ca66dcc6143c4093e4c8bf42481cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: Language
 --- !u!1 &1324153228
 GameObject:
   m_ObjectHideFlags: 0
@@ -10092,6 +10120,7 @@ GameObject:
   - component: {fileID: 1388158441}
   - component: {fileID: 1388158443}
   - component: {fileID: 1388158442}
+  - component: {fileID: 1388158444}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -10166,10 +10195,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
+  m_fontSize: 72
   m_fontSizeBase: 80
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -10216,6 +10245,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1388158440}
   m_CullTransparentMesh: 1
+--- !u!114 &1388158444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388158440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98ca66dcc6143c4093e4c8bf42481cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: Music_volume
 --- !u!1 &1389346006
 GameObject:
   m_ObjectHideFlags: 0
@@ -11261,7 +11303,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3858163864513562850, guid: 86f60a3b3a172f24db19b9ea2814da3b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 227.83
+      value: 227.83002
       objectReference: {fileID: 0}
     - target: {fileID: 3858163864513562850, guid: 86f60a3b3a172f24db19b9ea2814da3b, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -11307,6 +11349,14 @@ PrefabInstance:
       propertyPath: m_text
       value: Reset save
       objectReference: {fileID: 0}
+    - target: {fileID: 8587523006523479233, guid: 86f60a3b3a172f24db19b9ea2814da3b, type: 3}
+      propertyPath: m_fontSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8587523006523479233, guid: 86f60a3b3a172f24db19b9ea2814da3b, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4106944885695805408, guid: 86f60a3b3a172f24db19b9ea2814da3b, type: 3}
     m_RemovedGameObjects: []
@@ -11338,7 +11388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f98ca66dcc6143c4093e4c8bf42481cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: Return
+  key: Reset_Save
 --- !u!1 &1501161311
 GameObject:
   m_ObjectHideFlags: 0
@@ -13137,14 +13187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eef70f2832f36f44990c8facddde19d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectableItems:
-  - name: English
-    key: EN
-  - name: "Fran\xE7ais"
-    key: FR
-  textDisplay: {fileID: 1322617192}
-  nextButton: {fileID: 1895490133}
-  previousButton: {fileID: 1163298461}
 --- !u!1 &1859285559
 GameObject:
   m_ObjectHideFlags: 0
@@ -15919,7 +15961,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3858163864513562850, guid: 86f60a3b3a172f24db19b9ea2814da3b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 227.83
+      value: 227.83002
       objectReference: {fileID: 0}
     - target: {fileID: 3858163864513562850, guid: 86f60a3b3a172f24db19b9ea2814da3b, type: 3}
       propertyPath: m_AnchoredPosition.y
