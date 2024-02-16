@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum handlerVisibility {ShowInDemo, ShowInFullGame, Hide}
+
 public class ObjectHandler : ScriptableObject
 {
     [SerializeField] protected string key;
@@ -13,10 +15,11 @@ public class ObjectHandler : ScriptableObject
 
 public class HidableObjectHandler : ObjectHandler
 {
-    [SerializeField] private bool hide;
+    [SerializeField] private handlerVisibility visibility = handlerVisibility.ShowInFullGame;
     public bool canBeSelected()
     {
-        return !hide;
+        return visibility == handlerVisibility.ShowInDemo ||
+            (visibility == handlerVisibility.ShowInFullGame && !PlayerManager.isDemo);
     }
 }
 
