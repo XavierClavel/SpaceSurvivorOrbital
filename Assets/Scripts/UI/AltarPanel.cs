@@ -28,7 +28,7 @@ public class AltarPanel : MonoBehaviour
     public static void UpdateAltarDisplay()
     {
         instance.layout.KillAllChildren();
-        instance.upgradesPointsDisplay.SetText(PlayerManager.amountBlue.ToString());
+        //instance.upgradesPointsDisplay.SetText(PlayerManager.amountBlue.ToString());
         List<PowerHandler> powersRemaining = ScriptableObjectManager.dictKeyToPowerHandler.Values.ToList().Difference(PlayerManager.powers);
         for (int i = 0; i < instance.displayAmount; i++)
         {
