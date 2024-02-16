@@ -31,6 +31,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
     [SerializeField] public TextMeshProUGUI altarMonsterTotal;
     [SerializeField] public TextMeshProUGUI altarMonsterCurrent;
     [SerializeField] private Image characterDisplay;
+    [SerializeField] private TextMeshProUGUI bulletsDisplay;
 
     public ParticleSystem firePS;
     public ParticleSystem lightningPS;
@@ -56,6 +57,8 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
     static int amountEggs = 0;
     private int amountDens = 0;
     private int amountDensDestroyed = 0;
+    private Camera cam;
+    private Vector3 camHalfSize;
 
     [Header("Prefabs")] 
     [SerializeField] private GameObject resourceItemOrange;
@@ -141,6 +144,8 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
     private void Start()
     {
         characterDisplay.sprite = DataSelector.getSelectedCharacter().getIcon();
+        cam = Camera.main;
+        camHalfSize = new Vector3(cam.pixelWidth * 0.5f, cam.pixelHeight * 0.5f, 0);
     }
 
     public void setupResources()
@@ -329,4 +334,10 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
         if (type == resourceType.green) sliderGreen.increase();
         else if (type == resourceType.orange) sliderOrange.increase();
     }
+
+    public static void UpdateBulletsDisplay(int amount)
+    {
+        instance.bulletsDisplay.SetText($"x{amount}");
+    }
+
 }

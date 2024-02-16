@@ -105,7 +105,6 @@ public class PlayerController : MonoBehaviour
     [Header("UI")] 
     [SerializeField] private TextMeshProUGUI soulsDisplay;
     [SerializeField] private TextMeshProUGUI souls2Display;
-    public LayoutManager bulletsLayoutManager;
     EventSystem eventSystem;
     [SerializeField] private Transform camTarget;
 

@@ -10,7 +10,6 @@ public abstract class Gun : Interactor
     [SerializeField] protected Transform firePoint;
     [SerializeField] protected Bullet bulletPrefab;
     protected float bulletLifetime;
-    LayoutManager bulletsLayoutManager;
     WaitForSeconds magazineReloadWindow;
     Tween sliderTween;
     protected ComponentPool<Bullet> pool;
@@ -25,8 +24,7 @@ public abstract class Gun : Interactor
         bulletLifetime = stats.range / stats.attackSpeed;
         if (playerInteractor)
         {
-            bulletsLayoutManager = player.bulletsLayoutManager;
-            bulletsLayoutManager.Setup(stats.magazine);
+            ObjectManager.UpdateBulletsDisplay(stats.magazine);
         }
         magazineReloadWindow = Helpers.getWait(stats.magazineReloadTime);
 
@@ -47,7 +45,7 @@ public abstract class Gun : Interactor
         Fire();
 
         currentMagazine--;
-        if (playerInteractor) bulletsLayoutManager.DecreaseAmount();
+        if (playerInteractor) ObjectManager.UpdateBulletsDisplay(currentMagazine);
 
         StartCoroutine(currentMagazine == 0 ? nameof(ReloadMagazine) : nameof(Cooldown));
     }
@@ -87,12 +85,12 @@ public abstract class Gun : Interactor
         }
         yield return magazineReloadWindow;
         isReloadingMagazine = false;
+        currentMagazine = stats.magazine;
         if (playerInteractor)
         {
             reloadSlider.gameObject.SetActive(false);
-            bulletsLayoutManager.SetAmount(stats.magazine);
+            ObjectManager.UpdateBulletsDisplay(currentMagazine);
         }
-        currentMagazine = stats.magazine;
         SoundManager.PlaySfx(transform, key: "Gun_Reload");
 
         if (isUsing) onUse();
