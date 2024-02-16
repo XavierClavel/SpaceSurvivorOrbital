@@ -5,6 +5,14 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
+[Serializable]
+public class OptionsProfile
+{
+    public int musicVolume = 100;
+    public int sfxVolume = 100;
+    public string language = "EN";
+    public string windowMode = "fullscreen";
+}
 
 public static class SaveManager
 {
@@ -17,6 +25,20 @@ public static class SaveManager
         {
             "Gun"
         };
+
+        public OptionsProfile options = new OptionsProfile();
+    }
+
+    public static void setOptions(OptionsProfile options)
+    {
+        saveData.options = options;
+        Debug.Log(options.musicVolume);
+        Save();
+    }
+
+    public static OptionsProfile getOptions()
+    {
+        return saveData.options;
     }
     
     static SaveData saveData = null;

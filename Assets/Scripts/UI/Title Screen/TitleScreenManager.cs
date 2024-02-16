@@ -14,7 +14,9 @@ public class TitleScreenManager : MonoBehaviour
     [SerializeField] GameObject dataSelector;
     [SerializeField] GameObject equipmentSelector;
     [SerializeField] private Canvas canvas;
+    [SerializeField] private OptionsManager optionsManager;
     private static float canvasWidth;
+    
     
     //Static
     private static TitleScreenManager instance;
@@ -33,6 +35,8 @@ public class TitleScreenManager : MonoBehaviour
         HideDataSelector();
         HideEquipmentSelector();
         titleScreen.Setup();
+        
+        optionsManager.LoadOptions();
         
     }
     #endregion

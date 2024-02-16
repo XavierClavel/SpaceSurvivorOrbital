@@ -80,12 +80,20 @@ public class SoundManager : MonoBehaviour
     {
         sfxVolume = value;
     }
+    
+    public static void UpdateSfxVolume(int value)
+    {
+        sfxVolume = value * 0.01f;
+    }
 
     public static void UpdateMusicVolume(float value)
     {
         musicVolume = value;
+        currentMusicSource.DOKill();
         currentMusicSource.DOFade(musicVolume, 0.1f).SetEase(Ease.Linear);
     }
+
+    public static void UpdateMusicVolume(int value) => UpdateMusicVolume(value * 0.01f);
 
     private void Awake()
     {

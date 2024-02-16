@@ -20,15 +20,27 @@ public class ItemSelector : MonoBehaviour
     [SerializeField] private Button nextButton;
     [SerializeField] private Button previousButton;
     private int currentIndex = 0;
+
+    public string getValue() => selectableItems[currentIndex].key;
     
     void Start()
     {
         nextButton.onClick.AddListener(Next);
         previousButton.onClick.AddListener(Previous);
-
-        currentIndex = getStartSelectedItem();
         
         DisplayItem();
+        UpdateButtons();
+    }
+
+    public void setSelected(string key)
+    {
+        currentIndex = selectableItems.FindIndex(it => it.key == key);
+        if (currentIndex == -1)
+        {
+            Debug.LogError($"Item {key} is not defined for item selector {gameObject.name}");
+            currentIndex = 0;
+        }
+        SelectItem();
         UpdateButtons();
     }
 
