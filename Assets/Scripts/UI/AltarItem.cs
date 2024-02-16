@@ -20,10 +20,11 @@ public class AltarItem : MonoBehaviour
         titleField.setKey(key + Vault.key.ButtonTitle);
         descriptionField.setKey(key + Vault.key.ButtonDescription);
         icon.sprite = ScriptableObjectManager.dictKeyToPowerHandler[key].getIcon();
-        UnityAction action = delegate
-        {
-            AcquirePower(key);
-        };
+        setAction(delegate { AcquirePower(key); });
+    }
+
+    public void setAction(UnityAction action)
+    {
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(action);
     }

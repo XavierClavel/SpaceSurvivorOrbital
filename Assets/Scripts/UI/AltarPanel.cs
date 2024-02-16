@@ -8,7 +8,7 @@ public class AltarPanel : MonoBehaviour
 {
     private List<AltarItem> altarItems;
     [SerializeField] private AltarItem itemPrefab;
-    [SerializeField] private GameObject blueResourcePrefab;
+    [SerializeField] private AltarItem blueResourcePrefab;
     [SerializeField] private GameObject autelPanel;
     [SerializeField] private TextMeshProUGUI upgradesPointsDisplay;
     [SerializeField] private RectTransform layout;
@@ -51,7 +51,9 @@ public class AltarPanel : MonoBehaviour
 
         if (!PlayerManager.isTuto)
         {
-            Instantiate(instance.blueResourcePrefab, instance.layout).transform.localScale = Vector3.one;
+            AltarItem blueResourceItem = Instantiate(instance.blueResourcePrefab, instance.layout);
+            blueResourceItem.setAction(ObjectManager.instance.SelectUpgradePoint);
+            blueResourceItem.transform.localScale = Vector3.one;
         }
     }
     

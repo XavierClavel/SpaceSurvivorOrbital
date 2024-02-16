@@ -172,6 +172,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
                 {
                     sliderGreen.resetValue();
                     displayGreen.IncreaseAmount();
+                    PlayerManager.GatherResourceGreen();
                 });
         
 
@@ -182,7 +183,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
                 {
                     sliderOrange.resetValue();
                     displayOrange.IncreaseAmount();
-                    Debug.Log("Completed");
+                    PlayerManager.GatherResourceOrange();
                 });
         
     }
