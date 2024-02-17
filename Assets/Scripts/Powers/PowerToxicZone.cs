@@ -139,12 +139,10 @@ public class PowerToxicZone : Power, IEnnemyListener
     public static void onPlayerEnterToxicZone()
     {
         playerStacker.stack();
-        Debug.Log(playerStacker.get());
     }
     public static void onPlayerExitToxicZone()
     {
         playerStacker.unstack();
-        Debug.Log(playerStacker.get());
     }
     
     /**

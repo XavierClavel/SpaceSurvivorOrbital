@@ -43,7 +43,6 @@ public class Spawner : MonoBehaviour
             return;
         }
         difficulty = PlanetSelector.getDifficulty();
-        Debug.Log($"Difficulty : {difficulty}");
         spawnData = DataManager.dictDifficulty[difficulty.ToString()];
 
         wallet = spawnData.baseCost * PlanetManager.getSizeCategory() switch
@@ -70,7 +69,8 @@ public class Spawner : MonoBehaviour
             _ => incrementMedium
         };
         
-        Debug.Log($"wallet : {wallet}");
+        Debug.Log($"Difficulty : {difficulty}");
+        Debug.Log($"Wallet : {wallet}");
         
         ennemyPrefabs = tilesBankManager.GetEnnemies();
         //Debug.Log(tilesBankManager.GetEnnemies().Count);
@@ -82,7 +82,7 @@ public class Spawner : MonoBehaviour
 
         if (PlanetManager.isBoss() || DebugManager.doSpawnBossOnStart())
         {
-            Debug.Log("boss spawned");
+            Debug.Log("Boss spawned");
             SpawnEnnemy(boss);   
         }
     }

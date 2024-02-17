@@ -42,7 +42,8 @@ public class StringLocalizer : MonoBehaviour
     {
         if (!DataManager.dictLocalization.ContainsKey(key))
         {
-            throw new System.ArgumentException($"{gameObject.name} is trying to call the \"{key}\" key which does not exist.");
+            Debug.LogError($"{gameObject.name} is trying to call the \"{key}\" key which does not exist.");
+            return;
         }
         localizedString = DataManager.dictLocalization[key];
         textDisplay.SetText(localizedString.getText());

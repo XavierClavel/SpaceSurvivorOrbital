@@ -17,6 +17,6 @@ public class Chest : MonoBehaviour
         List<ArtefactHandler> artefactsRemaining = ScriptableObjectManager.dictKeyToArtefactHandler.Values.Difference(PlayerManager.artefacts);
         ArtefactHandler artefact = artefactsRemaining.getRandom();
         PlayerManager.AcquireArtefact(artefact);
-        Debug.Log(artefact.getKey());
+        ArtefactPanel.Display(artefact);
     }
 }
