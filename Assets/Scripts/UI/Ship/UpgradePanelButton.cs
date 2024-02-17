@@ -10,6 +10,7 @@ public class UpgradePanelButton : MonoBehaviour
 
     [SerializeField] private Image image;
     [SerializeField] private GameObject parent;
+    [SerializeField] private GameObject newDisplay;
 
     public void Disable()
     {
@@ -24,5 +25,11 @@ public class UpgradePanelButton : MonoBehaviour
     public void setAction(UnityAction action)
     {
         button.onClick.AddListener(action);
+        button.onClick.AddListener(delegate { newDisplay.SetActive(false); });
+    }
+
+    public void flagNew()
+    {
+        newDisplay.SetActive(true);
     }
 }

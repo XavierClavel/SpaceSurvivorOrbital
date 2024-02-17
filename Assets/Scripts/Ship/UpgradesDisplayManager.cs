@@ -30,6 +30,7 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     [SerializeField] List<UpgradePanelButton> buttons;
     [SerializeField] private NodeManager prefabPanelSkill;
     [SerializeField] private NodeManager prefabPanelUpgrade;
+    public static List<string> newPanels = new List<string>();
 
     [Header("Default display")]
     [SerializeField] string defaultCharacter = "Knil";
@@ -51,6 +52,16 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
 #endregion
     
 #region API
+
+    public static void Reset()
+    {
+        newPanels = new List<string>();
+    }
+
+    public static void addNewPanel(string key)
+    {
+        newPanels.Add(key);
+    }
 
     public void onPanelUnfocus()
     {
@@ -152,10 +163,12 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
             }
             else
             {
+                string key = keys[i];
                 buttons[i].setSprite(icons[i]);
                 int value = i;
                 buttons[i].setAction(delegate { SetActivePanel(value); });
-                panels[i].setup(keys[i]);
+                panels[i].setup(key);
+                if (newPanels.Contains(key)) buttons[i].flagNew();
             }
         }
 
