@@ -31,6 +31,8 @@ public static class PlanetManager
         };
     }
 
+    public static planetSize getSizeCategory() => planetData.size;
+
     public static planetType getType()
     {
         return planetData.type;

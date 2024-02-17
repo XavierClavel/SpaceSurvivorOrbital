@@ -9,8 +9,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] TilesBankManager tilesBankManager;
     [SerializeField] private Boss boss;
     List<Ennemy> ennemyPrefabs;
-
-    private int planetDiameter;
+    private int increment;
 
     [Header("Multiplier")]
     [SerializeField] public int baseCostLarge;
@@ -28,8 +27,6 @@ public class Spawner : MonoBehaviour
 
     private SpawnData spawnData;
 
-    //Transform playerTransform;
-    bool doEnnemySpawn = true;
     float waveDuration;
     List<EntitySpawnInstance<Ennemy>> ennemiesToSpawnList = new List<EntitySpawnInstance<Ennemy>>();
 
@@ -37,13 +34,7 @@ public class Spawner : MonoBehaviour
 
     int wallet;
     EntitySpawnInstanceComparer<Ennemy> comparer = new EntitySpawnInstanceComparer<Ennemy>();
-
-
-    public void debug_StopEnnemySpawn()
-    {
-        doEnnemySpawn = false;
-        StopCoroutine(nameof(SpawnController));
-    }
+    
 
     protected void Start()
     {
@@ -55,34 +46,32 @@ public class Spawner : MonoBehaviour
         Debug.Log($"Difficulty : {difficulty}");
         spawnData = DataManager.dictDifficulty[difficulty.ToString()];
 
-        planetDiameter = PlanetManager.getSize();
-        if (planetDiameter == 7)
+        wallet = spawnData.baseCost * PlanetManager.getSizeCategory() switch
         {
-            wallet = spawnData.baseCost * baseCostLarge;
-        } else if (planetDiameter == 5)
-        {
-            wallet = spawnData.baseCost * baseCostMedium;
-        }
-        else if (planetDiameter == 3)
-        {
-            wallet = spawnData.baseCost * baseCostSmall;
-        }
-        Debug.Log("wallet is" + wallet);
+            planetSize.large => baseCostLarge,
+            planetSize.medium => baseCostMedium,
+            planetSize.small => baseCostSmall,
+            _ => baseCostMedium
+        };
 
-        if (planetDiameter == 7)
+        waveDuration = PlanetManager.getSizeCategory() switch
         {
-            waveDuration = waveDurationLarge;
-        }
-        else if (planetDiameter == 5)
-        {
-            waveDuration = waveDurationMedium;
-        }
-        else if (planetDiameter == 3)
-        {
-            waveDuration = waveDurationSmall;
-        }
+            planetSize.large => waveDurationLarge,
+            planetSize.medium => waveDurationMedium,
+            planetSize.small => waveDurationSmall,
+            _ => waveDurationMedium
+        };
 
-
+        increment = spawnData.increment * PlanetManager.getSizeCategory() switch
+        {
+            planetSize.large => incrementLarge,
+            planetSize.medium => incrementMedium,
+            planetSize.small => incrementSmall,
+            _ => incrementMedium
+        };
+        
+        Debug.Log($"wallet : {wallet}");
+        
         ennemyPrefabs = tilesBankManager.GetEnnemies();
         //Debug.Log(tilesBankManager.GetEnnemies().Count);
 
@@ -114,18 +103,7 @@ public class Spawner : MonoBehaviour
             if (time > waveDuration)
             {
                 time = 0f;
-                if (planetDiameter == 7)
-                {
-                    wallet += spawnData.increment * incrementLarge;
-                }
-                else if (planetDiameter == 5)
-                {
-                    wallet += spawnData.increment * incrementMedium;
-                }
-                else if (planetDiameter == 3)
-                {
-                    wallet += spawnData.increment * incrementSmall;
-                }
+                wallet += increment;
                 PrepareWave(wallet);
             }
 
