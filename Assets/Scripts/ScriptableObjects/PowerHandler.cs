@@ -34,7 +34,7 @@ public class PowerHandler : HidableObjectHandler
     public void Activate()
     {
         Power instance = GameObject.Instantiate(power);
-        instance.Setup(PlayerManager.dictKeyToStats[key]);
+        instance.Setup(PlayerManager.dictKeyToStats[key].Clone());
         DisplayPower();
     }
 

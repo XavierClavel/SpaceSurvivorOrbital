@@ -200,6 +200,8 @@ public class NodeManager : MonoBehaviour
                 polyline.meshOutOfDate = true;
 
                 polyline.GetComponent<RectTransform>().anchoredPosition3D = 10 * Vector3.back;
+
+                parentNode.paths[childNode] = polyline;
             }
         }
 UpgradesDisplayManager.PanelInitialized();

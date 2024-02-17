@@ -408,10 +408,10 @@ public static class Extensions
         return result;
     }
 
-    public static List<T> Difference<T>(this List<T> list1, List<T> list2)
+    public static List<T> Difference<T>(this IEnumerable<T> list1, IEnumerable<T> list2)
     {
         List<T> intersection = list1.Intersection(list2);
-        List<T> union = list1.Union(list2);
+        IEnumerable<T> union = list1.Union(list2);
         List<T> result = new List<T>();
         foreach (T item in union)
         {
@@ -426,7 +426,7 @@ public static class Extensions
     ///<summary>
     ///Returns the mathematical intesection of two lists of Item.
     ///</summary>
-    public static List<T> Intersection<T>(this List<T> list1, List<T> list2)
+    public static List<T> Intersection<T>(this IEnumerable<T> list1, IEnumerable<T> list2)
     {
         List<T> result = new List<T>();
         foreach (T item in list1)

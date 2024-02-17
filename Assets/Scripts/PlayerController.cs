@@ -303,10 +303,6 @@ public class PlayerController : MonoBehaviour
         interactorHandler.Initialize(PlayerManager.weaponPrefab, pointerFront, true);
         
         bonusManager.applyCharacterEffect();
-        
-        foreach(PowerHandler powerHandler in PlayerManager.powers) {
-            powerHandler.Activate();
-        }
 
         foreach (EquipmentHandler equipmentHandler in PlayerManager.equipments)
         {
@@ -316,6 +312,10 @@ public class PlayerController : MonoBehaviour
         foreach (ArtefactHandler artefactHandler in PlayerManager.artefacts)
         {
             artefactHandler.Activate(bonusManager);
+        }
+        
+        foreach(PowerHandler powerHandler in PlayerManager.powers) {
+            powerHandler.Activate();
         }
 
         maxHealth = PlayerManager.playerData.character.maxHealth + bonusManager.getBonusMaxHealth();

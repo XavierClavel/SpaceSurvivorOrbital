@@ -20,6 +20,12 @@ public class Power : Damager
             
         }
         isUsing = true;
+        
+        stats.interactor.cooldown *= PlayerController.bonusManager.getPowerCooldownMultiplier();
+        stats.interactor.baseDamage = new Vector2Int(
+            (int)(stats.interactor.baseDamage.x * PlayerController.bonusManager.getPowerDamageMultiplier()),
+            (int)(stats.interactor.baseDamage.y * PlayerController.bonusManager.getPowerDamageMultiplier())
+            );
         base.Setup(stats);
 
         onSetup();

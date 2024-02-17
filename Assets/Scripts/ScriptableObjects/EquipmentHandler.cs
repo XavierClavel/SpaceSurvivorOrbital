@@ -10,7 +10,7 @@ public class EquipmentHandler : HidableObjectHandler
     public void Activate(BonusManager bonusManager)
     {
         Equipment instance = GameObject.Instantiate(equipment);
-        instance.Setup(PlayerManager.dictKeyToStats[key]);
+        instance.Setup(PlayerManager.dictKeyToStats[key].Clone());
         if (booster)
         {
             instance.Boost(bonusManager);

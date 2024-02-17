@@ -10,6 +10,15 @@ public class BonusManager
     private float bonusStrength = 1f;
     private float bonusResources = 1f;
 
+    private float weaponCooldown = 1f;
+
+    private float powerCooldown = 1f;
+
+    private float powerStrength = 1f;
+    private float equipmentStrength = 1f;
+    private float merchantPrices = 1f;
+    private float fireDamageMultiplier = 1f;
+
     public void addBonusMaxHealth(int amount) => bonusMaxHealth += amount;
     public void addBonusStock(int amount) => bonusStock += amount;
     public void addBonusShield(int amount) => bonusShield += amount;
@@ -26,6 +35,12 @@ public class BonusManager
     public float getBonusSpeed() => bonusSpeed;
     public float getBonusStrength() => bonusStrength;
     public float getBonusResources() => bonusResources;
+
+    public float getPowerCooldownMultiplier() => powerCooldown;
+    public float getPowerDamageMultiplier() => powerStrength;
+
+    public float getFireDamageMultiplier() => fireDamageMultiplier;
+    public float getMerchantPricesMultiplier() => merchantPrices;
 
     public void applyEquipmentsEffects()
     {

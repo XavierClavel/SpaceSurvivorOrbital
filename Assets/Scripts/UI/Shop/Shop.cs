@@ -20,10 +20,10 @@ public class Shop : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textOrangeResource;
     [SerializeField] private TextMeshProUGUI textHealButton;
     
-    private const int costHealth = 20;
-    private const int costResourceBlue = 50;
-    private const int costResourceOrange = 30;
-    private const int costResourceGreen = 30;
+    private int costHealth = 20;
+    private int costResourceBlue = 50;
+    private int costResourceOrange = 30;
+    private int costResourceGreen = 30;
 
     public static int maxHealth;
     public static int maxStock;
@@ -50,6 +50,12 @@ public class Shop : MonoBehaviour
         
         healthBar.Setup(maxHealth,  maxHealth - PlayerManager.damageTaken);
         healthBar.SetupShields(bonusManager.getBonusShield());
+
+        costHealth = (int)(costHealth * PlayerController.bonusManager.getMerchantPricesMultiplier());
+        costResourceBlue = (int)(costResourceBlue * PlayerController.bonusManager.getMerchantPricesMultiplier());
+        costResourceGreen = (int)(costResourceGreen * PlayerController.bonusManager.getMerchantPricesMultiplier());
+        costResourceOrange = (int)(costResourceOrange * PlayerController.bonusManager.getMerchantPricesMultiplier());
+        
         
         UpdateHealButton();
         UpdateGreenResourceButton();

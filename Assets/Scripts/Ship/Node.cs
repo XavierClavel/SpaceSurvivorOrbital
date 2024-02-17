@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Shapes;
 using UnityEngine;
 
 public class Node
@@ -13,6 +14,7 @@ public class Node
 
     public List<Node> parentNodes = new List<Node>();
     public List<Node> childNodes = new List<Node>();
+    public Dictionary<Node, Polyline> paths = new Dictionary<Node, Polyline>();
     public Vector2Int position = new Vector2Int();
     NodeManager nodeManager;
 
