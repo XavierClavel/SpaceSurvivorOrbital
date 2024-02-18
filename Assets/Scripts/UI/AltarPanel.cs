@@ -27,6 +27,7 @@ public class AltarPanel : MonoBehaviour
 
     public static void UpdateAltarDisplay()
     {
+        AltarItem selectedItem = null;
         instance.layout.KillAllChildren();
         //instance.upgradesPointsDisplay.SetText(PlayerManager.amountBlue.ToString());
         List<PowerHandler> powersRemaining = ScriptableObjectManager.getDiscoveredPowers().Difference(PlayerManager.powers);
@@ -42,11 +43,8 @@ public class AltarPanel : MonoBehaviour
             AltarItem altarItem = GameObject.Instantiate(instance.itemPrefab, instance.layout, true);
             altarItem.transform.localScale = Vector3.one;
             altarItem.Setup(selectedPower.getKey());
-            
-            
-            
-            
-            
+
+            if (selectedItem == null) selectedItem = altarItem;
         }
 
         if (!PlayerManager.isTuto)
@@ -54,7 +52,9 @@ public class AltarPanel : MonoBehaviour
             AltarItem blueResourceItem = Instantiate(instance.blueResourcePrefab, instance.layout);
             blueResourceItem.setAction(ObjectManager.instance.SelectUpgradePoint);
             blueResourceItem.transform.localScale = Vector3.one;
+            if (selectedItem == null) selectedItem = blueResourceItem;
         }
+        selectedItem?.setSelected();
     }
     
 }

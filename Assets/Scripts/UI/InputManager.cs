@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,6 @@ public class InputManager : MonoBehaviour
     static InputManager instance;
     static bool isPlayingWithGamepad = false;
     static PlayerInput playerInput;
-
 
     private void Awake()
     {

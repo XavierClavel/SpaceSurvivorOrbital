@@ -43,4 +43,9 @@ public class AltarItem : MonoBehaviour
         ObjectManager.altar.DepleteAltar();
     }
 
+    public void setSelected()
+    {
+        InputManager.setSelectedObject(button.gameObject);
+    }
+
 }
