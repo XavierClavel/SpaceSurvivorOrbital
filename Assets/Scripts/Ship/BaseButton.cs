@@ -145,7 +145,6 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
     // When highlighted with mouse.
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("pointer enter");
         mouseDriven = true;
         UpgradesDisplayManager.onSelect(this);
     }
