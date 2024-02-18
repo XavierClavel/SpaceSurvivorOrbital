@@ -160,6 +160,7 @@ public class DataSelector : MonoBehaviour, UIPanel
 
         dictKeyToButton[DataManager.dictWeapons.Keys.ToList()[0]].Select();
         dictKeyToButton[ScriptableObjectManager.dictKeyToCharacterHandler.Keys.ToList()[0]].Select();
+        
 
         maxEquipmentCharge = SaveManager.getCharge();
 

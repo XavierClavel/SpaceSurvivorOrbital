@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System;
+using System.Linq;
+using UnityEngine.UI;
 
 public enum selectorType { character, weapon, equipment }
 
@@ -33,13 +35,21 @@ public class SelectorLayout : MonoBehaviour
 
     void SetupLayout<T>(List<T> list) where T : HidableObjectHandler
     {
-        foreach (HidableObjectHandler handler in list)
+        for (int i = 0; i < list.Count; i++)
         {
+            var handler = list[i];
             if (!handler.isDiscovered()) continue;
             SelectButton newButton = Instantiate(button, transform, true);
             newButton.transform.localScale = Vector3.one;
             newButton.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero;
             newButton.Setup(handler.getKey(), this);
+            if (i == list.Count - 1)
+            {
+                var button = newButton.GetComponent<Button>();
+                var navigation = button.navigation;
+                navigation.selectOnRight = null;
+                button.navigation = navigation;
+            }
         }
     }
     

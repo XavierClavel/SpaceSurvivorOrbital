@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class TitleScreenManager : MonoBehaviour
 {
@@ -10,11 +12,14 @@ public class TitleScreenManager : MonoBehaviour
     private RectTransform titleScreenUI;
     private RectTransform dataSelectorUI;
     private RectTransform equipmentSelectorUI;
+    
     [SerializeField] TitleScreen titleScreen;
     [SerializeField] GameObject dataSelector;
     [SerializeField] GameObject equipmentSelector;
     [SerializeField] private Canvas canvas;
     [SerializeField] private OptionsManager optionsManager;
+
+    [SerializeField] private GameObject titleScreenFirstSelected;
     private static float canvasWidth;
     
     
@@ -37,7 +42,8 @@ public class TitleScreenManager : MonoBehaviour
         titleScreen.Setup();
         
         optionsManager.LoadOptions();
-        
+        InputManager.setSelectedObject(titleScreenFirstSelected);
+        RbLbNavigator.instance.Disable();
     }
     #endregion
     
@@ -66,8 +72,12 @@ public class TitleScreenManager : MonoBehaviour
     public void SwitchToDataSelection()
     {
         SoundManager.PlaySfx("Power_Switch");
-        instance.titleScreenUI.DOAnchorPosX(posRightCamera, 1f).SetEase(Ease.InOutQuint);
+        instance.titleScreenUI.DOAnchorPosX(posRightCamera, 1f)
+            .SetEase(Ease.InOutQuint);
         instance.dataSelectorUI.DOAnchorPosX(0f, 1f).SetEase(Ease.InOutQuint);
+        InputManager.setSelectedObject(
+            DataSelector.instance.dictKeyToButton[ScriptableObjectManager.dictKeyToCharacterHandler.Keys.ToList()[0]].gameObject);
+        RbLbNavigator.instance.Enable();
     }
 
     public void SwitchToDataSelectionFromEquipment()
@@ -75,6 +85,8 @@ public class TitleScreenManager : MonoBehaviour
         SoundManager.PlaySfx("Power_Switch");
         instance.equipmentSelectorUI.DOAnchorPosX(posLeftCamera, 1f).SetEase(Ease.InOutQuint);
         instance.dataSelectorUI.DOAnchorPosX(0, 1f).SetEase(Ease.InOutQuint);
+        InputManager.setSelectedObject(
+            DataSelector.instance.dictKeyToButton[ScriptableObjectManager.dictKeyToCharacterHandler.Keys.ToList()[0]].gameObject);
     }
 
     public void SwitchToTitleScreen()
@@ -82,6 +94,8 @@ public class TitleScreenManager : MonoBehaviour
         SoundManager.PlaySfx("Power_Switch");
         instance.dataSelectorUI.DOAnchorPosX(posLeftCamera, 1f).SetEase(Ease.InOutQuint);
         instance.titleScreenUI.DOAnchorPosX(0f, 1f).SetEase(Ease.InOutQuint);
+        InputManager.setSelectedObject(titleScreenFirstSelected);
+        RbLbNavigator.instance.Disable();
     }
 
     public void SwitchToEquipmentScreen()
@@ -89,6 +103,8 @@ public class TitleScreenManager : MonoBehaviour
         SoundManager.PlaySfx("Power_Switch");
         instance.dataSelectorUI.DOAnchorPosX(posRightCamera, 1f).SetEase(Ease.InOutQuint);
         instance.equipmentSelectorUI.DOAnchorPosX(0f, 1f).SetEase(Ease.InOutQuint);
+        InputManager.setSelectedObject(
+            DataSelector.instance.dictKeyToButton[ScriptableObjectManager.dictKeyToEquipmentHandler.Keys.ToList()[0]].gameObject);
     }
 
     public void Quit()
