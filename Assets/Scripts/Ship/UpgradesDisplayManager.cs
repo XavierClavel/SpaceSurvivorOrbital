@@ -53,6 +53,11 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     
 #region API
 
+    public static void RemoveNewFlag(string key)
+    {
+        newPanels.TryRemove(key);
+    }
+
     public static void Reset()
     {
         newPanels = new List<string>();
@@ -168,7 +173,11 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
                 int value = i;
                 buttons[i].setAction(delegate { SetActivePanel(value); });
                 panels[i].setup(key);
-                if (newPanels.Contains(key)) buttons[i].flagNew();
+                if (newPanels.Contains(key))
+                {
+                    buttons[i].flagNew();
+                    buttons[i].setAction(delegate { RemoveNewFlag(key); });
+                }
             }
         }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,11 @@ public class UpgradePanelButton : MonoBehaviour
     [SerializeField] private GameObject parent;
     [SerializeField] private GameObject newDisplay;
 
+    private void Start()
+    {
+        button.onClick.AddListener(delegate { newDisplay.SetActive(false); });
+    }
+
     public void Disable()
     {
         parent.SetActive(false);
@@ -25,7 +31,6 @@ public class UpgradePanelButton : MonoBehaviour
     public void setAction(UnityAction action)
     {
         button.onClick.AddListener(action);
-        button.onClick.AddListener(delegate { newDisplay.SetActive(false); });
     }
 
     public void flagNew()
