@@ -29,7 +29,7 @@ public class AltarPanel : MonoBehaviour
     {
         instance.layout.KillAllChildren();
         //instance.upgradesPointsDisplay.SetText(PlayerManager.amountBlue.ToString());
-        List<PowerHandler> powersRemaining = ScriptableObjectManager.dictKeyToPowerHandler.Values.ToList().Difference(PlayerManager.powers);
+        List<PowerHandler> powersRemaining = ScriptableObjectManager.dictKeyToPowerHandler.Values.Difference(PlayerManager.powers);
         for (int i = 0; i < instance.displayAmount; i++)
         {
             if (PlayerManager.powers.Count >= 6 || powersRemaining.Count == 0)

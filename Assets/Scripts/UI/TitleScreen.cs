@@ -79,6 +79,7 @@ public static class ResetManager
         PlanetSelector.ResetDifficulty();
         Planet.Reset();
         UpgradesDisplayManager.Reset();
+        if (DataManager.isInitialized()) ScriptableObjectManager.LoadScriptableObjects();
     }
 
 }

@@ -63,7 +63,7 @@ public static class ScriptableObjectManager
         {
             if (!weaponHandler.canBeSelected()) continue;
             dictKeyToWeaponHandler[weaponHandler.getKey()] = weaponHandler;
-            baseWeapons.Add(weaponHandler);
+            baseWeapons.TryAdd(weaponHandler);
         }
         weaponHandlers = Resources.LoadAll<WeaponHandler>(Vault.path.AllWeapons);
         foreach (WeaponHandler weaponHandler in weaponHandlers)
@@ -78,7 +78,7 @@ public static class ScriptableObjectManager
         {
             if (!characterHandler.canBeSelected()) continue;
             dictKeyToCharacterHandler[characterHandler.getKey()] = characterHandler;
-            characters.Add(characterHandler);
+            characters.TryAdd(characterHandler);
         }
 
         dictKeyToEquipmentHandler = new Dictionary<string, EquipmentHandler>();
@@ -88,7 +88,7 @@ public static class ScriptableObjectManager
         {
             if (!equipmentHandler.canBeSelected()) continue;
             dictKeyToEquipmentHandler[equipmentHandler.getKey()] = equipmentHandler;
-            equipments.Add(equipmentHandler);
+            equipments.TryAdd(equipmentHandler);
         }
 
         dictKeyToSfx = new Dictionary<string, Sfx>();

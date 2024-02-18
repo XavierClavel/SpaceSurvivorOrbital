@@ -26,13 +26,24 @@ public static class SaveManager
             "Gun"
         };
 
+        public HashSet<availability> gameProgression = new HashSet<availability>()
+        {
+            availability.Start
+        };
+
         public OptionsProfile options = new OptionsProfile();
     }
+
+    public static HashSet<availability> getProgression()
+    {
+        Debug.Log(saveData.gameProgression == null);
+        Debug.Log(saveData.gameProgression.Count);
+        return saveData.gameProgression;
+    } 
 
     public static void setOptions(OptionsProfile options)
     {
         saveData.options = options;
-        Debug.Log(options.musicVolume);
         Save();
     }
 
