@@ -36,9 +36,14 @@ public static class SaveManager
 
     public static HashSet<availability> getProgression()
     {
-        Debug.Log(saveData.gameProgression == null);
-        Debug.Log(saveData.gameProgression.Count);
         return saveData.gameProgression;
+    } 
+    
+    public static void addProgression(availability step)
+    {
+        if (saveData.gameProgression.Contains(step)) return;
+        saveData.gameProgression.Add(step);
+        Save();
     } 
 
     public static void setOptions(OptionsProfile options)
