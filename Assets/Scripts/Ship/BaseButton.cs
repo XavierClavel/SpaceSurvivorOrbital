@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 using Image = UnityEngine.UI.Image;
 
-public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectHandler
+public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectHandler, IDeselectHandler, IPointerExitHandler
 {
 
     private List<string> buttonsToActivate = new List<string>();
     private List<string> buttonsToDeactivate = new List<string>();
     [HideInInspector] public string key;
     private List<Effect> effects = new List<Effect>();
+    private bool mouseDriven = false;
 
 
     public skillButtonStatus status { get; private set; }
@@ -143,7 +145,9 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
     // When highlighted with mouse.
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //UpgradeDisplay.DisplayUpgrade(key);
+        Debug.Log("pointer enter");
+        mouseDriven = true;
+        UpgradesDisplayManager.onSelect(this);
     }
 
     // When selected.
@@ -151,7 +155,21 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
     {
         UpgradeDisplay.DisplayUpgrade(key);
         UpgradeDisplay.SetupBuyButton(delegate { Execute(ApplyEffects); }, gameObject);
-        // Do something.
-        // Debug.Log("<color=red>Event:</color> Completed selection.");
+        if (mouseDriven) return;
+        UpgradesDisplayManager.onSelect(this);
     }
+
+    //TODO : check input type
+    
+    public void OnDeselect(BaseEventData eventData)
+    {
+        if (mouseDriven) return;
+        UpgradesDisplayManager.onDeselect(this);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        UpgradesDisplayManager.onDeselect(this);
+    }
+    
 }

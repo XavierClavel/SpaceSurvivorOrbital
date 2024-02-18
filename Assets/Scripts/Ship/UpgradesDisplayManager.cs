@@ -98,6 +98,13 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
         InputManager.setSelectedObject(currentActivePanel.firstSelectedButton);
         eventSystem.SetSelectedGameObject(currentActivePanel.firstSelectedButton);
         eventSystem.firstSelectedGameObject = currentActivePanel.firstSelectedButton;
+        
+        inputActions = new InputMaster();
+        inputActions.Enable();
+        inputActions.UI.Validate.started += ctx => StartBuying();
+        inputActions.UI.Validate.canceled += ctx => StopCoroutine(nameof(holdCoroutine));
+
+        selectedButton = null;
 
         /*
         inputActions = new InputMaster();
@@ -107,10 +114,40 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
         inputActions.Enable();
         µ*/
     }
+
+    public void StartBuying()
+    {
+        if (selectedButton == null) return; 
+        StartCoroutine(nameof(holdCoroutine));
+    }
+    
+    private IEnumerator holdCoroutine()
+    {
+        Debug.Log("start");
+        yield return Helpers.getWait(1.5f);
+        UpgradeDisplay.Buy();
+        Debug.Log("bought");
+    }
     
 #endregion
 
 #region staticAPI
+
+    private static TreeButton selectedButton;
+    private static bool mouseDriven;
+
+    public static void onSelect(TreeButton btn)
+    {
+        Debug.Log("selected");
+        selectedButton = btn;
+    }
+
+    public static void onDeselect(TreeButton btn)
+    {
+        Debug.Log("deselected");
+        selectedButton = null;
+        instance.StopCoroutine(nameof(holdCoroutine));
+    }
 
     public static void PanelInitialized()
     {

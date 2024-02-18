@@ -48,4 +48,9 @@ public class UpgradeDisplay : MonoBehaviour
         buyAction = action;
         selectedButton = selected;
     }
+
+    public static void Buy()
+    {
+        buyAction.Invoke();
+    }
 }

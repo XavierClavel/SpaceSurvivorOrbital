@@ -60,7 +60,6 @@ public class SelectButton : MonoBehaviour
 
     public void Select()
     {
-        
         DataSelector.DisplayGeneric(key, this);
         if (!isUnlocked && !TitleScreen.isSelectionFree) return;
         DataSelector.SelectGeneric(key);

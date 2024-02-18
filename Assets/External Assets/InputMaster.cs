@@ -600,6 +600,15 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Validate"",
+                    ""type"": ""Button"",
+                    ""id"": ""f61ea515-f6a4-48a6-8d5d-3f716c485ff3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -888,6 +897,28 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""action"": ""LB"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""94d2dba5-90a5-4179-9eea-56e7ede57561"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Validate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""96b01aeb-b2bf-41ad-9965-4f2b9ca4d865"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Validate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -946,6 +977,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
         m_UI_RB = m_UI.FindAction("RB", throwIfNotFound: true);
         m_UI_LB = m_UI.FindAction("LB", throwIfNotFound: true);
+        m_UI_Validate = m_UI.FindAction("Validate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1206,6 +1238,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Navigate;
     private readonly InputAction m_UI_RB;
     private readonly InputAction m_UI_LB;
+    private readonly InputAction m_UI_Validate;
     public struct UIActions
     {
         private @InputMaster m_Wrapper;
@@ -1213,6 +1246,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
         public InputAction @RB => m_Wrapper.m_UI_RB;
         public InputAction @LB => m_Wrapper.m_UI_LB;
+        public InputAction @Validate => m_Wrapper.m_UI_Validate;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1231,6 +1265,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @LB.started += instance.OnLB;
             @LB.performed += instance.OnLB;
             @LB.canceled += instance.OnLB;
+            @Validate.started += instance.OnValidate;
+            @Validate.performed += instance.OnValidate;
+            @Validate.canceled += instance.OnValidate;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1244,6 +1281,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @LB.started -= instance.OnLB;
             @LB.performed -= instance.OnLB;
             @LB.canceled -= instance.OnLB;
+            @Validate.started -= instance.OnValidate;
+            @Validate.performed -= instance.OnValidate;
+            @Validate.canceled -= instance.OnValidate;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1305,5 +1345,6 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void OnNavigate(InputAction.CallbackContext context);
         void OnRB(InputAction.CallbackContext context);
         void OnLB(InputAction.CallbackContext context);
+        void OnValidate(InputAction.CallbackContext context);
     }
 }
