@@ -41,6 +41,7 @@ public class DebugManager : ScriptableObject
 
     [SerializeField] private bool overrideDifficulty;
     [SerializeField] private int debugDifficulty;
+    [SerializeField] private bool overrideProgressionUnlocks;
     
     private RectTransform debugLayout;
     private TextMeshProUGUI debugLine;
@@ -86,6 +87,8 @@ public class DebugManager : ScriptableObject
     {
         return instance.debugDifficulty;
     }
+
+    public static bool doOverrideProgressionUnlocks() => instance.debugEnabled && instance.overrideProgressionUnlocks;
 
 
     public void LoadData()

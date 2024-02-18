@@ -16,20 +16,16 @@ public static class ScriptableObjectManager
     static List<CharacterHandler> characters;
     static List<EquipmentHandler> equipments;
 
-    public static List<CharacterHandler> getCharacters()
-    {
-        return characters;
-    }
+    public static List<CharacterHandler> getCharacters() => characters;
+    public static List<CharacterHandler> getDicoveredCharacters() => characters.Where(it => it.isDiscovered()).ToList();
 
-    public static List<WeaponHandler> getWeapons()
-    {
-        return baseWeapons;
-    }
+    public static List<WeaponHandler> getWeapons() => baseWeapons;
 
-    public static List<EquipmentHandler> getEquipment()
-    {
-        return equipments;
-    }
+    public static List<EquipmentHandler> getEquipments() => equipments;
+    public static List<EquipmentHandler> GetDiscoveredEquipments() => equipments.Where(it => it.isDiscovered()).ToList();
+
+    public static List<PowerHandler> getPowers() => dictKeyToPowerHandler.Values.ToList();
+    public static List<PowerHandler> getDiscoveredPowers() => getPowers().Where(it => it.isDiscovered()).ToList();
 
     public static void LoadScriptableObjects()
     {

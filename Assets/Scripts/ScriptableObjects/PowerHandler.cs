@@ -22,9 +22,22 @@ public class HidableObjectHandler : ObjectHandler
     {
         if (visibility == handlerVisibility.Hide) return false;
         if (visibility == handlerVisibility.ShowInFullGame && PlayerManager.isDemo) return false;
-        if (!SaveManager.getProgression().Contains(availableAfter)) return false;
         return true;
     }
+
+    public bool isDiscovered()
+    {
+        if (DebugManager.doOverrideProgressionUnlocks()) return true;
+        return SaveManager.getProgression().Contains(availableAfter);
+    }
+
+    public bool isDiscoveredAt(availability gameProgress)
+    {
+        Debug.Log(availableAfter == gameProgress);
+        return availableAfter == gameProgress;
+    }
+
+    public availability getAvailibility() => availableAfter;
 }
 
 

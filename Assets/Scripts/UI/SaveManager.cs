@@ -39,11 +39,17 @@ public static class SaveManager
         return saveData.gameProgression;
     } 
     
-    public static void addProgression(availability step)
+    /// <summary>
+    /// Registers progress made.
+    /// </summary>
+    /// <param name="step">The milestone reached</param>
+    /// <returns>True if milestone was not reached before</returns>
+    public static bool addProgression(availability step)
     {
-        if (saveData.gameProgression.Contains(step)) return;
+        if (saveData.gameProgression.Contains(step)) return false;
         saveData.gameProgression.Add(step);
         Save();
+        return true;
     } 
 
     public static void setOptions(OptionsProfile options)

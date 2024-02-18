@@ -26,15 +26,16 @@ public class SelectorLayout : MonoBehaviour
                 break;
 
             case selectorType.equipment:
-                SetupEquipmentLayout(ScriptableObjectManager.getEquipment());
+                SetupEquipmentLayout(ScriptableObjectManager.getEquipments());
                 break;
         }
     }
 
-    void SetupLayout<T>(List<T> list) where T : ObjectHandler
+    void SetupLayout<T>(List<T> list) where T : HidableObjectHandler
     {
-        foreach (ObjectHandler handler in list)
+        foreach (HidableObjectHandler handler in list)
         {
+            if (!handler.isDiscovered()) continue;
             SelectButton newButton = Instantiate(button, transform, true);
             newButton.transform.localScale = Vector3.one;
             newButton.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero;
@@ -46,6 +47,7 @@ public class SelectorLayout : MonoBehaviour
     {
         foreach (EquipmentHandler handler in list)
         {
+            if (!handler.isDiscovered()) continue;
             ChargedSelectButton newButton = (ChargedSelectButton)Instantiate(button, transform, true);
             newButton.transform.localScale = Vector3.one;
             newButton.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero;

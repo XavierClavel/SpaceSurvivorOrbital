@@ -50,7 +50,7 @@ public class Boss : Ennemy
 
     protected override void onDeath()
     {
-        SaveManager.addProgression(availability.Boss1);
+        WinScreen.setProgress(availability.Boss1);
         ObjectManager.DisplaySpaceship();
         Spaceship.setDestination(gameScene.win);
     }
