@@ -448,7 +448,9 @@ public class PlayerController : MonoBehaviour
 
     Vector2 getGamepadAimInput()
     {
-        return controls.Player.Aim.ReadValue<Vector2>();
+        var value = controls.Player.Aim.ReadValue<Vector2>();
+        camTarget.position = (Vector2)pointerFront.position + Mathf.Clamp(value.sqrMagnitude * 16f, 0f, 16f) * 0.1f * value.normalized;
+        return value;
     }
 
     Vector2 getMouseAimInput()
