@@ -24,9 +24,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] SpriteRenderer playerSprite;
     [SerializeField] Animator playerAnimator;
 
-    [SerializeField] ParticleSystem boostAttack;
-    [SerializeField] ParticleSystem boostSpeed;
-
     InteractorHandler interactorHandler;
     [SerializeField] GameObject minerBot;
     [HideInInspector] public Transform attractorTransform;
@@ -37,8 +34,12 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private CinemachineVirtualCamera cinemachineCamera;
     private CinemachineBasicMultiChannelPerlin camNoise;
-    private Vector2 noise = Vector2.zero;
-    [SerializeField] private Transform noiseTransform;
+    
+    [Header("Particle Systems")]
+    [SerializeField] ParticleSystem boostAttack;
+    [SerializeField] ParticleSystem boostSpeed;
+    [SerializeField] private ParticleSystem shieldUp;
+    [SerializeField] private ParticleSystem shieldDown;
 
     private const float boostedSpeed = 6f;
     [HideInInspector]
@@ -94,6 +95,7 @@ public class PlayerController : MonoBehaviour
     Vector2 prevMoveDir = Vector2.zero;
     LayoutManager healthBar;
     int _health;
+    [Header("Transforms")]
     [SerializeField] Animator animator;
     public Transform pointerFront;
     public Transform pointerBack;
@@ -592,5 +594,18 @@ public class PlayerController : MonoBehaviour
     }
 
     public static float getDamageMultiplier() => instance.damageMultiplier;
+
+    public static void onShieldUp()
+    {
+        instance.shieldUp.Play();
+    }
+
+    public static void onShieldDown()
+    {
+        instance.shieldDown.Play();
+        instance.shieldUp.Stop();
+        instance.shieldUp.gameObject.SetActive(false);
+        instance.shieldUp.gameObject.SetActive(true);
+    }
 
 }

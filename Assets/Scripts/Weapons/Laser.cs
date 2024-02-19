@@ -28,8 +28,6 @@ public class Laser : Interactor
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] private GameObject collisionSprite;
     [SerializeField] private Shockwave shockwave;
-    [SerializeField] ParticleSystem shieldOn;
-    [SerializeField] ParticleSystem shieldOff;
     playerDirection _aimDirection_value = playerDirection.front;
 
     private bool isShockwaveEnabled;
@@ -195,11 +193,13 @@ public class Laser : Interactor
 
     void onLaserStart()
     {
+        if (isEnergyShieldEnabled) PlayerController.onShieldUp();
         DOTween.To(() => laserSfxSource.volume, x => laserSfxSource.volume = x, 1f, laserSfxTransitionTime);
     }
 
     void onLaserStop()
     {
+        if (isEnergyShieldEnabled) PlayerController.onShieldDown();
         DOTween.To(() => laserSfxSource.volume, x => laserSfxSource.volume = x, 0f, laserSfxTransitionTime);
     }
 
