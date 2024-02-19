@@ -66,7 +66,7 @@ public class Laser : Interactor
                 if (!reloadSlider.gameObject.activeSelf) reloadSlider.gameObject.SetActive(true);
             }
             
-            if (value >= ConstantsData.laserOverheatThreshold)
+            if (value >= laserOverheatThreshold)
             {
                 if (!overheating)
                 {
@@ -87,11 +87,12 @@ public class Laser : Interactor
     private const float laserSfxTransitionTime = 0.3f;
     private float scrollSpeed = 2f;
     private float tiling = 1f;
+    private float laserOverheatThreshold;
 
     protected override void Start()
     {
         base.Start();
-        ConstantsData.laserOverheatThreshold = stats.cooldown;
+        laserOverheatThreshold = stats.cooldown;
         isShockwaveEnabled = fullStats.generic.boolA;
         shockwaveMaxRange = fullStats.generic.floatA;
         shockwaveDamage = (int)stats.cooldown;
@@ -108,7 +109,7 @@ public class Laser : Interactor
         lineRenderer.endWidth = width;
         
         reloadSlider.gameObject.SetActive(true);
-        reloadSlider.maxValue = ConstantsData.laserOverheatThreshold;
+        reloadSlider.maxValue = laserOverheatThreshold;
         dps = stats.baseDamage.x;
 
         shockwave = Instantiate(shockwave, player.transform, true);
@@ -159,7 +160,7 @@ public class Laser : Interactor
 
     private void FixedUpdate()
     {
-        heatValue = Mathf.Clamp(heatValue + Time.fixedDeltaTime * getHeatValueChangeFactor(), 0f, ConstantsData.laserOverheatThreshold);
+        heatValue = Mathf.Clamp(heatValue + Time.fixedDeltaTime * getHeatValueChangeFactor(), 0f, laserOverheatThreshold);
         
         if (overheating || !isUsing)
         {
@@ -180,7 +181,7 @@ public class Laser : Interactor
     {
         if (!isEnergyShieldEnabled) return false;
         if (!isUsing) return false;
-        if (heatValue + energyShieldOverheatCost >= ConstantsData.laserOverheatThreshold) return false;
+        if (heatValue + energyShieldOverheatCost >= laserOverheatThreshold) return false;
         heatValue += energyShieldOverheatCost;
         return true;
     }

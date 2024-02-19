@@ -13,6 +13,7 @@ public class ArtefactPanel : MonoBehaviour
 
     [SerializeField] private StringLocalizer descriptionDisplay;
     [SerializeField] private RectTransform rectTransform;
+    [SerializeField] private GameObject firstSelected;
     private static ArtefactPanel instance;
 
     private void Awake()
@@ -23,20 +24,21 @@ public class ArtefactPanel : MonoBehaviour
     public static void Display(ArtefactHandler artefact)
     {
         instance.rectTransform.DOScale(Vector3.one, 0.5f)
-            .SetEase(Ease.InOutQuad)
+            .SetEase(Ease.OutQuad)
             .SetUpdate(true);
         PauseMenu.instance.PauseGame(false);
         instance.image.sprite = artefact.getIcon();
         string key = artefact.getKey();
         instance.titleDisplay.setKey(key + Vault.key.ButtonTitle);
         instance.descriptionDisplay.setKey(key + Vault.key.ButtonDescription);
+        InputManager.setSelectedObject(instance.firstSelected);
     }
 
     public void Hide()
     {
         PauseMenu.instance.ResumeGame();
         instance.rectTransform.DOScale(Vector3.zero, 0.5f)
-            .SetEase(Ease.InOutQuad)
+            .SetEase(Ease.InQuad)
             .SetUpdate(true);
     }
 }
