@@ -159,39 +159,112 @@ Magazine:
 
 Chargeur :
 12 -> 15"
-LASER_MICROWAVE;;Micro-onde
-;;Laser qui ondule
-LASER_ULTRAVIOLET;;Ultraviolet
-;;Laser qui ondule plus rapidement
-LASER_XRAY;;Rayon X
-;;Laser qui ondule ultra rapidement
-LASER_X1000;;Laser X1000
-;;Votre laser tire plus loin
-LASER_X2000;;Laser X2000
-;;"Laser plus épais
-Dégât en plus, zone de collision plus grande"
-LASER_X3000;;Laser X3000
-;;"Laser plus long
-Dégât en plus"
-LASER_X9000;;Canon laser X9000
-;;"Laser plus épais et plus long
-Dégât en plus, zone de collision plus grande"
-LASER_ELEMENT_1;;Capsule élémentaire 1
-;;Amélioration Elémentaire de Glace
-LASER_ELEMENT_2;;Capsule élémentaire 2
-;;"Amélioration Elémentaire Electrique "
-LASER_ELEMENT_3;;Capsule élémentaire 3
-;;Amélioration Elémentaire de feu
-LASER_SHOCKWAVE_1;;Attention ça chauffe
-;;Quand la surchauffe est atteinte, le pistolet émet un onde de choc autour du joueur
-LASER_SHOCKWAVE_2;;Vous avez été prévenu
-;;Onde de choc plus grande et stun les ennemis
-LASER_ENERGY_SHIELD_1;;Bouclier énergétique
-;;Pendant que le joueur tire, un boucle d’énergie se crée autour de lui, quand il prend un coup, au lieu de perdre de la vie, la jauge de surchauffe absorbe le coup (et augmente de 50%)
-LASER_ENERGY_SHIELD_2;;Réduction énergétique
-;;La jauge de surchauffe n’augmente que de 25% à chaque coût
-Shield;;Bouclier
-;;Un bouclier vous offre une protection supplémentaire qui revient entre chaque planète !
+LASER_MICROWAVE;Microwaves;Micro-ondes
+;"Your laser undulates over a longer range. 
+
+Length : 
+15 -> 20
+Width: 
+6 -> 9";"Votre laser ondule sur une plus grande portée. 
+
+Longueur : 
+15 -> 20
+Largeur : 
+6 -> 9"
+LASER_ELEMENT_Ice1;Ice capsule;Capsule Glace
+;"Your laser pistol freezes enemies. Frozen enemies are slowed down and suffer more damage.
+
+Effect: Ice";"Votre pistolet laser gèle les ennemis. Les ennemis gelés sont ralentis et subissent plus de dégât.
+
+Effet : Glace"
+LASER_ELEMENT_Light1;Electric capsule;Capsule électrique
+;"Your laser pistol electrifies enemies. Electrified enemies become paralyzed for a few seconds.
+
+Effect: Electric";"Votre pistolet laser électrifie les ennemis. Les ennemis électrifiés deviennent paralysés pendant quelques secondes.
+
+Effet : Electrique"
+LASER_ELEMENT_Fire1;Fire capsule;Capsule Feu
+;"Your laser pistol burns enemies. Burned enemies suffer continuous damage. 
+
+Effect: Fire";"Votre pistolet laser brûle les ennemis. Les ennemis brûlés subissent des dégâts en continue. 
+
+Effet : Feu"
+LASER_XRAY;X-rays;Rayons X
+;"Your laser ripples over a longer range. 
+
+Length: 
+20-> 25
+Width: 
+9 -> 12";"Votre laser ondule sur une plus grande portée. 
+
+Longueur : 
+20-> 25
+Largeur : 
+9 -> 12"
+LASER_ELEMENT_Ice2;Ice capsule;Capsule Glace
+;"Your laser pistol freezes enemies. Frozen enemies are slowed down and suffer more damage.
+
+Effect: Ice";"Votre pistolet laser gèle les ennemis. Les ennemis gelés sont ralentis et subissent plus de dégât.
+
+Effet : Glace"
+LASER_ELEMENT_Light2;Electric capsule;Capsule électrique
+;"Your laser pistol electrifies enemies. Electrified enemies become paralyzed for a few seconds.
+
+Effect: Electric";"Votre pistolet laser électrifie les ennemis. Les ennemis électrifiés deviennent paralysés pendant quelques secondes.
+
+Effet : Electrique"
+LASER_ELEMENT_Fire2;Fire capsule;Capsule Feu
+;"Your laser pistol burns enemies. Burned enemies suffer continuous damage. 
+
+Effect: Fire";"Votre pistolet laser brûle les ennemis. Les ennemis brûlés subissent des dégâts en continue. 
+
+Effet : Feu"
+LASER_SHOCKWAVE;Overheating;Surchauffe
+;"When your laser pistol's energy bar reaches 0, the pistol emits a shockwave around your character.
+
+The wave's damage is equal to the size of your energy bar. ";"Quand la barre d'énergie de votre pistolet laser atteint 0, le pistolet émet un onde de choc autour de votre personnage.
+
+Les dégâts de l'onde sont égaux à la taille de votre barre d'énergie. "
+LASER_ENERGY_SHIELD;Energy shield;Bouclier énergétique
+;"As long as you fire your laser pistol, an energy shield appears around you. If you get hit, the shield protects you from the blow, but the laser pistol's energy bar fills up. 
+
+Filling per shot: 50""";"Tant que vous tirez avec votre pistolet laser, un bouclier énergétique apparait autour de vous. Si vous vous faites toucher, le bouclier vous protège du coup mais la barre d'énergie du pistolet laser se remplit. 
+
+Remplissage par coup : 50"
+LASER_MAXLOAD_1;Energy I;Energie I
+;"The size of the laser gun's energy bar increases. 
+
+Size: 
+100 -> 125";"La taille de la barre d'énergie du pistolet laser augmente. 
+
+Taille : 
+100 -> 125"
+LASER_MAXLOAD_2;Energy II;Energie II
+;"Laser pistol energy bar increases in size. 
+
+Size: 
+125 -> 150";"La taille de la barre d'énergie du pistolet laser augmente. 
+
+Taille : 
+125 -> 150"
+LASER_MAXLOAD_3;Energy III;Energie III
+;"Laser pistol energy bar increases in size. 
+
+Size: 
+150-> 175";"La taille de la barre d'énergie du pistolet laser augmente. 
+
+Taille : 
+150-> 175"
+LASER_MAXLOAD_4;Energy IV;Energie IV
+;"Laser pistol energy bar increases in size. 
+
+Size: 
+175 -> 200";"La taille de la barre d'énergie du pistolet laser augmente. 
+
+Taille : 
+175 -> 200"
+Shield;Shield;Bouclier
+;A shield gives you extra protection that returns between planets!;Un bouclier vous offre une protection supplémentaire qui revient entre chaque planète !
 SHIELD_1;Small shield;Petit bouclier
 ;"You arm your shield!
 

@@ -28,6 +28,8 @@ public class Laser : Interactor
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] private GameObject collisionSprite;
     [SerializeField] private Shockwave shockwave;
+    [SerializeField] ParticleSystem shieldOn;
+    [SerializeField] ParticleSystem shieldOff;
     playerDirection _aimDirection_value = playerDirection.front;
 
     private bool isShockwaveEnabled;
@@ -89,9 +91,11 @@ public class Laser : Interactor
     protected override void Start()
     {
         base.Start();
+        ConstantsData.laserOverheatThreshold = stats.cooldown;
         isShockwaveEnabled = fullStats.generic.boolA;
         shockwaveMaxRange = fullStats.generic.floatA;
-        shockwaveDamage = fullStats.generic.intA;
+        shockwaveDamage = (int)stats.cooldown;
+        Debug.Log(shockwaveDamage);
         
         isEnergyShieldEnabled = fullStats.generic.boolB;
         energyShieldOverheatCost = fullStats.generic.floatB;
@@ -156,8 +160,6 @@ public class Laser : Interactor
     private void FixedUpdate()
     {
         heatValue = Mathf.Clamp(heatValue + Time.fixedDeltaTime * getHeatValueChangeFactor(), 0f, ConstantsData.laserOverheatThreshold);
-        
-        
         
         if (overheating || !isUsing)
         {
