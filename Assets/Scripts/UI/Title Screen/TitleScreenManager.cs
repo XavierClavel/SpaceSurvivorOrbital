@@ -12,10 +12,12 @@ public class TitleScreenManager : MonoBehaviour
     private RectTransform titleScreenUI;
     private RectTransform dataSelectorUI;
     private RectTransform equipmentSelectorUI;
-    
+    private RectTransform bossSelectorUI;
+
     [SerializeField] TitleScreen titleScreen;
     [SerializeField] GameObject dataSelector;
     [SerializeField] GameObject equipmentSelector;
+    [SerializeField] GameObject bossSelector;
     [SerializeField] private Canvas canvas;
     [SerializeField] private OptionsManager optionsManager;
 
@@ -37,8 +39,10 @@ public class TitleScreenManager : MonoBehaviour
         titleScreenUI = titleScreen.getUITransform();
         dataSelectorUI = dataSelector.GetComponent<RectTransform>();
         equipmentSelectorUI = equipmentSelector.GetComponent<RectTransform>();
+        bossSelectorUI = bossSelector.GetComponent<RectTransform>();
         HideDataSelector();
         HideEquipmentSelector();
+        HideBossSelector();
         titleScreen.Setup();
         
         optionsManager.LoadOptions();
@@ -62,6 +66,10 @@ public class TitleScreenManager : MonoBehaviour
     public static void HideEquipmentSelector()
     {
         instance.equipmentSelectorUI.anchoredPosition += canvasWidth * Vector2.right;
+    }
+    public static void HideBossSelector()
+    {
+        instance.bossSelectorUI.anchoredPosition += canvasWidth * Vector2.right;
     }
 
     public static void DisplayUpgradesUI()
@@ -105,6 +113,23 @@ public class TitleScreenManager : MonoBehaviour
         instance.equipmentSelectorUI.DOAnchorPosX(0f, 1f).SetEase(Ease.InOutQuint);
         InputManager.setSelectedObject(
             DataSelector.instance.dictKeyToButton[ScriptableObjectManager.dictKeyToEquipmentHandler.Keys.ToList()[0]].gameObject);
+    }
+    public void SwitchToBossScreen()
+    {
+        SoundManager.PlaySfx("Power_Switch");
+        instance.equipmentSelectorUI.DOAnchorPosX(posRightCamera, 1f).SetEase(Ease.InOutQuint);
+        instance.bossSelectorUI.DOAnchorPosX(0f, 1f).SetEase(Ease.InOutQuint);
+        InputManager.setSelectedObject(
+            DataSelector.instance.dictKeyToButton[ScriptableObjectManager.dictKeyToEquipmentHandler.Keys.ToList()[0]].gameObject);
+    }
+
+    public void SwitchToEquipmentFromBoss()
+    {
+        SoundManager.PlaySfx("Power_Switch");
+        instance.bossSelectorUI.DOAnchorPosX(posLeftCamera, 1f).SetEase(Ease.InOutQuint);
+        instance.equipmentSelectorUI.DOAnchorPosX(0, 1f).SetEase(Ease.InOutQuint);
+        InputManager.setSelectedObject(
+            DataSelector.instance.dictKeyToButton[ScriptableObjectManager.dictKeyToCharacterHandler.Keys.ToList()[0]].gameObject);
     }
 
     public void Quit()

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class ArtefactPanel : MonoBehaviour
 {
     [SerializeField] private Image image;
+    [SerializeField] ParticleSystem particleBack;
 
     [SerializeField] private StringLocalizer titleDisplay;
 
@@ -23,6 +24,7 @@ public class ArtefactPanel : MonoBehaviour
 
     public static void Display(ArtefactHandler artefact)
     {
+        instance.particleBack.Play();
         instance.rectTransform.DOScale(Vector3.one, 0.5f)
             .SetEase(Ease.OutQuad)
             .SetUpdate(true);

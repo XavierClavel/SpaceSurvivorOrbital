@@ -35,6 +35,7 @@ public class DebugManager : ScriptableObject
 
     [Header("Start with artefacts")] [SerializeField]
     private bool ennemiesDropResources;
+    private bool power1;
 
     [Header("Others")] 
     [SerializeField] private bool spawnBossOnStart;
@@ -113,6 +114,7 @@ public class DebugManager : ScriptableObject
         
         //Artefacts
         if (ennemiesDropResources) AcquireArtefact("First");
+        if (power1) AcquireArtefact("Power1");
 
     }
 
