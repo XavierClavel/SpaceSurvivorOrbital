@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Shapes;
+using System.Collections;
 
 public class SelectButton : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class SelectButton : MonoBehaviour
     [SerializeField] private ShapeRenderer discFill;
     [SerializeField] private Color colorFilled;
     [SerializeField] private Color colorUnfilled;
+    [SerializeField] ParticleSystem unlockedPS;
 
 
     private void Awake()
@@ -86,13 +88,20 @@ public class SelectButton : MonoBehaviour
         
         SaveManager.unlockOption(key);
         SoundManager.PlaySfx(transform, key: "Button_Buy");
+        StartCoroutine(nameof(BuyCoroutine));
+
+    }
+
+    IEnumerator BuyCoroutine()
+    {
+        cross.GetComponent<Animator>().enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        unlockedPS.Play();
         cross.SetActive(false);
         costPanel.SetActive(false);
         isUnlocked = true;
-        
+
         Select();
     }
-
-    
 
 }
