@@ -13,7 +13,7 @@ public class UpgradePanelButton : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private GameObject parent;
     [SerializeField] private GameObject newDisplay;
-    [SerializeField] private TextMeshProUGUI titleSkill;
+    [SerializeField] private StringLocalizer titleSkill;
 
     private void Start()
     {
@@ -24,14 +24,22 @@ public class UpgradePanelButton : MonoBehaviour
     {
         parent.SetActive(false);
     }
-    public void setSprite(Sprite sprite)
+    public UpgradePanelButton setSprite(Sprite sprite)
     {
         image.sprite = sprite;
+        return this;
     }
 
-    public void setAction(UnityAction action)
+    public UpgradePanelButton setAction(UnityAction action)
     {
         button.onClick.AddListener(action);
+        return this;
+    }
+
+    public UpgradePanelButton setTextKey(string text)
+    {
+        titleSkill.setKey(text);
+        return this;
     }
 
     public void flagNew()

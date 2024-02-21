@@ -214,9 +214,12 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
             else
             {
                 string key = keys[i];
-                buttons[i].setSprite(icons[i]);
                 int value = i;
-                buttons[i].setAction(delegate { SetActivePanel(value); });
+                buttons[i]
+                    .setSprite(icons[i])
+                    .setAction(delegate { SetActivePanel(value); })
+                    .setTextKey(key + Vault.key.ButtonTitle);
+                        
                 panels[i].setup(key);
                 if (newPanels.Contains(key))
                 {
