@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using Shapes;
 using DG.Tweening;
 using UnityEngine.Serialization;
+using TMPro;
 
 public interface UIPanel
 {
@@ -182,6 +183,7 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
         };
         icons.AddList(PlayerManager.equipments.Select(it => it.getIcon()).ToList());
         icons.AddList(PlayerManager.powers.Select(it => it.getIcon()).ToList());
+
 
         for (int i = 0; i < 1 + PlayerManager.equipments.Count; i++)
         {

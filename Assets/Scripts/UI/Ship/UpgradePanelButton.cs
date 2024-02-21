@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class UpgradePanelButton : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private GameObject parent;
     [SerializeField] private GameObject newDisplay;
+    [SerializeField] private TextMeshProUGUI titleSkill;
 
     private void Start()
     {
@@ -22,7 +24,6 @@ public class UpgradePanelButton : MonoBehaviour
     {
         parent.SetActive(false);
     }
-
     public void setSprite(Sprite sprite)
     {
         image.sprite = sprite;
