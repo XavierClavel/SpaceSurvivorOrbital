@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -114,6 +115,11 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
         inputActions.UI.Navigate.performed += xtc => UpdateDisplay();
         inputActions.Enable();
         µ*/
+    }
+
+    private void OnDestroy()
+    {
+        inputActions.Disable();
     }
 
     public void StartBuying()

@@ -91,6 +91,7 @@ public class PlayerManager
         weaponData = new PlayerData();
         powers = new List<PowerHandler>();
         equipments = new List<EquipmentHandler>();
+        artefacts = new HashSet<ArtefactHandler>();
         dictKeyToStats = new Dictionary<string, PlayerData>();
     }
 

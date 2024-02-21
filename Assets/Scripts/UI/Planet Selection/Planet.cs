@@ -6,14 +6,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
+public class Planet : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler
 {
     //Consts
     private Vector2 randomizePositionFactor = new Vector2(70f,10f);
     
     //Static
     public static int currentTier = 0;
-    private static GameObject currentlyDisplayedPanel = null;
     
     //API
     public PlanetData planetData;
@@ -23,9 +22,6 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
     //[SerializeField] DiscreteBarHandler sizeBar;
     //[SerializeField] DiscreteBarHandler dangerosityBar;
     [SerializeField] private Button button;
-    [SerializeField] private DiscreteBarHandler violetBar;
-    [SerializeField] private DiscreteBarHandler yellowBar;
-    [SerializeField] private DiscreteBarHandler greenBar;
     [SerializeField] private GameObject displayPanel;
 
     private static Dictionary<String, Vector3> dictPlanetToPos = new Dictionary<string, Vector3>();
@@ -34,13 +30,17 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
     private int planetTier;
     public int tier;
     public int row;
+    private Node node;
+
+    private bool mouseOverride = false;
 
 #region staticAPI
+
+    
 
     public static void Reset()
     {
         currentTier = 0;
-        currentlyDisplayedPanel = null;
         dictPlanetToPos = new Dictionary<string, Vector3>();
     }
 
@@ -51,6 +51,7 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
     {
         this.tier = node.tier;
         this.row = node.row;
+        this.node = node;
         Debug.Log($"tier : {tier}, row: {row}, currentTier: {currentTier}, inPathNodes: {PlanetSelectionManager.getPossiblePathNodes().Contains(node)}");
         if (tier != currentTier ||  !PlanetSelectionManager.getPossiblePathNodes().Contains(node))
         {
@@ -68,11 +69,12 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
             Debug.LogError($"Key {node.key} is missing from {nameof(PlanetSelectionManager.dictKeyToPlanetData)}");
         }
 
-
+        /*
         button.onClick.AddListener(delegate
         {
             PlanetSelectionManager.SelectPlanet(this, node);
         });
+        */
 
         planet.sprite = getSprite();
         
@@ -105,40 +107,38 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, ISelectHandler
         };
     }
 
-    Color getColor()
-    {
-        return planetData.type switch
-        {
-            planetType.ice => PlanetSelector.instance.colorIce,
-            planetType.mushroom => PlanetSelector.instance.colorMushroom,
-            planetType.desert => PlanetSelector.instance.colorDesert,
-            planetType.jungle => PlanetSelector.instance.colorJungle,
-            planetType.storm => PlanetSelector.instance.colorStorm,
-            _ => PlanetSelector.instance.colorMushroom
-        };
-    }
-    
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //UpgradeDisplay.DisplayUpgrade(key);
+        mouseOverride = true;
+        PlanetSelectionManager.onSelect(this);
     }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        PlanetSelectionManager.onDeselect(this);
+    }
+    
 
     // When selected.
     public void OnSelect(BaseEventData eventData)
     {
-        if (currentlyDisplayedPanel != null)
-        {
-            currentlyDisplayedPanel.SetActive(false);
-        }
-
-        currentlyDisplayedPanel = displayPanel;
-        currentlyDisplayedPanel.SetActive(true);
-
-        //UpgradeDisplay.DisplayUpgrade(key);
-        //UpgradeDisplay.SetupBuyButton(delegate { Execute(ApplyEffects); }, gameObject);
-        // Do something.
-        // Debug.Log("<color=red>Event:</color> Completed selection.");
+        PlanetSelectionManager.onSelect(this);
     }
 
+    public void OnDeselect(BaseEventData eventData)
+    {
+        if (mouseOverride)
+        {
+            mouseOverride = false;
+            return;
+        }
+        PlanetSelectionManager.onDeselect(this);
+    }
 
+    public void Select()
+    {
+        PlanetSelectionManager.SelectPlanet(this, node);
+    }
+    
+    
 }

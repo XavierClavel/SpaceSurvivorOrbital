@@ -51,6 +51,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     private List<Node> nodeList = new List<Node>();
     private RectTransform panelTransform;
     private List<Vector3> planetsPos = new List<Vector3>();
+    private InputMaster inputActions;
     
     //Consts
     private const float minDistanceBetweenPlanetsSqr = 100;
@@ -61,6 +62,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     private bool acceptPlanetSelection = true;
     private static PlanetSelectionManager instance;
     private ShipInputs shipInputs;
+    private static Planet selectedPlanet = null;
 
     
 #region staticAPI
@@ -70,6 +72,16 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         dictKeyToPlanet = new Dictionary<string, Planet>();
         dictKeyToPlanetData = new Dictionary<string, PlanetData>();
         currentNode = null;
+    }
+    
+    public static void onSelect(Planet planet)
+    {
+        selectedPlanet = planet;
+    }
+
+    public static void onDeselect(Planet planet)
+    {
+        selectedPlanet = null;
     }
 
     public static PlanetData getStartPlanetData()
@@ -126,6 +138,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     private void OnDestroy()
     {
         Planet.currentTier++;
+        inputActions.Disable();
     }
 
 public RectTransform getUITransform()
@@ -133,7 +146,27 @@ public RectTransform getUITransform()
         return GetComponent<RectTransform>();
     }
 
-    public static void GenerateData()
+    private void Start()
+    {
+        inputActions = new InputMaster();
+        inputActions.Enable();
+        inputActions.UI.Validate.started += ctx => StartHolding();
+        inputActions.UI.Validate.canceled += ctx => StopCoroutine(nameof(holdCoroutine));
+    }
+    
+    public void StartHolding()
+    {
+        if (selectedPlanet == null) return; 
+        StartCoroutine(nameof(holdCoroutine));
+    }
+    
+    private IEnumerator holdCoroutine()
+    {
+        yield return Helpers.getWait(1.5f);
+        selectedPlanet.Select();
+    }
+
+public static void GenerateData()
     {
         Reset();
         
