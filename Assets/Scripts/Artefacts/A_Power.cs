@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class A_Power : Artefact
 {
-    private Vector2 upDamage;
-
-    public override void onSetup()
+    
+    public override void Boost(BonusManager bonusManager)
     {
-        upDamage = stats.baseDamage;
+        PlayerController.bonusManager.addBonusStrength(stats.baseDamage.x);
     }
+
 }
