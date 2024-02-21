@@ -76,7 +76,11 @@ public class Laser : Interactor
                 overheating = true;
             } else if (value <= 0f)
             {
-                overheating = false;
+                if (overheating)
+                {
+                    overheating = false;
+                    laserOnPS.Play();
+                }
                 if (isUsing) onLaserStart();
             }
         }
