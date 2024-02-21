@@ -29,6 +29,8 @@ public class Laser : Interactor
     [SerializeField] private GameObject collisionSprite;
     [SerializeField] private Shockwave shockwave;
     playerDirection _aimDirection_value = playerDirection.front;
+    [SerializeField] ParticleSystem overheatPS;
+    [SerializeField] ParticleSystem laserOnPS;
 
     private bool isShockwaveEnabled;
     private int shockwaveDamage;
@@ -171,7 +173,6 @@ public class Laser : Interactor
             UpdateBeamVisibility(true);
             UpdateLaserBeam();
         }
-
         
     }
 
@@ -186,9 +187,16 @@ public class Laser : Interactor
 
     void onOverheat()
     {
-        if (!isShockwaveEnabled) return;
-        shockwave.doShockwave();
-        SoundManager.PlaySfx(transform, key: "Laser_Explode");
+        if (!isShockwaveEnabled) 
+        {
+            overheatPS.Play();
+            SoundManager.PlaySfx(transform, key: "Laser_Overheat");
+        } 
+        else
+        {
+            shockwave.doShockwave();
+            SoundManager.PlaySfx(transform, key: "Laser_Explode");
+        }
     }
 
     void onLaserStart()

@@ -14,12 +14,18 @@ public abstract class Gun : Interactor
     Tween sliderTween;
     protected ComponentPool<Bullet> pool;
     private bool isReloadingMagazine = false;
-    
+    private bool shotgun = false;
+
 
 
     protected override void Start()
     {
         base.Start();
+
+        if (stats.projectiles >= 3)
+        {
+            shotgun = true;
+        }
 
         bulletLifetime = stats.range / stats.attackSpeed;
         if (playerInteractor)
@@ -44,7 +50,7 @@ public abstract class Gun : Interactor
         
         Fire();
 
-        currentMagazine--;
+        if(shotgun) { currentMagazine -= 3; } else { currentMagazine--; }
         if (playerInteractor) ObjectManager.UpdateBulletsDisplay(currentMagazine);
 
         StartCoroutine(currentMagazine == 0 ? nameof(ReloadMagazine) : nameof(Cooldown));

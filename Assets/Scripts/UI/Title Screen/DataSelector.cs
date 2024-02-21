@@ -39,7 +39,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     [SerializeField] private StringLocalizer equipmentDescriptionText;
     [SerializeField] private Image equipmentImage;
     [SerializeField] private Button equipmentBuyButton;
-    [SerializeField] private ChargedSelectButton equipmentChargeDisplay;
+    //[SerializeField] private ChargedSelectButton equipmentChargeDisplay;
 
     public Dictionary<string, SelectButton> dictKeyToButton = new Dictionary<string, SelectButton>();
     [SerializeField] List<SelectorLayout> selectorLayouts;
@@ -112,8 +112,8 @@ public class DataSelector : MonoBehaviour, UIPanel
         if (!equipmentImage.gameObject.activeInHierarchy) equipmentImage.gameObject.SetActive(true);
         equipmentTitleDisplay.setKey(selectButton.key + Vault.key.ButtonTitle);
         equipmentDescriptionText.setKey(selectButton.key + Vault.key.ButtonDescription);
-        equipmentChargeDisplay.gameObject.SetActive(true);
-        equipmentChargeDisplay.setCharge(ScriptableObjectManager.dictKeyToEquipmentHandler[selectButton.key].getCharge());
+        //equipmentChargeDisplay.gameObject.SetActive(true);
+        //equipmentChargeDisplay.setCharge(ScriptableObjectManager.dictKeyToEquipmentHandler[selectButton.key].getCharge());
         
         equipmentCostDisplay.SetActive(!selectButton.isUnlocked);
         equipmentBuyButton.gameObject.SetActive(!selectButton.isUnlocked);

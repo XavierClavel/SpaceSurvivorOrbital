@@ -39,7 +39,7 @@ public class Pistol : Gun
         base.Start();
         bulletPrefab.pierce = stats.pierce;
         if (!main) return;
-        
+
         if (fullStats.generic.intA > 0)
         {
             SetupChildGun(player.pointerBack);
