@@ -23,6 +23,7 @@ using Shapes;
 public class Laser : Interactor
 {
     private int dps;
+    private int dpsMultiplier = 1;
     private float width;
     [SerializeField] protected Transform firePoint;
     [SerializeField] LineRenderer lineRenderer;
@@ -144,6 +145,16 @@ public class Laser : Interactor
 
     }
 
+    private IEnumerator dpsController()
+    {
+        dpsMultiplier = 1;
+        while (true)
+        {
+            dpsMultiplier *= 3;
+            yield return Helpers.getWait(1f);
+        }
+    }
+
 
 
     protected override void onStartUsing()
@@ -206,12 +217,15 @@ public class Laser : Interactor
     void onLaserStart()
     {
         if (isEnergyShieldEnabled) PlayerController.onShieldUp();
+        StartCoroutine(nameof(dpsController));
         DOTween.To(() => laserSfxSource.volume, x => laserSfxSource.volume = x, 1f, laserSfxTransitionTime);
     }
 
     void onLaserStop()
     {
         if (isEnergyShieldEnabled) PlayerController.onShieldDown();
+        dpsMultiplier = 1;
+        StopCoroutine(nameof(dpsController));
         DOTween.To(() => laserSfxSource.volume, x => laserSfxSource.volume = x, 0f, laserSfxTransitionTime);
     }
 
@@ -275,7 +289,7 @@ public class Laser : Interactor
 
     void HurtEnnemy(GameObject go)
     {
-        ObjectManager.retrieveHitable(go)?.StackDamage(dps * PlayerController.getDamageMultiplier() * PlayerController.bonusManager.getBonusStrength(), stacker.get());
+        ObjectManager.retrieveHitable(go)?.StackDamage(dps * dpsMultiplier * PlayerController.getDamageMultiplier() * PlayerController.bonusManager.getBonusStrength(), stacker.get());
     }
 
     protected override void onUse()
