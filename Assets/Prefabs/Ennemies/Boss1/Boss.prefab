@@ -244,26 +244,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 915514fa14c40b145975c3ebcf080e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: Sht-hul_Boss
+  key: Boss1
   spriteOverlay: {fileID: 674527924885934115}
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
   healthBar: {fileID: 2858332201549994407}
   rb: {fileID: 8133154464425505350}
   startDeformationScale: {x: -0.1, y: 0.1, z: 0.1}
   deformationDuration: 0.1
   speed: 1
   fleeSpeed: 2
-  attackSpeed: 0.5
+  cooldown: 1
   range: 5
   stateStep: 0.5
-  shakeDuration: 0.1
-  shakeIntensity: 1
-  negativeRange: -0.1
-  positiveRange: 0.1
   bulletPrefab: {fileID: 4478075856262805781, guid: b94a09e0af94d4141bd4eb8da15cf574, type: 3}
   waveExplosionPS: {fileID: 1593523308183974145}
+  maxHealthStat: 1000
+  isBoss: 1
+  isSpecial1: 0
+  isSpecial2: 0
+  chest: {fileID: 0}
 --- !u!50 &8133154464425505350
 Rigidbody2D:
   serializedVersion: 4
@@ -10304,9 +10302,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 500
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

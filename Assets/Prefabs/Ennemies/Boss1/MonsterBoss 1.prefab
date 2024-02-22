@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 386023908209535338}
-  - component: {fileID: 516386350}
+  - component: {fileID: -1057262481602460196}
   - component: {fileID: 5132843330540273407}
   - component: {fileID: 320162684498431986}
   - component: {fileID: 2225165316715215867}
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &516386350
+--- !u!114 &-1057262481602460196
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -49,20 +49,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1013518959079814096}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2683960f5fbd17448858efb0b4fbef82, type: 3}
+  m_Script: {fileID: 11500000, guid: 915514fa14c40b145975c3ebcf080e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   key: MonsterBoss 1
-  spriteOverlay: {fileID: 3929814262209255274}
+  spriteOverlay: {fileID: 320162684498431986}
   healthBar: {fileID: 2853218550413945330}
   rb: {fileID: 5132843330540273407}
-  startDeformationScale: {x: -0.1, y: 0.1, z: 1}
+  startDeformationScale: {x: -0.1, y: 0.1, z: 0.1}
   deformationDuration: 0.1
-  speed: 1.5
+  speed: 1
   fleeSpeed: 2
   cooldown: 1
   range: 5
   stateStep: 0.5
+  bulletPrefab: {fileID: 4478075856262805781, guid: b94a09e0af94d4141bd4eb8da15cf574, type: 3}
+  waveExplosionPS: {fileID: 1593523308183974145, guid: 823dfb075c570bb4da64c5c4a7e06d5c, type: 3}
+  maxHealthStat: 500
+  isBoss: 0
+  isSpecial1: 1
+  isSpecial2: 1
+  chest: {fileID: 6151609894251957224, guid: bb7e8cde98a669047aab5e36fa578d42, type: 3}
 --- !u!50 &5132843330540273407
 Rigidbody2D:
   serializedVersion: 4
@@ -75,7 +82,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 50
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1

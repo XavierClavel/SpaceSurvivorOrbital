@@ -23,16 +23,26 @@ public class Boss : Ennemy
     float sqrFleeRange;
     float sqrShootRange;
     Vector2 shootRange = new Vector2(3f, 5f);
+    
+    public int maxHealthStat;
+    public bool isBoss;
+    public bool isSpecial1;
+    public bool isSpecial2;
+    [SerializeField] GameObject chest;
 
     protected override void Start()
     {
         base.Start();
         ObjectManager.DisableSteleDisplay();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        maxHealth = 1000 * PlanetSelector.getDifficulty();
+        maxHealth = maxHealthStat * PlanetSelector.getDifficulty();
         health = maxHealth;
-        healthBar = ObjectManager.getBossHealthbar();
-        healthBar.gameObject.SetActive(true);
+        if (isBoss) 
+        { 
+            healthBar = ObjectManager.getBossHealthbar();
+            healthBar.gameObject.SetActive(true);
+        }
+
         healthBar.maxValue = maxHealth;
         healthBar.value = health;
         isImmuneToEffects = true;
@@ -44,15 +54,22 @@ public class Boss : Ennemy
         sqrFleeRange = Mathf.Pow(shootRange.x, 2);
         sqrShootRange = Mathf.Pow(shootRange.y, 2);
         
-        StartCoroutine(nameof(BossController));
-        StartCoroutine(nameof(SwitchState));
+        if(isBoss || isSpecial1) { StartCoroutine(nameof(BossController)); }
+        if(isBoss || isSpecial2) { StartCoroutine(nameof(SwitchState)); }
     }
 
     protected override void onDeath()
     {
-        WinScreen.setProgress(availability.Boss1);
-        ObjectManager.DisplaySpaceship();
-        Spaceship.setDestination(gameScene.win);
+        if (isBoss)
+        {
+            WinScreen.setProgress(availability.Boss1);
+            ObjectManager.DisplaySpaceship();
+            Spaceship.setDestination(gameScene.win);
+        } else if (isSpecial1 || isSpecial2) 
+        {
+            Instantiate(chest, transform.position, Quaternion.identity);
+        }
+
     }
 
     private IEnumerator BossController()
@@ -62,7 +79,7 @@ public class Boss : Ennemy
         {
             yield return Helpers.getWait(1f);
             counter++;
-            if (counter == 10)
+            if (counter == 10 && isBoss)
             {
                 waveExplosionPS.Play();
                 yield return Helpers.getWait(2f);
@@ -78,12 +95,19 @@ public class Boss : Ennemy
 
     private void FireTowardsPlayer()
     {
-        Helpers.FireProjectiles(
-            FireBullet,
-            health > maxHealth * 0.5f ? 1 : 3, 
-            bulletSpread,
-            transform.getRotationTo(player.transform).z
-            );
+        if (isBoss)
+        {
+            Helpers.FireProjectiles(
+                FireBullet,
+                health > maxHealth * 0.5f ? 1 : 3,
+                bulletSpread,
+                transform.getRotationTo(player.transform).z
+                );
+        } else
+        {
+            Helpers.FireProjectiles(FireBullet, 1, 0, transform.getRotationTo(player.transform).z);
+        }
+
     }
 
     private void FireBulletsWave()
