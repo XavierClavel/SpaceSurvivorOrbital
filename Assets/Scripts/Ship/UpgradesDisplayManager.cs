@@ -130,10 +130,8 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     
     private IEnumerator holdCoroutine()
     {
-        Debug.Log("start");
         yield return Helpers.getWait(1.5f);
         UpgradeDisplay.Buy();
-        Debug.Log("bought");
     }
     
 #endregion
@@ -223,8 +221,9 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
                 panels[i].setup(key);
                 if (newPanels.Contains(key))
                 {
-                    buttons[i].flagNew();
-                    buttons[i].setAction(delegate { RemoveNewFlag(key); });
+                    buttons[i]
+                        .setAction(delegate { RemoveNewFlag(key); })
+                        .flagNew();
                 }
             }
         }

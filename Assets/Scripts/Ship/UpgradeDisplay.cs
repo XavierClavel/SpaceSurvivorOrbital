@@ -10,6 +10,7 @@ public class UpgradeDisplay : MonoBehaviour
 {
     [SerializeField] StringLocalizer upgradeTitleDisplay;
     [SerializeField] StringLocalizer upgradeTextDisplay;
+    [SerializeField] private Image upgradeIconDisplay;
     [SerializeField] Button buyButton;
     static UpgradeDisplay instance;
     static UnityAction buyAction;
@@ -23,13 +24,15 @@ public class UpgradeDisplay : MonoBehaviour
         buyAction = delegate { };
     }
 
-    public static void DisplayUpgrade(string key)
+    public static void DisplayUpgrade(string key, string target)
     {
         instance.buyButton.gameObject.SetActive(
             NodeManager.dictKeyToButton[key]. status is skillButtonStatus.unlocked
                 );
         if (instance.upgradeTitleDisplay != null) instance.upgradeTitleDisplay.setKey(key + Vault.key.ButtonTitle);
         if (instance.upgradeTextDisplay != null) instance.upgradeTextDisplay.setKey(key + Vault.key.ButtonDescription);
+        if (instance.upgradeIconDisplay != null)
+            instance.upgradeIconDisplay.sprite = ScriptableObjectManager.getIcon(target);
     }
 
     public void OnClick()

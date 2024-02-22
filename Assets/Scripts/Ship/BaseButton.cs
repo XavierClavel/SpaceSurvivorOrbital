@@ -152,7 +152,7 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
     // When selected.
     public void OnSelect(BaseEventData eventData)
     {
-        UpgradeDisplay.DisplayUpgrade(key);
+        UpgradeDisplay.DisplayUpgrade(key, upgradeData.target);
         UpgradeDisplay.SetupBuyButton(delegate { Execute(ApplyEffects); }, gameObject);
         if (mouseDriven) return;
         UpgradesDisplayManager.onSelect(this);

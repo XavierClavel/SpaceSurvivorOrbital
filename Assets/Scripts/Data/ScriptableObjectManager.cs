@@ -27,6 +27,15 @@ public static class ScriptableObjectManager
     public static List<PowerHandler> getPowers() => dictKeyToPowerHandler.Values.ToList();
     public static List<PowerHandler> getDiscoveredPowers() => getPowers().Where(it => it.isDiscovered()).ToList();
 
+    public static Sprite getIcon(string key)
+    {
+        if (dictKeyToWeaponHandler.ContainsKey(key)) return dictKeyToWeaponHandler[key].getIcon();
+        if (dictKeyToEquipmentHandler.ContainsKey(key)) return dictKeyToEquipmentHandler[key].getIcon();
+        if (dictKeyToPowerHandler.ContainsKey(key)) return dictKeyToPowerHandler[key].getIcon();
+        Debug.LogError($"Scriptable object with key -{key}- not found");
+        return null;
+    }
+    
     public static void LoadScriptableObjects()
     {
         dictKeyToButtonSprites = new Dictionary<string, ButtonSprite>();
