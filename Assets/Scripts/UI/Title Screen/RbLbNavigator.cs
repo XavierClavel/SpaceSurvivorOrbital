@@ -9,14 +9,23 @@ public class RbLbObject
 {
     public Button LB;
     public Button RB;
+
+    public RbLbObject(Button lb, Button rb)
+    {
+        this.LB = lb;
+        this.RB = rb;
+    }
 }
 
 public class RbLbNavigator : MonoBehaviour
 {
-    [SerializeField] private List<RbLbObject> list;
+    [SerializeField] private List<RbLbObject> list = new List<RbLbObject>();
     private int currentIndex = 0;
     private InputMaster inputMaster;
     public static RbLbNavigator instance;
+
+    public void addRbLbObject(RbLbObject o) => list.Add(o);
+    public void setIndex(int i) => currentIndex = i;
 
     private void Awake()
     {

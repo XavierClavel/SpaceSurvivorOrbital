@@ -32,6 +32,7 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     [SerializeField] List<UpgradePanelButton> buttons;
     [SerializeField] private NodeManager prefabPanelSkill;
     [SerializeField] private NodeManager prefabPanelUpgrade;
+    [SerializeField] private RbLbNavigator rbLbNavigator;
     public static List<string> newPanels = new List<string>();
 
     [Header("Default display")]
@@ -226,6 +227,15 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
                         .flagNew();
                 }
             }
+        }
+
+        for (int i = 0; i < keys.Count; i++)
+        {
+            Button prevButton = i == 0 ? null : buttons[i - 1].button;
+            Button nextButton = i == keys.Count - 1 ? null : buttons[i + 1].button;
+            rbLbNavigator.addRbLbObject(
+                new RbLbObject(prevButton, nextButton)
+                );
         }
 
         for (int i = panels.Count; i < buttons.Count; i++)
