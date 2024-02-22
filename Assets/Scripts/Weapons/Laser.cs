@@ -150,7 +150,7 @@ public class Laser : Interactor
         dpsMultiplier = 1;
         while (true)
         {
-            dpsMultiplier *= 2;
+            dpsMultiplier *= 3;
             yield return Helpers.getWait(1f);
         }
     }
