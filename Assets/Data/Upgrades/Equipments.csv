@@ -1,10 +1,10 @@
 Key;Target;Row;CostGreen;CostOrange;UpgradesEnabled;UpgradesDisabled;SpriteKey;Sprite;BaseSpeed;DamageResistance;BaseDamage;AttackSpeed;Range;Cooldown;Pierce;Projectiles;Spread;SpeedWhileAiming;CriticalChance;CriticalMultiplier;Magazine;MagazineReloadTime;MaxPurple;MaxGreen;MaxOrange;AttractorRange;AttractorForce;Unlocks;Element;BoolA;FloatA;IntA;IntB;BoolB;FloatB;ElementA
-CHARAC_MAXSTOCK_1;Stock;1;1;1;CHARAC_MAXSTOCK_2;;MAXSTOCK;;;;;;;;;1;;;;;;;;;;;;;;;;;;;;
-CHARAC_MAXSTOCK_2;Stock;1;1;1;CHARAC_MAXSTOCK_3;;MAXSTOCK;;;;;;;;;2;;;;;;;;;;;;;;;;;;;;
-CHARAC_MAXSTOCK_3;Stock;1;1;1;;;MAXSTOCK;;;;;;;;;3;;;;;;;;;;;;;;;;;;;;
-CHARAC_LIFE1;Suit;1;2;2;CHARAC_LIFE2;;SUIT;;;;;;;;;2;;;;;;;;;;;;;;;;;;;;
-CHARAC_LIFE2;Suit;1;2;2;CHARAC_LIFE3;;SUIT;;;;;;;;;3;;;;;;;;;;;;;;;;;;;;
-CHARAC_LIFE3;Suit;1;2;2;;;SUIT;;;;;;;;;4;;;;;;;;;;;;;;;;;;;;
+CHARAC_MAXSTOCK_1;Stock;1;;1;CHARAC_MAXSTOCK_2;;MAXSTOCK;;;;;;;;;1;;;;;;;;;;;;;;;;;;;;
+CHARAC_MAXSTOCK_2;Stock;1;;1;CHARAC_MAXSTOCK_3;;MAXSTOCK;;;;;;;;;2;;;;;;;;;;;;;;;;;;;;
+CHARAC_MAXSTOCK_3;Stock;1;;1;;;MAXSTOCK;;;;;;;;;3;;;;;;;;;;;;;;;;;;;;
+CHARAC_LIFE1;Suit;1;1;;CHARAC_LIFE2;;SUIT;;;;;;;;;2;;;;;;;;;;;;;;;;;;;;
+CHARAC_LIFE2;Suit;1;2;;CHARAC_LIFE3;;SUIT;;;;;;;;;3;;;;;;;;;;;;;;;;;;;;
+CHARAC_LIFE3;Suit;1;3;;;;SUIT;;;;;;;;;4;;;;;;;;;;;;;;;;;;;;
 CHARAC_RADAR2a;Radar;1;1;1;CHARAC_RADAR3a;;RADAR_1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 CHARAC_RADAR2b;Radar;2;1;1;CHARAC_RADAR3b;;RADAR_2;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 CHARAC_RADAR2c;Radar;3;1;1;CHARAC_RADAR3c;;RADAR_3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -13,7 +13,7 @@ CHARAC_RADAR3a;Radar;1;1;1;;;RADAR_5;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 CHARAC_RADAR3b;Radar;2;1;1;;;RADAR_6;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 CHARAC_RADAR3c;Radar;3;1;1;;;RADAR_7;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 CHARAC_RADAR3d;Radar;4;1;1;;;RADAR_8;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-SHIELD_1;Shield;1;1;1;SHIELD_2;;SHIELD_;;;;;;;;;2;;;;;;;;;;;;;;;;;;;;
-SHIELD_2;Shield;1;1;1;SHIELD_3, SHIELD_4;;SHIELD_1;;;;;;;;;3;;;;;;;;;;;;;;;;;;;;
-SHIELD_3;Shield;1;2;1;;SHIELD_4;SHIELD_2;;;;;;;;;;;;;;;;;;;;;;;true;;;;;;
-SHIELD_4;Shield;2;1;2;;SHIELD_3;SHIELD_3;;;;;;;;;5;;;;;;;;;;;;;;;;;;;;
+SHIELD_1;Shield;1;0;2;SHIELD_2;;SHIELD_;;;;;;;;;2;;;;;;;;;;;;;;;;;;;;
+SHIELD_2;Shield;1;0;2;SHIELD_3, SHIELD_4;;SHIELD_1;;;;;;;;;3;;;;;;;;;;;;;;;;;;;;
+SHIELD_3;Shield;1;0;2;;SHIELD_4;SHIELD_2;;;;;;;;;;;;;;;;;;;;;;;true;;;;;;
+SHIELD_4;Shield;2;2;0;;SHIELD_3;SHIELD_3;;;;;;;;;5;;;;;;;;;;;;;;;;;;;;
