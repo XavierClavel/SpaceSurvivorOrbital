@@ -148,6 +148,9 @@ public class PlayerManager
         amountBlue -= amount;
     }
 
+    public static bool isFullBlue() =>
+        amountBlue >= PlayerManager.playerData.resources.maxBlue + BonusManager.current.getBonusStock();
+
     public static PlayerData getPlayerData(string key)
     {
         if (key == weapon.getKey()) return weaponData;

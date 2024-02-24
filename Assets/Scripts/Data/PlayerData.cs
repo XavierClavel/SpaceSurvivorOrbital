@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using MyBox;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class PlayerData
@@ -40,8 +41,8 @@ public class PlayerData
         switch (effect.effect)
         {
             case effectType.maxPurple:
-                effect.ApplyOperation(ref resources.maxPurple);
-                Debug.Log(resources.maxPurple);
+                effect.ApplyOperation(ref resources.maxBlue);
+                Debug.Log(resources.maxBlue);
                 break;
 
             case effectType.maxOrange:
@@ -171,7 +172,7 @@ public class PlayerData
 [Serializable]
 public class resourcesStats
 {
-    public int maxPurple = 3;
+    public int maxBlue = 3;
     public int maxOrange = 3;
     public int maxGreen = 3;
 
@@ -180,7 +181,7 @@ public class resourcesStats
         return new resourcesStats()
         {
             maxGreen = 3,
-            maxPurple = 3,
+            maxBlue = 3,
             maxOrange = 3,
         };
     }
@@ -188,7 +189,7 @@ public class resourcesStats
     public void setBase()
     {
         maxGreen = 3;
-        maxPurple = 3;
+        maxBlue = 3;
         maxOrange = 3;
     }
 }

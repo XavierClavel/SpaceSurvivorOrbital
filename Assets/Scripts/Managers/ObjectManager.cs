@@ -152,13 +152,14 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
 
     public void setupResources()
     {
-        displayBlue.Initialize(PlayerManager.playerData.resources.maxPurple + PlayerController.bonusManager.getBonusStock(),
+        displayBlue.Initialize(PlayerManager.playerData.resources.maxBlue + BonusManager.current.getBonusStock(),
             PlayerManager.amountBlue);
         
-        displayGreen.Initialize(PlayerManager.playerData.resources.maxGreen + PlayerController.bonusManager.getBonusStock(), 
+        displayGreen.Initialize(PlayerManager.playerData.resources.maxGreen + BonusManager.current.getBonusStock(), 
             PlayerManager.amountGreen);
+        
         displayOrange.Initialize(
-            PlayerManager.playerData.resources.maxOrange + PlayerController.bonusManager.getBonusStock(), 
+            PlayerManager.playerData.resources.maxOrange + BonusManager.current.getBonusStock(), 
             PlayerManager.amountOrange);
         
 

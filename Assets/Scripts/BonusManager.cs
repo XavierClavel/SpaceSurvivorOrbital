@@ -1,6 +1,8 @@
 
 public class BonusManager
 {
+    public static BonusManager current = null;
+    
     private int bonusMaxHealth;
     private int bonusStock;
     private int bonusShield;
@@ -52,5 +54,10 @@ public class BonusManager
             }
             equipmentHandler.Activate(this);
         }
+    }
+
+    public BonusManager()
+    {
+        current = this;
     }
 }

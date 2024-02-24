@@ -47,7 +47,7 @@ public class AltarPanel : MonoBehaviour
             if (selectedItem == null) selectedItem = altarItem;
         }
 
-        if (!PlayerManager.isTuto)
+        if (!PlayerManager.isTuto && !PlayerManager.isFullBlue())
         {
             AltarItem blueResourceItem = Instantiate(instance.blueResourcePrefab, instance.layout);
             blueResourceItem.setAction(ObjectManager.instance.SelectUpgradePoint);
