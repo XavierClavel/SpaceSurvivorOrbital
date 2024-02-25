@@ -48,7 +48,7 @@ public static class Vault
         public const string Planet = "Planet";
         public const string Ship = "Ship";
         public const string Shop = "Shop";
-        public const string SelectorScreen = "SelectorScreen";
+        public const string ShopArtefact = "ShopArtefact";
         public const string PlanetSelector = "Planet Selection";
         public const string Win = "Win";
     }

@@ -8,7 +8,7 @@ using System.Linq;
 
 public enum planetSize { small, medium, large }
 public enum planetResourceScarcity { rare, medium, common }
-public enum planetType { ice, mushroom, desert, storm, jungle, shop }
+public enum planetType { ice, mushroom, desert, storm, jungle, shop , shopArtefact}
 
 [System.Serializable]
 public class PlanetData
@@ -41,6 +41,7 @@ public class PlanetData
             planetType.mushroom => gameScene.planetMushroom,
             planetType.storm => gameScene.planetStorm,
             planetType.shop => gameScene.shop,
+            planetType.shopArtefact => gameScene.shopArtefact,
             _ => throw new ArgumentOutOfRangeException($"Unexpected enum value")
         };
     }
@@ -54,13 +55,24 @@ public class PlanetData
 
     private PlanetData setData(int tier)
     {
-        this.type = Helpers.getRandomEnum<planetType>(planetType.storm, planetType.shop);
+        this.type = Helpers.getRandomEnum<planetType>(
+            planetType.storm, 
+            planetType.shop, 
+            planetType.shopArtefact);
+        
         if (tier > 1 && Helpers.ProbabilisticBool(0.10f))
         {
             this.type = planetType.shop;
             this.size = planetSize.medium;
             return this;
         }
+        if (tier > 1 && Helpers.ProbabilisticBool(0.07f))
+        {
+            this.type = planetType.shopArtefact;
+            this.size = planetSize.medium;
+            return this;
+        }
+        
         this.size = Helpers.getRandomEnum<planetSize>();
         this.difficulty = PlanetSelector.getDifficulty();
 
