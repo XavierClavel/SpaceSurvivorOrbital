@@ -45,6 +45,7 @@ public class Shop : MonoBehaviour
     {
         bonusManager.applyCharacterEffect();
         bonusManager.applyEquipmentsEffects();
+        bonusManager.applyArtefactsEffects();
         maxHealth = PlayerManager.playerData.character.maxHealth + bonusManager.getBonusMaxHealth();
         maxStock = PlayerManager.playerData.resources.maxOrange + bonusManager.getBonusStock();
         

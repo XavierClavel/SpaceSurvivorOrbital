@@ -55,6 +55,13 @@ public class BonusManager
             equipmentHandler.Activate(this);
         }
     }
+    
+    public void applyArtefactsEffects()
+    {
+        foreach (ArtefactHandler artefactHandler in PlayerManager.artefacts) {
+            artefactHandler.Activate(this);
+        }
+    }
 
     public BonusManager()
     {
