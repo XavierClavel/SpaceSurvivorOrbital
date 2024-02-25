@@ -13,11 +13,20 @@ public class DiscreteBarHandler : MonoBehaviour
     [SerializeField] GameObject layout;
     List<GameObject> emptyList = new List<GameObject>();
     List<GameObject> fullList = new List<GameObject>();
-    private UnityAction onFull = null;
+    private UnityEvent onFull = new UnityEvent();
+    private UnityEvent onEmpty = new UnityEvent();
+    private bool isFull;
+    private bool isEmpty;
 
     public DiscreteBarHandler addOnFullAction(UnityAction action)
     {
-        onFull = action;
+        onFull.AddListener(action);
+        return this;
+    }
+    
+    public DiscreteBarHandler addOnEmptyAction(UnityAction action)
+    {
+        onEmpty.AddListener(action);
         return this;
     }
 
@@ -42,21 +51,26 @@ public class DiscreteBarHandler : MonoBehaviour
 
         SetActiveAmount(currentAmount, fullList);
         SetActiveAmount(maxAmount - currentAmount, emptyList);
+        
+        checkStatus();
     }
 
-    public void IncreaseAmount(int amount = 1)
+    public void IncreaseAmount(int increaseAmount = 1)
     {
-        int newIndex = Helpers.CeilInt(currentAmount + amount, maxAmount);
-        for (int i = currentAmount; i < newIndex; i++)
+        if (isFull) return;
+        int newAmount = Helpers.CeilInt(currentAmount + increaseAmount, maxAmount);
+        for (int i = currentAmount; i < newAmount; i++)
         {
             fullList[i].SetActive(true);
             emptyList[i].SetActive(false);
         }
-        currentAmount = newIndex;
+        currentAmount = newAmount;
+        checkStatus();
     }
     
     public void DecreaseAmount(int amount = 1)
     {
+        if (isEmpty) return;
         int newIndex = Helpers.FloorInt(currentAmount + amount, 0);
         for (int i = currentAmount - 1; i >= newIndex; i--)
         {
@@ -64,9 +78,10 @@ public class DiscreteBarHandler : MonoBehaviour
             emptyList[i].SetActive(true);
         }
         currentAmount = newIndex;
+        checkStatus();
     }
 
-    void SetActiveAmount(int amount, List<GameObject> list)
+    private void SetActiveAmount(int amount, List<GameObject> list)
     {
         for (int i = 0; i < maxAmount; i++)
         {
@@ -76,6 +91,24 @@ public class DiscreteBarHandler : MonoBehaviour
             }
             else list[i].SetActive(false);
         }
+    }
+
+    private void checkStatus()
+    {
+        isEmpty = false;
+        isFull = false;
+        if (currentAmount == 0)
+        {
+            isEmpty = true;
+            onEmpty.Invoke();
+        }
+
+        if (currentAmount == maxAmount)
+        {
+            isFull = true;
+            onFull.Invoke();
+        }
+        
     }
 
 }
