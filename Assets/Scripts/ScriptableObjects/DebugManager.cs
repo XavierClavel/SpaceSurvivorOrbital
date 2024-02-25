@@ -33,9 +33,9 @@ public class DebugManager : ScriptableObject
     [SerializeField] private bool stock;
     [SerializeField] private bool radar;
 
-    [Header("Start with artefacts")] [SerializeField]
-    private bool ennemiesDropResources;
-    private bool power1;
+    [Header("Start with artefacts")]
+    [SerializeField] private bool ennemiesDropResources;
+    [SerializeField] private bool power1;
 
     [Header("Others")] 
     [SerializeField] private bool spawnBossOnStart;
