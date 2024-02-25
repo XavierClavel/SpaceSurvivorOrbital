@@ -33,6 +33,9 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     [SerializeField] private NodeManager prefabPanelSkill;
     [SerializeField] private NodeManager prefabPanelUpgrade;
     [SerializeField] private RbLbNavigator rbLbNavigator;
+    [SerializeField] private RectTransform upgradesParent;
+    [SerializeField] private AudioSource buyAudio;
+    [SerializeField] [Range(0f, 1f)] private float buySfxVolume = 1f;
     public static List<string> newPanels = new List<string>();
 
     [Header("Default display")]
@@ -105,7 +108,7 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
         inputActions = new InputMaster();
         inputActions.Enable();
         inputActions.UI.Validate.started += ctx => StartBuying();
-        inputActions.UI.Validate.canceled += ctx => StopCoroutine(nameof(holdCoroutine));
+        inputActions.UI.Validate.canceled += ctx => StopBuying();
 
         selectedButton = null;
 
@@ -125,8 +128,17 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
 
     public void StartBuying()
     {
-        if (selectedButton == null) return; 
+        if (selectedButton == null) return;
+        buyAudio.DOKill();
+        buyAudio.volume = SaveManager.getOptions().sfxVolume * buySfxVolume;
+        buyAudio.Play();
         StartCoroutine(nameof(holdCoroutine));
+    }
+
+    public void StopBuying()
+    {
+        buyAudio.DOFade(0, 0.15f);
+        StopCoroutine(nameof(holdCoroutine));
     }
     
     private IEnumerator holdCoroutine()
@@ -152,7 +164,7 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     {
         Debug.Log("deselected");
         selectedButton = null;
-        instance.StopCoroutine(nameof(holdCoroutine));
+        instance.StopBuying();
     }
 
     public static void PanelInitialized()
@@ -246,7 +258,7 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
 
     private void InstantiatePanel(NodeManager panel, string key)
     {
-        panel = Instantiate(panel, transform);
+        panel = Instantiate(panel, upgradesParent);
         panel.gameObject.name = $"Panel {key}";
         panels.Add(panel);
     }
