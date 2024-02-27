@@ -113,7 +113,7 @@ public class DebugManager : ScriptableObject
         if (radar) AcquireEquipment("Radar");
         
         //Artefacts
-        if (ennemiesDropResources) AcquireArtefact("First");
+        if (ennemiesDropResources) AcquireArtefact("Dropper");
         if (power1) AcquireArtefact("Power1");
 
     }
