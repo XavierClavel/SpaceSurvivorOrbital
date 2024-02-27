@@ -8,7 +8,7 @@ public class A_Power : Artefact
     
     public override void Boost(BonusManager bonusManager)
     {
-        BonusManager.current.addBonusStrength(stats.baseDamage.x);
+        BonusManager.current.addBonusStrength(fullStats.generic.floatA);
     }
 
 }
