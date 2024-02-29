@@ -34,6 +34,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
     [SerializeField] private TextMeshProUGUI bulletsDisplay;
     [SerializeField] public TextMeshProUGUI objectiveDestroy;
     [SerializeField] public TextMeshProUGUI shipReady;
+    [SerializeField] private GameObject chest;
 
     public ParticleSystem firePS;
     public ParticleSystem lightningPS;
@@ -345,4 +346,9 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
         instance.bulletsDisplay.SetText($"x{amount}");
     }
 
+    public static void SpawnChest(Vector3 position)
+    {
+        Instantiate(instance.chest, position, Quaternion.identity);
+
+    }
 }

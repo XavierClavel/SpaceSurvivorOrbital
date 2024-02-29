@@ -28,17 +28,16 @@ public class Boss : Ennemy
     public bool isBoss;
     public bool isSpecial1;
     public bool isSpecial2;
-    [SerializeField] GameObject chest;
 
     protected override void Start()
     {
         base.Start();
-        ObjectManager.DisableSteleDisplay();
         spriteRenderer = GetComponent<SpriteRenderer>();
         maxHealth = maxHealthStat * PlanetSelector.getDifficulty();
         health = maxHealth;
         if (isBoss) 
-        { 
+        {
+            ObjectManager.DisableSteleDisplay();
             healthBar = ObjectManager.getBossHealthbar();
             healthBar.gameObject.SetActive(true);
         }
@@ -67,7 +66,8 @@ public class Boss : Ennemy
             Spaceship.setDestination(gameScene.win);
         } else if (isSpecial1 || isSpecial2) 
         {
-            Instantiate(chest, transform.position, Quaternion.identity);
+            Debug.Log(transform.position);
+            ObjectManager.SpawnChest(transform.position);
         }
 
     }

@@ -54,22 +54,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: Bigg-yg
   spriteOverlay: {fileID: 3929814262209255274}
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
   healthBar: {fileID: 2853218550413945330}
   rb: {fileID: 5132843330540273407}
   startDeformationScale: {x: -0.3, y: 0.1, z: 1}
   deformationDuration: 0.1
   speed: 1
   fleeSpeed: 2
-  attackSpeed: 0.5
+  cooldown: 1
   range: 5
   stateStep: 0.5
-  shakeDuration: 0.1
-  shakeIntensity: 1
-  negativeRange: -0.1
-  positiveRange: 0.1
 --- !u!50 &5132843330540273407
 Rigidbody2D:
   serializedVersion: 4
@@ -117,7 +110,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using MyBox;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
 
 public class TileManager : MonoBehaviour
 {
     public PlanetData planetData;
     [SerializeField] TilesBankManager bank;
+    [SerializeField] Light2D globalLight;
     TileWaveFunction[,] map;
     [SerializeField] DistanceConstraintsManager distanceConstraintsManager;
     public Vector2Int tileSize = new Vector2Int(10, 10);
@@ -53,6 +56,32 @@ public class TileManager : MonoBehaviour
         instance = this;
         if (!PlanetManager.hasData()) PlanetManager.setData(planetData);
         if (!generateMap) return;
+
+        switch (PlanetManager.getType())
+        {
+            case planetType.desert:
+                globalLight.intensity = 0;
+                Sequence s = DOTween.Sequence();
+                s.AppendInterval(10f);
+                s.Append(DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 5, 2f).SetEase(Ease.InOutQuad));
+                s.AppendInterval(10f);
+                s.Append(DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 0, 2f).SetEase(Ease.InOutQuad));
+                s.SetLoops(-1);
+                s.Play();
+                break;
+            case planetType.ice:
+                globalLight.intensity = 0.75f;
+                break;
+            case planetType.mushroom:
+                globalLight.intensity = 0.25f;
+                break;
+            case planetType.storm:
+                globalLight.intensity = 0.25f;
+                break;
+            case planetType.jungle:
+                globalLight.intensity = 1f;
+                break;
+        }
 
         int maxAttempts = 200;
         int currentAttempt = 0;
@@ -440,6 +469,4 @@ public class TileManager : MonoBehaviour
 
         lastPos = currentPos;
     }
-
-
 }

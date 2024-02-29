@@ -28,6 +28,7 @@ public class BonusManager
     public void addBonusSpeed(float amount) => bonusSpeed *= amount;
     public void addBonusStrength(float amount) => bonusStrength *= amount;
     public void addBonusResources(float amount) => bonusResources *= amount;
+    public void addBonusPowerCooldown(float amount) => powerCooldown *= amount;
     
     
     public int getBonusMaxHealth() => bonusMaxHealth;

@@ -44,7 +44,7 @@ public class TitleScreen : MonoBehaviour, UIPanel
 
     public void AddSouls()
     {
-        PlayerManager.gainSouls(100);
+        SaveManager.setSouls(SaveManager.getSouls() + 100);
         UpdateSoulsDisplay();
     }
 
