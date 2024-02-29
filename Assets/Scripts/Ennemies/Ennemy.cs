@@ -219,7 +219,7 @@ public class Ennemy : Breakable
         ObjectManager.unregisterHitable(gameObject);
         
         onDeath();
-        PlayerController.Shake(shakeIntensity, shakeDuration);
+        ShakeManager.Shake(shakeIntensity, shakeDuration);
         listeners.ForEach(it => it.onEnnemyDeath(this));
         Destroy(gameObject);
     }

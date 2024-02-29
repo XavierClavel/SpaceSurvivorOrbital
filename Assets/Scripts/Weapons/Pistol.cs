@@ -96,7 +96,7 @@ public class Pistol : Gun
             }
         }
         
-        PlayerController.Shake(0.7f, 0.2f);
+        ShakeManager.Shake(0.7f, 0.2f);
     }
 
     void FireBulletByIndex(float i)

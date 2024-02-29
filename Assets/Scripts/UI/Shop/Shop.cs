@@ -52,10 +52,10 @@ public class Shop : MonoBehaviour
         healthBar.Setup(maxHealth,  maxHealth - PlayerManager.damageTaken);
         healthBar.SetupShields(bonusManager.getBonusShield());
 
-        costHealth = (int)(costHealth * PlayerController.bonusManager.getMerchantPricesMultiplier());
-        costResourceBlue = (int)(costResourceBlue * PlayerController.bonusManager.getMerchantPricesMultiplier());
-        costResourceGreen = (int)(costResourceGreen * PlayerController.bonusManager.getMerchantPricesMultiplier());
-        costResourceOrange = (int)(costResourceOrange * PlayerController.bonusManager.getMerchantPricesMultiplier());
+        costHealth = (int)(costHealth * BonusManager.current.getMerchantPricesMultiplier());
+        costResourceBlue = (int)(costResourceBlue * BonusManager.current.getMerchantPricesMultiplier());
+        costResourceGreen = (int)(costResourceGreen * BonusManager.current.getMerchantPricesMultiplier());
+        costResourceOrange = (int)(costResourceOrange * BonusManager.current.getMerchantPricesMultiplier());
         
         
         UpdateHealButton();

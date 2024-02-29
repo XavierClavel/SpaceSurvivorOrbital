@@ -36,6 +36,7 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     [SerializeField] private RectTransform upgradesParent;
     [SerializeField] private AudioSource buyAudio;
     [SerializeField] [Range(0f, 1f)] private float buySfxVolume = 1f;
+    [SerializeField] private float buyShakeIntensity = 0.5f;
     public static List<string> newPanels = new List<string>();
 
     [Header("Default display")]
@@ -132,12 +133,14 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
         buyAudio.DOKill();
         buyAudio.volume = SaveManager.getOptions().sfxVolume * buySfxVolume;
         buyAudio.Play();
+        //ShakeManager.StartShake(1f);
         StartCoroutine(nameof(holdCoroutine));
     }
 
     public void StopBuying()
     {
         buyAudio.DOFade(0, 0.15f);
+        //ShakeManager.StopShake();
         StopCoroutine(nameof(holdCoroutine));
     }
     
@@ -145,6 +148,7 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     {
         yield return Helpers.getWait(1.5f);
         UpgradeDisplay.Buy();
+        StopBuying();
     }
     
 #endregion

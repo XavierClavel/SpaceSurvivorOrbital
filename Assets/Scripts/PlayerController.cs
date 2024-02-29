@@ -33,7 +33,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool reflectsProjectiles = false;
 
     [SerializeField] private CinemachineVirtualCamera cinemachineCamera;
-    private CinemachineBasicMultiChannelPerlin camNoise;
     
     [Header("Particle Systems")]
     [SerializeField] ParticleSystem boostAttack;
@@ -218,7 +217,7 @@ public class PlayerController : MonoBehaviour
         if (instance.interactorHandler.currentInteractor.isDamageAbsorbed()) return;
         instance.takeDamage((int)(amount));
         instance.OnHitOverlay();
-        Shake(playerShakeIntensity, playerShakeDuration);
+        ShakeManager.Shake(playerShakeIntensity, playerShakeDuration);
         instance.StartCoroutine(nameof(InvulnerabilityFrame));
     }
 
@@ -285,8 +284,6 @@ public class PlayerController : MonoBehaviour
             joystickMove.gameObject.SetActive(true);
             joystickAim.gameObject.SetActive(true);
         }
-
-        camNoise = cinemachineCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
 
@@ -521,48 +518,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 originalCameraPosition;
 
     [Header("CameraShake")]
-    private float shakeDuration = 0.1f;
-    private float shakeIntensity = 0.1f;
     private const float playerShakeDuration = 0.5f;
     private const float playerShakeIntensity = 3f;
-    private bool isShaking = false;
-    private bool overrideShake = false;
-
-    public static void StartShake(float shakeIntensity)
-    {
-        instance.StopCoroutine(nameof(ShakeCoroutine));
-        instance.overrideShake = true;
-        instance.camNoise.m_AmplitudeGain = shakeIntensity;
-    }
-
-    public static void StopShake()
-    {
-        if (!instance.overrideShake) return;
-        instance.overrideShake = false;
-        instance.camNoise.m_AmplitudeGain = 0f;
-    }
-
-    public static void Shake(float shakeIntensity, float shakeDuration)
-    {
-        if (instance.overrideShake) return;
-        if (instance.isShaking &&  instance.shakeIntensity >= shakeIntensity)
-        {
-            return;
-        }
-        instance.shakeIntensity = shakeIntensity;
-        instance.shakeDuration = shakeDuration;
-        instance.StopCoroutine(nameof(ShakeCoroutine));
-        instance.StartCoroutine(nameof(ShakeCoroutine));
-    }
-
-    private IEnumerator ShakeCoroutine()
-    {
-        isShaking = true;
-        camNoise.m_AmplitudeGain = shakeIntensity;
-        yield return Helpers.getWait(shakeDuration);
-        camNoise.m_AmplitudeGain = 0f;
-        isShaking = false;
-    }
+    
 
     private void OnDestroy()
     {

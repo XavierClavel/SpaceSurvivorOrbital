@@ -79,7 +79,7 @@ public class Ghost : MonoBehaviour
     private void Explode()
     {
         explosion.Play();
-        PlayerController.Shake(1f, 0.2f);
+        ShakeManager.Shake(1f, 0.2f);
         animator.SetTrigger(animExplode);
         SoundManager.PlaySfx(transform, key: "Ghost_Explode");
         var position = transform.position;

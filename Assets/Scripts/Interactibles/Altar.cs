@@ -50,7 +50,7 @@ public class Altar : MonoBehaviour
         StopCoroutine(nameof(PrepareAltar));
         playerEffect.Stop();
         altarActivate.Stop();
-        PlayerController.StopShake();
+        ShakeManager.StopShake();
         
         fillAmount = 1;
         image.fillAmount = fillAmount;
@@ -61,7 +61,7 @@ public class Altar : MonoBehaviour
     {
         playerEffect.Play();
         
-        PlayerController.StartShake(1f);
+        ShakeManager.StartShake(1f);
 
         while (fillAmount > 0)
         {
@@ -71,7 +71,7 @@ public class Altar : MonoBehaviour
             image.fillAmount = fillAmount;
         }
         
-        PlayerController.StopShake();
+        ShakeManager.StopShake();
 
         playerEffect.Stop();
 
