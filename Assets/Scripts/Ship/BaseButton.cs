@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MyBox;
 using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
@@ -25,14 +26,16 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
     protected delegate void buttonAction();
     protected UpgradeData upgradeData;
     ButtonSprite buttonSprite;
+    private Node node;
 
 
-    public virtual void Initialize(string key)
+    public virtual void Initialize(Node node)
     {
         button = GetComponent<Button>();
         image = GetComponent<Image>();
 
-        this.key = key;
+        this.key = node.key;
+        this.node = node;
 
         upgradeData = DataManager.dictUpgrades[key];
 
@@ -40,7 +43,6 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
 
         buttonsToActivate = upgradeData.upgradesEnabled;
         buttonsToDeactivate = upgradeData.upgradesDisabled;
-        buttonsToDeactivate.TryAdd(key);
         
 
         if (ScriptableObjectManager.dictKeyToButtonSprites.TryGetValue(upgradeData.spriteKey, out var sprite))
@@ -87,7 +89,7 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
     private void getUpgradesToDeactivate()
     {
         Node currentNode = UpgradesDisplayManager.instance.currentActivePanel.dictKeyToNode[key];
-        List<Node> nodes = new List<Node> {currentNode};
+        List<Node> nodes = new List<Node>();
         //getLeafNodes(nodes, currentNode);
         //getRootNodes(nodes, nodes);
 
@@ -106,19 +108,28 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
         if (!DebugManager.areUpgradesFree() && !SpendResources()) return;
         ResourcesDisplay.UpdateResourcesDisplay();
         getUpgradesToDeactivate();
-
+        
+        NodeManager.UpdateButton(this, skillButtonStatus.bought);
         NodeManager.UpdateList(buttonsToActivate, skillButtonStatus.unlocked);
         NodeManager.UpdateList(buttonsToDeactivate, skillButtonStatus.locked);
-        NodeManager.UpdateButton(this, skillButtonStatus.bought);
 
         action();
     }
 
     protected abstract bool SpendResources();
 
-    public void UpdateStatus(skillButtonStatus status)
+    public void UpdateStatus(skillButtonStatus status = skillButtonStatus.undefined)
     {
-        this.status = status;
+        Debug.Log(key);
+        if (status != skillButtonStatus.undefined)
+        {
+            this.status = status;
+        }
+        else
+        {
+            status = this.status;
+        }
+        
         //button.interactable = status == skillButtonStatus.unlocked;
 
         if (buttonSprite == null) return;
@@ -128,10 +139,41 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
                 image.sprite = buttonSprite.purchased;
                 SoundManager.PlaySfx(transform, key: "Button_Buy");
                 HideCost();
+                node.incomingPaths.ForEach(it =>
+                {
+                    if (NodeManager.dictKeyToStatus[it.Key.key] == skillButtonStatus.bought)
+                    {
+                        it.Value.ForEach(line =>
+                        {
+                            line.Dashed = false;
+                            line.Color = new Color32(250, 176, 59, 255);
+                        });
+                    }
+                });
                 break;
 
             case skillButtonStatus.unlocked:
                 image.sprite = buttonSprite.available;
+                node.incomingPaths.ForEach(it =>
+                {
+                    Debug.Log(it.Key.key);
+                    Debug.Log(NodeManager.dictKeyToStatus[it.Key.key]);
+                    if (NodeManager.dictKeyToStatus[it.Key.key] == skillButtonStatus.bought)
+                    {
+                        it.Value.ForEach(line =>
+                        {
+                            line.Dashed = true;
+                            line.Color = new Color32(250, 176, 59, 255);
+                        });
+                    } else if (NodeManager.dictKeyToStatus[it.Key.key] == skillButtonStatus.unlocked)
+                    {
+                        it.Value.ForEach(line =>
+                        {
+                            line.Dashed = true;
+                            line.Color = new Color32(255, 255, 255, 120);
+                        });
+                    }
+                });
                 break;
 
             case skillButtonStatus.locked:

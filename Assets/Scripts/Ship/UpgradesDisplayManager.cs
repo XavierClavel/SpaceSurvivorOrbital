@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Shapes;
 using DG.Tweening;
+using MyBox;
 using UnityEngine.Serialization;
 using TMPro;
 
@@ -27,7 +28,7 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     //Input
     [Header("UI Elements")]
     public SkillButton button;
-    public Polyline line;
+    public Line line;
     private List<NodeManager> panels = new List<NodeManager>();
     [SerializeField] List<UpgradePanelButton> buttons;
     [SerializeField] private NodeManager prefabPanelSkill;
@@ -182,6 +183,8 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
         {
             nodeManager.gameObject.SetActive(nodeManager == instance.currentActivePanel);
         }
+
+        NodeManager.dictKeyToButton.ForEach(it => it.Value.UpdateStatus());
         UIManager.DisplayUpgradesUI();
     }
 

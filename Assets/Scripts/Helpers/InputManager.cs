@@ -5,12 +5,32 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
+public enum inputType
+{
+    keyboard,
+    gamepad,
+    android,
+}
+
 public class InputManager : MonoBehaviour
 {
+    private static List<IInputListener> inputListeners = new List<IInputListener>();
+    
     static GameObject selectedObject;
     static InputManager instance;
     static bool isPlayingWithGamepad = false;
     static PlayerInput playerInput;
+    private static inputType input;
+
+    public static void registerInputListener(IInputListener inputListener)
+    {
+        inputListeners.Add(inputListener);
+    }
+
+    public static void unregisterInputListener(IInputListener inputListener)
+    {
+        inputListeners.TryRemove(inputListener);
+    }
 
     private void Awake()
     {
@@ -40,7 +60,10 @@ public class InputManager : MonoBehaviour
         isPlayingWithGamepad = playerInput.currentControlScheme == Vault.other.inputGamepad;
         OnSelectChange();
         PlayerController.SwitchInput(isPlayingWithGamepad);
+        inputListeners.ForEach(it => it.onInputSwitch(input));
     }
+
+    public static inputType getInputType() => input;
 
 
 

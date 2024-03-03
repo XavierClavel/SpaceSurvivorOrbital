@@ -14,9 +14,9 @@ public class Node
 
     public List<Node> parentNodes = new List<Node>();
     public List<Node> childNodes = new List<Node>();
-    public Dictionary<Node, Polyline> paths = new Dictionary<Node, Polyline>();
+    public Dictionary<Node, List<Line>> incomingPaths = new Dictionary<Node, List<Line>>();
     public Vector2Int position = new Vector2Int();
-    NodeManager nodeManager;
+    public NodeManager nodeManager;
 
     public void Destroy()
     {

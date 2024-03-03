@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -183,36 +184,63 @@ public class NodeManager : MonoBehaviour
         {
             foreach (Node childNode in parentNode.childNodes)
             {
-                Polyline polyline = Instantiate(UpgradesDisplayManager.instance.line);
-                polyline.transform.SetParent(transform);
-                polyline.transform.localScale = Vector3.one;
-                polyline.transform.position = Vector3.zero;
+                Line line1 = Instantiate(UpgradesDisplayManager.instance.line);
+                line1.transform.SetParent(transform);
+                line1.transform.localScale = Vector3.one;
+                line1.transform.position = Vector3.zero;
 
                 Vector3 startPoint = panelRect.InverseTransformPoint(dictKeyToButton[parentNode.key].rectTransform.position);
                 startPoint.z = -1;
                 Vector3 endPoint = panelRect.InverseTransformPoint(dictKeyToButton[childNode.key].rectTransform.position);
                 endPoint.z = -1;
                 Vector3 middlePoint = new Vector3((endPoint.x + startPoint.x) * 0.5f, endPoint.y, endPoint.z);
-
-                polyline.SetPointPosition(0, startPoint);
-                polyline.SetPointPosition(1, middlePoint);
-                polyline.SetPointPosition(2, endPoint);
-                polyline.meshOutOfDate = true;
-
-                polyline.GetComponent<RectTransform>().anchoredPosition3D = 10 * Vector3.back;
                 
+                childNode.incomingPaths[parentNode] = new List<Line> { line1 };
+                Debug.Log($"parent : {parentNode.key}, child : {childNode.key}");
 
-                parentNode.paths[childNode] = polyline;
+                line1.Start = startPoint;
+                if (Math.Abs(startPoint.y - endPoint.y) < 0.01f)
+                {
+                    line1.End = endPoint;
+                }
+                else
+                {
+                    line1.End = middlePoint;
+                    line1.DashOffset = -0.25f;
+                    
+                    Line line2 = Instantiate(UpgradesDisplayManager.instance.line);
+                    line2.transform.SetParent(transform);
+                    line2.transform.localScale = Vector3.one;
+                    line2.transform.position = Vector3.zero;
+                    
+                    line2.Start = middlePoint;
+                    line2.End = endPoint;
+                    line2.DashOffset = 0.25f;
+                    
+                    line2.meshOutOfDate = true;
+                    line2.GetComponent<RectTransform>().anchoredPosition3D = 10 * Vector3.back;
+                    
+                    childNode.incomingPaths[parentNode].Add(line2);
+                }
+                line1.meshOutOfDate = true;
+                
+                if (dictKeyToStatus[childNode.key] == skillButtonStatus.unlocked)
+                {
+                    
+                    line1.Color = new Color32(250, 176, 59, 255);
+                }
+
+                line1.GetComponent<RectTransform>().anchoredPosition3D = 10 * Vector3.back;
             }
         }
-UpgradesDisplayManager.PanelInitialized();
+    UpgradesDisplayManager.PanelInitialized();
     }
 
     TreeButton SetupButton(Node node)
     {
         TreeButton newButton = Instantiate(button);
         Helpers.SetParent(newButton.transform, gridLayout, -2);
-        newButton.Initialize(node.key);
+        newButton.Initialize(node);
         newButton.UpdateStatus(getStatus(node));
         newButton.gameObject.name = node.key;
 

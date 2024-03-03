@@ -23,9 +23,9 @@ public class SkillButton : TreeButton
     [SerializeField] GameObject yellowCostObject;
 
 
-    public override void Initialize(string key)
+    public override void Initialize(Node node)
     {
-        base.Initialize(key);
+        base.Initialize(node);
 
         greenCost = upgradeData.costGreen;
         yellowCost = upgradeData.costOrange;

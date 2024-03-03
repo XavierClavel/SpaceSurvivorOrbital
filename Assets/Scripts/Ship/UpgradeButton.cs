@@ -11,9 +11,9 @@ public class UpgradeButton : TreeButton
     [SerializeField] TextMeshProUGUI blueCostDisplay;
     [SerializeField] GameObject blueCostObject;
 
-    public override void Initialize(string key)
+    public override void Initialize(Node node)
     {
-        base.Initialize(key);
+        base.Initialize(node);
 
         blueCost = upgradeData.costBlue;
         blueCostDisplay.text = blueCost.ToString();
