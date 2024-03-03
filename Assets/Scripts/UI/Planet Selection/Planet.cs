@@ -30,7 +30,7 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     private int planetTier;
     public int tier;
     public int row;
-    private Node node;
+    public Node node;
 
     private bool mouseOverride = false;
 

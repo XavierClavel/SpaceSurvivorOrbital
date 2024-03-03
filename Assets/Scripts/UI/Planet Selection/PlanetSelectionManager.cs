@@ -33,6 +33,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     
     //Static API
     public static Dictionary<string, PlanetData> dictKeyToPlanetData = new Dictionary<string, PlanetData>();
+    private static List<String> path = new List<String>();
     
     //Exposed
     [SerializeField] private GameObject emptyGameObject;
@@ -71,6 +72,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     {
         dictKeyToPlanet = new Dictionary<string, Planet>();
         dictKeyToPlanetData = new Dictionary<string, PlanetData>();
+        path = new List<string>();
         currentNode = null;
     }
     
@@ -129,6 +131,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
         instance.acceptPlanetSelection = false;
         PlanetSelectionManager.SelectNode(node);
         PlanetSelector.SelectPlanet(planet);
+        path.Add(node.key);
     }
 
 #endregion
@@ -530,24 +533,46 @@ public static void GenerateData()
     private IEnumerator CreateLinksCoroutine()
     {
         yield return null;
+        for (int i = 0; i < path.Count; i++)
+        {
+            if (i + 1 >= path.Count) break;
+            DrawLine(path[i], path[i + 1]);
+        }
+        
         foreach (Node parentNode in nodeList)
         {
-            Line line = accessibleNodes.Contains(parentNode) ? lineAccessible : lineInaccessible;
+            if (!accessibleNodes.Contains(parentNode)) continue;
             foreach (Node childNode in parentNode.childNodes)
             {
-                Line polyline = Instantiate(line, transform, true);
-                polyline.transform.SetParent(planetsPanel.transform);
-                polyline.transform.localScale = Vector3.one;
-                polyline.transform.localPosition = Vector3.zero;
-                polyline.name = $"Line_{parentNode.key}_to_{childNode.key}";
-                
-                polyline.Start = panelRect.InverseTransformPoint(dictKeyToPlanet[parentNode.key].planet.GetComponent<RectTransform>().position);
-                polyline.End = panelRect.InverseTransformPoint(dictKeyToPlanet[childNode.key].planet.GetComponent<RectTransform>().position);
-
+                Line line = DrawLine(parentNode, childNode);
+                line.Dashed = true;
+                line.Color = (parentNode == currentNode || parentNode.tier == 0) ? Color.white : Color.gray;
                 //polyline.GetComponent<RectTransform>().anchoredPosition3D = 10 * Vector3.back;
             }
         }
         MoveScreen();
+    }
+
+    private Line DrawLine(string startKey, string destKey)
+    {
+        return DrawLine(
+            dictKeyToPlanet[startKey].node,
+            dictKeyToPlanet[destKey].node
+        );
+    }
+
+    private Line DrawLine(Node startNode, Node destNode)
+    {
+        Line polyline = Instantiate(lineAccessible, transform, true);
+        polyline.transform.SetParent(planetsPanel.transform);
+        polyline.transform.localScale = Vector3.one;
+        polyline.transform.localPosition = Vector3.zero;
+        polyline.name = $"Line_{startNode.key}_to_{destNode.key}";
+                
+        polyline.Start = panelRect.InverseTransformPoint(dictKeyToPlanet[startNode.key].planet.GetComponent<RectTransform>().position);
+        polyline.End = panelRect.InverseTransformPoint(dictKeyToPlanet[destNode.key].planet.GetComponent<RectTransform>().position);
+
+        return polyline;
     }
     
 }
