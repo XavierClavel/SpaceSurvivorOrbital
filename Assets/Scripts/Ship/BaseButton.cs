@@ -111,7 +111,7 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
         
         NodeManager.UpdateButton(this, skillButtonStatus.bought);
         NodeManager.UpdateList(buttonsToActivate, skillButtonStatus.unlocked);
-        NodeManager.UpdateList(buttonsToDeactivate, skillButtonStatus.locked);
+        NodeManager.UpdateList(buttonsToDeactivate, skillButtonStatus.discarded);
 
         action();
     }
@@ -120,20 +120,27 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
 
     public void UpdateStatus(skillButtonStatus status = skillButtonStatus.undefined)
     {
-        Debug.Log(key);
+        if (node.parentNodes.Count > 0 && node.parentNodes.TrueForAll(it => NodeManager.dictKeyToStatus[it.key] == skillButtonStatus.discarded))
+        {
+            status = skillButtonStatus.discarded;
+        }
+        
         if (status != skillButtonStatus.undefined)
         {
             this.status = status;
+            NodeManager.dictKeyToStatus[key] = this.status;
         }
         else
         {
-            status = this.status;
+            this.status = NodeManager.dictKeyToStatus[key];
         }
+        
+        Debug.Log($"{node.key} : {this.status}");
         
         //button.interactable = status == skillButtonStatus.unlocked;
 
         if (buttonSprite == null) return;
-        switch (status)
+        switch (this.status)
         {
             case skillButtonStatus.bought:
                 image.sprite = buttonSprite.purchased;
@@ -148,6 +155,13 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
                             line.Dashed = false;
                             line.Color = new Color32(250, 176, 59, 255);
                         });
+                    } else if (NodeManager.dictKeyToStatus[it.Key.key] == skillButtonStatus.discarded)
+                    {
+                        it.Value.ForEach(line =>
+                        {
+                            line.Dashed = true;
+                            line.Color = new Color32(255,255,255,0);
+                        });
                     }
                 });
                 break;
@@ -156,8 +170,6 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
                 image.sprite = buttonSprite.available;
                 node.incomingPaths.ForEach(it =>
                 {
-                    Debug.Log(it.Key.key);
-                    Debug.Log(NodeManager.dictKeyToStatus[it.Key.key]);
                     if (NodeManager.dictKeyToStatus[it.Key.key] == skillButtonStatus.bought)
                     {
                         it.Value.ForEach(line =>
@@ -172,6 +184,13 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
                             line.Dashed = true;
                             line.Color = new Color32(255, 255, 255, 120);
                         });
+                    } else if (NodeManager.dictKeyToStatus[it.Key.key] == skillButtonStatus.discarded)
+                    {
+                        it.Value.ForEach(line =>
+                        {
+                            line.Dashed = true;
+                            line.Color = new Color32(255,255,255,0);
+                        });
                     }
                 });
                 break;
@@ -179,7 +198,21 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
             case skillButtonStatus.locked:
                 image.sprite = buttonSprite.locked;
                 break;
+            
+            case skillButtonStatus.discarded:
+                image.sprite = buttonSprite.locked;
+                node.incomingPaths.ForEach(it =>
+                {
+                    it.Value.ForEach(line =>
+                    {
+                        line.Dashed = true;
+                        line.Color = new Color32(255,255,255,0);
+                    });
+                });
+                break;
         }
+
+        node.childNodes.ForEach(it => NodeManager.dictKeyToButton[it.key].UpdateStatus());
     }
 
     protected abstract void HideCost();

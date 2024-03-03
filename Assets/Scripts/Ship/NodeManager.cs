@@ -223,12 +223,6 @@ public class NodeManager : MonoBehaviour
                     childNode.incomingPaths[parentNode].Add(line2);
                 }
                 line1.meshOutOfDate = true;
-                
-                if (dictKeyToStatus[childNode.key] == skillButtonStatus.unlocked)
-                {
-                    
-                    line1.Color = new Color32(250, 176, 59, 255);
-                }
 
                 line1.GetComponent<RectTransform>().anchoredPosition3D = 10 * Vector3.back;
             }
@@ -241,8 +235,8 @@ public class NodeManager : MonoBehaviour
         TreeButton newButton = Instantiate(button);
         Helpers.SetParent(newButton.transform, gridLayout, -2);
         newButton.Initialize(node);
-        newButton.UpdateStatus(getStatus(node));
         newButton.gameObject.name = node.key;
+        getStatus(node);
 
         return newButton;
     }

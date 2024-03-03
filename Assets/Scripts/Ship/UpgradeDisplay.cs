@@ -15,6 +15,8 @@ public class UpgradeDisplay : MonoBehaviour
     static UpgradeDisplay instance;
     static UnityAction buyAction;
     static GameObject selectedButton;
+    private string currentKey;
+    private string currentTarget;
 
 
     // Start is called before the first frame update
@@ -26,13 +28,20 @@ public class UpgradeDisplay : MonoBehaviour
 
     public static void DisplayUpgrade(string key, string target)
     {
+        instance.currentKey = key;
+        instance.currentTarget = target;
         instance.buyButton.gameObject.SetActive(
-            NodeManager.dictKeyToButton[key]. status is skillButtonStatus.unlocked
+            NodeManager.dictKeyToButton[key].status is skillButtonStatus.unlocked
                 );
         if (instance.upgradeTitleDisplay != null) instance.upgradeTitleDisplay.setKey(key + Vault.key.ButtonTitle);
         if (instance.upgradeTextDisplay != null) instance.upgradeTextDisplay.setKey(key + Vault.key.ButtonDescription);
         if (instance.upgradeIconDisplay != null)
             instance.upgradeIconDisplay.sprite = ScriptableObjectManager.getIcon(target);
+    }
+
+    public static void RefreshUpgradeDisplay()
+    {
+        DisplayUpgrade(instance.currentKey, instance.currentTarget);
     }
 
     public void OnClick()

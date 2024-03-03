@@ -161,13 +161,11 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
 
     public static void onSelect(TreeButton btn)
     {
-        Debug.Log("selected");
         selectedButton = btn;
     }
 
     public static void onDeselect(TreeButton btn)
     {
-        Debug.Log("deselected");
         selectedButton = null;
         instance.StopBuying();
     }
@@ -183,9 +181,9 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
         {
             nodeManager.gameObject.SetActive(nodeManager == instance.currentActivePanel);
         }
-
         NodeManager.dictKeyToButton.ForEach(it => it.Value.UpdateStatus());
         UIManager.DisplayUpgradesUI();
+        UpgradeDisplay.RefreshUpgradeDisplay();
     }
 
 #endregion

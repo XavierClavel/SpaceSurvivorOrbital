@@ -8,7 +8,7 @@ using MyBox;
 
 
 
-public enum skillButtonStatus { undefined, locked, unlocked, bought }
+public enum skillButtonStatus { undefined, locked, unlocked, bought, discarded }
 
 public class SkillButton : TreeButton
 {
