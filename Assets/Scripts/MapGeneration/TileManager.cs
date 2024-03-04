@@ -81,6 +81,9 @@ public class TileManager : MonoBehaviour
             case planetType.jungle:
                 globalLight.intensity = 1f;
                 break;
+            case planetType.swamp:
+                globalLight.intensity = 0.75f;
+                break;
         }
 
         int maxAttempts = 200;

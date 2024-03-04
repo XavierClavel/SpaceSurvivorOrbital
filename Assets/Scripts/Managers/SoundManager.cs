@@ -28,6 +28,7 @@ public enum gameScene
     planetMushroom,
     planetStorm,
     planetJungle,
+    planetSwamp,
     shop,
     shopArtefact,
     win,
@@ -50,6 +51,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource titleScreenMusic;
     [SerializeField] private AudioSource shipMusic;
     [SerializeField] private AudioSource planetJungleMusic;
+    [SerializeField] private AudioSource planetSwampMusic;
     [SerializeField] private AudioSource planetIceMusic;
     [SerializeField] private AudioSource planetDesertMusic;
     [SerializeField] private AudioSource planetStormMusic;
@@ -114,6 +116,7 @@ public class SoundManager : MonoBehaviour
                 { gameScene.planetMushroom, planetMushroomMusic},
                 { gameScene.planetStorm, planetStormMusic},
                 { gameScene.planetJungle, planetJungleMusic},
+                { gameScene.planetSwamp, planetSwampMusic},
                 { gameScene.win, winMusic},
             };
             onSceneChange(currentScene, true);

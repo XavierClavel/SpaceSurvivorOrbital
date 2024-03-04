@@ -14,6 +14,7 @@ public class PlanetSelector : MonoBehaviour
     public Sprite planetMushroom;
     public Sprite planetIce;
     public Sprite planetJungle;
+    public Sprite planetSwamp;
     public Sprite planetDesert;
     public Sprite planetStorm;
     public Sprite shop;

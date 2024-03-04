@@ -8,7 +8,7 @@ using System.Linq;
 
 public enum planetSize { small, medium, large }
 public enum planetResourceScarcity { rare, medium, common }
-public enum planetType { ice, mushroom, desert, storm, jungle, shop , shopArtefact}
+public enum planetType { ice, mushroom, desert, storm, jungle, swamp, shop , shopArtefact}
 
 [System.Serializable]
 public class PlanetData
@@ -37,6 +37,7 @@ public class PlanetData
         {
             planetType.ice => gameScene.planetIce,
             planetType.jungle => gameScene.planetJungle,
+            planetType.swamp => gameScene.planetSwamp,
             planetType.desert => gameScene.planetDesert,
             planetType.mushroom => gameScene.planetMushroom,
             planetType.storm => gameScene.planetStorm,
@@ -81,6 +82,7 @@ public class PlanetData
             planetType.desert => planetResourceScarcity.medium,
             planetType.ice => planetResourceScarcity.medium,
             planetType.jungle => planetResourceScarcity.common,
+            planetType.swamp => planetResourceScarcity.common,
             planetType.mushroom => planetResourceScarcity.common,
             planetType.storm => planetResourceScarcity.rare,
             _ => throw new ArgumentOutOfRangeException("Unexpected enum value")

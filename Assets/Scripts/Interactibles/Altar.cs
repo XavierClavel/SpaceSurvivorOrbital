@@ -12,6 +12,7 @@ public class Altar : MonoBehaviour
     [SerializeField] ParticleSystem altarActivate;
     [SerializeField] ParticleSystem altarLoading;
     [SerializeField] ParticleSystem playerEffect;
+    [SerializeField] GameObject lightAltar;
     float factor;
     float fillAmount = 1;
     public Animator animator;
@@ -90,6 +91,7 @@ public class Altar : MonoBehaviour
         GetComponent<Collider2D>().enabled = false;
         auraAltar.Stop();
         altarLoading.Stop();
+        lightAltar.SetActive(false);
         listeners.ForEach(it => it.onAltarUsed(this));
     }
 
