@@ -44,6 +44,12 @@ public class Ennemy : Breakable
     [SerializeField] protected float cooldown = 1f;
     [SerializeField] protected float range = 5f;
     [SerializeField] protected float stateStep = 0.5f;
+
+    [Header("Eyes")]
+    [SerializeField] GameObject eye;
+    [SerializeField] Vector2 leftPosition;
+    [SerializeField] Vector2 rightPosition;
+
     int _health;
     protected int health
     {
@@ -364,11 +370,13 @@ public class Ennemy : Breakable
         {
             animator.SetBool("IsMovingRight", false);
             FlipSprite();
+            eye.transform.position = new Vector2(this.transform.position.x, this.transform.position.y) + rightPosition;
         }
         else if (dotProduct < 0 && !isMovingRight)
         {
             animator.SetBool("IsMovingRight", true);
             FlipSprite();
+            eye.transform.position = new Vector2(this.transform.position.x, this.transform.position.y) + leftPosition;
         }
         
     }

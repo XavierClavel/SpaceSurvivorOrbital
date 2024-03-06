@@ -12,7 +12,7 @@ public class AltarPanel : MonoBehaviour
     [SerializeField] private GameObject autelPanel;
     [SerializeField] private TextMeshProUGUI upgradesPointsDisplay;
     [SerializeField] private RectTransform layout;
-    private int displayAmount = 3;
+    private int displayAmount = 2;
 
     private static AltarPanel instance;
     

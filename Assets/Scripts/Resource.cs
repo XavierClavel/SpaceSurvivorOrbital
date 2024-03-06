@@ -78,7 +78,7 @@ public class Resource : Breakable
     
     protected override void StackHit(int damage, HashSet<status> elements)
     {
-        SoundManager.PlaySfx(transform, key: "Eggs");
+        //SoundManager.PlaySfx(transform, key: "Eggs");
         health -= damage;
     }
 

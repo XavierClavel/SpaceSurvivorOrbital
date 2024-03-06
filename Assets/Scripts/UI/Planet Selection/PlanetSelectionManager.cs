@@ -23,7 +23,7 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
 {
     //Consts
     const int maxX = 10;
-    const int maxY = 7;
+    const int maxY = 5;
     
     //Static
     private static Node[,] nodeMatrix;
