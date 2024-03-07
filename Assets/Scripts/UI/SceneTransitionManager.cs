@@ -86,6 +86,7 @@ public class SceneTransitionManager : MonoBehaviour
             gameScene.planetMushroom => Vault.scene.Planet,
             gameScene.planetStorm => Vault.scene.Planet,
             gameScene.planetJungle => Vault.scene.Planet,
+            gameScene.planetSwamp => Vault.scene.Planet,
             gameScene.shop => Vault.scene.Shop,
             gameScene.shopArtefact => Vault.scene.ShopArtefact,
             gameScene.win => Vault.scene.Win,
