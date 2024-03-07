@@ -40,7 +40,7 @@ public class AltarPanel : MonoBehaviour
             PowerHandler selectedPower = powersRemaining.popRandom();
 
 
-            AltarItem altarItem = GameObject.Instantiate(instance.itemPrefab, instance.layout, true);
+            AltarItem altarItem = GameObject.Instantiate(instance.itemPrefab, instance.layout);
             altarItem.transform.localScale = Vector3.one;
             altarItem.Setup(selectedPower.getKey());
 
