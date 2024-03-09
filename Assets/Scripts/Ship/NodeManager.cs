@@ -185,28 +185,16 @@ public class NodeManager : MonoBehaviour
         {
             foreach (Node childNode in parentNode.childNodes)
             {
-                Line line1 = Instantiate(UpgradesDisplayManager.instance.line);
-                line1.transform.SetParent(transform);
-                line1.transform.localScale = Vector3.one;
-                line1.transform.position = Vector3.zero;
+                Line line1 = Instantiate(UpgradesDisplayManager.instance.line, transform, true);
+                var transform1 = line1.transform;
+                transform1.localScale = Vector3.one;
+                transform1.position = Vector3.zero;
 
                 Vector3 startPoint = panelRect.InverseTransformPoint(dictKeyToButton[parentNode.key].rectTransform.position);
                 startPoint.z = -1;
                 Vector3 endPoint = panelRect.InverseTransformPoint(dictKeyToButton[childNode.key].rectTransform.position);
                 endPoint.z = -1;
-                float middleY;
-                var rootNodes = parentNode.getRootNodes();
-                rootNodes.ForEach(it => Debug.Log($"root node : {it.key}"));
-                Debug.Log(rootNodes.Count);
-                if (rootNodes.Count > 0) Debug.Log(rootNodes[0].row != parentNode.row);
-                if (parentNode.childNodes.Count == 1)
-                {
-                    middleY = startPoint.y;
-                }
-                else
-                {
-                    middleY = endPoint.y;
-                }
+                float middleY = parentNode.childNodes.Count == 1 ? startPoint.y : endPoint.y;
                 Vector3 middlePoint = new Vector3((endPoint.x + startPoint.x) * 0.5f, middleY, endPoint.z);
                 
                 childNode.incomingPaths[parentNode] = new List<Line> { line1 };
@@ -222,10 +210,10 @@ public class NodeManager : MonoBehaviour
                     line1.End = middlePoint;
                     line1.DashOffset = -0.25f;
                     
-                    Line line2 = Instantiate(UpgradesDisplayManager.instance.line);
-                    line2.transform.SetParent(transform);
-                    line2.transform.localScale = Vector3.one;
-                    line2.transform.position = Vector3.zero;
+                    Line line2 = Instantiate(UpgradesDisplayManager.instance.line, transform, true);
+                    var transform2 = line2.transform;
+                    transform2.localScale = Vector3.one;
+                    transform2.position = Vector3.zero;
                     
                     line2.Start = middlePoint;
                     line2.End = endPoint;
