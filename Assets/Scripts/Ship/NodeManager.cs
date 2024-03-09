@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Shapes;
 
@@ -193,7 +194,20 @@ public class NodeManager : MonoBehaviour
                 startPoint.z = -1;
                 Vector3 endPoint = panelRect.InverseTransformPoint(dictKeyToButton[childNode.key].rectTransform.position);
                 endPoint.z = -1;
-                Vector3 middlePoint = new Vector3((endPoint.x + startPoint.x) * 0.5f, endPoint.y, endPoint.z);
+                float middleY;
+                var rootNodes = parentNode.getRootNodes();
+                rootNodes.ForEach(it => Debug.Log($"root node : {it.key}"));
+                Debug.Log(rootNodes.Count);
+                if (rootNodes.Count > 0) Debug.Log(rootNodes[0].row != parentNode.row);
+                if (parentNode.childNodes.Count == 1)
+                {
+                    middleY = startPoint.y;
+                }
+                else
+                {
+                    middleY = endPoint.y;
+                }
+                Vector3 middlePoint = new Vector3((endPoint.x + startPoint.x) * 0.5f, middleY, endPoint.z);
                 
                 childNode.incomingPaths[parentNode] = new List<Line> { line1 };
                 Debug.Log($"parent : {parentNode.key}, child : {childNode.key}");
