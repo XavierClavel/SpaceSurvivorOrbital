@@ -52,7 +52,6 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         this.tier = node.tier;
         this.row = node.row;
         this.node = node;
-        Debug.Log($"tier : {tier}, row: {row}, currentTier: {currentTier}, inPathNodes: {PlanetSelectionManager.getPossiblePathNodes().Contains(node)}");
         if (tier != currentTier ||  !PlanetSelectionManager.getPossiblePathNodes().Contains(node))
         {
             button.interactable = false;

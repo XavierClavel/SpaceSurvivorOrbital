@@ -8,7 +8,18 @@ using System.Linq;
 
 public enum planetSize { small, medium, large }
 public enum planetResourceScarcity { rare, medium, common }
-public enum planetType { ice, mushroom, desert, storm, jungle, swamp, shop , shopArtefact}
+
+public enum planetType
+{
+    ice, 
+    mushroom, 
+    desert, 
+    storm, 
+    jungle, 
+    swamp, 
+    shop, 
+    shopArtefact,
+}
 
 [System.Serializable]
 public class PlanetData
