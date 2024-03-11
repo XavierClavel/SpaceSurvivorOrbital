@@ -14139,10 +14139,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetData:
-    size: 0
+    size: 2
     difficulty: 1
-    ressourceScarcity: 0
-    type: 5
+    ressourceScarcity: 2
+    type: 2
     isBoss: 0
   bank: {fileID: 11400000, guid: dde3abeea4d88e546a3066a1c045dada, type: 2}
   globalLight: {fileID: 1612029104}
@@ -25834,6 +25834,11 @@ MonoBehaviour:
     radialOrigin: {x: 0, y: 0, z: 0}
     radialRadius: 1
   useFill: 0
+--- !u!82 &843315667 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 4138112212411959804, guid: 6f299a1a0bc3e9542ad3d8364ed3528d, type: 3}
+  m_PrefabInstance: {fileID: 8391136703426300349}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &850569516 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8170153791668043265, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
@@ -26418,7 +26423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAmount: 0
   currentAmount: 0
-  emptyDisplay: {fileID: 8606751574443919986, guid: 10acc948aea0c6d47b9104d2ee233a89, type: 3}
+  emptyDisplay: {fileID: 8606751574443919986, guid: b5ad66065512bae489f58dd22dfe70e6, type: 3}
   fullDisplay: {fileID: 446213444922598908, guid: 75b6793e12050564d884a6cbd7e6f410, type: 3}
   layout: {fileID: 982706198}
 --- !u!1 &989637347
@@ -28404,7 +28409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAmount: 0
   currentAmount: 0
-  emptyDisplay: {fileID: 8606751574443919986, guid: 10acc948aea0c6d47b9104d2ee233a89, type: 3}
+  emptyDisplay: {fileID: 8606751574443919986, guid: 72d050a5ce69ac249b2dd809f0b2225c, type: 3}
   fullDisplay: {fileID: 446213444922598908, guid: 3bbe778105f01fd479a42bb67e83c4fd, type: 3}
   layout: {fileID: 1261425271}
 --- !u!1001 &1261810182
@@ -37984,7 +37989,7 @@ PrefabInstance:
     - target: {fileID: 4785867703442534965, guid: 6f299a1a0bc3e9542ad3d8364ed3528d, type: 3}
       propertyPath: planetSwampMusic
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 843315667}
     - target: {fileID: 7744248700465798359, guid: 6f299a1a0bc3e9542ad3d8364ed3528d, type: 3}
       propertyPath: Mute
       value: 1
