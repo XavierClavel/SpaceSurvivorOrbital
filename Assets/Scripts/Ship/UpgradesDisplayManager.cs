@@ -140,6 +140,7 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
 
     public void StopBuying()
     {
+        selectedButton?.onStopBuying();
         buyAudio.DOFade(0, 0.15f);
         //ShakeManager.StopShake();
         StopCoroutine(nameof(holdCoroutine));
@@ -147,6 +148,7 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
     
     private IEnumerator holdCoroutine()
     {
+        selectedButton.onStartBuying(1.5f);
         yield return Helpers.getWait(1.5f);
         UpgradeDisplay.Buy();
         StopBuying();
@@ -166,8 +168,8 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
 
     public static void onDeselect(TreeButton btn)
     {
-        selectedButton = null;
         instance.StopBuying();
+        selectedButton = null;
     }
 
     public static void PanelInitialized()

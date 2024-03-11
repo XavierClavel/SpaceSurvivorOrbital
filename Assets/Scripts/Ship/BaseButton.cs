@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using MyBox;
 using UnityEngine;
 using TMPro;
@@ -27,6 +28,9 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
     protected UpgradeData upgradeData;
     ButtonSprite buttonSprite;
     private Node node;
+    private Tween radialTween;
+
+    [SerializeField] private Image radialFill;
 
 
     public virtual void Initialize(Node node)
@@ -244,6 +248,18 @@ public abstract class TreeButton : MonoBehaviour, IPointerEnterHandler, ISelectH
     public void OnPointerExit(PointerEventData eventData)
     {
         UpgradesDisplayManager.onDeselect(this);
+    }
+
+    public void onStartBuying(float duration)
+    {
+        if (this.status != skillButtonStatus.unlocked) return;
+        radialTween = DOTween.To(() => radialFill.fillAmount, x => radialFill.fillAmount = x, 1, duration - 0.2f).SetEase(Ease.Linear).SetDelay(0.2f);
+    }
+
+    public void onStopBuying()
+    {
+        radialTween?.Kill();
+        radialFill.fillAmount = 0;
     }
     
 }

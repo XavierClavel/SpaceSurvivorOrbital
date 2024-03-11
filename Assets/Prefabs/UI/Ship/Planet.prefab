@@ -327,18 +327,18 @@ MonoBehaviour:
   stencilRefID: 0
   stencilReadMask: 255
   stencilWriteMask: 255
-  type: 2
+  type: 3
   colorMode: 0
   colorOuterStart: {r: 1, g: 1, b: 1, a: 1}
   colorInnerEnd: {r: 1, g: 1, b: 1, a: 1}
   colorOuterEnd: {r: 1, g: 1, b: 1, a: 1}
   geometry: 0
-  angUnitInput: 1
-  angRadiansStart: 0
-  angRadiansEnd: 2.3561945
-  radius: 0
+  angUnitInput: 0
+  angRadiansStart: 1.5707964
+  angRadiansEnd: 1.570796
+  radius: 67.25
   radiusSpace: 0
-  thickness: 4.84
+  thickness: 8.7
   thicknessSpace: 0
   arcEndCaps: 0
   matchDashSpacingToSize: 1
@@ -379,7 +379,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f1152319638614c47882e3b5d0aedbb8, type: 2}
+  - {fileID: 2100000, guid: 222ec55c548324845b1dd960be702323, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -524,10 +524,8 @@ MonoBehaviour:
     isBoss: 0
   planet: {fileID: 4967694701555214460}
   button: {fileID: 1820085655387137408}
-  violetBar: {fileID: 991200072980079001}
-  yellowBar: {fileID: 991200071770259392}
-  greenBar: {fileID: 991200071123259869}
   displayPanel: {fileID: 428425747138322849}
+  radialFill: {fileID: 6089094786595297387}
   tier: 0
   row: 0
 --- !u!222 &8910134057242515221
@@ -816,17 +814,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1558491437003856729}
   m_SourcePrefab: {fileID: 100100000, guid: 30c59c8ca34fee4448fe05ac6c5b1d14, type: 3}
---- !u!114 &991200071123259869 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8531599457459605123, guid: 30c59c8ca34fee4448fe05ac6c5b1d14, type: 3}
-  m_PrefabInstance: {fileID: 8910134057383190366}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2481b01d6e230ed479723754e531af4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &991200071622354720 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8531599458017425534, guid: 30c59c8ca34fee4448fe05ac6c5b1d14, type: 3}
@@ -1174,17 +1161,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &991200071770259392 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8531599457459605123, guid: 30c59c8ca34fee4448fe05ac6c5b1d14, type: 3}
-  m_PrefabInstance: {fileID: 8910134057409360195}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2481b01d6e230ed479723754e531af4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8910134058610732826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1437,14 +1413,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &991200072980079001 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8531599457459605123, guid: 30c59c8ca34fee4448fe05ac6c5b1d14, type: 3}
-  m_PrefabInstance: {fileID: 8910134058610732826}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2481b01d6e230ed479723754e531af4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

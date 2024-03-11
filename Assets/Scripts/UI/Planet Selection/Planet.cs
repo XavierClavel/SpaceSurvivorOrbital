@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
+using Shapes;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -23,6 +25,8 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     //[SerializeField] DiscreteBarHandler dangerosityBar;
     [SerializeField] private Button button;
     [SerializeField] private GameObject displayPanel;
+    [SerializeField] private Disc radialFill;
+    private Tween radialTween;
 
     private static Dictionary<String, Vector3> dictPlanetToPos = new Dictionary<string, Vector3>();
     
@@ -139,6 +143,22 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     public void Select()
     {
         PlanetSelectionManager.SelectPlanet(this, node);
+    }
+
+    public void onStartHolding(float duration)
+    {
+        if (!button.interactable) return;
+        radialTween = DOTween.To(() => radialFill.AngRadiansEnd, x => radialFill.AngRadiansEnd = x, - 1.5f * Mathf.PI, duration - 0.2f)
+            .SetEase(Ease.Linear)
+            .SetDelay(0.2f)
+            .OnStart(delegate { radialFill.ArcEndCaps = ArcEndCap.Round; });
+    }
+
+    public void onStopHolding()
+    {
+        radialTween?.Kill();
+        radialFill.ArcEndCaps = ArcEndCap.None;
+        radialFill.AngRadiansEnd = Mathf.PI * 0.5f;
     }
     
     
