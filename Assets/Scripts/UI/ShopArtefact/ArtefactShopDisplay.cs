@@ -19,6 +19,8 @@ public class ArtefactShopDisplay : MonoBehaviour
         cost = (int)(DataManager.dictCost[artefact.getKey()] * BonusManager.current.getMerchantPricesMultiplier());
         icon.sprite = artefact.getIcon();
         costDisplay.SetText(cost.ToString());
+        buyButton.onClick.RemoveAllListeners();
+        buyButton.onClick.AddListener(onBuy);
 
         UpdateInteractibility();
     }

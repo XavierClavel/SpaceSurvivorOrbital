@@ -154,7 +154,7 @@ public RectTransform getUITransform()
         inputActions = new InputMaster();
         inputActions.Enable();
         inputActions.UI.Validate.started += ctx => StartHolding();
-        inputActions.UI.Validate.canceled += ctx => StopCoroutine(nameof(holdCoroutine));
+        inputActions.UI.Validate.canceled += ctx => StopHolding();
     }
     
     public void StartHolding()
@@ -162,11 +162,19 @@ public RectTransform getUITransform()
         if (selectedPlanet == null) return; 
         StartCoroutine(nameof(holdCoroutine));
     }
+
+    public void StopHolding()
+    {
+        StopCoroutine(nameof(holdCoroutine));
+        selectedPlanet?.onStopHolding();
+    }
     
     private IEnumerator holdCoroutine()
     {
+        selectedPlanet.onStartHolding(1.5f);
         yield return Helpers.getWait(1.5f);
         selectedPlanet.Select();
+        StopHolding();
     }
 
 public static void GenerateData()
