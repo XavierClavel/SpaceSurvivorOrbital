@@ -92,7 +92,7 @@ public class Spawner : MonoBehaviour
     {
         float time = 0f;
         int waveIndex = 0;
-        PrepareWave(wallet);
+        PrepareWave(wallet, waveIndex);
         while (true)
         {
             if (ennemiesToSpawnList.Count != 0 && time >= ennemiesToSpawnList[0].spawnTime)
@@ -106,7 +106,7 @@ public class Spawner : MonoBehaviour
                 time = 0f;
                 wallet += increment;
                 waveIndex++;
-                PrepareWave(wallet);
+                PrepareWave(wallet, waveIndex);
             }
 
             time += Time.fixedDeltaTime;
@@ -114,7 +114,7 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    void PrepareWave(int maxCost)
+    void PrepareWave(int maxCost, int waveIndex)
     {
         int currentCost = 0;
         ennemiesToSpawnList = new List<EntitySpawnInstance<Ennemy>>();
@@ -142,6 +142,13 @@ public class Spawner : MonoBehaviour
         }
 
         ennemiesToSpawnList.Sort(comparer);
+        
+        Debug.Log(waveIndex);
+
+        if (waveIndex == 4 && PlanetSelector.getDifficulty() > 3)
+        {
+            SpawnEnnemy(ScriptableObjectManager.dictKeyToBossData[PlayerManager.currentBoss].miniBosses.getRandom());
+        }
     }
 
     public static void SpawnEnnemy(Ennemy ennemy)

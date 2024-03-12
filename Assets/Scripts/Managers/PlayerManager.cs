@@ -6,10 +6,11 @@ using UnityEngine.UI;
 
 
 
-public class PlayerManager
+public static class PlayerManager
 {
     public static bool isTuto = false;
     public static bool isDemo = false;
+    public static string currentBoss = "ShipShop";
 
     //Static accessors
 

@@ -13,6 +13,7 @@ public static class ScriptableObjectManager
     public static Dictionary<string, CharacterHandler> dictKeyToCharacterHandler;
     public static Dictionary<string, ArtefactHandler> dictKeyToArtefactHandler;
     public static Dictionary<planetType, TilesBank> dictTypeToTilesBank;
+    public static Dictionary<string, BossData> dictKeyToBossData;
     public static Dictionary<string, Sfx> dictKeyToSfx;
     static List<WeaponHandler> baseWeapons;
     static List<CharacterHandler> characters;
@@ -108,5 +109,9 @@ public static class ScriptableObjectManager
         dictTypeToTilesBank = new Dictionary<planetType, TilesBank>();
         TilesBank[] tilesBanks = Resources.LoadAll<TilesBank>("TilesBanks");
         tilesBanks.ForEach(it => dictTypeToTilesBank[it.type] = it);
+
+        dictKeyToBossData = new Dictionary<string, BossData>();
+        BossData[] bossDatas = Resources.LoadAll<BossData>("BossData");
+        bossDatas.ForEach(it => dictKeyToBossData[it.getKey()] = it);
     }
 }

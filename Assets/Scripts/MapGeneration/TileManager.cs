@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -5,6 +6,7 @@ using MyBox;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class TileManager : MonoBehaviour
 {
@@ -44,6 +46,16 @@ public class TileManager : MonoBehaviour
         return intersection.getRandom();
     }
 
+    private void Awake()
+    {
+        if (PlayerManager.isTuto)
+        {
+            return;
+        }
+        instance = this;
+        if (!PlanetManager.hasData()) PlanetManager.setData(planetData);
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -53,8 +65,6 @@ public class TileManager : MonoBehaviour
             return;
         }
         mask = LayerMask.GetMask(Vault.layer.Ennemies);
-        instance = this;
-        if (!PlanetManager.hasData()) PlanetManager.setData(planetData);
         if (!generateMap) return;
 
         switch (PlanetManager.getType())
