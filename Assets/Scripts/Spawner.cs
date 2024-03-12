@@ -91,6 +91,7 @@ public class Spawner : MonoBehaviour
     IEnumerator SpawnController()
     {
         float time = 0f;
+        int waveIndex = 0;
         PrepareWave(wallet);
         while (true)
         {
@@ -104,6 +105,7 @@ public class Spawner : MonoBehaviour
             {
                 time = 0f;
                 wallet += increment;
+                waveIndex++;
                 PrepareWave(wallet);
             }
 

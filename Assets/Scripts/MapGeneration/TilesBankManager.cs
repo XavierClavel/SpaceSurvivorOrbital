@@ -5,13 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = Vault.other.scriptableObjectMenu + "tilesBankManager", order = 1)]
 public class TilesBankManager : ScriptableObject
 {
-    [Header("Tiles Banks")]
-    public TilesBank icePlanetBank;
-    public TilesBank mushroomPlanetBank;
-    public TilesBank junglePlanetBank;
-    public TilesBank swampPlanetBank;
-    public TilesBank stormPlanetBank;
-    public TilesBank desertPlanetBank;
 
     [Header("Empty")]
     public Tile empty1;
@@ -70,31 +63,7 @@ public class TilesBankManager : ScriptableObject
 
     TilesBank getBank()
     {
-        switch (PlanetManager.getType())
-        {
-            case planetType.ice:
-                return icePlanetBank;
-
-            case planetType.mushroom:
-                return mushroomPlanetBank;
-
-            case planetType.desert:
-                return desertPlanetBank;
-
-            case planetType.jungle:
-                return junglePlanetBank;
-            
-            case planetType.swamp:
-                return swampPlanetBank;
-
-            case planetType.storm:
-                return stormPlanetBank;
-
-            default:
-                return mushroomPlanetBank;
-
-        }
-
+        return ScriptableObjectManager.dictTypeToTilesBank[PlanetManager.getType()];
     }
 
 

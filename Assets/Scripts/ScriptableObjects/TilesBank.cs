@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = Vault.other.scriptableObjectMenu + "tilesBank", order = 1)]
 public class TilesBank : ScriptableObject
 {
+    public planetType type;
+    
+    [Header("Ground")]
     public Color groundColor1;
     public Color groundColor2;
     public Color groundColor3;
@@ -28,6 +31,8 @@ public class TilesBank : ScriptableObject
 
     [Header("Other")]
     public GameObject spaceship;
-
+    
+    [Header("Ennemies")]
     public List<Ennemy> ennemies;
+    
 }

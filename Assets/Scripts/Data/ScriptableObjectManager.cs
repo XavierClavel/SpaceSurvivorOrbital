@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using MyBox;
 
 public static class ScriptableObjectManager
 {
@@ -11,6 +12,7 @@ public static class ScriptableObjectManager
     public static Dictionary<string, EquipmentHandler> dictKeyToEquipmentHandler;
     public static Dictionary<string, CharacterHandler> dictKeyToCharacterHandler;
     public static Dictionary<string, ArtefactHandler> dictKeyToArtefactHandler;
+    public static Dictionary<planetType, TilesBank> dictTypeToTilesBank;
     public static Dictionary<string, Sfx> dictKeyToSfx;
     static List<WeaponHandler> baseWeapons;
     static List<CharacterHandler> characters;
@@ -102,5 +104,9 @@ public static class ScriptableObjectManager
         {
             dictKeyToSfx[sfx.getKey()] = sfx;
         }
+
+        dictTypeToTilesBank = new Dictionary<planetType, TilesBank>();
+        TilesBank[] tilesBanks = Resources.LoadAll<TilesBank>("TilesBanks");
+        tilesBanks.ForEach(it => dictTypeToTilesBank[it.type] = it);
     }
 }
