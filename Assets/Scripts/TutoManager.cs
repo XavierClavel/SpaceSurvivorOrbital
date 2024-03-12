@@ -68,84 +68,77 @@ public class TutoManager : MonoBehaviour, IEnnemyListener, IAltarListener, IReso
     private IEnumerator Tuto()
     {
         tutoActive.SetActive(true);
+        clickText.enabled = true;
 
         tutoText.SetText("Bienvenue dans Cosmic Deserter !\r\nSe déplacer : ZQSD \r\nTirer : Clic gauche");
         yield return Helpers.getWait(2f);
-        clickText.enabled = true;
         clickText.SetText("Tirer");
         yield return new WaitUntil(doClick);
-        clickText.enabled = false;
 
         tutoText.SetText("Votre planète a été détruite par une armée Alien. \r\nVous devez fuir cette galaxie à tout prix !");
         yield return Helpers.getWait(2f);
-        clickText.enabled = true;
         clickText.SetText("Tirer");
         yield return new WaitUntil(doClick);
-        clickText.enabled = false;
 
-        tutoText.SetText("Pour fuir d'une planète, vous devez détruire les stèles ennemis. \r\nLe nombre de stèles ennemis restantes est visible en haut à droite. \n Trouvez et détruisez une stèle !");
+        tutoText.SetText("Pour fuir d'une planète, vous devez détruire les stèles ennemis. \r\nLe nombre de stèles ennemis restantes est visible en haut à droite.");
         ShowFirstStele();
+        clickText.SetText("Trouvez et détruisez une stèle");
         yield return new WaitUntil(isSteleDestroyed);
         
         tutoText.SetText("Super ! Attention un monstre !");
         SpawnEnnemies(1);
+        clickText.SetText("Eliminer le monstre");
         yield return new WaitUntil(killedFirstWave);
         
         tutoText.SetText("Maintenant, récoltez des ressources en détruisant des oeufs.");
         ShowResources();
+        clickText.SetText("Détruisez des oeufs");
         yield return new WaitUntil(resourcesDestroyed);
         
         tutoText.SetText("Vous gagnez une ressource verte ou jaune quand la jauge à droite se remplit à 100%. \r\n En détruisant tous les oeufs d'une planète, vous gagnez une ressource bleu.");
         yield return Helpers.getWait(2f);
-        clickText.enabled = true;
         clickText.SetText("Tirer");
         yield return new WaitUntil(doClick);
-        clickText.enabled = false;
 
         tutoText.SetText("Fouillez la planète pour découvrir un autel de pouvoir. \r\nPuis positionnez vous devant (dans le cercle).");
         ShowFirstAltar();
+        clickText.SetText("Récupérer un pouvoir");
         yield return new WaitUntil(isAltarUsed);
         
         tutoText.SetText("Les ressources bleus servent à améliorer vos pouvoirs. \r\nLes jaunes et vertes, vos équipements.");
         yield return Helpers.getWait(2f);
         clickText.SetText("Tirer");
-        clickText.enabled = true;
         yield return new WaitUntil(doClick);
-        clickText.enabled = false;
 
         tutoText.SetText("Chaque planète possède des ressources d'un type spécifique.");
         yield return Helpers.getWait(2f);
-        clickText.enabled = true;
         clickText.SetText("Tirer");
         yield return new WaitUntil(doClick);
-        clickText.enabled = false;
 
 
         tutoText.SetText("D'autres ennemis !");
         SpawnEnnemies(3);
+        clickText.SetText("Eliminer les monstres");
         yield return new WaitUntil(killedSecondWave);
         
         tutoText.SetText("Avez-vous remarqué ? Comme chaque planète est sphérique, en marchant dans le même sens, vous en ferez le tour.");
         yield return Helpers.getWait(2f);
-        clickText.enabled = true;
         clickText.SetText("Tirer");
         yield return new WaitUntil(doClick);
-        clickText.enabled = false;
 
         tutoText.SetText("La taille d'une planète varie, la couleur du sol vous indique à quelle distance du centre vous êtes. Le centre sera toujours plus clair.");
         yield return Helpers.getWait(2f);
-        clickText.enabled = true;
         clickText.SetText("Tirer");
         yield return new WaitUntil(doClick);
-        clickText.enabled = false;
 
         tutoText.SetText("Une fois toutes les stèles détruites, vous pouvez vous téléportez dans votre vaisseau. \r\nLa dernière stèle vient d'apparaitre, détruisez là !");
         ShowSecondStele();
         PlayerManager.isTuto = false;
+        clickText.SetText("Trouvez et détruisez une stèle");
         yield return new WaitUntil(isStele2Destroyed);
         
         tutoText.SetText("Le cercle de téléportation vient d'apparaitre au centre de la planète. \r\nQuand vous souhaitez partir, entrez dans le cercle de téléportation !");
-        yield return Helpers.getWait(3f);
+        clickText.SetText("Partez !");
         tutoActive.SetActive(false);
     }
     public bool doClick() => click;

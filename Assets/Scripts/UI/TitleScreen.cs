@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 public class TitleScreen : MonoBehaviour, UIPanel
 {
     private static TitleScreen instance;
+
     public static bool isSelectionFree { get; private set; }
     [SerializeField] private TextMeshProUGUI soulsDisplay;
     [SerializeField] private TextMeshProUGUI soulsDisplay2;
@@ -57,6 +58,7 @@ public class TitleScreen : MonoBehaviour, UIPanel
         DataSelector.instance.ValidateSelection();
         SoundManager.PlaySfx(transform, key: "Ship_TakeOff");
         SceneTransitionManager.TransitionToScene(gameScene.planetJungle);
+
     }
 
     public static void UpdateSoulsDisplay()
