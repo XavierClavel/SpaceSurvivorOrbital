@@ -48,7 +48,6 @@ public class MonsterStele : Breakable
     protected virtual void Death()
     {
         if (isDestroyed) return;
-        Debug.Log("One stele was destroyed");
         isDestroyed = true;
         collider.enabled = false;
         SoundManager.PlaySfx(transform, key: "Spawn_Destroy");
@@ -65,10 +64,7 @@ public class MonsterStele : Breakable
         gameObject.tag = "Stele";
         
         difficulty = PlanetSelector.getDifficulty();
-        Debug.Log(difficulty);
-        Debug.Log(difficulty.ToString());
         spawnData = DataManager.dictDifficulty[difficulty.ToString()];
-        Debug.Log(spawnData.denHealth);
 
         _health = spawnData.denHealth;
         healthBar.maxValue = _health;
