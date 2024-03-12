@@ -25,7 +25,6 @@ public enum planetType
 public class PlanetData
 {
     public planetSize size;
-    public int difficulty;
     public planetResourceScarcity ressourceScarcity;
     public planetType type;
     public bool isBoss = false;
@@ -35,7 +34,6 @@ public class PlanetData
         return new PlanetData()
         {
             size = planetSize.medium,
-            difficulty = 0,
             ressourceScarcity =  planetResourceScarcity.rare,
             type = planetType.storm,
             isBoss = true,
@@ -86,7 +84,6 @@ public class PlanetData
         }
         
         this.size = Helpers.getRandomEnum<planetSize>();
-        this.difficulty = PlanetSelector.getDifficulty();
 
         this.ressourceScarcity = this.type switch
         {

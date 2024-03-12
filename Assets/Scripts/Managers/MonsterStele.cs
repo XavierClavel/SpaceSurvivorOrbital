@@ -64,8 +64,11 @@ public class MonsterStele : Breakable
         base.Start();
         gameObject.tag = "Stele";
         
-        difficulty = PlanetManager.getDifficulty();
+        difficulty = PlanetSelector.getDifficulty();
+        Debug.Log(difficulty);
+        Debug.Log(difficulty.ToString());
         spawnData = DataManager.dictDifficulty[difficulty.ToString()];
+        Debug.Log(spawnData.denHealth);
 
         _health = spawnData.denHealth;
         healthBar.maxValue = _health;

@@ -88,11 +88,6 @@ public static class PlanetManager
         return getResourceAmount(planetData.ressourceScarcity);
     }
 
-    public static int getDifficulty()
-    {
-        return planetData.difficulty;
-    }
-
     public static bool isBoss()
     {
         return planetData.isBoss;
