@@ -18,7 +18,6 @@ public class InputManager : MonoBehaviour
     
     static GameObject selectedObject;
     static InputManager instance;
-    static bool isPlayingWithGamepad = false;
     static PlayerInput playerInput;
     private static inputType input;
 
@@ -57,9 +56,11 @@ public class InputManager : MonoBehaviour
     public static void OnInputChange()
     {
         if (instance == null) return;
-        isPlayingWithGamepad = playerInput.currentControlScheme == Vault.other.inputGamepad;
+        if (input == inputType.android) return;
+        
+        input = playerInput.currentControlScheme == Vault.other.inputGamepad ? inputType.gamepad : inputType.keyboard ;
         OnSelectChange();
-        PlayerController.SwitchInput(isPlayingWithGamepad);
+        PlayerController.SwitchInput(input == inputType.gamepad);
         inputListeners.ForEach(it => it.onInputSwitch(input));
     }
 
@@ -69,10 +70,7 @@ public class InputManager : MonoBehaviour
 
     public static void OnSelectChange()
     {
-        EventSystem.current.SetSelectedGameObject(selectedObject);
-        /*
-        if (isPlayingWithGamepad) EventSystem.current.SetSelectedGameObject(selectedObject);
+        if (input == inputType.gamepad) EventSystem.current.SetSelectedGameObject(selectedObject);
         else EventSystem.current.SetSelectedGameObject(null);
-        */
     }
 }

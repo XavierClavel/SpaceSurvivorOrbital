@@ -82,10 +82,10 @@ public class Node
     public List<Node> getRootNodes(Node node)
     {
         List<Node> rootNodes = new List<Node>();
+        if (node.parentNodes.Count == 0) rootNodes.TryAdd(node);
         foreach (Node parentNode in node.parentNodes)
         {
-            if (parentNode.parentNodes.Count == 0) rootNodes.TryAdd(node);
-            else rootNodes.TryAdd(getRootNodes(parentNode));
+            rootNodes.TryAdd(getRootNodes(parentNode));
         }
         return rootNodes;
     }
