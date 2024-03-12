@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -19,7 +20,6 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         instance = this;
-        
         Canvas.ForceUpdateCanvases(); 
         canvasHeight = GetComponent<Canvas>().GetComponent<RectTransform>().rect.height;
 

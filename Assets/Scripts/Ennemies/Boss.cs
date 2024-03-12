@@ -61,6 +61,7 @@ public class Boss : Ennemy
     {
         if (isBoss)
         {
+            DataSelector.firstBoss(true);
             WinScreen.setProgress(availability.Boss1);
             ObjectManager.DisplaySpaceship();
             Spaceship.setDestination(gameScene.win);

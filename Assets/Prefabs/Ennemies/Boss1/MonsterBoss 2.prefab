@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: MonsterBoss 2
-  spriteOverlay: {fileID: 320162684498431986}
+  spriteOverlay: {fileID: 3929814262209255274}
   healthBar: {fileID: 2853218550413945330}
   rb: {fileID: 5132843330540273407}
   startDeformationScale: {x: -0.1, y: 0.1, z: 0.1}
@@ -64,13 +64,15 @@ MonoBehaviour:
   cooldown: 1
   range: 5
   stateStep: 0.5
+  eye: {fileID: 0}
+  leftPosition: {x: 0, y: 0}
+  rightPosition: {x: 0, y: 0}
   bulletPrefab: {fileID: 4478075856262805781, guid: b94a09e0af94d4141bd4eb8da15cf574, type: 3}
   waveExplosionPS: {fileID: 7524993663485077750}
-  maxHealthStat: 500
+  maxHealthStat: 200
   isBoss: 0
   isSpecial1: 0
   isSpecial2: 1
-  chest: {fileID: 6151609894251957224, guid: bb7e8cde98a669047aab5e36fa578d42, type: 3}
 --- !u!50 &5132843330540273407
 Rigidbody2D:
   serializedVersion: 4
