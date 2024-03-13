@@ -9,6 +9,8 @@ public class ArtefactShopDisplay : MonoBehaviour
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI costDisplay;
     [SerializeField] private Button buyButton;
+    [SerializeField] private GameObject hideOnBuy;
+    [SerializeField] private StringLocalizer descriptionDisplay;
     private string key;
     private int cost;
 
@@ -21,6 +23,7 @@ public class ArtefactShopDisplay : MonoBehaviour
         costDisplay.SetText(cost.ToString());
         buyButton.onClick.RemoveAllListeners();
         buyButton.onClick.AddListener(onBuy);
+        descriptionDisplay.setKey(key + Vault.key.ButtonDescription);
 
         UpdateInteractibility();
     }
