@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
     private WaitForSeconds footstepsWait;
     private int shieldsAmount = 0;
 
-    public static BonusManager bonusManager;
+    private BonusManager bonusManager;
     
     public int shields
     {

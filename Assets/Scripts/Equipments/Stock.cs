@@ -7,6 +7,6 @@ public class Stock : Equipment
     public override void Boost(BonusManager bonusManager)
     {
         int additionalResourceAmount = stats.projectiles;
-        PlayerController.bonusManager.addBonusStock(additionalResourceAmount);
+        BonusManager.current.addBonusStock(additionalResourceAmount);
     }
 }

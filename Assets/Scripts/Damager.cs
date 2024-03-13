@@ -13,7 +13,7 @@ public struct HitInfo
 
     public HitInfo ApplyBonus()
     {
-        damage = (int) (damage * PlayerController.bonusManager.getBonusStrength());
+        damage = (int) (damage * BonusManager.current.getBonusStrength());
         return this;
     }
     

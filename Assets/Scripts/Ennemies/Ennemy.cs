@@ -298,7 +298,7 @@ public class Ennemy : Breakable
         {
             yield return waitFire;
             DamageDisplayHandler.DisplayDamage(ConstantsData.fireDamage, transform.position, healthChange.fire);
-            health -= (int)(ConstantsData.fireDamage * PlayerController.bonusManager.getFireDamageMultiplier());
+            health -= (int)(ConstantsData.fireDamage * BonusManager.current.getFireDamageMultiplier());
             fireDamageRemaining--;
         }
         firePs.Stop();

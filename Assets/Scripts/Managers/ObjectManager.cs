@@ -92,7 +92,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
         ObjectManager.SpawnResources(
             resource.resourceType,
             resource.transform.position,
-            (int)(resource.dropInterval.getRandom() * PlayerController.bonusManager.getBonusResources()));
+            (int)(resource.dropInterval.getRandom() * BonusManager.current.getBonusResources()));
         
         amountEggs--;
         if (amountEggs > 0) return;
