@@ -10,8 +10,8 @@ FAIRY_1;Fairy;4;1;FAIRY_2a,FAIRY_2b,FAIRY_2ab;;FAIRY_;;;;;10-15;;;;;;;;;;;;;;;;;
 FAIRY_2a;Fairy;1;1;FAIRY_3a;FAIRY_2b,FAIRY_2ab;FAIRY_1;;;;;;;;;;;;;;;;;;fire;;;;;;;;;;;;;;;
 FAIRY_2ab;Fairy;3;1;FAIRY_3a;FAIRY_2b,FAIRY_2a;FAIRY_2;;;;;;;;;;;;;;;;;;ice;;;;;;;;;;;;;;;
 FAIRY_2b;Fairy;5;1;FAIRY_3b;FAIRY_2a,FAIRY_2ab;FAIRY_3;;;;;;;;;;;;;;;1;;;;;;;;;;;;;;;;;;
-FAIRY_3a;Fairy;2;1;FAIRY_4;;FAIRY_4;;;;;20-30;17;;1;;;;;;;;;;;;;;;;;true;;;;;;;;
-FAIRY_3b;Fairy;5;1;FAIRY_4;;FAIRY_5;;;6;;;;;;;;;;;;2;;;;;;;;;;;;;;;;;;
+FAIRY_3a;Fairy;2;1;FAIRY_4;FAIRY_3b;FAIRY_4;;;;;20-30;17;;1;;;;;;;;;;;;;;;;;true;;;;;;;;
+FAIRY_3b;Fairy;5;1;FAIRY_4;FAIRY_3a;FAIRY_5;;;6;;;;;;;;;;;;2;;;;;;;;;;;;;;;;;;
 FAIRY_4;Fairy;4;1;;;FAIRY_6;;;;;;;;;;;;;;;;;;;;;;;;;;true;;;;;;;
 GHOST_1_FIRE;Ghost;2;1;GHOST_2a_ENNEMY,GHOST_2b_PLAYER;;GHOST_;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;fire
 GHOST_2a_ENNEMY;Ghost;1;1;GHOST_3_FOLLOW;GHOST_2b_PLAYER;GHOST_1;;;;;;;;;;;;;;;;;;;;;;;;;;true;;;;;;;
@@ -23,9 +23,9 @@ WAVE_1;SynthWave;3;1;WAVE_2a,WAVE_2b,WAVE_2c;;WAVE_;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 WAVE_2a;SynthWave;1;1;WAVE_3a;WAVE_2b,WAVE_2c;WAVE_1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0;;;lightning
 WAVE_2b;SynthWave;3;1;WAVE_3b;WAVE_2a,WAVE_2c;WAVE_2;;;;;;;;4;;;;;;;;;;;;;;;;;;;;;6;0;;;
 WAVE_2c;SynthWave;5;1;WAVE_3c;WAVE_2b,WAVE_2a;WAVE_3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;300;;;
-WAVE_3a;SynthWave;1;1;WAVE_4;;WAVE_4;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;5;;
-WAVE_3b;SynthWave;3;1;WAVE_4;;WAVE_5;;;;;;;;2;;;;;;;;;;;;;;;;;;;;;8;;;;
-WAVE_3c;SynthWave;5;1;WAVE_4;;WAVE_6;;;;;;;;;;;;;;;;;;;;;;;;;;true;;;;200;;;
+WAVE_3a;SynthWave;1;1;WAVE_4;WAVE_3b,WAVE_3c;WAVE_4;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;5;;
+WAVE_3b;SynthWave;3;1;WAVE_4;WAVE_3a,WAVE_3c;WAVE_5;;;;;;;;2;;;;;;;;;;;;;;;;;;;;;8;;;;
+WAVE_3c;SynthWave;5;1;WAVE_4;WAVE_3a,WAVE_3b;WAVE_6;;;;;;;;;;;;;;;;;;;;;;;;;;true;;;;200;;;
 WAVE_4;SynthWave;3;1;;;WAVE_7;;;;;;;;;;2;;;;;2;;;;;;;;;;true;;;;;;;;
 BLACKHOLE_1;BlackHole;2;1;BLACKHOLE_2a,BLACKHOLE_2b;;BLACKHOLE_1;;;;;;;1,5;;;;;;;;;;20;;;;;;;;;;;;;;;;
 BLACKHOLE_2a;BlackHole;1;1;BLACKHOLE_3a;BLACKHOLE_2b;BLACKHOLE_2a;;;;;;;;;;;;;;;;;;;;;;;;;true;;;;;;;;
