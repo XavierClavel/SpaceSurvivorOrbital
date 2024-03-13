@@ -29,7 +29,6 @@ public class ShopArtefact : MonoBehaviour
 
     private void Start()
     {
-        PlayerManager.gainSouls(200);
         bonusManager.applyCharacterEffect();
         bonusManager.applyEquipmentsEffects();
         bonusManager.applyArtefactsEffects();

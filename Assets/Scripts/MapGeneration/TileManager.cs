@@ -35,7 +35,7 @@ public class TileManager : MonoBehaviour
     float noiseFactor = 0.3f;   //chance to collapse a random tile
     public static TileManager instance;
     const float tileRotationPeriod = 0.05f;
-    //TODO : adapat tilerotationperiod to planet size
+    //TODO : adapt tilerotationperiod to planet size
 
     public bool generateMap;
 
