@@ -29,8 +29,8 @@ public class PlanetSelector : MonoBehaviour
         globalDifficulty++;
         if (onPlanet)
         {
-            Instantiate(ObjectManager.instance.difficultyPS, PlayerController.instance.transform);
-            SoundManager.PlaySfx(PlayerController.instance.transform, key: "Difficulty_Up");
+            //Instantiate(ObjectManager.instance.difficultyPS, PlayerController.instance.transform);
+            //SoundManager.PlaySfx(PlayerController.instance.transform, key: "Difficulty_Up");
         }
         Debug.Log($"Difficulty increased, now {globalDifficulty}");
     }
