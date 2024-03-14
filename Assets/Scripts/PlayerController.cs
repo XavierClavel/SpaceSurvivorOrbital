@@ -386,8 +386,6 @@ public class PlayerController : MonoBehaviour
             Camera.main.orthographicSize = (Camera.main.orthographicSize == smallSize) ? largeSize : smallSize;
         };
 
-        controls.Player.Pause.performed += _ => PauseMenu.instance.PauseGame();
-
         controls.Player.MouseAimActive.started += ctx =>
         {
             TutoManager.instance.Click();

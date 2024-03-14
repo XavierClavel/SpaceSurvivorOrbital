@@ -12,18 +12,26 @@ public class PauseMenu : MonoBehaviour
 
     public static PauseMenu instance;
     public static bool canGameBePaused = true;
+    private bool isGamePaused = false;
     InputMaster controls;
 
     void Awake()
     {
         instance = this;
         controls = new InputMaster();
-        controls.Player.Pause.performed += ctx => ResumeGame();
+        controls.Player.Pause.performed += ctx => PauseUnpause();
+        controls.Enable();
     }
 
     void OnDisable()
     {
         controls.Disable();
+    }
+
+    private void PauseUnpause()
+    {
+        if (isGamePaused) ResumeGame();
+        else PauseGame();
     }
 
     public static void Pause()
@@ -33,12 +41,14 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame(bool pauseUI = true)
     {
+        isGamePaused = true;
+        
         Time.timeScale = 0f;
         Time.fixedDeltaTime = 0f;
         Debug.Log(Time.timeScale);
         SoundManager.instance.StopTime();
 
-        if (!Helpers.isPlatformAndroid()) PlayerController.instance.controls.Disable();
+        if (!Helpers.isPlatformAndroid() && SceneManager.GetActiveScene().name == Vault.scene.Planet) PlayerController.instance.controls.Disable();
         if (!PlayerController.isPlayingWithGamepad && !Helpers.isPlatformAndroid()) Cursor.visible = true;
 
         if (pauseUI)
@@ -58,13 +68,13 @@ public class PauseMenu : MonoBehaviour
 
     public void ResumeGame()
     {
+        isGamePaused = false;
+            
         ResumeTime();
 
         pauseMenu?.SetActive(false);
 
-
-        controls.PauseMenu.Disable();
-        if (!Helpers.isPlatformAndroid()) PlayerController.instance.controls.Enable();
+        if (!Helpers.isPlatformAndroid() && SceneManager.GetActiveScene().name == Vault.scene.Planet) PlayerController.instance.controls.Enable();
         InputManager.setSelectedObject(null);
 
         SoundManager.instance.ResumeTime();
