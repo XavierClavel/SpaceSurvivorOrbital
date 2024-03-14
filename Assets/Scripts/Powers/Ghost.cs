@@ -6,7 +6,7 @@ using UnityEngine;
 public class Ghost : MonoBehaviour
 {
     public static Dictionary<GameObject, Ghost> dictGoToGhost = new Dictionary<GameObject, Ghost>();
-    [SerializeField] private Animator animator;
+    //[SerializeField] private Animator animator;
     [SerializeField] private Collider2D col;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] ParticleSystem explosion;
@@ -35,7 +35,7 @@ public class Ghost : MonoBehaviour
 
         if (DataSelector.selectedWeapon == "Laser") StartCoroutine(nameof(WaitLaser));
         
-        animator.SetTrigger(animReset);
+        //animator.SetTrigger(animReset);
         col.enabled = true;
         if (speed > 0) StartCoroutine(nameof(Move));
 
@@ -78,14 +78,14 @@ public class Ghost : MonoBehaviour
 
     private void Explode()
     {
-        explosion.Play();
         ShakeManager.Shake(1f, 0.2f);
-        animator.SetTrigger(animExplode);
+        //animator.SetTrigger(animExplode);
         SoundManager.PlaySfx(transform, key: "Ghost_Explode");
         var position = transform.position;
         PowerGhost.SpawnShockwave(position, isBig);
         PowerGhost.SpawnProjectiles(position);
         Invoke(nameof(Recall),0.5f);
+        explosion.Play();
     }
 
     private void Recall()
