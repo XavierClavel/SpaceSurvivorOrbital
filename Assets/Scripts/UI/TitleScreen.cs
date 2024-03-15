@@ -71,6 +71,11 @@ public class TitleScreen : MonoBehaviour, UIPanel
         instance.soulsDisplay2.SetText(SaveManager.getSouls().ToString());
     }
 
+    public void CloseThanks()
+    {
+        thanksPanel.SetActive(false);
+    }
+
 }
 
 public static class ResetManager
