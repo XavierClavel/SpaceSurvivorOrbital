@@ -23,6 +23,12 @@ public class StringLocalizer : MonoBehaviour
         Setup();
     }
 
+    private void Start()
+    {
+        if (!DataManager.isInitialized()) return;
+        Setup();
+    }
+
     public void Setup()
     {
         if (textDisplay == null)
