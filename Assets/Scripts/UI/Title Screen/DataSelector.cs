@@ -13,7 +13,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     [SerializeField] Button startButton;
     [SerializeField] GameObject firstBossButton;
     [SerializeField] GameObject startGameButton;
-    private static bool firstBossKilled = false;
+    
     public static string selectedCharacter = string.Empty;
     public static string selectedWeapon = string.Empty;
     
@@ -155,7 +155,7 @@ public class DataSelector : MonoBehaviour, UIPanel
 
     private void Start()
     {
-        if (firstBossKilled)
+        if (SaveManager.getProgression().Contains(availability.Boss1))
         {
             firstBossButton.gameObject.SetActive(true);
             startGameButton.gameObject.SetActive(false);
@@ -323,10 +323,5 @@ public class DataSelector : MonoBehaviour, UIPanel
         SaveManager.spendSouls(cost);
         TitleScreen.UpdateSoulsDisplay();
         return true;
-    }
-
-    public static void firstBoss(bool isKilled)
-    {
-        firstBossKilled = isKilled;
     }
 }

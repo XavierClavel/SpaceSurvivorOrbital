@@ -61,13 +61,11 @@ public class Boss : Ennemy
     {
         if (isBoss)
         {
-            DataSelector.firstBoss(true);
             WinScreen.setProgress(availability.Boss1);
             ObjectManager.DisplaySpaceship();
             Spaceship.setDestination(gameScene.win);
         } else if (isSpecial1 || isSpecial2) 
         {
-            Debug.Log(transform.position);
             ObjectManager.SpawnChest(transform.position);
         }
 

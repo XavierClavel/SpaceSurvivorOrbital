@@ -11,23 +11,27 @@ public class TitleScreen : MonoBehaviour, UIPanel
 {
     private static TitleScreen instance;
 
-    public static bool isSelectionFree { get; private set; }
     [SerializeField] private TextMeshProUGUI soulsDisplay;
     [SerializeField] private TextMeshProUGUI soulsDisplay2;
-
-    [Header("Debug")] 
-    [SerializeField] private bool freeSelection;
+    [SerializeField] private GameObject thanksPanel;
+    private static bool killedBossForFirstTime = false;
+    
+    public static void firstBoss(bool isKilled)
+    {
+        killedBossForFirstTime = isKilled;
+    }
 
     private void Awake()
     {
         instance = this;
+        thanksPanel.SetActive(killedBossForFirstTime);
+        killedBossForFirstTime = false;
     }
 
     // Start is called before the first frame update
     public void Setup()
     {
         ResetManager.Reset();
-        isSelectionFree = freeSelection;
         UpdateSoulsDisplay();
     }
 

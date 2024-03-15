@@ -20,12 +20,13 @@ public class WinScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (progressMade == availability.Start || !SaveManager.addProgression(progressMade))
+        if (progressMade == availability.Start) return;
+        if (!SaveManager.addProgression(progressMade))
         {
             unlockedPanel.SetActive(false);
             return;
         }
-        
+        TitleScreen.firstBoss(true);
         unlockedLayout.KillAllChildren();
 
         var newPowers = ScriptableObjectManager.getPowers().Where(it => it.isDiscoveredAt(progressMade));
