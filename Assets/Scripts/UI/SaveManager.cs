@@ -23,12 +23,12 @@ public static class SaveManager
         public int maxCharge = 3;
         public List<String> optionsUnlocked = new List<string>
         {
-            "Gun"
+            "Gun",
         };
 
         public HashSet<availability> gameProgression = new HashSet<availability>()
         {
-            availability.Start
+            availability.Start,
         };
 
         public OptionsProfile options = new OptionsProfile();
