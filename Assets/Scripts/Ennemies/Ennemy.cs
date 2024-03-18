@@ -214,7 +214,7 @@ public class Ennemy : Breakable
     }
 
 
-
+    [SerializeField] ParticleSystem onDestroyPS;
 
     protected virtual void Death()
     {
@@ -227,9 +227,20 @@ public class Ennemy : Breakable
         onDeath();
         ShakeManager.Shake(shakeIntensity, shakeDuration);
         listeners.ForEach(it => it.onEnnemyDeath(this));
+        StartCoroutine(nameof(OnKill));
+    }
+    private IEnumerator OnKill()
+    {
+        speed = 0;
+        speedMultiplier = 0;
+        animator.enabled = false;
+        onDestroyPS.Play();
+        SoundManager.PlaySfx(transform, key: "Ennemy_Destroy");
+        spriteRenderer.enabled = false;
+        yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
     }
-    
+
     protected virtual void onDeath() {}
 
 

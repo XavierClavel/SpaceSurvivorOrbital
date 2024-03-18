@@ -58,17 +58,17 @@ public class Boss : Ennemy
     }
 
     protected override void onDeath()
-    {
+    {    
         if (isBoss)
         {
             WinScreen.setProgress(availability.Boss1);
             ObjectManager.DisplaySpaceship();
+            ObjectManager.onBossDestroyed();
             Spaceship.setDestination(gameScene.win);
         } else if (isSpecial1 || isSpecial2) 
         {
             ObjectManager.SpawnChest(transform.position);
         }
-
     }
 
     private IEnumerator BossController()

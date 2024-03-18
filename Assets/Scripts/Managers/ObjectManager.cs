@@ -32,8 +32,9 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
     [SerializeField] public TextMeshProUGUI altarMonsterCurrent;
     [SerializeField] private Image characterDisplay;
     [SerializeField] private TextMeshProUGUI bulletsDisplay;
-    [SerializeField] public TextMeshProUGUI objectiveDestroy;
-    [SerializeField] public TextMeshProUGUI shipReady;
+    [SerializeField] public GameObject objectiveDestroy;
+    [SerializeField] public GameObject objectiveBoss;
+    [SerializeField] public GameObject shipReady;
     [SerializeField] private GameObject chest;
 
     public ParticleSystem firePS;
@@ -309,9 +310,16 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
 
         if (amountDens > 0) return;
         Instantiate(instance.shipAppearPS, PlayerController.instance.transform);
-        objectiveDestroy.text = shipReady.text;
+        instance.objectiveDestroy.SetActive(false);
+        instance.shipReady.SetActive(true);
         SoundManager.PlaySfx(PlayerController.instance.transform, key: "Monster_Altar_Destroy");
         DisplaySpaceship();
+    }
+
+    public static void onBossDestroyed()
+    {
+        instance.objectiveBoss.SetActive(false);
+        instance.shipReady.SetActive(true);
     }
 
     public void onSteleSpawned(MonsterStele stele)
@@ -323,6 +331,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
     public static void DisableSteleDisplay()
     {
         instance.steleDisplay.SetActive(false);
+        instance.objectiveBoss.SetActive(true);
     }
 
     public bool onPlayerDeath()

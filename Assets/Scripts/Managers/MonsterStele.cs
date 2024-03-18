@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class MonsterStele : Breakable
 {
     [SerializeField] private Collider2D collider;
+    [SerializeField] ParticleSystem onDestroyPS;
     
     private SpawnData spawnData;
 
@@ -50,10 +51,16 @@ public class MonsterStele : Breakable
         if (isDestroyed) return;
         isDestroyed = true;
         collider.enabled = false;
-        SoundManager.PlaySfx(transform, key: "Spawn_Destroy");
         listeners.ForEach(it => it.onSteleDestroyed(this));
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
         ObjectManager.unregisterHitable(gameObject);
+        StartCoroutine(nameof(onDeath));
+    }
+    IEnumerator onDeath()
+    {
+        onDestroyPS.Play();
+        SoundManager.PlaySfx(transform, key: "Spawn_Destroy");
+        yield return new WaitForSeconds(0.1f);
         Destroy(gameObject);
     }
 
