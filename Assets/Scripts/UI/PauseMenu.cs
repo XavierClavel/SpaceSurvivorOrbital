@@ -46,7 +46,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         Time.fixedDeltaTime = 0f;
         Debug.Log(Time.timeScale);
-        SoundManager.instance.StopTime();
+        //SoundManager.instance.StopTime();
 
         if (!Helpers.isPlatformAndroid() && SceneManager.GetActiveScene().name == Vault.scene.Planet) PlayerController.instance.controls.Disable();
         if (!PlayerController.isPlayingWithGamepad && !Helpers.isPlatformAndroid()) Cursor.visible = true;
@@ -77,7 +77,7 @@ public class PauseMenu : MonoBehaviour
         if (!Helpers.isPlatformAndroid() && SceneManager.GetActiveScene().name == Vault.scene.Planet) PlayerController.instance.controls.Enable();
         InputManager.setSelectedObject(null);
 
-        SoundManager.instance.ResumeTime();
+       // SoundManager.instance.ResumeTime();
     }
 
     public void MainMenu()

@@ -43,6 +43,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
     public GameObject upgradePS;
     public ParticleSystem shipAppearPS;
     public ParticleSystem difficultyPS;
+    public ParticleSystem monsterKillPS;
 
     private bool upgradeGain = false;
 
@@ -359,5 +360,9 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
     {
         Instantiate(instance.chest, position, Quaternion.identity);
 
+    }
+    public static void MonsterKill(Vector3 position)
+    {
+        Instantiate(instance.monsterKillPS, position, Quaternion.identity);
     }
 }

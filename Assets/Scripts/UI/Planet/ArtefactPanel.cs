@@ -24,6 +24,7 @@ public class ArtefactPanel : MonoBehaviour
 
     public static void Display(ArtefactHandler artefact)
     {
+        SoundManager.PlaySfx(key: "Open_Chest");
         instance.particleBack.Play();
         instance.rectTransform.DOScale(Vector3.one, 0.5f)
             .SetEase(Ease.OutQuad)
