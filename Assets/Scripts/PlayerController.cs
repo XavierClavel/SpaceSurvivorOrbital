@@ -223,7 +223,6 @@ public class PlayerController : MonoBehaviour
 
     public static void Heal(int amount = 1)
     {
-        instance.boostSpeed.Play();
         SoundManager.PlaySfx(instance.transform, key: "Heal_Player");
         instance.health += amount;
     }

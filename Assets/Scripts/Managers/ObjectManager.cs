@@ -332,6 +332,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
     public static void DisableSteleDisplay()
     {
         instance.steleDisplay.SetActive(false);
+        instance.objectiveDestroy.SetActive(false);
         instance.objectiveBoss.SetActive(true);
     }
 

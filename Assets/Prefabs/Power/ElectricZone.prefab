@@ -143,8 +143,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6350293072877313629}
-  - component: {fileID: 5935307845600176460}
   - component: {fileID: 539366763361177752}
+  - component: {fileID: 5553175126318891871}
   m_Layer: 8
   m_Name: ElectricZone
   m_TagString: Untagged
@@ -170,8 +170,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &5935307845600176460
-CircleCollider2D:
+--- !u!114 &539366763361177752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6246231449371725728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6b14e8a422282b42a47047872c6610a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  innerDisc: {fileID: 787126729469954543}
+  outerDisc: {fileID: 2461199258961399025}
+  timerDuration: 0
+--- !u!61 &5553175126318891871
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -202,24 +217,19 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.03235638, y: 0.012942433}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 1.61
---- !u!114 &539366763361177752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6246231449371725728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6b14e8a422282b42a47047872c6610a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  innerDisc: {fileID: 787126729469954543}
-  outerDisc: {fileID: 2461199258961399025}
-  timerDuration: 0
+  m_Size: {x: 3.4202483, y: 1.7765503}
+  m_EdgeRadius: 0
 --- !u!1 &7702312724646824577
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,6 +392,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2916224811248473997, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2916224811726146690, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
+      propertyPath: m_ShadowBias
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2916224811726146690, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: m_SortingOrder
       value: -1
@@ -389,6 +407,10 @@ PrefabInstance:
     - target: {fileID: 2916224811726146690, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2916224811726146692, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2916224811782789153, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
@@ -406,6 +428,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2916224811782789156, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7906351823695464388, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
       value: 0.88235295
@@ -413,6 +439,10 @@ PrefabInstance:
     - target: {fileID: 7906351823695464388, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
       value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906351823695464389, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
+      propertyPath: m_ShadowBias
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7906351823695464389, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: m_SortingOrder
@@ -435,6 +465,10 @@ PrefabInstance:
       value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 7906351823773504845, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
+      propertyPath: m_ShadowBias
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906351823773504845, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -448,7 +482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7906351823773504847, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7906351823773504847, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: m_LocalScale.z
@@ -499,6 +533,10 @@ PrefabInstance:
       value: Lightning_Zone
       objectReference: {fileID: 0}
     - target: {fileID: 7906351823818105580, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
+      propertyPath: m_ShadowBias
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906351823818105580, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
@@ -538,6 +576,14 @@ PrefabInstance:
       propertyPath: InitialModule.startColor.maxColor.r
       value: 0.072054096
       objectReference: {fileID: 0}
+    - target: {fileID: 7906351824257335156, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906351824257335158, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
+      propertyPath: m_ShadowBias
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7906351824257335158, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: m_SortingOrder
       value: -1
@@ -551,6 +597,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7906351824470158173, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
+      propertyPath: m_ShadowBias
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906351824470158173, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
@@ -571,12 +621,20 @@ PrefabInstance:
       value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 7906351824641209217, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
+      propertyPath: m_ShadowBias
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906351824641209217, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7906351824641209217, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906351824641209223, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7906351824922345345, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
@@ -590,6 +648,14 @@ PrefabInstance:
       propertyPath: InitialModule.startColor.maxColor.r
       value: 0.02691345
       objectReference: {fileID: 0}
+    - target: {fileID: 7906351824922345348, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906351824922345350, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
+      propertyPath: m_ShadowBias
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7906351824922345350, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: m_SortingOrder
       value: -1
@@ -614,6 +680,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7906351824939712423, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7906351825199324130, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
       value: 0.88235295
@@ -623,12 +693,20 @@ PrefabInstance:
       value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 7906351825199324131, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
+      propertyPath: m_ShadowBias
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906351825199324131, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7906351825199324131, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906351825239668925, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7906351825239668927, guid: e7d646f3e698d814284b3f7d068a53ba, type: 3}
       propertyPath: m_SortingOrder

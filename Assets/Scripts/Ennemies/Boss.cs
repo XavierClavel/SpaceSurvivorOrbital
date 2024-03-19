@@ -37,14 +37,15 @@ public class Boss : Ennemy
         health = maxHealth;
         if (isBoss) 
         {
+            
             ObjectManager.DisableSteleDisplay();
             healthBar = ObjectManager.getBossHealthbar();
             healthBar.gameObject.SetActive(true);
+            isImmuneToEffects = true;
         }
 
         healthBar.maxValue = maxHealth;
         healthBar.value = health;
-        isImmuneToEffects = true;
         isImmuneToKnockback = true;
         waveSpread = 360f / amountMultiBullets;
         poolBullets = new ComponentPool<Bullet>(bulletPrefab);
@@ -61,6 +62,7 @@ public class Boss : Ennemy
     {    
         if (isBoss)
         {
+            healthBar.gameObject.SetActive(false);
             WinScreen.setProgress(availability.Boss1);
             ObjectManager.DisplaySpaceship();
             ObjectManager.onBossDestroyed();

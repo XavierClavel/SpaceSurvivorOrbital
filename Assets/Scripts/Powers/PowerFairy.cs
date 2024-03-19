@@ -15,8 +15,8 @@ using UnityEngine;
 public class PowerFairy : Power, IPlayerEvents
 {
     public Fairy fairy;
-    [SerializeField] private Vector2 fairyOffset1;
-    [SerializeField] private Vector2 fairyOffset2;
+    [SerializeField] private Vector3 fairyOffset1;
+    [SerializeField] private Vector3 fairyOffset2;
     [SerializeField] ParticleSystem revivalPS;
     private bool isResurrectionAvailable = false;
     
@@ -28,8 +28,8 @@ public class PowerFairy : Power, IPlayerEvents
         Fairy newFairy = Instantiate(fairy);
         newFairy.Setup(stats, Vector2.zero,fullStats.generic.boolA);
         
-        if (stats.magazine >= 1) Instantiate(fairy, transform.position, Quaternion.identity).Setup(stats, fairyOffset1);
-        if (stats.magazine == 2) Instantiate(fairy, transform.position, Quaternion.identity).Setup(stats, fairyOffset2);
+        if (stats.magazine >= 1) Instantiate(fairy, transform.position + fairyOffset1, Quaternion.identity).Setup(stats, transform.position + fairyOffset1);
+        if (stats.magazine == 2) Instantiate(fairy, transform.position + fairyOffset2, Quaternion.identity).Setup(stats, transform.position + fairyOffset2);
     }
 
     public bool onPlayerDeath()

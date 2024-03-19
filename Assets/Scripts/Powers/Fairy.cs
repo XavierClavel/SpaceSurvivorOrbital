@@ -35,19 +35,12 @@ public class Fairy : MonoBehaviour
 
     private void Update()
     {
-        Vector3 circleOffset = new Vector3(Mathf.Cos(angle) * circleRadius, Mathf.Sin(angle) * circleRadius, 0);
-        Vector3 rangeOffset = new Vector3(offsetRange.x,offsetRange.y, 0);
-        Vector3 offset = circleOffset + rangeOffset;
+        Vector3 rangeOffset = new Vector2(-1,0) + offsetRange;
+        Vector3 offset = rangeOffset;
 
         Vector3 targetPosition = player.position + offset;
 
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
-        angle += moveSpeed * Time.deltaTime;
-        if (angle >= 360.0f)
-        {
-            angle = 0.0f;
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
