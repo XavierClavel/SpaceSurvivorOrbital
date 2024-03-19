@@ -94,7 +94,7 @@ public class Ennemy : Breakable
         base.Start();
 
         rb.gravityScale = 0;
-        rb.drag = 1f;
+        rb.drag = 10f;
         speed = baseSpeed.getRandom();
 
         player = PlayerController.instance;
