@@ -54,13 +54,8 @@ public class MonsterStele : Breakable
         listeners.ForEach(it => it.onSteleDestroyed(this));
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
         ObjectManager.unregisterHitable(gameObject);
-        StartCoroutine(nameof(onDeath));
-    }
-    IEnumerator onDeath()
-    {
-        onDestroyPS.Play();
         SoundManager.PlaySfx(transform, key: "Spawn_Destroy");
-        yield return new WaitForSeconds(0.1f);
+        ObjectManager.MonsterKill(this.transform.position);
         Destroy(gameObject);
     }
 
