@@ -21,6 +21,7 @@ public static class Vault
         public const string SynthWave = "SynthWave";
         public const string ToxicZone = "ToxicZone";
         public const string Dagger = "Dagger";
+        public const string FlameThrower = "FlameThrower";
     }
     
     public static class sfx

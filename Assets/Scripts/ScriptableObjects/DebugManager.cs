@@ -26,6 +26,7 @@ public class DebugManager : ScriptableObject
     [SerializeField] private bool synthWave;
     [SerializeField] private bool toxicZone;
     [SerializeField] private bool dagger;
+    [SerializeField] private bool flameThrower;
 
     [Header("Start with equipments")] 
     [SerializeField] private bool shield;
@@ -105,7 +106,8 @@ public class DebugManager : ScriptableObject
         if (synthWave) AcquirePower(Vault.power.SynthWave);
         if (toxicZone) AcquirePower(Vault.power.ToxicZone);
         if (dagger) AcquirePower(Vault.power.Dagger);
-        
+        if (flameThrower) AcquirePower(Vault.power.FlameThrower);
+
         //Equipments
         if (shield) AcquireEquipment(Vault.power.Shield);
         if (suit) AcquireEquipment("Suit");
