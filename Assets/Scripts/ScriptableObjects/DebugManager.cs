@@ -27,6 +27,7 @@ public class DebugManager : ScriptableObject
     [SerializeField] private bool toxicZone;
     [SerializeField] private bool dagger;
     [SerializeField] private bool flameThrower;
+    [SerializeField] private bool iceSpike;
 
     [Header("Start with equipments")] 
     [SerializeField] private bool shield;
@@ -107,6 +108,7 @@ public class DebugManager : ScriptableObject
         if (toxicZone) AcquirePower(Vault.power.ToxicZone);
         if (dagger) AcquirePower(Vault.power.Dagger);
         if (flameThrower) AcquirePower(Vault.power.FlameThrower);
+        if (iceSpike) AcquirePower(Vault.power.IceSpike);
 
         //Equipments
         if (shield) AcquireEquipment(Vault.power.Shield);

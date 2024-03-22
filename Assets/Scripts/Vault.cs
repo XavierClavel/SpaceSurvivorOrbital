@@ -22,6 +22,7 @@ public static class Vault
         public const string ToxicZone = "ToxicZone";
         public const string Dagger = "Dagger";
         public const string FlameThrower = "FlameThrower";
+        public const string IceSpike = "IceSpike";
     }
     
     public static class sfx
