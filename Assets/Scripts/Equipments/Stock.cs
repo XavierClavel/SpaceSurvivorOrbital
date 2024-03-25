@@ -8,5 +8,8 @@ public class Stock : Equipment
     {
         int additionalResourceAmount = stats.projectiles;
         BonusManager.current.addBonusStock(additionalResourceAmount);
+
+        float bonusRessources = stats.criticalChance;
+        BonusManager.current.addBonusResources(bonusRessources);
     }
 }
