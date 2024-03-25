@@ -13,6 +13,8 @@ public class BonusManager
     private float bonusResources = 1f;
 
     private float weaponCooldown = 1f;
+    private float weaponCriticalChance = 1f;
+    private float weaponCriticalMultiplier = 1f;
 
     private float powerCooldown = 1f;
 
@@ -30,7 +32,9 @@ public class BonusManager
     public void addBonusResources(float amount) => bonusResources *= amount;
     public void addBonusPowerCooldown(float amount) => powerCooldown *= amount;
     public void addPowerDamageMultiplier(float amount) => powerStrength *= amount;
-
+    public void addWeaponCooldownMultiplier(float amount) => weaponCooldown *= amount;
+    public void addWeaponCriticalChance(float amount) => weaponCriticalChance *= amount;
+    public void addWeaponCriticalMultiplier(float amount) => weaponCriticalMultiplier *= amount;
 
     public int getBonusMaxHealth() => bonusMaxHealth;
     public int getBonusStock() => bonusStock;
@@ -39,6 +43,10 @@ public class BonusManager
     public float getBonusSpeed() => bonusSpeed;
     public float getBonusStrength() => bonusStrength;
     public float getBonusResources() => bonusResources;
+
+    public float getWeaponCooldownMultiplier() => weaponCooldown;
+    public float getWeaponCriticalChance() => weaponCriticalChance;
+    public float getWeaponCriticalMultiplier() => weaponCriticalMultiplier;
 
     public float getPowerCooldownMultiplier() => powerCooldown;
     public float getPowerDamageMultiplier() => powerStrength;

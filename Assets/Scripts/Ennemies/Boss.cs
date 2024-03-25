@@ -122,7 +122,7 @@ public class Boss : Ennemy
     {
         SoundManager.PlaySfx(transform, key: "Boss_Shoot");
         poolBullets
-            .get(transform.position + Vector3.back + new Vector3 (0, -2, 0),  rotation * Vector3.forward)
+            .get(transform.position + Vector3.back + new Vector3 (0, 0, 0),  rotation * Vector3.forward)
             .setPool(poolBullets)
             .setTimer(bulletLifetime)
             .Fire(bulletSpeed, bulletLifetime, baseDamage.getRandom());
@@ -157,20 +157,25 @@ public class Boss : Ennemy
             yield return waitStateStep;
             float sqrDistance = distanceToPlayer.sqrMagnitude;
 
-            if (sqrDistance < sqrFleeRange)
+            if (isBoss || isSpecial1)
             {
-                ennemyState = state.fleeing;
-                DOTween.To(() => currentSpeed, x => currentSpeed = x, fleeSpeed, 0.5f).SetEase(Ease.InQuad);
-                continue;
+                if (sqrDistance < sqrFleeRange)
+                {
+                    ennemyState = state.fleeing;
+                    DOTween.To(() => currentSpeed, x => currentSpeed = x, fleeSpeed, 0.5f).SetEase(Ease.InQuad);
+                    continue;
+                }
+
+                if (sqrDistance < sqrShootRange)
+                {
+                    ennemyState = state.shooting;
+                    DOTween.To(() => currentSpeed, x => currentSpeed = x, 0f, 0.5f).SetEase(Ease.InQuad); ;
+                    continue;
+
+                }
             }
 
-            if (sqrDistance < sqrShootRange)
-            {
-                ennemyState = state.shooting;
-                DOTween.To(() => currentSpeed, x => currentSpeed = x, 0f, 0.5f).SetEase(Ease.InQuad); ;
-                continue;
 
-            }
 
             ennemyState = state.approaching;
             DOTween.To(() => currentSpeed, x => currentSpeed = x, speed, 0.5f).SetEase(Ease.InQuad); ;

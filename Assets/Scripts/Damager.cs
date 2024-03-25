@@ -59,8 +59,8 @@ public struct HitInfo
     public HitInfo(interactorStats stats, status effect = status.none)
     {
         damage = stats.baseDamage.getRandom();
-        critical = Helpers.ProbabilisticBool(stats.criticalChance);
-        if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
+        critical = Helpers.ProbabilisticBool(stats.criticalChance * BonusManager.current.getWeaponCriticalChance());
+        if (critical) damage = (int)((float)damage * stats.criticalMultiplier * BonusManager.current.getWeaponCriticalMultiplier());
         this.effect = new HashSet<status>();
         this.effect.Add(effect);
         this.knockback = stats.knockback;
@@ -69,8 +69,8 @@ public struct HitInfo
     public HitInfo(interactorStats stats)
     {
         damage = stats.baseDamage.getRandom();
-        critical = Helpers.ProbabilisticBool(stats.criticalChance);
-        if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
+        critical = Helpers.ProbabilisticBool(stats.criticalChance * BonusManager.current.getWeaponCriticalChance());
+        if (critical) damage = (int)((float)damage * stats.criticalMultiplier * BonusManager.current.getWeaponCriticalMultiplier());
         this.effect = new HashSet<status>();
         this.effect.Add(stats.element);
         this.knockback = stats.knockback;
@@ -79,8 +79,8 @@ public struct HitInfo
     public HitInfo(interactorStats stats, HashSet<status> bonusStatuses)
     {
         damage = stats.baseDamage.getRandom();
-        critical = Helpers.ProbabilisticBool(stats.criticalChance);
-        if (critical) damage = (int)((float)damage * stats.criticalMultiplier);
+        critical = Helpers.ProbabilisticBool(stats.criticalChance * BonusManager.current.getWeaponCriticalChance());
+        if (critical) damage = (int)((float)damage * stats.criticalMultiplier * BonusManager.current.getWeaponCriticalMultiplier());
         this.effect = new HashSet<status>();
         this.effect.Add(stats.element);
         this.knockback = stats.knockback;
@@ -115,7 +115,7 @@ public abstract class Damager : MonoBehaviour
         player = PlayerController.instance;
         this.stats = fullStats.interactor;
         this.fullStats = fullStats;
-        waitCooldown = Helpers.getWait(stats.cooldown);
+        waitCooldown = Helpers.getWait(stats.cooldown * BonusManager.current.getWeaponCooldownMultiplier());
     }
 
     public void Use()
