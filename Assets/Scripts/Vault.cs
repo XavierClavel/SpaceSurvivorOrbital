@@ -23,6 +23,7 @@ public static class Vault
         public const string Dagger = "Dagger";
         public const string FlameThrower = "FlameThrower";
         public const string IceSpike = "IceSpike";
+        public const string HuntersMark = "HuntersMark";
     }
     
     public static class sfx

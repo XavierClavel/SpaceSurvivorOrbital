@@ -28,6 +28,7 @@ public class DebugManager : ScriptableObject
     [SerializeField] private bool dagger;
     [SerializeField] private bool flameThrower;
     [SerializeField] private bool iceSpike;
+    [SerializeField] private bool huntersMark;
 
     [Header("Start with equipments")] 
     [SerializeField] private bool shield;
@@ -109,6 +110,7 @@ public class DebugManager : ScriptableObject
         if (dagger) AcquirePower(Vault.power.Dagger);
         if (flameThrower) AcquirePower(Vault.power.FlameThrower);
         if (iceSpike) AcquirePower(Vault.power.IceSpike);
+        if (huntersMark) AcquirePower(Vault.power.HuntersMark);
 
         //Equipments
         if (shield) AcquireEquipment(Vault.power.Shield);
