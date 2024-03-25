@@ -145,7 +145,7 @@ public class Spawner : MonoBehaviour
         
         Debug.Log(waveIndex);
 
-        if (waveIndex == 2 && PlanetSelector.getDifficulty() > 1 && !PlanetManager.isBoss())
+        if (waveIndex == 2 && PlanetSelector.getDifficulty() > 3 && !PlanetManager.isBoss())
         {
             SpawnEnnemy(ScriptableObjectManager.dictKeyToBossData[PlayerManager.currentBoss].miniBosses.getRandom());
         }
