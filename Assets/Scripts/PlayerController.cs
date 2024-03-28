@@ -16,7 +16,7 @@ public enum playerState { idle, walking, shooting, mining };
 public enum playerDirection { front, left, back, right };
 
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IResourcesListener
 {
     [Header("References")]
     [SerializeField] FloatingJoystick joystickMove;
@@ -241,17 +241,11 @@ public class PlayerController : MonoBehaviour
         invulnerable = false;
     }
 
-    public void IncreaseOrange()
+    public void onResourcePickup(resourceType type)
     {
+        Color color = type == resourceType.green ? Color.green : Color.yellow;
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(spriteOverlay.DOColor(Color.yellow, 0.05f));
-        sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
-    }
-
-    public void IncreaseGreen()
-    {
-        Sequence sequence = DOTween.Sequence();
-        sequence.Append(spriteOverlay.DOColor(Color.green, 0.05f));
+        sequence.Append(spriteOverlay.DOColor(color, 0.05f));
         sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
     }
 
@@ -340,6 +334,8 @@ public class PlayerController : MonoBehaviour
 
         footstepsWait = new WaitForSeconds(ConstantsData.audioFootstepInterval);
         StartCoroutine(nameof(PlayFootsteps));
+        
+        EventManagers.resources.registerListener(this);
 
     }
 

@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IPlayerEvents
+public class ObjectManager : MonoBehaviour, IMonsterStele, IResourcesListener, IPlayerEvents, IEggListener
 {
     [Header("UI")]
     public LayoutManager healthBar;
@@ -84,13 +84,15 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
 
     public static void HideSpaceship() { spaceship.SetActive(false); }
 
-    public void onResourceSpawned(Resource resource)
+    public void onEggSpawned(Resource resource)
     {
         amountEggs++;
     }
 
-    public void onResourceDestroyed(Resource resource)
+    public void onEggDestroyed(Resource resource)
     {
+        Debug.Log("event received");
+        Debug.Log(resource.dropInterval);
         ObjectManager.SpawnResources(
             resource.resourceType,
             resource.transform.position,
@@ -137,8 +139,8 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
         radar.SetActive(false);
         if (Helpers.isPlatformAndroid()) pauseButton.SetActive(true);
         MonsterStele.registerListener(this);
-        Resource.registerListener(this);
-        PlayerEventsManager.registerListener(this);
+        EventManagers.eggs.registerListener(this);
+        EventManagers.resources.registerListener(this);
 
         poolResourceGreen = new GameObjectPool(resourceItemGreen);
         poolResourceOrange = new GameObjectPool(resourceItemOrange);
@@ -286,7 +288,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
         dictObjectToInteractable = new Dictionary<GameObject, IInteractable>();
         dictObjectToResource = new Dictionary<GameObject, IResource>();
         
-        Resource.unregisterListener(this);
+        EventManagers.eggs.unregisterListener(this);
         MonsterStele.unregisterListener(this);
     }
 
