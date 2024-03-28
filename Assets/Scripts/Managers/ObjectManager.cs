@@ -91,8 +91,6 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourcesListener, I
 
     public void onEggDestroyed(Resource resource)
     {
-        Debug.Log("event received");
-        Debug.Log(resource.dropInterval);
         ObjectManager.SpawnResources(
             resource.resourceType,
             resource.transform.position,
@@ -138,7 +136,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourcesListener, I
         amountDensDestroyed = 0;
         radar.SetActive(false);
         if (Helpers.isPlatformAndroid()) pauseButton.SetActive(true);
-        MonsterStele.registerListener(this);
+        EventManagers.monsterSteles.registerListener(this);
         EventManagers.eggs.registerListener(this);
         EventManagers.resources.registerListener(this);
 
@@ -216,6 +214,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourcesListener, I
 
     public static void SpawnResources(type resourceType, Vector3 position, int amount)
     {
+        Debug.Log(resourceType);
         if (resourceType == type.green) SpawnResourcesGreen(position, amount);
         else if (resourceType == type.orange) SpawnResourcesOrange(position, amount);
         ResourcesAttractor.ForceUpdate();
@@ -289,7 +288,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourcesListener, I
         dictObjectToResource = new Dictionary<GameObject, IResource>();
         
         EventManagers.eggs.unregisterListener(this);
-        MonsterStele.unregisterListener(this);
+        EventManagers.monsterSteles.unregisterListener(this);
     }
 
     public static PowerDisplay AddPowerDisplay()

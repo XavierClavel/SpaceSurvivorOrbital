@@ -13,6 +13,7 @@ public class DebugManager : ScriptableObject
     [Header("Game Rules")]
     [SerializeField] private bool noEnnemySpawn;
     [SerializeField] private bool noTimer;
+    [SerializeField] private bool noMapGeneration;
     [SerializeField] private bool startWithResources;
     [SerializeField] private bool freeUpgrades;
     [SerializeField] private bool shipPresent;
@@ -75,6 +76,11 @@ public class DebugManager : ScriptableObject
     public static bool doNoTimer()
     {
         return instance.debugEnabled && instance.noTimer;
+    }
+
+    public static bool doNoMapGeneration()
+    {
+        return instance.debugEnabled && instance.noMapGeneration;
     }
 
     public static bool doSpawnBossOnStart()
