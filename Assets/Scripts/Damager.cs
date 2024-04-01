@@ -98,7 +98,6 @@ public struct HitInfo
 public abstract class Damager : MonoBehaviour
 {
     protected bool reloading = false;
-    WaitForSeconds waitCooldown;
     protected PlayerController player;
     protected bool autoCooldown; //whether the interactor or the inheritor should handle cooldown
     [HideInInspector] public interactorStats stats;
@@ -115,7 +114,6 @@ public abstract class Damager : MonoBehaviour
         player = PlayerController.instance;
         this.stats = fullStats.interactor;
         this.fullStats = fullStats;
-        waitCooldown = Helpers.getWait(stats.cooldown * BonusManager.current.getWeaponCooldownMultiplier());
     }
 
     public void Use()
@@ -130,7 +128,7 @@ public abstract class Damager : MonoBehaviour
     protected IEnumerator Cooldown()
     {
         reloading = true;
-        yield return waitCooldown;
+        yield return Helpers.getWait(stats.cooldown * BonusManager.current.getWeaponCooldownMultiplier());
         reloading = false;
         if (isUsing) Use();
     }
