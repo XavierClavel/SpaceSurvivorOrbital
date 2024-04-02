@@ -80,7 +80,7 @@ public struct HitInfo
     {
         damage = stats.baseDamage.getRandom();
         critical = Helpers.ProbabilisticBool(stats.criticalChance * BonusManager.current.getWeaponCriticalChance());
-        if (critical) damage = (int)((float)damage * stats.criticalMultiplier * BonusManager.current.getWeaponCriticalMultiplier());
+        if (critical) damage = (int)(damage * stats.criticalMultiplier * BonusManager.current.getWeaponCriticalMultiplier());
         this.effect = new HashSet<status>();
         this.effect.Add(stats.element);
         this.knockback = stats.knockback;

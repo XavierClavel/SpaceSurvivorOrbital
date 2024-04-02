@@ -19,7 +19,7 @@ public class DamagerDataBuilder : DataBuilder<PlayerData>
         SetValue(ref stats.interactor.spread, Vault.key.upgrade.Spread);
         SetValue(ref stats.interactor.speedWhileAiming, Vault.key.upgrade.AimingSpeed);
         SetValue(ref stats.interactor.criticalChance, Vault.key.upgrade.CriticalChance);
-        SetValue(ref stats.interactor.criticalMultiplier, Vault.key.upgrade.CriticalChance);
+        SetValue(ref stats.interactor.criticalMultiplier, Vault.key.upgrade.CriticalMultiplier);
         SetValue(ref stats.interactor.magazine, Vault.key.upgrade.Magazine);
         SetValue(ref stats.interactor.magazineReloadTime, Vault.key.upgrade.MagazineCooldown);
         SetValue(ref stats.interactor.knockback, Vault.key.upgrade.Knockback);
