@@ -21,7 +21,7 @@ public class IceSpike : MonoBehaviour
         sequence.Append(transform.DOScale(Vector3.zero, 0.2f));
         sequence.OnComplete(delegate
         {
-            PowerIceSpikes.pool.recall(this);
+            PowerIceSpike.pool.recall(this);
         });
         
         return this;

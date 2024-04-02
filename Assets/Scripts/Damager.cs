@@ -118,6 +118,7 @@ public abstract class Damager : MonoBehaviour
 
     public void Use()
     {
+        Debug.Log(stats.cooldown);
         onUse();
         if (stats.cooldown == 0f) return;
         if (autoCooldown) StartCoroutine(nameof(Cooldown));

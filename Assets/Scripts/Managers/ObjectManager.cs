@@ -305,10 +305,8 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourcesListener, I
     public void onSteleDestroyed(MonsterStele stele)
     {
         amountDensDestroyed++;
-        Debug.Log($"Registered stele destroyed, current amount destroyed is now {amountDensDestroyed}");
         amountDens--;
         instance.altarMonsterCurrent.SetText(amountDensDestroyed.ToString());
-        Debug.Log($"Text value is {instance.altarMonsterCurrent.text}");
 
         if (amountDens > 0) return;
         Instantiate(instance.shipAppearPS, PlayerController.instance.transform);
