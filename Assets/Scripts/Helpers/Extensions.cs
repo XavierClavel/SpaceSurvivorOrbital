@@ -6,6 +6,13 @@ using UnityEngine;
 
 public static class Extensions
 {
+
+    public static TValue getorPut<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue defaultValue)
+    {
+        if (dict.TryGetValue(key, out var value)) return value;
+        dict[key] = defaultValue;
+        return defaultValue;
+    }
     
     public static Vector3 getRotation(this Vector2 direction)
     {

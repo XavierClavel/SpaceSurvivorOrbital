@@ -37,18 +37,6 @@ public class Resource : Breakable
         }
     }
     
-    public static List<IResourceListener> listeners = new List<IResourceListener>();
-
-    public static void registerListener(IResourceListener listener)
-    {
-        listeners.TryAdd(listener);
-    }
-
-    public static void unregisterListener(IResourceListener listener)
-    {
-        listeners.TryRemove(listener);
-    }
-
     protected override void Start()
     {
         base.Start();
@@ -65,8 +53,7 @@ public class Resource : Breakable
         myCollider = GetComponent<Collider2D>();
         gameObject.tag = Vault.tag.Resource;
         
-        listeners.ForEach(it => it.onResourceSpawned(this));
-
+        EventManagers.eggs.dispatchEvent(v => v.onEggSpawned(this));
     }
 
     public override void Hit(HitInfo hitInfo)
@@ -89,7 +76,8 @@ public class Resource : Breakable
         isDestroy = true;
         healthBar.gameObject.SetActive(false);
         myCollider.enabled = false;
-        listeners.ForEach(it => it.onResourceDestroyed(this));
+        EventManagers.eggs.dispatchEvent(v => v.onEggDestroyed(this));
+        Debug.Log("event dispatched");
         Destroy(spriteOverlay);
     }
     

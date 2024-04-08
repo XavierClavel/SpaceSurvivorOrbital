@@ -31,15 +31,13 @@ public class ResourcesAttractor : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case Vault.tag.GreenCollectible:
-                PlayerController.instance.IncreaseGreen();
                 ObjectManager.recallItemGreen(other.gameObject);
-                PlayerEventsManager.onResourcePickup(resourceType.green);
+                EventManagers.resources.dispatchEvent(v => v.onResourcePickup(resourceType.green));
                 break;
 
             case Vault.tag.OrangeCollectible:
-                PlayerController.instance.IncreaseOrange();
                 ObjectManager.recallItemOrange(other.gameObject);
-                PlayerEventsManager.onResourcePickup(resourceType.orange);
+                EventManagers.resources.dispatchEvent(v => v.onResourcePickup(resourceType.orange));
                 break;
         }
     }

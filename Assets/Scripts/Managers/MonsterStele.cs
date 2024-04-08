@@ -33,25 +33,14 @@ public class MonsterStele : Breakable
             if (value <= 0) Death();
         }
     }
-    
-    public static List<IMonsterStele> listeners = new List<IMonsterStele>();
-
-    public static void registerListener(IMonsterStele listener)
-    {
-        listeners.TryAdd(listener);
-    }
-
-    public static void unregisterListener(IMonsterStele listener)
-    {
-        listeners.TryRemove(listener);
-    }
 
     protected virtual void Death()
     {
         if (isDestroyed) return;
         isDestroyed = true;
         collider.enabled = false;
-        listeners.ForEach(it => it.onSteleDestroyed(this));
+        
+        EventManagers.monsterSteles.dispatchEvent(it => it.onSteleDestroyed(this));
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
         ObjectManager.unregisterHitable(gameObject);
         SoundManager.PlaySfx(transform, key: "Spawn_Destroy");
@@ -72,7 +61,7 @@ public class MonsterStele : Breakable
         healthBar.maxValue = _health;
         healthBar.value = _health;
         
-        listeners.ForEach(it => it.onSteleSpawned(this));
+        EventManagers.monsterSteles.dispatchEvent(it => it.onSteleSpawned(this));
 
         
         //playerTransform = PlayerController.instance.transform;

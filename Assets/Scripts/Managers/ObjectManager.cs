@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IPlayerEvents
+public class ObjectManager : MonoBehaviour, IMonsterStele, IResourcesListener, IPlayerEvents, IEggListener
 {
     [Header("UI")]
     public LayoutManager healthBar;
@@ -84,12 +84,12 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
 
     public static void HideSpaceship() { spaceship.SetActive(false); }
 
-    public void onResourceSpawned(Resource resource)
+    public void onEggSpawned(Resource resource)
     {
         amountEggs++;
     }
 
-    public void onResourceDestroyed(Resource resource)
+    public void onEggDestroyed(Resource resource)
     {
         ObjectManager.SpawnResources(
             resource.resourceType,
@@ -136,9 +136,9 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
         amountDensDestroyed = 0;
         radar.SetActive(false);
         if (Helpers.isPlatformAndroid()) pauseButton.SetActive(true);
-        MonsterStele.registerListener(this);
-        Resource.registerListener(this);
-        PlayerEventsManager.registerListener(this);
+        EventManagers.monsterSteles.registerListener(this);
+        EventManagers.eggs.registerListener(this);
+        EventManagers.resources.registerListener(this);
 
         poolResourceGreen = new GameObjectPool(resourceItemGreen);
         poolResourceOrange = new GameObjectPool(resourceItemOrange);
@@ -214,6 +214,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
 
     public static void SpawnResources(type resourceType, Vector3 position, int amount)
     {
+        Debug.Log(resourceType);
         if (resourceType == type.green) SpawnResourcesGreen(position, amount);
         else if (resourceType == type.orange) SpawnResourcesOrange(position, amount);
         ResourcesAttractor.ForceUpdate();
@@ -286,8 +287,8 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
         dictObjectToInteractable = new Dictionary<GameObject, IInteractable>();
         dictObjectToResource = new Dictionary<GameObject, IResource>();
         
-        Resource.unregisterListener(this);
-        MonsterStele.unregisterListener(this);
+        EventManagers.eggs.unregisterListener(this);
+        EventManagers.monsterSteles.unregisterListener(this);
     }
 
     public static PowerDisplay AddPowerDisplay()
@@ -304,10 +305,8 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourceListener, IP
     public void onSteleDestroyed(MonsterStele stele)
     {
         amountDensDestroyed++;
-        Debug.Log($"Registered stele destroyed, current amount destroyed is now {amountDensDestroyed}");
         amountDens--;
         instance.altarMonsterCurrent.SetText(amountDensDestroyed.ToString());
-        Debug.Log($"Text value is {instance.altarMonsterCurrent.text}");
 
         if (amountDens > 0) return;
         Instantiate(instance.shipAppearPS, PlayerController.instance.transform);

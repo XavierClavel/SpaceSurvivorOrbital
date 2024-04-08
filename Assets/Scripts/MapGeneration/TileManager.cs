@@ -37,8 +37,6 @@ public class TileManager : MonoBehaviour
     const float tileRotationPeriod = 0.05f;
     //TODO : adapt tilerotationperiod to planet size
 
-    public bool generateMap;
-
     public static Tile getTileToPlace(List<Tile> possibleStates)
     {
         List<Tile> intersection = instance.tilesToPlace.Intersection(possibleStates);
@@ -65,7 +63,7 @@ public class TileManager : MonoBehaviour
             return;
         }
         mask = LayerMask.GetMask(Vault.layer.Ennemies);
-        if (!generateMap) return;
+        if (DebugManager.doNoMapGeneration()) return;
 
         switch (PlanetManager.getType())
         {

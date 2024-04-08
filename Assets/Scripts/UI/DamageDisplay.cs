@@ -61,23 +61,15 @@ public class DamageDisplay : MonoBehaviour
 
     public DamageDisplay setColor(healthChange type)
     {
-        switch (type)
+        textDisplay.color = type switch
         {
-            case healthChange.critical:
-                textDisplay.color = Color.red;
-                break;
-            case healthChange.heal:
-                textDisplay.color = Color.green;
-                break;
-
-            case healthChange.poison:
-                textDisplay.color = poisonColor;
-                break;
-
-            case healthChange.fire:
-                textDisplay.color = fireColor;
-                break;
-        }
+            healthChange.hit => Color.white,
+            healthChange.critical => Color.red,
+            healthChange.heal => Color.green,
+            healthChange.poison => poisonColor,
+            healthChange.fire => fireColor,
+            _ => textDisplay.color
+        };
 
         return this;
     }

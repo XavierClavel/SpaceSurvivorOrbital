@@ -49,4 +49,7 @@ public class Power : Damager
 
     }
 
+    public static int getDamage(Vector2Int baseDamage) =>
+        (int)(baseDamage.getRandom() * BonusManager.current.getPowerDamageMultiplier());
+
 }

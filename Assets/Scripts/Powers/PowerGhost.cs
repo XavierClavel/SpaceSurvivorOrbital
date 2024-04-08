@@ -53,7 +53,7 @@ public class PowerGhost : Power, IEnnemyListener
         spawnsEvery = _.generic.intB;
         projectiles = _.interactor.projectiles;
         
-        Ennemy.registerListener(this);
+        EventManagers.ennemies.registerListener(this);
         poolGhosts = new ComponentPool<Ghost>(ghost);
         poolBigGhosts = new ComponentPool<Ghost>(bigGhost);
         poolShockwaves = new ComponentPool<Shockwave>(ghostShockwave);
@@ -66,7 +66,7 @@ public class PowerGhost : Power, IEnnemyListener
 
     private void OnDestroy()
     {
-        Ennemy.unregisterListener(this);
+        EventManagers.ennemies.unregisterListener(this);
     }
 
     public void onEnnemyDeath(Ennemy ennemy)

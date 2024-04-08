@@ -71,23 +71,7 @@ public class Ennemy : Breakable
     private float remainingIce = 0f;
 
     WaitForSeconds knockbackWindow;
-
     
-#region API
-
-    public static List<IEnnemyListener> listeners = new List<IEnnemyListener>();
-
-    public static void registerListener(IEnnemyListener listener)
-    {
-        listeners.TryAdd(listener);
-    }
-
-    public static void unregisterListener(IEnnemyListener listener)
-    {
-        listeners.TryRemove(listener);
-    }
-
-#endregion
 
     protected override void Start()
     {
@@ -226,7 +210,7 @@ public class Ennemy : Breakable
         
         onDeath();
         ShakeManager.Shake(shakeIntensity, shakeDuration);
-        listeners.ForEach(it => it.onEnnemyDeath(this));
+        EventManagers.ennemies.dispatchEvent(v => v.onEnnemyDeath(this));
         ObjectManager.MonsterKill(this.transform.position);
         Destroy(gameObject);
     }

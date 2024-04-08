@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum handlerVisibility {ShowInDemo, ShowInFullGame, Hide}
+public enum handlerVisibility {ShowInDemo, HideInDemo, Hide}
 public enum availability {Start, Boss1, Boss2, Boss3, Boss4, Boss5}
 
 public class ObjectHandler : ScriptableObject
@@ -16,12 +16,12 @@ public class ObjectHandler : ScriptableObject
 
 public class HidableObjectHandler : ObjectHandler
 {
-    [SerializeField] private handlerVisibility visibility = handlerVisibility.ShowInFullGame;
+    [SerializeField] private handlerVisibility visibility = handlerVisibility.HideInDemo;
     [SerializeField] private availability availableAfter = availability.Start;
     public bool canBeSelected()
     {
         if (visibility == handlerVisibility.Hide) return false;
-        if (visibility == handlerVisibility.ShowInFullGame && PlayerManager.isDemo) return false;
+        if (visibility == handlerVisibility.HideInDemo && PlayerManager.isDemo) return false;
         return true;
     }
 

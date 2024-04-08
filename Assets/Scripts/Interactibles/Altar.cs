@@ -18,22 +18,10 @@ public class Altar : MonoBehaviour
     public Animator animator;
     private static readonly int Deplete = Animator.StringToHash("Deplete");
     
-    public static List<IAltarListener> listeners = new List<IAltarListener>();
-
-    public static void registerListener(IAltarListener listener)
-    {
-        listeners.TryAdd(listener);
-    }
-
-    public static void unregisterListener(IAltarListener listener)
-    {
-        listeners.TryRemove(listener);
-    }
-    
     private void Start()
     {
         factor = 1f / timeToLaunch;
-        listeners.ForEach(it => it.onAltarSpawned(this));
+        EventManagers.altar.dispatchEvent(it => it.onAltarSpawned(this));
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -92,7 +80,7 @@ public class Altar : MonoBehaviour
         auraAltar.Stop();
         altarLoading.Stop();
         lightAltar.SetActive(false);
-        listeners.ForEach(it => it.onAltarUsed(this));
+        EventManagers.altar.dispatchEvent(it => it.onAltarUsed(this));
     }
 
     void ActivateAltar()

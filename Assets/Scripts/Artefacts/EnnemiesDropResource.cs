@@ -15,14 +15,14 @@ public class EnnemiesDropResource : Artefact, IEnnemyListener
 
     public override void onSetup()
     {
-        Ennemy.registerListener(this);
+        EventManagers.ennemies.registerListener(this);
         dropEvery = stats.projectiles;
         resourcesAmount = stats.magazine;
     }
 
     private void OnDestroy()
     {
-        Ennemy.unregisterListener(this);
+        EventManagers.ennemies.unregisterListener(this);
     }
 
     public void onEnnemyDeath(Ennemy ennemy)
