@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
     public Transform pointerBack;
     public Transform pointerRight;
     public Transform pointerLeft;
-    Vector2 moveDir;
+    public Vector2 moveDir;
     private Camera cam;
 
     [Header("UI")] 

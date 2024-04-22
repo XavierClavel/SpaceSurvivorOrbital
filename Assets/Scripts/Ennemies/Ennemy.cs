@@ -22,6 +22,7 @@ public class Ennemy : Breakable
     static protected WaitForSeconds waitStateStep;
     private static WaitForSeconds waitFire;
     float speedMultiplier = 1f;
+    private float damageMultiplier = 1f;
     protected bool isImmuneToEffects = false;
     protected bool isImmuneToKnockback = false;
 
@@ -146,6 +147,7 @@ public class Ennemy : Breakable
 
     public override void Hit(HitInfo hitInfo)
     {
+        hitInfo.applyDamageMultiplier(damageMultiplier);
         base.Hit(hitInfo);
         
         healthChange value = hitInfo.critical ? healthChange.critical : healthChange.hit;
@@ -291,11 +293,10 @@ public class Ennemy : Breakable
 
     IEnumerator IceEffect()
     {
-        Debug.Log("Ice Go");
-        Debug.Log(ConstantsData.iceDuration);
         icePs.Play();
         spriteRenderer.color = new Color32(126,171,242,255);
         speedMultiplier = ConstantsData.iceSlowdown;
+        damageMultiplier = ConstantsData.iceDamageMultiplier;
         remainingIce = ConstantsData.iceDuration;
 
         while (remainingIce > 0f)
@@ -304,9 +305,8 @@ public class Ennemy : Breakable
             remainingIce -= Time.fixedDeltaTime;
         }
         
-        Debug.Log("Ice stop");
-        
         speedMultiplier = 1f;
+        damageMultiplier = 1f;
         spriteRenderer.color = Color.white;
         icePs.Stop();
     }
@@ -337,6 +337,7 @@ public class Ennemy : Breakable
     private SpriteRenderer spriteRenderer;
     private SpriteRenderer overlaydSpriteRenderer;
     private bool isMovingRight = true;
+    private static readonly int IsMovingRight = Animator.StringToHash("IsMovingRight");
 
     private void Update()
     {
@@ -350,18 +351,19 @@ public class Ennemy : Breakable
         Vector3 facingDirection = transform.right;
 
         float dotProduct = Vector3.Dot(directionToPlayer, facingDirection);
+        var position = this.transform.position;
 
         if (dotProduct > 0 && isMovingRight)
         {
-            animator.SetBool("IsMovingRight", false);
+            animator.SetBool(IsMovingRight, false);
             FlipSprite();
-            eye.transform.position = new Vector2(this.transform.position.x, this.transform.position.y) + rightPosition;
+            eye.transform.position = new Vector2(position.x, position.y) + rightPosition;
         }
         else if (dotProduct < 0 && !isMovingRight)
         {
-            animator.SetBool("IsMovingRight", true);
+            animator.SetBool(IsMovingRight, true);
             FlipSprite();
-            eye.transform.position = new Vector2(this.transform.position.x, this.transform.position.y) + leftPosition;
+            eye.transform.position = new Vector2(position.x, position.y) + leftPosition;
         }
         
     }

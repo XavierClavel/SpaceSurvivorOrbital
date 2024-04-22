@@ -23,7 +23,7 @@ public class PowerIceSpike : Power
     {
         Debug.Log("Spawn");
         Vector2 startPos = playerTransform.position;
-        Vector2 direction = player.aimVector;
+        Vector2 direction = player.moveDir;
         float range = 10f;
         int amount = 7;
         float step = range / amount;

@@ -23,6 +23,7 @@ public static class ConstantsData
     public static float fireStep;
 
     public static float iceSlowdown;
+    public static float iceDamageMultiplier;
     public static float iceDuration;
 
     public static float lightningDuration;
@@ -79,6 +80,7 @@ public class ConstantsDataBuilder
         SetValue(ref ConstantsData.fireStep, "Fire_Step");
         
         SetValue(ref ConstantsData.iceDuration, "Ice_Duration");
+        SetValue(ref ConstantsData.iceDamageMultiplier, "Ice_DamageMultiplier");
         SetValue(ref ConstantsData.iceSlowdown, "Ice_Slowdown");
         
         SetValue(ref ConstantsData.lightningDuration, "Lightning_Duration");
@@ -105,6 +107,11 @@ public class ConstantsDataBuilder
     
     private void SetValue<T>(ref T variable, string key)
     {
+        if (!dictLineToValue.ContainsKey(key))
+        {
+            Debug.LogError($"Missing key \"{key}\".");
+            return;
+        }
         string value = dictLineToValue[key];
         if (string.IsNullOrEmpty(value)) return;
         try

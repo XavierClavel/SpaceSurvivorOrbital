@@ -90,6 +90,12 @@ public struct HitInfo
             this.effect.Add(bonusStatus);
         }
     }
+
+    public HitInfo applyDamageMultiplier(float multiplier)
+    {
+        damage = (int)(damage * multiplier);
+        return this;
+    }
     
     
     
