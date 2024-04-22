@@ -30,9 +30,6 @@ public class IceSpike : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.gameObject.CompareTag(Vault.tag.Ennemy)) return;
-        HitInfo hitInfo = new HitInfo(Power.getDamage(baseDamage), false, status.ice);
-        
-        SoundManager.PlaySfx(transform, key: "Ennemy_Hit");
-        ObjectManager.HitObject(other.gameObject, hitInfo);
+        PowerIceSpike.HitEnnemy(other.gameObject);
     }
 }

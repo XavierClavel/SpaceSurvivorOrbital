@@ -42,4 +42,11 @@ public class PowerIceSpike : Power
             .setup(stats.baseDamage, 2f, 1f)
             ;
     }
+
+    public static void HitEnnemy(GameObject ennemy)
+    {
+        HitInfo hitInfo = new HitInfo(Power.getDamage(instance.stats.baseDamage), false, status.ice);
+        SoundManager.PlaySfx(ennemy.transform, key: "Ennemy_Hit");
+        ObjectManager.HitObject(ennemy, hitInfo);
+    }
 }
