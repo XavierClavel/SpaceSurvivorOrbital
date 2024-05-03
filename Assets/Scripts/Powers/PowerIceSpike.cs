@@ -10,6 +10,7 @@ public class PowerIceSpike : Power
 
     public override void onSetup()
     {
+        instance = this;
         autoCooldown = true;
         pool = new ComponentPool<IceSpike>(iceSpikePrefab);
     }
