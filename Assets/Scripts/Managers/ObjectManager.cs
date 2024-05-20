@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ObjectManager : MonoBehaviour, IMonsterStele, IResourcesListener, IPlayerEvents, IEggListener
+public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggListener
 {
     [Header("UI")]
     public LayoutManager healthBar;
@@ -22,11 +22,8 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourcesListener, I
     public Transform powersDisplayLayout;
     public PowerDisplay powerDisplayPrefab;
     public Slider reloadSlider;
-    public ShapesSlider sliderOrange;
-    public ShapesSlider sliderGreen;
-    [SerializeField] private DiscreteBarHandler displayOrange;
-    [SerializeField] private DiscreteBarHandler displayGreen;
-    [SerializeField] private DiscreteBarHandler displayBlue;
+    public PartialResourceManager sliderOrange;
+    public PartialResourceManager sliderGreen;
     
     [SerializeField] public TextMeshProUGUI altarMonsterTotal;
     [SerializeField] public TextMeshProUGUI altarMonsterCurrent;
@@ -100,7 +97,6 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourcesListener, I
         if (amountEggs > 0) return;
         
         PlayerManager.AcquireUpgradePoint();
-        displayBlue.IncreaseAmount();
         SoundManager.PlaySfx(PlayerController.instance.transform, key: "Collectible_Blue");
         UpgradeUpDisplay();
     }
@@ -138,7 +134,6 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourcesListener, I
         if (Helpers.isPlatformAndroid()) pauseButton.SetActive(true);
         EventManagers.monsterSteles.registerListener(this);
         EventManagers.eggs.registerListener(this);
-        EventManagers.resources.registerListener(this);
 
         poolResourceGreen = new GameObjectPool(resourceItemGreen);
         poolResourceOrange = new GameObjectPool(resourceItemOrange);
@@ -151,45 +146,6 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourcesListener, I
         characterDisplay.sprite = DataSelector.getSelectedCharacter().getIcon();
         cam = Camera.main;
         camHalfSize = new Vector3(cam.pixelWidth * 0.5f, cam.pixelHeight * 0.5f, 0);
-    }
-
-    public void setupResources()
-    {
-        displayBlue.Initialize(PlayerManager.playerData.resources.maxBlue + BonusManager.current.getBonusStock(),
-            PlayerManager.amountBlue);
-        
-        displayGreen.Initialize(PlayerManager.playerData.resources.maxGreen + BonusManager.current.getBonusStock(), 
-            PlayerManager.amountGreen);
-        
-        displayOrange.Initialize(
-            PlayerManager.playerData.resources.maxOrange + BonusManager.current.getBonusStock(), 
-            PlayerManager.amountOrange);
-        
-
-        displayGreen.addOnFullAction(sliderGreen.Lock);
-        displayOrange.addOnFullAction(sliderOrange.Lock);
-        
-        sliderGreen
-            .setMaxSliderValue(ConstantsData.resourcesFillAmount)
-            .setValue(PlayerManager.getPartialResourceGreen())
-            .addOnCompleteAction(delegate
-                {
-                    sliderGreen.resetValue();
-                    displayGreen.IncreaseAmount();
-                    PlayerManager.GatherResourceGreen();
-                });
-        
-
-        sliderOrange
-            .setMaxSliderValue(ConstantsData.resourcesFillAmount)
-            .setValue(PlayerManager.getPartialResourceOrange())
-            .addOnCompleteAction(delegate
-                {
-                    sliderOrange.resetValue();
-                    displayOrange.IncreaseAmount();
-                    PlayerManager.GatherResourceOrange();
-                });
-        
     }
 
     public static void recallItemOrange(GameObject go) => instance.poolResourceOrange.recall(go);
@@ -263,7 +219,6 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourcesListener, I
     public void SelectUpgradePoint()
     {
         PlayerManager.AcquireUpgradePoint();
-        displayBlue.IncreaseAmount();
         altar.DepleteAltar();
         HideAltarUI();
     }
@@ -343,12 +298,6 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IResourcesListener, I
     public bool onPlayerHit(bool shieldHit)
     {
         return false;
-    }
-
-    public void onResourcePickup(resourceType type)
-    {
-        if (type == resourceType.green) sliderGreen.increase();
-        else if (type == resourceType.orange) sliderOrange.increase();
     }
 
     public static void UpdateBulletsDisplay(int amount)
