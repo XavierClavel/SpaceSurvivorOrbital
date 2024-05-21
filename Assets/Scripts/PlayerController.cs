@@ -130,6 +130,8 @@ public class PlayerController : MonoBehaviour, IResourcesListener
 
     //Wait
     WaitForSeconds invulnerabilityFrameDuration;
+    public Freezer freezer;
+    [SerializeField] ParticleSystem hit;
 
     [HideInInspector] public Vector2 aimVector;
 
@@ -177,6 +179,9 @@ public class PlayerController : MonoBehaviour, IResourcesListener
      */
     private void takeDamage()
     {
+        hit.Play();
+        freezer.FreezeScreen(0.5f);
+
         if (shieldsAmount > 0)
         {
             shields--;
@@ -184,6 +189,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         else
         {
             health--;
+
         }
     }
 

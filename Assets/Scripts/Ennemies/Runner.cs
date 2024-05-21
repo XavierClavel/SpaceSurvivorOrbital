@@ -19,7 +19,7 @@ public class Runner : Ennemy
         if (other.gameObject.CompareTag(Vault.tag.Player))
         {
             PlayerController.Hurt(baseDamage);
-            ApplyKnockback(150);
+            ApplyKnockback(1500);
         }
     }
 
