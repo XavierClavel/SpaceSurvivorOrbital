@@ -86,7 +86,7 @@ public static class Vault
     {
         public const int MaxHealth = 3;
         public const int MaxShields = 0;
-        public const float Speed = 4.2f;
+        public const float Speed =  4.5f;
         public const float DamageMultiplier = 1;
     }
 

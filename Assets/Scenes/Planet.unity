@@ -26166,7 +26166,6 @@ RectTransform:
   - {fileID: 757684481}
   - {fileID: 1223274937}
   - {fileID: 485862573}
-  - {fileID: 1564143111}
   - {fileID: 1398567563}
   - {fileID: 1513442963}
   - {fileID: 975599111}
@@ -26908,6 +26907,7 @@ RectTransform:
   - {fileID: 3060558}
   - {fileID: 131320954}
   - {fileID: 1325770666}
+  - {fileID: 1564143111}
   - {fileID: 819867604}
   - {fileID: 186330241}
   - {fileID: 2009904980}
@@ -34638,7 +34638,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1564143111
 RectTransform:
   m_ObjectHideFlags: 0
@@ -34647,17 +34647,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1564143110}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 819867604}
+  m_Father: {fileID: 1007081080}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -154.2, y: -584.08}
-  m_SizeDelta: {x: 151.61, y: 484.73}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1564143112
 MonoBehaviour:
@@ -34668,7 +34668,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1564143110}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -34677,9 +34677,9 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 0
+  m_Spacing: 20
   m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 0
+  m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
