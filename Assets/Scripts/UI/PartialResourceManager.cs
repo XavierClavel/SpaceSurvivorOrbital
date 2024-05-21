@@ -7,18 +7,20 @@ public class PartialResourceManager : ShapesSlider, IResourcesListener
 
     private void Start()
     {
+        setMaxSliderValue(ConstantsData.resourcesFillAmount);
+        int currentValue = 0;
         switch (type)
         {
             case resourceType.green:
-                setMaxSliderValue(ConstantsData.resourcesFillAmount);
-                setValue(PlayerManager.getPartialResourceGreen());
+                currentValue = PlayerManager.getPartialResourceGreen();
                 break;
             
             case resourceType.orange:
-                setMaxSliderValue(ConstantsData.resourcesFillAmount);
-                setValue(PlayerManager.getPartialResourceOrange());
+                currentValue = PlayerManager.getPartialResourceOrange();
                 break;
         }
+
+        setValue(currentValue);
         EventManagers.resources.registerListener(this);
     }
 

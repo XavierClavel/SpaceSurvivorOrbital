@@ -42,8 +42,6 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
     public ParticleSystem difficultyPS;
     public ParticleSystem monsterKillPS;
 
-    private bool upgradeGain = false;
-
     [Header("Interactors")]
     public Interactor gun;
 
@@ -137,8 +135,6 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
 
         poolResourceGreen = new GameObjectPool(resourceItemGreen);
         poolResourceOrange = new GameObjectPool(resourceItemOrange);
-        
-        
     }
 
     private void Start()
@@ -170,7 +166,6 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
 
     public static void SpawnResources(type resourceType, Vector3 position, int amount)
     {
-        Debug.Log(resourceType);
         if (resourceType == type.green) SpawnResourcesGreen(position, amount);
         else if (resourceType == type.orange) SpawnResourcesOrange(position, amount);
         ResourcesAttractor.ForceUpdate();

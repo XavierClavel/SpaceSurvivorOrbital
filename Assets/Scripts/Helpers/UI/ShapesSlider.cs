@@ -47,6 +47,7 @@ public class ShapesSlider : MonoBehaviour
         UpdateSlider();
         if (value != sliderMaxValue) return this;
         onCompleteAction?.Invoke();
+        onComplete();
         return this;
     }
 
