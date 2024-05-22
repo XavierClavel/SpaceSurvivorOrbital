@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class MinerBot : MonoBehaviour
+public class MinerBot : Equipment
 {
     enum state { following, mining, miningTransition, attacking, attackingTransition, transitioning, none }
     enum botFunction { mining, attacking, both };
