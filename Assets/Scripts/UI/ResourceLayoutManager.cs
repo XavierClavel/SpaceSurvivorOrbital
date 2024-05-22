@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum resourceType { orange, green }
+public enum resourceType { orange, green, blue }
 public class ResourceLayoutManager : MonoBehaviour
 {
     List<Slider> sliders = new List<Slider>();

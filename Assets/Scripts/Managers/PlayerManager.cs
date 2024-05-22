@@ -96,8 +96,17 @@ public static class PlayerManager
         dictKeyToStats = new Dictionary<string, PlayerData>();
     }
 
-    public static void GatherResourceGreen() => amountGreen++;
-    public static void GatherResourceOrange() => amountOrange++;
+    public static void GatherResourceGreen()
+    {
+        amountGreen++;
+        EventManagers.fullResources.dispatchEvent(it => it.onFullResourceAmountChange(resourceType.green, amountGreen));
+    } 
+    public static void GatherResourceOrange()
+    {
+        amountOrange++;
+        EventManagers.fullResources.dispatchEvent(it => it.onFullResourceAmountChange(resourceType.orange, amountOrange));
+    }
+
     public static void setPartialResourceGreen(int value) => filledGreen = value;
     public static int getPartialResourceGreen() =>  filledGreen;
     public static void setPartialResourceOrange(int value) => filledOrange = value;
@@ -142,11 +151,13 @@ public static class PlayerManager
     public static void AcquireUpgradePoint()
     {
         amountBlue++;
+        EventManagers.fullResources.dispatchEvent(it => it.onFullResourceAmountChange(resourceType.blue, amountBlue));
     }
 
     public static void SpendUpgradePoints(int amount)
     {
         amountBlue -= amount;
+        EventManagers.fullResources.dispatchEvent(it => it.onFullResourceAmountChange(resourceType.blue, amountBlue));
     }
 
     public static bool isFullBlue() =>
@@ -181,6 +192,8 @@ public static class PlayerManager
     {
         amountGreen -= costGreen;
         amountOrange -= costOrange;
+        EventManagers.fullResources.dispatchEvent(it => it.onFullResourceAmountChange(resourceType.green, amountGreen));
+        EventManagers.fullResources.dispatchEvent(it => it.onFullResourceAmountChange(resourceType.orange, amountOrange));
     }
     
 

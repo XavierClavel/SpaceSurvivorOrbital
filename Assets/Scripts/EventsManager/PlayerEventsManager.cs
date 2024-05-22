@@ -5,7 +5,6 @@ public interface IPlayerEvents
 {
     bool onPlayerDeath();
     bool onPlayerHit(bool shieldHit);
-    void onResourcePickup(resourceType type);
 }
 
 /**
@@ -62,13 +61,6 @@ public class PlayerEventsManager
         }
         return value;
     }
-    
-    public static void onResourcePickup(resourceType type)
-    {
-        foreach (var eventListener in eventListeners)
-        {
-            eventListener.onResourcePickup(type);
-        }
-    }
+
 
 }

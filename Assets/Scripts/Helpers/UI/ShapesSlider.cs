@@ -11,7 +11,7 @@ public class ShapesSlider : MonoBehaviour
     [SerializeField] private Rectangle fill;
     [SerializeField] private int fillMaxValue;
     private int sliderMaxValue;
-    private UnityAction onComplete = null;
+    private UnityAction onCompleteAction = null;
 
     [Header("Optional")] 
     [SerializeField] private TextMeshProUGUI valueDisplay = null;
@@ -31,7 +31,7 @@ public class ShapesSlider : MonoBehaviour
 
     public ShapesSlider addOnCompleteAction(UnityAction action)
     {
-        onComplete = action;
+        onCompleteAction = action;
         return this;
     } 
 
@@ -46,9 +46,12 @@ public class ShapesSlider : MonoBehaviour
         currentValue = value;
         UpdateSlider();
         if (value != sliderMaxValue) return this;
-        onComplete?.Invoke();
+        onCompleteAction?.Invoke();
+        onComplete();
         return this;
     }
+
+    protected virtual void onComplete() {}
 
     public int getValue() => currentValue;
 

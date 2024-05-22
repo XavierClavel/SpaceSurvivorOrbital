@@ -7,6 +7,7 @@ public class PowerIceSpike : Power
     public static ComponentPool<IceSpike> pool;
     [SerializeField] private IceSpike iceSpikePrefab;
     private static PowerIceSpike instance;
+    private const float rotationRandomizationFactor = 10f;
 
     public override void onSetup()
     {
@@ -38,8 +39,9 @@ public class PowerIceSpike : Power
 
     private void SpawnIceSpike(Vector2 position)
     {
+        float randomRotation = Random.Range(-rotationRandomizationFactor, rotationRandomizationFactor);
         pool
-            .get(position)
+            .get(position,  (90 + randomRotation) * Vector3.forward)
             .setup(stats.baseDamage, 2f, 1f)
             ;
     }

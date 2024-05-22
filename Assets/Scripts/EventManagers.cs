@@ -4,6 +4,9 @@ using System.Collections.Generic;
 public static class EventManagers
 {
     public static readonly EventManager<IResourcesListener> resources = new EventManager<IResourcesListener>();
+
+    public static readonly EventManager<IFullResourcesListener> fullResources =
+        new EventManager<IFullResourcesListener>();
     public static readonly EventManager<IEggListener> eggs = new EventManager<IEggListener>();
     public static readonly EventManager<IEnnemyListener> ennemies = new EventManager<IEnnemyListener>();
     public static readonly EventManager<IAltarListener> altar = new EventManager<IAltarListener>();

@@ -4,13 +4,9 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem;
 using DG.Tweening;
 using TMPro;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 public enum playerState { idle, walking, shooting, mining };
 public enum playerDirection { front, left, back, right };
@@ -331,8 +327,6 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         _health = maxHealth;
         healthBar.Setup(maxHealth, currentHealth);
         healthBar.SetupShields(shieldsAmount);
-        
-        ObjectManager.instance.setupResources();
 
         if (!Helpers.isPlatformAndroid()) InitializeControls();
         
