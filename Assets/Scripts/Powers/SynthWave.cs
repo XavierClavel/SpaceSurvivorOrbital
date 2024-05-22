@@ -36,7 +36,7 @@ public class SynthWave : Power, IPlayerEvents
         shockwaveElement = _.generic.elementA;
         doubleShockwave = _.generic.boolA;
         isProtectingWaveActive = _.generic.boolB;
-        if (isProtectingWaveActive) PlayerEventsManager.registerListener(this);
+        if (isProtectingWaveActive) EventManagers.player.registerListener(this);
         
         if (doubleShockwave)
         {
@@ -126,6 +126,6 @@ public class SynthWave : Power, IPlayerEvents
 
     private void OnDestroy()
     {
-        PlayerEventsManager.unregisterListener(this);
+        EventManagers.player.unregisterListener(this);
     }
 }
