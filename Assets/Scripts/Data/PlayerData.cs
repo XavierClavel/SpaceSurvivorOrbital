@@ -172,25 +172,25 @@ public class PlayerData
 [Serializable]
 public class resourcesStats
 {
-    public int maxBlue = 3;
-    public int maxOrange = 3;
-    public int maxGreen = 3;
+    public int maxBlue = 100;
+    public int maxOrange = 100;
+    public int maxGreen = 100;
 
     public resourcesStats Clone()
     {
         return new resourcesStats()
         {
-            maxGreen = 3,
-            maxBlue = 3,
-            maxOrange = 3,
+            maxGreen = 100,
+            maxBlue = 100,
+            maxOrange = 100,
         };
     }
 
     public void setBase()
     {
-        maxGreen = 3;
-        maxBlue = 3;
-        maxOrange = 3;
+        maxGreen = 100;
+        maxBlue = 100;
+        maxOrange = 100;
     }
 }
 
