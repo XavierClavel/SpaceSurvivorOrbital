@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,6 +9,8 @@ public class DiscreteBarHandler : MonoBehaviour
 
     [HideInInspector] public int maxAmount = 0;
     [HideInInspector] public int currentAmount = 0;
+    public TextMeshProUGUI currentText;
+
     [SerializeField] GameObject emptyDisplay;
     [SerializeField] GameObject fullDisplay;
     [SerializeField] GameObject layout;
@@ -116,6 +119,11 @@ public class DiscreteBarHandler : MonoBehaviour
             onFullAction.Invoke();
         }
         
+    }
+
+    public void Update()
+    {
+        currentText.text = currentAmount.ToString();
     }
 
 }
