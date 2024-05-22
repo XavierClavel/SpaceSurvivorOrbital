@@ -23,7 +23,7 @@ public class PowerFairy : Power, IPlayerEvents
     public override void onSetup()
     {
         isResurrectionAvailable = fullStats.generic.boolB;
-        if (isResurrectionAvailable) PlayerEventsManager.registerListener(this);
+        if (isResurrectionAvailable) EventManagers.player.registerListener(this);
         
         Fairy newFairy = Instantiate(fairy);
         newFairy.Setup(stats, Vector2.zero,fullStats.generic.boolA);
@@ -56,6 +56,6 @@ public class PowerFairy : Power, IPlayerEvents
 
     private void OnDestroy()
     {
-        PlayerEventsManager.unregisterListener(this);
+        EventManagers.player.unregisterListener(this);
     }
 }

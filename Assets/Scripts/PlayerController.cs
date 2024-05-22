@@ -165,7 +165,13 @@ public class PlayerController : MonoBehaviour, IResourcesListener
     {
         for (int i = 0; i < damage; i++)
         {
-            if (PlayerEventsManager.onPlayerHit(shieldsAmount > 0)) continue;
+            var listeners = EventManagers.player.getListeners();
+            bool avoidDamage = false;
+            foreach (var eventListener in listeners)
+            {
+                avoidDamage = avoidDamage || eventListener.onPlayerHit(shieldsAmount > 0);
+            }
+            if (avoidDamage) continue;
             takeDamage();
         }
     }
@@ -497,7 +503,13 @@ public class PlayerController : MonoBehaviour, IResourcesListener
     
     void Death()
     {
-        if (PlayerEventsManager.onPlayerDeath()) return;
+        bool avoidDeath = false;
+        var listeners = EventManagers.player.getListeners();
+        foreach (var eventListener in listeners)
+        {
+            avoidDeath = avoidDeath || eventListener.onPlayerDeath();
+        }
+        if (avoidDeath) return;
         cinemachineCamera.enabled = false;
         ObjectManager.DisplayLoseScreen();
     }
@@ -518,7 +530,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
     private void OnDestroy()
     {
         PlayerManager.setSouls(souls);
-        PlayerEventsManager.resetListeners();
+        EventManagers.player.resetListeners();
     }
 
     public static void ApplySpeedBoost()

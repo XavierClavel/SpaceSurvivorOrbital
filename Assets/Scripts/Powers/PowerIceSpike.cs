@@ -1,29 +1,57 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class PowerIceSpike : Power
+/**
+ * <pre>
+ * <p> BaseDamage -> Ice Spike damage </p>
+ * <p> IntA -> Amount of damage absorbed </p>
+ * </pre>
+ */
+public class PowerIceSpike : Power, IPlayerEvents
 {
+    private const float rotationRandomizationFactor = 10f;
+    private const float shieldReloadCooldown = 15f;
+    
     public static ComponentPool<IceSpike> pool;
     [SerializeField] private IceSpike iceSpikePrefab;
     private static PowerIceSpike instance;
-    private const float rotationRandomizationFactor = 10f;
+    private int shieldMaxCharges;
+    private int shieldCharges;
 
     public override void onSetup()
     {
         instance = this;
         autoCooldown = true;
         pool = new ComponentPool<IceSpike>(iceSpikePrefab);
+        shieldMaxCharges = fullStats.generic.intA;
+        shieldCharges = shieldMaxCharges;
+        if (shieldCharges > 0) EventManagers.player.registerListener(this);
     }
-    
+
+    private void OnDestroy()
+    {
+        EventManagers.player.unregisterListener(this);
+    }
+
     protected override void onUse()
     {
         StartCoroutine(nameof(SpawnIceSpikes));
     }
 
+    private IEnumerator RechargeShield()
+    {
+        while (shieldCharges < shieldMaxCharges)
+        {
+            yield return Helpers.getWait(shieldReloadCooldown);
+            shieldCharges++;
+        }
+    }
+
     private IEnumerator SpawnIceSpikes()
     {
-        Debug.Log("Spawn");
         Vector2 startPos = playerTransform.position;
         Vector2 direction = player.moveDir;
         float range = 10f;
@@ -42,7 +70,7 @@ public class PowerIceSpike : Power
         float randomRotation = Random.Range(-rotationRandomizationFactor, rotationRandomizationFactor);
         pool
             .get(position,  (90 + randomRotation) * Vector3.forward)
-            .setup(stats.baseDamage, 2f, 1f)
+            .setup(2f, 1f)
             ;
     }
 
@@ -51,5 +79,18 @@ public class PowerIceSpike : Power
         HitInfo hitInfo = new HitInfo(Power.getDamage(instance.stats.baseDamage), false, status.ice);
         SoundManager.PlaySfx(ennemy.transform, key: "Ennemy_Hit");
         ObjectManager.HitObject(ennemy, hitInfo);
+    }
+
+    public bool onPlayerDeath()
+    {
+        return false;
+    }
+
+    public bool onPlayerHit(bool shieldHit)
+    {
+        if (shieldCharges == 0) return false;
+        shieldCharges--;
+        if (shieldCharges == shieldMaxCharges - 1) StartCoroutine(nameof(RechargeShield));
+        return true;
     }
 }

@@ -11,6 +11,7 @@ public static class EventManagers
     public static readonly EventManager<IEnnemyListener> ennemies = new EventManager<IEnnemyListener>();
     public static readonly EventManager<IAltarListener> altar = new EventManager<IAltarListener>();
     public static readonly EventManager<IMonsterStele> monsterSteles = new EventManager<IMonsterStele>();
+    public static readonly EventManager<IPlayerEvents> player = new EventManager<IPlayerEvents>();
     
     
     private static Dictionary<Type, object> dict;

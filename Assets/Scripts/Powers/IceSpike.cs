@@ -6,15 +6,10 @@ using UnityEngine;
 
 public class IceSpike : MonoBehaviour
 {
-    private Vector2Int baseDamage;
-    private float lifetime;
     private float scale;
 
-    public IceSpike setup(Vector2Int baseDamage, float lifetime, float scale)
+    public IceSpike setup(float lifetime, float scale)
     {
-        this.baseDamage = baseDamage;
-        this.lifetime = lifetime;
-        
         Sequence sequence = DOTween.Sequence();
         sequence.Append(transform.DOScale(scale * Vector3.one, 0.2f));
         sequence.AppendInterval(lifetime);
