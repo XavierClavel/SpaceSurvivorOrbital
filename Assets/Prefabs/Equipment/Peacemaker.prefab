@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1213107631398840490
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4302429013376749232}
+  - component: {fileID: -4382957629529192461}
+  m_Layer: 0
+  m_Name: Peacemaker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4302429013376749232
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213107631398840490}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 33
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4382957629529192461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213107631398840490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd75fecdeb252344db52e0bc9160ab4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats:
+    baseDamage: {x: 0, y: 0}
+    attackSpeed: 0
+    range: 0
+    cooldown: 0
+    magazineReloadTime: 0
+    criticalChance: 0
+    criticalMultiplier: 0
+    magazine: 0
+    projectiles: 0
+    spread: 0
+    pierce: 0
+    speedWhileAiming: 0
+    knockback: 0
+    element: 0
+  fullStats:
+    resources:
+      maxBlue: 100
+      maxOrange: 100
+      maxGreen: 100
+    character:
+      maxHealth: 0
+      maxShields: 0
+      baseSpeed: 0
+      damageMultiplier: 0
+    interactor:
+      baseDamage: {x: 0, y: 0}
+      attackSpeed: 0
+      range: 0
+      cooldown: 0
+      magazineReloadTime: 0
+      criticalChance: 0
+      criticalMultiplier: 0
+      magazine: 0
+      projectiles: 0
+      spread: 0
+      pierce: 0
+      speedWhileAiming: 0
+      knockback: 0
+      element: 0
+    attractor:
+      range: 5
+      force: 5
+    generic:
+      boolA: 0
+      boolB: 0
+      boolC: 0
+      boolD: 0
+      intA: 0
+      intB: 0
+      floatA: 0
+      floatB: 0
+      elementA: 0
+  isUsing: 0
+  activateOnStart: 0
