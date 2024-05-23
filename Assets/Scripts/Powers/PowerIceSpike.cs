@@ -53,7 +53,13 @@ public class PowerIceSpike : Power, IPlayerEvents
     private IEnumerator SpawnIceSpikes()
     {
         Vector2 startPos = playerTransform.position;
+        if (player.moveDir == Vector2.zero)
+        {
+            yield break;
+        }
+
         Vector2 direction = player.moveDir;
+        
         float range = 10f;
         int amount = 7;
         float step = range / amount;

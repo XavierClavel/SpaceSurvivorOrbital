@@ -29,4 +29,9 @@ public class FullResourceDisplay : DiscreteBarHandler, IFullResourcesListener
         if (this.type != type) return;
         setAmount(amount);
     }
+
+    private void OnDestroy()
+    {
+        EventManagers.fullResources.unregisterListener(this);
+    }
 }
