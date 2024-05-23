@@ -71,7 +71,7 @@ public class TileManager : MonoBehaviour
                 globalLight.intensity = 0;
                 Sequence s = DOTween.Sequence();
                 s.AppendInterval(10f);
-                s.Append(DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 5, 2f).SetEase(Ease.InOutQuad));
+                s.Append(DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 3, 2f).SetEase(Ease.InOutQuad));
                 s.AppendInterval(10f);
                 s.Append(DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 0, 2f).SetEase(Ease.InOutQuad));
                 s.SetLoops(-1);
