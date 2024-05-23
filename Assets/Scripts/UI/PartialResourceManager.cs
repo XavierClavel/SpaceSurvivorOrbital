@@ -24,6 +24,11 @@ public class PartialResourceManager : ShapesSlider, IResourcesListener
         EventManagers.resources.registerListener(this);
     }
 
+    private void OnDestroy()
+    {
+        EventManagers.resources.unregisterListener(this);
+    }
+
     protected override void onComplete()
     {
         resetValue();

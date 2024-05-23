@@ -121,6 +121,7 @@ public class DiscreteBarHandler : MonoBehaviour
         
     }
 
+    //TODO : move out of Update method
     public void Update()
     {
         currentText.text = currentAmount.ToString();

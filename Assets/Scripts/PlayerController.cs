@@ -531,6 +531,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
     {
         PlayerManager.setSouls(souls);
         EventManagers.player.resetListeners();
+        EventManagers.resources.unregisterListener(this);
     }
 
     public static void ApplySpeedBoost()
