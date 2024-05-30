@@ -1048,11 +1048,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   image: {fileID: 1682673401}
---- !u!1 &81297385 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8205442270015162213, guid: 5df35b6d6b1b38046a03a18bc7f841d5, type: 3}
-  m_PrefabInstance: {fileID: 8594438039435469602}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &81297386 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4431974301349861665, guid: 5df35b6d6b1b38046a03a18bc7f841d5, type: 3}
@@ -9821,7 +9816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0137a08c04358a3488c9399779ab3988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 81297385}
+  pauseMenu: {fileID: 1248073419}
   firstSelected: {fileID: 1969103220}
 --- !u!4 &475645623
 Transform:
@@ -15777,7 +15772,7 @@ MonoBehaviour:
   planetData:
     size: 1
     ressourceScarcity: 2
-    type: 1
+    type: 4
     isBoss: 0
   bank: {fileID: 11400000, guid: dde3abeea4d88e546a3066a1c045dada, type: 2}
   globalLight: {fileID: 1612029104}
@@ -28891,8 +28886,8 @@ RectTransform:
   - {fileID: 23201901}
   - {fileID: 38107357}
   - {fileID: 632541318}
-  - {fileID: 1261227890}
   - {fileID: 531252664}
+  - {fileID: 1261227890}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -30423,6 +30418,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1246099487}
   m_CullTransparentMesh: 1
+--- !u!1 &1248073419 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3530603860763007559, guid: 5df35b6d6b1b38046a03a18bc7f841d5, type: 3}
+  m_PrefabInstance: {fileID: 8594438039435469602}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1249930116
 GameObject:
   m_ObjectHideFlags: 0
@@ -41594,6 +41594,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1769505509335983314, guid: 5df35b6d6b1b38046a03a18bc7f841d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3322002075786855103, guid: 5df35b6d6b1b38046a03a18bc7f841d5, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -41738,7 +41742,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1853430367682393612, guid: 5df35b6d6b1b38046a03a18bc7f841d5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
