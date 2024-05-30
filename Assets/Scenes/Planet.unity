@@ -9787,52 +9787,6 @@ MonoBehaviour:
     radialOrigin: {x: 0, y: 0, z: 0}
     radialRadius: 1
   useFill: 0
---- !u!1 &475645621
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 475645623}
-  - component: {fileID: 475645622}
-  m_Layer: 0
-  m_Name: PauseManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &475645622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 475645621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0137a08c04358a3488c9399779ab3988, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 1248073419}
-  firstSelected: {fileID: 1969103220}
---- !u!4 &475645623
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 475645621}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1958277321}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &480541573
 GameObject:
   m_ObjectHideFlags: 0
@@ -27340,7 +27294,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 475645622}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: PauseGame
         m_Mode: 6
@@ -30418,11 +30372,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1246099487}
   m_CullTransparentMesh: 1
---- !u!1 &1248073419 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3530603860763007559, guid: 5df35b6d6b1b38046a03a18bc7f841d5, type: 3}
-  m_PrefabInstance: {fileID: 8594438039435469602}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1249930116
 GameObject:
   m_ObjectHideFlags: 0
@@ -39709,7 +39658,6 @@ Transform:
   - {fileID: 2027197961}
   - {fileID: 15129404}
   - {fileID: 968670310}
-  - {fileID: 475645623}
   - {fileID: 864999404}
   - {fileID: 1210257086}
   - {fileID: 37161733}
@@ -39799,11 +39747,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3059d081a6bb1eb4e970cb8d6d50a0b4, type: 3}
---- !u!1 &1969103220 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6036335801551171747, guid: 5df35b6d6b1b38046a03a18bc7f841d5, type: 3}
-  m_PrefabInstance: {fileID: 8594438039435469602}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1971137361 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3714776091921501275, guid: 83a724fbd4a53c94d92b716ac7d4e6bd, type: 3}
@@ -40061,7 +40004,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 757684484}
   pauseButton: {fileID: 783938346}
-  pauseMenu: {fileID: 475645622}
+  pauseMenu: {fileID: 0}
   altarUI: {fileID: 23201900}
   altarFirstSelected: {fileID: 1181705401948047792, guid: 71c479d350842b747b991117e1d17dcd, type: 3}
   loseScreen: {fileID: 38107356}
@@ -41573,7 +41516,7 @@ PrefabInstance:
     - target: {fileID: 724713340048635931, guid: 5df35b6d6b1b38046a03a18bc7f841d5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 475645622}
+      objectReference: {fileID: 0}
     - target: {fileID: 862295899674552276, guid: 5df35b6d6b1b38046a03a18bc7f841d5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -41717,7 +41660,7 @@ PrefabInstance:
     - target: {fileID: 8118457863658966358, guid: 5df35b6d6b1b38046a03a18bc7f841d5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 475645622}
+      objectReference: {fileID: 0}
     - target: {fileID: 8165942111656202905, guid: 5df35b6d6b1b38046a03a18bc7f841d5, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -41742,8 +41685,7 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1853430367682393612, guid: 5df35b6d6b1b38046a03a18bc7f841d5, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
