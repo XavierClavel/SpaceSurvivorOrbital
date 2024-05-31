@@ -109,8 +109,6 @@ public class Ennemy : Breakable
         if (childTransform != null)
         {
             SpriteRenderer childSpriteRenderer = childTransform.GetComponent<SpriteRenderer>();
-            overlaydSpriteRenderer = childSpriteRenderer.GetComponent<SpriteRenderer>();
-            
         }
 
         firePs =  Instantiate(ObjectManager.instance.firePS);
@@ -335,7 +333,6 @@ public class Ennemy : Breakable
     private GameObject playerDir;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-    private SpriteRenderer overlaydSpriteRenderer;
     private bool isMovingRight = true;
     private static readonly int IsMovingRight = Animator.StringToHash("IsMovingRight");
 
@@ -371,7 +368,6 @@ public class Ennemy : Breakable
     {
         isMovingRight = !isMovingRight;
         spriteRenderer.flipX = !isMovingRight;
-        overlaydSpriteRenderer.flipX = !isMovingRight;
         
     }
 
