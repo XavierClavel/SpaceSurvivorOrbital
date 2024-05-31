@@ -109,6 +109,7 @@ public class Ennemy : Breakable
         if (childTransform != null)
         {
             SpriteRenderer childSpriteRenderer = childTransform.GetComponent<SpriteRenderer>();
+            
         }
 
         firePs =  Instantiate(ObjectManager.instance.firePS);
