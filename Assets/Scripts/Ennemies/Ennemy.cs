@@ -46,11 +46,6 @@ public class Ennemy : Breakable
     [SerializeField] protected float range = 5f;
     [SerializeField] protected float stateStep = 0.5f;
 
-    [Header("Eyes")]
-    [SerializeField] GameObject eye;
-    [SerializeField] Vector2 leftPosition;
-    [SerializeField] Vector2 rightPosition;
-
     int _health;
     protected int health
     {
@@ -110,7 +105,6 @@ public class Ennemy : Breakable
         if (childTransform != null)
         {
             SpriteRenderer childSpriteRenderer = childTransform.GetComponent<SpriteRenderer>();
-            overlaydSpriteRenderer = childSpriteRenderer.GetComponent<SpriteRenderer>();
             
         }
 
@@ -335,7 +329,6 @@ public class Ennemy : Breakable
     private GameObject playerDir;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-    private SpriteRenderer overlaydSpriteRenderer;
     private bool isMovingRight = true;
     private static readonly int IsMovingRight = Animator.StringToHash("IsMovingRight");
 
@@ -357,13 +350,11 @@ public class Ennemy : Breakable
         {
             animator.SetBool(IsMovingRight, false);
             FlipSprite();
-            eye.transform.position = new Vector2(position.x, position.y) + rightPosition;
         }
         else if (dotProduct < 0 && !isMovingRight)
         {
             animator.SetBool(IsMovingRight, true);
             FlipSprite();
-            eye.transform.position = new Vector2(position.x, position.y) + leftPosition;
         }
         
     }
@@ -371,7 +362,6 @@ public class Ennemy : Breakable
     {
         isMovingRight = !isMovingRight;
         spriteRenderer.flipX = !isMovingRight;
-        overlaydSpriteRenderer.flipX = !isMovingRight;
         
     }
 

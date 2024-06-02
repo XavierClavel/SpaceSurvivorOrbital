@@ -40,8 +40,8 @@ public class Breakable : MonoBehaviour
     public virtual void Hit(HitInfo hitInfo)
     {
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(spriteOverlay.DOColor(Color.white, 0.1f));
-        sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
+        //sequence.Append(spriteOverlay.DOColor(Color.white, 0.1f));
+        //sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
     }
 
 
