@@ -38,7 +38,7 @@ public class DivineLightning : Power, IElecZone
         base.Start();
         instance = this;
         autoCooldown = true;
-        mask = LayerMask.GetMask(Vault.layer.Ennemies);
+        mask = LayerMask.GetMask(Vault.layer.Ennemies, Vault.layer.Resources);
         bigLightning = fullStats.generic.boolC;
 
         if (bigLightning)

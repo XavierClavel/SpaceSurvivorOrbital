@@ -45,7 +45,8 @@ public class Fairy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Ennemy"))
+        Debug.Log("trigger");
+        if (other.CompareTag(Vault.tag.Ennemy) || other.CompareTag(Vault.tag.Resource))
         {
             targets.Add(other.transform);
         }
@@ -53,7 +54,7 @@ public class Fairy : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Ennemy"))
+        if (other.CompareTag(Vault.tag.Ennemy) || other.CompareTag(Vault.tag.Resource))
         {
             targets.Remove(other.transform);
         }
