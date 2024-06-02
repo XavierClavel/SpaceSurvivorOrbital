@@ -72,6 +72,7 @@ public class Ennemy : Breakable
     private float remainingIce = 0f;
 
     WaitForSeconds knockbackWindow;
+    [HideInInspector] public bool doUseKillPs = true;
     
 
     protected override void Start()
@@ -213,7 +214,6 @@ public class Ennemy : Breakable
         onDeath();
         ShakeManager.Shake(shakeIntensity, shakeDuration);
         EventManagers.ennemies.dispatchEvent(v => v.onEnnemyDeath(this));
-        ObjectManager.MonsterKill(this.transform.position);
         Destroy(gameObject);
     }
 

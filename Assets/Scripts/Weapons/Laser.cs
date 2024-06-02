@@ -120,7 +120,7 @@ public class Laser : Interactor
         shockwave = Instantiate(shockwave, player.transform, true);
         shockwave.transform.localScale = Vector3.zero;
         shockwave.transform.localPosition = Vector3.zero;
-        shockwave.Setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement, 0);
+        shockwave.setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement, 0);
 
         laserSfxSource = GetComponent<AudioSource>();
         laserSfxSource.volume = 0f;

@@ -6,12 +6,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggListener
+public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggListener, IEnnemyListener
 {
     [Header("UI")]
     public LayoutManager healthBar;
     [SerializeField] GameObject pauseButton;
-    [SerializeField] PauseMenu pauseMenu;
     [SerializeField] GameObject altarUI;
     [SerializeField] GameObject altarFirstSelected;
     [SerializeField] GameObject loseScreen;
@@ -65,6 +64,8 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
     [SerializeField] private GameObject resourceItemGreen;
     private GameObjectPool poolResourceOrange;
     private GameObjectPool poolResourceGreen;
+    
+    private ComponentPool<ParticleSystem> enemiesExplosionPsPool;
 
 
     public static void DisplaySpaceship()
@@ -132,6 +133,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
         if (Helpers.isPlatformAndroid()) pauseButton.SetActive(true);
         EventManagers.monsterSteles.registerListener(this);
         EventManagers.eggs.registerListener(this);
+        EventManagers.ennemies.registerListener(this);
 
         poolResourceGreen = new GameObjectPool(resourceItemGreen);
         poolResourceOrange = new GameObjectPool(resourceItemOrange);
@@ -142,6 +144,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
         characterDisplay.sprite = DataSelector.getSelectedCharacter().getIcon();
         cam = Camera.main;
         camHalfSize = new Vector3(cam.pixelWidth * 0.5f, cam.pixelHeight * 0.5f, 0);
+        enemiesExplosionPsPool = new ComponentPool<ParticleSystem>(monsterKillPS).setTimer(1f);
     }
 
     public static void recallItemOrange(GameObject go) => instance.poolResourceOrange.recall(go);
@@ -189,14 +192,14 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
     public static void DisplayAltarUI()
     {
         instance.altarUI.SetActive(true);
-        instance.pauseMenu.PauseGame(false);
+        PauseMenu.instance.PauseGame(false);
         InputManager.setSelectedObject(instance.altarFirstSelected);
     }
 
     public static void HideAltarUI()
     {
         instance.altarUI.SetActive(false);
-        instance.pauseMenu.ResumeGame();
+        PauseMenu.instance.ResumeGame();
     }
 
     public static void HitEnnemy(GameObject target, HitInfo hitInfo)
@@ -225,7 +228,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
 
     public static void DisplayLoseScreen()
     {
-        instance.pauseMenu.PauseGame(false);
+        PauseMenu.instance.PauseGame(false);
         instance.loseScreen.SetActive(true);
         InputManager.setSelectedObject(instance.loseScreenFirstSelected);
     }
@@ -239,6 +242,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
         
         EventManagers.eggs.unregisterListener(this);
         EventManagers.monsterSteles.unregisterListener(this);
+        EventManagers.ennemies.unregisterListener(this);
     }
 
     public static PowerDisplay AddPowerDisplay()
@@ -254,6 +258,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
 
     public void onSteleDestroyed(MonsterStele stele)
     {
+        enemiesExplosionPsPool.get(stele.transform.position);
         amountDensDestroyed++;
         amountDens--;
         instance.altarMonsterCurrent.SetText(amountDensDestroyed.ToString());
@@ -303,10 +308,10 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
     public static void SpawnChest(Vector3 position)
     {
         Instantiate(instance.chest, position, Quaternion.identity);
-
     }
-    public static void MonsterKill(Vector3 position)
+    
+    public void onEnnemyDeath(Ennemy ennemy)
     {
-        Instantiate(instance.monsterKillPS, position, Quaternion.identity);
+        if (ennemy.doUseKillPs) enemiesExplosionPsPool.get(ennemy.transform.position);
     }
 }

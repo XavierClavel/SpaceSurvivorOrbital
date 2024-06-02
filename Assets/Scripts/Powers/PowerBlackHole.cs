@@ -125,7 +125,7 @@ public class PowerBlackHole : Power
         
         Shockwave shockwave = instance.poolShockwaves.get(position);
         shockwave
-            .Setup(instance.blackHoleSize * 0.5f, shockwaveDamage, status.none, 0)
+            .setup(instance.blackHoleSize * 0.5f, shockwaveDamage, status.none, 0)
             .setPool(instance.poolShockwaves)
             .setPsPool(instance.poolExplosion)
             .doShockwave(true);

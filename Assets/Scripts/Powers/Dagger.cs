@@ -97,7 +97,7 @@ public class Dagger : Power
                 explosionPool.get(bullet.transform.position).Play();
                 SoundManager.PlaySfx(transform, key: "Ghost_Explode");
                 Shockwave shockwave = shockwavePool.get(bullet.transform.position);
-                shockwave.Setup(2f, 10, status.none, 0);
+                shockwave.setup(2f, 10, status.none, 0);
                 shockwave.setRecallMethod(delegate { shockwavePool.recall(shockwave); });
                 shockwave.doShockwave(true);
             });

@@ -2,26 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Serialization;
 
 public class Bomber : Ennemy
 {
     enum state { exploding, approaching }
     state ennemyState = state.approaching;
     [SerializeField] float explosionRadius;
-    [SerializeField] float explosionStartDistance;
+    [SerializeField] float explosionTriggerDistance;
     [SerializeField] float timeBeforeExplosion;
     [SerializeField] ParticleSystem explosionPS;
     WaitForSeconds waitExplosion;
-    float sqrExplosionStartDistance;
+    float sqrExplosionTriggerDistance;
     float currentSpeed;
     int playerLayer;
 
     protected override void Start()
     {
         base.Start();
-
+        
+        doUseKillPs = false;
         waitExplosion = Helpers.getWait(timeBeforeExplosion);
-        sqrExplosionStartDistance = Mathf.Pow(explosionStartDistance, 2);
+        sqrExplosionTriggerDistance = Mathf.Pow(explosionTriggerDistance, 2);
         playerLayer = LayerMask.GetMask(Vault.layer.Player);
 
 
@@ -33,26 +35,29 @@ public class Bomber : Ennemy
         while (true)
         {
             yield return waitStateStep;
-            float sqrDistance = distanceToPlayer.sqrMagnitude;
 
-            if (sqrDistance < sqrExplosionStartDistance)
+            if (distanceToPlayer.sqrMagnitude < sqrExplosionTriggerDistance)
             {
                 ennemyState = state.exploding;
+                //rb.velocity = Vector2.zero;
+                DOTween.To(() => rb.velocity, x => rb.velocity = x, Vector2.zero, 0.1f).SetEase(Ease.InQuad);
                 yield return waitExplosion;
-                Helpers.SpawnPS(transform, explosionPS);
-                //TODO : replace with overlapcircleall
-                RaycastHit2D hit = Physics2D.CircleCast(transform.position, explosionRadius, Vector2.zero, 1f, playerLayer);
-                if (hit) PlayerController.Hurt(baseDamage);
-
-                Destroy(gameObject);
-                continue;
+                Explode();
+                break;
             }
 
 
             ennemyState = state.approaching;
             DOTween.To(() => currentSpeed, x => currentSpeed = x, speed, 0.5f).SetEase(Ease.InQuad);
-            continue;
         }
+    }
+
+    private void Explode()
+    {
+        ShockwaveManager.SpawnShockwave("Bomber", transform.position, explosionRadius);
+        //var hits = Physics2D.OverlapCircleAll(transform.position, explosionRadius, playerLayer);
+        //if (hits.Length > 0) PlayerController.Hurt(baseDamage);
+        Death();
     }
 
     protected override void FixedUpdate()

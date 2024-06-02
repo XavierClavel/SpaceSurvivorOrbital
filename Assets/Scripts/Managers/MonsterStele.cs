@@ -44,7 +44,6 @@ public class MonsterStele : Breakable
         ObjectManager.dictObjectToEnnemy.Remove(gameObject);
         ObjectManager.unregisterHitable(gameObject);
         SoundManager.PlaySfx(transform, key: "Spawn_Destroy");
-        ObjectManager.MonsterKill(this.transform.position);
         Destroy(gameObject);
     }
 

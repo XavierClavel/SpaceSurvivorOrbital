@@ -101,8 +101,8 @@ public class PowerGhost : Power, IEnnemyListener
     {
         Shockwave shockwaveGhost = instance.poolShockwaves.get(position);
         shockwaveGhost.transform.localScale = Vector3.zero;
-        if (bigGhost) shockwaveGhost.Setup(2f * shockwaveMaxRange, 2 * shockwaveDamage, shockwaveElement, 0);
-        else shockwaveGhost.Setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement, 0);
+        if (bigGhost) shockwaveGhost.setup(2f * shockwaveMaxRange, 2 * shockwaveDamage, shockwaveElement, 0);
+        else shockwaveGhost.setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement, 0);
         shockwaveGhost.setRecallMethod(delegate
         {
             PowerGhost.recallShockwave(shockwaveGhost);

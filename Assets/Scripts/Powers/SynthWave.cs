@@ -41,14 +41,14 @@ public class SynthWave : Power, IPlayerEvents
         if (doubleShockwave)
         {
             shockwave2 = Instantiate(shockwave, player.transform, true);
-            shockwave2.Setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement, shockwaveKnockback);
+            shockwave2.setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement, shockwaveKnockback);
             shockwave2.gameObject.name = "Synthwave2";
         }
 
         if (isProtectingWaveActive)
         {
             protectingShockwave = Instantiate(shockwave, player.transform, true);
-            protectingShockwave.Setup(
+            protectingShockwave.setup(
                 ConstantsData.protectingWaveRange, 
                 ConstantsData.protectingWaveDamage, 
                 shockwaveElement, 
@@ -57,7 +57,7 @@ public class SynthWave : Power, IPlayerEvents
         }
         
         shockwave = Instantiate(shockwave, player.transform, true);
-        shockwave.Setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement, shockwaveKnockback);
+        shockwave.setup(shockwaveMaxRange, shockwaveDamage, shockwaveElement, shockwaveKnockback);
         shockwave.gameObject.name = "Synthwave1";
 
         InvokeRepeating(nameof(DoFirstWave), 0f, stats.cooldown);

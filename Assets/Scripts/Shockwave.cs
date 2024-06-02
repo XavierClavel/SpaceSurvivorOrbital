@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Shapes;
@@ -29,7 +27,7 @@ public class Shockwave : MonoBehaviour
         _ispsNotNull = ps != null;
     }
 
-    public Shockwave Setup(float shockwaveRange, int shockwaveDamage, status effect, int shockwaveKnockback)
+    public Shockwave setup(float shockwaveRange, int shockwaveDamage, status effect, int shockwaveKnockback)
     {
         this.shockwaveRange = shockwaveRange;
         this.shockwaveDamage = shockwaveDamage;
@@ -100,7 +98,11 @@ public class Shockwave : MonoBehaviour
         objectsHit.Add(other.gameObject);
         
         HitInfo hitInfo = new HitInfo(shockwaveDamage, false, effect, shockwaveKnockback);
-        ObjectManager.retrieveHitable(other.gameObject)?.Hit(hitInfo);
+        var hit = ObjectManager.retrieveHitable(other.gameObject);
+        if (hit == null)
+        {
+            if (other.gameObject.CompareTag(Vault.tag.Player)) PlayerController.Hurt(hitInfo.damage);
+        } else hit.Hit(hitInfo);
         
     }
 }
