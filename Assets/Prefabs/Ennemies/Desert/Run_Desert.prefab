@@ -1,92 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2798053312252618357
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 257875017073979136}
-  - component: {fileID: 6613722005870879612}
-  m_Layer: 0
-  m_Name: Eye
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &257875017073979136
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2798053312252618357}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.05, y: 0.154, z: -0.018}
-  m_LocalScale: {x: 0.34999996, y: 0.34999996, z: 0.34999996}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 7708512952225962535}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6613722005870879612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2798053312252618357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ComponentVersion: 1
-  m_LightType: 1
-  m_BlendStyleIndex: 0
-  m_FalloffIntensity: 1
-  m_Color: {r: 0.9960785, g: 0.9960785, b: 0, a: 1}
-  m_Intensity: 5
-  m_LightVolumeIntensity: 1
-  m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 000000000162dca3
-  m_LightCookieSprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_DeprecatedPointLightCookieSprite: {fileID: 0}
-  m_LightOrder: 5
-  m_AlphaBlendOnOverlap: 0
-  m_OverlapOperation: 0
-  m_NormalMapDistance: 3
-  m_NormalMapQuality: 2
-  m_UseNormalMap: 0
-  m_ShadowIntensityEnabled: 0
-  m_ShadowIntensity: 0.75
-  m_ShadowVolumeIntensityEnabled: 0
-  m_ShadowVolumeIntensity: 0.75
-  m_LocalBounds:
-    m_Center: {x: 0.034149945, y: -0.01730001, z: 0}
-    m_Extent: {x: 1.9547501, y: 1.9633, z: 0}
-  m_PointLightInnerAngle: 360
-  m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 1
-  m_ShapeLightParametricSides: 5
-  m_ShapeLightParametricAngleOffset: 0
-  m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 1.5
-  m_ShapeLightFalloffOffset: {x: 0, y: 0}
-  m_ShapePath:
-  - {x: -0.26933897, y: -0.3558368, z: -0.0000000022366748}
-  - {x: -0.011993345, y: -0.47500515, z: -0.000000045492925}
-  - {x: 0.3558365, y: -0.35583678, z: -0.0000000022366748}
-  - {x: 0.492578, y: -0.10018078, z: -0.000000045492925}
-  - {x: 0.44233483, y: 0.26933885, z: -0.0000000022366748}
-  - {x: 0.13216971, y: 0.44763938, z: -0.000000045492925}
-  - {x: -0.1972571, y: 0.38466936, z: -0.0000000022366748}
-  - {x: -0.41565046, y: 0.11606404, z: -0.000000045492925}
-  - {x: -0.38681775, y: -0.1722624, z: -0.000000045492925}
 --- !u!1 &5229445213038072030
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +36,6 @@ Transform:
   - {fileID: 5651816451690317730}
   - {fileID: 6086199259163406531}
   - {fileID: 1226665855677559177}
-  - {fileID: 257875017073979136}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -150,9 +62,6 @@ MonoBehaviour:
   cooldown: 1
   range: 5
   stateStep: 0.5
-  eye: {fileID: 2798053312252618357}
-  leftPosition: {x: -0.05, y: 0.147}
-  rightPosition: {x: 0.2, y: 0.147}
   onDestroyPS: {fileID: 0}
 --- !u!50 &1354966217800568121
 Rigidbody2D:
