@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,12 +6,17 @@ public class TimerSlider : MonoBehaviour
 {
     public Slider timerSlider; // Associez ceci avec le Slider dans l'inspecteur
     public float timerDuration = 10f; // Durée du timer en secondes
+    public TextMeshProUGUI difficultyText;
+    public int difficulty;
 
     private float timer;
     private bool isTimerRunning = false;
 
     void Start()
     {
+        timerDuration = ConstantsData.timerDuration;
+        difficulty = PlanetSelector.getDifficulty();
+
         if (timerSlider != null)
         {
             timerSlider.maxValue = timerDuration;
@@ -25,6 +31,8 @@ public class TimerSlider : MonoBehaviour
 
     void Update()
     {
+        difficultyText.text = difficulty.ToString();
+
         if (isTimerRunning)
         {
             if (timer > 0)

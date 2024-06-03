@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEditor;
 
 public enum playerState { idle, walking, shooting, mining };
 public enum playerDirection { front, left, back, right };
@@ -33,6 +34,9 @@ public class PlayerController : MonoBehaviour, IResourcesListener
     [Header("Particle Systems")]
     [SerializeField] ParticleSystem boostAttack;
     [SerializeField] ParticleSystem boostSpeed;
+    [SerializeField] public ParticleSystem upGreen;
+    [SerializeField] public ParticleSystem upYellow;
+    [SerializeField] public ParticleSystem upBlue;
     [SerializeField] private ParticleSystem shieldUp;
     [SerializeField] private ParticleSystem shieldDown;
 

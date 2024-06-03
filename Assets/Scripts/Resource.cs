@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.Events;
 
-public enum type {orange, green }
+public enum type {orange, green, blue }
 
 public class Resource : Breakable
 {

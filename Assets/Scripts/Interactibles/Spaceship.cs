@@ -91,7 +91,8 @@ public class Spaceship : MonoBehaviour, IInteractable
         PlayerManager.setCurrentDamage(PlayerController.instance.health, PlayerController.instance.maxHealth);
         PlayerManager.setPartialResourceGreen(ObjectManager.instance.sliderGreen.getValue());
         PlayerManager.setPartialResourceOrange(ObjectManager.instance.sliderOrange.getValue());
-        
+        PlayerManager.setPartialResourceBlue(ObjectManager.instance.sliderBlue.getValue());
+
         SceneTransitionManager.TransitionToScene(destination);
     }
 

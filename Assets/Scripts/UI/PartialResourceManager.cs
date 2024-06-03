@@ -18,6 +18,10 @@ public class PartialResourceManager : ShapesSlider, IResourcesListener
             case resourceType.orange:
                 currentValue = PlayerManager.getPartialResourceOrange();
                 break;
+
+            case resourceType.blue:
+                currentValue = PlayerManager.getPartialResourceBlue();
+                break;
         }
 
         setValue(currentValue);
@@ -40,6 +44,10 @@ public class PartialResourceManager : ShapesSlider, IResourcesListener
             
             case resourceType.orange:
                 PlayerManager.GatherResourceOrange();
+                break;
+
+            case resourceType.blue:
+                PlayerManager.GatherResourceBlue();
                 break;
         }
     }

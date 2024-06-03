@@ -26,6 +26,7 @@ public static class PlayerManager
     public static int filledGreen { get; private set; }
     public static int filledOrange { get; private set; }
     public static int amountBlue { get; private set; }
+    public static int filledBlue { get; private set; }
 
     public static bool isPlayingWithGamepad { get; private set; }
     public static int currentTimer { get; set; }
@@ -84,6 +85,7 @@ public static class PlayerManager
         amountOrange = 0;
         filledGreen = 0;
         filledOrange = 0;
+        filledBlue = 0;
         damageTaken = 0;
         currentTimer = 0;
         saveSouls();
@@ -107,10 +109,19 @@ public static class PlayerManager
         EventManagers.fullResources.dispatchEvent(it => it.onFullResourceAmountChange(resourceType.orange, amountOrange));
     }
 
+    public static void GatherResourceBlue()
+    {
+        amountBlue++;
+        EventManagers.fullResources.dispatchEvent(it => it.onFullResourceAmountChange(resourceType.blue, amountBlue));
+    }
+
+
     public static void setPartialResourceGreen(int value) => filledGreen = value;
     public static int getPartialResourceGreen() =>  filledGreen;
     public static void setPartialResourceOrange(int value) => filledOrange = value;
     public static int getPartialResourceOrange() => filledOrange;
+    public static void setPartialResourceBlue(int value) => filledBlue = value;
+    public static int getPartialResourceBlue() => filledBlue;
 
 
     public static void SetControlMode(bool boolean) => isPlayingWithGamepad = boolean;
@@ -162,7 +173,7 @@ public static class PlayerManager
 
     public static bool isFullBlue() =>
         amountBlue >= PlayerManager.playerData.resources.maxBlue + BonusManager.current.getBonusStock();
-
+        
     public static PlayerData getPlayerData(string key)
     {
         if (key == weapon.getKey()) return weaponData;

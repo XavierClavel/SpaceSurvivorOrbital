@@ -23,7 +23,8 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
     public Slider reloadSlider;
     public PartialResourceManager sliderOrange;
     public PartialResourceManager sliderGreen;
-    
+    public PartialResourceManager sliderBlue;
+
     [SerializeField] public TextMeshProUGUI altarMonsterTotal;
     [SerializeField] public TextMeshProUGUI altarMonsterCurrent;
     [SerializeField] private Image characterDisplay;
@@ -62,9 +63,11 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
     [Header("Prefabs")] 
     [SerializeField] private GameObject resourceItemOrange;
     [SerializeField] private GameObject resourceItemGreen;
+    [SerializeField] private GameObject resourceItemBlue;
     private GameObjectPool poolResourceOrange;
     private GameObjectPool poolResourceGreen;
-    
+    private GameObjectPool poolResourceBlue;
+
     private ComponentPool<ParticleSystem> enemiesExplosionPsPool;
 
 
@@ -95,9 +98,9 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
         amountEggs--;
         if (amountEggs > 0) return;
         
-        PlayerManager.AcquireUpgradePoint();
-        SoundManager.PlaySfx(PlayerController.instance.transform, key: "Collectible_Blue");
-        UpgradeUpDisplay();
+        //PlayerManager.AcquireUpgradePoint();
+        //SoundManager.PlaySfx(PlayerController.instance.transform, key: "Collectible_Blue");
+        //UpgradeUpDisplay();
     }
 
     private static void UpgradeUpDisplay()
@@ -137,6 +140,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
 
         poolResourceGreen = new GameObjectPool(resourceItemGreen);
         poolResourceOrange = new GameObjectPool(resourceItemOrange);
+        poolResourceBlue = new GameObjectPool(resourceItemBlue);
     }
 
     private void Start()
@@ -149,6 +153,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
 
     public static void recallItemOrange(GameObject go) => instance.poolResourceOrange.recall(go);
     public static void recallItemGreen(GameObject go) => instance.poolResourceGreen.recall(go);
+    public static void recallItemBlue(GameObject go) => instance.poolResourceBlue.recall(go);
 
     public static void SpawnResourcesOrange(Vector3 position, int amount)
     {
@@ -158,7 +163,6 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
         }
     }
     
-    
     public static void SpawnResourcesGreen(Vector3 position, int amount)
     {
         for (int i = 0; i < amount; i++)
@@ -167,10 +171,19 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
         }
     }
 
+    public static void SpawnResourcesBlue(Vector3 position, int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            instance.poolResourceBlue.get(position + instance.randomPos());
+        }
+    }
+
     public static void SpawnResources(type resourceType, Vector3 position, int amount)
     {
         if (resourceType == type.green) SpawnResourcesGreen(position, amount);
         else if (resourceType == type.orange) SpawnResourcesOrange(position, amount);
+        else if (resourceType == type.blue) SpawnResourcesBlue(position, amount);
         ResourcesAttractor.ForceUpdate();
     }
     

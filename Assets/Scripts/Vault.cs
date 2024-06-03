@@ -80,6 +80,7 @@ public static class Vault
 
         public const string GreenCollectible = "GreenCollectible";
         public const string OrangeCollectible = "OrangeCollectible";
+        public const string BlueCollectible = "BlueCollectible";
     }
 
     public static class baseStats

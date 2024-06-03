@@ -4,6 +4,7 @@ using UnityEngine;
 public class FullResourceDisplay : DiscreteBarHandler, IFullResourcesListener
 {
     [SerializeField] private resourceType type;
+    [SerializeField] PlayerController player;
 
     private void Start()
     {
@@ -28,6 +29,16 @@ public class FullResourceDisplay : DiscreteBarHandler, IFullResourcesListener
     {
         if (this.type != type) return;
         setAmount(amount);
+        if (type == resourceType.blue)
+        {
+            player.upBlue.Play();
+        } else if (type == resourceType.green)
+        {
+            player.upGreen.Play();
+        } else if (type == resourceType.orange)
+        {
+            player.upYellow.Play();
+        }
     }
 
     private void OnDestroy()

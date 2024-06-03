@@ -39,6 +39,11 @@ public class ResourcesAttractor : MonoBehaviour
                 ObjectManager.recallItemOrange(other.gameObject);
                 EventManagers.resources.dispatchEvent(v => v.onResourcePickup(resourceType.orange));
                 break;
+
+            case Vault.tag.BlueCollectible:
+                ObjectManager.recallItemBlue(other.gameObject);
+                EventManagers.resources.dispatchEvent(v => v.onResourcePickup(resourceType.blue));
+                break;
         }
     }
 
