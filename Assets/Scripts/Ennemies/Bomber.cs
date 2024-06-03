@@ -12,6 +12,7 @@ public class Bomber : Ennemy
     [SerializeField] float explosionTriggerDistance;
     [SerializeField] float timeBeforeExplosion;
     [SerializeField] ParticleSystem explosionPS;
+    public GameObject explosionZone;
     WaitForSeconds waitExplosion;
     float sqrExplosionTriggerDistance;
     float currentSpeed;
@@ -41,6 +42,7 @@ public class Bomber : Ennemy
                 ennemyState = state.exploding;
                 //rb.velocity = Vector2.zero;
                 DOTween.To(() => rb.velocity, x => rb.velocity = x, Vector2.zero, 0.1f).SetEase(Ease.InQuad);
+                explosionZone.SetActive(true);
                 yield return waitExplosion;
                 Explode();
                 break;

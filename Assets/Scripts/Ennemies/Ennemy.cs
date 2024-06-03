@@ -362,6 +362,7 @@ public class Ennemy : Breakable
     {
         isMovingRight = !isMovingRight;
         spriteRenderer.flipX = !isMovingRight;
+        spriteOverlay.flipX = !isMovingRight;
         
     }
 

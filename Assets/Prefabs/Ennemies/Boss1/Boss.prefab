@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1877185000162180433
@@ -255,11 +255,9 @@ MonoBehaviour:
   cooldown: 1
   range: 5
   stateStep: 0.5
-  eye: {fileID: 0}
-  leftPosition: {x: 0, y: 0}
-  rightPosition: {x: 0, y: 0}
+  doUseKillPs: 1
   onDestroyPS: {fileID: 0}
-  bulletPrefab: {fileID: 4478075856262805781, guid: b94a09e0af94d4141bd4eb8da15cf574, type: 3}
+  bulletPrefab: {fileID: 4478075856262805781, guid: e70061343b2ab414184476ab2880ba96, type: 3}
   waveExplosionPS: {fileID: 1593523308183974145}
   maxHealthStat: 600
   isBoss: 1
