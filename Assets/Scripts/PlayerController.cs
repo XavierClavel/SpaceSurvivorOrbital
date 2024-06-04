@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using TMPro;
 using UnityEngine.EventSystems;
-using UnityEditor;
 
 public enum playerState { idle, walking, shooting, mining };
 public enum playerDirection { front, left, back, right };

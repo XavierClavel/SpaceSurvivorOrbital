@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Rendering.UI;
+using Random = UnityEngine.Random;
 
-public class Spawner : MonoBehaviour
+public class Spawner : MonoBehaviour, IDifficultyListener
 {
     [SerializeField] TilesBankManager tilesBankManager;
     [SerializeField] private Boss boss;
@@ -30,19 +31,42 @@ public class Spawner : MonoBehaviour
     float waveDuration;
     List<EntitySpawnInstance<Ennemy>> ennemiesToSpawnList = new List<EntitySpawnInstance<Ennemy>>();
 
-    private int difficulty;
-
     int wallet;
     EntitySpawnInstanceComparer<Ennemy> comparer = new EntitySpawnInstanceComparer<Ennemy>();
     
 
     protected void Start()
     {
-        if (PlayerManager.isTuto)
+        if (PlayerManager.isTuto) return;
+        
+        initializeSpawnParams(PlanetSelector.getDifficulty());
+        EventManagers.difficulty.registerListener(this);
+        
+        Debug.Log($"Difficulty : {PlanetSelector.getDifficulty()}");
+        Debug.Log($"Wallet : {wallet}");
+        
+        ennemyPrefabs = tilesBankManager.GetEnnemies();
+        //Debug.Log(tilesBankManager.GetEnnemies().Count);
+
+        if (!DebugManager.doNoEnnemySpawn())
         {
-            return;
+            StartCoroutine(nameof(SpawnController));
         }
-        difficulty = PlanetSelector.getDifficulty();
+
+        if (PlanetManager.isBoss() || DebugManager.doSpawnBossOnStart())
+        {
+            Debug.Log("Boss spawned");
+            SpawnEnnemy(boss);   
+        }
+    }
+
+    private void OnDestroy()
+    {
+        EventManagers.difficulty.unregisterListener(this);
+    }
+
+    private void initializeSpawnParams(int difficulty)
+    {
         spawnData = DataManager.dictDifficulty[difficulty.ToString()];
 
         wallet = spawnData.baseCost * PlanetManager.getSizeCategory() switch
@@ -52,6 +76,27 @@ public class Spawner : MonoBehaviour
             planetSize.small => baseCostSmall,
             _ => baseCostMedium
         };
+        
+        waveDuration = PlanetManager.getSizeCategory() switch
+        {
+            planetSize.large => waveDurationLarge,
+            planetSize.medium => waveDurationMedium,
+            planetSize.small => waveDurationSmall,
+            _ => waveDurationMedium
+        };
+
+        increment = spawnData.increment * PlanetManager.getSizeCategory() switch
+        {
+            planetSize.large => incrementLarge,
+            planetSize.medium => incrementMedium,
+            planetSize.small => incrementSmall,
+            _ => incrementMedium
+        };
+    }
+
+    private void updateSpawnParams(int difficulty)
+    {
+        spawnData = DataManager.dictDifficulty[difficulty.ToString()];
 
         waveDuration = PlanetManager.getSizeCategory() switch
         {
@@ -68,23 +113,6 @@ public class Spawner : MonoBehaviour
             planetSize.small => incrementSmall,
             _ => incrementMedium
         };
-        
-        Debug.Log($"Difficulty : {difficulty}");
-        Debug.Log($"Wallet : {wallet}");
-        
-        ennemyPrefabs = tilesBankManager.GetEnnemies();
-        //Debug.Log(tilesBankManager.GetEnnemies().Count);
-
-        if (!DebugManager.doNoEnnemySpawn())
-        {
-            StartCoroutine(nameof(SpawnController));
-        }
-
-        if (PlanetManager.isBoss() || DebugManager.doSpawnBossOnStart())
-        {
-            Debug.Log("Boss spawned");
-            SpawnEnnemy(boss);   
-        }
     }
 
 
@@ -166,6 +194,10 @@ public class Spawner : MonoBehaviour
     }
 
 
+    public void onDifficultyChange(int value)
+    {
+        updateSpawnParams(value);
+    }
 }
 
 public class EntitySpawnInstance<T>
