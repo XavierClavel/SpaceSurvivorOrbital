@@ -102,6 +102,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
     public Transform pointerLeft;
     public Vector2 moveDir;
     private Camera cam;
+    private bool playerDead;
 
     [Header("UI")] 
     [SerializeField] private TextMeshProUGUI soulsDisplay;
@@ -185,8 +186,12 @@ public class PlayerController : MonoBehaviour, IResourcesListener
      */
     private void takeDamage()
     {
-        hit.Play();
-        freezer.FreezeScreen(0.5f);
+        if (!playerDead)
+        {
+            hit.Play();
+            freezer.FreezeScreen(0.5f);
+        }
+
 
         if (shieldsAmount > 0)
         {
@@ -344,6 +349,8 @@ public class PlayerController : MonoBehaviour, IResourcesListener
 
         footstepsWait = new WaitForSeconds(ConstantsData.audioFootstepInterval);
         StartCoroutine(nameof(PlayFootsteps));
+
+        playerDead = false;
         
         EventManagers.resources.registerListener(this);
 
@@ -515,6 +522,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         }
         if (avoidDeath) return;
         cinemachineCamera.enabled = false;
+        playerDead = true;
         ObjectManager.DisplayLoseScreen();
     }
     
