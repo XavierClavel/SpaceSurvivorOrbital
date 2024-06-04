@@ -87,7 +87,6 @@ public static class ResetManager
         DataSelector.Reset();
         PlayerManager.Reset();
         PlanetSelectionManager.GenerateData();
-        PlanetSelector.ResetDifficulty();
         Planet.Reset();
         UpgradesDisplayManager.Reset();
     }

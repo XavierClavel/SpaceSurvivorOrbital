@@ -31,6 +31,7 @@ public static class PlayerManager
     public static bool isPlayingWithGamepad { get; private set; }
     public static int currentTimer { get; set; }
     public static int damageTaken = 0;
+    private static int globalDifficulty = 0;
 
     public static List<PowerHandler> powers = new List<PowerHandler>();
     public static List<EquipmentHandler> equipments = new List<EquipmentHandler>();
@@ -60,6 +61,26 @@ public static class PlayerManager
     {
         damageTaken = maxHealth - health;
     }
+    
+    public static void increaseDifficulty(bool onPlanet = false)
+    {
+        if (globalDifficulty >= DataManager.dictDifficulty.Keys.Count) return;
+        globalDifficulty++;
+        EventManagers.difficulty.getListeners().ForEach(it => it.onDifficultyChange(globalDifficulty));
+        if (onPlanet)
+        {
+            //Instantiate(ObjectManager.instance.difficultyPS, PlayerController.instance.transform);
+            //SoundManager.PlaySfx(PlayerController.instance.transform, key: "Difficulty_Up");
+        }
+        Debug.Log($"Difficulty increased, now {globalDifficulty}");
+    }
+
+    public static void resetDifficulty()
+    {
+        globalDifficulty = 0;
+    }
+
+    public static int getDifficulty() => globalDifficulty;
 
 
     public static void setWeapon(PlayerData interactorData, WeaponHandler weaponHandler)
@@ -88,6 +109,7 @@ public static class PlayerManager
         filledBlue = 0;
         damageTaken = 0;
         currentTimer = 0;
+        globalDifficulty = 0;
         saveSouls();
 
         playerData.setBase();

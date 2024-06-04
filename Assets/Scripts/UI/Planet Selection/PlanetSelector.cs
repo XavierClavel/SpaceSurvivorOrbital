@@ -20,30 +20,10 @@ public class PlanetSelector : MonoBehaviour
     public Sprite shop;
     public Sprite shopArtefact;
 
-    [Header("Parameters")]
-    public static int globalDifficulty = 0;
-
-    public static void IncreaseDifficulty(bool onPlanet = false)
-    {
-        if (globalDifficulty >= DataManager.dictDifficulty.Keys.Count) return;
-        globalDifficulty++;
-        if (onPlanet)
-        {
-            //Instantiate(ObjectManager.instance.difficultyPS, PlayerController.instance.transform);
-            //SoundManager.PlaySfx(PlayerController.instance.transform, key: "Difficulty_Up");
-        }
-        Debug.Log($"Difficulty increased, now {globalDifficulty}");
-    }
-
-    public static void ResetDifficulty()
-    {
-        globalDifficulty = 0;
-    }
-
     private void Awake()
     {
         instance = this;
-        IncreaseDifficulty();
+        PlayerManager.increaseDifficulty();
         InputManager.setSelectedObject(firstSelected);
     }
 
@@ -65,9 +45,9 @@ public class PlanetSelector : MonoBehaviour
     {
         if (DebugManager.instance == null)
         {
-            return globalDifficulty;
+            return PlayerManager.getDifficulty();
         }
-        return DebugManager.doOverrideDifficulty() ? DebugManager.getDebugDifficulty() : globalDifficulty;
+        return DebugManager.doOverrideDifficulty() ? DebugManager.getDebugDifficulty() : PlayerManager.getDifficulty();
     }
 
 }

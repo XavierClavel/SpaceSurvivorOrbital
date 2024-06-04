@@ -1,13 +1,13 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimerSlider : MonoBehaviour
+public class TimerSlider : MonoBehaviour, IDifficultyListener
 {
     public Slider timerSlider; // Associez ceci avec le Slider dans l'inspecteur
     public float timerDuration = 10f; // Durée du timer en secondes
     public TextMeshProUGUI difficultyText;
-    public int difficulty;
 
     private float timer;
     private bool isTimerRunning = false;
@@ -15,12 +15,13 @@ public class TimerSlider : MonoBehaviour
     void Start()
     {
         timerDuration = ConstantsData.timerDuration;
-        difficulty = PlanetSelector.getDifficulty();
 
         if (timerSlider != null)
         {
             timerSlider.maxValue = timerDuration;
-            ResetTimer();
+            resetTimer();
+            difficultyText.text = PlayerManager.getDifficulty().ToString();
+            EventManagers.difficulty.registerListener(this);
             isTimerRunning = true;
         }
         else
@@ -29,29 +30,41 @@ public class TimerSlider : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        EventManagers.difficulty.unregisterListener(this);
+    }
+
     void Update()
     {
-        difficultyText.text = difficulty.ToString();
-
-        if (isTimerRunning)
+        if (!isTimerRunning) return;
+        if (timer > 0)
         {
-            if (timer > 0)
-            {
-                timer -= Time.deltaTime;
-                timerSlider.value = timer;
-            }
-            else
-            {
-                isTimerRunning = false;
-                Invoke(nameof(ResetTimer), 0); // Réinitialiser le timer après affichage du message
-            }
+            timer -= Time.deltaTime;
+            timerSlider.value = timer;
+        }
+        else
+        {
+            isTimerRunning = false;
+            onTimerEnd();
+            resetTimer(); // Réinitialiser le timer après affichage du message
         }
     }
 
-    private void ResetTimer()
+    private void onTimerEnd()
+    {
+        PlayerManager.increaseDifficulty();
+    }
+
+    private void resetTimer()
     {
         timer = timerDuration;
         timerSlider.value = timerDuration;
         isTimerRunning = true;
+    }
+
+    public void onDifficultyChange(int value)
+    {
+        difficultyText.text = value.ToString();
     }
 }
