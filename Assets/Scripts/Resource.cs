@@ -20,6 +20,7 @@ public class Resource : Breakable
     private bool isDestroy = false;
     private new GameObject spriteOverlay;
     public Collider2D myCollider;
+    public ParticleSystem hitPS;
     
     [HideInInspector] public Vector2Int dropInterval;
     int _health;
@@ -60,6 +61,7 @@ public class Resource : Breakable
     {
         base.Hit(hitInfo);
         SoundManager.PlaySfx(transform, key: "Eggs");
+        hitPS.Play();
         health -= hitInfo.damage;
     }
     

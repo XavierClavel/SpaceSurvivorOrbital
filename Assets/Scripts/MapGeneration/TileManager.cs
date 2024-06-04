@@ -354,10 +354,10 @@ public class TileManager : MonoBehaviour
             ground.transform.position = worldPosition;
             int x = Mathf.Abs(position.x);
             int y = Mathf.Abs(position.y);
-            if (x >= 3 || y >= 3) {
+            if (x >= 4 || y >= 4) {
                 ground.color = bank.groundColor3;
                 ground.sortingOrder = -13;
-            } else if (x >= 2 || y >= 2) {
+            } else if (x >= 3 || y >= 3) {
                 ground.color = bank.groundColor2;
                 ground.sortingOrder = -12;
             } else

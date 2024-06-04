@@ -24,9 +24,9 @@ public static class PlanetManager
     {
         return planetData.size switch
         {
-            planetSize.small => 3,
-            planetSize.medium => 5,
-            planetSize.large => 7,
+            planetSize.small => 5,
+            planetSize.medium => 7,
+            planetSize.large => 9,
             _ => 1
         };
     }
