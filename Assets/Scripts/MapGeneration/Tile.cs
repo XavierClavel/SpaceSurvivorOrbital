@@ -52,7 +52,15 @@ public class Tile : ScriptableObject
 
     public GameObject getTileObject()
     {
-        return tileObjects.getRandom();
+        try
+        {
+            return tileObjects.getRandom();
+        }
+        catch (Exception e)
+        {
+            throw new Exception($"Tile {name} has no tile objects defined");
+        }
+        
     }
 
 
