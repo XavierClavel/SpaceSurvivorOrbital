@@ -193,9 +193,45 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2549737077677268514}
     m_Modifications:
+    - target: {fileID: 86132908673312449, guid: d1e1a7e4594378e478617de584654938, type: 3}
+      propertyPath: m_Size.y
+      value: 3.1173449
+      objectReference: {fileID: 0}
+    - target: {fileID: 86132908673312449, guid: d1e1a7e4594378e478617de584654938, type: 3}
+      propertyPath: m_Offset.y
+      value: -3.7904162
+      objectReference: {fileID: 0}
+    - target: {fileID: 149314782580934144, guid: d1e1a7e4594378e478617de584654938, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 3749727377325657067, guid: d1e1a7e4594378e478617de584654938, type: 3}
+      propertyPath: m_Size.y
+      value: 3.618636
+      objectReference: {fileID: 0}
+    - target: {fileID: 3749727377325657067, guid: d1e1a7e4594378e478617de584654938, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.1970985
+      objectReference: {fileID: 0}
+    - target: {fileID: 3749727377325657067, guid: d1e1a7e4594378e478617de584654938, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.56894815
+      objectReference: {fileID: 0}
     - target: {fileID: 4075011832171386200, guid: d1e1a7e4594378e478617de584654938, type: 3}
       propertyPath: m_RootOrder
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4075011832171386200, guid: d1e1a7e4594378e478617de584654938, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4075011832171386200, guid: d1e1a7e4594378e478617de584654938, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4075011832171386200, guid: d1e1a7e4594378e478617de584654938, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4075011832171386200, guid: d1e1a7e4594378e478617de584654938, type: 3}
       propertyPath: m_LocalPosition.x
@@ -241,11 +277,76 @@ PrefabInstance:
       propertyPath: m_Name
       value: Autel_Desert
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3749727377325657067, guid: d1e1a7e4594378e478617de584654938, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4663566305219669830, guid: d1e1a7e4594378e478617de584654938, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6822087554479994934}
+    - targetCorrespondingSourceObject: {fileID: 4663566305219669830, guid: d1e1a7e4594378e478617de584654938, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 63558500828260446}
   m_SourcePrefab: {fileID: 100100000, guid: d1e1a7e4594378e478617de584654938, type: 3}
+--- !u!1 &342069006934593106 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4663566305219669830, guid: d1e1a7e4594378e478617de584654938, type: 3}
+  m_PrefabInstance: {fileID: 4901909996496265492}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6822087554479994934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342069006934593106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29dec4deceb073849ae3f69dd5cbb457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 2027830307948699573}
+--- !u!58 &63558500828260446
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342069006934593106}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -1.064985}
+  serializedVersion: 2
+  m_Radius: 1.1853964
+--- !u!212 &2027830307948699573 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6351018581967584929, guid: d1e1a7e4594378e478617de584654938, type: 3}
+  m_PrefabInstance: {fileID: 4901909996496265492}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8974069321572447308 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4075011832171386200, guid: d1e1a7e4594378e478617de584654938, type: 3}
