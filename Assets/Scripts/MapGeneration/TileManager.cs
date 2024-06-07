@@ -154,7 +154,7 @@ public class TileManager : MonoBehaviour
 
         if (tilesToPlace.Count > mapSize.x * mapSize.y)
         {
-            Debug.LogError("Too many to place to place, constraints cannot be respected");
+            Debug.LogError("Too many tiles to place, constraints cannot be respected");
             Debug.Log($"tiles to place : {tilesToPlace.Count}");
             Debug.Log($"total tiles : {mapSize.x * mapSize.y}" );
         }
