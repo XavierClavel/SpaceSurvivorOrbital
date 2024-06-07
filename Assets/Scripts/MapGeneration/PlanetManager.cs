@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public static class PlanetManager
@@ -62,6 +63,27 @@ public static class PlanetManager
     }
 
     public static int getDensAmount()
+    {
+        return planetData.size switch
+        {
+            planetSize.small => 1,
+            planetSize.medium => 1,
+            planetSize.large => 1,
+            _ => 2
+        };
+    }
+    public static int getFountainAmount()
+    {
+        return planetData.size switch
+        {
+            planetSize.small => 1,
+            planetSize.medium => 1,
+            planetSize.large => 1,
+            _ => 2
+        };
+    }
+
+    public static int getChestAmount()
     {
         return planetData.size switch
         {

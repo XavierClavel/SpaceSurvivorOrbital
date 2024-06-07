@@ -23,8 +23,10 @@ public class TilesBank : ScriptableObject
     public List<GameObject> ressource2;
     public List<GameObject> ressource3;
 
-    [Header("Altar")]
+    [Header("Bonus")]
     public GameObject altar1;
+    public GameObject chest1;
+    public GameObject fountain1;
 
     [Header("Den")]
     public GameObject den1;

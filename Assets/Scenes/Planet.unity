@@ -16134,13 +16134,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planetData:
     size: 2
-    ressourceScarcity: 0
+    ressourceScarcity: 1
     type: 4
     isBoss: 0
   bank: {fileID: 11400000, guid: dde3abeea4d88e546a3066a1c045dada, type: 2}
   globalLight: {fileID: 1612029104}
   distanceConstraintsManager: {fileID: 11400000, guid: 2d707b2ee9386e44c815ae33e7a09322, type: 2}
-  tileSize: {x: 10, y: 10}
+  tileSize: {x: 12, y: 10}
   tiles: []
 --- !u!1 &596999393
 GameObject:
@@ -39455,6 +39455,7 @@ GameObject:
   - component: {fileID: 246329252877955360}
   - component: {fileID: 4745396415070469290}
   - component: {fileID: 8651592021980244046}
+  - component: {fileID: 8651592021980244047}
   m_Layer: 13
   m_Name: Player
   m_TagString: Player
@@ -42127,7 +42128,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 169695421}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53854e988eec2cf47bd2cf57e825d01d, type: 3}
   m_Name: 
@@ -42805,3 +42806,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.42625904, y: 0.58893824}
   m_EdgeRadius: 0
+--- !u!114 &8651592021980244047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1754425189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29dec4deceb073849ae3f69dd5cbb457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 246329252877955360}

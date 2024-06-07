@@ -17,6 +17,8 @@ public class TilesBankManager : ScriptableObject
 
     [Header("Altar")]
     public Tile altar1;
+    public Tile chest1;
+    public Tile fountain1;
 
     [Header("Den")]
     public Tile den1;
@@ -39,6 +41,10 @@ public class TilesBankManager : ScriptableObject
         spaceship.setTileObjects(bank.spaceship);
         
         altar1.setTileObjects(bank.altar1);
+
+        chest1.setTileObjects(bank.chest1);
+
+        fountain1.setTileObjects(bank.fountain1);
 
         den1.setTileObjects(bank.den1);
 

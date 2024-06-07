@@ -132,7 +132,11 @@ public class TileManager : MonoBehaviour
         bank.setTiles();
         tiles.Add(bank.spaceship);
         bank.altar1.setSpecificAmount(PlanetManager.getAltarAmount());
+        bank.chest1.setSpecificAmount(PlanetManager.getChestAmount());
+        bank.fountain1.setSpecificAmount(PlanetManager.getFountainAmount());
         tiles.Add(bank.altar1);
+        tiles.Add(bank.fountain1);
+        tiles.Add(bank.chest1);
         tiles.Add(bank.empty1);
         tiles.Add(bank.empty2);
         SetupPlanet();
@@ -354,7 +358,7 @@ public class TileManager : MonoBehaviour
             ground.transform.position = worldPosition;
             int x = Mathf.Abs(position.x);
             int y = Mathf.Abs(position.y);
-            if (x >= 5 || y >= 5) {
+            if (x >= 4 || y >= 4) {
                 ground.color = bank.groundColor3;
                 ground.sortingOrder = -13;
             } else if (x >= 3 || y >= 3) {
