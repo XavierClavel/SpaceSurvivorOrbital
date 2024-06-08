@@ -6,6 +6,7 @@ using DG.Tweening;
 using UnityEngine.Events;
 using System.Net;
 using UnityEditor;
+using static Vault.key;
 
 public class Ennemy : Breakable
 {
@@ -331,6 +332,8 @@ public class Ennemy : Breakable
     private SpriteRenderer spriteRenderer;
     private bool isMovingRight = true;
     private static readonly int IsMovingRight = Animator.StringToHash("IsMovingRight");
+    private float order;
+
 
     private void Update()
     {
@@ -339,6 +342,9 @@ public class Ennemy : Breakable
         {
             return; 
         }
+
+        order = -transform.position.y + 2000 + transform.position.x;
+        spriteRenderer.sortingOrder = (int)order;
 
         Vector3 directionToPlayer = (player.transform.position - transform.position);
         Vector3 facingDirection = transform.right;

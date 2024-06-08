@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 public static class PlanetManager
@@ -76,9 +75,9 @@ public static class PlanetManager
     {
         return planetData.size switch
         {
-            planetSize.small => 1,
+            planetSize.small => Random.Range(0, 1),
             planetSize.medium => 1,
-            planetSize.large => 1,
+            planetSize.large => Random.Range(1, 2),
             _ => 2
         };
     }
@@ -87,9 +86,9 @@ public static class PlanetManager
     {
         return planetData.size switch
         {
-            planetSize.small => 1,
+            planetSize.small => Random.Range(0 , 1),
             planetSize.medium => 1,
-            planetSize.large => 1,
+            planetSize.large => Random.Range(1, 2),
             _ => 2
         };
     }
