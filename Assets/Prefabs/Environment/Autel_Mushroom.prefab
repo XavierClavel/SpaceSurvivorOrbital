@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 5318495778569131561}
   - component: {fileID: 984618382079126379}
   - component: {fileID: 1134962295356580902}
+  - component: {fileID: 1629233166968613765}
   m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
@@ -221,7 +222,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.32649112, y: 0.08344787}
+  m_Offset: {x: -0.32649112, y: -1.5119857}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -232,8 +233,20 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.2848887, y: 1.2400855}
+  m_Size: {x: 3.2848887, y: 1.2123387}
   m_EdgeRadius: 0
+--- !u!114 &1629233166968613765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2873871207142921598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29dec4deceb073849ae3f69dd5cbb457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5363998890109412302
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +374,7 @@ Transform:
   m_GameObject: {fileID: 5703409196433870760}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3254109096017506440}
@@ -406,7 +419,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.10361338, y: -0.84711456}
+  m_Offset: {x: -0.10361338, y: -3.2818847}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -417,7 +430,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8.189965, y: 5.3790884}
+  m_Size: {x: 8.189965, y: 2.035615}
   m_EdgeRadius: 0
 --- !u!114 &8072622883074303910
 MonoBehaviour:
@@ -432,7 +445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 3602867145000518136}
-  timeToLaunch: 0.1
+  timeToLaunch: 1
   auraAltar: {fileID: 743634874300669918}
   altarActivate: {fileID: 7717359096154243722}
   altarLoading: {fileID: 4768187118696787340}
@@ -481,7 +494,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4776679504582039039, guid: 619016a4435bc8b4d8baede315158c74, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.5
+      value: -3.16
       objectReference: {fileID: 0}
     - target: {fileID: 4776679504582039039, guid: 619016a4435bc8b4d8baede315158c74, type: 3}
       propertyPath: m_LocalPosition.z
@@ -580,7 +593,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8677796856103317520, guid: ab200e2a505222c42a0c2c92e2e8d26d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.47
+      value: -3.16
       objectReference: {fileID: 0}
     - target: {fileID: 8677796856103317520, guid: ab200e2a505222c42a0c2c92e2e8d26d, type: 3}
       propertyPath: m_LocalPosition.z
