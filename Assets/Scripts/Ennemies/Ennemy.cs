@@ -345,6 +345,7 @@ public class Ennemy : Breakable
 
         order = -transform.position.y + 2000 + transform.position.x;
         spriteRenderer.sortingOrder = (int)order;
+        spriteOverlay.sortingOrder = (int)order + 1;
 
         Vector3 directionToPlayer = (player.transform.position - transform.position);
         Vector3 facingDirection = transform.right;

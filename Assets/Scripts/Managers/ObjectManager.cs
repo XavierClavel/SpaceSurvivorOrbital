@@ -12,6 +12,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
     public LayoutManager healthBar;
     [SerializeField] GameObject pauseButton;
     [SerializeField] GameObject altarUI;
+    [SerializeField] GameObject fountainUI;
     [SerializeField] GameObject altarFirstSelected;
     [SerializeField] GameObject loseScreen;
     [SerializeField] GameObject loseScreenFirstSelected;
@@ -47,6 +48,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
 
     public static ObjectManager instance;
     public static Altar altar;
+    public static Fountain fountain;
     public static ObjectIndicator spaceshipIndicator;
     public static GameObject spaceship;
 
@@ -209,9 +211,28 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
         InputManager.setSelectedObject(instance.altarFirstSelected);
     }
 
+    public static void DisplayFountainUI()
+    {
+        instance.fountainUI.SetActive(true);
+        PauseMenu.instance.PauseGame(false);
+    }
+    public static void FountainHeal()
+    {
+        PlayerController.Heal(PlayerController.instance.maxHealth);
+        fountain.DepleteFountain();
+        instance.fountainUI.SetActive(false);
+        PauseMenu.instance.ResumeGame();
+    }
+
     public static void HideAltarUI()
     {
         instance.altarUI.SetActive(false);
+        PauseMenu.instance.ResumeGame();
+    }
+
+    public static void HideFountainUI()
+    {
+        instance.fountainUI.SetActive(false);
         PauseMenu.instance.ResumeGame();
     }
 

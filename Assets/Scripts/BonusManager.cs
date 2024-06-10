@@ -23,6 +23,8 @@ public class BonusManager
     private float merchantPrices = 1f;
     private float fireDamageMultiplier = 1f;
 
+
+
     public void addBonusMaxHealth(int amount) => bonusMaxHealth += amount;
     public void addBonusStock(int amount) => bonusStock += amount;
     public void addBonusShield(int amount) => bonusShield += amount;

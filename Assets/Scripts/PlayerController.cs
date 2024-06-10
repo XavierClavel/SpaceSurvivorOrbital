@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
     [Header("Particle Systems")]
     [SerializeField] ParticleSystem boostAttack;
     [SerializeField] ParticleSystem boostSpeed;
+    [SerializeField] public ParticleSystem healPlayer;
     [SerializeField] public ParticleSystem upGreen;
     [SerializeField] public ParticleSystem upYellow;
     [SerializeField] public ParticleSystem upBlue;
@@ -240,6 +241,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
     public static void Heal(int amount = 1)
     {
         SoundManager.PlaySfx(instance.transform, key: "Heal_Player");
+        instance.healPlayer.Play();
         instance.health += amount;
     }
     

@@ -122,7 +122,7 @@ public class Shop : MonoBehaviour
     public void BuyResourceOrange()
     {
         if (!Transaction(costResourceOrange)) return;
-        PlayerManager.GatherResourceOrange();
+        PlayerManager.GatherResourceOrange(1);
         ResourcesDisplay.UpdateResourcesDisplay();
         UpdateOrangeResourceButton();
     }
@@ -130,7 +130,7 @@ public class Shop : MonoBehaviour
     public void BuyResourceGreen()
     {
         if (!Transaction(costResourceGreen)) return;
-        PlayerManager.GatherResourceGreen();
+        PlayerManager.GatherResourceGreen(1);
         ResourcesDisplay.UpdateResourcesDisplay();
         UpdateGreenResourceButton();
     }

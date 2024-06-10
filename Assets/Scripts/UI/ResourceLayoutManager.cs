@@ -83,13 +83,13 @@ public class ResourceLayoutManager : MonoBehaviour
         switch (resource)
         {
             case resourceType.orange:
-                PlayerManager.GatherResourceOrange();
+                PlayerManager.GatherResourceOrange(1);
                 SoundManager.PlaySfx(transform, key: "Collectible_Full");
                 Instantiate(yellowFull, PlayerController.instance.transform);
                 break;
 
             case resourceType.green:
-                PlayerManager.GatherResourceGreen();
+                PlayerManager.GatherResourceGreen(1);
                 SoundManager.PlaySfx(transform, key: "Collectible_Full");
                 Instantiate(greenFull, PlayerController.instance.transform);
                 break;

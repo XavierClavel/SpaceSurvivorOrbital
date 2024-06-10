@@ -39,15 +39,15 @@ public class PartialResourceManager : ShapesSlider, IResourcesListener
         switch (type)
         {
             case resourceType.green:
-                PlayerManager.GatherResourceGreen();
+                PlayerManager.GatherResourceGreen(1);
                 break;
             
             case resourceType.orange:
-                PlayerManager.GatherResourceOrange();
+                PlayerManager.GatherResourceOrange(1);
                 break;
 
             case resourceType.blue:
-                PlayerManager.GatherResourceBlue();
+                PlayerManager.GatherResourceBlue(1);
                 break;
         }
     }

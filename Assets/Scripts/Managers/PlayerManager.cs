@@ -120,20 +120,20 @@ public static class PlayerManager
         dictKeyToStats = new Dictionary<string, PlayerData>();
     }
 
-    public static void GatherResourceGreen()
+    public static void GatherResourceGreen(int resource)
     {
-        amountGreen++;
+        amountGreen += resource;
         EventManagers.fullResources.dispatchEvent(it => it.onFullResourceAmountChange(resourceType.green, amountGreen));
     } 
-    public static void GatherResourceOrange()
+    public static void GatherResourceOrange(int resource)
     {
-        amountOrange++;
+        amountOrange += resource;
         EventManagers.fullResources.dispatchEvent(it => it.onFullResourceAmountChange(resourceType.orange, amountOrange));
     }
 
-    public static void GatherResourceBlue()
+    public static void GatherResourceBlue(int resource)
     {
-        amountBlue++;
+        amountBlue += resource;
         EventManagers.fullResources.dispatchEvent(it => it.onFullResourceAmountChange(resourceType.blue, amountBlue));
     }
 
