@@ -5,6 +5,7 @@ using System.Linq;
 
 public class ObjectData
 {
+    [CsvField("MaxHealth")]
     public int maxHealth = 100;
     public Vector2Int baseSpeed = new Vector2Int (5, 5);
     public float damageResistance = 0f;

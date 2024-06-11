@@ -71,7 +71,7 @@ public class BonusManager
     public void applyArtefactsEffects()
     {
         foreach (ArtefactHandler artefactHandler in PlayerManager.artefacts) {
-            artefactHandler.Activate(this);
+            artefactHandler.Activate();
         }
     }
 
