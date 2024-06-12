@@ -7,14 +7,17 @@ public class ArtefactHandler : HidableObjectHandler
 {
     [SerializeField] private Artefact artefact;
     [SerializeField] private bool booster;
-    public void Activate(BonusManager bonusManager)
+    [SerializeField] private bool singleUse = false;
+    public void Activate()
     {
         Artefact instance = GameObject.Instantiate(artefact);
         Debug.Log(instance.name);
         instance.Setup(PlayerManager.dictKeyToStats[key]);
         if (booster)
         {
-            instance.Boost(bonusManager);
+            instance.Boost(BonusManager.current);
         }
     }
+
+    public bool isSingleUse() => singleUse;
 }

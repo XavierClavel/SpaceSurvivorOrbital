@@ -321,7 +321,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
 
         foreach (ArtefactHandler artefactHandler in PlayerManager.artefacts)
         {
-            artefactHandler.Activate(bonusManager);
+            artefactHandler.Activate();
         }
         
         foreach(PowerHandler powerHandler in PlayerManager.powers) {

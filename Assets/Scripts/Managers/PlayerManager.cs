@@ -123,6 +123,7 @@ public static class PlayerManager
     public static void GatherResourceGreen(int resource)
     {
         amountGreen += resource;
+        Debug.Log(amountGreen);
         EventManagers.fullResources.dispatchEvent(it => it.onFullResourceAmountChange(resourceType.green, amountGreen));
     } 
     public static void GatherResourceOrange(int resource)
@@ -172,8 +173,12 @@ public static class PlayerManager
 
     public static void AcquireArtefact(ArtefactHandler artefactHandler)
     {
-        artefacts.Add(artefactHandler);
+        if (!artefactHandler.isSingleUse())
+        {
+            artefacts.Add(artefactHandler);   
+        }
         dictKeyToStats[artefactHandler.getKey()] = DataManager.dictArtefacts[artefactHandler.getKey()].Clone();
+        artefactHandler.Activate();
     }
     
     public static void AcquireArtefact(string key)
