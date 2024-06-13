@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1405703037612373476}
   - component: {fileID: -646933285664336379}
+  - component: {fileID: 8197697508543079108}
   m_Layer: 0
   m_Name: PowerFlame
   m_TagString: Untagged
@@ -28,7 +29,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7623681698131515235}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -44,3 +46,220 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a01eefd77b856349971082aa63261f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats:
+    baseDamage: {x: 0, y: 0}
+    attackSpeed: 0
+    range: 0
+    cooldown: 0
+    magazineReloadTime: 0
+    criticalChance: 0
+    criticalMultiplier: 0
+    magazine: 0
+    projectiles: 0
+    spread: 0
+    pierce: 0
+    speedWhileAiming: 0
+    knockback: 0
+    element: 0
+  fullStats:
+    resources:
+      maxBlue: 3
+      maxOrange: 3
+      maxGreen: 3
+    character:
+      maxHealth: 0
+      maxShields: 0
+      baseSpeed: 0
+      damageMultiplier: 0
+    interactor:
+      baseDamage: {x: 0, y: 0}
+      attackSpeed: 0
+      range: 0
+      cooldown: 0
+      magazineReloadTime: 0
+      criticalChance: 0
+      criticalMultiplier: 0
+      magazine: 0
+      projectiles: 0
+      spread: 0
+      pierce: 0
+      speedWhileAiming: 0
+      knockback: 0
+      element: 0
+    attractor:
+      range: 5
+      force: 5
+    generic:
+      boolA: 0
+      boolB: 0
+      boolC: 0
+      boolD: 0
+      intA: 0
+      intB: 0
+      floatA: 0
+      floatB: 0
+      elementA: 0
+  isUsing: 0
+  activateOnStart: 1
+--- !u!212 &8197697508543079108
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772142489498098311}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!1001 &8208865549502159697
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1405703037612373476}
+    m_Modifications:
+    - target: {fileID: 1740497929812184114, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740497929812184114, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740497929812184114, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740497929812184114, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740497929812184114, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740497929812184114, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740497929812184114, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740497929812184114, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740497929812184114, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740497929812184114, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740497929812184114, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740497929812184124, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740497929812184125, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740497929812184125, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740497929812184125, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: emitterVelocityMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740497929812184125, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: InitialModule.gravitySource
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740497929812184127, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: m_Name
+      value: Flamethrower_001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5369639885122948472, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5369639885122948472, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: autoRandomSeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5369639885122948472, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: useUnscaledTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5369639885122948472, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5369639885122948472, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: InitialModule.gravitySource
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6493175363563543006, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+--- !u!4 &7623681698131515235 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1740497929812184114, guid: 318f39086235e064da56ae2d994cde7b, type: 3}
+  m_PrefabInstance: {fileID: 8208865549502159697}
+  m_PrefabAsset: {fileID: 0}
