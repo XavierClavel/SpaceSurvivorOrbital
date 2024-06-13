@@ -764,57 +764,62 @@ Dimension:
 Dimension : 
 3 -> 5
 "
-FlameThrower;Flame Thrower;Jet de flamme
-;;Un jet de flamme apparait régulièrement. Vous pouvez le diriger avec votre viseur. Brûle les ennemis
-FLAME_1;;Concentré de flamme
-;;Un boule de feu est projeté à la disparation du lance flamme
-FLAME_2a;;Lance-flamme
-;;Votre flamme devient plus grande
-FLAME_2b;;Canon
-;;"Votre lance-flamme se transforme en canon à boules de feu "
-FLAME_3a;;Aura de feu
-;;Une aura enflammé apparait autour de vous quand le lance flamme est actif, brules les ennemis proches
-FLAME_3b;;Gros canon
-;;Vous lancez des plus grosses boules de feu
-FLAME_4a;;Main brûlante
-;;Quand le lance flamme est actif, votre arme fait des dégâts de feu
-FLAME_4b;;Canon continue
-;;Vous lancez des boules de feu en continue
-IceSpike;;Pic de glace
-;;Des pics de glaces se lancent en continue en face de votre personnage. Gèle les ennemis.
-ICE_SPIKE_1a_ICE_GROUND;;Sol de glace
-;;"La sol derrière vous se met à geler, ralentissant les ennemis qui marchent dedans. "
-ICE_SPIKE_1b_PICPIC;;Pic pic
-;;"Vous lancez des pics de glace plus rapidement "
-ICE_SPIKE_1c_ICE_SHIELD;;Bouclier glacé
-;;Si vous restez statique, un bouclier de glace vous enveloppe, repoussant une attaque
-ICE_SPIKE_2a_ICEBERG;;Iceberg
-;;"Le sol derrière vous émet des pics de glace, gelant et blessant les ennemis. "
-ICE_SPIKE_2b_BLUE_ICE_SHIELD;;Cône de glace
-;;Les pics de glace se jettent en cône
-ICE_SPIKE_2c_ICE_CONE;;Glace épaisse
-;;La résistance du bouclier permet de contrer 3 attaques ennemies
-HuntersMark;;Marque du chasseur
-;;"Une marque apparait aléatoirement au dessus d’un ennemi. 
+FlameThrower;Flame thrower;Lance flamme
+;A jet of flame appears regularly. You can direct it with your viewfinder. Burns enemies;Un jet de flamme apparait régulièrement. Vous pouvez le diriger avec votre viseur. Brûle les ennemis
+FLAME_1;Concentrated flame;Concentré de flamme
+;A fireball is projected when the flame thrower disappears.;Un boule de feu est projeté à la disparation du lance flamme
+FLAME_2a;Big Flamethrower;Gros lance-flamme
+;Your flame gets bigger;Votre flamme devient plus grande
+FLAME_2b;Cannon;Canon
+;"Your flamethrower transforms into a fireball cannon ";"Votre lance-flamme se transforme en canon à boules de feu "
+FLAME_3a;Fire aura;Aura de feu
+;A fiery aura appears around you when the flamethrower is active, burning nearby enemies.;Une aura enflammé apparait autour de vous quand le lance flamme est actif, brules les ennemis proches
+FLAME_3b;Big gun;Gros canon
+;You launch larger fireballs;Vous lancez des plus grosses boules de feu
+FLAME_4a;Burning hand;Main brûlante
+;When the flamethrower is active, your weapon deals fire damage;Quand le lance flamme est actif, votre arme fait des dégâts de feu
+FLAME_4b;Continuous cannon;Canon continue
+;You launch continuous fireballs;Vous lancez des boules de feu en continue
+IceSpike;Ice Spikes;Pics de glace
+;Ice spikes are launched continuously in front of your character. Freezes enemies.;Des pics de glaces se lancent en continue en face de votre personnage. Gèle les ennemis.
+ICE_SPIKE_1a_ICE_GROUND;Ice floor;Sol de glace
+;"The ground behind you freezes, slowing down enemies walking on it. ";"La sol derrière vous se met à geler, ralentissant les ennemis qui marchent dedans. "
+ICE_SPIKE_1b_PICPIC;Woodpecker;Pic pic
+;"You can throw ice spikes faster. ";"Vous lancez des pics de glace plus rapidement "
+ICE_SPIKE_1c_ICE_SHIELD;Ice shield;Bouclier glacé
+;If you remain static, an ice shield envelops you, repelling an attack.;Si vous restez statique, un bouclier de glace vous enveloppe, repoussant une attaque
+ICE_SPIKE_2a_ICEBERG;Iceberg;Iceberg
+;"The ground behind you also injures enemies. ";"Le sol derrière vous blesse aussi les ennemis. "
+ICE_SPIKE_2b_BLUE_ICE_SHIELD;Ice cone;Cône de glace
+;Ice spikes are thrown in a cone.;Les pics de glace se jettent en cône
+ICE_SPIKE_2c_ICE_CONE;Thick ice;Glace épaisse
+;Shield resistance counters 3 enemy attacks;La résistance du bouclier permet de contrer 3 attaques ennemies
+HuntersMark;Hunter's mark;Marque du chasseur
+;"A mark appears randomly above an enemy. 
+Damage done to this enemy is multiplied by 1.25.";"Une marque apparait aléatoirement au dessus d’un ennemi. 
 Les dégâts fait sur cet ennemi sont multiplié par 1,25."
-HUNTERS_MARK 1a;;Précision
-;;"Augmente les dégâts fait aux ennemis marqués. 
+HUNTERS_MARK 1a;Precision;Précision
+;"Increases damage done to marked enemies. 
+
+1,25 -> 1,50";"Augmente les dégâts fait aux ennemis marqués. 
 
 1,25 -> 1,50"
-HUNTERS_MARK 1b;;Adrénaline I
-;;Tuer un ennemi marqué vous accorde un bonus de vitesse d’attaque pendant un court instant.
-HUNTERS_MARK 2a;;Seconde marque
-;;Un deuxième ennemi est marqué.
-HUNTERS_MARK 2b;;Adrénaline II
-;;Tuer un ennemi marqué vous accorde un bonus de dégâts pendant un court instant.
-HUNTERS_MARK 3a;;Dans le mille
-;;"Augmente les dégâts fait aux ennemis marqués. 
+HUNTERS_MARK 1b;Adrenalin I;Adrénaline I
+;Killing a marked enemy grants you an attack speed bonus for a short time.;Tuer un ennemi marqué vous accorde un bonus de vitesse d’attaque pendant un court instant.
+HUNTERS_MARK 2a;Second mark;Seconde marque
+;A second enemy is marked.;Un deuxième ennemi est marqué.
+HUNTERS_MARK 2b;Adrenalin II;Adrénaline II
+;Killing a marked enemy grants you a damage bonus for a short time.;Tuer un ennemi marqué vous accorde un bonus de dégâts pendant un court instant.
+HUNTERS_MARK 3a;In the bull's-eye;Dans le mille
+;"Increases damage done to marked enemies. 
+
+1,5 -> 2";"Augmente les dégâts fait aux ennemis marqués. 
 
 1,5 -> 2"
-HUNTERS_MARK 3b;;Adrénaline III
-;;Tuer un ennemi marqué vous rend invincible pendant un court instant.
-HUNTERS_MARK 4a;;Troisième marque
-;;Un troisième ennemi est marqué
+HUNTERS_MARK 3b;Adrenalin III;Adrénaline III
+;Killing a marked enemy makes you invincible for a short time.;Tuer un ennemi marqué vous rend invincible pendant un court instant.
+HUNTERS_MARK 4a;Third mark;Troisième marque
+;A third enemy is marked;Un troisième ennemi est marqué
 Dropper;It's mine;C'est à moi
 ;Monsters can drop resources.;Les monstres peuvent faire tomber des ressources.
 Power1;Power I;Puissance I
@@ -843,9 +848,9 @@ MysticCooldown3;Magical hourglass III;Sablier magique III
 ;Your power cooldown is reduced by 30%.;Le délai d'attente de vos pouvoirs est réduit de 30%
 Heart;Orb of life;Orbe de vie
 ;You gain an extra maximum heart;Vous gagnez un coeur maximal en plus
-ResourceGreen;;Ressource Verte
-;;Vous gagnez 5 ressources verte !
-ResourceYellow;;Ressource Jaune
-;;Vous gagnez 5 ressources jaune !
-ResourceBlue;;Ressource Bleu
-;;Vous gagnez 5 ressources bleu!
+ResourceGreen;Green resource;Ressource Verte
+;You win 5 green resources!;Vous gagnez 5 ressources verte !
+ResourceYellow;Yellow resource;Ressource Jaune
+;You win 5 yellow resources!;Vous gagnez 5 ressources jaune !
+ResourceBlue;Blue Resource;Ressource Bleu
+;You win 5 blue resources!;Vous gagnez 5 ressources bleu!

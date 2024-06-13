@@ -76,7 +76,7 @@ public class PowerIceSpike : Power, IPlayerEvents
         float randomRotation = Random.Range(-rotationRandomizationFactor, rotationRandomizationFactor);
         pool
             .get(position,  (90 + randomRotation) * Vector3.forward)
-            .setup(2f, 1f)
+            .setup(0.05f, 1f)
             ;
     }
 

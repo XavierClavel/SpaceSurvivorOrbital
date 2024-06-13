@@ -343,7 +343,7 @@ public class Ennemy : Breakable
             return; 
         }
 
-        order = -transform.position.y + 2000 + transform.position.x;
+        order = -transform.position.y + 1500;
         spriteRenderer.sortingOrder = (int)order;
         spriteOverlay.sortingOrder = (int)order + 1;
 
