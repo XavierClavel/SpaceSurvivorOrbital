@@ -9,6 +9,7 @@ public class PowerHuntersMark : Power
     public static bool isMarked;
     [SerializeField] private CircleCollider2D markCircleCollider;
 
+    public bool isBoost = false;
     public bool boostSpeed;
     public bool boostStrenght;
     public bool boostInvicible;
@@ -24,7 +25,7 @@ public class PowerHuntersMark : Power
     {
         markCircleCollider.transform.position = player.transform.position;
 
-        if (isMarked )
+        if (isMarked && !isBoost)
         {
             StartCoroutine(nameof(Boost));
         }
@@ -49,6 +50,8 @@ public class PowerHuntersMark : Power
 
     IEnumerator Boost()
     {
+        isBoost = true;
+
         if (boostSpeed)
         {
             PlayerController.ApplySpeedBoost();
@@ -61,7 +64,7 @@ public class PowerHuntersMark : Power
 
         if (boostInvicible)
         {
-            //PlayerController.ApplySpeedBoost();
+            PlayerController.instance.StartCoroutine("InvulnerabilityFrame");
         }
 
         yield return new WaitForSeconds(2);
@@ -70,5 +73,6 @@ public class PowerHuntersMark : Power
         PlayerController.RemoveStrengthBoost();
 
         isMarked = false;
+        isBoost = false;
     }
 }

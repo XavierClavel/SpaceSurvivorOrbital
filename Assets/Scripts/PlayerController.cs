@@ -269,7 +269,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
     }
 
-    IEnumerator InvulnerabilityFrame()
+    public IEnumerator InvulnerabilityFrame()
     {
         invulnerable = true;
         yield return invulnerabilityFrameDuration;

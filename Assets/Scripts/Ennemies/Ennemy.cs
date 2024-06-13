@@ -32,6 +32,7 @@ public class Ennemy : Breakable
 
     public GameObject marked;
     public bool isMarked = false;
+    public float markedMultiplier = 1f;
 
     [Header("Knockback Parameters")]
     [SerializeField] Vector3 startDeformationScale = new Vector3(-0.5f, 0.1f, 1f);
@@ -147,7 +148,9 @@ public class Ennemy : Breakable
 
     public override void Hit(HitInfo hitInfo)
     {
-        hitInfo.applyDamageMultiplier(damageMultiplier);
+        if (isMarked) { hitInfo.applyDamageMultiplier(markedMultiplier); }
+        else { hitInfo.applyDamageMultiplier(damageMultiplier); }
+
         base.Hit(hitInfo);
         
         healthChange value = hitInfo.critical ? healthChange.critical : healthChange.hit;
@@ -373,7 +376,9 @@ public class Ennemy : Breakable
             animator.SetBool(IsMovingRight, true);
             FlipSprite();
         }
-        
+
+        Debug.Log("damageMultiplier :" + damageMultiplier);
+        Debug.Log("markedMultiplier :" + markedMultiplier);
     }
     private void FlipSprite()
     {
@@ -410,6 +415,6 @@ public class Ennemy : Breakable
     {
         marked.SetActive(true);
         isMarked = true;
-        damageMultiplier = markMultiplier;
+        markedMultiplier = markMultiplier;
     }
 }
