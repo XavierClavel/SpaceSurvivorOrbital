@@ -148,7 +148,7 @@ public class Ennemy : Breakable
 
     public override void Hit(HitInfo hitInfo)
     {
-        if (isMarked) { hitInfo.applyDamageMultiplier(markedMultiplier); }
+        if (isMarked) { hitInfo.applyDamageMultiplier(damageMultiplier * markedMultiplier); }
         else { hitInfo.applyDamageMultiplier(damageMultiplier); }
 
         base.Hit(hitInfo);
