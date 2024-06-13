@@ -22,6 +22,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
     public Transform powersDisplayLayout;
     public PowerDisplay powerDisplayPrefab;
     public Slider reloadSlider;
+    public Slider dashSlider;
     public PartialResourceManager sliderOrange;
     public PartialResourceManager sliderGreen;
     public PartialResourceManager sliderBlue;
@@ -347,5 +348,20 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
     public void onEnnemyDeath(Ennemy ennemy)
     {
         if (ennemy.doUseKillPs) enemiesExplosionPsPool.get(ennemy.transform.position);
+    }
+
+    Tween sliderTween;
+    public void onDash()
+    {
+            StartCoroutine(nameof(DashUi));
+    }
+
+    public IEnumerator DashUi()
+    {
+        dashSlider.gameObject.SetActive(true);
+        dashSlider.value = 0f;
+        sliderTween = dashSlider.DOValue(1f, PlayerController.instance.dashCooldown).SetEase(Ease.Linear);
+        yield return new WaitForSeconds(PlayerController.instance.dashCooldown);
+        dashSlider.gameObject.SetActive(false);
     }
 }

@@ -7,8 +7,9 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
-public enum playerState { idle, walking, shooting, mining };
+public enum playerState { idle, walking, shooting, mining, dashing };
 public enum playerDirection { front, left, back, right };
 
 
@@ -28,6 +29,21 @@ public class PlayerController : MonoBehaviour, IResourcesListener
     [HideInInspector] public playerState _playerState_value = playerState.idle;
     [HideInInspector] public bool reflectsProjectiles = false;
 
+    public ObjectManager objectManager;
+
+    [HideInInspector] public int maxDashes;
+    [HideInInspector] public float dashCooldown;
+    [HideInInspector] public bool dashAvailable;
+    public float dashSpeed;
+    public float dashDuration;
+    [HideInInspector] public bool isDashing = false;
+    private int currentDashes;
+    private float dashTime;
+    private float dashCooldownTime;
+    private bool isDashingInput;
+    private Vector2 dashDirection;
+
+
     [SerializeField] private CinemachineVirtualCamera cinemachineCamera;
     
     [Header("Particle Systems")]
@@ -39,6 +55,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
     [SerializeField] public ParticleSystem upBlue;
     [SerializeField] private ParticleSystem shieldUp;
     [SerializeField] private ParticleSystem shieldDown;
+    [SerializeField] public ParticleSystem dashPS;
 
     private const float boostedSpeed = 6f;
     [HideInInspector]
@@ -355,6 +372,8 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         
         EventManagers.resources.registerListener(this);
 
+        currentDashes = maxDashes;
+
     }
 
 
@@ -379,13 +398,13 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         isPlayingWithGamepad = newValue;
         if (isPlayingWithGamepad)
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            UnityEngine.Cursor.visible = false;
+            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         }
         else
         {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.Confined;
+            UnityEngine.Cursor.visible = true;
+            UnityEngine.Cursor.lockState = CursorLockMode.Confined;
         }
     }
 
@@ -405,10 +424,14 @@ public class PlayerController : MonoBehaviour, IResourcesListener
             Aim();
             interactorHandler.StartAction();
         };
-        controls.Player.MouseAimActive.canceled += ctx => interactorHandler.StopAction(); ;
+        controls.Player.MouseAimActive.canceled += ctx => interactorHandler.StopAction();
+
+        controls.Player.Dash.performed += ctx => isDashingInput = true;
+        controls.Player.Dash.canceled += ctx => isDashingInput = false;
 
         controls.Enable();
     }
+
 
     public void OverrideWeaponRotation()
     {
@@ -427,10 +450,10 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         attractorTransform.position = transform.position;
         originalCameraPosition = cameraTransform.localPosition;
     }
-
     void Move()
     {
-        //SoundManager.PlaySfx(transform, key: "Footstep_grass");
+        if (isDashing) return; // Ignore movement input during dash
+
         moveDir = Helpers.isPlatformAndroid() ? joystickMove.Direction : controls.Player.Move.ReadValue<Vector2>();
 
         if (moveDir.sqrMagnitude > 1) moveDir = moveDir.normalized;
@@ -440,21 +463,67 @@ public class PlayerController : MonoBehaviour, IResourcesListener
             state = playerState.walking;
         }
         else state = playerState.idle;
-        
-        targetMoveAmount = moveDir * (baseSpeed * speedMultiplier);
 
+        if (dashAvailable && isDashingInput && Time.time >= dashCooldownTime)
+        {
+            StartDash();
+        }
+
+        targetMoveAmount = moveDir * (baseSpeed * speedMultiplier);
         moveAmount = Vector2.SmoothDamp(moveAmount, targetMoveAmount, ref smoothMoveVelocity, 0.10f);
-        
+
         pointerFront.position = transform.position;
+    }
+
+    void StartDash()
+    {
+        if (currentDashes > 0)
+        {
+            isDashing = true;
+            dashTime = Time.time + dashDuration;
+            dashCooldownTime = Time.time + 0.4f;
+            dashDirection = prevMoveDir;
+            state = playerState.dashing;
+            currentDashes--;
+        } 
+    }
+
+    void Dash()
+    {
+        if (Time.time < dashTime)
+        {
+            dashPS.Play();
+            moveAmount = dashDirection * dashSpeed;
+        }
+        else
+        {
+            isDashing = false;
+            state = playerState.idle;
+
+            if (currentDashes == 0)
+            {
+                StartCoroutine(nameof(DashReload));
+            }
+        }
+    }
+    public IEnumerator DashReload()
+    {
+        objectManager.onDash();
+        yield return new WaitForSeconds(dashCooldown);
+        currentDashes = maxDashes;
     }
 
     private void FixedUpdate()
     {
+        if (isDashing)
+        {
+            Dash();
+        }
+
         Vector2 localMove = moveAmount * Time.fixedDeltaTime;
         _walkDirection = angleToDirection(Vector2.SignedAngle(localMove, Vector2.down) + 180f);
         rb.MovePosition(rb.position + localMove);
     }
-
 
     Vector2 getGamepadAimInput()
     {

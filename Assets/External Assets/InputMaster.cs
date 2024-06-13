@@ -125,6 +125,15 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""4a42c6a7-29ad-45a0-8881-00cf04739e82"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -433,6 +442,28 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard / Mouse"",
                     ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""638f1a89-9397-4d42-af52-1bc19cc17e3e"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4db1536a-7f52-49fd-9803-63edd38903ba"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard / Mouse"",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -977,6 +1008,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_Player_Mine = m_Player.FindAction("Mine", throwIfNotFound: true);
         m_Player_MouseAimActive = m_Player.FindAction("MouseAimActive", throwIfNotFound: true);
         m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
+        m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         // PauseMenu
         m_PauseMenu = asset.FindActionMap("PauseMenu", throwIfNotFound: true);
         m_PauseMenu_Pause = m_PauseMenu.FindAction("Pause", throwIfNotFound: true);
@@ -1061,6 +1093,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Mine;
     private readonly InputAction m_Player_MouseAimActive;
     private readonly InputAction m_Player_MousePosition;
+    private readonly InputAction m_Player_Dash;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -1076,6 +1109,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         public InputAction @Mine => m_Wrapper.m_Player_Mine;
         public InputAction @MouseAimActive => m_Wrapper.m_Player_MouseAimActive;
         public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
+        public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1118,6 +1152,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @MousePosition.started += instance.OnMousePosition;
             @MousePosition.performed += instance.OnMousePosition;
             @MousePosition.canceled += instance.OnMousePosition;
+            @Dash.started += instance.OnDash;
+            @Dash.performed += instance.OnDash;
+            @Dash.canceled += instance.OnDash;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1155,6 +1192,9 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @MousePosition.started -= instance.OnMousePosition;
             @MousePosition.performed -= instance.OnMousePosition;
             @MousePosition.canceled -= instance.OnMousePosition;
+            @Dash.started -= instance.OnDash;
+            @Dash.performed -= instance.OnDash;
+            @Dash.canceled -= instance.OnDash;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1343,6 +1383,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void OnMine(InputAction.CallbackContext context);
         void OnMouseAimActive(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
     }
     public interface IPauseMenuActions
     {

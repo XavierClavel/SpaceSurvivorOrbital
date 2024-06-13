@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Jetpack : Equipment
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Boost(BonusManager bonusManager)
     {
-        
+        PlayerController.instance.dashAvailable = true;
+        PlayerController.instance.maxDashes = stats.projectiles;
+
+        PlayerController.instance.dashCooldown = stats.cooldown;
+
+        BonusManager.current.addBonusSpeed(fullStats.generic.floatA);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
