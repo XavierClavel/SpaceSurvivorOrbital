@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using System.Net;
 using UnityEditor;
 using static Vault.key;
+using UnityEngine.Timeline;
 
 public class Ennemy : Breakable
 {
@@ -28,6 +29,9 @@ public class Ennemy : Breakable
     protected bool isImmuneToKnockback = false;
 
     private int fireDamageRemaining = 0;
+
+    public GameObject marked;
+    public bool isMarked = false;
 
     [Header("Knockback Parameters")]
     [SerializeField] Vector3 startDeformationScale = new Vector3(-0.5f, 0.1f, 1f);
@@ -205,7 +209,13 @@ public class Ennemy : Breakable
         StressTest.nbEnnemies--;
         ObjectManager.dictObjectToEnnemy.TryRemove(gameObject);
         ObjectManager.unregisterHitable(gameObject);
-        
+        PowerHuntersMark.markedEnemies.TryRemove(this);
+
+        if (isMarked)
+        {
+            PowerHuntersMark.isMarked = true;
+        }
+
         onDeath();
         ShakeManager.Shake(shakeIntensity, shakeDuration);
         EventManagers.ennemies.dispatchEvent(v => v.onEnnemyDeath(this));
@@ -396,4 +406,10 @@ public class Ennemy : Breakable
         deformationScale = startDeformationScale;
     }
 
+    public void ReceiveMark(float markMultiplier)
+    {
+        marked.SetActive(true);
+        isMarked = true;
+        damageMultiplier = markMultiplier;
+    }
 }
