@@ -198,7 +198,7 @@ public class NodeManager : MonoBehaviour
                 Vector3 middlePoint = new Vector3((endPoint.x + startPoint.x) * 0.5f, middleY, endPoint.z);
                 
                 childNode.incomingPaths[parentNode] = new List<Line> { line1 };
-                Debug.Log($"parent : {parentNode.key}, child : {childNode.key}");
+                //Debug.Log($"parent : {parentNode.key}, child : {childNode.key}");
 
                 line1.Start = startPoint;
                 if (Math.Abs(startPoint.y - endPoint.y) < 0.01f)

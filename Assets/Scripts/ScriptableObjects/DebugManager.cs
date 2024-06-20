@@ -37,6 +37,7 @@ public class DebugManager : ScriptableObject
     [SerializeField] private bool stock;
     [SerializeField] private bool radar;
     [SerializeField] private bool jetpack;
+    [SerializeField] private bool peacemaker;
 
     [Header("Start with artefacts")]
     [SerializeField] private bool ennemiesDropResources;
@@ -125,6 +126,7 @@ public class DebugManager : ScriptableObject
         if (stock) AcquireEquipment("Stock");
         if (radar) AcquireEquipment("Radar");
         if (jetpack) AcquireEquipment("Jetpack");
+        if (jetpack) AcquireEquipment("Peacemaker");
 
         //Artefacts
         if (ennemiesDropResources) AcquireArtefact("Dropper");

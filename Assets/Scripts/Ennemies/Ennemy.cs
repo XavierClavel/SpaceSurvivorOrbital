@@ -376,9 +376,6 @@ public class Ennemy : Breakable
             animator.SetBool(IsMovingRight, true);
             FlipSprite();
         }
-
-        Debug.Log("damageMultiplier :" + damageMultiplier);
-        Debug.Log("markedMultiplier :" + markedMultiplier);
     }
     private void FlipSprite()
     {
