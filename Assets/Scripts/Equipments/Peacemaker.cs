@@ -8,10 +8,11 @@ public class Peacemaker : Equipment, IPlayerEvents
     [SerializeField] ParticleSystem revivalPS;
     private int addResurrection;
     private int currentResurrection;
+    private bool resurrectionUsed = false;
     public override void onSetup()
     {
         addResurrection = stats.magazine;
-        currentResurrection = 0 + addResurrection;
+        PlayerManager.resurrection += addResurrection;
         Debug.Log("Resurrection :" + currentResurrection);
         EventManagers.player.registerListener(this);
     }

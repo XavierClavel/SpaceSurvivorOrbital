@@ -111,6 +111,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
     Vector2 prevMoveDir = Vector2.zero;
     LayoutManager healthBar;
     int _health;
+    int _resurrection;
     [Header("Transforms")]
     [SerializeField] Animator animator;
     public Transform pointerFront;
@@ -124,6 +125,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
     [Header("UI")] 
     [SerializeField] private TextMeshProUGUI soulsDisplay;
     [SerializeField] private TextMeshProUGUI souls2Display;
+    [SerializeField] private TextMeshProUGUI resurrectionDisplay;
     EventSystem eventSystem;
     [SerializeField] private Transform camTarget;
 
@@ -180,6 +182,16 @@ public class PlayerController : MonoBehaviour, IResourcesListener
             _health = value;
             SoundManager.PlaySfx(transform, key: "Player_Hit");
             if (value <= 0) Death();
+        }
+    }
+
+    public int resurrection
+    {
+        get { return _resurrection; }
+        private set
+        {
+            resurrectionDisplay.SetText("x" + value.ToString());
+            _resurrection = value;
         }
     }
 
@@ -354,6 +366,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         
 
         souls = PlayerManager.getSouls();
+        resurrection = PlayerManager.getResurrection();
 
         invulnerabilityFrameDuration = Helpers.getWait(ConstantsData.invulenerabilityFrame);
 
@@ -581,7 +594,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
             _ => playerDirection.back
         };
     }
-    
+
     void Death()
     {
         bool avoidDeath = false;

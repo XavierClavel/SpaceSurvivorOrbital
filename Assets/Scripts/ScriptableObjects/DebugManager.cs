@@ -126,7 +126,7 @@ public class DebugManager : ScriptableObject
         if (stock) AcquireEquipment("Stock");
         if (radar) AcquireEquipment("Radar");
         if (jetpack) AcquireEquipment("Jetpack");
-        if (jetpack) AcquireEquipment("Peacemaker");
+        if (peacemaker) AcquireEquipment("Peacemaker");
 
         //Artefacts
         if (ennemiesDropResources) AcquireArtefact("Dropper");

@@ -19,12 +19,15 @@ public class PowerFairy : Power, IPlayerEvents
     [SerializeField] private Vector3 fairyOffset2;
     [SerializeField] ParticleSystem revivalPS;
     private bool isResurrectionAvailable = false;
+    private bool resurrectionUsed = false;
     
     public override void onSetup()
     {
         isResurrectionAvailable = fullStats.generic.boolB;
         if (isResurrectionAvailable) EventManagers.player.registerListener(this);
-        
+
+        if (isResurrectionAvailable) { PlayerManager.resurrection++; }
+
         Fairy newFairy = Instantiate(fairy);
         newFairy.Setup(stats, Vector2.zero,fullStats.generic.boolA);
         
@@ -34,9 +37,11 @@ public class PowerFairy : Power, IPlayerEvents
 
     public bool onPlayerDeath()
     {
-        if (!isResurrectionAvailable) return false;
+        if (!isResurrectionAvailable || resurrectionUsed) return false;
         isResurrectionAvailable = false;
-        
+        resurrectionUsed = true;
+
+
         Debug.Log("Resurrection");
         Instantiate(revivalPS, playerTransform.position, Quaternion.identity).Play();
         
