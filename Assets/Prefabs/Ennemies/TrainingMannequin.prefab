@@ -66,8 +66,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.044399977, y: -0.013849974, z: 0}
-    m_Extent: {x: 1.9541, y: 1.96285, z: 0}
+    m_Center: {x: 0.043449998, y: -0.017549992, z: 0}
+    m_Extent: {x: 1.94805, y: 1.96485, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -315,6 +315,7 @@ MonoBehaviour:
   rb: {fileID: 1354966217800568121}
   marked: {fileID: 3804784556437061982}
   isMarked: 0
+  markedMultiplier: 1
   startDeformationScale: {x: -0.5, y: 0.1, z: 1}
   deformationDuration: 0.1
   speed: 0
@@ -699,11 +700,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2299604899345211685, guid: 3ff4d271fbc03f04b9baf0ffb0521172, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2299604899345211685, guid: 3ff4d271fbc03f04b9baf0ffb0521172, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6397722455105241869, guid: 3ff4d271fbc03f04b9baf0ffb0521172, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 6397722455105241869, guid: 3ff4d271fbc03f04b9baf0ffb0521172, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9018620221231962902, guid: 3ff4d271fbc03f04b9baf0ffb0521172, type: 3}
       propertyPath: m_Name
@@ -711,7 +720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9018620221231962902, guid: 3ff4d271fbc03f04b9baf0ffb0521172, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
