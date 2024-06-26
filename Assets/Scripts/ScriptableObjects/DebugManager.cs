@@ -37,10 +37,24 @@ public class DebugManager : ScriptableObject
     [SerializeField] private bool stock;
     [SerializeField] private bool radar;
     [SerializeField] private bool jetpack;
+    [SerializeField] private bool peacemaker;
 
     [Header("Start with artefacts")]
     [SerializeField] private bool ennemiesDropResources;
+    [SerializeField] private bool Heart;
+    [SerializeField] private bool mysticCooldown1;
+    [SerializeField] private bool mysticCooldown2;
+    [SerializeField] private bool mysticCooldown3;
+    [SerializeField] private bool mysticPower1;
+    [SerializeField] private bool mysticPower2;
+    [SerializeField] private bool mysticPower3;
     [SerializeField] private bool power1;
+    [SerializeField] private bool power2;
+    [SerializeField] private bool power3;
+    [SerializeField] private bool speed1;
+    [SerializeField] private bool speed2;
+    [SerializeField] private bool speed3;
+
 
     [Header("Others")] 
     [SerializeField] private bool spawnBossOnStart;
@@ -125,10 +139,24 @@ public class DebugManager : ScriptableObject
         if (stock) AcquireEquipment("Stock");
         if (radar) AcquireEquipment("Radar");
         if (jetpack) AcquireEquipment("Jetpack");
+        if (peacemaker) AcquireEquipment("Peacemaker");
 
         //Artefacts
         if (ennemiesDropResources) AcquireArtefact("Dropper");
+        if (Heart) AcquireArtefact("Heart");
+        if (mysticCooldown1) AcquireArtefact("MysticCooldown1");
+        if (mysticCooldown2) AcquireArtefact("MysticCooldown2");
+        if (mysticCooldown3) AcquireArtefact("MysticCooldown3");
+        if (mysticPower1) AcquireArtefact("MysticPower1");
+        if (mysticPower2) AcquireArtefact("MysticPower2");
+        if (mysticPower3) AcquireArtefact("MysticPower3");
         if (power1) AcquireArtefact("Power1");
+        if (power2) AcquireArtefact("Power2");
+        if (power3) AcquireArtefact("Power3");
+        if (speed1) AcquireArtefact("Speed1");
+        if (speed2) AcquireArtefact("Speed2");
+        if (speed3) AcquireArtefact("Speed3");
+
 
     }
 

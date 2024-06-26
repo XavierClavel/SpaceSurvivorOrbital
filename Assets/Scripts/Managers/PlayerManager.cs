@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-
-
+using Shapes;
 
 public static class PlayerManager
 {
@@ -31,6 +30,7 @@ public static class PlayerManager
     public static bool isPlayingWithGamepad { get; private set; }
     public static int currentTimer { get; set; }
     public static int damageTaken = 0;
+    public static int resurrection = 0;
     private static int globalDifficulty = 0;
 
     public static List<PowerHandler> powers = new List<PowerHandler>();
@@ -61,7 +61,10 @@ public static class PlayerManager
     {
         damageTaken = maxHealth - health;
     }
-    
+
+    public static void setResurrection(int value) => resurrection = value;
+    public static int getResurrection() => resurrection;
+
     public static void increaseDifficulty(bool onPlanet = false)
     {
         if (globalDifficulty >= DataManager.dictDifficulty.Keys.Count) return;
@@ -108,6 +111,7 @@ public static class PlayerManager
         filledOrange = 0;
         filledBlue = 0;
         damageTaken = 0;
+        resurrection = 0;
         currentTimer = 0;
         globalDifficulty = 0;
         saveSouls();

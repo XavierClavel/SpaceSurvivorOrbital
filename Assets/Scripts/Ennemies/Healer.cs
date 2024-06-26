@@ -5,11 +5,10 @@ using DG.Tweening;
 
 public class Healer : Ennemy
 {
-    enum state { fleeing, healing, approaching }
-    state ennemyState = state.approaching;
+    enum State { Fleeing, Healing, Approaching }
+    State enemyState = State.Approaching;
 
     bool healing = false;
-
     bool needsToRecharge = true;
     bool recharging = false;
 
@@ -26,7 +25,7 @@ public class Healer : Ennemy
     protected override void Start()
     {
         base.Start();
-        healRangeDisplay.localScale = range * Vector3.one;
+        healRangeDisplay.localScale = healRange.y * Vector3.one;
         mask = LayerMask.GetMask(Vault.layer.Ennemies);
 
         sqrFleeRange = Mathf.Pow(healRange.x, 2);
@@ -43,49 +42,46 @@ public class Healer : Ennemy
             float sqrDistance = distanceToPlayer.sqrMagnitude;
             if (sqrDistance < sqrFleeRange)
             {
-                ennemyState = state.fleeing;
-                healing = false;
+                enemyState = State.Fleeing;
+                healing = true;
                 DOTween.To(() => currentSpeed, x => currentSpeed = x, fleeSpeed, 0.5f).SetEase(Ease.InQuad);
                 continue;
             }
 
             if (sqrDistance < sqrHealRange)
             {
-                ennemyState = state.healing;
+                enemyState = State.Healing;
                 healing = true;
-                DOTween.To(() => currentSpeed, x => currentSpeed = x, 0f, 0.5f).SetEase(Ease.InQuad); ;
+                DOTween.To(() => currentSpeed, x => currentSpeed = x, 0f, 0.5f).SetEase(Ease.InQuad);
                 continue;
             }
 
-
-            ennemyState = state.approaching;
-            healing = false;
-            DOTween.To(() => currentSpeed, x => currentSpeed = x, speed, 0.5f).SetEase(Ease.InQuad); ;
-            continue;
+            enemyState = State.Approaching;
+            healing = true;
+            DOTween.To(() => currentSpeed, x => currentSpeed = x, speed, 0.5f).SetEase(Ease.InQuad);
         }
     }
 
-
     protected override void FixedUpdate()
-    //TODO : run on lower frequency
     {
         if (knockback) return;
         base.FixedUpdate();
-        switch (ennemyState)
+
+        switch (enemyState)
         {
-            case state.fleeing:
+            case State.Fleeing:
                 Move(-directionToPlayer, currentSpeed);
                 currentDir = -directionToPlayer;
                 break;
 
-            case state.healing:
+            case State.Healing:
                 Move(currentDir, currentSpeed);
                 if (recharging) break;
                 if (needsToRecharge) StartCoroutine(nameof(Recharge));
                 else Heal();
                 break;
 
-            case state.approaching:
+            case State.Approaching:
                 Move(directionToPlayer, currentSpeed);
                 currentDir = directionToPlayer;
                 break;
@@ -103,12 +99,12 @@ public class Healer : Ennemy
 
     void Heal()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, range, mask);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, healRange.y, mask);
         foreach (Collider2D collider in colliders)
         {
-            if (collider.gameObject == gameObject) continue; //Does not heal himself
-            Ennemy ennemy = ObjectManager.dictObjectToEnnemy[collider.gameObject];
-            if (ennemy.GetType() != this.GetType()) ennemy.HealSelf(baseDamage.getRandom());    //does not heal other healers
+            if (collider.gameObject == gameObject) continue; // Does not heal himself
+            Ennemy enemy = ObjectManager.dictObjectToEnnemy[collider.gameObject];
+            if (enemy.GetType() != this.GetType()) enemy.HealSelf(baseDamage.getRandom()); // Does not heal other healers
         }
         needsToRecharge = true;
         StartCoroutine(nameof(Recharge));

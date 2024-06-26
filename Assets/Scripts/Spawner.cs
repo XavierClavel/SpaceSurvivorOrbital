@@ -150,18 +150,40 @@ public class Spawner : MonoBehaviour, IDifficultyListener
         ennemies = ennemies.FindAll(it =>
             DataManager.dictObjects[it.name].cost <= spawnData.maxSpending &&
             DataManager.dictObjects[it.name].cost >= spawnData.minSpending
-            ).ToList();
+        ).ToList();
 
-        while (currentCost < maxCost)
+        // Dictionary pour suivre le nombre de spawns de chaque ennemi
+        Dictionary<string, int> spawnCounts = new Dictionary<string, int>();
+
+        while (currentCost < maxCost && ennemies.Count > 0)
         {
             Ennemy ennemy = ennemies.getRandom();
             int newCost = currentCost + DataManager.dictObjects[ennemy.name].cost;
+
+            // Vérifier si ajouter cet ennemi dépasse maxCost
             if (newCost > maxCost)
             {
                 ennemies.Remove(ennemy);
-                if (ennemies.Count == 0) break;
-                else continue;
+                continue; // Passer à l'itération suivante
             }
+
+            // Vérifier si cet ennemi a atteint sa limite de spawn
+            if (spawnCounts.ContainsKey(ennemy.name))
+            {
+                int spawnLimit = DataManager.dictObjects[ennemy.name].maxSpawnLimit;
+                if (spawnCounts[ennemy.name] >= spawnLimit)
+                {
+                    ennemies.Remove(ennemy);
+                    continue; // Passer à l'itération suivante
+                }
+            }
+            else
+            {
+                spawnCounts[ennemy.name] = 0; // Initialiser le compteur de spawn pour cet ennemi
+            }
+
+            // Mettre à jour le compteur de spawn pour cet ennemi
+            spawnCounts[ennemy.name]++;
 
             float spawnTime = Random.Range(0f, waveDuration);
 
@@ -170,7 +192,7 @@ public class Spawner : MonoBehaviour, IDifficultyListener
         }
 
         ennemiesToSpawnList.Sort(comparer);
-        
+
         Debug.Log(waveIndex);
 
         if (waveIndex == 2 && PlanetSelector.getDifficulty() > 3 && !PlanetManager.isBoss())
@@ -178,6 +200,8 @@ public class Spawner : MonoBehaviour, IDifficultyListener
             SpawnEnnemy(ScriptableObjectManager.dictKeyToBossData[PlayerManager.currentBoss].miniBosses.getRandom());
         }
     }
+
+
 
     public static void SpawnEnnemy(Ennemy ennemy)
     {

@@ -154,6 +154,7 @@ public static class Vault
             public const string MaxHealth = "MaxHealth";
             public const string BaseSpeed = "BaseSpeed";
             public const string DamageResistance = "DamageResistance";
+            public const string MaxSpawnLimit = "MaxSpawnLimit";
 
             public const string BaseDamage = "BaseDamage";
             public const string AttackSpeed = "AttackSpeed";

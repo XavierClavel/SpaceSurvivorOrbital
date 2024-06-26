@@ -33,7 +33,7 @@ public class PowerHuntersMark : Power
     private void OnTriggerEnter2D(Collider2D other)
     {
         Ennemy enemy = other.GetComponent<Ennemy>();
-        if (enemy != null && !markedEnemies.Contains(enemy))
+        if (enemy != null && markedEnemies.Count < maxMarked)
         {
             MarkEnemy(enemy);
         }
@@ -41,11 +41,8 @@ public class PowerHuntersMark : Power
 
     private void MarkEnemy(Ennemy enemy)
     {
-        if (markedEnemies.Count < maxMarked)
-        {
             markedEnemies.Add(enemy);
             enemy.ReceiveMark(stats.criticalMultiplier);
-        }
     }
 
     IEnumerator Boost()

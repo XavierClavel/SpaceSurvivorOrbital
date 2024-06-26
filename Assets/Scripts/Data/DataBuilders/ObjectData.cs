@@ -11,6 +11,7 @@ public class ObjectData
     public float damageResistance = 0f;
     public int cost = 0;
     public Vector2Int baseDamage = new Vector2Int(5, 5);
+    public int maxSpawnLimit = 0;
 }
 
 public class ObjectDataBuilder : DataBuilder<ObjectData>
@@ -25,6 +26,7 @@ public class ObjectDataBuilder : DataBuilder<ObjectData>
         SetValue(ref value.baseSpeed, Vault.key.upgrade.BaseSpeed);
         SetValue(ref value.damageResistance, Vault.key.upgrade.DamageResistance);
         SetValue(ref value.cost, Vault.key.upgrade.Cost);
+        SetValue(ref value.maxSpawnLimit, Vault.key.upgrade.MaxSpawnLimit);
 
         return value;
     }
