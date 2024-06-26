@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MyBox;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -178,6 +179,7 @@ public class DebugManager : ScriptableObject
     
     static void AcquireEquipment(string key)
     {
+        ScriptableObjectManager.dictKeyToEquipmentHandler.Keys.ForEach(it => Debug.Log(it));
         EquipmentHandler equipmentHandler = ScriptableObjectManager.dictKeyToEquipmentHandler[key];
         if (PlayerManager.equipments.Contains(equipmentHandler)) return;
         PlayerManager.AcquireEquipment(equipmentHandler);

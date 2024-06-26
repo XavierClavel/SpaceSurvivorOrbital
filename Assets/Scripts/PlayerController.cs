@@ -190,7 +190,9 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         get { return _resurrection; }
         private set
         {
-            resurrectionDisplay.SetText("x" + value.ToString());
+            Debug.Log(value);
+            Debug.LogAssertion(resurrectionDisplay == null);
+            resurrectionDisplay.SetText($"x{value}");
             _resurrection = value;
         }
     }
@@ -272,6 +274,13 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         SoundManager.PlaySfx(instance.transform, key: "Heal_Player");
         instance.healPlayer.Play();
         instance.health += amount;
+    }
+
+    public static void Resurrect()
+    {
+        Heal(PlayerController.instance.maxHealth);
+        instance.health = instance.maxHealth;
+        instance.resurrection = ResurrectionManager.getAmount();
     }
     
     public void OnHitOverlay()
@@ -366,7 +375,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         
 
         souls = PlayerManager.getSouls();
-        resurrection = PlayerManager.getResurrection();
+        resurrection = ResurrectionManager.getAmount();
 
         invulnerabilityFrameDuration = Helpers.getWait(ConstantsData.invulenerabilityFrame);
 
@@ -597,13 +606,11 @@ public class PlayerController : MonoBehaviour, IResourcesListener
 
     void Death()
     {
-        bool avoidDeath = false;
-        var listeners = EventManagers.player.getListeners();
-        foreach (var eventListener in listeners)
+        if (ResurrectionManager.consumeResurrection())
         {
-            avoidDeath = avoidDeath || eventListener.onPlayerDeath();
+            Resurrect();
+            return;
         }
-        if (avoidDeath) return;
         cinemachineCamera.enabled = false;
         playerDead = true;
         ObjectManager.DisplayLoseScreen();

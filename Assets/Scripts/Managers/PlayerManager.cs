@@ -30,7 +30,7 @@ public static class PlayerManager
     public static bool isPlayingWithGamepad { get; private set; }
     public static int currentTimer { get; set; }
     public static int damageTaken = 0;
-    public static int resurrection = 0;
+    private static int resurrection = 0;
     private static int globalDifficulty = 0;
 
     public static List<PowerHandler> powers = new List<PowerHandler>();
@@ -64,6 +64,17 @@ public static class PlayerManager
 
     public static void setResurrection(int value) => resurrection = value;
     public static int getResurrection() => resurrection;
+
+    /**
+     * Returns false if no resurrections left.
+     * Else, spends 1 resurrection and returns true.
+     */
+    public static bool consumeResurrection()
+    {
+        if (getResurrection() <= 0) return false;
+        resurrection--;
+        return true;
+    }
 
     public static void increaseDifficulty(bool onPlanet = false)
     {

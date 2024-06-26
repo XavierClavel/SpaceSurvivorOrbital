@@ -89,6 +89,7 @@ public static class ResetManager
         PlanetSelectionManager.GenerateData();
         Planet.Reset();
         UpgradesDisplayManager.Reset();
+        ResurrectionManager.reset();
     }
 
 }

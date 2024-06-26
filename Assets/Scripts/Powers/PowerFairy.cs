@@ -24,9 +24,9 @@ public class PowerFairy : Power, IPlayerEvents
     public override void onSetup()
     {
         isResurrectionAvailable = fullStats.generic.boolB;
-        if (isResurrectionAvailable) EventManagers.player.registerListener(this);
+        if (isResurrectionAvailable) ResurrectionManager.fairy.setMax(1);
 
-        if (isResurrectionAvailable) { PlayerManager.resurrection++; }
+        //if (isResurrectionAvailable) { PlayerManager.resurrection++; }
 
         Fairy newFairy = Instantiate(fairy);
         newFairy.Setup(stats, Vector2.zero,fullStats.generic.boolA);

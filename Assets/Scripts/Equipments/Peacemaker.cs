@@ -6,15 +6,13 @@ using UnityEngine;
 public class Peacemaker : Equipment, IPlayerEvents
 {
     [SerializeField] ParticleSystem revivalPS;
-    private int addResurrection;
     private int currentResurrection;
     private bool resurrectionUsed = false;
     public override void onSetup()
     {
-        addResurrection = stats.magazine;
-        PlayerManager.resurrection += addResurrection;
+        ResurrectionManager.peaceMaker.setMax(stats.magazine);
+        //PlayerManager.resurrection += addResurrection;
         Debug.Log("Resurrection :" + currentResurrection);
-        EventManagers.player.registerListener(this);
     }
     public bool onPlayerDeath()
     {
