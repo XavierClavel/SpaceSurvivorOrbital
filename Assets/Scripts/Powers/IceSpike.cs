@@ -7,9 +7,26 @@ using UnityEngine;
 public class IceSpike : MonoBehaviour
 {
     private float scale;
+    [SerializeField] private List<ParticleSystem> alignParallel;
+    [SerializeField] private List<ParticleSystem> alignOrthogonal;
+    [SerializeField] private ParticleSystem ps;
 
     public IceSpike setup(float lifetime, float scale)
     {
+        alignOrthogonal.ForEach(it =>
+        {
+            var mainModule = it.main;
+            mainModule.startRotation = this.transform.eulerAngles.z + 90;
+            it.Play();
+        });
+        alignParallel.ForEach(it =>
+        {
+            var mainModule = it.main;
+            mainModule.startRotation = this.transform.eulerAngles.z;
+        });
+        Debug.Log(alignOrthogonal[0].gameObject.name);
+        Debug.Log(alignOrthogonal[0].startRotation);
+        ps.Play();
         Sequence sequence = DOTween.Sequence();
         sequence.Append(transform.DOScale(scale * Vector3.one, 0.2f));
         sequence.AppendInterval(lifetime);

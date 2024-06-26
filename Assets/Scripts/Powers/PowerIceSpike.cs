@@ -66,16 +66,16 @@ public class PowerIceSpike : Power, IPlayerEvents
 
         for (int i = 1; i <= amount; i++)
         {
-            SpawnIceSpike(   startPos + i * step * direction);
+            SpawnIceSpike(   startPos + i * step * direction, Helpers.LookRotation2D(direction).eulerAngles.z);
             yield return Helpers.getWait(0.05f);
         }
     }
 
-    private void SpawnIceSpike(Vector2 position)
+    private void SpawnIceSpike(Vector2 position, float rotation)
     {
-        float randomRotation = Random.Range(-rotationRandomizationFactor, rotationRandomizationFactor);
+        Debug.Log(rotation);
         pool
-            .get(position,  (90 + randomRotation) * Vector3.forward)
+            .get(position,  rotation * Vector3.forward)
             .setup(0.05f, 1f)
             ;
     }

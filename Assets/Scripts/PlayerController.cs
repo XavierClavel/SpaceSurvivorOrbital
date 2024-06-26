@@ -176,8 +176,8 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         get { return _health; }
         private set
         {
-            healthBar.SetAmount(value);
-            _health = value;
+            _health = Mathf.Clamp(value, 0, maxHealth);
+            healthBar.SetAmount(_health);
             SoundManager.PlaySfx(transform, key: "Player_Hit");
             if (value <= 0) Death();
         }
