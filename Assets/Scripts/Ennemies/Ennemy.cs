@@ -167,9 +167,15 @@ public class Ennemy : Breakable
         if (hitInfo.effect.Contains(status.lightning)) return; //no knockback if ennemy is stun
         ApplyKnockback(hitInfo.knockback);
     }
-    
-    
-    
+
+    public void ReceiveMark(float markMultiplier)
+    {
+        marked.SetActive(true);
+        isMarked = true;
+        markedMultiplier = markMultiplier;
+    }
+
+
     protected override void StackHit(int damage, HashSet<status> elements)
     {
         ApplyEffects(elements);
@@ -408,10 +414,4 @@ public class Ennemy : Breakable
         deformationScale = startDeformationScale;
     }
 
-    public void ReceiveMark(float markMultiplier)
-    {
-        marked.SetActive(true);
-        isMarked = true;
-        markedMultiplier = markMultiplier;
-    }
 }
