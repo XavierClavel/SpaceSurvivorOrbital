@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class PowerFlame : Power
+public class PowerFlame : Power, IEnnemyListener
 {
-    private static Stacker<Ennemy> ennemyStacker;
+    private static List<Ennemy> ennemyStacker;
     private HashSet<status> elements = new HashSet<status>();
     public ParticleSystem flamePS;
     public ParticleSystem bigFlamePS;
@@ -21,6 +23,8 @@ public class PowerFlame : Power
 
     public override void onSetup()
     {
+        EventManagers.ennemies.registerListener(this);
+        
         shootAfter = fullStats.generic.boolA;
         shootInstead = fullStats.generic.boolB;
         bigger = fullStats.generic.boolC;
@@ -28,13 +32,18 @@ public class PowerFlame : Power
         col2d.size = new Vector2(fullStats.generic.intA, fullStats.generic.intB);
         col2d.offset = new Vector2(0, 2 + fullStats.generic.intA);
 
-        ennemyStacker = new Stacker<Ennemy>();
+        ennemyStacker = new List<Ennemy>();
         
         if (shootInstead) StartCoroutine(nameof(Reload));
         else StartCoroutine(nameof(FlameThrower)); 
 
         if(fireRing) { cir2D.enabled = true; }
         
+    }
+
+    private void OnDestroy()
+    {
+        EventManagers.ennemies.unregisterListener(this);
     }
 
     void Update()
@@ -54,11 +63,7 @@ public class PowerFlame : Power
     private void DealDamage()
     {
         if (!flameIsActive) return;
-        
-        foreach (Ennemy ennemy in ennemyStacker.get())
-        {
-            ennemy.StackDamage(stats.baseDamage.x, elements);
-        }
+        ennemyStacker.ToArray().ToList().ForEach(it => it.StackDamage(stats.baseDamage.x, elements));
     }
     void Shoot(Bullet prefab)
     {
@@ -76,13 +81,14 @@ public class PowerFlame : Power
     private void OnTriggerEnter2D(Collider2D other)
     {
         Ennemy ennemy = ObjectManager.dictObjectToEnnemy[other.gameObject];
-        ennemyStacker.stack(ennemy);
+        ennemyStacker.Add(ennemy);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        if (ennemyStacker.All(it => it.gameObject != other.gameObject)) return;
         Ennemy ennemy = ObjectManager.dictObjectToEnnemy[other.gameObject];
-        ennemyStacker.unstack(ennemy);
+        ennemyStacker.Remove(ennemy);
     }
 
     IEnumerator FlameThrower()
@@ -110,5 +116,10 @@ public class PowerFlame : Power
             if (bigger) Shoot(bigBulletPrefab);
             else Shoot(bulletPrefab);
         }
+    }
+
+    public void onEnnemyDeath(Ennemy ennemy)
+    {
+        if (ennemyStacker.Contains(ennemy)) ennemyStacker.Remove(ennemy);
     }
 }
