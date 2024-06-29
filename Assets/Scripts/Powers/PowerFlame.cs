@@ -30,8 +30,8 @@ public class PowerFlame : Power
 
         ennemyStacker = new Stacker<Ennemy>();
         
-        if(!shootInstead) {StartCoroutine(nameof(FlameThrower));} 
-        else if (shootInstead) {StartCoroutine(nameof(Reload));}
+        if (shootInstead) StartCoroutine(nameof(Reload));
+        else StartCoroutine(nameof(FlameThrower)); 
 
         if(fireRing) { cir2D.enabled = true; }
         
@@ -42,11 +42,10 @@ public class PowerFlame : Power
         gameObject.transform.position = player.transform.position;
         Vector2 aimDirection = player.aimVector;
 
-        if (aimDirection != Vector2.zero)
-        {
-            float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
-            gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        }
+        if (aimDirection == Vector2.zero) return;
+        
+        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
+        gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
     private void FixedUpdate()
     {
@@ -54,34 +53,21 @@ public class PowerFlame : Power
     }
     private void DealDamage()
     {
-        if(flameIsActive)
+        if (!flameIsActive) return;
+        
+        foreach (Ennemy ennemy in ennemyStacker.get())
         {
-            foreach (Ennemy ennemy in ennemyStacker.get())
-            {
-                ennemy.StackDamage(stats.baseDamage.x, elements);
-            }
+            ennemy.StackDamage(stats.baseDamage.x, elements);
         }
     }
-    void Shoot()
+    void Shoot(Bullet prefab)
     {
         gameObject.transform.position = player.transform.position;
         Vector2 aimDirection = player.aimVector;
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
         Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         
-        Bullet bullet = Instantiate(bulletPrefab, transform.position, rotation);
-        bullet.gameObject.SetActive(true);
-        bullet.Fire(stats.speedWhileAiming, new HitInfo(stats));
-    }
-
-    void BiggerShoot()
-    {
-        gameObject.transform.position = player.transform.position;
-        Vector2 aimDirection = player.aimVector;
-        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
-        Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-        
-        Bullet bullet = Instantiate(bigBulletPrefab, transform.position, rotation);
+        Bullet bullet = Instantiate(prefab, transform.position, rotation);
         bullet.gameObject.SetActive(true);
         bullet.Fire(stats.speedWhileAiming, new HitInfo(stats));
     }
@@ -104,15 +90,15 @@ public class PowerFlame : Power
         while (true)
         {
             flameIsActive = true;
-            if(!bigger) {flamePS.Play();}
-            else if (bigger) { bigFlamePS.Play();}
-            if(fireRing) { fireRingPS.Play();};
+            if (bigger) bigFlamePS.Play();
+            else flamePS.Play();
+            if(fireRing) fireRingPS.Play();
             yield return new WaitForSeconds(stats.attackSpeed);
             flameIsActive = false;
             flamePS.Stop();
             bigFlamePS.Stop();
             fireRingPS.Stop();
-            if (shootAfter) { Shoot(); }
+            if (shootAfter) Shoot(bulletPrefab);
             yield return new WaitForSeconds(stats.cooldown);
         }
     }
@@ -121,8 +107,8 @@ public class PowerFlame : Power
         while (true)
         {
             yield return Helpers.getWait(stats.cooldown);
-            if (!bigger) { Shoot(); }
-            else if (bigger) { BiggerShoot(); }
+            if (bigger) Shoot(bigBulletPrefab);
+            else Shoot(bulletPrefab);
         }
     }
 }
