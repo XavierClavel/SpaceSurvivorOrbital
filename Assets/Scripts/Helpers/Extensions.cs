@@ -6,6 +6,68 @@ using UnityEngine;
 
 public static class Extensions
 {
+    
+    public static void setParent(this Transform instance, Transform parent, int z = 0, float scale = 1f)
+    {
+        instance.SetParent(parent);
+        instance.localScale = Vector3.one * scale;
+        instance.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero + z * Vector3.forward;
+    }
+
+    public static List<T> filter<T>(this List<T> list, Predicate<T> predicate)
+    {
+        List<T> filteredList = new List<T>();
+        list.ForEach(it =>
+        {
+            if (predicate(it)) filteredList.Add(it);
+        });
+        return filteredList;
+    }
+
+    public static List<T2> map<T1, T2>(this List<T1> list, Func<T1, T2> fun)
+    {
+        List<T2> newList = new List<T2>();
+        list.ForEach(it => newList.Add(fun(it)));
+        return newList;
+    }
+    
+    /**
+     * Returns a tuple with :
+     * Item1 -> items missing in base
+     * Item2 -> items additional in base
+     * Item3 -> same items
+     */
+    public static Tuple<List<T>, List<T>, List<T>> compareTo<T>(this List<T> listA, List<T> listB)
+    {
+        List<T> missingInA = new List<T>();
+        List<T> missingInB = new List<T>();
+        List<T> same = new List<T>();
+
+        foreach (var itemA in listA)
+        {
+            if (listB.Contains(itemA)) same.Add(itemA);
+            else missingInB.Add(itemA);
+        }
+        
+
+        foreach (var itemB in listB)
+        {
+            if (!listA.Contains(itemB)) missingInA.Add(itemB);
+        }
+
+        return new Tuple<List<T>, List<T>, List<T>>(missingInA, missingInB, same);
+    } 
+
+    public static List<GameObject> getChildren(this Transform t)
+    {
+        List<GameObject> list = new List<GameObject>();
+        for (int i = 0; i < t.childCount; i++)
+        {
+            list.Add(t.GetChild(i).gameObject);
+        }   
+
+        return list;
+    }
 
     public static TValue getorPut<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue defaultValue)
     {

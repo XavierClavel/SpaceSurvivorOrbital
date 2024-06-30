@@ -190,8 +190,6 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         get { return _resurrection; }
         private set
         {
-            Debug.Log(value);
-            Debug.LogAssertion(resurrectionDisplay == null);
             resurrectionDisplay.SetText($"x{value}");
             _resurrection = value;
         }

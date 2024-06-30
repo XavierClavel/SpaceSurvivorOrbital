@@ -91,7 +91,6 @@ public class Helpers : MonoBehaviour
         instance.SetParent(parent);
         instance.localScale = Vector3.one * scale;
         instance.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero + z * Vector3.forward;
-
     }
 
     public static void SetParent(GameObject instance, Transform parent)

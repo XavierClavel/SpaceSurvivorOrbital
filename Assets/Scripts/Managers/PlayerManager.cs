@@ -168,6 +168,7 @@ public static class PlayerManager
     {
         powers.Add(powerHandler);
         dictKeyToStats[powerHandler.getKey()] = DataManager.dictPowers[powerHandler.getKey()].Clone();
+        EventManagers.powers.getListeners().ForEach(it => it.onPowerPickup(powerHandler));
     }
 
     public static void AcquirePower(string key)
@@ -190,7 +191,8 @@ public static class PlayerManager
     {
         if (!artefactHandler.isSingleUse())
         {
-            artefacts.Add(artefactHandler);   
+            artefacts.Add(artefactHandler);
+            EventManagers.artefacts.getListeners().ForEach(it => it.onArtefactPickup(artefactHandler));
         }
         dictKeyToStats[artefactHandler.getKey()] = DataManager.dictArtefacts[artefactHandler.getKey()].Clone();
         artefactHandler.Activate();
