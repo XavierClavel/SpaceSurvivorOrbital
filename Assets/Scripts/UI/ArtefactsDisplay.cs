@@ -16,8 +16,6 @@ public class ArtefactsDisplay : ItemGridDisplay<ArtefactHandler>, IArtefactListe
 
     private void Start()
     {
-        Debug.Log("doing something");
-        Debug.Log(PlayerManager.artefacts.Count);
         addItem(PlayerManager.artefacts.ToList());
         EventManagers.artefacts.registerListener(this);
     }

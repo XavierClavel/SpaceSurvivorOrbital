@@ -10,14 +10,14 @@ public abstract class ItemGridDisplay<T>: MonoBehaviour
 
     public void addItem(T item)
     {
-        Debug.Log("adding item");
         items.TryAdd(item);
         updateDisplay();
     }
 
     public void addItem(List<T> items)
     {
-        items.ForEach(addItem);
+        if (items.isEmpty()) updateDisplay();
+        else items.ForEach(addItem);
     }
 
     public void removeItem(T item)
@@ -28,7 +28,6 @@ public abstract class ItemGridDisplay<T>: MonoBehaviour
 
     private void updateDisplay()
     {
-        Debug.Log("updating display");
         var currentState = transform.getChildren().map(it => it.name);
         var newState = items.map(getKey);
         var diff = currentState.compareTo(newState);
@@ -44,7 +43,6 @@ public abstract class ItemGridDisplay<T>: MonoBehaviour
     {
         var children = transform.getChildren();
         var child = children.Find(it => it.name == key);
-        Debug.Log($"destroying {key}");
         Object.Destroy(child);
     }
 
