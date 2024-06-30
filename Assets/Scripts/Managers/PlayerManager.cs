@@ -33,8 +33,8 @@ public static class PlayerManager
     private static int resurrection = 0;
     private static int globalDifficulty = 0;
 
-    public static List<PowerHandler> powers = new List<PowerHandler>();
-    public static List<EquipmentHandler> equipments = new List<EquipmentHandler>();
+    public static HashSet<PowerHandler> powers = new HashSet<PowerHandler>();
+    public static HashSet<EquipmentHandler> equipments = new HashSet<EquipmentHandler>();
     public static HashSet<ArtefactHandler> artefacts = new HashSet<ArtefactHandler>();
 
     public static PlayerData playerData = new PlayerData();
@@ -129,8 +129,8 @@ public static class PlayerManager
 
         playerData.setBase();
         weaponData = new PlayerData();
-        powers = new List<PowerHandler>();
-        equipments = new List<EquipmentHandler>();
+        powers = new HashSet<PowerHandler>();
+        equipments = new HashSet<EquipmentHandler>();
         artefacts = new HashSet<ArtefactHandler>();
         dictKeyToStats = new Dictionary<string, PlayerData>();
     }
@@ -178,6 +178,7 @@ public static class PlayerManager
 
     public static void AcquireEquipment(EquipmentHandler equipmentHandler)
     {
+        Debug.Log($"Acquiring equipment {equipmentHandler.getKey()}");
         equipments.Add(equipmentHandler);
         dictKeyToStats[equipmentHandler.getKey()] = DataManager.dictEquipments[equipmentHandler.getKey()].Clone();
     }

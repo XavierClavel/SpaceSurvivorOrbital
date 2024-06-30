@@ -29,6 +29,7 @@ public abstract class ItemGridDisplay<T>: MonoBehaviour
     private void updateDisplay()
     {
         var currentState = transform.getChildren().map(it => it.name);
+        currentState.ForEach(Debug.Log);
         var newState = items.map(getKey);
         var diff = currentState.compareTo(newState);
 
@@ -78,5 +79,15 @@ public abstract class ItemGridDisplay<T>: MonoBehaviour
     protected abstract string getKey(T item);
 
     protected abstract Sprite getSprite(T item);
+
+    protected T getItem(string key)
+    {
+        return items.Find(it => getKey(it) == key);
+    }
+    
+    protected Sprite getSprite(string key)
+    {
+        return getSprite(getItem(key));
+    }
 
 }

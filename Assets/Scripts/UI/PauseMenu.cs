@@ -45,7 +45,6 @@ public class PauseMenu : MonoBehaviour
         
         Time.timeScale = 0f;
         Time.fixedDeltaTime = 0f;
-        Debug.Log(Time.timeScale);
         //SoundManager.instance.StopTime();
 
         if (!Helpers.isPlatformAndroid() && SceneManager.GetActiveScene().name == Vault.scene.Planet) PlayerController.instance.controls.Disable();

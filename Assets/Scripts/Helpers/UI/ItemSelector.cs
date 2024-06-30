@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [Serializable]
-public class SelectableItem
+public class SelectorSelectableItem
 {
     public string name;
     public string key;
@@ -15,7 +15,7 @@ public class SelectableItem
 
 public class ItemSelector : MonoBehaviour
 {
-    [SerializeField] protected List<SelectableItem> selectableItems;
+    [SerializeField] protected List<SelectorSelectableItem> selectableItems;
     [SerializeField] private TextMeshProUGUI textDisplay;
     [SerializeField] private Button nextButton;
     [SerializeField] private Button previousButton;
@@ -55,9 +55,9 @@ public class ItemSelector : MonoBehaviour
         if (currentIndex == 0) previousButton.gameObject.SetActive(false);
     }
 
-    private void DisplayItem(SelectableItem selectableItem)
+    private void DisplayItem(SelectorSelectableItem selectorSelectableItem)
     {
-        textDisplay.SetText(selectableItem.name);
+        textDisplay.SetText(selectorSelectableItem.name);
     }
 
     private void DisplayItem(int index) => DisplayItem(selectableItems[index]);
