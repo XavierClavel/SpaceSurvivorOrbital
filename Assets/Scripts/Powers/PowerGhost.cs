@@ -15,7 +15,7 @@ using UnityEngine;
  * <p> Attack Speed -> Projectiles speed </p>
  * </pre>
  */
-public class PowerGhost : Power, IEnnemyListener
+public class PowerGhost : Power, IEnemyListener
 {
     [SerializeField] private Ghost ghost;
     [SerializeField] private Ghost bigGhost;

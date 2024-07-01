@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerHuntersMark : Power, IEnnemyListener
+public class PowerHuntersMark : Power, IEnemyListener
 {
     [SerializeField] private CircleCollider2D markCircleCollider;
     

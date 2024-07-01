@@ -8,7 +8,7 @@ public static class EventManagers
     public static readonly EventManager<IFullResourcesListener> fullResources =
         new EventManager<IFullResourcesListener>();
     public static readonly EventManager<IEggListener> eggs = new EventManager<IEggListener>();
-    public static readonly EventManager<IEnnemyListener> enemies = new EventManager<IEnnemyListener>();
+    public static readonly EventManager<IEnemyListener> enemies = new EventManager<IEnemyListener>();
     public static readonly EventManager<IAltarListener> altar = new EventManager<IAltarListener>();
     public static readonly EventManager<IMonsterStele> monsterSteles = new EventManager<IMonsterStele>();
     public static readonly EventManager<IPlayerEvents> player = new EventManager<IPlayerEvents>();

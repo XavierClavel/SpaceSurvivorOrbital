@@ -17,7 +17,7 @@ using UnityEngine;
  * <p> BaseSpeed -> Speed towards player </p>
  * </pre>
  */
-public class PowerToxicZone : Power, IEnnemyListener
+public class PowerToxicZone : Power, IEnemyListener
 {
 
     ComponentPool<ToxicZone> pool;

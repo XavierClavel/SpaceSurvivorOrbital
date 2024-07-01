@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PowerFlame : Power, IEnnemyListener
+public class PowerFlame : Power, IEnemyListener
 {
     private static List<Ennemy> ennemyStacker;
     private HashSet<status> elements = new HashSet<status>();

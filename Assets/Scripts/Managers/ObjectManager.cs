@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggListener, IEnnemyListener
+public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggListener, IEnemyListener
 {
     [Header("UI")]
     public LayoutManager healthBar;

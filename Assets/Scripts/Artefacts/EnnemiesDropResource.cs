@@ -7,7 +7,7 @@ using UnityEngine;
  * <p> Projectiles -> How many ennemies to kill before drop </p>
  * <p> Magazine -> How many resources are dropped </p>
  */
-public class EnnemiesDropResource : Artefact, IEnnemyListener
+public class EnnemiesDropResource : Artefact, IEnemyListener
 {
     private int amount = 0;
     private int dropEvery;
