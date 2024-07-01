@@ -99,10 +99,8 @@ public class Shockwave : MonoBehaviour
         
         HitInfo hitInfo = new HitInfo(shockwaveDamage, false, effect, shockwaveKnockback);
         var hit = ObjectManager.retrieveHitable(other.gameObject);
-        if (hit == null)
-        {
-            if (other.gameObject.CompareTag(Vault.tag.Player)) PlayerController.Hurt(hitInfo.damage);
-        } else hit.Hit(hitInfo);
+        if (hit != null) hit.Hit(hitInfo);
+        else if (other.gameObject.CompareTag(Vault.tag.Player)) PlayerController.Hurt(hitInfo.getDamage());
         
     }
 }

@@ -62,7 +62,7 @@ public class Resource : Breakable
         base.Hit(hitInfo);
         SoundManager.PlaySfx(transform, key: "Eggs");
         hitPS.Play();
-        health -= hitInfo.damage;
+        health -= hitInfo.getDamage();
     }
     
     protected override void StackHit(int damage, HashSet<status> elements)

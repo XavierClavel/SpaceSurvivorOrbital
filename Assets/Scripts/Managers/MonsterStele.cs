@@ -72,10 +72,10 @@ public class MonsterStele : Breakable
         //PlayerController.Shake(0.5f, 0.2f);
         SoundManager.PlaySfx(transform, key: "Spawn_Hit");
         healthChange value = hitInfo.critical ? healthChange.critical : healthChange.hit;
-        if (hitInfo.damage != 0)
+        if (hitInfo.getDamage() != 0)
         {
-            DamageDisplayHandler.DisplayDamage(hitInfo.damage, transform.position, value);
-            health -= hitInfo.damage;
+            DamageDisplayHandler.DisplayDamage(hitInfo.getDamage(), transform.position, value);
+            health -= hitInfo.getDamage();
         }
     }
     

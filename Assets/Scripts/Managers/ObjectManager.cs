@@ -345,9 +345,9 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
         Instantiate(instance.chest, position, Quaternion.identity);
     }
     
-    public void onEnnemyDeath(Ennemy ennemy)
+    public void onEnnemyDeath(Ennemy enemy)
     {
-        if (ennemy.doUseKillPs) enemiesExplosionPsPool.get(ennemy.transform.position);
+        if (enemy.doUseKillPs) enemiesExplosionPsPool.get(enemy.transform.position);
     }
 
     Tween sliderTween;

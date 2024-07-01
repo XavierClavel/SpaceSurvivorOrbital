@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PowerFlame : Power, IEnemyListener
 {
-    private static List<Ennemy> ennemyStacker;
+    private static HashSet<Ennemy> enemyStacker;
     private HashSet<status> elements = new HashSet<status>();
     public ParticleSystem flamePS;
     public ParticleSystem bigFlamePS;
@@ -32,7 +32,7 @@ public class PowerFlame : Power, IEnemyListener
         col2d.size = new Vector2(fullStats.generic.intA, fullStats.generic.intB);
         col2d.offset = new Vector2(0, 2 + fullStats.generic.intA);
 
-        ennemyStacker = new List<Ennemy>();
+        enemyStacker = new HashSet<Ennemy>();
         
         if (shootInstead) StartCoroutine(nameof(Reload));
         else StartCoroutine(nameof(FlameThrower)); 
@@ -63,7 +63,7 @@ public class PowerFlame : Power, IEnemyListener
     private void DealDamage()
     {
         if (!flameIsActive) return;
-        ennemyStacker.ToArray().ToList().ForEach(it => it.StackDamage(stats.baseDamage.x, elements));
+        enemyStacker.ToArray().ToList().ForEach(it => it.StackDamage(stats.baseDamage.x, elements));
     }
     void Shoot(Bullet prefab)
     {
@@ -80,15 +80,14 @@ public class PowerFlame : Power, IEnemyListener
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Ennemy ennemy = ObjectManager.dictObjectToEnnemy[other.gameObject];
-        ennemyStacker.Add(ennemy);
+        if (!ObjectManager.dictObjectToEnnemy.TryGetValue(other.gameObject, out var enemy)) return;
+        enemyStacker.TryAdd(enemy);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (ennemyStacker.All(it => it.gameObject != other.gameObject)) return;
-        Ennemy ennemy = ObjectManager.dictObjectToEnnemy[other.gameObject];
-        ennemyStacker.Remove(ennemy);
+        if (enemyStacker.All(it => it.gameObject != other.gameObject)) return;
+        if (ObjectManager.dictObjectToEnnemy.TryGetValue(other.gameObject, out var ennemy)) enemyStacker.Remove(ennemy);
     }
 
     IEnumerator FlameThrower()
@@ -118,8 +117,8 @@ public class PowerFlame : Power, IEnemyListener
         }
     }
 
-    public void onEnnemyDeath(Ennemy ennemy)
+    public void onEnnemyDeath(Ennemy enemy)
     {
-        if (ennemyStacker.Contains(ennemy)) ennemyStacker.Remove(ennemy);
+        enemyStacker.TryRemove(enemy);
     }
 }

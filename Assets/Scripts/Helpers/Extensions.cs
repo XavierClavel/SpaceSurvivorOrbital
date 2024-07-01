@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine;
 
@@ -268,7 +269,7 @@ public static class Extensions
     ///<summary>
     ///Removes the item from the list if it is present, else does nothing.
     ///</summary>
-    public static void TryRemove<T>(this List<T> list, T value)
+    public static void TryRemove<T>(this ICollection<T> list, T value)
     {
         if (list.Contains(value)) list.Remove(value);
     }
@@ -284,12 +285,12 @@ public static class Extensions
     ///<summary>
     ///Adds the item to the list if it is absent, else does nothing.
     ///</summary>
-    public static void TryAdd<T>(this List<T> list, T value)
+    public static void TryAdd<T>(this ICollection<T> list, T value)
     {
         if (!list.Contains(value)) list.Add(value);
     }
 
-    public static List<T> TryAdd<T>(this List<T> list, List<T> values)
+    public static ICollection<T> TryAdd<T>(this ICollection<T> list, ICollection<T> values)
     {
         if (values == null) return list;
         foreach (T item in values)

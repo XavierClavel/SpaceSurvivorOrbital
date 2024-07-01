@@ -36,7 +36,7 @@ public class BlackHole : MonoBehaviour
     {
         if (!isActive) return;
         // Checker si l'objet a le tag cible
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(Vault.tag.Player))
         {
             float sqrDist = (transform.position - other.transform.position).sqrMagnitude;
             if (sqrDist < 0.25 * Mathf.Pow(scale, 2))

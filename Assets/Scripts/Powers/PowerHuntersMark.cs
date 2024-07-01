@@ -73,11 +73,11 @@ public class PowerHuntersMark : Power, IEnemyListener
         if (boostStrenght) PlayerController.RemoveStrengthBoost();
     }
 
-    public void onEnnemyDeath(Ennemy ennemy)
+    public void onEnnemyDeath(Ennemy enemy)
     {
-        availableEnemies.TryRemove(ennemy);
-        if (!markedEnemies.Contains(ennemy)) return;
-        markedEnemies.Remove(ennemy);
+        availableEnemies.TryRemove(enemy);
+        if (!markedEnemies.Contains(enemy)) return;
+        markedEnemies.Remove(enemy);
         StopCoroutine(nameof(KillBoost));
         StartCoroutine(nameof(KillBoost));
 

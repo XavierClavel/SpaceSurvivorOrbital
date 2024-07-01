@@ -11,6 +11,7 @@ public class Spawner : MonoBehaviour, IDifficultyListener
     [SerializeField] private Boss boss;
     List<Ennemy> ennemyPrefabs;
     private int increment;
+    private static int enemyCount = 0;
 
     [Header("Multiplier")]
     [SerializeField] public int baseCostLarge;
@@ -37,6 +38,8 @@ public class Spawner : MonoBehaviour, IDifficultyListener
 
     protected void Start()
     {
+        enemyCount = 0;
+        
         if (PlayerManager.isTuto) return;
         
         initializeSpawnParams(PlanetSelector.getDifficulty());
@@ -160,21 +163,21 @@ public class Spawner : MonoBehaviour, IDifficultyListener
             Ennemy ennemy = ennemies.getRandom();
             int newCost = currentCost + DataManager.dictObjects[ennemy.name].cost;
 
-            // Vérifier si ajouter cet ennemi dépasse maxCost
+            // VÃ©rifier si ajouter cet ennemi dÃ©passe maxCost
             if (newCost > maxCost)
             {
                 ennemies.Remove(ennemy);
-                continue; // Passer à l'itération suivante
+                continue; // Passer Ã  l'itÃ©ration suivante
             }
 
-            // Vérifier si cet ennemi a atteint sa limite de spawn
+            // VÃ©rifier si cet ennemi a atteint sa limite de spawn
             if (spawnCounts.ContainsKey(ennemy.name))
             {
                 int spawnLimit = DataManager.dictObjects[ennemy.name].maxSpawnLimit;
                 if (spawnCounts[ennemy.name] >= spawnLimit)
                 {
                     ennemies.Remove(ennemy);
-                    continue; // Passer à l'itération suivante
+                    continue; // Passer Ã  l'itÃ©ration suivante
                 }
             }
             else
@@ -182,7 +185,7 @@ public class Spawner : MonoBehaviour, IDifficultyListener
                 spawnCounts[ennemy.name] = 0; // Initialiser le compteur de spawn pour cet ennemi
             }
 
-            // Mettre à jour le compteur de spawn pour cet ennemi
+            // Mettre Ã  jour le compteur de spawn pour cet ennemi
             spawnCounts[ennemy.name]++;
 
             float spawnTime = Random.Range(0f, waveDuration);
@@ -207,7 +210,9 @@ public class Spawner : MonoBehaviour, IDifficultyListener
     {
         Bounds bounds = Camera.main.getBounds();
         Vector3 position = Helpers.getRandomPositionInRing(bounds.extents, shape.square) + PlayerController.instance.transform.position;
-        Instantiate(ennemy, position, Quaternion.identity);
+        var newEnemy = Instantiate(ennemy, position, Quaternion.identity);
+        newEnemy.gameObject.name = $"{ennemy.gameObject.name}-{enemyCount}";
+        enemyCount++;
     }
 
     public void SpawnEnnemy()

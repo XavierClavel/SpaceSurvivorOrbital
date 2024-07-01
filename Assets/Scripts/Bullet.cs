@@ -84,12 +84,12 @@ public class Bullet : MonoBehaviour
 
         if (other.gameObject.CompareTag(Vault.tag.Player))
         {
-            PlayerController.Hurt(hitInfo.damage);
+            PlayerController.Hurt(hitInfo.getDamage());
             if (PlayerController.instance.reflectsProjectiles)
             {
                 gameObject.layer = LayerMask.NameToLayer(Vault.layer.ObstaclesAndEnnemiesAndResources);
                 rb.velocity *= -1f;
-                hitInfo = new HitInfo(hitInfo.damage * damageScalePlayerToEnnemy, hitInfo.critical, hitInfo.effect);
+                hitInfo = new HitInfo(hitInfo.getDamage() * damageScalePlayerToEnnemy, hitInfo.critical, hitInfo.effect);
                 return;
             }
         }

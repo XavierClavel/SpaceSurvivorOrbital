@@ -25,11 +25,11 @@ public class EnnemiesDropResource : Artefact, IEnemyListener
         EventManagers.enemies.unregisterListener(this);
     }
 
-    public void onEnnemyDeath(Ennemy ennemy)
+    public void onEnnemyDeath(Ennemy enemy)
     {
         amount++;
         if (amount < dropEvery) return;
         amount = 0;
-        ObjectManager.SpawnResources(ennemy.transform.position, resourcesAmount);
+        ObjectManager.SpawnResources(enemy.transform.position, resourcesAmount);
     }
 }

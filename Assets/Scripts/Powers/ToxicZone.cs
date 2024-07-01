@@ -40,7 +40,7 @@ public class ToxicZone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag(Vault.tag.Player))
         {
             PowerToxicZone.onPlayerEnterToxicZone();
             return;
@@ -51,7 +51,7 @@ public class ToxicZone : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag(Vault.tag.Player))
         {
             PowerToxicZone.onPlayerExitToxicZone();
             return;

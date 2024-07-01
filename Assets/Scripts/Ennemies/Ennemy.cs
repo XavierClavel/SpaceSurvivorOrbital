@@ -2,12 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
-using UnityEngine.Events;
-using System.Net;
-using UnityEditor;
-using static Vault.key;
-using UnityEngine.Timeline;
 
 public class Ennemy : Breakable
 {
@@ -148,18 +142,22 @@ public class Ennemy : Breakable
 
     public override void Hit(HitInfo hitInfo)
     {
-        if (isMarked) { hitInfo.applyDamageMultiplier(damageMultiplier * markedMultiplier); }
-        else { hitInfo.applyDamageMultiplier(damageMultiplier); }
+        hitInfo.applyDamageMultiplier(damageMultiplier);
+        Debug.Log(isMarked);
+        Debug.Log(hitInfo.getDamage());
+        if (isMarked) { hitInfo.applyDamageMultiplier(markedMultiplier); }
+        Debug.Log(hitInfo.getDamage());
+        Debug.Log(markedMultiplier);
 
         base.Hit(hitInfo);
         
         healthChange value = hitInfo.critical ? healthChange.critical : healthChange.hit;
-        if (hitInfo.damage != 0)
+        if (hitInfo.getDamage() != 0)
         {
-            DamageDisplayHandler.DisplayDamage(hitInfo.damage, transform.position, value);
+            DamageDisplayHandler.DisplayDamage(hitInfo.getDamage(), transform.position, value);
             StopCoroutine(nameof(ApplyDeformationOverTime));
             StartCoroutine(nameof(ApplyDeformationOverTime));
-            health -= hitInfo.damage;
+            health -= hitInfo.getDamage();
             if (health <= 0) return;
         }
 
@@ -213,6 +211,7 @@ public class Ennemy : Breakable
 
     protected virtual void Death()
     {
+        Debug.Log($"{gameObject.name} is dead");
         //SoundManager.PlaySfx(transform, key: "Ennemy_Destroy");
         player.AddEnnemyScore(cost);
         StressTest.nbEnnemies--;

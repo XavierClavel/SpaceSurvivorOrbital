@@ -189,9 +189,9 @@ public class PowerToxicZone : Power, IEnemyListener
         instance.pool.recall(toxicZone);
     }
 
-    public void onEnnemyDeath(Ennemy ennemy)
+    public void onEnnemyDeath(Ennemy enemy)
     {
-        ennemyStacker.remove(ennemy);
+        ennemyStacker.remove(enemy);
         if (playerStacker.get() == 0)
         {
             return;

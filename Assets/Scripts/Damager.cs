@@ -6,10 +6,13 @@ using System.Linq;
 
 public struct HitInfo
 {
-    public int damage;
+    private int damage;
     public readonly bool critical;
     public readonly HashSet<status> effect;
     public readonly int knockback;
+    private float multiplier;
+    
+    public int getDamage() => (int)(damage * multiplier);
 
     public HitInfo ApplyBonus()
     {
@@ -23,6 +26,7 @@ public struct HitInfo
         this.critical = critical;
         this.effect = effect;
         this.knockback = 0;
+        this.multiplier = 1;
     }
 
     public void addDamageMultiplier()
@@ -37,6 +41,7 @@ public struct HitInfo
         this.effect = new HashSet<status>();
         this.effect.Add(effect);
         this.knockback = knockback;
+        this.multiplier = 1;
     }
 
     public HitInfo(int damage, bool critical, status effect)
@@ -46,6 +51,7 @@ public struct HitInfo
         this.effect = new HashSet<status>();
         this.effect.Add(effect);
         this.knockback = 0;
+        this.multiplier = 1;
     }
 
     public HitInfo(int damage)
@@ -54,6 +60,7 @@ public struct HitInfo
         this.critical = false;
         this.effect = new HashSet<status>();
         this.knockback = 0;
+        this.multiplier = 1;
     }
     
     public HitInfo(interactorStats stats, status effect = status.none)
@@ -64,6 +71,7 @@ public struct HitInfo
         this.effect = new HashSet<status>();
         this.effect.Add(effect);
         this.knockback = stats.knockback;
+        this.multiplier = 1;
     }
     
     public HitInfo(interactorStats stats)
@@ -74,6 +82,7 @@ public struct HitInfo
         this.effect = new HashSet<status>();
         this.effect.Add(stats.element);
         this.knockback = stats.knockback;
+        this.multiplier = 1;
     }
     
     public HitInfo(interactorStats stats, HashSet<status> bonusStatuses)
@@ -89,11 +98,12 @@ public struct HitInfo
         {
             this.effect.Add(bonusStatus);
         }
+        this.multiplier = 1;
     }
 
     public HitInfo applyDamageMultiplier(float multiplier)
     {
-        damage = (int)(damage * multiplier);
+        this.multiplier *= multiplier;
         return this;
     }
     

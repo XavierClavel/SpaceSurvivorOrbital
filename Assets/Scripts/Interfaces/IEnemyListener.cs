@@ -1,5 +1,5 @@
 
 public interface IEnemyListener
 {
-    public void onEnnemyDeath(Ennemy ennemy);
+    public void onEnnemyDeath(Ennemy enemy);
 }
