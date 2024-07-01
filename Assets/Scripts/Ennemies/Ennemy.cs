@@ -218,16 +218,10 @@ public class Ennemy : Breakable
         StressTest.nbEnnemies--;
         ObjectManager.dictObjectToEnnemy.TryRemove(gameObject);
         ObjectManager.unregisterHitable(gameObject);
-        PowerHuntersMark.markedEnemies.TryRemove(this);
-
-        if (isMarked)
-        {
-            PowerHuntersMark.isMarked = true;
-        }
 
         onDeath();
         ShakeManager.Shake(shakeIntensity, shakeDuration);
-        EventManagers.ennemies.dispatchEvent(v => v.onEnnemyDeath(this));
+        EventManagers.enemies.dispatchEvent(v => v.onEnnemyDeath(this));
         Destroy(gameObject);
     }
 

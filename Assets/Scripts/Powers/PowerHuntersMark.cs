@@ -1,18 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerHuntersMark : Power
+public class PowerHuntersMark : Power, IEnnemyListener
 {
-    [SerializeField] public static List<Ennemy> markedEnemies = new List<Ennemy>();
-    private int maxMarked;
-    public static bool isMarked;
     [SerializeField] private CircleCollider2D markCircleCollider;
-
-    public bool isBoost = false;
-    public bool boostSpeed;
-    public bool boostStrenght;
-    public bool boostInvicible;
+    
+    private int maxMarked;
+    private bool boostSpeed;
+    private bool boostStrenght;
+    private bool boostInvicible;
+    private readonly List<Ennemy> availableEnemies = new List<Ennemy>();
+    private readonly List<Ennemy> markedEnemies = new List<Ennemy>();
 
     public override void onSetup()
     {
@@ -20,56 +20,68 @@ public class PowerHuntersMark : Power
         boostSpeed = fullStats.generic.boolA;
         boostStrenght = fullStats.generic.boolB;
         boostInvicible = fullStats.generic.boolC;
+        
+        EventManagers.enemies.registerListener(this);
     }
+
+    private void OnDestroy()
+    {
+        EventManagers.enemies.unregisterListener(this);
+    }
+
     private void Update()
     {
         markCircleCollider.transform.position = player.transform.position;
-
-        if (isMarked && !isBoost)
-        {
-            StartCoroutine(nameof(Boost));
-        }
     }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Ennemy enemy = other.GetComponent<Ennemy>();
-        if (enemy != null && markedEnemies.Count < maxMarked)
+        if (!ObjectManager.dictObjectToEnnemy.TryGetValue(other.gameObject, out var enemy)) return;
+        if (markedEnemies.Count < maxMarked)
         {
             MarkEnemy(enemy);
         }
+        else
+        {
+            availableEnemies.Add(enemy);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (!ObjectManager.dictObjectToEnnemy.TryGetValue(other.gameObject, out var enemy)) return;
+        availableEnemies.TryRemove(enemy);
     }
 
     private void MarkEnemy(Ennemy enemy)
     {
-            markedEnemies.Add(enemy);
-            enemy.ReceiveMark(stats.criticalMultiplier);
+        if (enemy.isMarked) return;
+        markedEnemies.Add(enemy);
+        enemy.ReceiveMark(stats.criticalMultiplier);
     }
 
-    IEnumerator Boost()
+    IEnumerator KillBoost()
     {
-        isBoost = true;
+        // TODO: rework boost system to prevent stacking / unstacking issues
+        if (boostSpeed) PlayerController.ApplySpeedBoost();
+        if (boostStrenght) PlayerController.ApplyStrengthBoost();
+        if (boostInvicible) PlayerController.instance.StartCoroutine(nameof(PlayerController.InvulnerabilityFrame));
 
-        if (boostSpeed)
-        {
-            PlayerController.ApplySpeedBoost();
-        }
+        yield return Helpers.getWait(2f);
 
-        if (boostStrenght)
-        {
-            PlayerController.ApplyStrengthBoost();
-        }
+        if (boostSpeed) PlayerController.RemoveSpeedBoost();
+        if (boostStrenght) PlayerController.RemoveStrengthBoost();
+    }
 
-        if (boostInvicible)
-        {
-            PlayerController.instance.StartCoroutine("InvulnerabilityFrame");
-        }
+    public void onEnnemyDeath(Ennemy ennemy)
+    {
+        availableEnemies.TryRemove(ennemy);
+        if (!markedEnemies.Contains(ennemy)) return;
+        markedEnemies.Remove(ennemy);
+        StopCoroutine(nameof(KillBoost));
+        StartCoroutine(nameof(KillBoost));
 
-        yield return new WaitForSeconds(2);
-
-        PlayerController.RemoveSpeedBoost();
-        PlayerController.RemoveStrengthBoost();
-
-        isMarked = false;
-        isBoost = false;
+        if (availableEnemies.isEmpty()) return;
+        MarkEnemy(availableEnemies.getRandom());
     }
 }

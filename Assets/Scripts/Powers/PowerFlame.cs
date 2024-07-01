@@ -23,7 +23,7 @@ public class PowerFlame : Power, IEnnemyListener
 
     public override void onSetup()
     {
-        EventManagers.ennemies.registerListener(this);
+        EventManagers.enemies.registerListener(this);
         
         shootAfter = fullStats.generic.boolA;
         shootInstead = fullStats.generic.boolB;
@@ -43,7 +43,7 @@ public class PowerFlame : Power, IEnnemyListener
 
     private void OnDestroy()
     {
-        EventManagers.ennemies.unregisterListener(this);
+        EventManagers.enemies.unregisterListener(this);
     }
 
     void Update()

@@ -139,7 +139,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
         if (Helpers.isPlatformAndroid()) pauseButton.SetActive(true);
         EventManagers.monsterSteles.registerListener(this);
         EventManagers.eggs.registerListener(this);
-        EventManagers.ennemies.registerListener(this);
+        EventManagers.enemies.registerListener(this);
 
         poolResourceGreen = new GameObjectPool(resourceItemGreen);
         poolResourceOrange = new GameObjectPool(resourceItemOrange);
@@ -277,7 +277,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
         
         EventManagers.eggs.unregisterListener(this);
         EventManagers.monsterSteles.unregisterListener(this);
-        EventManagers.ennemies.unregisterListener(this);
+        EventManagers.enemies.unregisterListener(this);
     }
 
     public static PowerDisplay AddPowerDisplay()

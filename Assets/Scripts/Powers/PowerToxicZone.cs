@@ -88,7 +88,7 @@ public class PowerToxicZone : Power, IEnnemyListener
             playerStacker.addOnStopStackingEvent(killStacker.reset);
         }
         
-        EventManagers.ennemies.registerListener(this);
+        EventManagers.enemies.registerListener(this);
     }
     
     private void FixedUpdate()
@@ -201,6 +201,6 @@ public class PowerToxicZone : Power, IEnnemyListener
 
     private void OnDestroy()
     {
-        EventManagers.ennemies.unregisterListener(this);
+        EventManagers.enemies.unregisterListener(this);
     }
 }
