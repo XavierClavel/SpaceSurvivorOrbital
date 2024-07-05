@@ -88,6 +88,7 @@ public class TitleScreenManager : MonoBehaviour
     public void SwitchToDataSelection()
     {
         Steamworks.SteamUserStats.SetAchievement(Vault.achievement.Test);
+        Steamworks.SteamUserStats.StoreStats();
         SoundManager.PlaySfx("Power_Switch");
         instance.titleScreenUI.DOAnchorPosX(posRightCamera, 1f)
             .SetEase(Ease.InOutQuint);
