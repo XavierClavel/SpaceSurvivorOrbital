@@ -10,6 +10,7 @@ public static class PlayerManager
     public static bool isTuto = false;
     public static bool isDemo = false;
     public static string currentBoss = "ShipShop";
+    public static bool isReset = false;
 
     //Static accessors
 
@@ -125,6 +126,7 @@ public static class PlayerManager
         resurrection = 0;
         currentTimer = 0;
         globalDifficulty = 0;
+        isReset = true;
         saveSouls();
 
         playerData.setBase();
