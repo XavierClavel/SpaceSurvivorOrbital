@@ -125,6 +125,7 @@ public class TitleScreenManager : MonoBehaviour
 
     public void SwitchToDataSelection()
     {
+        Steamworks.SteamUserStats.RequestCurrentStats();
         Steamworks.SteamUserStats.SetAchievement(Vault.achievement.Test);
         Steamworks.SteamUserStats.StoreStats();
         Debug.developerConsoleEnabled = true;
