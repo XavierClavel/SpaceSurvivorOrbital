@@ -1,6 +1,11 @@
 public static class Vault
 {
 
+    public static class achievement
+    {
+        public const string Test = "TEST_ACHIEVEMENT";
+    }
+
     public static class character
     {
         public const string Knil = "Knil";
