@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DavidFDev.DevConsole;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -34,6 +36,42 @@ public class TitleScreenManager : MonoBehaviour
     private void Start()
     {
         instance = this;
+        
+        DevConsole.EnableConsole();
+        DevConsole.SetToggleKey(Key.Digit1);
+        DevConsole.Log("Hello world!");
+
+        DevConsole.AddCommand(Command.Create<string>(
+            name: "achievement_add",
+            aliases: "achievement_set",
+            helpText: "Adds an achievement",
+            p1: Parameter.Create(
+                name: "key",
+                helpText: "Achievement key"
+            ),
+            callback: (string key) =>
+            {
+                Steamworks.SteamUserStats.RequestCurrentStats();
+                Steamworks.SteamUserStats.SetAchievement(key);
+                Steamworks.SteamUserStats.StoreStats();
+            }
+        ));
+        
+        DevConsole.AddCommand(Command.Create<string>(
+            name: "achievement_remove",
+            aliases: "achievement_clear",
+            helpText: "Adds an achievement",
+            p1: Parameter.Create(
+                name: "key",
+                helpText: "Achievement key"
+            ),
+            callback: (string key) =>
+            {
+                Steamworks.SteamUserStats.RequestCurrentStats();
+                Steamworks.SteamUserStats.ClearAchievement(key);
+                Steamworks.SteamUserStats.StoreStats();
+            }
+        ));
         
         Canvas.ForceUpdateCanvases(); 
         canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
@@ -89,6 +127,8 @@ public class TitleScreenManager : MonoBehaviour
     {
         Steamworks.SteamUserStats.SetAchievement(Vault.achievement.Test);
         Steamworks.SteamUserStats.StoreStats();
+        Debug.developerConsoleEnabled = true;
+        Debug.LogError("test");
         SoundManager.PlaySfx("Power_Switch");
         instance.titleScreenUI.DOAnchorPosX(posRightCamera, 1f)
             .SetEase(Ease.InOutQuint);
