@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggListener, IEnemyListener
+public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggListener, IEnemyListener, IPowerListener
 {
     [Header("UI")]
     public LayoutManager healthBar;
@@ -140,6 +140,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
         EventManagers.monsterSteles.registerListener(this);
         EventManagers.eggs.registerListener(this);
         EventManagers.enemies.registerListener(this);
+        EventManagers.powers.registerListener(this);
 
         poolResourceGreen = new GameObjectPool(resourceItemGreen);
         poolResourceOrange = new GameObjectPool(resourceItemOrange);
@@ -278,6 +279,7 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
         EventManagers.eggs.unregisterListener(this);
         EventManagers.monsterSteles.unregisterListener(this);
         EventManagers.enemies.unregisterListener(this);
+        EventManagers.powers.unregisterListener(this);
     }
 
     public static PowerDisplay AddPowerDisplay()
@@ -363,5 +365,11 @@ public class ObjectManager : MonoBehaviour, IMonsterStele, IPlayerEvents, IEggLi
         sliderTween = dashSlider.DOValue(1f, PlayerController.instance.dashCooldown).SetEase(Ease.Linear);
         yield return new WaitForSeconds(PlayerController.instance.dashCooldown);
         dashSlider.gameObject.SetActive(false);
+    }
+
+    public void onPowerPickup(PowerHandler power)
+    {
+        PowerDisplay powerDisplay = AddPowerDisplay();
+        powerDisplay.setSprite(power.getIcon());
     }
 }

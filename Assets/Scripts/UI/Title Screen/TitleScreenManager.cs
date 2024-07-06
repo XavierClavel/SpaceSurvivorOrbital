@@ -5,6 +5,7 @@ using DavidFDev.DevConsole;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -49,12 +50,7 @@ public class TitleScreenManager : MonoBehaviour
                 name: "key",
                 helpText: "Achievement key"
             ),
-            callback: (string key) =>
-            {
-                Steamworks.SteamUserStats.RequestCurrentStats();
-                Steamworks.SteamUserStats.SetAchievement(key);
-                Steamworks.SteamUserStats.StoreStats();
-            }
+            callback: SteamHelpers.unlockAchievement
         ));
         
         DevConsole.AddCommand(Command.Create<string>(
@@ -65,13 +61,26 @@ public class TitleScreenManager : MonoBehaviour
                 name: "key",
                 helpText: "Achievement key"
             ),
+            callback: SteamHelpers.clearAchievement
+        ));
+
+        DevConsole.AddCommand(Command.Create<string>(
+            name: "power_add",
+            aliases: "power_append",
+            helpText: "Adds a power",
+            p1: Parameter.Create(
+                name: "key",
+                helpText: "Achievement key"
+            ),
             callback: (string key) =>
             {
-                Steamworks.SteamUserStats.RequestCurrentStats();
-                Steamworks.SteamUserStats.ClearAchievement(key);
-                Steamworks.SteamUserStats.StoreStats();
+                PowerHandler powerHandler = ScriptableObjectManager.dictKeyToPowerHandler[key];
+                PlayerManager.AcquirePower(powerHandler);
+                if (SceneManager.GetActiveScene().name == Vault.scene.Planet) powerHandler.Activate();
             }
         ));
+        
+        Debug.developerConsoleEnabled = true;
         
         Canvas.ForceUpdateCanvases(); 
         canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
@@ -125,11 +134,6 @@ public class TitleScreenManager : MonoBehaviour
 
     public void SwitchToDataSelection()
     {
-        Steamworks.SteamUserStats.RequestCurrentStats();
-        Steamworks.SteamUserStats.SetAchievement(Vault.achievement.Test);
-        Steamworks.SteamUserStats.StoreStats();
-        Debug.developerConsoleEnabled = true;
-        Debug.LogError("test");
         SoundManager.PlaySfx("Power_Switch");
         instance.titleScreenUI.DOAnchorPosX(posRightCamera, 1f)
             .SetEase(Ease.InOutQuint);
