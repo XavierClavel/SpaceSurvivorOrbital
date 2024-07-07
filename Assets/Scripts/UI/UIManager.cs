@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     private RectTransform planetsUI;
     [SerializeField] UpgradesDisplayManager upgradesManager;
     [SerializeField] PlanetSelectionManager planetManager;
+    [SerializeField] private ButtonsPanelManager buttonsPanelManager;
     
     //Static
     private static UIManager instance;
@@ -31,6 +32,8 @@ public class UIManager : MonoBehaviour
         HidePlanetsUI();
         upgradesManager.Setup();
         planetManager.Setup();
+        
+        buttonsPanelManager.setActive(Vault.panel.ship.UpgradeSelection);
     }
 #endregion
 
@@ -54,6 +57,7 @@ public class UIManager : MonoBehaviour
     public void SwitchToPlanetSelection()
     {
         SoundManager.PlaySfx("Power_Switch");
+        buttonsPanelManager.setActive(Vault.panel.ship.PlanetSelection);
         instance.upgradesManager.onPanelUnfocus();
         instance.upgradesUI.DOAnchorPosY(posAboveCamera, 1f).SetEase(Ease.InOutQuint);
         instance.planetsUI.DOAnchorPosY(0f, 1f).SetEase(Ease.InOutQuint);
@@ -62,6 +66,7 @@ public class UIManager : MonoBehaviour
     public void SwitchToUpgradesSelection()
     {
         SoundManager.PlaySfx("Power_Switch");
+        buttonsPanelManager.setActive(Vault.panel.ship.UpgradeSelection);
         instance.planetsUI.DOAnchorPosY(posBelowCamera, 1f).SetEase(Ease.InOutQuint);
         instance.upgradesUI.DOAnchorPosY(0f, 1f).SetEase(Ease.InOutQuint);
     }

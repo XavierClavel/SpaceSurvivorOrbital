@@ -16,6 +16,12 @@ public static class Vault
             public const string EquipmentSelection = "EquipmentSelection";
             public const string BossSelection = "BossSelection";
         }
+        
+        public static class ship
+        {
+            public const string UpgradeSelection = "UpgradeSelection";
+            public const string PlanetSelection = "PlanetSelection";
+        }
     }
 
     public static class character

@@ -252,7 +252,7 @@ public class UpgradesDisplayManager :  MonoBehaviour, UIPanel
         {
             Button prevButton = i == 0 ? null : buttons[i - 1].button;
             Button nextButton = i == keys.Count - 1 ? null : buttons[i + 1].button;
-            //rbLbNavigator.addRbLbObject(new RbLbObject(prevButton, nextButton));
+            rbLbNavigator.addRbLbObject(new RbLbObject(prevButton, nextButton));
         }
 
         for (int i = panels.Count; i < buttons.Count; i++)

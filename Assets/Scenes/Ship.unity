@@ -1270,6 +1270,8 @@ GameObject:
   - component: {fileID: 274468521}
   - component: {fileID: 274468522}
   - component: {fileID: 274468523}
+  - component: {fileID: 274468525}
+  - component: {fileID: 274468524}
   m_Layer: 5
   m_Name: Upgrades Selection UI
   m_TagString: Untagged
@@ -1357,7 +1359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb49ff17e3fdc72439fae5b8def708f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  list: []
+  rbLbItems: []
 --- !u!82 &274468523
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1454,6 +1456,32 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!225 &274468524
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274468519}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &274468525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274468519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8795e8fb35155a4b80fc18fe03093db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: UpgradeSelection
+  canvasGroup: {fileID: 274468524}
 --- !u!1 &286715733
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,6 +1891,7 @@ GameObject:
   m_Component:
   - component: {fileID: 385056982}
   - component: {fileID: 385056983}
+  - component: {fileID: 385056984}
   - component: {fileID: 385056981}
   - component: {fileID: 385056980}
   - component: {fileID: 385056979}
@@ -1976,6 +2005,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradesManager: {fileID: 274468521}
   planetManager: {fileID: 657562147}
+  buttonsPanelManager: {fileID: 385056984}
+--- !u!114 &385056984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385056978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d0b682344c78348a2e0da5770071ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pages:
+  - {fileID: 274468525}
+  - {fileID: 657562148}
 --- !u!1 &393014358
 GameObject:
   m_ObjectHideFlags: 0
@@ -3304,6 +3349,8 @@ GameObject:
   m_Component:
   - component: {fileID: 657562146}
   - component: {fileID: 657562147}
+  - component: {fileID: 657562149}
+  - component: {fileID: 657562148}
   m_Layer: 5
   m_Name: Planet Selection UI
   m_TagString: Untagged
@@ -3359,6 +3406,32 @@ MonoBehaviour:
   lineInaccessible: {fileID: -6250192668822492738, guid: 364737c272c6df348b053fbc796a4f47, type: 3}
   planetsPanel: {fileID: 1823731708}
   firstSelectedButton: {fileID: 0}
+--- !u!114 &657562148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657562145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8795e8fb35155a4b80fc18fe03093db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: PlanetSelection
+  canvasGroup: {fileID: 657562149}
+--- !u!225 &657562149
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657562145}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &673942328
 GameObject:
   m_ObjectHideFlags: 0
