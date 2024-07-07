@@ -13,7 +13,7 @@ public enum playerState { idle, walking, shooting, mining, dashing };
 public enum playerDirection { front, left, back, right };
 
 
-public class PlayerController : MonoBehaviour, IResourcesListener, IEnemyListener
+public class PlayerController : MonoBehaviour, IResourcesListener, IEnemyListener, IInputListener
 {
     [Header("References")]
     [SerializeField] FloatingJoystick joystickMove;
@@ -126,6 +126,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener, IEnemyListene
     [SerializeField] private TextMeshProUGUI resurrectionDisplay;
     EventSystem eventSystem;
     [SerializeField] private Transform camTarget;
+    [SerializeField] private Transform aimCursor;
 
     public float smallSize = 3.0f;
     public float largeSize = 5.0f;
@@ -374,9 +375,11 @@ public class PlayerController : MonoBehaviour, IResourcesListener, IEnemyListene
         
         EventManagers.resources.registerListener(this);
         EventManagers.enemies.registerListener(this);
+        EventManagers.inputs.registerListener(this);
 
         currentDashes = maxDashes;
-
+        
+        onInputSwitch(InputManager.getInputType());
     }
 
 
@@ -394,23 +397,6 @@ public class PlayerController : MonoBehaviour, IResourcesListener, IEnemyListene
     {
         Instantiate(minerBot);
     }
-
-    public static void SwitchInput(bool newValue)
-    {
-        if (instance == null) return;
-        isPlayingWithGamepad = newValue;
-        if (isPlayingWithGamepad)
-        {
-            UnityEngine.Cursor.visible = false;
-            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-        }
-        else
-        {
-            UnityEngine.Cursor.visible = true;
-            UnityEngine.Cursor.lockState = CursorLockMode.Confined;
-        }
-    }
-
 
     void InitializeControls()
     {
@@ -532,7 +518,9 @@ public class PlayerController : MonoBehaviour, IResourcesListener, IEnemyListene
     Vector2 getGamepadAimInput()
     {
         var value = controls.Player.Aim.ReadValue<Vector2>();
+        aimCursor.gameObject.SetActive(value.sqrMagnitude > 0.01);
         camTarget.position = (Vector2)pointerFront.position + Mathf.Clamp(value.sqrMagnitude * 16f, 0f, 16f) * 0.1f * value.normalized;
+        aimCursor.position = (Vector2)pointerFront.position + Mathf.Clamp(value.sqrMagnitude * 50f, 0f, 50f) * 0.1f * value.normalized;
         return value;
     }
 
@@ -617,6 +605,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener, IEnemyListene
         EventManagers.player.resetListeners();
         EventManagers.resources.unregisterListener(this);
         EventManagers.enemies.unregisterListener(this);
+        EventManagers.inputs.unregisterListener(this);
     }
 
     public static void ApplySpeedBoost()
@@ -664,4 +653,24 @@ public class PlayerController : MonoBehaviour, IResourcesListener, IEnemyListene
     }
 
     public static int getSouls() => instance.souls;
+    
+    public void onInputSwitch(inputType source)
+    {
+        Debug.Log("event called");
+        if (instance == null) return;
+        isPlayingWithGamepad = source == inputType.gamepad;
+        Debug.Log(isPlayingWithGamepad);
+        if (isPlayingWithGamepad)
+        {
+            aimCursor.gameObject.SetActive(true);
+            UnityEngine.Cursor.visible = false;
+            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            aimCursor.gameObject.SetActive(false);
+            UnityEngine.Cursor.visible = true;
+            UnityEngine.Cursor.lockState = CursorLockMode.Confined;
+        }
+    }
 }

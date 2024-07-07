@@ -16,6 +16,7 @@ public static class EventManagers
     public static readonly EventManager<IPowerListener> powers = new EventManager<IPowerListener>();
     public static readonly EventManager<IArtefactListener> artefacts = new EventManager<IArtefactListener>();
     public static readonly EventManager<ISoulsListener> souls = new EventManager<ISoulsListener>();
+    public static readonly EventManager<IInputListener> inputs = new EventManager<IInputListener>();
     
     private static Dictionary<Type, object> dict;
 

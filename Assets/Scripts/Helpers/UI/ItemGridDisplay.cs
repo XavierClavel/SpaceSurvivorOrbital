@@ -29,7 +29,6 @@ public abstract class ItemGridDisplay<T>: MonoBehaviour
     private void updateDisplay()
     {
         var currentState = transform.getChildren().map(it => it.name);
-        currentState.ForEach(Debug.Log);
         var newState = items.map(getKey);
         var diff = currentState.compareTo(newState);
 
