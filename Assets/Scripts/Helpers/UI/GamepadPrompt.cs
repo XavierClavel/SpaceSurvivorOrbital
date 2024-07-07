@@ -11,6 +11,7 @@ public class GamepadPrompt : MonoBehaviour, IInputListener
     void Start()
     {
         EventManagers.inputs.registerListener(this);
+        onInputSwitch(InputManager.getInputType());
     }
 
     private void OnDestroy()
