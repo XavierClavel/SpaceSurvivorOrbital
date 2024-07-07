@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] UpgradesDisplayManager upgradesManager;
     [SerializeField] PlanetSelectionManager planetManager;
     [SerializeField] private ButtonsPanelManager buttonsPanelManager;
+    [SerializeField] private RbLbNavigator rbLbNavigator;
     
     //Static
     private static UIManager instance;
@@ -56,15 +57,18 @@ public class UIManager : MonoBehaviour
 
     public void SwitchToPlanetSelection()
     {
+        rbLbNavigator.Lock();
         SoundManager.PlaySfx("Power_Switch");
         buttonsPanelManager.setActive(Vault.panel.ship.PlanetSelection);
         instance.upgradesManager.onPanelUnfocus();
         instance.upgradesUI.DOAnchorPosY(posAboveCamera, 1f).SetEase(Ease.InOutQuint);
         instance.planetsUI.DOAnchorPosY(0f, 1f).SetEase(Ease.InOutQuint);
+        InputManager.setSelectedObject(planetManager.firstSelectedButton);
     }
 
     public void SwitchToUpgradesSelection()
     {
+        rbLbNavigator.Unlock();
         SoundManager.PlaySfx("Power_Switch");
         buttonsPanelManager.setActive(Vault.panel.ship.UpgradeSelection);
         instance.planetsUI.DOAnchorPosY(posBelowCamera, 1f).SetEase(Ease.InOutQuint);

@@ -27,6 +27,7 @@ public class RbLbNavigator : MonoBehaviour
 
     public void addRbLbObject(RbLbObject o) => list.Add(o);
     public void setIndex(int i) => currentIndex = i;
+    private bool locked = false;
 
     private void Awake()
     {
@@ -56,13 +57,18 @@ public class RbLbNavigator : MonoBehaviour
 
     private void onRB()
     {
+        if (locked) return;
         list[currentIndex].RB?.onClick.Invoke();
         if (currentIndex != list.maxIndex()) currentIndex++;
     }
 
     private void onLB()
     {
+        if (locked) return;
         list[currentIndex].LB?.onClick.Invoke();
         if (currentIndex != 0) currentIndex--;
     }
+
+    public void Lock() => locked = true;
+    public void Unlock() => locked = false;
 }
