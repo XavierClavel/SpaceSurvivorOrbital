@@ -37,9 +37,9 @@ public class SelectButton : MonoBehaviour
 
         isUnlocked = SaveManager.isOptionUnlocked(key);
 
-        if (DataManager.dictCost.ContainsKey(key))
+        if (DataManager.dictCost.TryGetValue(key, out var value))
         {
-            cost = DataManager.dictCost[key];
+            cost = value;
             if (cost == 0) {isUnlocked = true;}
             else costDiplay.SetText(cost.ToString());
         }

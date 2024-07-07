@@ -9,10 +9,6 @@ using UnityEngine.SceneManagement;
 
 public class TitleScreen : MonoBehaviour, UIPanel
 {
-    private static TitleScreen instance;
-
-    [SerializeField] private TextMeshProUGUI soulsDisplay;
-    [SerializeField] private TextMeshProUGUI soulsDisplay2;
     [SerializeField] private GameObject thanksPanel;
     private static bool killedBossForFirstTime = false;
     
@@ -23,7 +19,6 @@ public class TitleScreen : MonoBehaviour, UIPanel
 
     private void Awake()
     {
-        instance = this;
         thanksPanel.SetActive(killedBossForFirstTime);
         killedBossForFirstTime = false;
     }

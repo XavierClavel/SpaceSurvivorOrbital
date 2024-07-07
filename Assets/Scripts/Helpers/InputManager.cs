@@ -70,6 +70,7 @@ public class InputManager : MonoBehaviour
 
     public static void OnSelectChange()
     {
+        Debug.Log(input);
         if (input == inputType.gamepad) EventSystem.current.SetSelectedGameObject(selectedObject);
         else EventSystem.current.SetSelectedGameObject(null);
     }

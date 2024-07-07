@@ -19,7 +19,8 @@ public class RbLbObject
 
 public class RbLbNavigator : MonoBehaviour
 {
-    [SerializeField] private List<RbLbObject> list = new List<RbLbObject>();
+    [SerializeField] private List<RbLbItem> rbLbItems = new List<RbLbItem>();
+    private List<RbLbObject> list = new List<RbLbObject>();
     private int currentIndex = 0;
     private InputMaster inputMaster;
     public static RbLbNavigator instance;
@@ -34,6 +35,8 @@ public class RbLbNavigator : MonoBehaviour
         inputMaster.Enable();
         inputMaster.UI.RB.performed += ctx => onRB();
         inputMaster.UI.LB.performed += ctx => onLB();
+        
+        rbLbItems.ForEach(it => list.Add(it.ToRbLbObject()));
     }
 
     private void OnDestroy()

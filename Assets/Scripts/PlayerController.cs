@@ -445,6 +445,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
             interactorHandler.StartAction();
         };
         controls.Player.MouseAimActive.canceled += ctx => interactorHandler.StopAction();
+        
 
         controls.Player.Dash.performed += ctx => isDashingInput = true;
         controls.Player.Dash.canceled += ctx => isDashingInput = false;

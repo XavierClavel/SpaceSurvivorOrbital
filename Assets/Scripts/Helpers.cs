@@ -10,6 +10,7 @@ using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.Events;
+using Object = UnityEngine.Object;
 
 public enum shape
 {
@@ -17,16 +18,14 @@ public enum shape
     square
 }
 
-public class Helpers : MonoBehaviour
+public static class Helpers
 {
     static readonly Dictionary<float, WaitForSeconds> waitDictionary = new Dictionary<float, WaitForSeconds>();
     static readonly Dictionary<float, WaitForSecondsRealtime> waitDictionaryRealtime = new Dictionary<float, WaitForSecondsRealtime>();
     private static WaitForFixedUpdate waitFixedUpdate = new WaitForFixedUpdate(); 
     public static readonly WaitForEndOfFrame GetWaitFrame = new WaitForEndOfFrame();
-    public static Helpers instance;
     private static TextMeshProUGUI debugDisplay;
     private static Dictionary<int, TextMeshProUGUI> dictDebugDisplays = new Dictionary<int, TextMeshProUGUI>();
-    [SerializeField] GameObject debugDisplayPrefab;
     static bool? platformAndroidValue = null;
     
     public static void FireProjectiles(UnityAction<float> fireAction , int amountBullets, float spread, float startRotation = 0f)
@@ -112,7 +111,7 @@ public class Helpers : MonoBehaviour
     {
         foreach (Transform child in t)
         {
-            Destroy(child.gameObject);
+            Object.Destroy(child.gameObject);
         }
     }
 
@@ -417,7 +416,7 @@ public class Helpers : MonoBehaviour
 
     public static void CreateDebugDisplay(int index = -1)
     {
-        TextMeshProUGUI currentDebugDisplay = Instantiate(debugDisplay);
+        TextMeshProUGUI currentDebugDisplay = Object.Instantiate(debugDisplay);
         if (index < 0) debugDisplay = currentDebugDisplay;
         else dictDebugDisplays[index] = currentDebugDisplay;
     }
@@ -428,12 +427,6 @@ public class Helpers : MonoBehaviour
         if (index < 0) currentDebugDisplay = debugDisplay;
         else currentDebugDisplay = dictDebugDisplays[index];
         currentDebugDisplay.text = str;
-    }
-
-
-    void Awake()
-    {
-        instance = this;
     }
 
     public static WaitForSeconds getWait(float time)
@@ -453,15 +446,15 @@ public class Helpers : MonoBehaviour
 
     public static void SpawnPS(Transform t, ParticleSystem prefabPS)
     {
-        ParticleSystem ps = Instantiate(prefabPS, t.position, Quaternion.identity);
+        ParticleSystem ps = Object.Instantiate(prefabPS, t.position, Quaternion.identity);
         ps.Play();
         GameObject.Destroy(ps.gameObject, ps.main.duration + 1f);
     }
 
-
+/*
     public void LerpQuaternion(Transform objectTransform, Quaternion initialPos, Quaternion finalPos, float duration)
     {
-        StartCoroutine(LerpQuaternionCoroutine(objectTransform, initialPos, finalPos, duration));
+        Object.StartCoroutine(LerpQuaternionCoroutine(objectTransform, initialPos, finalPos, duration));
     }
 
     IEnumerator LerpQuaternionCoroutine(Transform objectTransform, Quaternion initialPos, Quaternion finalPos, float duration)
@@ -476,6 +469,7 @@ public class Helpers : MonoBehaviour
             yield return GetWaitFrame;
         }
     }
+    */
 
 }
 
