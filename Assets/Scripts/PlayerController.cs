@@ -13,7 +13,7 @@ public enum playerState { idle, walking, shooting, mining, dashing };
 public enum playerDirection { front, left, back, right };
 
 
-public class PlayerController : MonoBehaviour, IResourcesListener
+public class PlayerController : MonoBehaviour, IResourcesListener, IEnemyListener
 {
     [Header("References")]
     [SerializeField] FloatingJoystick joystickMove;
@@ -123,8 +123,6 @@ public class PlayerController : MonoBehaviour, IResourcesListener
     private bool playerDead;
 
     [Header("UI")] 
-    [SerializeField] private TextMeshProUGUI soulsDisplay;
-    [SerializeField] private TextMeshProUGUI souls2Display;
     [SerializeField] private TextMeshProUGUI resurrectionDisplay;
     EventSystem eventSystem;
     [SerializeField] private Transform camTarget;
@@ -233,20 +231,8 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         }
     }
 
-    private int _souls;
-
-    public int souls
-    {
-        get { return _souls; }
-        private set
-        {
-            soulsDisplay.SetText(value.ToString());
-            souls2Display.SetText(value.ToString());
-
-            _souls = value;
-        }
-    }
-
+    private int souls;
+    
     #region interface
     
     public static void Hurt(Vector2Int amount)
@@ -301,11 +287,6 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         Sequence sequence = DOTween.Sequence();
         sequence.Append(spriteOverlay.DOColor(color, 0.05f));
         sequence.Append(spriteOverlay.DOColor(Helpers.color_whiteTransparent, 0.1f));
-    }
-
-    public void AddEnnemyScore(int value)
-    {
-        souls += value;
     }
 
     #endregion
@@ -373,6 +354,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         
 
         souls = PlayerManager.getSouls();
+        EventManagers.souls.dispatchEvent(it => it.onSoulsAmountChange(souls));
         resurrection = ResurrectionManager.getAmount();
 
         invulnerabilityFrameDuration = Helpers.getWait(ConstantsData.invulenerabilityFrame);
@@ -391,6 +373,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         playerDead = false;
         
         EventManagers.resources.registerListener(this);
+        EventManagers.enemies.registerListener(this);
 
         currentDashes = maxDashes;
 
@@ -633,6 +616,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         PlayerManager.setSouls(souls);
         EventManagers.player.resetListeners();
         EventManagers.resources.unregisterListener(this);
+        EventManagers.enemies.unregisterListener(this);
     }
 
     public static void ApplySpeedBoost()
@@ -673,4 +657,11 @@ public class PlayerController : MonoBehaviour, IResourcesListener
         instance.shieldUp.gameObject.SetActive(true);
     }
 
+    public void onEnnemyDeath(Ennemy enemy)
+    {
+        souls += enemy.getCost();
+        EventManagers.souls.dispatchEvent(it => it.onSoulsAmountChange(souls));
+    }
+
+    public static int getSouls() => instance.souls;
 }

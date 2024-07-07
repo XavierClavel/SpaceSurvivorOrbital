@@ -10,13 +10,28 @@ public class SoulsDisplay : MonoBehaviour, ISoulsListener
 {
     [SerializeField] private TextMeshProUGUI soulsDisplay;
 
-    private void Start()
+    private void Awake()
     {
         EventManagers.souls.registerListener(this);
-        int souls = SceneManager.GetActiveScene().name == Vault.scene.TitleScreen
-            ? SaveManager.getSouls()
-            : PlayerManager.getSouls();
-        updateSouls(souls);
+    }
+
+    private void Start()
+    {
+        updateSouls(getSouls());
+    }
+
+    private int getSouls()
+    {
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case Vault.scene.TitleScreen:
+                return SaveManager.getSouls();
+            case Vault.scene.Planet:
+                return PlayerController.getSouls();
+            default:
+                return PlayerManager.getSouls();
+            
+        }
     }
 
     private void OnDestroy()
