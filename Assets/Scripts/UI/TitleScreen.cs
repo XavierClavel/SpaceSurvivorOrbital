@@ -32,7 +32,6 @@ public class TitleScreen : MonoBehaviour, UIPanel
     public void Setup()
     {
         ResetManager.Reset();
-        UpdateSoulsDisplay();
     }
 
     public RectTransform getUITransform()
@@ -43,14 +42,7 @@ public class TitleScreen : MonoBehaviour, UIPanel
     public void ResetSave()
     {
         SaveManager.Reset();
-        UpdateSoulsDisplay();
         SceneTransitionManager.TransitionToScene(gameScene.titleScreen);
-    }
-
-    public void AddSouls()
-    {
-        SaveManager.setSouls(SaveManager.getSouls() + 100);
-        UpdateSoulsDisplay();
     }
 
     public void LoadTuto()
@@ -63,12 +55,6 @@ public class TitleScreen : MonoBehaviour, UIPanel
         SoundManager.PlaySfx(transform, key: "Ship_TakeOff");
         SceneTransitionManager.TransitionToScene(gameScene.planetJungle);
 
-    }
-
-    public static void UpdateSoulsDisplay()
-    {
-        instance.soulsDisplay.SetText(SaveManager.getSouls().ToString());
-        instance.soulsDisplay2.SetText(SaveManager.getSouls().ToString());
     }
 
     public void CloseThanks()

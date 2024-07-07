@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ArtefactShopDisplay : MonoBehaviour
+public class ArtefactShopDisplay : MonoBehaviour, ISoulsListener
 {
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI costDisplay;
@@ -16,6 +17,8 @@ public class ArtefactShopDisplay : MonoBehaviour
 
     public void Setup(ArtefactHandler artefact)
     {
+        EventManagers.souls.registerListener(this);
+        
         key = artefact.getKey();
         gameObject.name = key;
         cost = (int)(DataManager.dictCost[artefact.getKey()] * BonusManager.current.getMerchantPricesMultiplier());
@@ -25,7 +28,12 @@ public class ArtefactShopDisplay : MonoBehaviour
         buyButton.onClick.AddListener(onBuy);
         descriptionDisplay.setKey(key + Vault.key.ButtonDescription);
 
-        UpdateInteractibility();
+        updateInteractibility(PlayerManager.getSouls());
+    }
+
+    private void OnDestroy()
+    {
+        EventManagers.souls.unregisterListener(this);
     }
 
     private void onBuy()
@@ -35,8 +43,13 @@ public class ArtefactShopDisplay : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void UpdateInteractibility()
+    public void updateInteractibility(int value)
     {
-        buyButton.interactable = cost <= PlayerManager.getSouls();
+        buyButton.interactable = cost <= value;
+    }
+
+    public void onSoulsAmountChange(int value)
+    {
+       updateInteractibility(value);
     }
 }

@@ -48,7 +48,11 @@ public static class PlayerManager
 
     public static void gainSouls(int value) => setSouls(souls + value);
 
-    public static void setSouls(int value) => souls = value;
+    public static void setSouls(int value)
+    {
+        souls = value;
+        EventManagers.souls.getListeners().ForEach(it => it.onSoulsAmountChange(value));
+    } 
     public static void spendSouls(int value) => setSouls(souls - value);
 
     public static void saveSouls()

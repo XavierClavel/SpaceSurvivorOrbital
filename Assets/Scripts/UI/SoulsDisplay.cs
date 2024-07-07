@@ -4,18 +4,33 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class SoulsDisplay : MonoBehaviour
+public class SoulsDisplay : MonoBehaviour, ISoulsListener
 {
     [SerializeField] private TextMeshProUGUI soulsDisplay;
 
     private void Start()
     {
-        updateSouls();
+        EventManagers.souls.registerListener(this);
+        int souls = SceneManager.GetActiveScene().name == Vault.scene.TitleScreen
+            ? SaveManager.getSouls()
+            : PlayerManager.getSouls();
+        updateSouls(souls);
     }
 
-    public void updateSouls()
+    private void OnDestroy()
     {
-        soulsDisplay.SetText(PlayerManager.getSouls().ToString());
+        EventManagers.souls.unregisterListener(this);
+    }
+
+    private void updateSouls(int value)
+    {
+        soulsDisplay.SetText(value.ToString());
+    }
+
+    public void onSoulsAmountChange(int value)
+    {
+        updateSouls(value);
     }
 }

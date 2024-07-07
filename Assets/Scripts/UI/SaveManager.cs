@@ -82,11 +82,17 @@ public static class SaveManager
     {
         saveData.souls = value;
         Save();
+        EventManagers.souls.getListeners().ForEach(it => it.onSoulsAmountChange(value));
     }
 
     public static void spendSouls(int value)
     {
         setSouls(getSouls() - value);
+    }
+
+    public static void addSouls(int value)
+    {
+        setSouls(getSouls() + value);
     }
 
     public static bool isOptionUnlocked(string key)
@@ -119,6 +125,7 @@ public static class SaveManager
         };
         
         Save();
+        EventManagers.souls.getListeners().ForEach(it => it.onSoulsAmountChange(getSouls()));
     }
 
     public static void Save()

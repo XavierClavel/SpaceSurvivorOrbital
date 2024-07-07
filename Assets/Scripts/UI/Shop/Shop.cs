@@ -100,7 +100,6 @@ public class Shop : MonoBehaviour
         if (PlayerManager.getSouls() < cost) return false;
         PlayerManager.spendSouls(cost);
         SoundManager.PlaySfx(instance.transform, key: "Button_Buy");
-        instance.soulsDisplay.updateSouls();
         return true;
     }
     

@@ -321,7 +321,6 @@ public class DataSelector : MonoBehaviour, UIPanel
     {
         if (SaveManager.getSouls() < cost) return false;
         SaveManager.spendSouls(cost);
-        TitleScreen.UpdateSoulsDisplay();
         return true;
     }
 }

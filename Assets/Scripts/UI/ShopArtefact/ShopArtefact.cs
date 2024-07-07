@@ -39,7 +39,6 @@ public class ShopArtefact : MonoBehaviour
         healthBar.SetupShields(bonusManager.getBonusShield());
         
         List<ArtefactHandler> artefactsRemaining = ScriptableObjectManager.dictKeyToArtefactHandler.Values.Difference(PlayerManager.artefacts);
-        Debug.Log(artefactsRemaining.Count);
         artefactDisplays.ForEach(it =>
             {
                 if (artefactsRemaining.isEmpty()) return;
@@ -54,8 +53,6 @@ public class ShopArtefact : MonoBehaviour
         if (PlayerManager.getSouls() < cost) return false;
         PlayerManager.spendSouls(cost);
         SoundManager.PlaySfx(instance.transform, key: "Button_Buy");
-        instance.soulsDisplay.updateSouls();
-        instance.artefactDisplays.ForEach(it => it.UpdateInteractibility());
         return true;
     }
 

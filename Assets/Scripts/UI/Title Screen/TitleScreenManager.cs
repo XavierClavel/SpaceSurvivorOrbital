@@ -38,49 +38,7 @@ public class TitleScreenManager : MonoBehaviour
     {
         instance = this;
         
-        DevConsole.EnableConsole();
-        DevConsole.SetToggleKey(Key.Digit1);
-        DevConsole.Log("Hello world!");
-
-        DevConsole.AddCommand(Command.Create<string>(
-            name: "achievement_add",
-            aliases: "achievement_set",
-            helpText: "Adds an achievement",
-            p1: Parameter.Create(
-                name: "key",
-                helpText: "Achievement key"
-            ),
-            callback: SteamHelpers.unlockAchievement
-        ));
-        
-        DevConsole.AddCommand(Command.Create<string>(
-            name: "achievement_remove",
-            aliases: "achievement_clear",
-            helpText: "Adds an achievement",
-            p1: Parameter.Create(
-                name: "key",
-                helpText: "Achievement key"
-            ),
-            callback: SteamHelpers.clearAchievement
-        ));
-
-        DevConsole.AddCommand(Command.Create<string>(
-            name: "power_add",
-            aliases: "power_append",
-            helpText: "Adds a power",
-            p1: Parameter.Create(
-                name: "key",
-                helpText: "Achievement key"
-            ),
-            callback: (string key) =>
-            {
-                PowerHandler powerHandler = ScriptableObjectManager.dictKeyToPowerHandler[key];
-                PlayerManager.AcquirePower(powerHandler);
-                if (SceneManager.GetActiveScene().name == Vault.scene.Planet) powerHandler.Activate();
-            }
-        ));
-        
-        Debug.developerConsoleEnabled = true;
+        DevConsoleManager.setup();
         
         Canvas.ForceUpdateCanvases(); 
         canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
