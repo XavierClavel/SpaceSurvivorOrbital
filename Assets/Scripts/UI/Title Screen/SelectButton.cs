@@ -3,8 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Shapes;
 using System.Collections;
+using UnityEngine.EventSystems;
 
-public class SelectButton : MonoBehaviour
+public class SelectButton : MonoBehaviour, ISelectHandler
 {
     private Button button;
     [HideInInspector] public RectTransform rectTransform;
@@ -104,4 +105,8 @@ public class SelectButton : MonoBehaviour
         Select();
     }
 
+    public void OnSelect(BaseEventData eventData)
+    {
+        DataSelector.DisplayGeneric(key, this);
+    }
 }
