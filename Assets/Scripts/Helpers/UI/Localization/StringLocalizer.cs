@@ -5,6 +5,7 @@ using MyBox;
 using UnityEngine;
 using TMPro;
 
+[RequireComponent(typeof(TextMeshProUGUI))]
 public class StringLocalizer : MonoBehaviour
 {
     [SerializeField] string key = null;
