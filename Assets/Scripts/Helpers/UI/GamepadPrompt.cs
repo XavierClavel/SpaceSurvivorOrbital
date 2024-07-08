@@ -10,12 +10,13 @@ public class GamepadPrompt : MonoBehaviour, IInputListener
     // Start is called before the first frame update
     void Start()
     {
-        InputManager.registerInputListener(this);
+        EventManagers.inputs.registerListener(this);
+        onInputSwitch(InputManager.getInputType());
     }
 
     private void OnDestroy()
     {
-        InputManager.unregisterInputListener(this);
+        EventManagers.inputs.unregisterListener(this);
     }
 
     private void OnEnable()

@@ -640,6 +640,24 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""d40db6e6-f07b-44b3-887d-e45357a411fb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ContextAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""6ef7412b-733b-43ec-ae62-09fcbadad0d4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -961,6 +979,28 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
                     ""action"": ""Validate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9302dfd4-1a3c-4deb-9ecb-731390dbbd56"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""377284db-de25-4a99-a021-2446cc5f1c1f"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ContextAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1021,6 +1061,8 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         m_UI_RB = m_UI.FindAction("RB", throwIfNotFound: true);
         m_UI_LB = m_UI.FindAction("LB", throwIfNotFound: true);
         m_UI_Validate = m_UI.FindAction("Validate", throwIfNotFound: true);
+        m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
+        m_UI_ContextAction = m_UI.FindAction("ContextAction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1290,6 +1332,8 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_RB;
     private readonly InputAction m_UI_LB;
     private readonly InputAction m_UI_Validate;
+    private readonly InputAction m_UI_Cancel;
+    private readonly InputAction m_UI_ContextAction;
     public struct UIActions
     {
         private @InputMaster m_Wrapper;
@@ -1298,6 +1342,8 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         public InputAction @RB => m_Wrapper.m_UI_RB;
         public InputAction @LB => m_Wrapper.m_UI_LB;
         public InputAction @Validate => m_Wrapper.m_UI_Validate;
+        public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
+        public InputAction @ContextAction => m_Wrapper.m_UI_ContextAction;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1319,6 +1365,12 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @Validate.started += instance.OnValidate;
             @Validate.performed += instance.OnValidate;
             @Validate.canceled += instance.OnValidate;
+            @Cancel.started += instance.OnCancel;
+            @Cancel.performed += instance.OnCancel;
+            @Cancel.canceled += instance.OnCancel;
+            @ContextAction.started += instance.OnContextAction;
+            @ContextAction.performed += instance.OnContextAction;
+            @ContextAction.canceled += instance.OnContextAction;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1335,6 +1387,12 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
             @Validate.started -= instance.OnValidate;
             @Validate.performed -= instance.OnValidate;
             @Validate.canceled -= instance.OnValidate;
+            @Cancel.started -= instance.OnCancel;
+            @Cancel.performed -= instance.OnCancel;
+            @Cancel.canceled -= instance.OnCancel;
+            @ContextAction.started -= instance.OnContextAction;
+            @ContextAction.performed -= instance.OnContextAction;
+            @ContextAction.canceled -= instance.OnContextAction;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1398,5 +1456,7 @@ public partial class @InputMaster: IInputActionCollection2, IDisposable
         void OnRB(InputAction.CallbackContext context);
         void OnLB(InputAction.CallbackContext context);
         void OnValidate(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
+        void OnContextAction(InputAction.CallbackContext context);
     }
 }

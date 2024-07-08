@@ -213,7 +213,6 @@ public class Ennemy : Breakable
     {
         Debug.Log($"{gameObject.name} is dead");
         //SoundManager.PlaySfx(transform, key: "Ennemy_Destroy");
-        player.AddEnnemyScore(cost);
         StressTest.nbEnnemies--;
         ObjectManager.dictObjectToEnnemy.TryRemove(gameObject);
         ObjectManager.unregisterHitable(gameObject);

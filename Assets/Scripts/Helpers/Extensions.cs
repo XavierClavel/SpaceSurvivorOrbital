@@ -397,6 +397,14 @@ public static class Extensions
     {
         return UnityEngine.Random.Range(v.x, v.y + 1);
     }
+    
+    ///<summary>Returns random item of list.</summary>
+    public static List<T> getRandom<T>(this IList<T> list, int amount)
+    {
+        var indexes = Enumerable.Range(0, list.Count).ToList();
+        var keptIndexes = indexes.popRandom(amount);
+        return keptIndexes.map(it => list[it]);
+    }
 
     ///<summary>Returns random item of list.</summary>
     public static T getRandom<T>(this IList<T> list)
@@ -414,6 +422,18 @@ public static class Extensions
             }
         }
     }
+    
+    ///<summary>Returns n items of list and removes them from the list.</summary>
+    public static List<T> popRandom<T>(this IList<T> list, int amount)
+    {
+        List<T> newList = new List<T>();
+        for (int i = 0; i < amount; i++)
+        {
+            newList.Add(list.popRandom());   
+        }
+        return newList;
+    }
+    
     
     ///<summary>Returns random item of list and removes it from the list.</summary>
     public static T popRandom<T>(this IList<T> list)

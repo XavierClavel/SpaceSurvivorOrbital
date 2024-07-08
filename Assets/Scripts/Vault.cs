@@ -6,6 +6,24 @@ public static class Vault
         public const string Test = "TEST_ACHIEVEMENT";
     }
 
+    public static class panel
+    {
+        public static class titleScreen
+        {
+            public const string MainMenu = "MainMenu";
+            public const string Credits = "Credits";
+            public const string CharacterSelection = "CharacterSelection";
+            public const string EquipmentSelection = "EquipmentSelection";
+            public const string BossSelection = "BossSelection";
+        }
+        
+        public static class ship
+        {
+            public const string UpgradeSelection = "UpgradeSelection";
+            public const string PlanetSelection = "PlanetSelection";
+        }
+    }
+
     public static class character
     {
         public const string Knil = "Knil";

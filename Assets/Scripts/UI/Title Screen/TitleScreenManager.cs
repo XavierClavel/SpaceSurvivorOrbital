@@ -5,8 +5,14 @@ using DavidFDev.DevConsole;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+
+public enum titleScreenPanel
+{
+    mainMenu,
+}
 
 public class TitleScreenManager : MonoBehaviour
 {
@@ -24,6 +30,7 @@ public class TitleScreenManager : MonoBehaviour
     [SerializeField] GameObject credits;
     [SerializeField] private Canvas canvas;
     [SerializeField] private OptionsManager optionsManager;
+    [SerializeField] private ButtonsPanelManager buttonsPanelManager;
 
     [SerializeField] private GameObject titleScreenFirstSelected;
     private static float canvasWidth;
@@ -37,41 +44,7 @@ public class TitleScreenManager : MonoBehaviour
     {
         instance = this;
         
-        DevConsole.EnableConsole();
-        DevConsole.SetToggleKey(Key.Digit1);
-        DevConsole.Log("Hello world!");
-
-        DevConsole.AddCommand(Command.Create<string>(
-            name: "achievement_add",
-            aliases: "achievement_set",
-            helpText: "Adds an achievement",
-            p1: Parameter.Create(
-                name: "key",
-                helpText: "Achievement key"
-            ),
-            callback: (string key) =>
-            {
-                Steamworks.SteamUserStats.RequestCurrentStats();
-                Steamworks.SteamUserStats.SetAchievement(key);
-                Steamworks.SteamUserStats.StoreStats();
-            }
-        ));
-        
-        DevConsole.AddCommand(Command.Create<string>(
-            name: "achievement_remove",
-            aliases: "achievement_clear",
-            helpText: "Adds an achievement",
-            p1: Parameter.Create(
-                name: "key",
-                helpText: "Achievement key"
-            ),
-            callback: (string key) =>
-            {
-                Steamworks.SteamUserStats.RequestCurrentStats();
-                Steamworks.SteamUserStats.ClearAchievement(key);
-                Steamworks.SteamUserStats.StoreStats();
-            }
-        ));
+        DevConsoleManager.setup();
         
         Canvas.ForceUpdateCanvases(); 
         canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
@@ -90,6 +63,8 @@ public class TitleScreenManager : MonoBehaviour
         optionsManager.LoadOptions();
         InputManager.setSelectedObject(titleScreenFirstSelected);
         RbLbNavigator.instance.Disable();
+        
+        buttonsPanelManager.setActive(Vault.panel.titleScreen.MainMenu);
     }
     #endregion
     
@@ -125,11 +100,7 @@ public class TitleScreenManager : MonoBehaviour
 
     public void SwitchToDataSelection()
     {
-        Steamworks.SteamUserStats.RequestCurrentStats();
-        Steamworks.SteamUserStats.SetAchievement(Vault.achievement.Test);
-        Steamworks.SteamUserStats.StoreStats();
-        Debug.developerConsoleEnabled = true;
-        Debug.LogError("test");
+        buttonsPanelManager.setActive(Vault.panel.titleScreen.CharacterSelection);
         SoundManager.PlaySfx("Power_Switch");
         instance.titleScreenUI.DOAnchorPosX(posRightCamera, 1f)
             .SetEase(Ease.InOutQuint);
@@ -140,6 +111,7 @@ public class TitleScreenManager : MonoBehaviour
     }
     public void SwitchToCredits()
     {
+        buttonsPanelManager.setActive(Vault.panel.titleScreen.Credits);
         SoundManager.PlaySfx("Power_Switch");
         instance.titleScreenUI.DOAnchorPosX(posRightCamera, 1f)
             .SetEase(Ease.InOutQuint);
@@ -149,6 +121,7 @@ public class TitleScreenManager : MonoBehaviour
 
     public void SwitchToDataSelectionFromEquipment()
     {
+        buttonsPanelManager.setActive(Vault.panel.titleScreen.CharacterSelection);
         SoundManager.PlaySfx("Power_Switch");
         instance.equipmentSelectorUI.DOAnchorPosX(posLeftCamera, 1f).SetEase(Ease.InOutQuint);
         instance.dataSelectorUI.DOAnchorPosX(0, 1f).SetEase(Ease.InOutQuint);
@@ -158,6 +131,7 @@ public class TitleScreenManager : MonoBehaviour
 
     public void SwitchToTitleScreen()
     {
+        buttonsPanelManager.setActive(Vault.panel.titleScreen.MainMenu);
         SoundManager.PlaySfx("Power_Switch");
         instance.dataSelectorUI.DOAnchorPosX(posLeftCamera, 1f).SetEase(Ease.InOutQuint);
         instance.titleScreenUI.DOAnchorPosX(0f, 1f).SetEase(Ease.InOutQuint);
@@ -166,6 +140,7 @@ public class TitleScreenManager : MonoBehaviour
     }
     public void SwitchToTitleScreenFromCredits()
     {
+        buttonsPanelManager.setActive(Vault.panel.titleScreen.MainMenu);
         SoundManager.PlaySfx("Power_Switch");
         instance.creditsUI.DOAnchorPosX(posLeftCamera, 1f).SetEase(Ease.InOutQuint);
         instance.titleScreenUI.DOAnchorPosX(0f, 1f).SetEase(Ease.InOutQuint);
@@ -175,6 +150,7 @@ public class TitleScreenManager : MonoBehaviour
 
     public void SwitchToEquipmentScreen()
     {
+        buttonsPanelManager.setActive(Vault.panel.titleScreen.EquipmentSelection);
         SoundManager.PlaySfx("Power_Switch");
         instance.dataSelectorUI.DOAnchorPosX(posRightCamera, 1f).SetEase(Ease.InOutQuint);
         instance.equipmentSelectorUI.DOAnchorPosX(0f, 1f).SetEase(Ease.InOutQuint);
@@ -183,6 +159,7 @@ public class TitleScreenManager : MonoBehaviour
     }
     public void SwitchToBossScreen()
     {
+        buttonsPanelManager.setActive(Vault.panel.titleScreen.BossSelection);
         SoundManager.PlaySfx("Power_Switch");
         instance.equipmentSelectorUI.DOAnchorPosX(posRightCamera, 1f).SetEase(Ease.InOutQuint);
         instance.bossSelectorUI.DOAnchorPosX(0f, 1f).SetEase(Ease.InOutQuint);
@@ -192,6 +169,7 @@ public class TitleScreenManager : MonoBehaviour
 
     public void SwitchToEquipmentFromBoss()
     {
+        buttonsPanelManager.setActive(Vault.panel.titleScreen.EquipmentSelection);
         SoundManager.PlaySfx("Power_Switch");
         instance.bossSelectorUI.DOAnchorPosX(posLeftCamera, 1f).SetEase(Ease.InOutQuint);
         instance.equipmentSelectorUI.DOAnchorPosX(0, 1f).SetEase(Ease.InOutQuint);

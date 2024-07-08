@@ -72,7 +72,7 @@ public class Breakable : MonoBehaviour
         ObjectManager.unregisterHitable(gameObject);
     }
 
-    public int GetCost()
+    public int getCost()
     {
         return cost;
     }

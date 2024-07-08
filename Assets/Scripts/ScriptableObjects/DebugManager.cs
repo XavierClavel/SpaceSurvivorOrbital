@@ -9,6 +9,7 @@ using UnityEngine.Serialization;
 [CreateAssetMenu(fileName = "DebugManager", menuName = Vault.other.scriptableObjectMenu + "DebugManager", order = 0)]
 public class DebugManager : ScriptableObject
 {
+    public static bool? _freeUpgrades = null;
     [SerializeField] private bool debugEnabled = true;
     
     [Header("Game Rules")]
@@ -72,7 +73,8 @@ public class DebugManager : ScriptableObject
 
     public static bool areUpgradesFree()
     {
-        return instance.debugEnabled && instance.freeUpgrades;
+        _freeUpgrades ??= instance.debugEnabled && instance.freeUpgrades;
+        return _freeUpgrades ?? false;
     }
 
     public static bool isShipPresent()

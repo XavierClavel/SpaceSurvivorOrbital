@@ -19,13 +19,15 @@ public class RbLbObject
 
 public class RbLbNavigator : MonoBehaviour
 {
-    [SerializeField] private List<RbLbObject> list = new List<RbLbObject>();
+    [SerializeField] private List<RbLbItem> rbLbItems = new List<RbLbItem>();
+    private List<RbLbObject> list = new List<RbLbObject>();
     private int currentIndex = 0;
     private InputMaster inputMaster;
     public static RbLbNavigator instance;
 
     public void addRbLbObject(RbLbObject o) => list.Add(o);
     public void setIndex(int i) => currentIndex = i;
+    private bool locked = false;
 
     private void Awake()
     {
@@ -34,6 +36,8 @@ public class RbLbNavigator : MonoBehaviour
         inputMaster.Enable();
         inputMaster.UI.RB.performed += ctx => onRB();
         inputMaster.UI.LB.performed += ctx => onLB();
+        
+        rbLbItems.ForEach(it => list.Add(it.ToRbLbObject()));
     }
 
     private void OnDestroy()
@@ -53,13 +57,18 @@ public class RbLbNavigator : MonoBehaviour
 
     private void onRB()
     {
+        if (locked) return;
         list[currentIndex].RB?.onClick.Invoke();
         if (currentIndex != list.maxIndex()) currentIndex++;
     }
 
     private void onLB()
     {
+        if (locked) return;
         list[currentIndex].LB?.onClick.Invoke();
         if (currentIndex != 0) currentIndex--;
     }
+
+    public void Lock() => locked = true;
+    public void Unlock() => locked = false;
 }

@@ -14,36 +14,14 @@ public enum inputType
 
 public class InputManager : MonoBehaviour
 {
-    private static List<IInputListener> inputListeners = new List<IInputListener>();
-    
-    static GameObject selectedObject;
-    static InputManager instance;
-    static PlayerInput playerInput;
+    private static GameObject selectedObject;
+    private static PlayerInput playerInput;
     private static inputType input;
-
-    public static void registerInputListener(IInputListener inputListener)
-    {
-        inputListeners.Add(inputListener);
-    }
-
-    public static void unregisterInputListener(IInputListener inputListener)
-    {
-        inputListeners.TryRemove(inputListener);
-    }
-
+    
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-
         playerInput = GetComponent<PlayerInput>();
+        Debug.Log("setting up");
     }
 
     public static void setSelectedObject(GameObject newObject)
@@ -55,22 +33,29 @@ public class InputManager : MonoBehaviour
 
     public static void OnInputChange()
     {
-        if (instance == null) return;
+        Debug.Log("input change");
         if (input == inputType.android) return;
-        
-        input = playerInput.currentControlScheme == Vault.other.inputGamepad ? inputType.gamepad : inputType.keyboard ;
+
+        input = getInputType();
         OnSelectChange();
-        PlayerController.SwitchInput(input == inputType.gamepad);
-        inputListeners.ForEach(it => it.onInputSwitch(input));
+        EventManagers.inputs.dispatchEvent(it => it.onInputSwitch(input));
     }
 
-    public static inputType getInputType() => input;
+    public static inputType getInputType() => playerInput.currentControlScheme == Vault.other.inputGamepad ? inputType.gamepad : inputType.keyboard;
 
 
 
     public static void OnSelectChange()
     {
+        EventSystem.current.SetSelectedGameObject(selectedObject);
+        /*
         if (input == inputType.gamepad) EventSystem.current.SetSelectedGameObject(selectedObject);
         else EventSystem.current.SetSelectedGameObject(null);
+        */
+    }
+
+    private void OnDestroy()
+    {
+        selectedObject = null;
     }
 }

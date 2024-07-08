@@ -3,8 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using Shapes;
 using System.Collections;
+using UnityEngine.EventSystems;
 
-public class SelectButton : MonoBehaviour
+public class SelectButton : MonoBehaviour, ISelectHandler
 {
     private Button button;
     [HideInInspector] public RectTransform rectTransform;
@@ -37,9 +38,9 @@ public class SelectButton : MonoBehaviour
 
         isUnlocked = SaveManager.isOptionUnlocked(key);
 
-        if (DataManager.dictCost.ContainsKey(key))
+        if (DataManager.dictCost.TryGetValue(key, out var value))
         {
-            cost = DataManager.dictCost[key];
+            cost = value;
             if (cost == 0) {isUnlocked = true;}
             else costDiplay.SetText(cost.ToString());
         }
@@ -104,4 +105,8 @@ public class SelectButton : MonoBehaviour
         Select();
     }
 
+    public void OnSelect(BaseEventData eventData)
+    {
+        DataSelector.DisplayGeneric(key, this);
+    }
 }
