@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &348277304859975629
 RectTransform:
   m_ObjectHideFlags: 0
@@ -78,10 +78,10 @@ MonoBehaviour:
   pivot: 1
   width: 1000
   height: 900
-  type: 0
+  type: 2
   cornerRadiusMode: 0
   cornerRadii: {x: 10, y: 10, z: 10, w: 10}
-  thickness: 10
+  thickness: 3
   thicknessSpace: 0
   matchDashSpacingToSize: 1
   dashed: 0
@@ -118,7 +118,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2265297946932701203}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -131,7 +131,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 927b28431b60d9848adcd4885dc3678d, type: 2}
+  - {fileID: 2100000, guid: be24a891c424b9943b78468ed7b1a4a3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -208,7 +208,6 @@ MonoBehaviour:
   gridLayout: {fileID: 2200752226989651527}
   emptyGameObject: {fileID: 652913414118957618, guid: f48d1e8ef3ff7c64e8903858ac1c6255, type: 3}
   button: {fileID: 4252952125669886018, guid: d4fa511655914bf4b88431f1ae55a254, type: 3}
-  buttonsPanel: {fileID: 0}
   firstSelectedButton: {fileID: 0}
   panelRect: {fileID: 0}
 --- !u!1 &5452277435226181756

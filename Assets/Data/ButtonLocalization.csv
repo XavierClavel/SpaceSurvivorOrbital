@@ -56,7 +56,11 @@ Grâce à lui, vous pouvez dasher en appuyant sur la barre espace.
 
 <color=#FBB03B>Charges utilisées: 5</color>"
 Peacemaker;Peacemaker;Peacemaker
-;;"Des implants vous permette de survivre à la mort. 
+;"Implants allow you to survive death. 
+
+Equipping yourself with this equipment grants you 1 resurrection. 
+
+<color=#FBB03B>Charges used: 5</color>";"Des implants vous permette de survivre à la mort. 
 
 Vous équiper de cet équipement vous octroie 1 résurrection. 
 
@@ -87,35 +91,52 @@ JETPACK_STOCK_2;Recharge II;Recharge II
 3s -> 1,5s"
 JETPACK_DASH_2;Triple dash;Triple dash
 ;You can dash three times before reload.;Vous pouvez effectuer trois dash avant de recharger.
-MysticAmulet;;Amulette Mystique
-;;"Une étrange amulette vos octoie un pouvoir de départ aléatoirement. 
+MysticAmulet;Mystic Amulet;Amulette Mystique
+;"A strange amulet grants you a random starting power. 
+
+Enhancing the amulet allows you to increase the power and recovery time of your powers.
+
+<color=#FBB03B>Charges used: 3</color>
+";"Une étrange amulette vos octoie un pouvoir de départ aléatoirement. 
 
 Améliorer l'amulette vous permet d'augmenter la puissance et le délai de récupération de vos pouvoirs.
 
 <color=#FBB03B>Charges utilisées: 3</color>
 "
-MYSTICAMULET_POWER_1;;Pouvoir mystique I
-;;"Augmente les dégâts fait avec vos pouvoirs. 
+MYSTICAMULET_POWER_1;Mystic power I;Pouvoir mystique I
+;"Increases the damage done with your powers. 
+
++ 25% damage";"Augmente les dégâts fait avec vos pouvoirs. 
 
 + 25% de dégâts"
-MYSTICAMULET_POWER_2;;Pouvoir mystique II
-;;"Augmente encore les dégâts fait avec vos pouvoirs. 
+MYSTICAMULET_POWER_2;Mystic power II;Pouvoir mystique II
+;"Further increases the damage done with your powers. 
+
++25% -> +50% damage ";"Augmente encore les dégâts fait avec vos pouvoirs. 
 
 +25% -> +50% de dégâts "
-MYSTICAMULET_POWER_3;;Pouvoir mystique III
-;;"Augmente les dégâts fait avec vos pouvoirs. 
+MYSTICAMULET_POWER_3;Mystic Power III;Pouvoir mystique III
+;"Increases the damage done with your powers. 
+
++50% -> +75% damage ";"Augmente les dégâts fait avec vos pouvoirs. 
 
 +50% -> +75% de dégâts "
-MYSTICAMULET_DURATION_1;;Maitrise des arcanes I
-;;"Réduit le temps de rechargement de vos pouvoirs.
+MYSTICAMULET_DURATION_1;Arcane Mastery I;Maitrise des arcanes I
+;"Reduces the cooldown time of your powers.
+
+-10% latency";"Réduit le temps de rechargement de vos pouvoirs.
 
 -10% de latence"
-MYSTICAMULET_DURATION_2;;Maitrise des arcanes II
-;;"Réduit le temps de rechargement de vos pouvoirs.
+MYSTICAMULET_DURATION_2;Arcane Mastery II;Maitrise des arcanes II
+;"Reduces the cooldown time of your powers.
+
+-10% -> 20% latency""";"Réduit le temps de rechargement de vos pouvoirs.
 
 -10% -> -20% de latence"
-MYSTICAMULET_DURATION_3;;Maitrise des arcanes III
-;;"Réduit le temps de rechargement de vos pouvoirs.
+MYSTICAMULET_DURATION_3;Arcane Mastery III;Maitrise des arcanes III
+;"Reduces the reload time of your powers.
+
+-20% -> 30% latency""";"Réduit le temps de rechargement de vos pouvoirs.
 
 -20% -> -30% de latence"
 GUN_POWER_1;Power 1;Puissance 1
@@ -848,13 +869,13 @@ ICE_SPIKE_2c_ICE_BIGSHIELD;Thick ice;Glace épaisse
 HuntersMark;Hunter's mark;Marque du chasseur
 ;"A mark appears randomly above an enemy. 
 Damage done to this enemy is multiplied by 2.";"Une marque apparait aléatoirement au dessus d’un ennemi. 
-Les dégâts fait sur cet ennemi sont multiplié par 2."
+Les dégâts infligés à cet ennemi sont multiplié par 2."
 HUNTERS_MARK_1a;Precision;Précision
 ;"Increases damage done to marked enemies. 
 
-2-> 3";"Augmente les dégâts fait aux ennemis marqués. 
+x2->x3";"Augmente les dégâts infligés aux ennemis marqués. 
 
-2 -> 3"
+x2 -> x3"
 HUNTERS_MARK_1b;Adrenalin I;Adrénaline I
 ;Killing a marked enemy grants you an attack speed bonus for a short time.;Tuer un ennemi marqué vous accorde un bonus de vitesse d’attaque pendant un court instant.
 HUNTERS_MARK_2a;Second mark;Seconde marque
@@ -864,9 +885,9 @@ HUNTERS_MARK_2b;Adrenalin II;Adrénaline II
 HUNTERS_MARK_3a;In the bull's-eye;Dans le mille
 ;"Increases damage done to marked enemies. 
 
-3 -> 4";"Augmente les dégâts fait aux ennemis marqués. 
+x3 -> x4";"Augmente les dégâts infligés aux ennemis marqués. 
 
-3 -> 4"
+x3 -> x4"
 HUNTERS_MARK_3b;Adrenalin III;Adrénaline III
 ;Killing a marked enemy makes you invincible for a short time.;Tuer un ennemi marqué vous rend invincible pendant un court instant.
 HUNTERS_MARK_4a;Third mark;Troisième marque
@@ -902,6 +923,6 @@ Heart;Orb of life;Orbe de vie
 ResourceGreen;Green resource;Ressource Verte
 ;You win 5 green resources!;Vous gagnez 5 ressources verte !
 ResourceYellow;Yellow resource;Ressource Jaune
-;You win 5 yellow resources!;Vous gagnez 5 ressources jaune !
+;You win 5 yellow resources!;Vous gagnez 5 ressources jaunes !
 ResourceBlue;Blue Resource;Ressource Bleu
-;You win 5 blue resources!;Vous gagnez 5 ressources bleu!
+;You win 5 blue resources!;Vous gagnez 5 ressources bleus !

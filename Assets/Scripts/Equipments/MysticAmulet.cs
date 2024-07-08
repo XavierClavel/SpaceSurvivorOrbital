@@ -11,7 +11,6 @@ public class MysticAmulet : Equipment
     {
         BonusManager.current.addBonusPowerCooldown(stats.cooldown);
         BonusManager.current.addPowerDamageMultiplier(stats.attackSpeed);
-
     }
 
     public void Awake()
