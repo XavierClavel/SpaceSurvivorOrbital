@@ -319,7 +319,7 @@ public class PlayerController : MonoBehaviour, IResourcesListener, IEnemyListene
     void Start()
     {
         cam = Camera.main;
-        if (Helpers.isPlatformAndroid()) Application.targetFrameRate = 60;
+        Application.targetFrameRate = 60;
         
         playerAnimator.runtimeAnimatorController = DataSelector.getSelectedCharacter().getAnimatorController();
         playerSprite.sprite = DataSelector.getSelectedCharacter().getIcon();

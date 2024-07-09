@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
@@ -53,6 +54,7 @@ public class BuildIncrementor : IPreprocessBuildWithReport
         }
         
         buildScriptableObject.gitCommit = GitCommitUtility.retrieveCurrentCommitShorthash();
+        buildScriptableObject.date = $"{DateTime.Today:dd/MM/yyyy} {DateTime.Now:HH:mm}" ;
 
         AssetDatabase.DeleteAsset("Assets/Resources/Build.asset"); // delete any old build.asset
         AssetDatabase.CreateAsset(buildScriptableObject, "Assets/Resources/Build.asset"); // create the new one with correct build number before build starts
