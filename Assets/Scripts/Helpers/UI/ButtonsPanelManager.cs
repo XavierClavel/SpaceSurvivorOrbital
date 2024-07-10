@@ -7,6 +7,7 @@ public class ButtonsPanelManager : Book<ButtonsPanel>
 
     public void setActive(string key)
     {
+        Debug.Log(key);
         int activeIndex = pages.FindIndex(it => it.getKey() == key);
         for (int i = 0; i < pages.Count; i++)
         {
