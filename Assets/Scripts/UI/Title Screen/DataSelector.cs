@@ -63,6 +63,7 @@ public class DataSelector : MonoBehaviour, UIPanel
     private int currentChargeCost;
     private bool validated = false;
     private bool playSound = false;
+    private InputMaster controls;
 
 
     public void BuyCharge()
@@ -175,6 +176,26 @@ public class DataSelector : MonoBehaviour, UIPanel
 
         UpdateCurrentCharge();
         playSound = true;
+        
+        controls = new InputMaster();
+        controls.UI.ContextAction.started += ctx => startHolding();
+        controls.UI.ContextAction.canceled += ctx => stopHolding();
+    }
+    
+    public void startHolding()
+    {
+        StartCoroutine(nameof(holdCoroutine));
+    }
+
+    public void stopHolding()
+    {
+        StopCoroutine(nameof(holdCoroutine));
+    }
+    
+    private IEnumerator holdCoroutine()
+    {
+        yield return Helpers.getWait(1.5f);
+        BuyCharge();
     }
 
     public void UpdateCurrentCharge()
@@ -323,4 +344,7 @@ public class DataSelector : MonoBehaviour, UIPanel
         SaveManager.spendSouls(cost);
         return true;
     }
+
+    public static void onSwitchToEquipementPanel() => instance.controls.Enable();
+    public static void onSwitchFromEquipementPanel() => instance.controls.Disable();
 }

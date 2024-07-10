@@ -121,6 +121,7 @@ public class TitleScreenManager : MonoBehaviour
 
     public void SwitchToDataSelectionFromEquipment()
     {
+        DataSelector.onSwitchFromEquipementPanel();
         buttonsPanelManager.setActive(Vault.panel.titleScreen.CharacterSelection);
         SoundManager.PlaySfx("Power_Switch");
         instance.equipmentSelectorUI.DOAnchorPosX(posLeftCamera, 1f).SetEase(Ease.InOutQuint);
@@ -150,6 +151,7 @@ public class TitleScreenManager : MonoBehaviour
 
     public void SwitchToEquipmentScreen()
     {
+        DataSelector.onSwitchToEquipementPanel();
         buttonsPanelManager.setActive(Vault.panel.titleScreen.EquipmentSelection);
         SoundManager.PlaySfx("Power_Switch");
         instance.dataSelectorUI.DOAnchorPosX(posRightCamera, 1f).SetEase(Ease.InOutQuint);
@@ -159,6 +161,7 @@ public class TitleScreenManager : MonoBehaviour
     }
     public void SwitchToBossScreen()
     {
+        DataSelector.onSwitchFromEquipementPanel();
         buttonsPanelManager.setActive(Vault.panel.titleScreen.BossSelection);
         SoundManager.PlaySfx("Power_Switch");
         instance.equipmentSelectorUI.DOAnchorPosX(posRightCamera, 1f).SetEase(Ease.InOutQuint);
@@ -169,6 +172,7 @@ public class TitleScreenManager : MonoBehaviour
 
     public void SwitchToEquipmentFromBoss()
     {
+        DataSelector.onSwitchToEquipementPanel();
         buttonsPanelManager.setActive(Vault.panel.titleScreen.EquipmentSelection);
         SoundManager.PlaySfx("Power_Switch");
         instance.bossSelectorUI.DOAnchorPosX(posLeftCamera, 1f).SetEase(Ease.InOutQuint);
