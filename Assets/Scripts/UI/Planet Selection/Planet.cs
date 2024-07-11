@@ -53,6 +53,7 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
 
     public void setup(Node node, Vector3 position)
     {
+        gameObject.name = $"Planet {node.key}";
         this.tier = node.tier;
         this.row = node.row;
         this.node = node;
@@ -83,12 +84,13 @@ public class Planet : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         
         if (dictPlanetToPos.TryGetValue(node.key, out var pos))
         {
-            planet.transform.position += pos;
+            planet.transform.localPosition = pos;
         }
         else
         {
             Vector3 pos2 = Helpers.getRandomPositionInRadius(randomizePositionFactor);
-            planet.transform.position += pos2;
+            Debug.Log(pos2);
+            planet.transform.localPosition = pos2;
             dictPlanetToPos[node.key] = pos2;
         }
             

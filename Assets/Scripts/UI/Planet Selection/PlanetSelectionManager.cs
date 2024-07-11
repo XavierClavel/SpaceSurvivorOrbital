@@ -78,11 +78,13 @@ public class PlanetSelectionManager : MonoBehaviour, UIPanel
     
     public static void onSelect(Planet planet)
     {
+        Debug.Log($"select {planet.name}");
         selectedPlanet = planet;
     }
 
     public static void onDeselect(Planet planet)
     {
+        Debug.Log($"deselect {planet.name}");
         selectedPlanet = null;
     }
 
@@ -515,9 +517,13 @@ public static void GenerateData()
         
         
         dictKeyToPlanet[node.key] = newPlanet;
+        var container = new GameObject();
+        container.name = node.key;
+        container.AddComponent<RectTransform>();
+        container.transform.setParent(gridLayoutTransform, -2);
+        newPlanet.transform.setParent(container.transform, -2, getScale(newPlanet));
         newPlanet.setup(node, getPlanetPosition(newPlanet.planet.transform.position, node.key));
-        Helpers.SetParent(newPlanet.transform, gridLayoutTransform, -2, getScale(newPlanet));
-        newPlanet.name = node.key;
+        newPlanet.transform.localScale = getScale(newPlanet) * Vector3.one;
 
         return newPlanet;
     }
